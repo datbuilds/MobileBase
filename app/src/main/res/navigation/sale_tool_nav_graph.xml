@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sale_tool_nav_graph"
+    app:startDestination="@id/saleToolFragment">
+
+    <fragment
+        android:id="@+id/saleToolFragment"
+        android:name="vn.shb.lao.screens.saleTool.ui.SaleToolFragment"
+        android:label="SaleToolFragment"
+        tools:layout="@layout/fragment_st" />
+
+</navigation>

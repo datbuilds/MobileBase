@@ -1,0 +1,35 @@
+<resources>
+    <!--    <integer name="viewfinder_border_width">4</integer>-->
+    <!--    <integer name="viewfinder_border_length">60</integer>-->
+
+    <string name="amcalendar_select" translatable="false">Auswählen</string>
+    <string name="amcalendar_please_select_date_range" translatable="false">Bitte Zeitraum wählen</string>
+    <string name="amcalendar_please_select_date" translatable="false">Bitte Datum wählen</string>
+    <string name="amcalendar_template_today" translatable="false">Heute</string>
+    <string name="amcalendar_template_tomorrow" translatable="false">Morgen</string>
+    <string name="amcalendar_template_yesterday" translatable="false">Gestern</string>
+    <string name="amcalendar_template_last_week" translatable="false">Letzte Woche</string>
+    <string name="amcalendar_template_last_month" translatable="false">Letzter Monat</string>
+    <string name="amcalendar_monday_short" translatable="false">T2</string>
+    <string name="amcalendar_tuesday_short" translatable="false">T3</string>
+    <string name="amcalendar_wednesday_short" translatable="false">T4</string>
+    <string name="amcalendar_thursday_short" translatable="false">T5</string>
+    <string name="amcalendar_friday_short" translatable="false">T6</string>
+    <string name="amcalendar_saturday_short" translatable="false">T7</string>
+    <string name="amcalendar_sunday_short" translatable="false">CN</string>
+
+    <string-array name="amcalendar_months">
+        <item>Tháng 1</item>
+        <item>Tháng 2</item>
+        <item>Tháng 3</item>
+        <item>Tháng 4</item>
+        <item>Tháng 5</item>
+        <item>Tháng 6</item>
+        <item>Tháng 7</item>
+        <item>Tháng 8</item>
+        <item>Tháng 9</item>
+        <item>Tháng 10</item>
+        <item>Tháng 11</item>
+        <item>Tháng 12</item>
+    </string-array>
+</resources>

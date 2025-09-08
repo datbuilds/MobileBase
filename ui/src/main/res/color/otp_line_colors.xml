@@ -1,0 +1,23 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--    <item android:color="@color/primary" android:state_selected="true" />-->
+    <!--    <item android:color="@color/gray_400" android:state_focused="true" />-->
+    <!--    <item android:color="@color/gray_400" />-->
+
+    <!-- EditText has error set -->
+    <item android:color="#FFB700" android:state_active="true" />
+
+    <!-- Space contains text -->
+    <item android:color="#9F3F61" android:state_checked="true" android:state_focused="true" />
+
+    <!--Space contains text and not focused -->
+    <item android:color="#00BCD4" android:state_checked="true" android:state_focused="false" />
+
+    <!--Space is the next space for character input -->
+    <item android:color="#673AB7" android:state_focused="true" android:state_selected="true" />
+
+    <!-- EditText is focused -->
+    <item android:color="@color/gray_400" android:state_focused="true" />
+
+    <!-- EditText is not focused -->
+    <item android:color="@color/accent" />
+</selector>

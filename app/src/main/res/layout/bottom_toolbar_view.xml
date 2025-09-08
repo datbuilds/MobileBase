@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="?actionBarSize"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/margin_8dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="@dimen/margin_48dp"
+        android:layout_height="@dimen/margin_48dp"
+        android:background="?selectableItemBackgroundBorderless"
+        android:padding="@dimen/margin_12dp"
+        android:src="@drawable/ic_close"
+        android:tint="@color/white"
+        android:visibility="invisible"
+        app:tint="@color/white" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/bold"
+        android:gravity="center_horizontal"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSize16" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivBack"
+        android:layout_width="@dimen/margin_48dp"
+        android:layout_height="@dimen/margin_48dp"
+        android:background="?selectableItemBackgroundBorderless"
+        android:padding="@dimen/margin_12dp"
+        android:src="@drawable/ic_close"
+        android:tint="#75736B"
+        android:visibility="visible"
+        app:tint="#75736B" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
