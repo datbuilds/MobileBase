@@ -1,0 +1,32 @@
+[
+  {
+    "id": "ST.01",
+    "name": "Check list hồ sơ vay",
+    "icon": "ic_st_checkhosovay"
+  },
+  {
+    "id": "ST.01.02",
+    "name": "Tính DTI & lịch trả nợ",
+    "icon": "ic_st_dti"
+  },
+  {
+    "id": "ST.01.03",
+    "name": "Tra cứu CIC",
+    "icon": "ic_st_cic"
+  },
+  {
+    "id": "ST.01.04",
+    "name": "Tra cứu Acas",
+    "icon": "ic_st_acas"
+  },
+  {
+    "id": "ST.02",
+    "name": "Check list hồ sơ chuyển tiền quốc tế",
+    "icon": "ic_st_chuyentienquocte"
+  },
+  {
+    "id": "ST.03",
+    "name": "Tra cứu tỷ giá",
+    "icon": "ic_st_tygia"
+  }
+]

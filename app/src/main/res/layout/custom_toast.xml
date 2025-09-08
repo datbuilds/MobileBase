@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/containerToast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_30dp"
+        android:background="@drawable/bg_custom_success"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin_12dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivToastStatus"
+            android:layout_width="@dimen/margin_24dp"
+            android:layout_height="@dimen/margin_24dp"
+            android:src="@drawable/ic_info_filled" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvToastMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_5dp"
+            android:layout_weight="1"
+            android:textColor="@color/gray_800"
+            android:textSize="@dimen/textSize17"
+            tools:text="Tài khoản của Quý khách xác minh oản của Quý khách xác minh thành công." />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivToastClose"
+            android:layout_width="@dimen/margin_30dp"
+            android:layout_height="@dimen/margin_30dp"
+            android:layout_marginStart="@dimen/margin_5dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_close" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
