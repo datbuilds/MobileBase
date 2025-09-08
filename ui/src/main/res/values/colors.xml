@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="primary">#1D3A72</color>
+    <color name="accent">#FF7E22</color>
+    <color name="Transparent">#00000000</color>
+    <color name="accent_10">#1AFF6D03</color>
+    <color name="accent_30">#4DFF6D03</color>
+    <color name="primary_10">#1A2971F0</color>
+    <color name="primary_20">#332971F0</color>
+
+    <color name="white">#ffffff</color>
+    <color name="white20">#F2FFFFFF</color>
+    <color name="white70">#B3FFFFFF</color>
+    <color name="translucentGray">#33FAFAFA</color>
+    <color name="bg_selected">#FFEFDA</color>
+    <color name="gray_100">#F7FAFC</color>
+    <color name="gray_200">#EDF2F7</color>
+    <color name="gray_300">#E2E8F0</color>
+    <color name="gray_400">#CBD5E0</color>
+    <color name="gray_500">#A0AEC0</color>
+    <color name="gray_600">#718096</color>
+    <color name="gray_700">#4A5568</color>
+    <color name="gray_800">#2D3748</color>
+    <color name="gray_900">#1A202C</color>
+    <color name="gray_1000">#0C1A3D</color>
+    <color name="gray_1001">#3D3D51</color>
+    <color name="pink_600">#D53F8C</color>
+    <color name="pink_600_15">#26D53F8C</color>
+    <color name="green_500">#48BB78</color>
+    <color name="green_500_10">#1A48BB78</color>
+    <color name="yellow">#FFB700</color>
+
+    <color name="colorText">#242A2C</color>
+
+    <color name="colorsSplash">#3661a7</color>
+
+    <color name="statusBarColor">@color/Transparent</color>
+    <color name="colorPrimary">@color/primary</color>
+    <color name="colorPrimaryVariant">@color/primary</color>
+    <color name="colorToolbarBackground">@color/white20</color>
+    <color name="colorBottomNavigationViewTint">@color/white20</color>
+
+    <color name="spotlightBackground">#80000000</color>
+    <color name="red_600">#E53E3E</color>
+    <color name="black_40">#66000000</color>
+    <color name="black_70">#B3000000</color>
+    <color name="black">#000000</color>
+
+    <color name="colorDarkCharcoal">#333333</color>
+    <color name="colorDimGray">#666666</color>
+
+    <color name="colorTextTitle">#36434A</color>
+
+    <color name="colorError">#FF0000</color>
+    <color name="colorInputError">#EF3A2E</color>
+    <color name="colorItemSelected">#FFF4ED</color>
+    <color name="colorTitle">#FF8F3E</color>
+
+    <color name="colorViewLine">#EDF2F7</color>
+
+    <color name="colorChoDuyet">#0763E4</color>
+    <color name="colorTuChoi">#EF3A2E</color>
+    <color name="colorDaDuyet">#108D55</color>
+
+    <color name="startColor">#2B56AA</color>
+    <color name="endColor">#1D3A72</color>
+
+    <color name="colorBackgroundTooltip">#E9F2FF</color>
+
+    <color name="colorTextMoneyC">#31AA73</color>
+    <color name="colorTextMoneyD">#0C1A3D</color>
+    <color name="colorBg">#FAFBFB</color>
+</resources>

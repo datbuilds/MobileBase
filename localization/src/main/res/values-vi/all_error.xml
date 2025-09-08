@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_noti">Thông báo</string>
+    <string name="title_warning">Cảnh báo</string>
+    <string name="content_warning">Lỗi khi refesh token: \nHệ thống đang gặp sự cố tạm thời. Vui lòng đăng nhập lại.</string>
+    <string name="warning_accessibility_permission"><![CDATA[Quý khách vui lòng tắt <b><font color=\'#333333\'>quyền trợ năng (Accessibility) trên thiết bị Android</font></b> để tiếp tục sử dụng ứng dụng!]]></string>
+</resources>
