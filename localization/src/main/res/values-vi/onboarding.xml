@@ -1,0 +1,12 @@
+<resources>
+    <string name="shb.action.skip">Bỏ qua</string>
+
+    <string name="label.onboarding.first.title">An tâm trong mọi giao dịch</string>
+    <string name="label.onboarding.first.content">Hệ thống bảo mật tiêu chuẩn toàn cầu\ntrên mọi giao dịch</string>
+
+    <string name="label.onboarding.two.title">Giao dịch mọi lúc mọi nơi</string>
+    <string name="label.onboarding.two.content">Giao dịch mọi lúc mọi nơi, thông báo\nbiến động theo thời gian thực</string>
+
+    <string name="label.onboarding.three.title">Phê duyệt linh hoạt\nmọi thời điểm</string>
+    <string name="label.onboarding.three.content">Phê duyệt, tạo lệnh nhanh chóng \nmột cách dễ dàng với giao diện trực quan</string>
+</resources>
