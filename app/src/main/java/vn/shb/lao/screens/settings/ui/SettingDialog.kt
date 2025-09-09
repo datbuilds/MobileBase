@@ -34,7 +34,7 @@ class SettingDialog : BaseDialogBinding<DialogSettingBinding>(DialogSettingBindi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, R.style.FullScreenDialog)
+        setStyle(STYLE_NORMAL, vn.shb.lao.ui.R.style.FullScreenDialog)
     }
 
     override fun onStart() {

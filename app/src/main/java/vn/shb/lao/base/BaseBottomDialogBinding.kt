@@ -37,7 +37,7 @@ abstract class BaseBottomDialogBinding<T : ViewBinding>(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, R.style.BottomDialog_Rounded)
+        setStyle(STYLE_NORMAL, vn.shb.lao.ui.R.style.BottomDialog_Rounded)
     }
 
     override fun onStart() {
@@ -154,9 +154,9 @@ abstract class BaseBottomDialogBinding<T : ViewBinding>(
 
     open fun showDialogError(
             errCode: String = "",
-            title: String = getString(R.string.title_noti),
+            title: String = getString(vn.shb.lao.localization.R.string.title_noti),
             message: String = "",
-            tvAction: String = getString(R.string.ui_common_close),
+            tvAction: String = getString(vn.shb.lao.localization.R.string.ui_common_close),
             icon: Int = R.drawable.ic_bs_notification,
             isCancelable: Boolean = true,
             onClose: (() -> Unit?)? = null

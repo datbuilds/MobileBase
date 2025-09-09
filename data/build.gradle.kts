@@ -5,16 +5,21 @@ plugins {
     kotlin(Plugins.KOTLIN_KAPT)
 }
 
+android {
+    namespace = "vn.shb.data"
+    compileSdk = 35
+}
+
 dependencies {
 
     // Core dependencies
     implementation(libs.kotlin)
     implementation(libs.timber)
     implementation(libs.gson)
-    
+
     // Coroutines
     implementation(libs.kotlinxCoroutinesAndroid)
-    
+
     // AndroidX
     implementation(libs.androidxCoreKtx)
     implementation(libs.androidxAppcompat)
@@ -32,7 +37,7 @@ dependencies {
     implementation(libs.roomKtx)
     implementation(libs.roomRuntime)
     kapt(libs.roomCompiler)
-    
+
     // Testing
     testImplementation(libs.testingJunit)
     androidTestImplementation(libs.testingAndroidxJunit)

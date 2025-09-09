@@ -20,8 +20,8 @@ import vn.shb.lao.R
 
 fun ImageView.loadAvatar(
     url: String?,
-    @DrawableRes placeholder: Int = R.drawable.ic_avatar_default,
-    @DrawableRes error: Int = R.drawable.ic_avatar_default
+    @DrawableRes placeholder: Int = vn.shb.lao.ui.R.drawable.ic_avatar_default,
+    @DrawableRes error: Int = vn.shb.lao.ui.R.drawable.ic_avatar_default
 ) {
     try {
         if (url.isNullOrEmpty())

@@ -11,6 +11,12 @@ plugins {
 //apply(from = "autodimension.gradle")
 
 android {
+    namespace  = "vn.shb.lao"
+    compileSdk = 35
+
+    buildFeatures {
+        buildConfig = true
+    }
 
     flavorDimensions.add(FlavorDimensions.ENVIRONMENT)
     productFlavors {

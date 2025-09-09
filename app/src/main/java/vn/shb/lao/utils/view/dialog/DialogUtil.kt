@@ -39,10 +39,10 @@ object DialogUtil {
 
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(vn.shb.lao.ui.R.layout.notice_dialog, null)
-        val titleView: TextView = view.findViewById(R.id.textView_title)
-        val messageView: TextView = view.findViewById(R.id.textView_message)
-        val negativeButton: TextView = view.findViewById(R.id.button_negative)
-        val positionButton: TextView = view.findViewById(R.id.button_positive)
+        val titleView: TextView = view.findViewById(vn.shb.lao.ui.R.id.textView_title)
+        val messageView: TextView = view.findViewById(vn.shb.lao.ui.R.id.textView_message)
+        val negativeButton: TextView = view.findViewById(vn.shb.lao.ui.R.id.button_negative)
+        val positionButton: TextView = view.findViewById(vn.shb.lao.ui.R.id.button_positive)
 
         val builder = AlertDialog.Builder(context, R.style.dialog_transparent_width)
         builder.setView(view)

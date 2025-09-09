@@ -139,9 +139,9 @@ object RefreshTokenManager {
         isErrorShowing = true // Set flag trước khi hiển thị dialog
 
         val dialogError = BaseErrorDialog.Build(
-            activity.getString(R.string.title_noti),
-            activity.getString(R.string.content_warning),
-            activity.getString(R.string.shb_retry_login),
+            activity.getString(vn.shb.lao.localization.R.string.title_noti),
+            activity.getString(vn.shb.lao.localization.R.string.content_warning),
+            activity.getString(vn.shb.lao.localization.R.string.shb_retry_login),
             R.drawable.ic_bs_notification,
             onClose = {
                 // Chỉ thực hiện logout khi user click action

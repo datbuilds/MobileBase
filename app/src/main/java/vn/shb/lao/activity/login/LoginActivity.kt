@@ -52,10 +52,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
 
     }
 
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-    }
-
     override fun onResume() {
         super.onResume()
         val keyguardManager = getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
@@ -73,7 +69,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
             this,
             binding.containerLogin,
             icon = R.drawable.ic_warning,
-            message = getString(R.string.notification_network_not_available),
+            message = getString(vn.shb.lao.localization.R.string.notification_network_not_available),
             background = R.drawable.bg_custom_warning,
             duration = duration
         )

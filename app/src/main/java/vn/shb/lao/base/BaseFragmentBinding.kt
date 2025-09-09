@@ -180,9 +180,9 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
 
     open fun showDialogError(
             errCode: String = "",
-            title: String = getString(R.string.title_noti),
+            title: String = getString(vn.shb.lao.localization.R.string.title_noti),
             message: String = "",
-            tvAction: String = getString(R.string.ui_common_close),
+            tvAction: String = getString(vn.shb.lao.localization.R.string.ui_common_close),
             icon: Int = R.drawable.ic_bs_notification,
             isCancelable: Boolean = true,
             onAction: (() -> Unit)? = null

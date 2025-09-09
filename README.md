@@ -82,12 +82,12 @@ SHB_SAHA_LAOS/
 ### **Core Stack**
 
 | Technology               | Version                   | Mô tả                    |
-| ------------------------ | ------------------------- | ------------------------ |
-| **Kotlin**               | 1.8.22                    | Ngôn ngữ lập trình chính |
+| ------------------------ |---------------------------| ------------------------ |
+| **Kotlin**               | 1.9.10                    | Ngôn ngữ lập trình chính |
 | **Android SDK**          | API 26+                   | Hỗ trợ Android 8.0+      |
 | **Architecture**         | MVVM + Clean Architecture | Kiến trúc ứng dụng       |
 | **Dependency Injection** | Koin 3.1.3                | Quản lý dependencies     |
-| **Build System**         | Gradle 7.4.2              | Hệ thống build           |
+| **Build System**         | Gradle 8.2.2              | Hệ thống build           |
 
 ### **Networking & Data**
 
@@ -135,8 +135,9 @@ SHB_SAHA_LAOS/
 
 - **Android Studio**: Hedgehog | 2023.1.1+
 - **JDK**: 17
-- **Android SDK**: API 34
-- **Gradle**: 7.4.2
+- **Android SDK**: API 35
+- **AGP**: 8.2.2
+- **Gradle**: 8.5
 
 ### **Cài đặt**
 

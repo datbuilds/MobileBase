@@ -29,7 +29,6 @@ import vn.shb.lao.base.dialog.DialogWarningDeviceRoot
 import vn.shb.lao.screens.splash.ui.SplashActivity
 import vn.shb.lao.utils.extensions.returnActivity
 import vn.shb.lao.utils.extensions.toast
-import vn.shb.lao.utils.refreshTK.RefreshTokenManager
 
 abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflater) -> T) :
     AppCompatActivity() {
@@ -76,7 +75,7 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
         get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.AppTheme)
+        setTheme(vn.shb.lao.ui.R.style.AppTheme)
         super.onCreate(savedInstanceState)
         _binding = inflate(layoutInflater)
         setContentView(binding.root)
@@ -241,9 +240,9 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
 
     fun showDialogError(
         errCode: String = "",
-        title: String = getString(R.string.title_noti),
+        title: String = getString(vn.shb.lao.localization.R.string.title_noti),
         message: String,
-        tvAction: String = getString(R.string.shb_action_close),
+        tvAction: String = getString(vn.shb.lao.localization.R.string.shb_action_close),
         icon: Int = R.drawable.ic_warning,
         isCancelable: Boolean = false,
         onClose: (() -> Unit?)? = null

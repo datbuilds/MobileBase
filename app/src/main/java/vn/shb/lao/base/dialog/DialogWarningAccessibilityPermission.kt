@@ -17,8 +17,8 @@ class DialogWarningAccessibilityPermission(private val build: Build) :
 
     override fun initView(view: View) {
         with(binding) {
-            tvTitle.text = requireContext().getString(R.string.title_noti)
-            tvContentError.fromHtml(getString(R.string.warning_accessibility_permission))
+            tvTitle.text = requireContext().getString(vn.shb.lao.localization.R.string.title_noti)
+            tvContentError.fromHtml(getString(vn.shb.lao.localization.R.string.warning_accessibility_permission))
         }
     }
 

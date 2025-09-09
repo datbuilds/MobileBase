@@ -4,6 +4,10 @@ plugins {
     kotlin(Plugins.KOTLIN_KAPT)
 }
 
+android {
+    namespace = "vn.shb.core"
+}
+
 dependencies {
     api(projects.data)
 

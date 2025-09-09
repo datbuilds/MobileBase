@@ -330,7 +330,7 @@ object RootUtils {
         val pm = context.packageManager
         return try {
             val info = pm.getPackageInfo("com.android.vending", PackageManager.GET_ACTIVITIES)
-            val label = info.applicationInfo.loadLabel(pm) as String
+            val label = info.applicationInfo?.loadLabel(pm) as String
             label.isNotEmpty() && label.startsWith("Google Play")
         } catch (e: PackageManager.NameNotFoundException) {
             false

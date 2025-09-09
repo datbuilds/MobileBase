@@ -18,7 +18,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import vn.shb.lao.BuildConfig
-import vn.shb.lao.R
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -144,7 +143,7 @@ fun Context.shareImage(fileName: String) {
         startActivity(
             Intent.createChooser(
                 shareIntent,
-                getString(R.string.message_share_image)
+                getString(vn.shb.lao.localization.R.string.message_share_image)
             )
         )
     }

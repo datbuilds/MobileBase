@@ -3,6 +3,11 @@ plugins {
     id(Plugins.ANDROID_LIBRARY)
 }
 
+android {
+    namespace = "vn.shb.dn.choosePhotoHelper"
+    compileSdk = 35
+}
+
 dependencies {
     implementation(libs.kotlin)
     implementation(libs.kotlinxCoroutinesAndroid)
