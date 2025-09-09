@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Banner Item Strings - Vietnamese -->
-    <string name="banner_item_1"><![CDATA[Khai khác <b><font color="#FF0000">KHCN TỐI ƯU</font></b> từ chuỗi, hệ sinh thái của KHDN/đối tác chiến lược, đối tác địa bàn ]]></string>
-    <string name="banner_item_2"><![CDATA[Phát triển bán lẻ <b><font color="#FF0000">BỀN VỮNG</font></b> tập trung vào tăng trưởng dư nợ thông thường, tăng thu phí dịch vụ/KH]]></string>
-    <string name="banner_item_3"><![CDATA[Kinh doanh <b><font color="#FF0000">HIỆU QUẢ</font></b> thông qua gia tăng số lượng SPDV/KH và <b><font color="#FF0000">TOI/KH</font></b>]]></string>
-    <string name="banner_item_4"><![CDATA[Quản trị chất lượng tín dụng <b><font color="#FF0000">AN TOÀN</font></b>, kiểm soát giảm NQH, đẩy nhanh quá trình xử lý nợ xấu]]></string>
-    <string name="banner_item_5"><![CDATA[Nâng cao <b><font color="#FF0000">NĂNG SUẤT</font></b> bán và kỷ luật bán]]></string>
-</resources>
