@@ -1,22 +1,48 @@
 package vn.shb.data.room.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "user_info")
 data class UserInfoEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
-    val access_token: String = "",
-    val expires_in: Int = 0,
-    val refresh_expires_in: Int = 0,
-    val refresh_token: String = "",
-    val token_type: String = "",
-    val id_token: String = "",
-    val session_state: String = "",
-    val username: String = "",
-    val userLog: String = "",
-    val title: String = "",
-    val scope: String = "",
-    val imageBase64: String = ""
+    @ColumnInfo(name = "id")
+    val id: Int,
+
+    @ColumnInfo(name = "access_token")
+    val accessToken: String,
+
+    @ColumnInfo(name = "expires_in")
+    val expiresIn: Int,
+
+    @ColumnInfo(name = "refresh_expires_in")
+    val refreshExpiresIn: Int,
+
+    @ColumnInfo(name = "refresh_token")
+    val refreshToken: String,
+
+    @ColumnInfo(name = "token_type")
+    val tokenType: String,
+
+    @ColumnInfo(name = "id_token")
+    val idToken: String,
+
+    @ColumnInfo(name = "session_state")
+    val sessionState: String,
+
+    @ColumnInfo(name = "username")
+    val username: String,
+
+    @ColumnInfo(name = "user_log")
+    val userLog: String,
+
+    @ColumnInfo(name = "title")
+    val title: String,
+
+    @ColumnInfo(name = "scope")
+    val scope: String,
+
+    @ColumnInfo(name = "image_base64")
+    val imageBase64: String
 )

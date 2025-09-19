@@ -27,7 +27,7 @@ object AlertDialogUtil {
             AlertDialog.Builder(context, R.style.dialog_transparent_width)
         builder.setView(bindingView.root)
         bindingView.apply {
-            tvTitleAlert.text = title ?: context.getString(R.string.notification_channel_id)
+            tvTitleAlert.text = title ?: context.getString(vn.shb.lao.localization.R.string.notification_channel_id)
             tvContentAlert.text = message
             buttonPositive.apply {
                 text = tvPositive
