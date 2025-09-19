@@ -1,0 +1,144 @@
+<resources>
+    <string name="shb_text_app">CORPORATE MOBILE</string>
+    <string name="shb_version" formatted="false">Phiên bản %s (%s)</string>
+
+    <string name="shb_session_expire_title">Quý khách đã hết phiên làm việc</string>
+    <string name="shb_session_expire_content">Vui lòng đăng nhập lại để sử dụng dịch vụ</string>
+
+    <string name="error_A000008">Tài khoản của Quý khách đang được đăng nhập trên thiết bị khác!</string>
+
+    <string name="shb_action_setup">Cài đặt</string>
+    <string name="shb_action_continue">Tiếp tục</string>
+    <string name="shb_action_later">Để sau</string>
+    <string name="shb_action_exit">Thoát</string>
+    <string name="shb_hide">Ẩn bớt</string>
+    <string name="shb_show_more">Xem thêm</string>
+    <string name="shb_action_accept">Đồng ý</string>
+    <string name="shb_action_active">Kích hoạt</string>
+    <string name="shb_action_allow">Cho phép</string>
+    <string name="shb_action_refuse">Từ chối</string>
+    <string name="shb_got_it">Tôi đã hiểu</string>
+    <string name="shb_done">Xong</string>
+    <string name="shb_find_out_more">Tìm hiểu thêm</string>
+    <string name="shb_action_share">Chia sẻ</string>
+    <string name="shb_action_home">Trang chủ</string>
+    <string name="shb_actionOk">OK</string>
+    <string name="shb_action_cancel">Hủy</string>
+    <string name="shb_action_confirm">Xác nhận</string>
+    <string name="shb_action_confirm_refuse">Xác nhận từ chối</string>
+    <string name="shb_action_decline">Không đồng ý</string>
+    <string name="shb_action_delete">Xoá</string>
+    <string name="shb_action_close">Đóng</string>
+    <string name="action_got_it">Đã hiểu</string>
+    <string name="shb_action_retry">Vui lòng thực hiện lại</string>
+    <string name="shb_action_retry_again">Thử lại</string>
+    <string name="shb_action_retype">Xin vui lòng nhập lại</string>
+
+    <string name="dialog_get_otp">Lấy mã OTP</string>
+    <string name="dialog_change_sotp">Đổi mã mở khoá Smart OTP</string>
+    <string name="dialog_restart_sotp">Kích hoạt lại Smart OTP</string>
+
+    <string name="dialog_info_user_manual">Hướng dẫn sử dụng</string>
+    <string name="dialog_info_question">Câu hỏi thường gặp</string>
+    <string name="dialog_info_nearest_atm">Địa điểm ATM gần nhất</string>
+    <string name="dialog_info_term">Điều khoản, điều kiện</string>
+    <string name="dialog_info_exchange_rate">Tỷ giá</string>
+    <string name="dialog_info_contact_us">Liên hệ với chúng tôi</string>
+
+    <!-- Error Login-->
+    <string name="login_l001">Hệ thống đang trong quá trình xử lý, Quý khách vui lòng quay lại sau!</string>
+    <string name="login_l002">Quý khách vui lòng kiểm tra lại thông tin đăng nhập!</string>
+    <string name="login_l003_title">Tài khoản của Quý khách đã bị khoá</string>
+    <string name="login_l003">Hiện tại Quý khách không thể đăng nhập do tài khoản bị khoá. Vui lòng tới các điểm giao dịch của SHB để được hỗ trợ!</string>
+    <string name="login_l004">invalid captcha</string>
+    <string name="login_l005">Tài khoản của Quý khách đang tạm thời bị khóa. Vui lòng tới các điểm giao dịch của SHB để được hỗ trợ!</string>
+    <string name="login_l006">Captcha is required</string>
+    <string name="login_l007" formatted="false"><![CDATA[Tên đăng nhập hoặc mật khẩu không chính xác, còn lại <b><font color=\'#FF842C\'>%s</font></b> lần thử. Tài khoản của Quý khách sẽ bị khóa tạm thời <b><font color=\'#FF842C\'>%s</font></b> phút sau <b><font color=\'#FF842C\'>%s</font></b> lần nhập sai liên tiếp]]></string>
+    <string name="login_l007_lock" formatted="false"><![CDATA[Tên đăng nhập hoặc mật khẩu không chính xác, còn lại <b><font color=\'#FF842C\'>%s</font></b> lần thử. Tài khoản của Quý khách sẽ bị khóa sau <b><font color=\'#FF842C\'>%s</font></b> lần nhập sai liên tiếp]]></string>
+    <string name="login_l008_title">Tài khoản của Quý khách đã bị khoá tạm thời</string>
+    <string name="login_l008" formatted="false"><![CDATA[Quý khách đã nhập sai tên đăng nhập hoặc mật khẩu <b><font color=\'#FF842C\'>%s</font></b> lần liên tiếp. Vui lòng đăng nhập lại sau <b><font color=\'#FF842C\'>%s</font></b>]]></string>
+    <string name="login_l009">Hệ thống đang trong quá trình xử lý, Quý khách vui lòng quay lại sau!</string>
+    <!--End Error Login-->
+
+    <!-- login -->
+    <string name="input_password_title"><![CDATA[Nhập mật khẩu <br/>%s]]></string>
+    <string name="shb_login">Tên đăng nhập</string>
+    <string name="shb_login_hint">Nhập tên đăng nhập</string>
+    <string name="shb_password">Mật khẩu</string>
+    <string name="shb_password_login_hint">Nhập mật khẩu</string>
+    <string name="shb_password_hint">Nhập mật khẩu lần đầu</string>
+    <string name="shb_current_password">Mật khẩu hiện tại</string>
+    <string name="shb_current_password_hint">Nhập mật khẩu hiện tại</string>
+    <string name="shb_new_password_hint">Nhập mật khẩu mới</string>
+    <string name="shb_retype_new_password_hint">Nhập lại mật khẩu mới</string>
+    <string name="shb_password_confirm">Xác nhận mật khẩu</string>
+    <string name="shb_forgot_password">Quên mật khẩu?</string>
+    <string name="shb_support">Trợ giúp</string>
+    <string name="shb_smart_otp">Lấy mã OTP</string>
+    <string name="shb_retry_login">Đăng nhập lại</string>
+    <string name="shb_action_login">Đăng nhập</string>
+    <string name="shb_action_logout">Đăng xuất</string>
+    <string name="shb_action_smart_OTP">Smart OTP</string>
+
+    <!-- active biometric -->
+    <string name="shb_active_bio_title">Kích hoạt sinh trắc học</string>
+    <string name="shb_active_bio_des">Bật Face ID để đăng nhập vào ứng dụng từ lần sau trở đi</string>
+    <string name="shb_active_bio_info">Bằng việc đồng ý sử dụng Face ID, tất cả các Face ID đang được đăng ký sử dụng cho thiết bị (nếu có) sẽ được cho phép đăng nhập vào ứng dụng</string>
+    <string name="shb_active_bio_req_title_touch_id">Kích hoạt Touch ID</string>
+    <string name="shb_active_bio_noti_title_top">Quý Khách có thể đăng nhập bằng Touch ID từ lần kế tiếp</string>
+    <string name="shb_active_bio_req_title_noti">Cho phép SHB Digital banking gửi thông báo cho bạn</string>
+
+    <string name="shb_welcome_user"><![CDATA[Xin chào, <b>%s</b>]]></string>
+
+    <!-- dialog -->
+    <string name="dialog_login_fail">Đăng nhập không thành công</string>
+    <string name="dialog_login_fail_incorrect_info">Quý khách đã nhập sai thông tin %s lần. Vui lòng nhập lại</string>
+    <string name="dialog_login_fail_temporary_lock">Tài khoản của Quý khách sẽ bị khóa tạm thời sau %s lần nhập sai liên tục</string>
+
+    <string name="dialog_account_lock">Tài khoản của Quý khách tạm thời bị khóa</string>
+    <string name="dialog_account_lock_incorrect_name_pass">Bạn đã nhập sai tên người dùng hoặc mật khẩu %s mục liên tục.</string>
+    <string name="dialog_account_retype">Vui lòng đăng nhập lại sau %s phút</string>
+
+    <string name="dialog_comming_soon">Sắp ra mắt</string>
+    <string name="dialog_coming_soon_retry">Tính năng này đang được phát triển. Vui lòng thử lại sau</string>
+    <string name="dialog_coming_soon_content">Tính năng đang phát triển, SHB sẽ thông báo đến Quý khách trong thời gian sớm nhất</string>
+
+    <string name="dialog_noti">Thông báo</string>
+    <string name="dialog_noti_face_disable">Face ID trên thiết bị của bạn chưa được bật. Vui lòng kiểm tra lại</string>
+    <string name="message_cancel_sotp_success">Huỷ Smart OTP thành công.</string>
+    <string name="dialog_cancel_sotp">Quý khách chưa huỷ Smart OTP thành công. Vui lòng chờ trong giây lát</string>
+
+    <string name="dialog_set_up_faceid_fail">Cài đặt đăng nhập bằng Face ID không thành công</string>
+    <string name="dialog_set_up_faceid_fail_des">Quý khách chưa bật Face ID trên thiết bị. Vui lòng đi đến phần cài đặt của thiết bị và kiểm tra lại</string>
+    <string name="dialog_faceid_error">Face ID của điện thoại bị lỗi hoặc không sẵn sàng</string>
+
+    <string name="dialog_enable_faceid">Đã bật đăng nhập bằng Face ID</string>
+    <string name="dialog_enable_faceid_login">Quý khách có thể sử dụng Face ID để đăng nhập</string>
+    <string name="warning_change_touchid"><![CDATA[Thiết bị hiện tại đã thay đổi Touch ID. Vui lòng kích hoạt lại Touch ID để đăng nhập những lần sau. Quý khách chọn <b>Kích hoạt</b>, SHB hiểu rằng Quý khách đồng ý cho tất cả các Touch ID đã cài đặt trên thiết bị có thể truy cập ứng dụng SHB Hero]]></string>
+
+    <string name="shb_change_pass_success">Quý khách vừa đổi mật khẩu thành công.\nVui lòng đăng nhập lại ứng dụng SHB Hero để sử dụng dịch vụ!</string>
+
+    <string name="forgot_password_title">Quên mật khẩu</string>
+    <string name="forgot_password_content">Vui lòng cung cấp các thông tin Quý khách đã đăng ký với SHB</string>
+    <string name="forgot_password_label_custId">Mã số đăng ký kinh doanh</string>
+    <string name="forgot_password_label_hint_custId">Nhập mã số ĐKKD</string>
+    <string name="forgot_password_label_role">Vai trò</string>
+    <string name="forgot_password_label_hint_role">Chọn vai trò</string>
+    <string name="forgot_password_label_email">Email</string>
+    <string name="forgot_password_label_hint_email">Nhập email</string>
+    <string name="forgot_password_label_phone">Số điện thoại</string>
+    <string name="forgot_password_label_hint_phone">Nhập số điện thoại</string>
+
+    <!--Device root-->
+    <string name="device_root">Device đã bị thay đổi hệ điều hành, Quý khách sẽ bị tạm ngừng sử dụng ứng dụng!</string>
+    <string name="device_not_support_touch_id"><![CDATA[Xin lỗi Quý khách, thiết bị hiện tại không hỗ trợ đăng nhập ứng dụng bằng Touch ID, Quý khách vui lòng liên hệ Hotline <b><font color=\'#333333\'>*6688</font></b> để được hỗ trợ]]></string>
+
+    <string name="label_term_title">Điều khoản và Điều kiện sử dụng dịch vụ Ngân hàng điện tử</string>
+
+    <!--change password-->
+    <string name="label_change_password_success">Đổi mật khẩu thành công</string>
+    <string name="label_change_password_success_content"><![CDATA[Quý khách đã đổi mật khẩu thành công. <br/>Vui lòng đăng nhập lại để tiếp tục sử dụng]]></string>
+    <string name="error_current_pass_first_time">Quý khách vui lòng nhập mật khẩu nhận qua SMS/Email</string>
+    <string name="error_new_pass_empty">Quý khách vui lòng nhập mật khẩu mới</string>
+
+</resources>
