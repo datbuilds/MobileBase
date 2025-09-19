@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog
 import com.google.android.material.button.MaterialButton
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.lao.R
+import vn.shb.lao.ui.databinding.CustomDialogLayoutBinding
 
 object AlertDialogUtil {
     private var alertDialog: AlertDialog? = null
@@ -15,29 +16,34 @@ object AlertDialogUtil {
         context: Context,
         title: String? = null,
         message: String,
-        tvAction: String = "",
+        tvPositive: String = "",
         textNegative: String = "",
         positiveAction: () -> Unit,
         negativeAction: () -> Unit
     ) {
-        val dialogView = LayoutInflater.from(context).inflate(vn.shb.lao.ui.R.layout.custom_dialog_layout, null)
+        val bindingView = CustomDialogLayoutBinding.inflate(LayoutInflater.from(context))
 
         val builder =
             AlertDialog.Builder(context, R.style.dialog_transparent_width)
-        builder.setView(dialogView)
-        dialogView.rootView.findViewById<TextView>(vn.shb.lao.ui.R.id.tvAlertTitle).text = title ?: "Thông báo"
-        dialogView.rootView.findViewById<TextView>(vn.shb.lao.ui.R.id.tvAlertContent).text = message
-        dialogView.rootView.findViewById<MaterialButton>(vn.shb.lao.ui.R.id.btnAlertConfirm).apply {
-            text = tvAction
-            setTextColor(context.getColor(vn.shb.lao.ui.R.color.white))
-            setOnSingleClickListener {
-                positiveAction.invoke()
-                alertDialog?.dismiss()
+        builder.setView(bindingView.root)
+        bindingView.apply {
+            tvTitleAlert.text = title ?: context.getString(R.string.notification_channel_id)
+            tvContentAlert.text = message
+            buttonPositive.apply {
+                text = tvPositive
+                setOnSingleClickListener {
+                    positiveAction.invoke()
+                    alertDialog?.dismiss()
+                }
             }
-        }
-        builder.setNegativeButton(textNegative) { dialog, _ ->
-            negativeAction.invoke()
-            dialog.dismiss()
+
+            buttonNegative.apply {
+                text = textNegative
+                setOnSingleClickListener {
+                    negativeAction.invoke()
+                    alertDialog?.dismiss()
+                }
+            }
         }
 
         alertDialog = builder.create()
