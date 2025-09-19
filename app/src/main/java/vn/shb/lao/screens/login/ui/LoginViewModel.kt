@@ -10,6 +10,7 @@ import vn.shb.core.core.delivery.reason.AppReason
 import vn.shb.core.core.domain.usecases.login.UseCaseLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseLogout
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
+import vn.shb.lao.base.BaseViewModel
 import vn.shb.lao.screens.login.state.LoginUiState
 import vn.shb.lao.screens.login.state.LogoutUiState
 
@@ -17,7 +18,7 @@ class LoginViewModel(
     private val storage: AndroidSecureStorage,
     private val useCaseLogin: UseCaseLogin,
     private val useCaseLogout: UseCaseLogout
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _state = MutableStateFlow<LoginUiState>(LoginUiState.Idle)
     val stateLogin = _state.asStateFlow()

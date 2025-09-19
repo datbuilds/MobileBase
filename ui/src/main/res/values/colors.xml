@@ -71,4 +71,10 @@
     <color name="colorTextMoneyC">#31AA73</color>
     <color name="colorTextMoneyD">#0C1A3D</color>
     <color name="colorBg">#FAFBFB</color>
+
+    //login
+    <color name="colorTitleDialog">#FE7737</color>
+    <color name="colorContentDialog">#5A5958</color>
+    <color name="colorButtonNegativeDialog">#5A5958</color>
+    <color name="colorButtonPositiveDialog">#FFFFFF</color>
 </resources>

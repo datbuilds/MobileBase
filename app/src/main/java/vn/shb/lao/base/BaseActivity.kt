@@ -200,11 +200,11 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
     }
 
     private fun checkSecurityApp() {
-        if (RootUtils.isDeviceRooted(this)) {
-            showDialogWarningDeviceRoot()
-        } else {
-            checkAccessibilityPermission()
-        }
+//        if (RootUtils.isDeviceRooted(this)) {
+//            showDialogWarningDeviceRoot()
+//        } else {
+//            checkAccessibilityPermission()
+//        }
     }
 
     open fun checkAccessibilityPermission() {
