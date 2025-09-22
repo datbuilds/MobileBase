@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Paint
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
@@ -31,13 +32,11 @@ import vn.shb.core.core.security.encrypt.EncryptManager
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.login.UserConverters
 import vn.shb.data.entities.login.UserInfo
-import vn.shb.lao.BuildConfig
 import vn.shb.lao.R
 import vn.shb.lao.activity.dashboard.DashboardActivity
 import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentLoginBinding
 import vn.shb.lao.screens.login.state.LoginUiState
-import vn.shb.lao.screens.login.ui.widget.OnUserInputListener
 import vn.shb.lao.utils.extensions.clearEditTextColorFilter
 import vn.shb.lao.utils.extensions.clearText
 import vn.shb.lao.utils.extensions.hideProgressDialog
@@ -46,13 +45,10 @@ import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.lao.utils.extensions.nextActivity
 import vn.shb.lao.utils.extensions.setErrorAndBackground
 import vn.shb.lao.utils.extensions.setErrorAndBackgroundDefault
-import vn.shb.lao.utils.extensions.setOnMaterialButtonClick
 import vn.shb.lao.utils.extensions.showProgressDialog
 import vn.shb.lao.utils.extensions.textValue
-import vn.shb.lao.utils.extensions.validateLogin
 import java.util.Base64
 
-@SuppressLint("NewApi")
 class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
 
     private val encryptFactory: EncryptManager by inject()
@@ -67,7 +63,13 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { _: Boolean -> }
 
     override fun initView(view: View) {
+        setSingleView()
         mapUILogin()
+    }
+
+    private fun setSingleView() {
+        binding.tvForgotPassword.paintFlags = binding.tvForgotPassword.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+//        binding.tvVersion.text = "Phiên bản ${BuildConfig.VERSION_NAME}"
     }
 
     private fun mapUILogin() {
@@ -82,15 +84,12 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                 if (drawable is BitmapDrawable) drawable.bitmap else drawable?.toBitmap()
             }
 
-        bgBitmap?.let { binding.ivBackground.setImageBitmap(it) }
-
         // set user info
         UserConverters.stringToUserInfo(storage.getUserInfo())?.let { user ->
             prepareViewUserLogged(user)
         } ?: resetInputLogin()
 
         storage.resetToken()
-        setVersion()
     }
 
     @SuppressLint("NewApi")
@@ -151,18 +150,24 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     @SuppressLint("ClickableViewAccessibility")
     override fun initListener() {
         with(binding) {
-            containerLogin.setOnTouchListener { _, _ ->
-                hideSoftKeyboard(0)
-                false
+//            containerLogin.setOnTouchListener { _, _ ->
+//                hideSoftKeyboard(0)
+//                false
+//            }
+//
+//            userNameView.onListener(
+//                object : OnUserInputListener {
+//                    override fun onLogin() {
+//                        login()
+//                    }
+//                }
+//            )
+            edtInputUsername.setOnFocusChangeListener{ _, hasFocus ->
+                inputUserNameLayout.isSelected = hasFocus
             }
-
-            userNameView.onListener(
-                object : OnUserInputListener {
-                    override fun onLogin() {
-                        login()
-                    }
-                }
-            )
+            edtInputPass.setOnFocusChangeListener{ _, hasFocus ->
+                inputPasswordLayout.isSelected = hasFocus
+            }
 
             edtInputPass.apply {
                 doOnTextChanged { _, _, _, _ ->
@@ -183,16 +188,14 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                 }
             }
 
-            btnForgotPassword.setOnMaterialButtonClick {
+            tvForgotPassword.setOnSingleClickListener {
                 showDialogError(
                     message =
-                    "Vui lòng liên hệ tới bộ phận IT Support để được hỗ trợ cấp lại mật khẩu đăng nhập"
+                        "Vui lòng liên hệ tới bộ phận IT Support để được hỗ trợ cấp lại mật khẩu đăng nhập"
                 )
             }
 
             btnLogin.setOnSingleClickListener { nextDashboard() }
-
-            btTouchId.setOnSingleClickListener { comingSoon() }
         }
     }
 
@@ -211,18 +214,18 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     }
 
     private fun loginNewUser() {
-        val userName = binding.userNameView.getUserName()
-
-        val isValidUserName = binding.userNameView.validateLogin(isValidate = true)
-        val isValidPassword = binding.inputPasswordLayout.validateLogin()
-
-        if (isValidUserName && isValidPassword) {
-            val (_, encPsw) = getPassword()
-            postLogin(userName, encPsw)
-        } else {
-            binding.userNameView.clearEditTextColorFilter()
-            binding.inputPasswordLayout.clearEditTextColorFilter()
-        }
+//        val userName = binding.userNameView.getUserName()
+//
+//        val isValidUserName = binding.userNameView.validateLogin(isValidate = true)
+//        val isValidPassword = binding.inputPasswordLayout.validateLogin()
+//
+//        if (isValidUserName && isValidPassword) {
+//            val (_, encPsw) = getPassword()
+//            postLogin(userName, encPsw)
+//        } else {
+//            binding.userNameView.clearEditTextColorFilter()
+//            binding.inputPasswordLayout.clearEditTextColorFilter()
+//        }
     }
 
     private fun postLogin(us: String, psW: String) {
@@ -269,16 +272,11 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
     private fun resetInputLogin() {
         with(binding) {
-            // btnLoginTouchId.visibility = View.GONE
-            userNameView.setData(userName = "")
-            userNameView.clearEditTextColorFilter()
+//            userNameView.setData(userName = "")
+//            userNameView.clearEditTextColorFilter()
             inputPasswordLayout.clearText()
             inputPasswordLayout.clearEditTextColorFilter()
         }
-    }
-
-    private fun setVersion() {
-        binding.tvVersion.text = "Phiên bản ${BuildConfig.VERSION_NAME}"
     }
 
     private fun prepareViewUserLogged(user: UserInfo) {
@@ -286,7 +284,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         currentUserName = user.username
 
         binding.apply {
-            userNameView.setData(userName = currentUserName)
+//            userNameView.setData(userName = currentUserName)
             inputPasswordLayout.clearEditTextColorFilter()
         }
     }
@@ -295,7 +293,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         showDialogError(
             title = "Thông báo",
             message =
-            "Tính năng này hiện đang được hoàn thiện và sẽ sớm ra mắt trong thời gian tới!",
+                "Tính năng này hiện đang được hoàn thiện và sẽ sớm ra mắt trong thời gian tới!",
         )
     }
 

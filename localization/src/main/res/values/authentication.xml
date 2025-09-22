@@ -64,7 +64,7 @@
     <string name="input_password_title"><![CDATA[Nhập mật khẩu <br/>%s]]></string>
     <string name="shb_login">Tên đăng nhập</string>
     <string name="shb_login_hint">Nhập tên đăng nhập</string>
-    <string name="shb_password">Mật khẩu</string>
+    <string name="shb_password">Password</string>
     <string name="shb_password_login_hint">Nhập mật khẩu</string>
     <string name="shb_password_hint">Nhập mật khẩu lần đầu</string>
     <string name="shb_current_password">Mật khẩu hiện tại</string>

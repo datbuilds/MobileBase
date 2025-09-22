@@ -17,6 +17,13 @@
     <string name="amcalendar_friday_short" translatable="false">T6</string>
     <string name="amcalendar_saturday_short" translatable="false">T7</string>
     <string name="amcalendar_sunday_short" translatable="false">CN</string>
+    <string name="personalInternetBanking">Personal Internet Banking</string>
+    <string name="enterYourDetail">Enter your details to sign in</string>
+    <string name="userName">User name</string>
+    <string name="enterYourUserName">Enter Your User Name</string>
+    <string name="enterPassword">Enter Password</string>
+    <string name="forgotPasswordLabel">Forgot Password?</string>
+    <string name="loginLabel">Login</string>
 
     <string-array name="amcalendar_months">
         <item>Tháng 1</item>

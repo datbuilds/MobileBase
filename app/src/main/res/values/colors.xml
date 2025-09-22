@@ -25,6 +25,12 @@
 
     <color name="selected_tab_color">#1A202C</color>
     <color name="unselected_tab_color">#4A5568</color>
+    <color name="colorSelectorEdittext">#F48635</color>
+    <color name="forgotPassword">#5A5958</color>
+    <color name="color_hotline">#21488A</color>
+    <color name="neutral10">#0A0A0A</color>
+    <color name="colorImageUser">#FF7C10</color>
+    <color name="colorNameUser">#1D1B1A</color>
 
     <!--  <color name="viewfinder_mask">#60000000</color>-->
     <!--  <color name="viewfinder_laser">#ffcc0000</color>-->

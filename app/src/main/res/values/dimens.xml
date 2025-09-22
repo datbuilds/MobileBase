@@ -130,4 +130,6 @@
 
     <dimen name="room_indicator_size">56dp</dimen>
     <dimen name="room_indicator_space">6dp</dimen>
+    <dimen name="margin_root">20dp</dimen>
+    <dimen name="edge_icon_account">21dp</dimen>
 </resources>

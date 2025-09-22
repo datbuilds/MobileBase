@@ -179,4 +179,33 @@
         <item name="itemRippleColor">@color/Transparent</item>
     </style>
 
+    <style name="MaterialDialog.ButtonActionMain" parent="android:Widget.TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:paddingVertical">@dimen/margin_12dp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:fontFamily">@font/onest_medium</item>
+        <item name="android:textColor">@color/colorButtonPositiveDialog</item>
+        <item name="android:textSize">@dimen/textSizeButtonAlert</item>
+        <item name="android:background">@drawable/bg_button_positive_alert</item>
+    </style>
+
+    <style name="AppTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundMode">none</item>
+        <item name="hintEnabled">false</item>
+        <item name="android:background">@drawable/selector_edt</item>
+        <item name="android:paddingVertical">@dimen/margin_4dp</item>
+    </style>
+
+    <style name="AppTextInputEditTextStyle">
+        <item name="android:background">@null</item>
+        <item name="android:fontFamily">@font/onest_medium</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:paddingHorizontal">@dimen/margin_12dp</item>
+        <item name="android:paddingVertical">@dimen/margin_1dp</item>
+        <item name="android:textColor">@color/neutral10</item>
+        <item name="android:textColorHint">@color/colorHintText</item>
+        <item name="android:textSize">@dimen/textSize14</item>
+    </style>
+
 </resources>

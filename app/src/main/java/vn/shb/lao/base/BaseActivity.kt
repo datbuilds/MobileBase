@@ -13,12 +13,14 @@ import android.view.LayoutInflater
 import android.view.accessibility.AccessibilityManager
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import androidx.media3.common.BuildConfig
 import androidx.viewbinding.ViewBinding
 import org.koin.android.ext.android.inject
 import vn.shb.core.core.domain.usecases.login.UseCaseRefreshToken
 import vn.shb.core.core.security.detectRoot.RootUtils
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
-import vn.shb.lao.BuildConfig
 import vn.shb.lao.R
 import vn.shb.lao.SHBApplication
 import vn.shb.lao.activity.dashboard.DashboardActivity
@@ -79,7 +81,11 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
         super.onCreate(savedInstanceState)
         _binding = inflate(layoutInflater)
         setContentView(binding.root)
+// Đặt màu nền cho status bar
+        window.statusBarColor = ContextCompat.getColor(this, vn.shb.lao.ui.R.color.colorBg)
 
+        // Nếu nền cam sáng, đặt icon tối (đen)
+        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
         handleSavedState(savedInstanceState)
         initView()
         initListener()

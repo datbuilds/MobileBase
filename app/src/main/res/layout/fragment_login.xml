@@ -5,166 +5,224 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBg">
+    android:background="@color/colorBg"
+    android:paddingHorizontal="@dimen/margin_root"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivBackground"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="750:1624"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/ivLogoSHB"
+        android:layout_width="120dp"
+        android:layout_height="34dp"
+        android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:background="@drawable/img_bg_login_res" />
+        app:srcCompat="@drawable/logo_shb" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/containerLogin"
+    <LinearLayout
+        android:id="@+id/llLanguage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/margin_12dp"
+        android:paddingVertical="@dimen/margin_6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivLogoSHB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivLogoSHB"
+        tools:background="@drawable/bg_layout_language">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_arrow_down" />
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivBannerLogin"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_12dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintHeight_max="300dp"
+        app:layout_constraintTop_toBottomOf="@+id/ivLogoSHB"
+        app:srcCompat="@drawable/ic_logo_app" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llInfoUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_24dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/ivBannerLogin">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvImageUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_image_user"
+            android:fontFamily="@font/onest_regular"
+            android:includeFontPadding="false"
+            android:paddingHorizontal="@dimen/margin_10dp"
+            android:paddingVertical="@dimen/margin_9dp"
+            android:textColor="@color/colorImageUser"
+            android:textSize="@dimen/textSize16"
+            tools:text="DL" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/margin_8dp"
+            android:textColor="@color/colorNameUser"
+            tools:text="@string/enterYourUserName" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvInternetBanking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_24dp"
+        android:fontFamily="@font/onest_medium"
+        android:gravity="center"
+        android:text="@string/personalInternetBanking"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textSize24"
+        app:layout_constraintTop_toBottomOf="@+id/llInfoUser" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvEnterYourDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8dp"
+        android:fontFamily="@font/onest_regular"
+        android:gravity="center"
+        android:text="@string/enterYourDetail"
+        android:textColor="@color/colorSubText"
+        android:textSize="@dimen/textSize16"
+        app:layout_constraintTop_toBottomOf="@+id/tvInternetBanking" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_24dp"
+        android:fontFamily="@font/onest_medium"
+        android:text="@string/userName"
+        android:textColor="@color/colorSubText"
+        android:textSize="@dimen/textSize14"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvEnterYourDetail" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputUserNameLayout"
+        style="@style/AppTextInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tvUserName"
+        app:startIconDrawable="@drawable/ic_username">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_input_username"
+            style="@style/AppTextInputEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enterYourUserName"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_24dp"
+        android:fontFamily="@font/onest_medium"
+        android:text="@string/shb_password"
+        android:textColor="@color/colorSubText"
+        android:textSize="@dimen/textSize14"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/inputUserNameLayout" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_password_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_4dp"
+        android:background="@drawable/selector_edt"
+        app:boxBackgroundMode="none"
+        app:hintEnabled="false"
+        app:layout_constraintTop_toBottomOf="@+id/tvPassword"
+        app:passwordToggleDrawable="@drawable/password_toggle_drawable"
+        app:passwordToggleEnabled="true"
+        app:startIconDrawable="@drawable/ic_password">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_input_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:fontFamily="@font/onest_medium"
+            android:hint="@string/enterPassword"
+            android:imeActionLabel="@string/account_login"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:paddingHorizontal="@dimen/margin_12dp"
+            android:paddingVertical="@dimen/margin_1dp"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:textColor="@color/neutral10"
+            android:textColorHint="@color/colorHintText"
+            android:textSize="@dimen/textSize14"
+            tools:text="linh" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvForgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_12dp"
+        android:layout_marginEnd="@dimen/margin_10dp"
+        android:fontFamily="@font/onest_regular"
+        android:gravity="start"
+        android:text="@string/forgotPasswordLabel"
+        android:textAllCaps="false"
+        android:textColor="@color/forgotPassword"
+        android:textSize="@dimen/textSize14"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_password_layout" />
+
+    <TextView
+        android:id="@+id/btnLogin"
+        style="@style/MaterialDialog.ButtonActionMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_24dp"
+        android:text="@string/loginLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tvForgotPassword" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvHotline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_20dp"
+        android:drawableStart="@drawable/ic_hotline"
+        android:drawablePadding="@dimen/margin_8dp"
+        android:fontFamily="@font/onest_medium"
+        android:gravity="center"
+        android:textColor="@color/color_hotline"
+        android:textSize="@dimen/textSize14"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        tools:text="Hotline: +856.21.968.888 - +856.31.257.167" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_16dp"
-            android:layout_marginBottom="@dimen/margin_130dp"
-            android:background="@drawable/bg_login_view"
-            android:paddingHorizontal="@dimen/margin_12dp"
-            android:paddingVertical="@dimen/margin_30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupViewNoLastUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="tvInternetBanking, tvEnterYourDetail, tvUserName, inputUserNameLayout" />
 
-            <vn.shb.lao.screens.login.ui.widget.LoginUserNameView
-                android:id="@+id/userNameView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/text_pass"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_16dp"
-                android:layout_marginTop="@dimen/margin_16dp"
-                android:text="Mật khẩu"
-                android:textColor="@color/white"
-                android:textSize="@dimen/textSize14"
-                app:layout_constraintBottom_toTopOf="@id/input_password_layout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/userNameView" />
-
-            <vn.shb.lao.utils.view.input.TextInputClearError
-                android:id="@+id/input_password_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_5dp"
-                app:boxBackgroundMode="none"
-                app:errorTextAppearance="@style/ErrorTextAppearance"
-                app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_pass"
-                app:passwordToggleDrawable="@drawable/password_toggle_drawable"
-                app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/white">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_input_pass"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/margin_40dp"
-                    android:layout_marginHorizontal="@dimen/margin_16dp"
-                    android:background="@drawable/selector_edt"
-                    android:drawablePadding="@dimen/margin_8dp"
-                    android:hint="Nhập mật khẩu"
-                    android:imeActionLabel="@string/account_login"
-                    android:imeOptions="actionDone"
-                    android:importantForAutofill="no"
-                    android:inputType="textPassword"
-                    android:maxLength="60"
-                    android:maxLines="1"
-                    android:paddingHorizontal="@dimen/margin_12dp"
-                    android:paddingVertical="@dimen/margin_4dp"
-                    android:selectAllOnFocus="true"
-                    android:singleLine="true"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/gray_300"
-                    android:textSize="@dimen/textSize16" />
-
-            </vn.shb.lao.utils.view.input.TextInputClearError>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnLogin"
-                style="@style/button_orange_light_style"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/margin_44dp"
-                android:layout_marginHorizontal="@dimen/margin_16dp"
-                android:layout_marginTop="@dimen/margin_24dp"
-                android:fontFamily="@font/medium"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:text="Đăng nhập"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/textSize17"
-                app:layout_constraintEnd_toStartOf="@id/btTouchId"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_password_layout" />
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/btTouchId"
-                android:layout_width="@dimen/margin_42dp"
-                android:layout_height="@dimen/margin_42dp"
-                android:layout_marginEnd="@dimen/margin_16dp"
-                android:background="@drawable/bg_button_face_id"
-                android:foreground="@drawable/custom_ripple_borderless"
-                android:padding="@dimen/margin_3dp"
-                android:src="@drawable/ic_fingerprint"
-                android:tint="@color/white"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="@id/btnLogin"
-                app:layout_constraintEnd_toEndOf="@id/input_password_layout"
-                app:layout_constraintStart_toEndOf="@id/btnLogin"
-                app:layout_constraintTop_toTopOf="@id/btnLogin" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnForgotPassword"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_8dp"
-                android:layout_marginEnd="@dimen/margin_10dp"
-                android:fontFamily="@font/regular"
-                android:gravity="start"
-                android:text="Quên mật khẩu?"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/textSize16"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvVersion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_40dp"
-            android:fontFamily="@font/regular"
-            tools:text="Phiên bản 1.0"
-            android:textColor="@color/white"
-            android:textSize="@dimen/textSize14"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
