@@ -7,7 +7,6 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Paint
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -18,7 +17,6 @@ import android.view.inputmethod.EditorInfo
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.toBitmap
 import androidx.core.widget.doOnTextChanged
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
@@ -30,15 +28,17 @@ import vn.shb.core.core.domain.usecases.login.UseCaseRefreshToken
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import vn.shb.core.core.security.encrypt.EncryptManager
 import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.getInitials
 import vn.shb.data.entities.login.UserConverters
 import vn.shb.data.entities.login.UserInfo
-import vn.shb.lao.R
 import vn.shb.lao.activity.dashboard.DashboardActivity
 import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentLoginBinding
 import vn.shb.lao.screens.login.state.LoginUiState
+import vn.shb.lao.screens.login.ui.widget.setGreeting
 import vn.shb.lao.utils.extensions.clearEditTextColorFilter
 import vn.shb.lao.utils.extensions.clearText
+import vn.shb.lao.utils.extensions.gone
 import vn.shb.lao.utils.extensions.hideProgressDialog
 import vn.shb.lao.utils.extensions.hideSoftKeyboard
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
@@ -47,6 +47,8 @@ import vn.shb.lao.utils.extensions.setErrorAndBackground
 import vn.shb.lao.utils.extensions.setErrorAndBackgroundDefault
 import vn.shb.lao.utils.extensions.showProgressDialog
 import vn.shb.lao.utils.extensions.textValue
+import vn.shb.lao.utils.extensions.visible
+import vn.shb.lao.utils.view.dialog.AlertDialogUtil
 import java.util.Base64
 
 class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
@@ -57,34 +59,39 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     private val useCaseRefreshToken: UseCaseRefreshToken by inject()
 
     private var currentUser: UserInfo? = null
-    private var currentUserName = ""
+    var currentUserName = ""
 
-    private val requestPermissionLauncher =
+    val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { _: Boolean -> }
 
     override fun initView(view: View) {
-        setSingleView()
         mapUILogin()
+        setSingleView()
     }
 
     private fun setSingleView() {
-        binding.tvForgotPassword.paintFlags = binding.tvForgotPassword.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-//        binding.tvVersion.text = "Phiên bản ${BuildConfig.VERSION_NAME}"
+        binding.tvForgotPassword.paintFlags =
+            binding.tvForgotPassword.paintFlags or Paint.UNDERLINE_TEXT_FLAG
     }
 
     private fun mapUILogin() {
-        // set background login
-        val bgLogin = storage.getBackgroundLogin()
-        val bgBitmap: Bitmap? =
-            if (bgLogin.isNotEmpty()) {
-                prepareBGLogin(bgLogin)
-            } else {
-                val drawable =
-                    ContextCompat.getDrawable(requireContext(), R.drawable.img_bg_login_res)
-                if (drawable is BitmapDrawable) drawable.bitmap else drawable?.toBitmap()
-            }
+        // set banner
+//        val bgLogin = storage.getBackgroundLogin()
+//        val bgBitmap: Bitmap? =
+//            if (bgLogin.isNotEmpty()) {
+//                prepareBGLogin(bgLogin)
+//            } else {
+//                val drawable =
+//                    ContextCompat.getDrawable(requireContext(), R.drawable.img_bg_login_res)
+//                if (drawable is BitmapDrawable) drawable.bitmap else drawable?.toBitmap()
+//            }
 
         // set user info
+//        val mockUser =
+//            UserInfo(
+//                userLog = "lao",
+//                username = "PHASOUK BOUNMIXAY",)
+//        mockUser.let { user ->
         UserConverters.stringToUserInfo(storage.getUserInfo())?.let { user ->
             prepareViewUserLogged(user)
         } ?: resetInputLogin()
@@ -111,61 +118,18 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         //        checkNotificationPermission()
     }
 
-    private fun checkNotificationPermission() {
-        when {
-            ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.POST_NOTIFICATIONS
-            ) == PackageManager.PERMISSION_GRANTED -> {
-                // You can use the API that requires the permission.
-            }
-
-            shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS) -> {
-                Snackbar.make(
-                    binding.coordinatorLayout,
-                    "Sale App cần cấp quyền thông báo trong ứng dụng",
-                    Snackbar.LENGTH_LONG
-                )
-                    .setAction("Cài đặt") {
-                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        val uri: Uri =
-                            Uri.fromParts("package", requireActivity().packageName, null)
-                        intent.data = uri
-                        startActivity(intent)
-                    }
-                    .show()
-            }
-
-            else -> {
-                // The registered ActivityResultCallback gets the result of this request
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-                }
-            }
-        }
-    }
-
     @RequiresApi(Build.VERSION_CODES.P)
     @SuppressLint("ClickableViewAccessibility")
     override fun initListener() {
         with(binding) {
-//            containerLogin.setOnTouchListener { _, _ ->
-//                hideSoftKeyboard(0)
-//                false
-//            }
-//
-//            userNameView.onListener(
-//                object : OnUserInputListener {
-//                    override fun onLogin() {
-//                        login()
-//                    }
-//                }
-//            )
-            edtInputUsername.setOnFocusChangeListener{ _, hasFocus ->
+            root.setOnSingleClickListener {
+                edtInputUsername.clearFocus()
+                edtInputPass.clearFocus()
+            }
+            edtInputUsername.setOnFocusChangeListener { _, hasFocus ->
                 inputUserNameLayout.isSelected = hasFocus
             }
-            edtInputPass.setOnFocusChangeListener{ _, hasFocus ->
+            edtInputPass.setOnFocusChangeListener { _, hasFocus ->
                 inputPasswordLayout.isSelected = hasFocus
             }
 
@@ -189,10 +153,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             }
 
             tvForgotPassword.setOnSingleClickListener {
-                showDialogError(
-                    message =
-                        "Vui lòng liên hệ tới bộ phận IT Support để được hỗ trợ cấp lại mật khẩu đăng nhập"
-                )
+                viewModel.showDialogForgotPassword(context)
             }
 
             btnLogin.setOnSingleClickListener { nextDashboard() }
@@ -272,8 +233,8 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
     private fun resetInputLogin() {
         with(binding) {
-//            userNameView.setData(userName = "")
-//            userNameView.clearEditTextColorFilter()
+            llInfoUser.gone()
+            groupViewNoLastUser.visible()
             inputPasswordLayout.clearText()
             inputPasswordLayout.clearEditTextColorFilter()
         }
@@ -284,17 +245,12 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         currentUserName = user.username
 
         binding.apply {
-//            userNameView.setData(userName = currentUserName)
+            llInfoUser.visible()
+            groupViewNoLastUser.gone()
+            tvImageUser.text = currentUserName.getInitials()
+            setGreeting(binding.tvHelloUser)
             inputPasswordLayout.clearEditTextColorFilter()
         }
-    }
-
-    private fun comingSoon() {
-        showDialogError(
-            title = "Thông báo",
-            message =
-                "Tính năng này hiện đang được hoàn thiện và sẽ sớm ra mắt trong thời gian tới!",
-        )
     }
 
     private fun onLoginSuccess(stateLogin: StateLogin) {

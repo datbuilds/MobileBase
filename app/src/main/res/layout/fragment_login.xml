@@ -68,10 +68,13 @@
             tools:text="DL" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvHelloUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="@dimen/margin_8dp"
+            android:textSize="@dimen/textSize16"
+            android:fontFamily="@font/onest_regular"
             android:textColor="@color/colorNameUser"
             tools:text="@string/enterYourUserName" />
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -126,6 +129,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/enterYourUserName"
+            android:maxLength="10"
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -167,6 +171,7 @@
             android:importantForAutofill="no"
             android:inputType="textPassword"
             android:maxLines="1"
+            android:maxLength="6"
             android:paddingHorizontal="@dimen/margin_12dp"
             android:paddingVertical="@dimen/margin_1dp"
             android:selectAllOnFocus="true"

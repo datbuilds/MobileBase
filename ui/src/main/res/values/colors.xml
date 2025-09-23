@@ -78,6 +78,7 @@
     <color name="colorButtonNegativeDialog">#5A5958</color>
     <color name="colorButtonPositiveDialog">#FFFFFF</color>
     <color name="colorSubText">#8C8C8C</color>
+    <color name="colorSubTextOrange">#F58634</color>
     <color name="colorHintText">#9D9D9D</color>
     <color name="neutral100">#E1E1E1</color>
     <color name="neutral7">#8C8C8C</color>

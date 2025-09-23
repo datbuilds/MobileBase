@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvBranchName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/onest_semi_bold"
+        android:textColor="@color/neutral10"
+        android:textSize="@dimen/textSize14"
+        android:drawableStart="@drawable/ic_hotline"
+        android:gravity="top"
+        tools:text="1. SAIGON –HANOI BANK LAO LIMITEDHANOI BANK LAO LIMITEDHANOI BANK LAO LIMITED HANOI BANK LAO LIMITED" />
+
+    <TextView
+        android:id="@+id/tvBranchAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blue"
+        tools:text="Add: ..." />
+
+    <TextView
+        android:id="@+id/tvBranchTel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="phone"
+        android:textColor="@color/blue"
+        tools:text="Tel: ..." />
+</LinearLayout>

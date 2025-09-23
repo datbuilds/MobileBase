@@ -1,5 +1,6 @@
 package vn.shb.lao.screens.login.ui
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -10,9 +11,11 @@ import vn.shb.core.core.delivery.reason.AppReason
 import vn.shb.core.core.domain.usecases.login.UseCaseLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseLogout
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
+import vn.shb.lao.R
 import vn.shb.lao.base.BaseViewModel
 import vn.shb.lao.screens.login.state.LoginUiState
 import vn.shb.lao.screens.login.state.LogoutUiState
+import vn.shb.lao.utils.view.dialog.AlertDialogUtil
 
 class LoginViewModel(
     private val storage: AndroidSecureStorage,
@@ -61,5 +64,17 @@ class LoginViewModel(
     //endregion
     override fun onCleared() {
         super.onCleared()
+    }
+
+    fun showDialogForgotPassword(context: Context) {
+        context.apply {
+
+            AlertDialogUtil.message(context, title = getString(R.string.userName),
+                idIcon = vn.shb.lao.ui.R.drawable.ic_alert_forgot_password,
+                textNegative = getString(R.string.closeLabel),
+                negativeAction = {
+
+                })
+        }
     }
 }

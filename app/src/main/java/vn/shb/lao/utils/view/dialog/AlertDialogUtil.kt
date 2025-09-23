@@ -2,10 +2,11 @@ package vn.shb.lao.utils.view.dialog
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.widget.TextView
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.view.isVisible
-import com.google.android.material.button.MaterialButton
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.lao.R
 import vn.shb.lao.ui.databinding.CustomDialogLayoutBinding
@@ -16,11 +17,13 @@ object AlertDialogUtil {
     fun message(
         context: Context,
         title: String? = null,
-        message: String,
+        message: String = "",
+        idIcon: Int? = null,
         tvPositive: String = "",
         textNegative: String = "",
         positiveAction: (() -> Unit)? = null,
-        negativeAction: (() -> Unit)? = null
+        negativeAction: (() -> Unit)? = null,
+        supView: View? = null
     ) {
         val bindingView = CustomDialogLayoutBinding.inflate(LayoutInflater.from(context))
 
@@ -32,6 +35,13 @@ object AlertDialogUtil {
             alertDialog = null
         }
         bindingView.apply {
+            idIcon?.let { ivIconTop.setImageResource(it) }
+
+            supView?.let {
+                flSupView.removeAllViews()
+                flSupView.addView(it)
+            }
+
             tvTitleAlert.text =
                 title ?: context.getString(vn.shb.lao.localization.R.string.notification_channel_id)
             tvContentAlert.text = message

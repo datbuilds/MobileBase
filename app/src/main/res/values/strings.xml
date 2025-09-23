@@ -24,6 +24,12 @@
     <string name="enterPassword">Enter Password</string>
     <string name="forgotPasswordLabel">Forgot Password?</string>
     <string name="loginLabel">Login</string>
+    <string name="goodMorning">Good morning</string>
+    <string name="goodAfternoon">Good afternoon</string>
+    <string name="goodNight">Goodnight</string>
+    <string name="welcome">Welcome</string>
+    <string name="closeLabel">Close</string>
+    <string name="pleaseBringYourIdentity">Please bring your identity card to SHB branch to reset your password.</string>
 
     <string-array name="amcalendar_months">
         <item>Tháng 1</item>
