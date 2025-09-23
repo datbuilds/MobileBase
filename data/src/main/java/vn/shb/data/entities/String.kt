@@ -1,13 +1,20 @@
 package vn.shb.data.entities
 
+import android.content.Intent
 import android.graphics.Typeface
 import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.util.Patterns
+import android.view.View
+import androidx.core.net.toUri
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.security.MessageDigest
@@ -187,3 +194,12 @@ fun String.getInitials(): String {
         else -> (parts[0].take(1) + parts[1].take(1)).uppercase()
     }
 }
+
+fun String.makeClickableSpan(): ClickableSpan {
+    return object : ClickableSpan() {
+        override fun onClick(widget: View) {
+        }
+    }
+}
+
+

@@ -1,7 +1,9 @@
- package vn.shb.lao.utils.extensions
+package vn.shb.lao.utils.extensions
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.graphics.drawable.BitmapDrawable
@@ -10,9 +12,14 @@ import android.os.Build
 import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
 import android.text.style.URLSpan
+import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -233,6 +240,60 @@ fun getGreetingMessage(): String {
         hour == 12 || (hour in 13..17) -> "Chào buổi chiều,\uD83D\uDC4B"
         hour in 18..20 -> "Chào buổi tối,\uD83D\uDC4B"
         else -> "Chúc ngủ ngon,\uD83D\uDC4B"
+    }
+}
+
+@SuppressLint("ClickableViewAccessibility")
+fun TextView.setCustomSpannable(content: String, onClick: (() -> Unit)) {
+
+    val spannable = SpannableStringBuilder()
+
+    val start = spannable.length
+    spannable.append(content)
+    spannable.setSpan(
+        object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                onClick.invoke()
+            }
+
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+            }
+        },
+        start,
+        start + content.length,
+        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
+
+    text = spannable
+    movementMethod = LinkMovementMethod.getInstance()
+    highlightColor = Color.TRANSPARENT
+    isClickable = true
+
+    // Xử lý hiệu ứng pressed thủ công vì dialog không support hiệu ứng này
+    setOnTouchListener { v, event ->
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                text = SpannableStringBuilder(content).apply {
+                    setSpan(
+                        ForegroundColorSpan(
+                            ContextCompat.getColor(
+                                this@setCustomSpannable.context,
+                                R.color.color_hotlineClick
+                            )
+                        ), // màu khi nhấn
+                        0,
+                        content.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+            }
+
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                text = spannable
+            }
+        }
+        return@setOnTouchListener false // vẫn cho click hoạt động
     }
 }
 

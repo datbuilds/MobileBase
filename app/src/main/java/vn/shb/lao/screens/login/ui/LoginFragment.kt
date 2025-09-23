@@ -1,24 +1,17 @@
 package vn.shb.lao.screens.login.ui
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Paint
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -31,6 +24,7 @@ import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.getInitials
 import vn.shb.data.entities.login.UserConverters
 import vn.shb.data.entities.login.UserInfo
+import vn.shb.lao.R
 import vn.shb.lao.activity.dashboard.DashboardActivity
 import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentLoginBinding
@@ -70,6 +64,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     }
 
     private fun setSingleView() {
+        // underline text
         binding.tvForgotPassword.paintFlags =
             binding.tvForgotPassword.paintFlags or Paint.UNDERLINE_TEXT_FLAG
     }
@@ -86,12 +81,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 //                if (drawable is BitmapDrawable) drawable.bitmap else drawable?.toBitmap()
 //            }
 
-        // set user info
-//        val mockUser =
-//            UserInfo(
-//                userLog = "lao",
-//                username = "PHASOUK BOUNMIXAY",)
-//        mockUser.let { user ->
         UserConverters.stringToUserInfo(storage.getUserInfo())?.let { user ->
             prepareViewUserLogged(user)
         } ?: resetInputLogin()
@@ -125,6 +114,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             root.setOnSingleClickListener {
                 edtInputUsername.clearFocus()
                 edtInputPass.clearFocus()
+                hideSoftKeyboard(0)
             }
             edtInputUsername.setOnFocusChangeListener { _, hasFocus ->
                 inputUserNameLayout.isSelected = hasFocus
@@ -153,10 +143,19 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             }
 
             tvForgotPassword.setOnSingleClickListener {
-                viewModel.showDialogForgotPassword(context)
+                context?.let { ct -> viewModel.showDialogForgotPassword(ct) }
             }
 
-            btnLogin.setOnSingleClickListener { nextDashboard() }
+            btnLogin.setOnSingleClickListener {
+                AlertDialogUtil.message(
+                    context!!,
+                    title = getString(vn.shb.lao.localization.R.string.notification_channel_id),
+                    message = "Chức năng đang được phát triển",
+                    idIcon = vn.shb.lao.ui.R.drawable.ic_alert_forgot_password,
+                    textNegative = getString(R.string.closeLabel),
+                    negativeAction = {}
+                )
+            }
         }
     }
 

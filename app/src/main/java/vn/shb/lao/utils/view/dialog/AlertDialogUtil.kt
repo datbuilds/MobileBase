@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.lao.R
 import vn.shb.lao.ui.databinding.CustomDialogLayoutBinding
+import vn.shb.lao.utils.extensions.gone
 
 object AlertDialogUtil {
     private var alertDialog: AlertDialog? = null
@@ -37,16 +38,20 @@ object AlertDialogUtil {
         bindingView.apply {
             idIcon?.let { ivIconTop.setImageResource(it) }
 
-            supView?.let {
+            if (supView != null) {
                 flSupView.removeAllViews()
-                flSupView.addView(it)
-            }
+                flSupView.addView(supView)
+                tvContentAlert.gone()
+            } else {
+                flSupView.gone()
+        }
 
             tvTitleAlert.text =
                 title ?: context.getString(vn.shb.lao.localization.R.string.notification_channel_id)
             tvContentAlert.text = message
             if (tvPositive.isEmpty()) {
-                buttonPositive.isVisible = false
+                buttonPositive.gone()
+                viewCenter.gone()
             } else {
                 buttonPositive.apply {
                     isVisible = true
@@ -59,7 +64,8 @@ object AlertDialogUtil {
             }
 
             if (textNegative.isEmpty()) {
-                buttonNegative.isVisible = false
+                buttonNegative.gone()
+                viewCenter.gone()
             } else {
                 buttonNegative.apply {
                     isVisible = true

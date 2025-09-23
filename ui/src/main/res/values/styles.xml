@@ -347,6 +347,7 @@
         <item name="android:gravity">center</item>
         <item name="android:paddingVertical">@dimen/margin_10dp</item>
         <item name="android:includeFontPadding">false</item>
+        <item name="android:paddingHorizontal">@dimen/margin_44dp</item>
         <item name="android:fontFamily">@font/onest_medium</item>
         <item name="android:textColor">@color/colorButtonPositiveDialog</item>
         <item name="android:textSize">@dimen/textSizeButtonAlert</item>
@@ -357,6 +358,7 @@
     <style name="MaterialDialog.NegativeButton" parent="Widget.MaterialComponents.Button.OutlinedButton.Icon">
         <item name="android:gravity">center</item>
         <item name="android:paddingVertical">@dimen/margin_10dp</item>
+        <item name="android:paddingHorizontal">@dimen/margin_44dp</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:fontFamily">@font/onest_medium</item>
         <item name="android:textColor">@color/colorButtonNegativeDialog</item>

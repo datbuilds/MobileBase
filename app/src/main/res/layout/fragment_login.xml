@@ -73,9 +73,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="@dimen/margin_8dp"
-            android:textSize="@dimen/textSize16"
             android:fontFamily="@font/onest_regular"
             android:textColor="@color/colorNameUser"
+            android:textSize="@dimen/textSize16"
             tools:text="@string/enterYourUserName" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -129,9 +129,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/enterYourUserName"
-            android:maxLength="10"
             android:imeOptions="actionNext"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:maxLength="10" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -170,8 +170,8 @@
             android:imeOptions="actionDone"
             android:importantForAutofill="no"
             android:inputType="textPassword"
-            android:maxLines="1"
             android:maxLength="6"
+            android:maxLines="1"
             android:paddingHorizontal="@dimen/margin_12dp"
             android:paddingVertical="@dimen/margin_1dp"
             android:selectAllOnFocus="true"
@@ -218,6 +218,7 @@
         android:gravity="center"
         android:textColor="@color/color_hotline"
         android:textSize="@dimen/textSize14"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

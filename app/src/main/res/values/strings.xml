@@ -30,6 +30,9 @@
     <string name="welcome">Welcome</string>
     <string name="closeLabel">Close</string>
     <string name="pleaseBringYourIdentity">Please bring your identity card to SHB branch to reset your password.</string>
+    <string name="add">Add:</string>
+    <string name="telLabel">Tel:</string>
+    <string name="passwordResetInstruction">Password Reset Instructions</string>
 
     <string-array name="amcalendar_months">
         <item>Tháng 1</item>

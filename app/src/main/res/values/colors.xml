@@ -28,6 +28,7 @@
     <color name="colorSelectorEdittext">#F48635</color>
     <color name="forgotPassword">#5A5958</color>
     <color name="color_hotline">#21488A</color>
+    <color name="color_hotlineClick">#336AC7</color>
     <color name="neutral10">#0A0A0A</color>
     <color name="colorImageUser">#FF7C10</color>
     <color name="colorNameUser">#1D1B1A</color>

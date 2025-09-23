@@ -5,8 +5,8 @@
     android:id="@+id/relative_layout_dialog"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:background="@color/Transparent"
+    android:orientation="vertical"
     tools:background="@color/primary">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -25,9 +25,10 @@
 
         <FrameLayout
             android:id="@+id/flSupView"
-            android:layout_marginTop="@dimen/margin_12dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12dp"
+            tools:layout_height="@dimen/margin_300dp" />
 
         <TextView
             android:id="@+id/tvContentAlert"
@@ -39,30 +40,32 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginVertical="@dimen/margin_12dp"
+            android:gravity="center"
+            android:weightSum="10"
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/margin_16dp">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_negative"
                 style="@style/MaterialDialog.NegativeButton"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/cancel"/>
+                android:text="@string/cancel" />
 
             <View
+                android:id="@+id/viewCenter"
                 android:layout_width="@dimen/margin_0dp"
                 android:layout_height="1dp"
-                android:layout_weight="0.1" />
+                android:layout_weight="3" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_positive"
-                android:layout_width="0dp"
                 style="@style/MaterialDialog.PositiveButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/shb_action_logout"/>
+                android:text="@string/shb_action_logout" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
 

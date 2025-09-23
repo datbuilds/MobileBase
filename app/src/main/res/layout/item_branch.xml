@@ -1,33 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_12dp"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvBranchName"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/onest_semi_bold"
-        android:textColor="@color/neutral10"
-        android:textSize="@dimen/textSize14"
-        android:drawableStart="@drawable/ic_hotline"
-        android:gravity="top"
-        tools:text="1. SAIGON –HANOI BANK LAO LIMITEDHANOI BANK LAO LIMITEDHANOI BANK LAO LIMITED HANOI BANK LAO LIMITED" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tvBranchAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/blue"
-        tools:text="Add: ..." />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_address" />
 
-    <TextView
-        android:id="@+id/tvBranchTel"
+        <TextView
+            android:id="@+id/tvBranchName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_8dp"
+            android:fontFamily="@font/onest_semi_bold"
+            android:gravity="top"
+            android:textColor="@color/neutral10"
+            android:textSize="@dimen/textSize14"
+            tools:text="1. SAIGON –HANOI BANK LAO LIMITEDHANOI BANK LAO LIMITEDHANOI BANK LAO LIMITED HANOI BANK LAO LIMITED" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:autoLink="phone"
-        android:textColor="@color/blue"
-        tools:text="Tel: ..." />
+        android:layout_marginTop="@dimen/margin_6dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvBranchAddress"
+            android:layout_width="@dimen/margin_36dp"
+            android:layout_height="wrap_content"
+            android:text="@string/add"
+            android:textColor="@color/neutral10" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvAddressDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/onest_medium"
+            android:textColor="@color/color_hotline"
+            android:textSize="@dimen/textSize14"
+            tools:text=" 123 ABC Street, XYZ Ward, HCM City 1123 ABC Street, XYZ Ward, HCM City123 ABC Street, XYZ Ward, HCM City23 ABC Street, XYZ Ward, HCM City" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/margin_6dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvBranchTel"
+            android:layout_width="@dimen/margin_36dp"
+            android:layout_height="wrap_content"
+            android:autoLink="phone"
+            android:text="@string/telLabel"
+            android:textColor="@color/neutral10" />
+
+        <TextView
+            android:id="@+id/tvHotlineDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/onest_medium"
+            android:textColor="@color/color_hotline"
+            android:textSize="@dimen/textSize14"
+            tools:text=" 123 ABC Street, XYZ Ward, HCM City" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </LinearLayout>

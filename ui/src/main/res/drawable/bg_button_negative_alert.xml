@@ -2,6 +2,6 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <corners android:radius="@dimen/radius_button_alert" />
     <stroke
-        android:width="@dimen/widthStrokeButton"
-        android:color="#C3C3C3" />
+        android:width="@dimen/margin_4dp"
+        android:color="#9E1010" />
 </shape>
