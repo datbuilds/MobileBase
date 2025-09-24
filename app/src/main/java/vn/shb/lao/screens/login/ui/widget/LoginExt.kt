@@ -1,6 +1,7 @@
 package vn.shb.lao.screens.login.ui.widget
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -109,20 +110,50 @@ fun LoginFragment.showLanguagePopup(anchor: View) {
             ivLogo.setImageResource(R.drawable.ic_logo_uk)
             tvNameLanguage.text = getString(R.string.englishLabel)
             root.setOnSingleClickListener {
-//                updateLanguage()
+                updateLanguage("en")
                 popupWindow.dismiss()
             }
         }
+
         iclLanguage2.apply {
+            ivLogo.setImageResource(R.drawable.ic_logo_vn)
+            tvNameLanguage.text = getString(R.string.vietnameseLabel)
+            root.setOnSingleClickListener {
+                updateLanguage("vi")
+                popupWindow.dismiss()
+            }
+        }
+
+        iclLanguage3.apply {
             ivLogo.setImageResource(R.drawable.ic_logo_lao)
             tvNameLanguage.text = getString(R.string.laoLabel)
             root.setOnSingleClickListener {
-//                updateLanguage()
+                updateLanguage("lo")
                 popupWindow.dismiss()
             }
         }
     }
 
-    val marginRight = (20 * anchor.context.resources.displayMetrics.density).toInt()
+    val marginRight = (130 * anchor.context.resources.displayMetrics.density).toInt()
     popupWindow.showAsDropDown(anchor, -marginRight, 0, Gravity.END)
+}
+
+fun Context.getResourceLocale(type: String, res: (String, Int) -> Unit) {
+    when (type) {
+        "en" -> {
+            res(getString(R.string.englishLabel), R.drawable.ic_logo_uk)
+        }
+
+        "lo" -> {
+            res(getString(R.string.laoLabel), R.drawable.ic_logo_lao)
+        }
+
+        "vi" -> {
+            res(getString(R.string.vietnameseLabel), R.drawable.ic_logo_vn)
+        }
+
+        else -> {
+            res(getString(R.string.englishLabel), R.drawable.ic_logo_uk)
+        }
+    }
 }

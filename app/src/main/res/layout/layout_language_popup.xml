@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg_stroke_white_r5"
     android:orientation="vertical"
+    android:gravity="start"
     android:padding="8dp">
 
     <include
@@ -14,6 +15,13 @@
 
     <include
         android:id="@+id/iclLanguage2"
+        layout="@layout/item_language_popup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp" />
+
+    <include
+        android:id="@+id/iclLanguage3"
         layout="@layout/item_language_popup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -17,6 +17,7 @@ import vn.shb.lao.R
 import vn.shb.lao.base.BaseActivity
 import vn.shb.lao.databinding.ActivityLoginBinding
 import vn.shb.lao.utils.extensions.CustomToastShowOnTop
+import vn.shb.lao.utils.widgets.LocaleHelper
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::inflate) {
 
@@ -32,6 +33,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
             intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
             return intent
         }
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(newBase?.let { LocaleHelper.getLanguageContext(it) })
     }
 
     override fun initView() {

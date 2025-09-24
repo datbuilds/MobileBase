@@ -18,6 +18,7 @@ import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 import timber.log.Timber
 import vn.shb.lao.di.appComponent
+import vn.shb.lao.utils.widgets.LocaleHelper
 
 class SHBApplication : Application(), LifecycleEventObserver {
     // No need to cancel this scope as it'll be torn down with the process.
@@ -25,6 +26,11 @@ class SHBApplication : Application(), LifecycleEventObserver {
     // https://medium.com/androiddevelopers/coroutines-patterns-for-work-that-shouldnt-be-cancelled-e26c40f142ad
     val applicationScope = CoroutineScope(SupervisorJob())
 //    private val networkFlipperPlugin: NetworkFlipperPlugin by inject()
+
+    override fun attachBaseContext(base: Context?) {
+        val context = base?.let { LocaleHelper.getLanguageContext(it) }
+        super.attachBaseContext(context)
+    }
 
     override fun onCreate() {
         super.onCreate()

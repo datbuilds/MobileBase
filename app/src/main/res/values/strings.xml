@@ -35,6 +35,7 @@
     <string name="passwordResetInstruction">Password Reset Instructions</string>
     <string name="englishLabel">English</string>
     <string name="laoLabel">Lao</string>
+    <string name="vietnameseLabel">Vietnamese</string>
 
     <string-array name="amcalendar_months">
         <item>Tháng 1</item>

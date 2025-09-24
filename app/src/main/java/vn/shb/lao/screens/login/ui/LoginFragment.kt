@@ -1,6 +1,9 @@
 package vn.shb.lao.screens.login.ui
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Paint
@@ -44,6 +47,7 @@ import vn.shb.lao.utils.extensions.showProgressDialog
 import vn.shb.lao.utils.extensions.textValue
 import vn.shb.lao.utils.extensions.visible
 import vn.shb.lao.utils.view.dialog.AlertDialogUtil
+import vn.shb.lao.utils.widgets.LocaleHelper
 import java.util.Base64
 
 class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
@@ -68,6 +72,11 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         // underline text
         binding.tvForgotPassword.paintFlags =
             binding.tvForgotPassword.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+
+        // set icon current language
+        LocaleHelper.getResourceLocale(LocaleHelper.getCurrentLanguage(requireContext())){ resId ->
+            binding.ivLogoLanguage.setImageResource(resId)
+        }
     }
 
     private fun mapUILogin() {
@@ -264,7 +273,22 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     }
 
     fun updateLanguage(type: String) {
-//        binding.ivLogoLanguage.setImageResource()
+        context?.let { ct ->
+            LocaleHelper.saveLanguage(ct, type)
+            LocaleHelper.setLocale(ct, type)
+//            LocaleHelper.getLanguageContext(ct)
+            restartApp(activity!!)
+        }
+
+    }
+
+    private fun restartApp(context: Context) {
+        val intent = context.packageManager.getLaunchIntentForPackage(context.packageName)
+        intent?.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(intent)
+        if (context is Activity) {
+            context.finish()
+        }
     }
 
     override fun onResume() {

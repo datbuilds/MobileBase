@@ -135,7 +135,7 @@
     <dimen name="widthLogoLanguage">20dp</dimen>
     <dimen name="textSizeTitleAlert">24sp</dimen>
     <dimen name="textSizeContentAlert">16sp</dimen>
-    <dimen name="textSizeButtonAlert">14sp</dimen>
+    <dimen name="textSizeButtonAlert">16sp</dimen>
     <dimen name="widthStrokeButton">1dp</dimen>
 
     //radius
