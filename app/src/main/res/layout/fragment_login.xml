@@ -44,13 +44,14 @@
             app:srcCompat="@drawable/ic_arrow_down" />
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/ivBannerLogin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/margin_0dp"
         android:layout_marginTop="@dimen/margin_12dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintHeight_max="300dp"
+        android:scaleType="center"
+        app:shapeAppearanceOverlay="@style/RoundedImage"
+        app:layout_constraintHeight_percent="0.21"
         app:layout_constraintTop_toBottomOf="@+id/ivLogoSHB"
         app:srcCompat="@drawable/ic_logo_app" />
 
