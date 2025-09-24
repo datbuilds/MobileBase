@@ -110,7 +110,7 @@ class CustomToastShowOnTop(
         params.width = WindowManager.LayoutParams.MATCH_PARENT
         params.height = WindowManager.LayoutParams.WRAP_CONTENT
 
-        layout.setBackgroundColor(ContextCompat.getColor(context, vn.shb.lao.ui.R.color.Transparent))
+        layout.setBackgroundColor(ContextCompat.getColor(context, R.color.Transparent))
         layout.layoutParams = params
         layout.removeAllViews()
         layout.addView(snackBarLayout)

@@ -30,6 +30,7 @@ import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentLoginBinding
 import vn.shb.lao.screens.login.state.LoginUiState
 import vn.shb.lao.screens.login.ui.widget.setGreeting
+import vn.shb.lao.screens.login.ui.widget.showLanguagePopup
 import vn.shb.lao.utils.extensions.clearEditTextColorFilter
 import vn.shb.lao.utils.extensions.clearText
 import vn.shb.lao.utils.extensions.gone
@@ -49,7 +50,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
     private val encryptFactory: EncryptManager by inject()
     private val storage: AndroidSecureStorage by inject()
-    private val viewModel: LoginViewModel by inject()
+    private val loginViewModel: LoginViewModel by inject()
     private val useCaseRefreshToken: UseCaseRefreshToken by inject()
 
     private var currentUser: UserInfo? = null
@@ -143,7 +144,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             }
 
             tvForgotPassword.setOnSingleClickListener {
-                context?.let { ct -> viewModel.showDialogForgotPassword(ct) }
+                context?.let { ct -> loginViewModel.showDialogForgotPassword(ct) }
             }
 
             btnLogin.setOnSingleClickListener {
@@ -151,10 +152,14 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                     context!!,
                     title = getString(vn.shb.lao.localization.R.string.notification_channel_id),
                     message = "Chức năng đang được phát triển",
-                    idIcon = vn.shb.lao.ui.R.drawable.ic_alert_forgot_password,
+                    idIcon = R.drawable.ic_alert_forgot_password,
                     textNegative = getString(R.string.closeLabel),
                     negativeAction = {}
                 )
+            }
+
+            llLanguage.setOnSingleClickListener {
+                showLanguagePopup(binding.llLanguage)
             }
         }
     }
@@ -190,7 +195,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
     private fun postLogin(us: String, psW: String) {
         val params = UseCaseLogin.Params(us, psW)
-        viewModel.login(params)
+        loginViewModel.login(params)
     }
 
     private fun getPassword(): Pair<String, String> {
@@ -207,7 +212,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     override fun initObserve() {
         launchRepeatOnLifecycle {
             launch {
-                viewModel.stateLogin.collectLatest { uiState ->
+                loginViewModel.stateLogin.collectLatest { uiState ->
                     when (uiState) {
                         LoginUiState.Idle -> {}
                         LoginUiState.Loading -> {
@@ -224,7 +229,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                             onLoginSuccess(uiState.state)
                         }
                     }
-                    viewModel.clearLoginState()
+                    loginViewModel.clearLoginState()
                 }
             }
         }
@@ -258,6 +263,10 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         }
     }
 
+    fun updateLanguage(type: String) {
+//        binding.ivLogoLanguage.setImageResource()
+    }
+
     override fun onResume() {
         super.onResume()
         clearFlag()
@@ -265,5 +274,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
     companion object {
         const val TAG = "LoginFragment"
+
     }
 }

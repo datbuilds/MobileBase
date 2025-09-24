@@ -77,12 +77,12 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
         get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(vn.shb.lao.ui.R.style.AppTheme)
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         _binding = inflate(layoutInflater)
         setContentView(binding.root)
 // Đặt màu nền cho status bar
-        window.statusBarColor = ContextCompat.getColor(this, vn.shb.lao.ui.R.color.colorBg)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.colorBg)
 
         // Nếu nền cam sáng, đặt icon tối (đen)
         WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true

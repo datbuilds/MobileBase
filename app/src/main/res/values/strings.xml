@@ -33,6 +33,8 @@
     <string name="add">Add:</string>
     <string name="telLabel">Tel:</string>
     <string name="passwordResetInstruction">Password Reset Instructions</string>
+    <string name="englishLabel">English</string>
+    <string name="laoLabel">Lao</string>
 
     <string-array name="amcalendar_months">
         <item>Tháng 1</item>

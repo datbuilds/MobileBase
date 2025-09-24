@@ -190,12 +190,12 @@ fun TextInputLayout.addPasswordValidator(
 
 fun TextInputLayout.setErrorAndBackground(errorMessage: String) {
     error = errorMessage
-    editText?.setBackgroundResource(vn.shb.lao.ui.R.drawable.bg_edt_error)
+    editText?.setBackgroundResource(R.drawable.bg_edt_error)
 }
 
 fun TextInputLayout.setErrorAndBackgroundDefault() {
     error = null
-    editText?.setBackgroundResource(vn.shb.lao.ui.R.drawable.selector_edt)
+    editText?.setBackgroundResource(R.drawable.selector_edt)
 }
 
 private fun TextInputLayout.clearErrorAndBackground() {

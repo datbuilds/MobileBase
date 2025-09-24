@@ -34,7 +34,7 @@ class BSLogoutDialog(private val build: Build) :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, vn.shb.lao.ui.R.style.BottomDialog_Rounded)
+        setStyle(STYLE_NORMAL, R.style.BottomDialog_Rounded)
     }
 
     override fun onStart() {
@@ -68,9 +68,9 @@ class BSLogoutDialog(private val build: Build) :
             cbLogoutAll.setOnCheckedChangeListener { _, isChecked ->
                 isAll = isChecked
                 cbLogoutAll.buttonTintList = if (isChecked) {
-                    resources.getColorStateList(vn.shb.lao.ui.R.color.accent, null)
+                    resources.getColorStateList(R.color.accent, null)
                 } else {
-                    resources.getColorStateList(vn.shb.lao.ui.R.color.gray_600, null)
+                    resources.getColorStateList(R.color.gray_600, null)
                 }
             }
         }

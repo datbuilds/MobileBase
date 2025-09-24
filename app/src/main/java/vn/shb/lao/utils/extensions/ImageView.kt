@@ -20,8 +20,8 @@ import vn.shb.lao.R
 
 fun ImageView.loadAvatar(
     url: String?,
-    @DrawableRes placeholder: Int = vn.shb.lao.ui.R.drawable.ic_avatar_default,
-    @DrawableRes error: Int = vn.shb.lao.ui.R.drawable.ic_avatar_default
+    @DrawableRes placeholder: Int = R.drawable.ic_avatar_default,
+    @DrawableRes error: Int = R.drawable.ic_avatar_default
 ) {
     try {
         if (url.isNullOrEmpty())
@@ -38,8 +38,8 @@ fun ImageView.loadAvatar(
 
 fun ImageView.loadImage(
     url: String?,
-    @DrawableRes placeholder: Int = vn.shb.lao.ui.R.color.primary_10,
-    @DrawableRes error: Int = vn.shb.lao.ui.R.color.accent_10,
+    @DrawableRes placeholder: Int = R.color.primary_10,
+    @DrawableRes error: Int = R.color.accent_10,
     cornerRadiusDp: Int = 8 // bo góc mặc định = 0
 ) {
     try {
@@ -66,8 +66,8 @@ fun ImageView.loadImage(
 
 fun ImageView.loadImageWebp(
     url: String?,
-    @DrawableRes placeholder: Int = vn.shb.lao.ui.R.color.primary_10,
-    @DrawableRes error: Int = vn.shb.lao.ui.R.color.accent_10
+    @DrawableRes placeholder: Int = R.color.primary_10,
+    @DrawableRes error: Int = R.color.accent_10
 ) {
     try {
         if (url.isNullOrEmpty())
@@ -85,8 +85,8 @@ fun ImageView.loadImageWebp(
 
 fun ImageView.loadImageOriginal(
     url: String?,
-    @DrawableRes placeholder: Int = vn.shb.lao.ui.R.color.primary_10,
-    @DrawableRes error: Int = vn.shb.lao.ui.R.color.accent_10,
+    @DrawableRes placeholder: Int = R.color.primary_10,
+    @DrawableRes error: Int = R.color.accent_10,
 ) {
     try {
         if (url.isNullOrEmpty())

@@ -9,7 +9,7 @@ import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.view.isVisible
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.lao.R
-import vn.shb.lao.ui.databinding.CustomDialogLayoutBinding
+import vn.shb.lao.databinding.CustomDialogLayoutBinding
 import vn.shb.lao.utils.extensions.gone
 
 object AlertDialogUtil {
@@ -24,14 +24,15 @@ object AlertDialogUtil {
         textNegative: String = "",
         positiveAction: (() -> Unit)? = null,
         negativeAction: (() -> Unit)? = null,
-        supView: View? = null
+        supView: View? = null,
+        isCancelable: Boolean = false
     ) {
         val bindingView = CustomDialogLayoutBinding.inflate(LayoutInflater.from(context))
 
         val builder =
             AlertDialog.Builder(context, R.style.dialog_transparent_width)
         builder.setView(bindingView.root)
-        builder.setCancelable(false)
+        builder.setCancelable(isCancelable)
         builder.setOnDismissListener {
             alertDialog = null
         }

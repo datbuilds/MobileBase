@@ -17,6 +17,5 @@ include("library:choosePhotoHelper")
 //app
 include(":app")
 include(":localization")
-include(":ui")
 include(":data")
 include(":shbcore")

@@ -6,6 +6,7 @@ plugins {
     id(Plugins.ANDROID_KOTLIN)
     id(Plugins.ANDROID_MAVEN_PUBLISH)
     kotlin(Plugins.KOTLIN_KAPT)
+//    id(Plugins.ANDROID_LIBRARY)
 }
 
 //apply(from = "autodimension.gradle")
@@ -79,7 +80,6 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "$buildDir/libs", "include" to "*.jar")))
 
     //Import module
-    implementation(projects.ui)
     implementation(projects.localization)
     implementation(projects.shbcore)
     implementation(projects.library.choosePhotoHelper)

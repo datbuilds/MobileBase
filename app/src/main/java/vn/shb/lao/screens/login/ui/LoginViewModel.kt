@@ -124,7 +124,7 @@ class LoginViewModel(
             }
             AlertDialogUtil.message(
                 context, title = getString(R.string.passwordResetInstruction),
-                idIcon = vn.shb.lao.ui.R.drawable.ic_alert_forgot_password,
+                idIcon = R.drawable.ic_alert_forgot_password,
                 textNegative = getString(R.string.closeLabel),
                 negativeAction = {
 

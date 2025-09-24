@@ -28,7 +28,6 @@
             <option value="$PROJECT_DIR$/library/choosePhotoHelper" />
             <option value="$PROJECT_DIR$/localization" />
             <option value="$PROJECT_DIR$/shbcore" />
-            <option value="$PROJECT_DIR$/ui" />
           </set>
         </option>
       </GradleProjectSettings>

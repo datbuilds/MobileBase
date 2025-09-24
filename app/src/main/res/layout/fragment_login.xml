@@ -22,13 +22,21 @@
         android:id="@+id/llLanguage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/bg_layout_language"
         android:orientation="horizontal"
         android:paddingHorizontal="@dimen/margin_12dp"
         android:paddingVertical="@dimen/margin_6dp"
         app:layout_constraintBottom_toBottomOf="@+id/ivLogoSHB"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ivLogoSHB"
-        tools:background="@drawable/bg_layout_language">
+        app:layout_constraintTop_toTopOf="@+id/ivLogoSHB">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivLogoLanguage"
+            android:layout_width="@dimen/widthLogoLanguage"
+            android:layout_height="@dimen/widthLogoLanguage"
+            android:layout_marginEnd="@dimen/margin_6dp"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/ic_logo_uk" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"

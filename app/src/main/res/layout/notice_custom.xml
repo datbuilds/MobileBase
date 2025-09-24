@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relative_layout_dialog"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog"
+    android:padding="0dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <TextView
+        android:id="@+id/textView_title"
+        style="@style/MaterialDialog.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:text="Title" />
+
+    <TextView
+        android:id="@+id/textView_message"
+        style="@style/MaterialDialog.Message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView_title"
+        android:fontFamily="@font/medium"
+        tools:text="Message" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_message"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="1.0">
+
+        <View
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="0.6dp"
+            android:background="@color/gray_300"
+            app:layout_constraintBottom_toTopOf="@id/button_positive_custom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/button_positive_custom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/medium"
+            android:foreground="?selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:lines="1"
+            android:paddingVertical="@dimen/margin_12dp"
+            android:textAllCaps="false"
+            android:textColor="@color/red_600"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="I'm 100% sure!" />
+
+        <View
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="0.6dp"
+            android:background="@color/gray_300"
+            app:layout_constraintBottom_toTopOf="@id/button_negative_custom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_positive_custom" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/button_negative_custom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/regular"
+            android:foreground="?selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:lines="1"
+            android:paddingVertical="@dimen/margin_12dp"
+            android:textAllCaps="false"
+            android:textColor="@color/primary"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_positive_custom"
+            tools:text="Let me check it again" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

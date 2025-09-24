@@ -3,6 +3,7 @@ package vn.shb.lao.screens.login.ui.widget
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
@@ -11,11 +12,19 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.StyleSpan
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.toDrawable
 import com.google.android.material.snackbar.Snackbar
+import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.lao.R
+import vn.shb.lao.databinding.LayoutLanguagePopupBinding
 import vn.shb.lao.screens.login.ui.LoginFragment
 import java.util.Calendar
 
@@ -40,7 +49,8 @@ fun LoginFragment.setGreeting(textView: TextView) {
 
     spannable.setSpan(AbsoluteSizeSpan(14, true), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
-    val customFont: Typeface? = ResourcesCompat.getFont(context!!, vn.shb.lao.ui.R.font.onest_semi_bold)
+    val customFont: Typeface? =
+        ResourcesCompat.getFont(context!!, R.font.onest_semi_bold)
     if (customFont != null) {
         spannable.setSpan(customFont, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
     }
@@ -77,4 +87,42 @@ fun LoginFragment.checkNotificationPermission() {
             }
         }
     }
+}
+
+fun LoginFragment.showLanguagePopup(anchor: View) {
+    val binding = LayoutLanguagePopupBinding.inflate(LayoutInflater.from(anchor.context))
+
+    val popupWindow = PopupWindow(
+        binding.root,
+        ViewGroup.LayoutParams.WRAP_CONTENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT,
+        true // focusable, click outside sẽ tự đóng
+    )
+
+    // style
+    popupWindow.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
+    popupWindow.isOutsideTouchable = true
+    popupWindow.elevation = 8f
+
+    binding.apply {
+        iclLanguage1.apply {
+            ivLogo.setImageResource(R.drawable.ic_logo_uk)
+            tvNameLanguage.text = getString(R.string.englishLabel)
+            root.setOnSingleClickListener {
+//                updateLanguage()
+                popupWindow.dismiss()
+            }
+        }
+        iclLanguage2.apply {
+            ivLogo.setImageResource(R.drawable.ic_logo_lao)
+            tvNameLanguage.text = getString(R.string.laoLabel)
+            root.setOnSingleClickListener {
+//                updateLanguage()
+                popupWindow.dismiss()
+            }
+        }
+    }
+
+    val marginRight = (20 * anchor.context.resources.displayMetrics.density).toInt()
+    popupWindow.showAsDropDown(anchor, -marginRight, 0, Gravity.END)
 }
