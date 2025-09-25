@@ -3,19 +3,17 @@ package vn.shb.lao.screens.home
 import android.view.View
 import org.koin.android.ext.android.inject
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
-import vn.shb.data.entities.login.UserConverters.stringToUserInfo
+import vn.shb.data.entities.getInitials
+import vn.shb.data.entities.login.UserConverters
 import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentHomeBinding
-import vn.shb.lao.screens.home.widget.OnWelcomeListener
-import vn.shb.lao.screens.settings.ui.SettingDialog
+import vn.shb.lao.utils.extensions.getTextWelcomeUser
 
 class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
     companion object {
         fun newInstance() = HomeFragment()
     }
-
-    private val storage: AndroidSecureStorage by inject()
 
     private fun comingSoon() {
         showDialogError(
@@ -25,12 +23,18 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
     }
 
     override fun initView(view: View) {
+        bindView()
         mapUserInfo()
     }
 
+    private fun bindView() {
+        binding.tvHelloUser.text = context!!.getTextWelcomeUser()
+    }
+
     private fun mapUserInfo() {
-        stringToUserInfo(storage.getUserInfo())?.let { user ->
-            binding.welcomeView.setUserName(user.username)
+        UserConverters.stringToUserInfo(storage.getUserInfo())?.let { user ->
+            binding.tvNameUser.text = user.username
+            binding.flAvatarUser.setUserName("", user.username.getInitials())
         }
     }
 
@@ -67,25 +71,25 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
     }
 
     override fun initListener() {
-        with(binding) {
-            welcomeView.setListener(object : OnWelcomeListener {
-                override fun onAvatarClick() {
-                    showSettingDialog()
-                }
-
-                override fun onNotificationClick() {
-                    comingSoon()
-                }
-
-                private fun showSettingDialog() {
-                    val dialog = SettingDialog.Build().build()
-                    if (isDialogShowing(SettingDialog.TAG)) {
-                        return
-                    }
-                    dialog.show(childFragmentManager, SettingDialog.TAG)
-                }
-            })
-        }
+//        with(binding) {
+//            welcomeView.setListener(object : OnWelcomeListener {
+//                override fun onAvatarClick() {
+//                    showSettingDialog()
+//                }
+//
+//                override fun onNotificationClick() {
+//                    comingSoon()
+//                }
+//
+//                private fun showSettingDialog() {
+//                    val dialog = SettingDialog.Build().build()
+//                    if (isDialogShowing(SettingDialog.TAG)) {
+//                        return
+//                    }
+//                    dialog.show(childFragmentManager, SettingDialog.TAG)
+//                }
+//            })
+//        }
     }
 
     override fun initObserve() {}

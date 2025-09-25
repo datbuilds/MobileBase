@@ -4,33 +4,114 @@
     android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:layout_marginHorizontal="@dimen/margin_20dp"
     android:fitsSystemWindows="true">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+    <vn.shb.lao.screens.home.widget.FrameAvatarUser
+        android:id="@+id/flAvatarUser"
+        android:layout_width="@dimen/margin_42dp"
+        android:layout_height="@dimen/margin_42dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/appBarLayout"
-            android:layout_width="match_parent"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="@dimen/margin_0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/margin_8dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/flAvatarUser"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/flAvatarUser"
+        app:layout_constraintTop_toTopOf="@+id/flAvatarUser">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvNameUser"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/margin_10dp">
+            android:ellipsize="end"
+            android:fontFamily="@font/onest_regular"
+            android:includeFontPadding="false"
+            android:lines="1"
+            android:textAllCaps="true"
+            android:textColor="@color/neutral10"
+            android:textSize="@dimen/textSize14"
+            app:fontFamily="@font/onest_bold"
+            tools:text="@string/enterYourUserName" />
 
-            <vn.shb.lao.screens.home.widget.HomeWelcomeView
-                android:id="@+id/welcomeView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/margin_12dp"
-                android:layout_marginTop="@dimen/margin_20dp"
-                android:layout_marginEnd="@dimen/margin_10dp" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvHelloUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/onest_regular"
+            android:includeFontPadding="false"
+            android:lines="1"
+            android:textColor="@color/neutral7"
+            android:textSize="@dimen/textSize14"
+            tools:text="@string/enterYourUserName" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
-    </androidx.core.widget.NestedScrollView>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivBackgroundAccountDetail"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_24dp"
+        app:layout_constraintHeight_percent="0.15"
+        app:layout_constraintTop_toBottomOf="@+id/flAvatarUser"
+        app:srcCompat="@drawable/bg_account_detail" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="@dimen/margin_0dp"
+        android:layout_height="@dimen/margin_0dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/margin_16dp"
+        android:paddingVertical="@dimen/margin_12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivBackgroundAccountDetail"
+        app:layout_constraintEnd_toEndOf="@+id/ivBackgroundAccountDetail"
+        app:layout_constraintStart_toStartOf="@+id/ivBackgroundAccountDetail"
+        app:layout_constraintTop_toTopOf="@+id/ivBackgroundAccountDetail">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCurrentAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_arrow_down"
+            android:drawablePadding="@dimen/margin_12dp"
+            android:drawableTint="@color/neutral1"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:textColor="@color/neutral1"
+            android:textSize="@dimen/textSize14"
+            app:fontFamily="@font/onest_regular"
+            tools:text="@string/shb_action_logout" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvNumberAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/margin_8dp"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:textColor="@color/neutral1"
+            android:textSize="@dimen/textSize20"
+            app:fontFamily="@font/onest_medium"
+            tools:text="0393870399" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvValueAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_eye_white"
+            android:drawablePadding="@dimen/margin_4dp"
+            android:drawableTint="@color/neutral1"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:textColor="@color/neutral1"
+            android:textSize="@dimen/textSize14"
+            app:fontFamily="@font/onest_regular"
+            tools:text="@string/shb_action_logout" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -63,18 +63,10 @@
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/ivBannerLogin">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvImageUser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_image_user"
-            android:fontFamily="@font/onest_regular"
-            android:includeFontPadding="false"
-            android:paddingHorizontal="@dimen/margin_10dp"
-            android:paddingVertical="@dimen/margin_9dp"
-            android:textColor="@color/colorImageUser"
-            android:textSize="@dimen/textSize16"
-            tools:text="DL" />
+        <vn.shb.lao.screens.home.widget.FrameAvatarUser
+            android:id="@+id/flAvatarUser"
+            android:layout_width="@dimen/margin_42dp"
+            android:layout_height="@dimen/margin_42dp"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvHelloUser"

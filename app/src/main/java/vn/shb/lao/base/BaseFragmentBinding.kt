@@ -34,7 +34,7 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
     private val inflateMethod: (LayoutInflater, ViewGroup?, Boolean) -> T
 ) : Fragment() {
 
-    private val storage: AndroidSecureStorage by inject()
+    protected val storage: AndroidSecureStorage by inject()
 
     companion object {
         private const val DELAY_MILLIS = 500L

@@ -27,18 +27,11 @@ import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.lao.R
 import vn.shb.lao.databinding.LayoutLanguagePopupBinding
 import vn.shb.lao.screens.login.ui.LoginFragment
-import java.util.Calendar
+import vn.shb.lao.utils.extensions.getTextWelcomeUser
 
 fun LoginFragment.setGreeting(textView: TextView) {
-    val calendar = Calendar.getInstance()
-    val hour = calendar.get(Calendar.HOUR_OF_DAY)
 
-    val greeting = when (hour) {
-        in 6..11 -> getString(R.string.goodMorning)
-        in 12..17 -> getString(R.string.goodAfternoon)
-        in 18..23 -> getString(R.string.goodNight)
-        else -> getString(R.string.welcome)
-    }
+    val greeting = context!!.getTextWelcomeUser()
 
     val fullText = "$greeting, $currentUserName"
 

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/flAvatar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvImageUser"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_image_user"
+        android:fontFamily="@font/onest_regular"
+        android:includeFontPadding="false"
+        android:paddingHorizontal="@dimen/margin_10dp"
+        android:gravity="center"
+        android:paddingVertical="@dimen/margin_9dp"
+        android:textColor="@color/colorImageUser"
+        android:textSize="@dimen/textSize16"
+        android:visibility="gone"
+        tools:text="DL" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivImageUser"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:srcCompat="@drawable/banner_login" />
+</FrameLayout>

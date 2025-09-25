@@ -18,9 +18,11 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import vn.shb.lao.BuildConfig
+import vn.shb.lao.R
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.util.Calendar
 import java.util.Objects
 
 val Context.inputWindowManager: InputMethodManager
@@ -146,5 +148,17 @@ fun Context.shareImage(fileName: String) {
                 getString(vn.shb.lao.localization.R.string.message_share_image)
             )
         )
+    }
+}
+
+fun Context.getTextWelcomeUser(): String {
+    val calendar = Calendar.getInstance()
+    val hour = calendar.get(Calendar.HOUR_OF_DAY)
+
+    return when (hour) {
+        in 6..11 -> getString(R.string.goodMorning)
+        in 12..17 -> getString(R.string.goodAfternoon)
+        in 18..23 -> getString(R.string.goodNight)
+        else -> getString(R.string.welcome)
     }
 }

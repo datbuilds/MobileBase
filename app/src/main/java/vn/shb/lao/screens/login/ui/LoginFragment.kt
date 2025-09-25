@@ -51,7 +51,6 @@ import java.util.Base64
 class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
 
     private val encryptFactory: EncryptManager by inject()
-    private val storage: AndroidSecureStorage by inject()
     private val loginViewModel: LoginViewModel by inject()
     private val useCaseRefreshToken: UseCaseRefreshToken by inject()
 
@@ -86,12 +85,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
         storage.resetToken()
     }
-
-//    @SuppressLint("NewApi")
-//    private fun prepareBGLogin(bgBase64: String): Bitmap? {
-//        val default = Base64.getDecoder().decode(bgBase64)
-//        return BitmapFactory.decodeByteArray(default, 0, default.size)
-//    }
 
     override fun handleSavedState(savedInstanceState: Bundle?) {
         super.handleSavedState(savedInstanceState)
@@ -129,10 +122,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                 }
             }
 
-//            tvForgotPassword.setOnSingleClickListener {
-//                context?.let { ct -> loginViewModel.showDialogForgotPassword(ct) }
-//            }
-
             btnLogin.setOnSingleClickListener {
                 clearFocusEditText()
                 handleActionLogin()
@@ -162,7 +151,9 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                 } else {
                     tvErrorPassword.gone()
                     inputPasswordLayout.setErrorAndBackgroundDefault()
-                    login()
+//                    login()
+                    UserInfo(username = "lingard", token_type = "34242323").toUserString().let { storage.setUserInfo(it) }
+                    onLoginSuccess(StateLogin.OpenDashboard) //todo test dashboard
                 }
             }
         }
@@ -234,7 +225,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         binding.apply {
             llInfoUser.visible()
             groupViewNoLastUser.gone()
-            tvImageUser.text = currentUserName.getInitials()
+            flAvatarUser.setUserName("", currentUserName)
             setGreeting(binding.tvHelloUser)
             inputPasswordLayout.clearEditTextColorFilter()
         }
@@ -250,7 +241,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         context?.let { ct ->
             LocaleHelper.saveLanguage(ct, type)
             LocaleHelper.setLocale(ct, type)
-//            LocaleHelper.getLanguageContext(ct)
             restartApp(activity!!)
         }
 

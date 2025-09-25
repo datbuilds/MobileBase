@@ -114,6 +114,7 @@
     <color name="colorSubTextOrange">#F58634</color>
     <color name="colorHintText">#9D9D9D</color>
     <color name="neutral100">#E1E1E1</color>
+    <color name="neutral1">#FFFFFF</color>
     <color name="neutral7">#8C8C8C</color>
     <color name="color_error_text_login">#FF4D4F</color>
 </resources>
