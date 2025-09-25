@@ -244,7 +244,12 @@ fun getGreetingMessage(): String {
 }
 
 @SuppressLint("ClickableViewAccessibility")
-fun TextView.setCustomSpannable(content: String, onClick: (() -> Unit)) {
+fun TextView.setCustomSpannable(
+    content: String,
+    colorDefault: Int,
+    colorClick: Int,
+    onClick: (() -> Unit)
+) {
 
     val spannable = SpannableStringBuilder()
 
@@ -257,7 +262,8 @@ fun TextView.setCustomSpannable(content: String, onClick: (() -> Unit)) {
             }
 
             override fun updateDrawState(ds: TextPaint) {
-                super.updateDrawState(ds)
+                ds.color =
+                    ContextCompat.getColor(context, colorDefault)
             }
         },
         start,
@@ -279,7 +285,7 @@ fun TextView.setCustomSpannable(content: String, onClick: (() -> Unit)) {
                         ForegroundColorSpan(
                             ContextCompat.getColor(
                                 this@setCustomSpannable.context,
-                                R.color.color_hotlineClick
+                                colorClick
                             )
                         ), // màu khi nhấn
                         0,

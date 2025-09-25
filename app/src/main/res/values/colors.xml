@@ -27,6 +27,7 @@
     <color name="unselected_tab_color">#4A5568</color>
     <color name="colorSelectorEdittext">#F48635</color>
     <color name="forgotPassword">#5A5958</color>
+    <color name="forgotPasswordClick">#ABAAAA</color>
     <color name="color_hotline">#21488A</color>
     <color name="color_hotlineClick">#336AC7</color>
     <color name="neutral10">#0A0A0A</color>
@@ -114,4 +115,5 @@
     <color name="colorHintText">#9D9D9D</color>
     <color name="neutral100">#E1E1E1</color>
     <color name="neutral7">#8C8C8C</color>
+    <color name="color_error_text_login">#FF4D4F</color>
 </resources>

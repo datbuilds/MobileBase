@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Paint
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -14,7 +13,6 @@ import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
-import androidx.core.widget.doOnTextChanged
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -39,14 +37,14 @@ import vn.shb.lao.utils.extensions.clearText
 import vn.shb.lao.utils.extensions.gone
 import vn.shb.lao.utils.extensions.hideProgressDialog
 import vn.shb.lao.utils.extensions.hideSoftKeyboard
+import vn.shb.lao.utils.extensions.isValidInputLogin
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.lao.utils.extensions.nextActivity
-import vn.shb.lao.utils.extensions.setErrorAndBackground
+import vn.shb.lao.utils.extensions.setCustomSpannable
 import vn.shb.lao.utils.extensions.setErrorAndBackgroundDefault
 import vn.shb.lao.utils.extensions.showProgressDialog
 import vn.shb.lao.utils.extensions.textValue
 import vn.shb.lao.utils.extensions.visible
-import vn.shb.lao.utils.view.dialog.AlertDialogUtil
 import vn.shb.lao.utils.widgets.LocaleHelper
 import java.util.Base64
 
@@ -65,32 +63,23 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
     override fun initView(view: View) {
         mapUILogin()
-        setSingleView()
-    }
-
-    private fun setSingleView() {
-        // underline text
-        binding.tvForgotPassword.paintFlags =
-            binding.tvForgotPassword.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-
-        // set icon current language
-        LocaleHelper.getResourceLocale(LocaleHelper.getCurrentLanguage(requireContext())){ resId ->
-            binding.ivLogoLanguage.setImageResource(resId)
-        }
     }
 
     private fun mapUILogin() {
-        // set banner
-//        val bgLogin = storage.getBackgroundLogin()
-//        val bgBitmap: Bitmap? =
-//            if (bgLogin.isNotEmpty()) {
-//                prepareBGLogin(bgLogin)
-//            } else {
-//                val drawable =
-//                    ContextCompat.getDrawable(requireContext(), R.drawable.img_bg_login_res)
-//                if (drawable is BitmapDrawable) drawable.bitmap else drawable?.toBitmap()
-//            }
+        //init forgot password
+        binding.tvForgotPassword.setCustomSpannable(
+            getString(R.string.forgotPasswordLabel), R.color.forgotPassword,
+            R.color.forgotPasswordClick
+        ) {
+            context?.let { ct -> loginViewModel.showDialogForgotPassword(ct) }
+        }
 
+        // set icon current language
+        LocaleHelper.getResourceLocale(LocaleHelper.getCurrentLanguage(requireContext())) { resId ->
+            binding.ivLogoLanguage.setImageResource(resId)
+        }
+
+        //init user login
         UserConverters.stringToUserInfo(storage.getUserInfo())?.let { user ->
             prepareViewUserLogged(user)
         } ?: resetInputLogin()
@@ -98,11 +87,11 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         storage.resetToken()
     }
 
-    @SuppressLint("NewApi")
-    private fun prepareBGLogin(bgBase64: String): Bitmap? {
-        val default = Base64.getDecoder().decode(bgBase64)
-        return BitmapFactory.decodeByteArray(default, 0, default.size)
-    }
+//    @SuppressLint("NewApi")
+//    private fun prepareBGLogin(bgBase64: String): Bitmap? {
+//        val default = Base64.getDecoder().decode(bgBase64)
+//        return BitmapFactory.decodeByteArray(default, 0, default.size)
+//    }
 
     override fun handleSavedState(savedInstanceState: Bundle?) {
         super.handleSavedState(savedInstanceState)
@@ -122,9 +111,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     override fun initListener() {
         with(binding) {
             root.setOnSingleClickListener {
-                edtInputUsername.clearFocus()
-                edtInputPass.clearFocus()
-                hideSoftKeyboard(0)
+                clearFocusEditText()
             }
             edtInputUsername.setOnFocusChangeListener { _, hasFocus ->
                 inputUserNameLayout.isSelected = hasFocus
@@ -133,38 +120,22 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                 inputPasswordLayout.isSelected = hasFocus
             }
 
-            edtInputPass.apply {
-                doOnTextChanged { _, _, _, _ ->
-                    binding.inputPasswordLayout.apply {
-                        setErrorAndBackgroundDefault()
-                        error = null
-                        isErrorEnabled = false
-                    }
-                }
-
-                setOnEditorActionListener { _, actionId, _ ->
-                    if (actionId == EditorInfo.IME_ACTION_DONE) {
-                        login()
-                        true
-                    } else {
-                        false
-                    }
+            edtInputPass.setOnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    login()
+                    true
+                } else {
+                    false
                 }
             }
 
-            tvForgotPassword.setOnSingleClickListener {
-                context?.let { ct -> loginViewModel.showDialogForgotPassword(ct) }
-            }
+//            tvForgotPassword.setOnSingleClickListener {
+//                context?.let { ct -> loginViewModel.showDialogForgotPassword(ct) }
+//            }
 
             btnLogin.setOnSingleClickListener {
-                AlertDialogUtil.message(
-                    context!!,
-                    title = getString(vn.shb.lao.localization.R.string.notification_channel_id),
-                    message = "Chức năng đang được phát triển",
-                    idIcon = R.drawable.ic_alert_forgot_password,
-                    textNegative = getString(R.string.closeLabel),
-                    negativeAction = {}
-                )
+                clearFocusEditText()
+                handleActionLogin()
             }
 
             llLanguage.setOnSingleClickListener {
@@ -173,33 +144,36 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         }
     }
 
-    private fun login() {
+    private fun clearFocusEditText() {
+        binding.edtInputUsername.clearFocus()
+        binding.edtInputPass.clearFocus()
         hideSoftKeyboard(0)
-        currentUser?.let {
-            val (psw, encPsw) = getPassword()
-            val userName = it.userLog.ifEmpty { it.username }
-
-            if (psw.isEmpty()) {
-                binding.inputPasswordLayout.setErrorAndBackground("Vui lòng nhập mật khẩu")
-            } else {
-                postLogin(userName, encPsw)
-            }
-        } ?: loginNewUser()
     }
 
-    private fun loginNewUser() {
-//        val userName = binding.userNameView.getUserName()
-//
-//        val isValidUserName = binding.userNameView.validateLogin(isValidate = true)
-//        val isValidPassword = binding.inputPasswordLayout.validateLogin()
-//
-//        if (isValidUserName && isValidPassword) {
-//            val (_, encPsw) = getPassword()
-//            postLogin(userName, encPsw)
-//        } else {
-//            binding.userNameView.clearEditTextColorFilter()
-//            binding.inputPasswordLayout.clearEditTextColorFilter()
-//        }
+    private fun handleActionLogin() {
+        binding.apply {
+            if (!inputUserNameLayout.isValidInputLogin() && currentUser == null) {
+                tvErrorUsername.visible()
+            } else {
+                tvErrorUsername.gone()
+                inputUserNameLayout.setErrorAndBackgroundDefault()
+                if (!inputPasswordLayout.isValidInputLogin()) {
+                    tvErrorPassword.visible()
+                } else {
+                    tvErrorPassword.gone()
+                    inputPasswordLayout.setErrorAndBackgroundDefault()
+                    login()
+                }
+            }
+        }
+    }
+
+    private fun login() {
+        hideSoftKeyboard(0)
+        val userName = currentUser?.let { it.userLog.ifEmpty { it.username } }
+            ?: binding.edtInputUsername.text?.trim().toString()
+        val (_, encPsw) = getPassword()
+        postLogin(userName, encPsw)
     }
 
     private fun postLogin(us: String, psW: String) {

@@ -31,7 +31,7 @@ import vn.shb.lao.utils.extensions.returnActivity
 import vn.shb.lao.utils.refreshTK.RefreshTokenManager
 
 abstract class BaseFragmentBinding<T : ViewBinding>(
-        private val inflateMethod: (LayoutInflater, ViewGroup?, Boolean) -> T
+    private val inflateMethod: (LayoutInflater, ViewGroup?, Boolean) -> T
 ) : Fragment() {
 
     private val storage: AndroidSecureStorage by inject()
@@ -52,9 +52,9 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = inflateMethod(inflater, container, false)
         return binding.root
@@ -133,10 +133,10 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
     }
 
     fun safeNavigate(
-            @IdRes currentDestinationId: Int,
-            @IdRes actionId: Int,
-            bundle: Bundle? = null,
-            options: NavOptions? = null
+        @IdRes currentDestinationId: Int,
+        @IdRes actionId: Int,
+        bundle: Bundle? = null,
+        options: NavOptions? = null
     ) {
         findNavController().safeNavigate(currentDestinationId, actionId, bundle, options)
     }
@@ -179,39 +179,39 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
     }
 
     open fun showDialogError(
-            errCode: String = "",
-            title: String = getString(vn.shb.lao.localization.R.string.title_noti),
-            message: String = "",
-            tvAction: String = getString(vn.shb.lao.localization.R.string.ui_common_close),
-            icon: Int = R.drawable.ic_bs_notification,
-            isCancelable: Boolean = true,
-            onAction: (() -> Unit)? = null
+        errCode: String = "",
+        title: String = getString(vn.shb.lao.localization.R.string.title_noti),
+        message: String = "",
+        tvAction: String = getString(vn.shb.lao.localization.R.string.ui_common_close),
+        icon: Int = R.drawable.ic_bs_notification,
+        isCancelable: Boolean = true,
+        onAction: (() -> Unit)? = null
     ) {
         val des =
-                if (message == "closed") {
-                    "Có lỗi trong quá trình kết nối hệ thống. Vui lòng thực hiện lại sau"
-                } else {
-                    message
-                }
+            if (message == "closed") {
+                "Có lỗi trong quá trình kết nối hệ thống. Vui lòng thực hiện lại sau"
+            } else {
+                message
+            }
 
         val dialogError =
-                BaseErrorDialog.Build(
-                                title = title,
-                                message = des,
-                                tvAction = tvAction,
-                                icon = icon,
-                                onClose = {
-                                    if (errCode == "999") {
-                                        logout()
-                                    } else {
-                                        if (onAction != null) {
-                                            onAction()
-                                        }
-                                    }
-                                },
-                                allowDismiss = isCancelable
-                        )
-                        .build()
+            BaseErrorDialog.Build(
+                title = title,
+                message = des,
+                tvAction = tvAction,
+                icon = icon,
+                onClose = {
+                    if (errCode == "999") {
+                        logout()
+                    } else {
+                        if (onAction != null) {
+                            onAction()
+                        }
+                    }
+                },
+                allowDismiss = isCancelable
+            )
+                .build()
 
         dialogError.isCancelable = false
 
@@ -230,22 +230,30 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
     }
 
     open fun showNotificationOnTop(
-            view: View,
-            icon: Int = R.drawable.ic_close,
-            message: String,
-            background: Int = R.drawable.bg_custom_success,
-            duration: Long = 5000L
+        view: View,
+        icon: Int = R.drawable.ic_close,
+        message: String,
+        background: Int = R.drawable.bg_custom_success,
+        duration: Long = 5000L
     ) {
         val toast =
-                CustomToastShowOnTop(
-                        requireContext(),
-                        view,
-                        icon = icon,
-                        message = message,
-                        background = background,
-                        duration = duration
-                )
+            CustomToastShowOnTop(
+                requireContext(),
+                view,
+                icon = icon,
+                message = message,
+                background = background,
+                duration = duration
+            )
         toast.show()
+    }
+
+    open fun showDialogAlert(
+        view: View,
+        message: String,
+        duration: Long = 5000L
+    ) {
+//        context?.let { AlertDialogUtil.message(it, getString(R.string.notificationLabel), message = getString(R.string.)) }
     }
 
     // Removing the binding reference when not needed is recommended as it avoids memory leak

@@ -3,6 +3,7 @@ package vn.shb.lao.screens.login.helper
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import vn.shb.lao.R
 import vn.shb.lao.databinding.ItemBranchBinding
 import vn.shb.lao.screens.login.model.Branch
 import vn.shb.lao.utils.extensions.setCustomSpannable
@@ -31,8 +32,14 @@ class BranchAdapter(
         val branch = items[position]
         holder.binding.apply {
             tvBranchName.text = branch.name
-            tvAddressDetail.setCustomSpannable(branch.address) { onAddressClick.invoke(CLICK_ADDRESS, branch) }
-            tvHotlineDetail.setCustomSpannable(branch.tel) { onAddressClick.invoke(CLICK_HOTLINE, branch) }
+            tvAddressDetail.setCustomSpannable(
+                branch.address, R.color.color_hotline,
+                R.color.color_hotlineClick
+            ) { onAddressClick.invoke(CLICK_ADDRESS, branch) }
+            tvHotlineDetail.setCustomSpannable(
+                branch.tel, R.color.color_hotline,
+                R.color.color_hotlineClick
+            ) { onAddressClick.invoke(CLICK_HOTLINE, branch) }
 
         }
     }

@@ -135,7 +135,7 @@ fun LoginFragment.showLanguagePopup(anchor: View) {
     }
 
     val marginRight = (130 * anchor.context.resources.displayMetrics.density).toInt()
-    popupWindow.showAsDropDown(anchor, -marginRight, 0, Gravity.END)
+    popupWindow.showAsDropDown(anchor, -marginRight, -60, Gravity.END)
 }
 
 fun Context.getResourceLocale(type: String, res: (String, Int) -> Unit) {

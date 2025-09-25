@@ -38,7 +38,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
             prepareBGLogin(bgLogin)
         } else {
             val drawable =
-                ContextCompat.getDrawable(this@SplashActivity, R.drawable.img_bg_login_res)
+                ContextCompat.getDrawable(this@SplashActivity, R.drawable.ic_logo_vn)
             if (drawable is BitmapDrawable) drawable.bitmap else drawable?.toBitmap()
         }
 

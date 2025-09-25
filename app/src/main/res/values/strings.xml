@@ -36,6 +36,9 @@
     <string name="englishLabel">English</string>
     <string name="laoLabel">Lao</string>
     <string name="vietnameseLabel">Vietnamese</string>
+    <string name="notificationLabel">Notification</string>
+    <string name="pleaseEnterYourUserName">Please enter your username</string>
+    <string name="pleaseEnterYourPassword">Please enter your password</string>
 
     <string-array name="amcalendar_months">
         <item>Tháng 1</item>

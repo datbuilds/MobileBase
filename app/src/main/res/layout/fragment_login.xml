@@ -49,11 +49,11 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_0dp"
         android:layout_marginTop="@dimen/margin_12dp"
-        android:scaleType="center"
-        app:shapeAppearanceOverlay="@style/RoundedImage"
+        android:scaleType="centerInside"
         app:layout_constraintHeight_percent="0.21"
         app:layout_constraintTop_toBottomOf="@+id/ivLogoSHB"
-        app:srcCompat="@drawable/ic_logo_app" />
+        app:shapeAppearanceOverlay="@style/RoundedImage"
+        app:srcCompat="@drawable/banner_login" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/llInfoUser"
@@ -139,9 +139,22 @@
             android:layout_height="wrap_content"
             android:hint="@string/enterYourUserName"
             android:imeOptions="actionNext"
-            android:inputType="textEmailAddress"
+            android:inputType="number"
             android:maxLength="10" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvErrorUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8dp"
+        android:fontFamily="@font/onest_medium"
+        android:text="@string/pleaseEnterYourUserName"
+        android:textColor="@color/color_error_text_login"
+        android:textSize="@dimen/textSize12"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/inputUserNameLayout"
+        tools:visibility="visible" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvPassword"
@@ -153,16 +166,13 @@
         android:textColor="@color/colorSubText"
         android:textSize="@dimen/textSize14"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/inputUserNameLayout" />
+        app:layout_constraintTop_toBottomOf="@id/tvErrorUsername" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_password_layout"
+        android:id="@+id/inputPasswordLayout"
+        style="@style/AppTextInputLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_4dp"
-        android:background="@drawable/selector_edt"
-        app:boxBackgroundMode="none"
-        app:hintEnabled="false"
         app:layout_constraintTop_toBottomOf="@+id/tvPassword"
         app:passwordToggleDrawable="@drawable/password_toggle_drawable"
         app:passwordToggleEnabled="true"
@@ -170,31 +180,35 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_input_pass"
+            style="@style/AppTextInputEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@null"
-            android:fontFamily="@font/onest_medium"
             android:hint="@string/enterPassword"
             android:imeActionLabel="@string/account_login"
             android:imeOptions="actionDone"
             android:importantForAutofill="no"
-            android:inputType="textPassword"
+            android:inputType="textPassword|number"
             android:maxLength="6"
-            android:maxLines="1"
-            android:paddingHorizontal="@dimen/margin_12dp"
-            android:paddingVertical="@dimen/margin_1dp"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            android:textColor="@color/neutral10"
-            android:textColorHint="@color/colorHintText"
-            android:textSize="@dimen/textSize14"
-            tools:text="linh" />
+            android:selectAllOnFocus="true" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvErrorPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8dp"
+        android:fontFamily="@font/onest_medium"
+        android:text="@string/pleaseEnterYourPassword"
+        android:textColor="@color/color_error_text_login"
+        android:textSize="@dimen/textSize12"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/inputPasswordLayout"
+        tools:visibility="visible" />
+
     <TextView
         android:id="@+id/tvForgotPassword"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_12dp"
         android:layout_marginEnd="@dimen/margin_10dp"
@@ -205,7 +219,7 @@
         android:textColor="@color/forgotPassword"
         android:textSize="@dimen/textSize14"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_password_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/tvErrorPassword" />
 
     <TextView
         android:id="@+id/btnLogin"
