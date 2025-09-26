@@ -39,6 +39,8 @@
     <string name="notificationLabel">Notification</string>
     <string name="pleaseEnterYourUserName">Please enter your username</string>
     <string name="pleaseEnterYourPassword">Please enter your password</string>
+    <string name="transfer">Transfer</string>
+    <string name="accounts">Accounts</string>
 
     <string-array name="amcalendar_months">
         <item>Tháng 1</item>
