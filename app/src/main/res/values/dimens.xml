@@ -140,4 +140,6 @@
 
     //radius
     <dimen name="radius_button_alert">10dp</dimen>
+    <dimen name="pageMargin">8dp</dimen>
+    <dimen name="pageOffset">16dp</dimen>
 </resources>

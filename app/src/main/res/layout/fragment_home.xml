@@ -144,4 +144,15 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_24dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        app:layout_constraintHeight_percent="0.2"
+        android:overScrollMode="never"
+        app:layout_constraintTop_toBottomOf="@+id/llFeatureHome" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
