@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingVertical="10dp">
+
+    <TextView
+        android:id="@+id/tvLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:fontFamily="@font/onest_medium"
+        android:includeFontPadding="false"
+        android:textColor="@color/neutral7"
+        android:textSize="@dimen/textSize12"
+        tools:text="Default Casa Account" />
+
+    <TextView
+        android:id="@+id/tvValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:ellipsize="end"
+        android:fontFamily="@font/onest_medium"
+        android:gravity="end"
+        android:includeFontPadding="false"
+        android:singleLine="true"
+        android:textColor="@color/neutral7"
+        android:textSize="@dimen/textSize14"
+        tools:text="Demand Deposits - 1001747332" />
+
+</LinearLayout>

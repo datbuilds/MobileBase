@@ -152,7 +152,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                     tvErrorPassword.gone()
                     inputPasswordLayout.setErrorAndBackgroundDefault()
 //                    login()
-                    UserInfo(username = "lingard", token_type = "34242323").toUserString().let { storage.setUserInfo(it) }
+                    UserInfo(username = "lingard Mancheter United", token_type = "34242323").toUserString().let { storage.setUserInfo(it) }
                     onLoginSuccess(StateLogin.OpenDashboard) //todo test dashboard
                 }
             }

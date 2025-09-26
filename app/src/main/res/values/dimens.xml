@@ -137,6 +137,7 @@
     <dimen name="textSizeContentAlert">16sp</dimen>
     <dimen name="textSizeButtonAlert">16sp</dimen>
     <dimen name="widthStrokeButton">1dp</dimen>
+    <dimen name="widthAvatarProfile">80dp</dimen>
 
     //radius
     <dimen name="radius_button_alert">10dp</dimen>

@@ -19,6 +19,11 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
 
     private val homeViewModel: HomeViewModel by inject()
 
+    private lateinit var adapter: LoopingAdapter
+    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var autoRunnable: Runnable
+    private lateinit var pageCallback: ViewPager2.OnPageChangeCallback
+
     companion object {
         const val AUTO_SCROLL_BANNER_DELAY = 2000L
     }
@@ -28,11 +33,6 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
         mapUserInfo()
         bindBannerView()
     }
-
-    private lateinit var adapter: LoopingAdapter
-    private val handler = Handler(Looper.getMainLooper())
-    private lateinit var autoRunnable: Runnable
-    private lateinit var pageCallback: ViewPager2.OnPageChangeCallback
 
     private fun bindBannerView() {
         val images = homeViewModel.getListBanner()
@@ -95,6 +95,19 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
         handler.postDelayed(autoRunnable, AUTO_SCROLL_BANNER_DELAY)
     }
 
+    override fun onPause() {
+        super.onPause()
+        handler.removeCallbacks(autoRunnable)
+        binding.viewPager.unregisterOnPageChangeCallback(pageCallback)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        handler.postDelayed(autoRunnable, AUTO_SCROLL_BANNER_DELAY)
+        binding.viewPager.registerOnPageChangeCallback(pageCallback)
+    }
+
+
     private fun bindView() {
         binding.apply {
             tvHelloUser.text = context!!.getTextWelcomeUser()
@@ -120,9 +133,12 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
 
     override fun initListener() {
         with(binding) {
-            flAvatarUser.setOnSingleClickListener {
-
-            }
+            flAvatarUser.setListener(
+                object : vn.shb.lao.screens.home.widget.OnClickDetail {
+                    override fun onAvatarClick() {
+                        safeNavigate(R.id.homeFragment, R.id.action_homeFragment_to_profileFragment)
+                    }
+                })
 
             incItemTransfer.root.setOnSingleClickListener {
 

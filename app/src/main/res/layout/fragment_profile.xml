@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:paddingTop="16dp">
+
+    <TextView
+        android:id="@+id/tvMyProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/margin_20dp"
+        android:fontFamily="@font/onest_medium"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:paddingHorizontal="@dimen/margin_4dp"
+        android:paddingVertical="@dimen/margin_8dp"
+        android:text="@string/myProfile"
+        android:textColor="@color/neutral10"
+        android:textSize="@dimen/textSize20"
+        app:drawableStartCompat="@drawable/ic_arrow_back" />
+
+    <vn.shb.lao.screens.home.widget.FrameAvatarUser
+        android:id="@+id/flAvatarUser"
+        android:layout_width="@dimen/widthAvatarProfile"
+        android:layout_height="@dimen/widthAvatarProfile"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_20dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivImageUser"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="end|bottom"
+            app:srcCompat="@drawable/ic_avatar_default" />
+    </vn.shb.lao.screens.home.widget.FrameAvatarUser>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvNameUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_12dp"
+        android:fontFamily="@font/onest_medium"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:textAllCaps="true"
+        android:textColor="@color/neutral10"
+        android:textSize="@dimen/textSize18"
+        tools:text="PHASOUK BOUNMIXAY" />
+
+    <!-- Info list -->
+    <include
+        android:id="@+id/iclInfo1"
+        layout="@layout/item_profile_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16dp" />
+
+    <include
+        android:id="@+id/iclInfo2"
+        layout="@layout/item_profile_info" />
+
+    <include
+        android:id="@+id/iclInfo3"
+        layout="@layout/item_profile_info" />
+
+    <include
+        android:id="@+id/iclInfo4"
+        layout="@layout/item_profile_info" />
+
+    <include
+        android:id="@+id/iclInfo5"
+        layout="@layout/item_profile_info" />
+
+    <include
+        android:id="@+id/iclInfo6"
+        layout="@layout/item_profile_info" />
+
+    <TextView
+        android:id="@+id/btnLogin"
+        style="@style/MaterialDialog.ButtonActionMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_32dp"
+        android:text="@string/shb_action_logout"
+        app:layout_constraintTop_toBottomOf="@+id/tvForgotPassword" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -56,4 +56,12 @@
         <item>Tháng 11</item>
         <item>Tháng 12</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="myProfile">My Profile</string>
+    <string name="customerID">Customer ID</string>
+    <string name="customerName">Customer Name</string>
+    <string name="defaultCasaAccount">Default Casa Account</string>
+    <string name="email">Email</string>
+    <string name="shbOnline">SHB Online</string>
 </resources>
