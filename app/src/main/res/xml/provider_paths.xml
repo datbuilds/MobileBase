@@ -12,6 +12,9 @@
     <external-files-path
         name="external_files"
         path="." />
+    <external-files-path
+        name="images"
+        path="Pictures" />
     <cache-path
         name="cache"
         path="." />

@@ -117,4 +117,7 @@
     <color name="neutral1">#FFFFFF</color>
     <color name="neutral7">#8C8C8C</color>
     <color name="color_error_text_login">#FF4D4F</color>
+
+    //profile
+    <color name="colorLineGray">#F0F0F0</color>
 </resources>

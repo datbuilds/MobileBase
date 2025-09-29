@@ -16,6 +16,7 @@ data class UserInfo(
     @SerializedName("title") val title: String = "",
     @SerializedName("scope") val scope: String = "",
     @SerializedName("imageBase64") val imageBase64: String = "",
+    var pathAvatarUser : String = "",
 ) : Serializable {
 
     fun expireIn() = expires_in.toLong()

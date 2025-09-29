@@ -12,7 +12,6 @@ import androidx.annotation.DrawableRes
 import com.bumptech.glide.Glide
 import com.bumptech.glide.integration.webp.decoder.WebpFrameCacheStrategy
 import com.bumptech.glide.integration.webp.decoder.WebpFrameLoader
-import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
@@ -24,13 +23,12 @@ fun ImageView.loadAvatar(
     @DrawableRes error: Int = R.drawable.ic_avatar_default
 ) {
     try {
-        if (url.isNullOrEmpty())
-            this.setImageResource(error)
-        else
-            Glide.with(this).load(url)
-                .placeholder(placeholder)
-                .error(error)
-                .into(this)
+        if (url.isNullOrEmpty()) this.setImageResource(error)
+        else {
+            val requestOptions =
+                RequestOptions.circleCropTransform().placeholder(placeholder).error(error)
+            Glide.with(this).load(url).apply(requestOptions).into(this)
+        }
     } catch (ex: Exception) {
         ex.printStackTrace()
     }
@@ -45,18 +43,14 @@ fun ImageView.loadImage(
     try {
         val radiusPx = cornerRadiusDp.dp2px // convert dp to px
 
-        val requestOptions = RequestOptions()
-            .transform(FitCenter(), RoundedCorners(radiusPx))
-            .placeholder(placeholder)
-            .error(error)
+        val requestOptions =
+            RequestOptions().transform(RoundedCorners(radiusPx)).placeholder(placeholder)
+                .error(error)
 
         if (url.isNullOrEmpty()) {
             this.setImageResource(error)
         } else {
-            Glide.with(this)
-                .load(url)
-                .apply(requestOptions)
-                .into(this)
+            Glide.with(this).load(url).apply(requestOptions).into(this)
         }
     } catch (ex: Exception) {
         ex.printStackTrace()
@@ -70,14 +64,10 @@ fun ImageView.loadImageWebp(
     @DrawableRes error: Int = R.color.accent_10
 ) {
     try {
-        if (url.isNullOrEmpty())
-            this.setImageResource(error)
-        else
-            Glide.with(this).load(url)
-                .set(WebpFrameLoader.FRAME_CACHE_STRATEGY, WebpFrameCacheStrategy.AUTO)
-                .placeholder(placeholder)
-                .error(error)
-                .into(this)
+        if (url.isNullOrEmpty()) this.setImageResource(error)
+        else Glide.with(this).load(url)
+            .set(WebpFrameLoader.FRAME_CACHE_STRATEGY, WebpFrameCacheStrategy.AUTO)
+            .placeholder(placeholder).error(error).into(this)
     } catch (ex: Exception) {
         ex.printStackTrace()
     }
@@ -89,15 +79,10 @@ fun ImageView.loadImageOriginal(
     @DrawableRes error: Int = R.color.accent_10,
 ) {
     try {
-        if (url.isNullOrEmpty())
-            this.setImageResource(error)
+        if (url.isNullOrEmpty()) this.setImageResource(error)
         else {
-            Glide.with(this).load(url)
-                .placeholder(placeholder)
-                .error(error)
-                .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-                .dontTransform()
-                .into(this)
+            Glide.with(this).load(url).placeholder(placeholder).error(error)
+                .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).dontTransform().into(this)
         }
     } catch (ex: Exception) {
         ex.printStackTrace()
@@ -120,15 +105,10 @@ fun ImageView.loadAvatarText(
             colorText = colorText
         )
 
-        if (url.isEmpty())
-            this.setImageDrawable(placeholder)
+        if (url.isEmpty()) this.setImageDrawable(placeholder)
         else {
-            Glide.with(this).load(url)
-                .placeholder(placeholder)
-                .error(placeholder)
-                .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-                .dontTransform()
-                .into(this)
+            Glide.with(this).load(url).placeholder(placeholder).error(placeholder)
+                .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).dontTransform().into(this)
         }
     } catch (ex: Exception) {
         ex.printStackTrace()
@@ -144,11 +124,7 @@ fun ImageView.loadAvatarText(
  * Tạo avatar hình tròn kèm chữ viết tắt, có viền xám
  */
 fun createLetterAvatar(
-    context: Context,
-    fullName: String,
-    colorBg: String,
-    colorStoke: String,
-    colorText: String
+    context: Context, fullName: String, colorBg: String, colorStoke: String, colorText: String
 ): Drawable {
     val initials = getInitials(fullName)
     val size = 100        // px – có thể chuyển sang dp nếu cần
@@ -174,10 +150,7 @@ fun createLetterAvatar(
     }
     // Trừ strokeWidth/2 để viền không bị lấn ra ngoài bitmap
     canvas.drawCircle(
-        size / 2f,
-        size / 2f,
-        size / 2f - strokeWidth / 2f,
-        paintStroke
+        size / 2f, size / 2f, size / 2f - strokeWidth / 2f, paintStroke
     )
 
     /* --------- CHỮ (Initials) --------- */

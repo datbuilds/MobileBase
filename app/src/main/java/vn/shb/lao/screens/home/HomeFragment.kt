@@ -13,6 +13,7 @@ import vn.shb.lao.R
 import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentHomeBinding
 import vn.shb.lao.screens.home.helper.LoopingAdapter
+import vn.shb.lao.screens.home.widget.OnClickDetail
 import vn.shb.lao.utils.extensions.getTextWelcomeUser
 
 class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
@@ -125,16 +126,16 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
     }
 
     private fun mapUserInfo() {
-        UserConverters.stringToUserInfo(storage.getUserInfo())?.let { user ->
+        getCurrentUser()?.let { user ->
             binding.tvNameUser.text = user.username
-            binding.flAvatarUser.setUserName("", user.username.getInitials())
+            binding.flAvatarUser.setUserName(user.pathAvatarUser, user.username.getInitials())
         }
     }
 
     override fun initListener() {
         with(binding) {
             flAvatarUser.setListener(
-                object : vn.shb.lao.screens.home.widget.OnClickDetail {
+                object : OnClickDetail {
                     override fun onAvatarClick() {
                         safeNavigate(R.id.homeFragment, R.id.action_homeFragment_to_profileFragment)
                     }

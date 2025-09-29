@@ -8,6 +8,7 @@ import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.getInitials
 import vn.shb.lao.databinding.FlAvatarUserBinding
 import vn.shb.lao.utils.extensions.gone
+import vn.shb.lao.utils.extensions.loadAvatar
 import vn.shb.lao.utils.extensions.loadImage
 import vn.shb.lao.utils.extensions.visible
 
@@ -34,7 +35,7 @@ class FrameAvatarUser @JvmOverloads constructor(
     fun setUserName(urlAvatar : String = "", userName: String = "") {
         with(binding) {
             if (urlAvatar.isNotEmpty()){
-                ivImageUser.loadImage(urlAvatar)
+                ivImageUser.loadAvatar(urlAvatar)
                 ivImageUser.visible()
                 tvImageUser.gone()
             } else {

@@ -64,4 +64,7 @@
     <string name="defaultCasaAccount">Default Casa Account</string>
     <string name="email">Email</string>
     <string name="shbOnline">SHB Online</string>
+    <string name="chooseProfilePicture">Choose Profile Picture</string>
+    <string name="takeAPhoto">Take a photo</string>
+    <string name="seletePhotoFromGallery">Select from photo library</string>
 </resources>

@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -19,10 +17,8 @@ import org.koin.android.ext.android.inject
 import vn.shb.core.core.domain.usecases.login.StateLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseRefreshToken
-import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import vn.shb.core.core.security.encrypt.EncryptManager
 import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.data.entities.getInitials
 import vn.shb.data.entities.login.UserConverters
 import vn.shb.data.entities.login.UserInfo
 import vn.shb.lao.R
@@ -79,7 +75,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         }
 
         //init user login
-        UserConverters.stringToUserInfo(storage.getUserInfo())?.let { user ->
+        getCurrentUser()?.let { user ->
             prepareViewUserLogged(user)
         } ?: resetInputLogin()
 
@@ -152,7 +148,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                     tvErrorPassword.gone()
                     inputPasswordLayout.setErrorAndBackgroundDefault()
 //                    login()
-                    UserInfo(username = "lingard Mancheter United", token_type = "34242323").toUserString().let { storage.setUserInfo(it) }
+//                    getCurrentUser()?.let { storage.setUserInfo(it) }
                     onLoginSuccess(StateLogin.OpenDashboard) //todo test dashboard
                 }
             }
@@ -225,7 +221,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         binding.apply {
             llInfoUser.visible()
             groupViewNoLastUser.gone()
-            flAvatarUser.setUserName("", currentUserName)
+            flAvatarUser.setUserName(currentUser?.pathAvatarUser ?: "", currentUserName)
             setGreeting(binding.tvHelloUser)
             inputPasswordLayout.clearEditTextColorFilter()
         }

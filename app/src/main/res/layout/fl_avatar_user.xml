@@ -5,6 +5,8 @@
     android:id="@+id/flAvatar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:layout_width="@dimen/widthImageDialog"
+    tools:layout_height="@dimen/widthImageDialog"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 

@@ -36,7 +36,7 @@
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_gravity="end|bottom"
-            app:srcCompat="@drawable/ic_avatar_default" />
+            app:srcCompat="@drawable/ic_camera" />
     </vn.shb.lao.screens.home.widget.FrameAvatarUser>
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -81,7 +81,7 @@
         layout="@layout/item_profile_info" />
 
     <TextView
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnLogout"
         style="@style/MaterialDialog.ButtonActionMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

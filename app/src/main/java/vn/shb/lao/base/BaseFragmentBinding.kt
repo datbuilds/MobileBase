@@ -23,6 +23,7 @@ import androidx.viewbinding.ViewBinding
 import com.google.android.material.transition.platform.MaterialFadeThrough
 import org.koin.android.ext.android.inject
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
+import vn.shb.data.entities.login.UserConverters
 import vn.shb.lao.R
 import vn.shb.lao.activity.login.LoginActivity
 import vn.shb.lao.utils.extensions.CustomToastShowOnTop
@@ -148,6 +149,8 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
             ex.printStackTrace()
         }
     }
+
+    fun getCurrentUser() = UserConverters.stringToUserInfo(storage.getUserInfo())
 
     open fun setNavigationBarColor(color: Int) {
         requireActivity().window.navigationBarColor = color
