@@ -3,6 +3,7 @@ package vn.shb.lao.screens.home
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseViewModel
+import vn.shb.lao.screens.home.model.AccountItem
 
 class HomeViewModel(
     private val storage: AndroidSecureStorage
@@ -20,5 +21,52 @@ class HomeViewModel(
             R.drawable.banner_3
         )
     }
+
+    //mock data
+    fun getListAccount() = listOf(
+        AccountItem(
+            accountNumber = "1234567890123",
+            accountType = "Savings",
+            currency = "LAK",
+            balance = "15000000",
+            isSelected = true
+        ),
+        AccountItem(
+            accountNumber = "9876543210987",
+            accountType = "Checking",
+            currency = "USD",
+            balance = "2500"
+        ),
+        AccountItem(
+            accountNumber = "4567891234567",
+            accountType = "Savings",
+            currency = "EUR",
+            balance = "3000"
+        ),
+        AccountItem(
+            accountNumber = "3216549873216",
+            accountType = "Checking",
+            currency = "JPY",
+            balance = "500000"
+        ),
+        AccountItem(
+            accountNumber = "7891234567891",
+            accountType = "Savings",
+            currency = "GBP",
+            balance = "2000"
+        ),
+        AccountItem(
+            accountNumber = "6549873216549",
+            accountType = "Checking",
+            currency = "AUD",
+            balance = "3500"
+        ),
+        AccountItem(
+            accountNumber = "1597534862587",
+            accountType = "Savings",
+            currency = "CAD",
+            balance = "4000"
+        )
+    )
 
 }

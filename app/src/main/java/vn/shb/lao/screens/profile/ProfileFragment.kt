@@ -66,7 +66,7 @@ class ProfileFragment :
     override fun initListener() {
         with(binding) {
             tvMyProfile.setOnSingleClickListener {
-
+                safeNavigate(R.id.profileFragment, R.id.homeFragment)
             }
             btnLogout.setOnSingleClickListener {
 //                storage.clearUserInfo()

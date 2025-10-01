@@ -67,4 +67,6 @@
     <string name="chooseProfilePicture">Choose Profile Picture</string>
     <string name="takeAPhoto">Take a photo</string>
     <string name="seletePhotoFromGallery">Select from photo library</string>
+    <string name="selectAccount">Select Account</string>
+    <string name="account_info_format">%s - %s - %s</string>
 </resources>

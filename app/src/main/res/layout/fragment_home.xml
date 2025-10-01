@@ -83,6 +83,7 @@
             android:drawableTint="@color/neutral1"
             android:gravity="center"
             android:includeFontPadding="false"
+            android:paddingVertical="@dimen/margin_4dp"
             android:textColor="@color/neutral1"
             android:textSize="@dimen/textSize14"
             app:fontFamily="@font/onest_regular"
@@ -92,7 +93,7 @@
             android:id="@+id/tvNumberAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/margin_8dp"
+            android:layout_marginVertical="@dimen/margin_6dp"
             android:gravity="center"
             android:includeFontPadding="false"
             android:textColor="@color/neutral1"
@@ -100,19 +101,33 @@
             app:fontFamily="@font/onest_medium"
             tools:text="0393870399" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvValueAccount"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llValueBalance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_eye_white"
-            android:drawablePadding="@dimen/margin_4dp"
-            android:drawableTint="@color/neutral1"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:textColor="@color/neutral1"
-            android:textSize="@dimen/textSize14"
-            app:fontFamily="@font/onest_regular"
-            tools:text="@string/shb_action_logout" />
+            android:gravity="center">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivEyeSeeValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="@dimen/margin_4dp"
+                app:srcCompat="@drawable/ic_eye_white" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvValueBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_4dp"
+                android:drawableTint="@color/neutral1"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:textColor="@color/neutral1"
+                android:textSize="@dimen/textSize14"
+                app:fontFamily="@font/onest_regular"
+                tools:text="@string/shb_action_logout" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -151,8 +166,8 @@
         android:layout_marginTop="@dimen/margin_24dp"
         android:clipChildren="false"
         android:clipToPadding="false"
-        app:layout_constraintHeight_percent="0.2"
         android:overScrollMode="never"
+        app:layout_constraintHeight_percent="0.2"
         app:layout_constraintTop_toBottomOf="@+id/llFeatureHome" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

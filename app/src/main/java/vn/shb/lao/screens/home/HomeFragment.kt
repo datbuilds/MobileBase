@@ -8,11 +8,11 @@ import androidx.viewpager2.widget.ViewPager2
 import org.koin.android.ext.android.inject
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.getInitials
-import vn.shb.data.entities.login.UserConverters
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentHomeBinding
 import vn.shb.lao.screens.home.helper.LoopingAdapter
+import vn.shb.lao.screens.home.model.AccountItem
 import vn.shb.lao.screens.home.widget.OnClickDetail
 import vn.shb.lao.utils.extensions.getTextWelcomeUser
 
@@ -24,6 +24,12 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
     private val handler = Handler(Looper.getMainLooper())
     private lateinit var autoRunnable: Runnable
     private lateinit var pageCallback: ViewPager2.OnPageChangeCallback
+
+    private var isShowValueBalance = false
+    private var textGoneValue = "********"
+
+    private var listAccount = listOf<AccountItem>()
+    private var selectedAccount: AccountItem? = null
 
     companion object {
         const val AUTO_SCROLL_BANNER_DELAY = 2000L
@@ -122,7 +128,21 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
             }
         }
 
+        //fake data list account
+        listAccount = homeViewModel.getListAccount()
+        selectedAccount = listAccount.firstOrNull { it.isSelected } ?: listAccount.firstOrNull()
+        selectedAccount?.let { account ->
+            bindViewAccount(account)
+        }
 
+    }
+
+    private fun bindViewAccount(account: AccountItem) {
+        binding.tvCurrentAccount.text =
+            account.accountType.plus(" - ").plus(account.accountType)
+        binding.tvNumberAccount.text = account.accountNumber
+        binding.tvValueBalance.text =
+            (if (isShowValueBalance) account.balance else textGoneValue).plus(account.currency)
     }
 
     private fun mapUserInfo() {
@@ -146,6 +166,21 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
             }
             incItemAccounts.root.setOnSingleClickListener {
 
+            }
+
+            tvCurrentAccount.setOnSingleClickListener {
+                DialogSelectAccount.Build(homeViewModel.getListAccount()) { ac ->
+                    bindViewAccount(ac)
+                }.build().show(childFragmentManager, DialogSelectAccount.TAG)
+            }
+
+            ivEyeSeeValue.setOnSingleClickListener {
+                isShowValueBalance = !isShowValueBalance
+//                ivEyeSeeValue.setImageResource(
+//                    if (isShowValueBalance) R.drawable.ic_eye_open else R.drawable.ic_eye_close
+//                )
+                tvValueBalance.text =
+                    (if (isShowValueBalance) "1,000,000.00" else textGoneValue).plus(" LAK")
             }
         }
     }

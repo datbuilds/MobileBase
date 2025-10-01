@@ -29,54 +29,29 @@
             app:srcCompat="@drawable/ic_close" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvChooseProfilePicture"
+            android:id="@+id/tvSelectAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/onest_medium"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:text="@string/chooseProfilePicture"
+            android:text="@string/selectAccount"
             android:textColor="@color/neutral10"
             android:textSize="@dimen/textSize20"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivClose" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvTakePhoto"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layout_constraintHeight_max="350dp"
             android:layout_marginTop="@dimen/margin_12dp"
-            android:drawableEnd="@drawable/ic_arrow_right"
-            android:fontFamily="@font/onest_medium"
-            android:gravity="start"
-            android:includeFontPadding="false"
-            android:paddingVertical="@dimen/margin_12dp"
-            android:text="@string/takeAPhoto"
-            android:textColor="@color/neutral10"
-            android:textSize="@dimen/textSize16"
-            app:layout_constraintTop_toBottomOf="@+id/tvChooseProfilePicture" />
-
-        <View
-            android:id="@+id/vLineGray"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_1dp"
-            android:background="@color/colorLineGray"
-            app:layout_constraintTop_toBottomOf="@+id/tvTakePhoto" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvSelectFromGallery"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_12dp"
-            android:drawableEnd="@drawable/ic_arrow_right"
-            android:fontFamily="@font/onest_medium"
-            android:gravity="start"
-            android:includeFontPadding="false"
-            android:paddingVertical="@dimen/margin_12dp"
-            android:text="@string/seletePhotoFromGallery"
-            android:textColor="@color/neutral10"
-            android:textSize="@dimen/textSize16"
-            app:layout_constraintTop_toBottomOf="@+id/vLineGray" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSelectAccount"
+            tools:itemCount="7"
+            tools:listitem="@layout/item_account_select" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.AppCompatImageView

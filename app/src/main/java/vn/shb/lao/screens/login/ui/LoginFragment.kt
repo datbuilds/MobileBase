@@ -160,7 +160,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         val userName = currentUser?.let { it.userLog.ifEmpty { it.username } }
             ?: binding.edtInputUsername.text?.trim().toString()
         val (_, encPsw) = getPassword()
-        postLogin(userName, encPsw)
+        postLogin("0101028541", encPsw)
     }
 
     private fun postLogin(us: String, psW: String) {
