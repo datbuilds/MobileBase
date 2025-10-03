@@ -45,6 +45,27 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left" />
+
+        <action
+            android:id="@+id/action_to_transaction_history"
+            app:destination="@id/transactionHistory"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/transactionHistory"
+        android:name="vn.shb.lao.screens.TransactionHistoryFragment"
+        android:label="@string/transactionHistory">
+        <action
+            android:id="@+id/backToAccountDetails"
+            app:destination="@id/accountDetailFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
 
 </navigation>

@@ -72,7 +72,16 @@ class HomeViewModel(
         )
     )
 
-    public fun getListTransaction(): List<TransactionItem> {
+    fun getFirstFiveTransactions(list: List<TransactionItem> = getListTransaction()): List<TransactionItem> {
+        var count = 0
+        return list.takeWhile { item ->
+            val oldCount = count
+            if (item is TransactionItem.Transaction) count++
+            oldCount < 5
+        }
+    }
+
+    fun getListTransaction(): List<TransactionItem> {
         //mock data
         return listOf(
             TransactionItem.Header
