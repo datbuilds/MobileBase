@@ -17,12 +17,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_select_account_v" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvInfoAccount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:fontFamily="@font/onest_regular"
+        app:customFontWeight="regular"
         android:singleLine="true"
         android:textColor="@color/neutral10"
         android:textSize="@dimen/textSize14"
@@ -31,13 +31,13 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="1001747332 - Current Account - LAK" />
 
-    <TextView
+   <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvValueBalance"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_10dp"
         android:ellipsize="end"
-        android:fontFamily="@font/onest_medium"
+        app:customFontWeight="medium"
         android:singleLine="true"
         android:textColor="@color/neutral10"
         android:textSize="@dimen/textSize20"

@@ -34,20 +34,20 @@
             app:layout_constraintStart_toEndOf="@id/ivAvatar"
             app:layout_constraintTop_toTopOf="@id/ivAvatar">
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <vn.shb.lao.base.view.MyTextView
                 android:id="@+id/tvWelcome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/medium"
+                app:customFontWeight="medium"
                 android:textColor="@color/white"
                 android:textSize="@dimen/textSize14"
                 tools:text="Good morning," />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <vn.shb.lao.base.view.MyTextView
                 android:id="@+id/tvUserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/bold"
+                app:customFontWeight="bold"
                 android:textAllCaps="false"
                 android:layout_marginTop="@dimen/margin_2dp"
                 android:textColor="@color/white"
@@ -67,7 +67,7 @@
         app:layout_constraintStart_toStartOf="@id/viewAvatarLogged"
         app:layout_constraintTop_toTopOf="@id/viewAvatarLogged">
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <vn.shb.lao.base.view.MyTextView
             android:id="@+id/text_login_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

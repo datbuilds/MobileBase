@@ -7,11 +7,11 @@
     android:paddingHorizontal="@dimen/margin_16dp"
     android:orientation="vertical">
 
-    <TextView
+   <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvOrangeMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/onest_regular"
+        app:customFontWeight="regular"
         android:gravity="center"
         android:text="@string/pleaseBringYourIdentity"
         android:textColor="@color/colorSubTextOrange"

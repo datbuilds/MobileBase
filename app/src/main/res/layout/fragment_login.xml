@@ -68,48 +68,49 @@
             android:layout_width="@dimen/margin_42dp"
             android:layout_height="@dimen/margin_42dp"/>
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvHelloUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="@dimen/margin_8dp"
-            android:fontFamily="@font/onest_regular"
+            app:customFontWeight="regular"
             android:textColor="@color/colorNameUser"
             android:textSize="@dimen/textSize16"
             tools:text="@string/enterYourUserName" />
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvInternetBanking"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_24dp"
-        android:fontFamily="@font/onest_medium"
+        app:customFontWeight="medium"
         android:gravity="center"
         android:text="@string/personalInternetBanking"
         android:textColor="@color/black"
         android:textSize="@dimen/textSize24"
         app:layout_constraintTop_toBottomOf="@+id/llInfoUser" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvEnterYourDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_8dp"
-        android:fontFamily="@font/onest_regular"
+        app:customFontWeight="regular"
         android:gravity="center"
         android:text="@string/enterYourDetail"
         android:textColor="@color/colorSubText"
         android:textSize="@dimen/textSize16"
         app:layout_constraintTop_toBottomOf="@+id/tvInternetBanking" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_24dp"
-        android:fontFamily="@font/onest_medium"
+        app:customFontWeight="medium"
         android:text="@string/userName"
         android:textColor="@color/colorSubText"
         android:textSize="@dimen/textSize14"
@@ -135,12 +136,12 @@
             android:maxLength="10" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvErrorUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_8dp"
-        android:fontFamily="@font/onest_medium"
+        app:customFontWeight="medium"
         android:text="@string/pleaseEnterYourUserName"
         android:textColor="@color/color_error_text_login"
         android:textSize="@dimen/textSize12"
@@ -148,12 +149,12 @@
         app:layout_constraintTop_toBottomOf="@+id/inputUserNameLayout"
         tools:visibility="visible" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_24dp"
-        android:fontFamily="@font/onest_medium"
+        app:customFontWeight="medium"
         android:text="@string/shb_password"
         android:textColor="@color/colorSubText"
         android:textSize="@dimen/textSize14"
@@ -185,12 +186,12 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvErrorPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_8dp"
-        android:fontFamily="@font/onest_medium"
+        app:customFontWeight="medium"
         android:text="@string/pleaseEnterYourPassword"
         android:textColor="@color/color_error_text_login"
         android:textSize="@dimen/textSize12"
@@ -198,13 +199,13 @@
         app:layout_constraintTop_toBottomOf="@+id/inputPasswordLayout"
         tools:visibility="visible" />
 
-    <TextView
+    <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvForgotPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_12dp"
         android:layout_marginEnd="@dimen/margin_10dp"
-        android:fontFamily="@font/onest_regular"
+        app:customFontWeight="regular"
         android:gravity="start"
         android:text="@string/forgotPasswordLabel"
         android:textAllCaps="false"
@@ -213,7 +214,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvErrorPassword" />
 
-    <TextView
+    <vn.shb.lao.base.view.MyTextView
         android:id="@+id/btnLogin"
         style="@style/MaterialDialog.ButtonActionMain"
         android:layout_width="match_parent"
@@ -222,14 +223,14 @@
         android:text="@string/loginLabel"
         app:layout_constraintTop_toBottomOf="@+id/tvForgotPassword" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvHotline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_20dp"
         android:drawableStart="@drawable/ic_hotline"
         android:drawablePadding="@dimen/margin_8dp"
-        android:fontFamily="@font/onest_medium"
+        app:customFontWeight="medium"
         android:gravity="center"
         android:textColor="@color/color_hotline"
         android:textSize="@dimen/textSize14"

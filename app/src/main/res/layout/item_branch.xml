@@ -16,12 +16,12 @@
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_address" />
 
-        <TextView
+        <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvBranchName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_8dp"
-            android:fontFamily="@font/onest_semi_bold"
+            app:customFontWeight="semi_bold"
             android:gravity="top"
             android:textColor="@color/neutral10"
             android:textSize="@dimen/textSize14"
@@ -31,32 +31,32 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/margin_6dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_6dp">
 
-        <TextView
+        <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvBranchAddress"
             android:layout_width="@dimen/margin_36dp"
             android:layout_height="wrap_content"
             android:text="@string/add"
             android:textColor="@color/neutral10" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvAddressDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/onest_medium"
             android:textColor="@color/color_hotline"
             android:textSize="@dimen/textSize14"
+            app:customFontWeight="medium"
             tools:text=" 123 ABC Street, XYZ Ward, HCM City 1123 ABC Street, XYZ Ward, HCM City123 ABC Street, XYZ Ward, HCM City23 ABC Street, XYZ Ward, HCM City" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/margin_6dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_6dp">
 
-        <TextView
+        <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvBranchTel"
             android:layout_width="@dimen/margin_36dp"
             android:layout_height="wrap_content"
@@ -64,13 +64,13 @@
             android:text="@string/telLabel"
             android:textColor="@color/neutral10" />
 
-        <TextView
+        <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvHotlineDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/onest_medium"
             android:textColor="@color/color_hotline"
             android:textSize="@dimen/textSize14"
+            app:customFontWeight="medium"
             tools:text=" 123 ABC Street, XYZ Ward, HCM City" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </LinearLayout>

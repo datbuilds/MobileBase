@@ -22,17 +22,17 @@
         android:layout_gravity="center_horizontal"
         app:srcCompat="@drawable/ic_coming_soon" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <vn.shb.lao.base.view.MyTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/margin_16dp"
-        android:fontFamily="@font/medium"
+        app:customFontWeight="medium"
         android:text="@string/title_noti"
         android:textColor="@color/colorDarkCharcoal"
         android:textSize="@dimen/textSize16" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <vn.shb.lao.base.view.MyTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

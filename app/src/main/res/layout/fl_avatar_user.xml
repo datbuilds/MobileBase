@@ -10,12 +10,12 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvImageUser"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_image_user"
-        android:fontFamily="@font/onest_regular"
+        app:customFontWeight="regular"
         android:includeFontPadding="false"
         android:paddingHorizontal="@dimen/margin_10dp"
         android:gravity="center"

@@ -9,12 +9,12 @@
     android:paddingHorizontal="20dp"
     android:paddingTop="16dp">
 
-    <TextView
+   <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvAccountDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawablePadding="@dimen/margin_20dp"
-        android:fontFamily="@font/onest_medium"
+        app:customFontWeight="medium"
         android:gravity="center"
         android:includeFontPadding="false"
         android:paddingVertical="@dimen/margin_8dp"
@@ -33,11 +33,11 @@
         android:paddingHorizontal="@dimen/margin_16dp"
         android:paddingVertical="@dimen/margin_20dp">
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvCurrentBalance"
             android:layout_width="@dimen/margin_0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/onest_medium"
+            app:customFontWeight="medium"
             android:includeFontPadding="false"
             android:text="@string/currentBalance"
             android:textColor="@color/neutral8"
@@ -56,12 +56,12 @@
             app:layout_constraintTop_toTopOf="@+id/tvCurrentBalance"
             app:srcCompat="@drawable/ic_arrow_down" />
 
-        <TextView
+       <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvValueBalance"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_2dp"
-            android:fontFamily="@font/regular"
+            app:customFontWeight="regular"
             android:textColor="@color/neutral8"
             android:textSize="@dimen/textSize14"
             app:layout_constraintEnd_toStartOf="@+id/ivExpandDown"
@@ -78,23 +78,23 @@
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@+id/tvValueBalance">
 
-            <TextView
+           <vn.shb.lao.base.view.MyTextView
                 android:id="@+id/tvAccountNumber"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:fontFamily="@font/onest_medium"
+                app:customFontWeight="medium"
                 android:includeFontPadding="false"
                 android:text="@string/accountNumber"
                 android:textColor="@color/neutral8"
                 android:textSize="@dimen/textSize14" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <vn.shb.lao.base.view.MyTextView
                 android:id="@+id/tvNumberAccount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:fontFamily="@font/onest_medium"
+                app:customFontWeight="medium"
                 android:gravity="end"
                 android:textColor="@color/neutral10"
                 android:textSize="@dimen/textSize14"
@@ -110,23 +110,23 @@
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@+id/llAccountNumber">
 
-            <TextView
+           <vn.shb.lao.base.view.MyTextView
                 android:id="@+id/tvBranch"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:fontFamily="@font/onest_medium"
+                app:customFontWeight="medium"
                 android:includeFontPadding="false"
                 android:text="@string/branch"
                 android:textColor="@color/neutral8"
                 android:textSize="@dimen/textSize14" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <vn.shb.lao.base.view.MyTextView
                 android:id="@+id/tvNameBranch"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:fontFamily="@font/onest_medium"
+                app:customFontWeight="medium"
                 android:gravity="end"
                 android:textColor="@color/neutral10"
                 android:textSize="@dimen/textSize14"
@@ -141,13 +141,13 @@
         android:layout_marginTop="@dimen/margin_16dp"
         android:background="@drawable/bg_child_view_account_details">
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <vn.shb.lao.base.view.MyTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:drawableTop="@drawable/ic_transfer"
             android:drawablePadding="@dimen/margin_8dp"
-            android:fontFamily="@font/onest_medium"
+            app:customFontWeight="medium"
             android:padding="@dimen/margin_16dp"
             android:text="@string/transfer"
             android:textColor="@color/neutral10"
@@ -171,23 +171,23 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <TextView
+           <vn.shb.lao.base.view.MyTextView
                 android:id="@+id/tvTransactionHistory"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:fontFamily="@font/onest_medium"
+                app:customFontWeight="medium"
                 android:includeFontPadding="false"
                 android:text="@string/branch"
                 android:textColor="@color/neutral10"
                 android:textSize="@dimen/textSize16" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <vn.shb.lao.base.view.MyTextView
                 android:id="@+id/tvViewAll"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:fontFamily="@font/onest_medium"
+                app:customFontWeight="medium"
                 android:gravity="end"
                 android:paddingVertical="@dimen/margin_8dp"
                 android:text="@string/viewAll"

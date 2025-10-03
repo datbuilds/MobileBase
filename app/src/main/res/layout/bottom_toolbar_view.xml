@@ -17,12 +17,12 @@
         android:visibility="invisible"
         app:tint="@color/white" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:fontFamily="@font/bold"
+        app:customFontWeight="bold"
         android:gravity="center_horizontal"
         android:textColor="@color/white"
         android:textSize="@dimen/textSize16" />

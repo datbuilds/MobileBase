@@ -9,12 +9,12 @@
     android:paddingHorizontal="20dp"
     android:paddingTop="16dp">
 
-    <TextView
+   <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvMyProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawablePadding="@dimen/margin_20dp"
-        android:fontFamily="@font/onest_medium"
+        app:customFontWeight="medium"
         android:gravity="center"
         android:includeFontPadding="false"
         android:paddingHorizontal="@dimen/margin_4dp"
@@ -39,12 +39,12 @@
             app:srcCompat="@drawable/ic_camera" />
     </vn.shb.lao.screens.home.widget.FrameAvatarUser>
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvNameUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_12dp"
-        android:fontFamily="@font/onest_medium"
+        app:customFontWeight="medium"
         android:gravity="center"
         android:includeFontPadding="false"
         android:textAllCaps="true"
@@ -80,7 +80,7 @@
         android:id="@+id/iclInfo6"
         layout="@layout/item_profile_info" />
 
-    <TextView
+   <vn.shb.lao.base.view.MyTextView
         android:id="@+id/btnLogout"
         style="@style/MaterialDialog.ButtonActionMain"
         android:layout_width="match_parent"

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:background="@drawable/bg_item_in_home"
     android:paddingVertical="@dimen/margin_12dp"
@@ -14,11 +15,11 @@
         android:layout_height="wrap_content"
         tools:src="@drawable/ic_transfer" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvTitleFeature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/onest_regular"
+        app:customFontWeight="regular"
         android:textColor="@color/neutral10"
         android:textSize="@dimen/textSize12"
         tools:text="Feature Title" />

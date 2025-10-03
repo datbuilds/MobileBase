@@ -26,30 +26,29 @@
         app:layout_constraintStart_toEndOf="@+id/flAvatarUser"
         app:layout_constraintTop_toTopOf="@+id/flAvatarUser">
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvNameUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:fontFamily="@font/onest_regular"
             android:includeFontPadding="false"
             android:lines="1"
             android:textAllCaps="true"
             android:textColor="@color/neutral10"
             android:textSize="@dimen/textSize14"
-            app:fontFamily="@font/onest_bold"
+            app:customFontWeight="bold"
             tools:text="@string/enterYourUserName" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvHelloUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:fontFamily="@font/onest_regular"
             android:includeFontPadding="false"
             android:lines="1"
             android:textColor="@color/neutral7"
             android:textSize="@dimen/textSize14"
+            app:customFontWeight="regular"
             tools:text="@string/enterYourUserName" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -74,7 +73,7 @@
         app:layout_constraintStart_toStartOf="@+id/ivBackgroundAccountDetail"
         app:layout_constraintTop_toTopOf="@+id/ivBackgroundAccountDetail">
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvCurrentAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,10 +85,10 @@
             android:paddingVertical="@dimen/margin_4dp"
             android:textColor="@color/neutral1"
             android:textSize="@dimen/textSize14"
-            app:fontFamily="@font/onest_regular"
+            app:customFontWeight="regular"
             tools:text="@string/shb_action_logout" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvNumberAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -98,7 +97,7 @@
             android:includeFontPadding="false"
             android:textColor="@color/neutral1"
             android:textSize="@dimen/textSize20"
-            app:fontFamily="@font/onest_medium"
+            app:customFontWeight="medium"
             tools:text="0393870399" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -114,7 +113,7 @@
                 android:paddingVertical="@dimen/margin_4dp"
                 app:srcCompat="@drawable/ic_eye_white" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <vn.shb.lao.base.view.MyTextView
                 android:id="@+id/tvValueBalance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -124,7 +123,7 @@
                 android:includeFontPadding="false"
                 android:textColor="@color/neutral1"
                 android:textSize="@dimen/textSize14"
-                app:fontFamily="@font/onest_regular"
+                app:customFontWeight="regular"
                 tools:text="@string/shb_action_logout" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:padding="12dp">
@@ -22,23 +23,23 @@
         android:layout_weight="3"
         android:orientation="vertical">
 
-        <TextView
+       <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:fontFamily="@font/onest_regular"
+            app:customFontWeight="regular"
             android:maxLines="1"
             android:textColor="@color/neutral8"
             android:textSize="12sp"
             tools:text="@string/shb_action_logout" />
 
-        <TextView
+       <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvSubInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:fontFamily="@font/onest_regular"
+            app:customFontWeight="regular"
             android:maxLines="1"
             android:textColor="@color/neutral8"
             android:textSize="12sp"
@@ -46,12 +47,12 @@
     </LinearLayout>
 
     <!-- Số tiền -->
-    <TextView
+   <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvAmount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="3"
-        android:fontFamily="@font/onest_medium"
+        app:customFontWeight="medium"
         android:gravity="end"
         android:textColor="@color/neutral7"
         android:textSize="@dimen/textSize12"

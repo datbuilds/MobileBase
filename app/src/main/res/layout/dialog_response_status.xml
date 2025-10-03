@@ -24,18 +24,18 @@
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/ic_warning" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/margin_12dp"
-        android:fontFamily="@font/medium"
+        app:customFontWeight="medium"
         android:text="Đăng nhập không thành công"
         android:textColor="@color/colorDarkCharcoal"
         android:textSize="@dimen/textSize16" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvContentError"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

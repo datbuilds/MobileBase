@@ -2,29 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingVertical="10dp">
 
-    <TextView
+   <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvLabel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="3"
-        android:fontFamily="@font/onest_medium"
+        app:customFontWeight="medium"
         android:includeFontPadding="false"
         android:textColor="@color/neutral7"
         android:textSize="@dimen/textSize12"
         tools:text="Default Casa Account" />
 
-    <TextView
+   <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvValue"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="5"
         android:ellipsize="end"
-        android:fontFamily="@font/onest_medium"
+        app:customFontWeight="medium"
         android:gravity="end"
         android:includeFontPadding="false"
         android:singleLine="true"

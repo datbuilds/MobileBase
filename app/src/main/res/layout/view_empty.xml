@@ -2,6 +2,7 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/containerEmpty"
     android:gravity="center"
     android:minHeight="@dimen/margin_210dp"
@@ -13,12 +14,12 @@
         android:src="@drawable/ic_info_filled"
         android:tint="@color/gray_600" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvEmpty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_8dp"
-        android:fontFamily="@font/regular"
+        app:customFontWeight="regular"
         android:text="Không tìm thấy dữ liệu"
         android:textColor="@color/gray_600"
         android:textSize="@dimen/textSize16" />
