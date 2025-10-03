@@ -3,11 +3,14 @@ package vn.shb.lao.screens.home
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseViewModel
+import vn.shb.lao.screens.account.model.TransactionItem
 import vn.shb.lao.screens.home.model.AccountItem
 
 class HomeViewModel(
     private val storage: AndroidSecureStorage
 ) : BaseViewModel() {
+
+    var selectedAccount: AccountItem? = null
     fun getListBanner(): List<Int> {
         return listOf(
             R.drawable.banner_1,
@@ -68,5 +71,77 @@ class HomeViewModel(
             balance = "4000"
         )
     )
+
+    public fun getListTransaction(): List<TransactionItem> {
+        //mock data
+        return listOf(
+            TransactionItem.Header
+                (
+                title = "June 2023"
+            ),
+            TransactionItem.Transaction(
+                name = "Salary",
+                subInfo = "Company XYZ",
+                amount = 5000,
+                currency = "USD",
+                isIncome = true
+            ),
+            TransactionItem.Transaction(
+                name = "Grocery Shopping",
+                subInfo = "Supermarket ABC",
+                amount = 150,
+                currency = "USD",
+                isIncome = false
+            ),
+            TransactionItem.Header(
+                title = "August 2023"
+            ),
+            TransactionItem.Transaction(
+                name = "Freelance Project",
+                subInfo = "Client DEF",
+                amount = 1200,
+                currency = "USD",
+                isIncome = true
+            ),
+            TransactionItem.Transaction(
+                name = "Electricity Bill",
+                subInfo = "Utility Company",
+                amount = 100,
+                currency = "USD",
+                isIncome = false
+            ),
+            TransactionItem.Transaction(
+                name = "Dining Out",
+                subInfo = "Restaurant GHI",
+                amount = 75,
+                currency = "USD",
+                isIncome = false
+            ),
+            TransactionItem.Header(
+                title = "July 2023"
+            ),
+            TransactionItem.Transaction(
+                name = "Stock Dividends",
+                subInfo = "Investment JKL",
+                amount = 300,
+                currency = "USD",
+                isIncome = true
+            ),
+            TransactionItem.Transaction(
+                name = "Car Maintenance",
+                subInfo = "Auto Shop MNO",
+                amount = 250,
+                currency = "USD",
+                isIncome = false
+            ),
+            TransactionItem.Transaction(
+                name = "Bonus",
+                subInfo = "Company XYZ",
+                amount = 800,
+                currency = "USD",
+                isIncome = true
+            )
+        )
+    }
 
 }

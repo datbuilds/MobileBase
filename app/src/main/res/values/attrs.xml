@@ -300,4 +300,12 @@
         <attr name="internalOffsetRight" format="dimension" />
 
     </declare-styleable>
+
+    <declare-styleable name="MyTextView">
+        <attr name="fontWeight" format="enum">
+            <enum name="regular" value="0"/>
+            <enum name="medium" value="1"/>
+            <enum name="bold" value="2"/>
+        </attr>
+    </declare-styleable>
 </resources>

@@ -69,4 +69,9 @@
     <string name="seletePhotoFromGallery">Select from photo library</string>
     <string name="selectAccount">Select Account</string>
     <string name="account_info_format">%s - %s - %s</string>
+    <string name="accountDetails">Account details</string>
+    <string name="currentBalance">Current balance</string>
+    <string name="accountNumber">Account number</string>
+    <string name="branch">Branch</string>
+    <string name="viewAll">View All</string>
 </resources>

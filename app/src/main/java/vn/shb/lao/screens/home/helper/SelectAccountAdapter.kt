@@ -15,6 +15,8 @@ import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.lao.R
 import vn.shb.lao.databinding.ItemAccountSelectBinding
 import vn.shb.lao.screens.home.model.AccountItem
+import vn.shb.lao.utils.extensions.gone
+import vn.shb.lao.utils.extensions.visible
 
 class SelectAccountAdapter(
     private val items: List<AccountItem>,
@@ -46,8 +48,10 @@ class SelectAccountAdapter(
             )
             if (accountItem.isSelected){
                 root.setBackgroundResource(R.drawable.bg_selected_account)
+                ivSelectAccount.visible()
             } else {
                 root.setBackgroundColor(Color.TRANSPARENT)
+                ivSelectAccount.gone()
             }
             root.setOnSingleClickListener {
                 items.forEach {

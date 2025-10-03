@@ -5,7 +5,7 @@ import android.os.Looper
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.getInitials
 import vn.shb.lao.R
@@ -18,7 +18,7 @@ import vn.shb.lao.utils.extensions.getTextWelcomeUser
 
 class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
-    private val homeViewModel: HomeViewModel by inject()
+    private val homeViewModel: HomeViewModel by sharedViewModel()
 
     private lateinit var adapter: LoopingAdapter
     private val handler = Handler(Looper.getMainLooper())
@@ -29,7 +29,6 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
     private var textGoneValue = "********"
 
     private var listAccount = listOf<AccountItem>()
-    private var selectedAccount: AccountItem? = null
 
     companion object {
         const val AUTO_SCROLL_BANNER_DELAY = 2000L
@@ -130,8 +129,8 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
 
         //fake data list account
         listAccount = homeViewModel.getListAccount()
-        selectedAccount = listAccount.firstOrNull { it.isSelected } ?: listAccount.firstOrNull()
-        selectedAccount?.let { account ->
+        homeViewModel.selectedAccount = listAccount.firstOrNull { it.isSelected } ?: listAccount.firstOrNull()
+        homeViewModel.selectedAccount?.let { account ->
             bindViewAccount(account)
         }
 
@@ -142,7 +141,8 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
             account.accountType.plus(" - ").plus(account.accountType)
         binding.tvNumberAccount.text = account.accountNumber
         binding.tvValueBalance.text =
-            (if (isShowValueBalance) account.balance else textGoneValue).plus(account.currency)
+            (if (isShowValueBalance) account.balance else textGoneValue).plus(" ")
+                .plus(account.currency)
     }
 
     private fun mapUserInfo() {
@@ -165,7 +165,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
 
             }
             incItemAccounts.root.setOnSingleClickListener {
-
+                safeNavigate(R.id.homeFragment, R.id.action_homeFragment_to_accountDetailFragment)
             }
 
             tvCurrentAccount.setOnSingleClickListener {
