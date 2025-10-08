@@ -1,6 +1,7 @@
 package vn.shb.core.core.domain.source.repository
 
 import vn.shb.core.core.delivery.ActionDone
+import vn.shb.core.core.delivery.GenericError
 import vn.shb.core.core.delivery.ResultSHB
 import vn.shb.core.core.delivery.reason.AppReason
 import vn.shb.core.core.domain.source.response.LoginResponse
@@ -23,8 +24,8 @@ class RepositoryAuthImpl(
     /**
      * logout
      */
-    override suspend fun logout(params: UseCaseLogout.Params) =
-        resultLogout(result = serviceAuth.logout(params))
+    override suspend fun logout() =
+        resultLogout(result = serviceAuth.logout())
 
     private fun resultLogout(result: ResultSHB<LogoutResponse>): ResultSHB<ActionDone> {
         return when (result) {
@@ -81,9 +82,7 @@ class RepositoryAuthImpl(
                         token_type = content.token_type,
                         username = content.username,
                         userLog = param.username,
-                        title = content.title,
-                        imageBase64 = content.imageBase64
-                    )
+                        title = content.title)
                     saveData(user)
                     ResultSHB.Success(StateLogin.OpenDashboard)
                 } else {
@@ -115,7 +114,6 @@ class RepositoryAuthImpl(
             setUserInfo(user.toUserString())
             setToken(user.access_token)
             setRfToken(user.refresh_token)
-            setBackgroundLogin(user.imageBase64)
             setExpireTime(TimeUnit.SECONDS.toMinutes(user.expireIn()).toInt())
             firstOpened(isFirst = true)
         }

@@ -8,7 +8,7 @@ interface RepositoryAuth {
 
     suspend fun login(params: UseCaseLogin.Params): ResultSHB<StateLogin>
 
-    suspend fun logout(params: UseCaseLogout.Params): ResultSHB<ActionDone>
+    suspend fun logout(): ResultSHB<ActionDone>
 
     suspend fun refreshToken(params: UseCaseRefreshToken.Params): ResultSHB<UserInfo>
 }

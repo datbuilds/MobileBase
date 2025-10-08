@@ -24,14 +24,20 @@ fun Throwable.toReason(): Reason =
 
 // region CommonErrorDefinitions
 object ReasonDescription {
-    const val BAD_GATEWAY = "E502: Kết nối không thành công.  Vui lòng liên hệ với bộ phận hỗ trợ kỹ thuật!"
-    const val NETWORK = "Kết nối mạng không khả dụng"
+    const val BAD_GATEWAY =
+        "E502: Kết nối không thành công.  Vui lòng liên hệ với bộ phận hỗ trợ kỹ thuật!"
+    const val NETWORK = "NETWORK ERROR"
     const val EMPTY = "Không tìm thấy dữ liệu"
     const val RESPONSE = "Phản hồi từ máy chủ không hợp lệ"
     const val TIMEOUT = "Yêu cầu đã hết thời gian chờ"
     const val NOT_FOUND = "Không tìm thấy tài nguyên"
     const val UNAUTHORIZED = "Bạn không có quyền truy cập"
     const val BAD_REQUEST = "Yêu cầu không hợp lệ"
+
+    const val LAO = "lo"
+    const val VIET = "vi"
+    const val ENGLISH = "en"
+
 }
 
 const val ERROR_CODE_DEFAULT = "Lỗi không xác định"

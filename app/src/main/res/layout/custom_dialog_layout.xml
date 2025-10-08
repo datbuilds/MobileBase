@@ -12,11 +12,11 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/margin_30dp"
+        android:layout_marginTop="@dimen/margin_50dp"
         android:background="@drawable/bg_dialog"
         android:orientation="vertical">
 
-       <vn.shb.lao.base.view.MyTextView
+        <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvTitleAlert"
             style="@style/MaterialDialog.Title"
             android:layout_width="match_parent"
@@ -30,7 +30,7 @@
             android:layout_marginTop="@dimen/margin_16dp"
             tools:layout_height="@dimen/margin_300dp" />
 
-       <vn.shb.lao.base.view.MyTextView
+        <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvContentAlert"
             style="@style/MaterialDialog.Message"
             android:layout_width="match_parent"
@@ -43,9 +43,9 @@
             android:layout_gravity="center"
             android:layout_marginVertical="@dimen/margin_14dp"
             android:gravity="center"
-            android:weightSum="10"
             android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/margin_16dp">
+            android:paddingHorizontal="@dimen/margin_16dp"
+            android:weightSum="10">
 
             <vn.shb.lao.base.view.MyTextView
                 android:id="@+id/button_negative"
@@ -71,8 +71,8 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivIconTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/widthImageDialog"
+        android:layout_height="@dimen/widthImageDialog"
         android:layout_gravity="center_horizontal"
         app:srcCompat="@drawable/ic_alert_dialog" />
 </FrameLayout>

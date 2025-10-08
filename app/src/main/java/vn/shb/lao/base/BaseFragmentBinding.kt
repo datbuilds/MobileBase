@@ -22,6 +22,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.transition.platform.MaterialFadeThrough
 import org.koin.android.ext.android.inject
+import vn.shb.core.core.delivery.Reason
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import vn.shb.data.entities.login.UserConverters
 import vn.shb.lao.R
@@ -30,6 +31,7 @@ import vn.shb.lao.utils.extensions.CustomToastShowOnTop
 import vn.shb.lao.utils.extensions.navigation.safeNavigate
 import vn.shb.lao.utils.extensions.returnActivity
 import vn.shb.lao.utils.refreshTK.RefreshTokenManager
+import vn.shb.lao.utils.view.dialog.AlertDialogUtil
 
 abstract class BaseFragmentBinding<T : ViewBinding>(
     private val inflateMethod: (LayoutInflater, ViewGroup?, Boolean) -> T
@@ -182,47 +184,19 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
     }
 
     open fun showDialogError(
-        errCode: String = "",
-        title: String = getString(vn.shb.lao.localization.R.string.title_noti),
-        message: String = "",
-        tvAction: String = getString(vn.shb.lao.localization.R.string.ui_common_close),
-        icon: Int = R.drawable.ic_bs_notification,
-        isCancelable: Boolean = true,
+        reason: Reason,
         onAction: (() -> Unit)? = null
     ) {
-        val des =
-            if (message == "closed") {
-                "Có lỗi trong quá trình kết nối hệ thống. Vui lòng thực hiện lại sau"
-            } else {
-                message
+        AlertDialogUtil.message(
+            context!!,
+            title = getString(R.string.notificationLabel),
+            message = reason.errMessage,
+            idIcon = R.drawable.ic_alert_dialog,
+            textNegative = getString(R.string.closeLabel),
+            negativeAction = {
+                onAction?.invoke()
             }
-
-        val dialogError =
-            BaseErrorDialog.Build(
-                title = title,
-                message = des,
-                tvAction = tvAction,
-                icon = icon,
-                onClose = {
-                    if (errCode == "999") {
-                        logout()
-                    } else {
-                        if (onAction != null) {
-                            onAction()
-                        }
-                    }
-                },
-                allowDismiss = isCancelable
-            )
-                .build()
-
-        dialogError.isCancelable = false
-
-        if (isDialogShowing(BaseErrorDialog.TAG)) {
-            return
-        } else {
-            dialogError.show(childFragmentManager, BaseErrorDialog.TAG)
-        }
+        )
     }
 
     private fun logout() {

@@ -22,6 +22,7 @@ fun Interceptor.Chain.appRequestBuilder(
             addHeader("Connection", "keep-alive")
             addHeader("X-Platform", "MOBILE")
             addHeader("X-Device-ID", deviceId ?: "")
+            addHeader("X-Language", Locale.getDefault().language)
 
             val info = "$versionName(Android$deviceVersion; $deviceModel; $deviceManufacturer"
             val agent = "SaleApp/$info"
@@ -39,14 +40,4 @@ fun Interceptor.Chain.appRequestBuilder(
         originalRequest = requestBuilder.build()
     }
     originalRequest
-}
-
-/**
- * get default language header
- * Support: Vietnamese, English
- * return: language
- */
-fun getLanguageDefault() = when (val language = Locale.getDefault().language) {
-    "vi" -> language
-    else -> "en"
 }

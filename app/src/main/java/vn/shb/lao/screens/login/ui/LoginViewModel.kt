@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import vn.shb.core.core.delivery.onResultHandle
 import vn.shb.core.core.delivery.reason.AppReason
+import vn.shb.core.core.domain.usecases.None
+import vn.shb.core.core.domain.usecases.UseCaseParameters
 import vn.shb.core.core.domain.usecases.login.UseCaseLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseLogout
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
@@ -49,9 +51,9 @@ class LoginViewModel(
         }
     }
 
-    fun logout(param: UseCaseLogout.Params) {
+    fun logout() {
         viewModelScope.launch {
-            useCaseLogout(param).collect {
+            useCaseLogout(None).collect {
                 it.onResultHandle(loadingBlock = {
                     _stateLogout.value = LogoutUiState.Loading
                 }, failureBlock = { reason ->

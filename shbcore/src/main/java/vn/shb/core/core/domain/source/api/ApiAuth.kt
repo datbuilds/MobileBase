@@ -14,7 +14,7 @@ interface ApiAuth {
     fun login(@Body body: UseCaseLogin.Params): Call<LoginResponse>
 
     @POST(ENDPOINT.AUTH_LOGOUT)
-    fun logout(@Body body: UseCaseLogout.Params): Call<LogoutResponse>
+    fun logout(): Call<LogoutResponse>
 
     @POST(ENDPOINT.AUTH_REFRESH_TOKEN)
     fun refreshToken(@Body body: UseCaseRefreshToken.Params): Call<LoginResponse>

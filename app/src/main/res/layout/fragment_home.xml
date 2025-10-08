@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBg"
-    android:fitsSystemWindows="true"
     android:paddingHorizontal="@dimen/margin_20dp">
 
     <vn.shb.lao.screens.home.widget.FrameAvatarUser
@@ -66,7 +65,8 @@
         android:layout_height="@dimen/margin_0dp"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:paddingHorizontal="@dimen/margin_16dp"
+        android:paddingStart="@dimen/margin_16dp"
+        android:paddingEnd="@dimen/margin_16dp"
         android:paddingVertical="@dimen/margin_12dp"
         app:layout_constraintBottom_toBottomOf="@+id/ivBackgroundAccountDetail"
         app:layout_constraintEnd_toEndOf="@+id/ivBackgroundAccountDetail"

@@ -17,7 +17,7 @@ class ServiceAuth(private val api: ApiAuth) : SafeExecute() {
         api.login(body = params).awaitResponse()
     }
 
-    suspend fun logout(params: UseCaseLogout.Params) = execute {
-        api.logout(params).awaitResponse()
+    suspend fun logout() = execute {
+        api.logout().awaitResponse()
     }
 }

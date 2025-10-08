@@ -19,7 +19,6 @@ import vn.shb.core.core.domain.usecases.login.UseCaseLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseRefreshToken
 import vn.shb.core.core.security.encrypt.EncryptManager
 import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.data.entities.login.UserConverters
 import vn.shb.data.entities.login.UserInfo
 import vn.shb.lao.R
 import vn.shb.lao.activity.dashboard.DashboardActivity
@@ -39,10 +38,8 @@ import vn.shb.lao.utils.extensions.nextActivity
 import vn.shb.lao.utils.extensions.setCustomSpannable
 import vn.shb.lao.utils.extensions.setErrorAndBackgroundDefault
 import vn.shb.lao.utils.extensions.showProgressDialog
-import vn.shb.lao.utils.extensions.textValue
 import vn.shb.lao.utils.extensions.visible
 import vn.shb.lao.utils.widgets.LocaleHelper
-import java.util.Base64
 
 class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
 
@@ -147,9 +144,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                 } else {
                     tvErrorPassword.gone()
                     inputPasswordLayout.setErrorAndBackgroundDefault()
-//                    login()
-//                    getCurrentUser()?.let { storage.setUserInfo(it) }
-                    onLoginSuccess(StateLogin.OpenDashboard) //todo test dashboard
+                    login()
                 }
             }
         }
@@ -157,10 +152,11 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
     private fun login() {
         hideSoftKeyboard(0)
-        val userName = currentUser?.let { it.userLog.ifEmpty { it.username } }
+        val accountLogin = currentUser?.userLog
             ?: binding.edtInputUsername.text?.trim().toString()
-        val (_, encPsw) = getPassword()
-        postLogin("0101028541", encPsw)
+//        val (_, encPsw) = getPassword()
+        val password = binding.edtInputPass.text?.trim().toString()
+        postLogin(accountLogin, password)
     }
 
     private fun postLogin(us: String, psW: String) {
@@ -168,12 +164,12 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         loginViewModel.login(params)
     }
 
-    private fun getPassword(): Pair<String, String> {
-        val psw = binding.edtInputPass.textValue()
-        val pswEncrypt = encryptFactory.encryptRSA(plainText = psw)
-        val encPsw = Base64.getEncoder().encodeToString(pswEncrypt)
-        return Pair(psw, encPsw)
-    }
+//    private fun getPassword(): Pair<String, String> {
+//        val psw = binding.edtInputPass.textValue()
+//        val pswEncrypt = encryptFactory.encryptRSA(plainText = psw)
+//        val encPsw = Base64.getEncoder().encodeToString(pswEncrypt)
+//        return Pair(psw, encPsw)
+//    }
 
     private fun nextDashboard() {
         nextActivity(DashboardActivity.intent(requireContext()))
@@ -191,7 +187,10 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
                         is LoginUiState.Error -> {
                             hideProgressDialog()
-                            showDialogError(message = uiState.reason.message)
+                            showDialogError(
+                                reason = uiState.reason,
+                                onAction = {}
+                            )
                         }
 
                         is LoginUiState.Success -> {

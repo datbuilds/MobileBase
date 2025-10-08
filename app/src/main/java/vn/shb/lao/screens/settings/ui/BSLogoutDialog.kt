@@ -77,8 +77,7 @@ class BSLogoutDialog(private val build: Build) :
     }
 
     private fun logout() {
-        val params = UseCaseLogout.Params(type = if (isAll) "ALL" else "SINGLE")
-        viewModel.logout(params)
+        viewModel.logout()
     }
 
     override fun initObserve() {

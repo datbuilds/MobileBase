@@ -5,6 +5,6 @@ object ENDPOINT {
 
     // Auth
     const val AUTH_REFRESH_TOKEN = "auth/refresh"
-    const val AUTH_LOGIN = "auth/login"
-    const val AUTH_LOGOUT = "auth/logout"
+    const val AUTH_LOGIN = "identity-service/api/v1/auth/login"
+    const val AUTH_LOGOUT = "identity-service/api/v1/auth/logout"
 }

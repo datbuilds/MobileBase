@@ -42,7 +42,7 @@ android {
                 buildConfigField(
                     "String",
                     "BASE_URL",
-                    "\"https://shb-mobile-lao-gw.shb.com.vn/identyti-service/api/v1/\""
+                    "\"https://dev-shb-mobile-lao-gw.shb.com.vn/\""
                 )
             }
         )

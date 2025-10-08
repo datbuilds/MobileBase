@@ -3,9 +3,7 @@ package vn.shb.lao.utils.view.dialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.view.isVisible
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.lao.R
@@ -20,7 +18,7 @@ object AlertDialogUtil {
         title: String? = null,
         message: String = "",
         idIcon: Int? = null,
-        tvPositive: String = "",
+        textPositive: String = "",
         textNegative: String = "",
         positiveAction: (() -> Unit)? = null,
         negativeAction: (() -> Unit)? = null,
@@ -50,13 +48,13 @@ object AlertDialogUtil {
             tvTitleAlert.text =
                 title ?: context.getString(vn.shb.lao.localization.R.string.notification_channel_id)
             tvContentAlert.text = message
-            if (tvPositive.isEmpty()) {
+            if (textPositive.isEmpty()) {
                 buttonPositive.gone()
                 viewCenter.gone()
             } else {
                 buttonPositive.apply {
                     isVisible = true
-                    text = tvPositive
+                    text = textPositive
                     setOnSingleClickListener {
                         positiveAction?.invoke()
                         dismiss()
