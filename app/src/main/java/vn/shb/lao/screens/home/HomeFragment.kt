@@ -5,9 +5,13 @@ import android.os.Looper
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.getInitials
+import vn.shb.data.entities.login.UserConverters
+import vn.shb.data.entities.login.UserLog
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentHomeBinding
@@ -15,6 +19,7 @@ import vn.shb.lao.screens.home.helper.LoopingAdapter
 import vn.shb.lao.screens.home.model.AccountItem
 import vn.shb.lao.screens.home.widget.OnClickDetail
 import vn.shb.lao.utils.extensions.getTextWelcomeUser
+import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 
 class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
@@ -36,8 +41,12 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
 
     override fun initView(view: View) {
         bindView()
-        mapUserInfo()
+        getDataUser()
         bindBannerView()
+    }
+
+    private fun getDataUser() {
+        homeViewModel.getUserInfo()
     }
 
     private fun bindBannerView() {
@@ -129,7 +138,8 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
 
         //fake data list account
         listAccount = homeViewModel.getListAccount()
-        homeViewModel.selectedAccount = listAccount.firstOrNull { it.isSelected } ?: listAccount.firstOrNull()
+        homeViewModel.selectedAccount =
+            listAccount.firstOrNull { it.isSelected } ?: listAccount.firstOrNull()
         homeViewModel.selectedAccount?.let { account ->
             bindViewAccount(account)
         }
@@ -143,13 +153,6 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
         binding.tvValueBalance.text =
             (if (isShowValueBalance) account.balance else textGoneValue).plus(" ")
                 .plus(account.currency)
-    }
-
-    private fun mapUserInfo() {
-        getCurrentUser()?.let { user ->
-            binding.tvNameUser.text = user.username
-            binding.flAvatarUser.setUserName(user.pathAvatarUser, user.username.getInitials())
-        }
     }
 
     override fun initListener() {
@@ -185,5 +188,27 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
         }
     }
 
-    override fun initObserve() {}
+    override fun initObserve() {
+        with(homeViewModel) {
+            launchRepeatOnLifecycle {
+                launch {
+                    stateUserInfo.collectLatest { userInfo ->
+                        val userLog = getCurrentUser()
+                        userLog?.apply {
+                            username = userInfo.customerName
+                            setCurrentUser(this)
+                            mapUserInfo(userLog)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun mapUserInfo(userLog: UserLog? = getCurrentUser()) {
+        userLog?.let { user ->
+            binding.tvNameUser.text = user.username
+            binding.flAvatarUser.setUserName(user.pathAvatarUser, user.username.getInitials())
+        }
+    }
 }

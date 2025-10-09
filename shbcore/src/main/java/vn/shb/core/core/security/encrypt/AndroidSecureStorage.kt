@@ -71,8 +71,8 @@ class AndroidSecureStorage(private val context: Context, private val deviceManag
     /**
      * UserInfo
      */
-    fun setUserInfo(user: String) = putPreference(USER_INFO, user)
-    fun getUserInfo() = getPreference(USER_INFO, "")
+    fun setUserLog(user: String) = putPreference(USER_INFO, user)
+    fun getUserLog() = getPreference(USER_INFO, "")
 
     /**
      * ---------------------End user--->

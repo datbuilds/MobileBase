@@ -7,8 +7,8 @@ abstract class BaseResponse<T>(
     @SerializedName("errorCode") val errorCode: String = "",
     @SerializedName("errorMessage") val errorMessage: String = "",
     @SerializedName("data") val data: T? = null,
-    @SerializedName("tranDate") val tranDate: String = "",
-    @SerializedName("totalElements") val totalElements: Int = 0,
+//    @SerializedName("tranDate") val tranDate: String = "",
+//    @SerializedName("totalElements") val totalElements: Int = 0,
 ) : Serializable {
     fun isSuccess() = errorCode.contentEquals("00")
 

@@ -48,7 +48,7 @@ class SettingDialog : BaseDialogBinding<DialogSettingBinding>(DialogSettingBindi
     override fun initView(view: View) {
         with(binding) {
             toolbar.setTitle("Cài đặt")
-            stringToUserInfo(storage.getUserInfo())?.let { user ->
+            stringToUserInfo(storage.getUserLog())?.let { user ->
                 ivAvatar.loadAvatarText(
                     fallbackName = user.username,
                     colorBg = "#FFFFFF",

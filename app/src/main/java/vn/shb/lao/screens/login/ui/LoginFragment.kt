@@ -19,7 +19,7 @@ import vn.shb.core.core.domain.usecases.login.UseCaseLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseRefreshToken
 import vn.shb.core.core.security.encrypt.EncryptManager
 import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.data.entities.login.UserInfo
+import vn.shb.data.entities.login.UserLog
 import vn.shb.lao.R
 import vn.shb.lao.activity.dashboard.DashboardActivity
 import vn.shb.lao.base.BaseFragmentBinding
@@ -47,7 +47,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     private val loginViewModel: LoginViewModel by inject()
     private val useCaseRefreshToken: UseCaseRefreshToken by inject()
 
-    private var currentUser: UserInfo? = null
+    private var currentUser: UserLog? = null
     var currentUserName = ""
 
     val requestPermissionLauncher =
@@ -213,7 +213,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         }
     }
 
-    private fun prepareViewUserLogged(user: UserInfo) {
+    private fun prepareViewUserLogged(user: UserLog) {
         currentUser = user
         currentUserName = user.username
 

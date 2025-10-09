@@ -25,6 +25,7 @@ import org.koin.android.ext.android.inject
 import vn.shb.core.core.delivery.Reason
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import vn.shb.data.entities.login.UserConverters
+import vn.shb.data.entities.login.UserLog
 import vn.shb.lao.R
 import vn.shb.lao.activity.login.LoginActivity
 import vn.shb.lao.utils.extensions.CustomToastShowOnTop
@@ -152,7 +153,8 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         }
     }
 
-    fun getCurrentUser() = UserConverters.stringToUserInfo(storage.getUserInfo())
+    fun getCurrentUser() = UserConverters.stringToUserInfo(storage.getUserLog())
+    fun setCurrentUser(user: UserLog) = storage.setUserLog(UserConverters.userInfoToString(user))
 
     open fun setNavigationBarColor(color: Int) {
         requireActivity().window.navigationBarColor = color

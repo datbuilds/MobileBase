@@ -1,16 +1,49 @@
 package vn.shb.lao.screens.home
 
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import vn.shb.core.core.delivery.onFailure
+import vn.shb.core.core.delivery.onLoading
+import vn.shb.core.core.delivery.onSuccess
+import vn.shb.core.core.domain.usecases.None
+import vn.shb.core.core.domain.usecases.home.UseCaseUser
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
+import vn.shb.data.entities.login.UserInfo
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseViewModel
 import vn.shb.lao.screens.account.model.TransactionItem
 import vn.shb.lao.screens.home.model.AccountItem
 
 class HomeViewModel(
-    private val storage: AndroidSecureStorage
+    private val storage: AndroidSecureStorage,
+    private val useCaseUser: UseCaseUser
 ) : BaseViewModel() {
+    private val _stateUserInfo = MutableStateFlow(UserInfo())
+    val stateUserInfo = _stateUserInfo.asStateFlow()
 
+    private var currentUserInfo: UserInfo? = null
     var selectedAccount: AccountItem? = null
+
+    fun getUserInfo() {
+        viewModelScope.launch {
+            useCaseUser.invoke(None).collect { result ->
+                result.onSuccess { data ->
+                    _stateUserInfo.value = data
+                    currentUserInfo = data
+                }
+                result.onFailure { error ->
+                }
+                result.onLoading { }
+            }
+        }
+    }
+
+    fun getCurrentUserInfo(): UserInfo? {
+        return currentUserInfo
+    }
+
     fun getListBanner(): List<Int> {
         return listOf(
             R.drawable.banner_1,

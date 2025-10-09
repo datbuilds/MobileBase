@@ -4,13 +4,13 @@ import kotlinx.coroutines.flow.FlowCollector
 import vn.shb.core.core.delivery.ResultSHB
 import vn.shb.core.core.domain.usecases.BaseUseCase
 import vn.shb.core.core.domain.usecases.UseCaseParameters
-import vn.shb.data.entities.login.UserInfo
+import vn.shb.data.entities.login.UserLog
 
 class UseCaseRefreshToken(
     private val repository: RepositoryAuth
-) : BaseUseCase<UserInfo, UseCaseRefreshToken.Params>() {
+) : BaseUseCase<UserLog, UseCaseRefreshToken.Params>() {
 
-    override suspend fun FlowCollector<ResultSHB<UserInfo>>.run(params: Params) {
+    override suspend fun FlowCollector<ResultSHB<UserLog>>.run(params: Params) {
         emit(repository.refreshToken(params))
     }
 

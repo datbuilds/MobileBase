@@ -9,15 +9,15 @@ object UserConverters {
     private val gson = Gson()               // tái sử dụng để tránh tốn GC
 
     @TypeConverter
-    fun userInfoToString(userInfo: UserInfo?): String {
+    fun userInfoToString(userLog: UserLog?): String {
         // Null safety – Room có thể truyền null
-        return gson.toJson(userInfo)
+        return gson.toJson(userLog)
     }
 
     @TypeConverter
-    fun stringToUserInfo(data: String?): UserInfo? {
+    fun stringToUserInfo(data: String?): UserLog? {
         if (data.isNullOrEmpty()) return null
-        val type = object : TypeToken<UserInfo>() {}.type
+        val type = object : TypeToken<UserLog>() {}.type
         return gson.fromJson(data, type)
     }
 }

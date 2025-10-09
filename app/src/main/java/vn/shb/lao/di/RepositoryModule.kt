@@ -5,6 +5,8 @@ import org.koin.dsl.module
 import vn.shb.core.core.VERSION_NAME
 import vn.shb.core.core.domain.source.repository.RepositoryAuthImpl
 import vn.shb.core.core.domain.source.repository.RepositorySplashImpl
+import vn.shb.core.core.domain.source.repository.RepositoryUserImpl
+import vn.shb.core.core.domain.usecases.home.RepositoryUser
 import vn.shb.core.core.domain.usecases.login.RepositoryAuth
 import vn.shb.core.core.domain.usecases.splash.RepositorySplash
 
@@ -16,4 +18,5 @@ val repositoryModule = module {
     }
 
     factory<RepositoryAuth> { RepositoryAuthImpl(get(), get()) }
+    factory<RepositoryUser> { RepositoryUserImpl(get(), get()) }
 }

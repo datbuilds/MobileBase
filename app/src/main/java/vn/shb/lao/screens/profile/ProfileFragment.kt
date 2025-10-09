@@ -7,7 +7,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
-import vn.shb.core.core.domain.usecases.login.UseCaseLogout
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.dn.choosePhotoHelper.ChoosePhotoHelper
 import vn.shb.dn.choosePhotoHelper.callback.ChoosePhotoCallback
@@ -16,6 +16,7 @@ import vn.shb.lao.activity.login.LoginActivity
 import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentProfileBinding
 import vn.shb.lao.databinding.ItemProfileInfoBinding
+import vn.shb.lao.screens.home.HomeViewModel
 import vn.shb.lao.screens.home.widget.OnClickDetail
 import vn.shb.lao.screens.login.state.LogoutUiState
 import vn.shb.lao.screens.login.ui.LoginViewModel
@@ -29,6 +30,8 @@ class ProfileFragment :
     BaseFragmentBinding<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
 
     private val viewModel: LoginViewModel by inject()
+
+    private val homeViewModel: HomeViewModel by sharedViewModel()
     private lateinit var photoHelper: ChoosePhotoHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +46,7 @@ class ProfileFragment :
                             pathAvatarUser = photo ?: ""
                         }
                     currentUser?.toUserString()?.let {
-                        storage.setUserInfo(it)
+                        storage.setUserLog(it)
                         binding.flAvatarUser.setUserName(
                             currentUser.pathAvatarUser,
                             currentUser.username
@@ -58,18 +61,18 @@ class ProfileFragment :
     }
 
     private fun bindViewDetail() {
-        val user = getCurrentUser()
+        val user = homeViewModel.getCurrentUserInfo()
         user?.let {
             with(binding) {
-                flAvatarUser.setUserName(it.pathAvatarUser, it.username)
+                flAvatarUser.setUserName(getCurrentUser()?.pathAvatarUser?:"", it.customerName)
                 tvNameUser.text = it.username
 
-                iclInfo1.bind(getString(R.string.customerID), it.id_token)
-                iclInfo2.bind(getString(R.string.customerName), it.username)
-                iclInfo3.bind(getString(R.string.defaultCasaAccount), it.title)
-                iclInfo4.bind(getString(R.string.email), it.userLog)
-                iclInfo5.bind(getString(R.string.shbOnline), it.userLog)
-                iclInfo6.bind(getString(R.string.userName), it.id_token)
+                iclInfo1.bind(getString(R.string.customerID), it.customerId)
+                iclInfo2.bind(getString(R.string.customerName), it.customerName)
+                iclInfo3.bind(getString(R.string.defaultCasaAccount), it.defaultAcct?:"")
+                iclInfo4.bind(getString(R.string.email), it.email)
+                iclInfo5.bind(getString(R.string.shbOnline), it.authMethodName)
+                iclInfo6.bind(getString(R.string.userName), it.username)
             }
         }
 

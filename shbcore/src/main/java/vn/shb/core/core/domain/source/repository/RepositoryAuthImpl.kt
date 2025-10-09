@@ -1,7 +1,6 @@
 package vn.shb.core.core.domain.source.repository
 
 import vn.shb.core.core.delivery.ActionDone
-import vn.shb.core.core.delivery.GenericError
 import vn.shb.core.core.delivery.ResultSHB
 import vn.shb.core.core.delivery.reason.AppReason
 import vn.shb.core.core.domain.source.response.LoginResponse
@@ -10,10 +9,9 @@ import vn.shb.core.core.domain.source.service.ServiceAuth
 import vn.shb.core.core.domain.usecases.login.RepositoryAuth
 import vn.shb.core.core.domain.usecases.login.StateLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseLogin
-import vn.shb.core.core.domain.usecases.login.UseCaseLogout
 import vn.shb.core.core.domain.usecases.login.UseCaseRefreshToken
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
-import vn.shb.data.entities.login.UserInfo
+import vn.shb.data.entities.login.UserLog
 import java.util.concurrent.TimeUnit
 
 class RepositoryAuthImpl(
@@ -71,7 +69,7 @@ class RepositoryAuthImpl(
             if (contentResult.isSuccess()) {
                 val content = contentResult.data
                 if (content != null) {
-                    val user = UserInfo(
+                    val user = UserLog(
                         id_token = content.id_token,
                         access_token = content.access_token,
                         expires_in = content.expires_in,
@@ -82,7 +80,8 @@ class RepositoryAuthImpl(
                         token_type = content.token_type,
                         username = content.username,
                         userLog = param.username,
-                        title = content.title)
+                        title = content.title
+                    )
                     saveData(user)
                     ResultSHB.Success(StateLogin.OpenDashboard)
                 } else {
@@ -109,9 +108,9 @@ class RepositoryAuthImpl(
         AppReason(message = contentResult.errorMessage, code = contentResult.errorCode)
     )
 
-    private fun saveData(user: UserInfo) {
+    private fun saveData(user: UserLog) {
         storage.apply {
-            setUserInfo(user.toUserString())
+            setUserLog(user.toUserString())
             setToken(user.access_token)
             setRfToken(user.refresh_token)
             setExpireTime(TimeUnit.SECONDS.toMinutes(user.expireIn()).toInt())
@@ -122,13 +121,13 @@ class RepositoryAuthImpl(
     override suspend fun refreshToken(params: UseCaseRefreshToken.Params) =
         resultRFLogin(serviceAuth.refreshToken(params = params))
 
-    private fun resultRFLogin(result: ResultSHB<LoginResponse>): ResultSHB<UserInfo> {
+    private fun resultRFLogin(result: ResultSHB<LoginResponse>): ResultSHB<UserLog> {
         return when (result) {
             is ResultSHB.Success -> {
                 val contentResult = result.successData
                 if (contentResult.isSuccess()) {
                     val content = contentResult.data
-                    ResultSHB.Success(content ?: UserInfo())
+                    ResultSHB.Success(content ?: UserLog())
                 } else {
                     resultLoginFail(contentResult)
                 }
