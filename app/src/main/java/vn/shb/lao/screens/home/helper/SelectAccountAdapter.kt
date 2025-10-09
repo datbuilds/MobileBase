@@ -12,41 +12,41 @@ import android.widget.TextView
 import androidx.core.graphics.toColorInt
 import androidx.recyclerview.widget.RecyclerView
 import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.home.AccountInfo
 import vn.shb.lao.R
 import vn.shb.lao.databinding.ItemAccountSelectBinding
-import vn.shb.lao.screens.home.model.AccountItem
 import vn.shb.lao.utils.extensions.gone
 import vn.shb.lao.utils.extensions.visible
 
 class SelectAccountAdapter(
-    private val items: List<AccountItem>,
-    private val onClickAccount: (AccountItem) -> Unit
-) : RecyclerView.Adapter<SelectAccountAdapter.AccountItemViewHolder>() {
+    private val items: List<AccountInfo>,
+    private val onClickAccount: (AccountInfo) -> Unit
+) : RecyclerView.Adapter<SelectAccountAdapter.AccountInfoViewHolder>() {
 
-    inner class AccountItemViewHolder(val binding: ItemAccountSelectBinding) :
+    inner class AccountInfoViewHolder(val binding: ItemAccountSelectBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AccountItemViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AccountInfoViewHolder {
         val binding = ItemAccountSelectBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
-        return AccountItemViewHolder(binding)
+        return AccountInfoViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: AccountItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AccountInfoViewHolder, position: Int) {
         val accountItem = items[position]
         holder.binding.apply {
             tvInfoAccount.text = root.context.getString(
                 R.string.account_info_format,
                 accountItem.accountNumber,
                 accountItem.accountType,
-                accountItem.currency
+                accountItem.currencyCode
             )
             tvValueBalance.bindBalance(
-                String.format("%,.0f", accountItem.balance.toDouble()),
-                " ${accountItem.currency}"
+                String.format("%,.0f", accountItem.availableBalance),
+                " ${accountItem.currencyCode}"
             )
-            if (accountItem.isSelected){
+            if (accountItem.isSelected) {
                 root.setBackgroundResource(R.drawable.bg_selected_account)
                 ivSelectAccount.visible()
             } else {
@@ -66,7 +66,7 @@ class SelectAccountAdapter(
     override fun getItemCount(): Int = items.size
 }
 
-fun TextView.bindBalance(amount : String, currency: String) {
+fun TextView.bindBalance(amount: String, currency: String) {
     val textView = this
 
     val fullText = amount + currency

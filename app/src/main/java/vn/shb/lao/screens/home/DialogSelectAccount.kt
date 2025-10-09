@@ -9,24 +9,23 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.home.AccountInfo
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseBottomDialogBinding
-import vn.shb.lao.databinding.DialogChoosePictureBinding
 import vn.shb.lao.databinding.DialogSelectAccountBinding
 import vn.shb.lao.screens.home.helper.SelectAccountAdapter
-import vn.shb.lao.screens.home.model.AccountItem
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 
-class DialogSelectAccount(private val listAccount: List<AccountItem>) :
+class DialogSelectAccount(private val listAccount: List<AccountInfo>) :
     BaseBottomDialogBinding<DialogSelectAccountBinding>(DialogSelectAccountBinding::inflate) {
 
-    private var onAction: ((AccountItem) -> Unit)? = null
+    private var onAction: ((AccountInfo) -> Unit)? = null
 
     companion object {
         const val TAG = "DialogSelectAccount"
     }
 
-    class Build(val list: List<AccountItem>, val action: (AccountItem) -> Unit) {
+    class Build(val list: List<AccountInfo>, val action: (AccountInfo) -> Unit) {
         fun build() = DialogSelectAccount(list).apply {
             onAction = action
         }

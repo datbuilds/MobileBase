@@ -13,4 +13,8 @@ class ServiceUser(private val api: ApiUser) : SafeExecute() {
     suspend fun getUserInfo() = execute {
         api.getUserInfo().awaitResponse()
     }
+
+    suspend fun getAccountsInfo() = execute {
+        api.getAccountsInfo().awaitResponse()
+    }
 }

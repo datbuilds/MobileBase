@@ -37,7 +37,7 @@ class AccountDetailFragment :
         val account = homeViewModel.selectedAccount
         account?.let {
             with(binding) {
-                tvValueBalance.text = "${it.balance} ${it.currency}"
+                tvValueBalance.text = "${it.availableBalance} ${it.currencyCode}"
                 tvNumberAccount.text = it.accountNumber
                 tvNameBranch.text = "SHB LAO - HO"
             }

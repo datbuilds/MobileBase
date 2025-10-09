@@ -8,30 +8,36 @@ import vn.shb.core.core.delivery.onFailure
 import vn.shb.core.core.delivery.onLoading
 import vn.shb.core.core.delivery.onSuccess
 import vn.shb.core.core.domain.usecases.None
-import vn.shb.core.core.domain.usecases.home.UseCaseUser
+import vn.shb.core.core.domain.usecases.home.UseCaseUserInfo
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
-import vn.shb.data.entities.login.UserInfo
+import vn.shb.data.entities.home.AccountInfo
+import vn.shb.data.entities.home.UserInfo
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseViewModel
 import vn.shb.lao.screens.account.model.TransactionItem
-import vn.shb.lao.screens.home.model.AccountItem
 
 class HomeViewModel(
     private val storage: AndroidSecureStorage,
-    private val useCaseUser: UseCaseUser
+    private val useCaseUserInfo: UseCaseUserInfo
 ) : BaseViewModel() {
     private val _stateUserInfo = MutableStateFlow(UserInfo())
     val stateUserInfo = _stateUserInfo.asStateFlow()
 
+    private val _stateAccounts = MutableStateFlow(AccountInfo())
+    val stateSelectedAccount = _stateAccounts.asStateFlow()
+
     private var currentUserInfo: UserInfo? = null
-    var selectedAccount: AccountItem? = null
+    private var listAccount = listOf<AccountInfo>()
+    var selectedAccount: AccountInfo? = null
 
     fun getUserInfo() {
         viewModelScope.launch {
-            useCaseUser.invoke(None).collect { result ->
-                result.onSuccess { data ->
-                    _stateUserInfo.value = data
-                    currentUserInfo = data
+            useCaseUserInfo.invoke(None).collect { result ->
+                result.onSuccess { (userInfo, accountData) ->
+                    _stateUserInfo.value = userInfo
+                    listAccount = accountData.array
+                    currentUserInfo = userInfo
+                    getCurrentAccount(userInfo, accountData.array)
                 }
                 result.onFailure { error ->
                 }
@@ -40,8 +46,39 @@ class HomeViewModel(
         }
     }
 
+    private fun getCurrentAccount(
+        userInfo: UserInfo,
+        listAccount: List<AccountInfo> = this.listAccount
+    ) {
+        selectedAccount = listAccount.find { it.accountNumber == userInfo.defaultAcct }
+        if (selectedAccount == null && listAccount.isNotEmpty()) {
+            selectedAccount = listAccount[0]
+        }
+        if (selectedAccount != null) {
+            _stateAccounts.value = selectedAccount!!
+        }
+
+    }
+
     fun getCurrentUserInfo(): UserInfo? {
         return currentUserInfo
+    }
+
+    fun getAccounts() {
+//        viewModelScope.launch {
+//            useCaseAccounts.invoke(None).collect { result ->
+//                result.onSuccess { data ->
+//                    listAccount = data.array
+//                    if (listAccount.isNotEmpty()) {
+//                        selectedAccount = listAccount[0]
+//                    }
+//                    _stateAccounts.value = listAccount
+//                }
+//                result.onFailure { error ->
+//                }
+//                result.onLoading { }
+//            }
+//        }
     }
 
     fun getListBanner(): List<Int> {
@@ -58,52 +95,7 @@ class HomeViewModel(
         )
     }
 
-    //mock data
-    fun getListAccount() = listOf(
-        AccountItem(
-            accountNumber = "1234567890123",
-            accountType = "Savings",
-            currency = "LAK",
-            balance = "15000000",
-            isSelected = true
-        ),
-        AccountItem(
-            accountNumber = "9876543210987",
-            accountType = "Checking",
-            currency = "USD",
-            balance = "2500"
-        ),
-        AccountItem(
-            accountNumber = "4567891234567",
-            accountType = "Savings",
-            currency = "EUR",
-            balance = "3000"
-        ),
-        AccountItem(
-            accountNumber = "3216549873216",
-            accountType = "Checking",
-            currency = "JPY",
-            balance = "500000"
-        ),
-        AccountItem(
-            accountNumber = "7891234567891",
-            accountType = "Savings",
-            currency = "GBP",
-            balance = "2000"
-        ),
-        AccountItem(
-            accountNumber = "6549873216549",
-            accountType = "Checking",
-            currency = "AUD",
-            balance = "3500"
-        ),
-        AccountItem(
-            accountNumber = "1597534862587",
-            accountType = "Savings",
-            currency = "CAD",
-            balance = "4000"
-        )
-    )
+    fun getListAccount() = listAccount
 
     fun getFirstFiveTransactions(list: List<TransactionItem> = getListTransaction()): List<TransactionItem> {
         var count = 0

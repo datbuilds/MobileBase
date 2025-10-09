@@ -1,4 +1,4 @@
-package vn.shb.data.entities.login
+package vn.shb.data.entities.home
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable

@@ -19,6 +19,12 @@ inline fun <T> ResultSHB<T>.onResultHandle(
     }
 }
 
+inline fun <T> ResultSHB<T>.onResultHandle(
+    resultBlock: (ResultSHB<T>) -> Unit
+) {
+    resultBlock(this)
+}
+
 inline fun <T> ResultSHB<T>.onSuccess(successBlock: (T) -> Unit): ResultSHB<T> {
     if (this is ResultSHB.Success)
         successBlock(successData)

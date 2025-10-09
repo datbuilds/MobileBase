@@ -10,13 +10,12 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.getInitials
-import vn.shb.data.entities.login.UserConverters
+import vn.shb.data.entities.home.AccountInfo
 import vn.shb.data.entities.login.UserLog
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentHomeBinding
 import vn.shb.lao.screens.home.helper.LoopingAdapter
-import vn.shb.lao.screens.home.model.AccountItem
 import vn.shb.lao.screens.home.widget.OnClickDetail
 import vn.shb.lao.utils.extensions.getTextWelcomeUser
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
@@ -33,8 +32,6 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
     private var isShowValueBalance = false
     private var textGoneValue = "********"
 
-    private var listAccount = listOf<AccountItem>()
-
     companion object {
         const val AUTO_SCROLL_BANNER_DELAY = 2000L
     }
@@ -47,6 +44,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
 
     private fun getDataUser() {
         homeViewModel.getUserInfo()
+        homeViewModel.getAccounts()
     }
 
     private fun bindBannerView() {
@@ -135,24 +133,15 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
                 tvTitleFeature.text = getString(R.string.accounts)
             }
         }
-
-        //fake data list account
-        listAccount = homeViewModel.getListAccount()
-        homeViewModel.selectedAccount =
-            listAccount.firstOrNull { it.isSelected } ?: listAccount.firstOrNull()
-        homeViewModel.selectedAccount?.let { account ->
-            bindViewAccount(account)
-        }
-
     }
 
-    private fun bindViewAccount(account: AccountItem) {
+    private fun bindViewAccount(account: AccountInfo) {
         binding.tvCurrentAccount.text =
             account.accountType.plus(" - ").plus(account.accountType)
         binding.tvNumberAccount.text = account.accountNumber
         binding.tvValueBalance.text =
-            (if (isShowValueBalance) account.balance else textGoneValue).plus(" ")
-                .plus(account.currency)
+            (if (isShowValueBalance) account.casaTotal.toString() else textGoneValue).plus(" ")
+                .plus(account.currencyCode)
     }
 
     override fun initListener() {
@@ -182,8 +171,12 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
 //                ivEyeSeeValue.setImageResource(
 //                    if (isShowValueBalance) R.drawable.ic_eye_open else R.drawable.ic_eye_close
 //                )
-                tvValueBalance.text =
-                    (if (isShowValueBalance) "1,000,000.00" else textGoneValue).plus(" LAK")
+                homeViewModel.selectedAccount?.let { account ->
+                    tvValueBalance.text =
+                        (if (isShowValueBalance) account.casaTotal.toString() else textGoneValue).plus(
+                            " LAK"
+                        )
+                }
             }
         }
     }
@@ -199,6 +192,11 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
                             setCurrentUser(this)
                             mapUserInfo(userLog)
                         }
+                    }
+                }
+                launch {
+                    stateSelectedAccount.collectLatest { accountInfo ->
+                        bindViewAccount(accountInfo)
                     }
                 }
             }
