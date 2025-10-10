@@ -42,7 +42,7 @@ android {
                 buildConfigField(
                     "String",
                     "BASE_URL",
-                    "\"https://dev-shb-mobile-lao-gw.shb.com.vn/\""
+                    "\"https://api-gw-ext-dev.shb.com.vn/external/shb-mobile-lao/1.0.0/\""
                 )
             }
         )

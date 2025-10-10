@@ -75,4 +75,6 @@
     <string name="branch">Branch</string>
     <string name="viewAll">View All</string>
     <string name="transactionHistory">Transaction history</string>
+    <string name="show">Show</string>
+    <string name="hide">Hide</string>
 </resources>

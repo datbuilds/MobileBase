@@ -1,16 +1,16 @@
 package vn.shb.lao.screens.login.ui
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
+import android.text.InputType
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
+import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -29,6 +29,7 @@ import vn.shb.lao.screens.login.ui.widget.setGreeting
 import vn.shb.lao.screens.login.ui.widget.showLanguagePopup
 import vn.shb.lao.utils.extensions.clearEditTextColorFilter
 import vn.shb.lao.utils.extensions.clearText
+import vn.shb.lao.utils.extensions.getTextWelcomeUser
 import vn.shb.lao.utils.extensions.gone
 import vn.shb.lao.utils.extensions.hideProgressDialog
 import vn.shb.lao.utils.extensions.hideSoftKeyboard
@@ -50,11 +51,14 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     private var currentUser: UserLog? = null
     var currentUserName = ""
 
+    private var isVisiblePassword = false
+
     val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { _: Boolean -> }
 
     override fun initView(view: View) {
         mapUILogin()
+        bindEdtPassword()
     }
 
     private fun mapUILogin() {
@@ -92,20 +96,32 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         //        checkNotificationPermission()
     }
 
-    @RequiresApi(Build.VERSION_CODES.P)
-    @SuppressLint("ClickableViewAccessibility")
     override fun initListener() {
         with(binding) {
             root.setOnSingleClickListener {
                 clearFocusEditText()
             }
-            edtInputUsername.setOnFocusChangeListener { _, hasFocus ->
-                inputUserNameLayout.isSelected = hasFocus
+
+            //handle edit username
+            btnLogin.setOnSingleClickListener {
+                clearFocusEditText()
+                handleActionLogin()
             }
-            edtInputPass.setOnFocusChangeListener { _, hasFocus ->
-                inputPasswordLayout.isSelected = hasFocus
+            edtInputUsername.setOnFocusChangeListener { _, hasFocus ->
+                userNameContainer.isSelected = hasFocus
             }
 
+            btnClearUsername.setOnClickListener {
+                edtInputUsername.text?.clear()
+            }
+            edtInputUsername.addTextChangedListener {
+                btnClearUsername.isVisible = !it.isNullOrEmpty()
+            }
+
+            //handle edit password
+            edtInputPass.setOnFocusChangeListener { _, hasFocus ->
+                passwordContainer.isSelected = hasFocus
+            }
             edtInputPass.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     login()
@@ -115,14 +131,38 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                 }
             }
 
-            btnLogin.setOnSingleClickListener {
-                clearFocusEditText()
-                handleActionLogin()
+            btnToggle.setOnClickListener {
+                isVisiblePassword = !isVisiblePassword
+                bindEdtPassword()
+            }
+
+            // Clear text
+            btnClearPassword.setOnClickListener {
+                edtInputPass.text?.clear()
+            }
+            edtInputPass.addTextChangedListener {
+                btnClearPassword.isVisible = !it.isNullOrEmpty()
+                btnToggle.isVisible = !it.isNullOrEmpty()
             }
 
             llLanguage.setOnSingleClickListener {
                 showLanguagePopup(binding.llLanguage)
             }
+        }
+    }
+
+    private fun bindEdtPassword() {
+        with(binding){
+            if (isVisiblePassword) {
+                edtInputPass.inputType =
+                    InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_NORMAL
+                btnToggle.text = getString(R.string.hide)
+            } else {
+                edtInputPass.inputType =
+                    InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
+                btnToggle.text = getString(R.string.show)
+            }
+            edtInputPass.setSelection(edtInputPass.text?.length ?: 0)
         }
     }
 
@@ -221,7 +261,9 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             llInfoUser.visible()
             groupViewNoLastUser.gone()
             flAvatarUser.setUserName(currentUser?.pathAvatarUser ?: "", currentUserName)
-            setGreeting(binding.tvHelloUser)
+//            setGreeting(binding.tvHelloUser)
+            binding.tvHelloUser.text = context!!.getTextWelcomeUser()
+            binding.tvNameUser.text = currentUserName
             inputPasswordLayout.clearEditTextColorFilter()
         }
     }

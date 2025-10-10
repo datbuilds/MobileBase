@@ -23,11 +23,15 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toDrawable
 import com.google.android.material.snackbar.Snackbar
+import vn.shb.core.core.delivery.ReasonDescription.ENGLISH
+import vn.shb.core.core.delivery.ReasonDescription.LAO
+import vn.shb.core.core.delivery.ReasonDescription.VIET
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.lao.R
 import vn.shb.lao.databinding.LayoutLanguagePopupBinding
 import vn.shb.lao.screens.login.ui.LoginFragment
 import vn.shb.lao.utils.extensions.getTextWelcomeUser
+import vn.shb.lao.utils.widgets.LocaleHelper
 
 fun LoginFragment.setGreeting(textView: TextView) {
 
@@ -93,6 +97,8 @@ fun LoginFragment.showLanguagePopup(anchor: View) {
         true // focusable, click outside sẽ tự đóng
     )
 
+    val currentLanguage = LocaleHelper.getCurrentLanguage(context!!)
+
     // style
     popupWindow.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
     popupWindow.isOutsideTouchable = true
@@ -102,8 +108,9 @@ fun LoginFragment.showLanguagePopup(anchor: View) {
         iclLanguage1.apply {
             ivLogo.setImageResource(R.drawable.ic_logo_uk)
             tvNameLanguage.text = getString(R.string.englishLabel)
+            root.setDisableAlpha(currentLanguage == ENGLISH)
             root.setOnSingleClickListener {
-                updateLanguage("en")
+                updateLanguage(ENGLISH)
                 popupWindow.dismiss()
             }
         }
@@ -111,8 +118,9 @@ fun LoginFragment.showLanguagePopup(anchor: View) {
         iclLanguage2.apply {
             ivLogo.setImageResource(R.drawable.ic_logo_vn)
             tvNameLanguage.text = getString(R.string.vietnameseLabel)
+            root.setDisableAlpha(currentLanguage == VIET)
             root.setOnSingleClickListener {
-                updateLanguage("vi")
+                updateLanguage(VIET)
                 popupWindow.dismiss()
             }
         }
@@ -120,15 +128,21 @@ fun LoginFragment.showLanguagePopup(anchor: View) {
         iclLanguage3.apply {
             ivLogo.setImageResource(R.drawable.ic_logo_lao)
             tvNameLanguage.text = getString(R.string.laoLabel)
+            root.setDisableAlpha(currentLanguage == LAO)
             root.setOnSingleClickListener {
-                updateLanguage("lo")
+                updateLanguage(LAO)
                 popupWindow.dismiss()
             }
         }
     }
 
     val marginRight = (130 * anchor.context.resources.displayMetrics.density).toInt()
-    popupWindow.showAsDropDown(anchor, -marginRight, -60, Gravity.END)
+    popupWindow.showAsDropDown(anchor, -marginRight, 0, Gravity.END)
+}
+
+fun View.setDisableAlpha(isDisable: Boolean) {
+    this.isEnabled = !isDisable
+    this.alpha = if (isDisable) 0.5f else 1.0f
 }
 
 fun Context.getResourceLocale(type: String, res: (String, Int) -> Unit) {

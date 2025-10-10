@@ -89,7 +89,7 @@ fun TextInputLayout.isSamePass(retryNewPass: String, newPass: String): Boolean {
 fun TextInputLayout.isValidInputLogin(): Boolean {
     val inputText = this.editText?.text.toString()
     if (inputText.isEmpty()){
-        setErrorBackground()
+//        setErrorBackground()
         return false
     } else {
         return true

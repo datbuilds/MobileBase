@@ -25,14 +25,14 @@
 
     <color name="selected_tab_color">#1A202C</color>
     <color name="unselected_tab_color">#4A5568</color>
-    <color name="colorSelectorEdittext">#F48635</color>
-    <color name="forgotPassword">#5A5958</color>
-    <color name="forgotPasswordClick">#ABAAAA</color>
+    <color name="colorSelectorEdittext">#FF7E00</color>
+    <color name="forgotPassword">#FFFFFF</color>
+    <color name="forgotPasswordClick">#C3C0C0</color>
     <color name="color_hotline">#21488A</color>
     <color name="color_hotlineClick">#336AC7</color>
     <color name="neutral10">#0A0A0A</color>
     <color name="colorImageUser">#FF7C10</color>
-    <color name="colorNameUser">#1D1B1A</color>
+    <color name="colorNameUser">#FFFFFF</color>
 
     <color name="primary">#1D3A72</color>
     <color name="accent">#FF7E22</color>
@@ -103,13 +103,13 @@
 
     <color name="colorTextMoneyC">#31AA73</color>
     <color name="colorTextMoneyD">#0C1A3D</color>
-    <color name="colorBg">#FAF6ED</color>
+    <color name="colorBg">#EB7F23</color>
 
     //login
     <color name="colorTitleDialog">#FE7737</color>
     <color name="colorContentDialog">#5A5958</color>
     <color name="colorButtonNegativeDialog">#5A5958</color>
-    <color name="colorButtonPositiveDialog">#FFFFFF</color>
+    <color name="colorButtonPositiveDialog">#F47920</color>
     <color name="colorSubText">#8C8C8C</color>
     <color name="colorSubTextOrange">#F58634</color>
     <color name="colorHintText">#9D9D9D</color>
@@ -123,4 +123,7 @@
     <color name="colorLineGray">#F0F0F0</color>
     <color name="neutral8">#595959</color>
     <color name="primary100">#F47920</color>
+    <color name="colorBgLanguage">#FF9300</color>
+    <color name="primary5">#FEF8F4</color>
+    <color name="primary40">#FBC9A6</color>
 </resources>
