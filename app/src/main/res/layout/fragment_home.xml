@@ -26,6 +26,19 @@
         app:layout_constraintTop_toTopOf="@+id/flAvatarUser">
 
         <vn.shb.lao.base.view.MyTextView
+            android:id="@+id/tvWelcomeSHB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:lines="1"
+            android:textColor="@color/neutral1"
+            android:textSize="@dimen/textSize12"
+            app:customFontWeight="regular"
+            android:text="@string/welcomeToSHB"
+            tools:text="@string/enterYourUserName" />
+
+        <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvNameUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,21 +46,9 @@
             android:includeFontPadding="false"
             android:lines="1"
             android:textAllCaps="true"
-            android:textColor="@color/neutral10"
+            android:textColor="@color/neutral1"
             android:textSize="@dimen/textSize14"
-            app:customFontWeight="bold"
-            tools:text="@string/enterYourUserName" />
-
-        <vn.shb.lao.base.view.MyTextView
-            android:id="@+id/tvHelloUser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:includeFontPadding="false"
-            android:lines="1"
-            android:textColor="@color/neutral7"
-            android:textSize="@dimen/textSize14"
-            app:customFontWeight="regular"
+            app:customFontWeight="semi_bold"
             tools:text="@string/enterYourUserName" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 

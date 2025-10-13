@@ -39,8 +39,7 @@
         android:layout_marginVertical="@dimen/margin_20dp"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/margin_16dp"
-        android:weightSum="10">
+        android:paddingHorizontal="@dimen/margin_16dp">
 
         <vn.shb.lao.base.view.MyTextView
             android:id="@+id/button_negative"

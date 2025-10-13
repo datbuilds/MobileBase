@@ -98,7 +98,6 @@ class LoginViewModel(
             }
             BottomSheetDialogHelper(context).message(
                 title = getString(R.string.passwordResetInstruction),
-                idIcon = R.drawable.ic_alert_forgot_password,
                 textNegative = getString(R.string.closeLabel),
                 negativeAction = {
 

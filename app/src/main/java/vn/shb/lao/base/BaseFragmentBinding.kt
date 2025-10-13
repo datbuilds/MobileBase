@@ -192,9 +192,8 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         BottomSheetDialogHelper(context!!).message(
             title = getString(R.string.notificationLabel),
             message = reason.errMessage,
-            idIcon = R.drawable.ic_alert_dialog,
-            textNegative = getString(R.string.closeLabel),
-            negativeAction = {
+            textPositive = getString(R.string.closeLabel),
+            positiveAction = {
                 onAction?.invoke()
             }
         )

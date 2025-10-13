@@ -19,7 +19,6 @@ class BottomSheetDialogHelper(context: Context) {
     fun message(
         title: String? = null,
         message: String = "",
-        idIcon: Int? = null,
         textPositive: String = "",
         textNegative: String = "",
         positiveAction: (() -> Unit)? = null,

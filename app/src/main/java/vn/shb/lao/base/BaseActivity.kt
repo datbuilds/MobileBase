@@ -152,13 +152,9 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
     }
 
     open fun showDialogSessionExpire() {
-        val dialog = DialogSessionExpire.Build(onLogOut = { logout() }).build()
-
-        dialog.isCancelable = false
-        if (isDialogShowing(DialogSessionExpire.TAG)) {
-            return
+        DialogSessionExpire().show(context = this){
+            logout()
         }
-        dialog.show(supportFragmentManager, DialogSessionExpire.TAG)
     }
 
     override fun onDestroy() {

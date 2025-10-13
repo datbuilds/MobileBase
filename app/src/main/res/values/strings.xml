@@ -80,4 +80,6 @@
     <string name="areYouSureWantToLogout">Are you sure you want to log out?</string>
     <string name="logoutLabel">Logout</string>
     <string name="cancelLabel">Cancel</string>
+    <string name="sessioneHasExpired">Your session has expired. Please log in again.</string>
+    <string name="welcomeToSHB">Welcome to SHB</string>
 </resources>
