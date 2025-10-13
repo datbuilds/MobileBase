@@ -35,7 +35,7 @@ class SHBApplication : Application(), LifecycleEventObserver {
 
     override fun onCreate() {
         super.onCreate()
-        FontManager.init(this, "onest")
+        FontManager.init(this, "inter")
         NetworkMonitorManager.getInstance().init(this)
 
         startKoin {

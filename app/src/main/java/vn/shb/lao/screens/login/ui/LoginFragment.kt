@@ -261,7 +261,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             llInfoUser.visible()
             groupViewNoLastUser.gone()
             flAvatarUser.setUserName(currentUser?.pathAvatarUser ?: "", currentUserName)
-//            setGreeting(binding.tvHelloUser)
             binding.tvHelloUser.text = context!!.getTextWelcomeUser()
             binding.tvNameUser.text = currentUserName
             inputPasswordLayout.clearEditTextColorFilter()

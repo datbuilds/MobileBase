@@ -533,9 +533,8 @@
     <style name="MaterialDialog.Title">
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/colorTitleDialog</item>
-        <item name="android:layout_marginTop">@dimen/margin_32dp</item>
         <item name="android:textSize">@dimen/textSizeTitleAlert</item>
-        <item name="customFontWeight">medium</item>
+        <item name="customFontWeight">semi_bold</item>
         <item name="android:paddingHorizontal">16dp</item>
         <item name="android:includeFontPadding">false</item>
     </style>
@@ -543,8 +542,7 @@
     <!-- Theme for Dialog Message -->
     <style name="MaterialDialog.Message">
         <item name="android:textSize">@dimen/textSizeContentAlert</item>
-        <item name="android:layout_marginTop">16dp</item>
-        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">20dp</item>
         <item name="customFontWeight">regular</item>
         <item name="android:paddingHorizontal">16dp</item>
         <item name="android:textColor">@color/colorContentDialog</item>
@@ -553,10 +551,9 @@
     <!-- Theme for Dialog Positive Button -->
     <style name="MaterialDialog.PositiveButton" parent="Widget.AppCompat.TextView">
         <item name="android:gravity">center</item>
-        <item name="android:paddingVertical">@dimen/margin_12dp</item>
+        <item name="android:paddingVertical">@dimen/margin_10dp</item>
         <item name="android:includeFontPadding">false</item>
-        <item name="android:paddingHorizontal">@dimen/margin_44dp</item>
-        <item name="customFontWeight">medium</item>
+        <item name="customFontWeight">semi_bold</item>
         <item name="android:textColor">@color/colorButtonPositiveDialog</item>
         <item name="android:textSize">@dimen/textSizeButtonAlert</item>
         <item name="android:background">@drawable/bg_button_positive_alert</item>
@@ -565,10 +562,9 @@
     <!-- Theme cho TextView Negative trong Dialog -->
     <style name="MaterialDialog.NegativeButton" parent="Widget.AppCompat.TextView">
         <item name="android:gravity">center</item>
-        <item name="android:paddingVertical">@dimen/margin_12dp</item>
-        <item name="android:paddingHorizontal">@dimen/margin_44dp</item>
+        <item name="android:paddingVertical">@dimen/margin_10dp</item>
         <item name="android:includeFontPadding">false</item>
-        <item name="customFontWeight">medium</item>
+        <item name="customFontWeight">semi_bold</item>
         <item name="android:textColor">@color/colorButtonNegativeDialog</item>
         <item name="android:textSize">@dimen/textSizeButtonAlert</item>
         <item name="android:background">@drawable/bg_button_negative_alert</item>

@@ -25,6 +25,7 @@ import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.lao.utils.extensions.returnActivity
 import vn.shb.lao.utils.extensions.showProgressDialog
 import vn.shb.lao.utils.refreshTK.RefreshTokenManager
+import vn.shb.lao.utils.view.dialog.BottomSheetDialogHelper
 
 class ProfileFragment :
     BaseFragmentBinding<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
@@ -89,7 +90,15 @@ class ProfileFragment :
                 safeNavigate(R.id.profileFragment, R.id.homeFragment)
             }
             btnLogout.setOnSingleClickListener {
-                viewModel.logout()
+                BottomSheetDialogHelper(context!!).message(
+                    getString(R.string.notificationLabel),
+                    getString(R.string.areYouSureWantToLogout),
+                    textPositive = getString(R.string.logoutLabel),
+                    textNegative = getString(R.string.cancelLabel),
+                    positiveAction = {
+                        viewModel.logout()
+                    }
+                )
             }
 
             flAvatarUser.setListener(

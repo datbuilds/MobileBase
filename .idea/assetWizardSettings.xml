@@ -297,8 +297,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_clear_text" />
-                            <entry key="sourceFile" value="C:\Users\dt_linhdq\Desktop\RESOURCE SHB LAO\ICON\ic_clear_text.svg" />
+                            <entry key="outputName" value="ic_notification" />
+                            <entry key="sourceFile" value="C:\Users\dt_linhdq\Desktop\RESOURCE SHB LAO\ICON\ic_notification.svg" />
                           </map>
                         </option>
                       </PersistentState>

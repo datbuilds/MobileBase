@@ -2,5 +2,5 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <corners android:radius="@dimen/radius_button_alert" />
     <solid
-        android:color="@color/neutral1"/>
+        android:color="@color/colorButtonPrimary"/>
 </shape>

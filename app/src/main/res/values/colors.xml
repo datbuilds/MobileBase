@@ -106,12 +106,12 @@
     <color name="colorBg">#EB7F23</color>
 
     //login
-    <color name="colorTitleDialog">#FE7737</color>
-    <color name="colorContentDialog">#5A5958</color>
-    <color name="colorButtonNegativeDialog">#5A5958</color>
-    <color name="colorButtonPositiveDialog">#F47920</color>
+    <color name="colorTitleDialog">#201D0F</color>
+    <color name="colorContentDialog">#201D0F</color>
+    <color name="colorButtonNegativeDialog">#FF7921</color>
+    <color name="colorButtonPositiveDialog">#FFFFFF</color>
     <color name="colorSubText">#8C8C8C</color>
-    <color name="colorSubTextOrange">#F58634</color>
+    <color name="colorSubTextOrange">#201D0F</color>
     <color name="colorHintText">#9D9D9D</color>
     <color name="neutral100">#E1E1E1</color>
     <color name="neutral1">#FFFFFF</color>
@@ -126,4 +126,5 @@
     <color name="colorBgLanguage">#FF9300</color>
     <color name="primary5">#FEF8F4</color>
     <color name="primary40">#FBC9A6</color>
+    <color name="colorButtonPrimary">#FF7921</color>
 </resources>

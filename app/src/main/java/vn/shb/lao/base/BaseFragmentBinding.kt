@@ -32,7 +32,7 @@ import vn.shb.lao.utils.extensions.CustomToastShowOnTop
 import vn.shb.lao.utils.extensions.navigation.safeNavigate
 import vn.shb.lao.utils.extensions.returnActivity
 import vn.shb.lao.utils.refreshTK.RefreshTokenManager
-import vn.shb.lao.utils.view.dialog.AlertDialogUtil
+import vn.shb.lao.utils.view.dialog.BottomSheetDialogHelper
 
 abstract class BaseFragmentBinding<T : ViewBinding>(
     private val inflateMethod: (LayoutInflater, ViewGroup?, Boolean) -> T
@@ -189,8 +189,7 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         reason: Reason,
         onAction: (() -> Unit)? = null
     ) {
-        AlertDialogUtil.message(
-            context!!,
+        BottomSheetDialogHelper(context!!).message(
             title = getString(R.string.notificationLabel),
             message = reason.errMessage,
             idIcon = R.drawable.ic_alert_dialog,

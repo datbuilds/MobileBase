@@ -1,78 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/relative_layout_dialog"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/Transparent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_dialog"
     android:orientation="vertical"
-    tools:background="@color/primary">
+    android:paddingTop="@dimen/margin_36dp"
+    android:paddingBottom="@dimen/margin_16dp">
+
+    <vn.shb.lao.base.view.MyTextView
+        android:id="@+id/tvTitleAlert"
+        style="@style/MaterialDialog.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_notification"
+        android:drawablePadding="@dimen/margin_10dp"
+        tools:text="@string/notification_channel_id" />
+
+    <FrameLayout
+        android:id="@+id/flSupView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16dp"
+        tools:layout_height="@dimen/margin_100dp" />
+
+    <vn.shb.lao.base.view.MyTextView
+        android:id="@+id/tvContentAlert"
+        style="@style/MaterialDialog.Message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@string/fab_transformation_scrim_behavior" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/margin_50dp"
-        android:background="@drawable/bg_dialog"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginVertical="@dimen/margin_20dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/margin_16dp"
+        android:weightSum="10">
 
         <vn.shb.lao.base.view.MyTextView
-            android:id="@+id/tvTitleAlert"
-            style="@style/MaterialDialog.Title"
-            android:layout_width="match_parent"
+            android:id="@+id/button_negative"
+            style="@style/MaterialDialog.NegativeButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:text="@string/notification_channel_id" />
+            android:layout_weight="4"
+            android:text="@string/cancel" />
 
-        <FrameLayout
-            android:id="@+id/flSupView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_16dp"
-            tools:layout_height="@dimen/margin_300dp" />
+        <View
+            android:id="@+id/viewCenter"
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
 
         <vn.shb.lao.base.view.MyTextView
-            android:id="@+id/tvContentAlert"
-            style="@style/MaterialDialog.Message"
-            android:layout_width="match_parent"
+            android:id="@+id/button_positive"
+            style="@style/MaterialDialog.PositiveButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:text="@string/fab_transformation_scrim_behavior" />
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginVertical="@dimen/margin_14dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/margin_16dp"
-            android:weightSum="10">
-
-            <vn.shb.lao.base.view.MyTextView
-                android:id="@+id/button_negative"
-                style="@style/MaterialDialog.NegativeButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cancel" />
-
-            <View
-                android:id="@+id/viewCenter"
-                android:layout_width="@dimen/margin_0dp"
-                android:layout_height="1dp"
-                android:layout_weight="3" />
-
-            <vn.shb.lao.base.view.MyTextView
-                android:id="@+id/button_positive"
-                style="@style/MaterialDialog.PositiveButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/shb_action_logout" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+            android:layout_weight="4"
+            android:text="@string/shb_action_logout" />
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivIconTop"
-        android:layout_width="@dimen/widthImageDialog"
-        android:layout_height="@dimen/widthImageDialog"
-        android:layout_gravity="center_horizontal"
-        app:srcCompat="@drawable/ic_alert_dialog" />
-</FrameLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>
