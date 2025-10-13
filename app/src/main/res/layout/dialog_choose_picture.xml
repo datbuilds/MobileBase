@@ -51,7 +51,7 @@
             android:gravity="start"
             android:includeFontPadding="false"
             android:paddingVertical="@dimen/margin_12dp"
-            android:text="@string/takeAPhoto"
+            android:text="@string/takePhoto"
             android:textColor="@color/neutral10"
             android:textSize="@dimen/textSize16"
             app:layout_constraintTop_toBottomOf="@+id/tvChooseProfilePicture" />
@@ -73,7 +73,7 @@
             android:gravity="start"
             android:includeFontPadding="false"
             android:paddingVertical="@dimen/margin_12dp"
-            android:text="@string/seletePhotoFromGallery"
+            android:text="@string/selectFromPhotoLibrary"
             android:textColor="@color/neutral10"
             android:textSize="@dimen/textSize16"
             app:layout_constraintTop_toBottomOf="@+id/vLineGray" />

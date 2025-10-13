@@ -15,9 +15,9 @@ class DialogSessionExpire {
     ) {
         with(context){
             BottomSheetDialogHelper(context).message(
-                getString(R.string.notificationLabel),
-                getString(R.string.sessioneHasExpired),
-                getString(R.string.logoutLabel),
+                getString(R.string.notification),
+                getString(R.string.sessionExpired),
+                getString(R.string.logout),
                 positiveAction = {
                     onClickLogout?.invoke()
                 }

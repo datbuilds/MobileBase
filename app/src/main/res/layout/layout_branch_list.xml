@@ -11,7 +11,7 @@
         android:id="@+id/tvOrangeMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/pleaseBringYourIdentity"
+        android:text="@string/pleaseBringIdToResetPassword"
         android:textColor="@color/colorSubTextOrange"
         android:textSize="@dimen/textSize16"
         android:layout_marginEnd="8dp"

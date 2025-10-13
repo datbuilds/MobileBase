@@ -78,7 +78,7 @@
             android:textColor="@color/colorNameUser"
             android:textSize="@dimen/textSize16"
             app:customFontWeight="regular"
-            tools:text="@string/hello_blank_fragment" />
+            tools:text="@string/account_forget_password" />
 
 
         <vn.shb.lao.base.view.MyTextView
@@ -113,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_8dp"
         android:gravity="center"
-        android:text="@string/enterYourDetail"
+        android:text="@string/enterYourDetailToSignIn"
         android:textColor="@color/neutral1"
         android:textSize="@dimen/textSize16"
         app:customFontWeight="regular"
@@ -168,7 +168,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_8dp"
-        android:text="@string/pleaseEnterYourUserName"
+        android:text="@string/pleaseEnterUsername"
         android:textColor="@color/neutral1"
         android:textSize="@dimen/textSize12"
         android:visibility="gone"
@@ -237,7 +237,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_8dp"
-        android:text="@string/pleaseEnterYourPassword"
+        android:text="@string/pleaseEnterPassword"
         android:textColor="@color/neutral1"
         android:textSize="@dimen/textSize12"
         android:visibility="gone"
@@ -252,7 +252,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_24dp"
         android:paddingVertical="@dimen/margin_12dp"
-        android:text="@string/loginLabel"
+        android:text="@string/login"
         app:layout_constraintTop_toBottomOf="@+id/tvErrorPassword" />
 
     <vn.shb.lao.base.view.MyTextView
@@ -261,7 +261,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_24dp"
         android:gravity="center_horizontal"
-        android:text="@string/forgotPasswordLabel"
+        android:text="@string/forgotPassword"
         android:textAllCaps="false"
         android:textColor="@color/neutral1"
         android:textSize="@dimen/textSize12"

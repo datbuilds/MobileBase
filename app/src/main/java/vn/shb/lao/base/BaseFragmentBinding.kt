@@ -190,9 +190,9 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         onAction: (() -> Unit)? = null
     ) {
         BottomSheetDialogHelper(context!!).message(
-            title = getString(R.string.notificationLabel),
+            title = getString(R.string.notification),
             message = reason.errMessage,
-            textPositive = getString(R.string.closeLabel),
+            textPositive = getString(R.string.close),
             positiveAction = {
                 onAction?.invoke()
             }

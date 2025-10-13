@@ -123,7 +123,6 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
 
     private fun bindView() {
         binding.apply {
-            tvHelloUser.text = context!!.getTextWelcomeUser()
             incItemTransfer.apply {
                 ivIconFeature.setImageResource(R.drawable.ic_transfer)
                 tvTitleFeature.text = getString(R.string.transfer)

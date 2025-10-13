@@ -158,7 +158,7 @@ fun Context.getTextWelcomeUser(): String {
     return when (hour) {
         in 6..11 -> getString(R.string.goodMorning)
         in 12..17 -> getString(R.string.goodAfternoon)
-        in 18..23 -> getString(R.string.goodNight)
+        in 18..23 -> getString(R.string.goodnight)
         else -> getString(R.string.welcome)
     }
 }

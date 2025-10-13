@@ -107,7 +107,7 @@ fun LoginFragment.showLanguagePopup(anchor: View) {
     binding.apply {
         iclLanguage1.apply {
             ivLogo.setImageResource(R.drawable.ic_logo_uk)
-            tvNameLanguage.text = getString(R.string.englishLabel)
+            tvNameLanguage.text = getString(R.string.english)
             root.setDisableAlpha(currentLanguage == ENGLISH)
             root.setOnSingleClickListener {
                 updateLanguage(ENGLISH)
@@ -117,7 +117,7 @@ fun LoginFragment.showLanguagePopup(anchor: View) {
 
         iclLanguage2.apply {
             ivLogo.setImageResource(R.drawable.ic_logo_vn)
-            tvNameLanguage.text = getString(R.string.vietnameseLabel)
+            tvNameLanguage.text = getString(R.string.vietnamese)
             root.setDisableAlpha(currentLanguage == VIET)
             root.setOnSingleClickListener {
                 updateLanguage(VIET)
@@ -127,7 +127,7 @@ fun LoginFragment.showLanguagePopup(anchor: View) {
 
         iclLanguage3.apply {
             ivLogo.setImageResource(R.drawable.ic_logo_lao)
-            tvNameLanguage.text = getString(R.string.laoLabel)
+            tvNameLanguage.text = getString(R.string.lao)
             root.setDisableAlpha(currentLanguage == LAO)
             root.setOnSingleClickListener {
                 updateLanguage(LAO)
@@ -148,19 +148,19 @@ fun View.setDisableAlpha(isDisable: Boolean) {
 fun Context.getResourceLocale(type: String, res: (String, Int) -> Unit) {
     when (type) {
         "en" -> {
-            res(getString(R.string.englishLabel), R.drawable.ic_logo_uk)
+            res(getString(R.string.english), R.drawable.ic_logo_uk)
         }
 
         "lo" -> {
-            res(getString(R.string.laoLabel), R.drawable.ic_logo_lao)
+            res(getString(R.string.lao), R.drawable.ic_logo_lao)
         }
 
         "vi" -> {
-            res(getString(R.string.vietnameseLabel), R.drawable.ic_logo_vn)
+            res(getString(R.string.vietnamese), R.drawable.ic_logo_vn)
         }
 
         else -> {
-            res(getString(R.string.englishLabel), R.drawable.ic_logo_uk)
+            res(getString(R.string.english), R.drawable.ic_logo_uk)
         }
     }
 }

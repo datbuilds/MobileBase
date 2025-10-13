@@ -64,7 +64,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     private fun mapUILogin() {
         //init forgot password
         binding.tvForgotPassword.setCustomSpannable(
-            getString(R.string.forgotPasswordLabel), R.color.forgotPassword,
+            getString(R.string.forgotPassword), R.color.forgotPassword,
             R.color.forgotPasswordClick
         ) {
             context?.let { ct -> loginViewModel.showDialogForgotPassword(ct) }

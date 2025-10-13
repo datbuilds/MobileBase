@@ -97,8 +97,8 @@ class LoginViewModel(
                 }
             }
             BottomSheetDialogHelper(context).message(
-                title = getString(R.string.passwordResetInstruction),
-                textNegative = getString(R.string.closeLabel),
+                title = getString(R.string.passwordResetInstructions),
+                textNegative = getString(R.string.close),
                 negativeAction = {
 
                 }, supView = bindingSup.root

@@ -68,7 +68,7 @@ class ProfileFragment :
                 flAvatarUser.setUserName(getCurrentUser()?.pathAvatarUser?:"", it.customerName)
                 tvNameUser.text = it.username
 
-                iclInfo1.bind(getString(R.string.customerID), it.customerId)
+                iclInfo1.bind(getString(R.string.customerId), it.customerId)
                 iclInfo2.bind(getString(R.string.customerName), it.customerName)
                 iclInfo3.bind(getString(R.string.defaultCasaAccount), it.defaultAcct?:"")
                 iclInfo4.bind(getString(R.string.email), it.email)
@@ -91,10 +91,10 @@ class ProfileFragment :
             }
             btnLogout.setOnSingleClickListener {
                 BottomSheetDialogHelper(context!!).message(
-                    getString(R.string.notificationLabel),
-                    getString(R.string.areYouSureWantToLogout),
-                    textPositive = getString(R.string.logoutLabel),
-                    textNegative = getString(R.string.cancelLabel),
+                    getString(R.string.notification),
+                    getString(R.string.logoutConfirm),
+                    textPositive = getString(R.string.logout),
+                    textNegative = getString(R.string.cancel),
                     positiveAction = {
                         viewModel.logout()
                     }

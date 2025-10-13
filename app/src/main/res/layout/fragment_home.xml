@@ -35,7 +35,7 @@
             android:textColor="@color/neutral1"
             android:textSize="@dimen/textSize12"
             app:customFontWeight="regular"
-            android:text="@string/welcomeToSHB"
+            android:text="@string/welcomeToShb"
             tools:text="@string/enterYourUserName" />
 
         <vn.shb.lao.base.view.MyTextView

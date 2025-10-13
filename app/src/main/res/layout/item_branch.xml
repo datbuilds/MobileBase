@@ -38,7 +38,7 @@
             android:id="@+id/tvBranchAddress"
             android:layout_width="@dimen/margin_36dp"
             android:layout_height="wrap_content"
-            android:text="@string/add"
+            android:text="@string/shbBranch1Address"
             android:textColor="@color/neutral10" />
 
         <vn.shb.lao.base.view.MyTextView
@@ -61,7 +61,7 @@
             android:layout_width="@dimen/margin_36dp"
             android:layout_height="wrap_content"
             android:autoLink="phone"
-            android:text="@string/telLabel"
+            android:text="@string/tel"
             android:textColor="@color/neutral10" />
 
         <vn.shb.lao.base.view.MyTextView
