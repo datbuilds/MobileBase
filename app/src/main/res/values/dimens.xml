@@ -135,7 +135,7 @@
     <dimen name="widthLogoLanguage">20dp</dimen>
     <dimen name="textSizeTitleAlert">18sp</dimen>
     <dimen name="textSizeContentAlert">16sp</dimen>
-    <dimen name="textSizeButtonAlert">18sp</dimen>
+    <dimen name="textSizeButtonAlert">16sp</dimen>
     <dimen name="widthStrokeButton">1dp</dimen>
     <dimen name="widthAvatarProfile">80dp</dimen>
 

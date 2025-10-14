@@ -3,26 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/nav_home"
-        android:icon="@drawable/ic_nav_home"
-        android:title="Trang chủ"
+        android:id="@+id/nav_transfer"
+        android:icon="@drawable/ic_transfer"
+        android:title="@string/transfer"
         app:showAsAction="withText" />
 
     <item
-        android:id="@+id/nav_two"
-        android:icon="@drawable/ic_nav_cic"
-        android:title="2Fragment"
-        app:showAsAction="withText" />
-
-    <item
-        android:id="@+id/nav_three"
-        android:icon="@drawable/ic_nav_dti"
-        android:title="3Fragment"
-        app:showAsAction="withText" />
-
-    <item
-        android:id="@+id/nav_four"
-        android:icon="@drawable/ic_nav_acas"
-        android:title="4Fragment"
+        android:id="@+id/nav_accounts"
+        android:icon="@drawable/ic_accounts"
+        android:title="@string/accounts"
         app:showAsAction="withText" />
 </menu>

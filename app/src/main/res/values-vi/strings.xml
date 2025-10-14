@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="personalInternetBanking">Ngân hàng điện tử cá nhân</string>
+    <string name="personalInternetBanking">NGÂN HÀNG TRỰC TUYẾN CÁ NHÂN</string>
     <string name="enterYourDetailToSignIn">Nhập thông tin của bạn để đăng nhập</string>
     <string name="userName">Tên đăng nhập</string>
-    <string name="enterYourUserName">Nhập tên đăng nhập</string>
+    <string name="enterYourUserName">Nhập tên tài khoản của bạn</string>
     <string name="password">Mật khẩu</string>
     <string name="enterPassword">Nhập mật khẩu</string>
     <string name="forgotPassword">Quên mật khẩu?</string>
@@ -16,8 +16,8 @@
     <string name="incorrectUsernameOrPassword">Sai tên đăng nhập hoặc mật khẩu. Vui lòng thử lại.</string>
     <string name="exceededLoginAttempts">Bạn đã nhập sai quá 5 lần. Vui lòng thử lại sau 15 phút.</string>
     <string name="processingError">Lỗi xử lý. Vui lòng thử lại sau.</string>
-    <string name="passwordResetInstructions">Hướng dẫn đặt lại mật khẩu</string>
-    <string name="pleaseBringIdToResetPassword">Vui lòng mang CMND đến chi nhánh SHB để đặt lại mật khẩu.</string>
+    <string name="passwordResetInstructions">HƯỚNG DẪN ĐẶT LẠI MẬT KHẨU</string>
+    <string name="pleaseBringIdToResetPassword">Vui lòng mang chứng minh nhân dân/căn cước công dân đến chi nhánh SHB để đặt lại mật khẩu.</string>
     <string name="shbBranch1">Ngân hàng Sài Gòn - Hà Nội Lào TNHH MTV</string>
     <string name="shbBranch1Address">Số 1, Đại lộ Lane Xang, Thủ đô Viêng Chăn, CHDCND Lào</string>
     <string name="shbBranch2">Ngân hàng Sài Gòn - Hà Nội Lào, Chi nhánh Champasak</string>
@@ -88,6 +88,7 @@
     <string name="invalidBeneficiaryAccount">Tài khoản người nhận không hợp lệ</string>
     <string name="invalidSelectedDate">Ngày được chọn không hợp lệ</string>
     <string name="invalidFormat">Định dạng không hợp lệ</string>
-    <string name="pleaseEnterUsername">Vui lòng nhập tên đăng nhập</string>
+    <string name="pleaseEnterUsername">Vui lòng nhập tên tài khoản</string>
     <string name="pleaseEnterPassword">Vui lòng nhập mật khẩu</string>
+    <string name="tel">Hotline:</string>
 </resources>

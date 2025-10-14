@@ -70,6 +70,12 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
+    <style name="BottomSheetDialogSlideAnimation" parent="android:Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/slide_in_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_down</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
     <style name="SplashTheme" parent="AppTheme">
         <item name="android:windowBackground">@color/white</item>
     </style>
@@ -184,13 +190,24 @@
         <item name="android:paddingVertical">@dimen/margin_12dp</item>
         <item name="android:includeFontPadding">false</item>
         <item name="customFontWeight">bold</item>
-        <item name="android:textColor">@color/colorButtonPositiveDialog</item>
+        <item name="android:textColor">@color/primary100</item>
         <item name="android:textSize">@dimen/textSizeButtonAlert</item>
-        <item name="android:background">@drawable/bg_button_positive_alert</item>
+        <item name="android:background">@drawable/bg_button_login</item>
+    </style>
+
+
+    <style name="MaterialDialog.ButtonLogout" parent="android:Widget.TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:paddingVertical">@dimen/margin_12dp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="customFontWeight">bold</item>
+        <item name="android:textColor">@color/primary100</item>
+        <item name="android:textSize">@dimen/textSizeButtonAlert</item>
+        <item name="android:background">@drawable/bg_button_negative_alert</item>
     </style>
 
     <style name="AppTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxBackgroundMode">none</item>
+        <item name="boxBackgroundMode">@null</item>
         <item name="hintEnabled">false</item>
         <item name="android:paddingVertical">@dimen/margin_4dp</item>
     </style>

@@ -4,7 +4,7 @@
     android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBg"
+    android:background="@drawable/bg_login"
     android:paddingHorizontal="@dimen/margin_20dp">
 
     <vn.shb.lao.screens.home.widget.FrameAvatarUser
@@ -32,10 +32,10 @@
             android:ellipsize="end"
             android:includeFontPadding="false"
             android:lines="1"
+            android:text="@string/welcomeToShb"
             android:textColor="@color/neutral1"
             android:textSize="@dimen/textSize12"
             app:customFontWeight="regular"
-            android:text="@string/welcomeToShb"
             tools:text="@string/enterYourUserName" />
 
         <vn.shb.lao.base.view.MyTextView
@@ -52,59 +52,54 @@
             tools:text="@string/enterYourUserName" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glHeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4" />
+
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivBackgroundAccountDetail"
+        android:id="@+id/ivBgLayoutMain"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/margin_160dp"
         android:layout_marginTop="@dimen/margin_24dp"
-        app:layout_constraintHeight_percent="0.15"
-        app:layout_constraintTop_toBottomOf="@+id/flAvatarUser"
-        app:srcCompat="@drawable/bg_account_detail" />
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toBottomOf="@+id/glHeight"
+        app:srcCompat="@drawable/bg_action_home" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llMainAccount"
         android:layout_width="@dimen/margin_0dp"
         android:layout_height="@dimen/margin_0dp"
-        android:gravity="center_vertical"
         android:orientation="vertical"
-        android:paddingStart="@dimen/margin_16dp"
-        android:paddingEnd="@dimen/margin_16dp"
-        android:paddingVertical="@dimen/margin_12dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ivBackgroundAccountDetail"
-        app:layout_constraintEnd_toEndOf="@+id/ivBackgroundAccountDetail"
-        app:layout_constraintStart_toStartOf="@+id/ivBackgroundAccountDetail"
-        app:layout_constraintTop_toTopOf="@+id/ivBackgroundAccountDetail">
+        app:layout_constraintBottom_toBottomOf="@+id/ivBgLayoutMain"
+        app:layout_constraintEnd_toEndOf="@+id/ivBgLayoutMain"
+        app:layout_constraintStart_toStartOf="@+id/ivBgLayoutMain"
+        app:layout_constraintTop_toTopOf="@+id/ivBgLayoutMain">
 
         <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvCurrentAccount"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_12dp"
             android:drawableEnd="@drawable/ic_arrow_down"
             android:drawablePadding="@dimen/margin_12dp"
             android:drawableTint="@color/neutral1"
-            android:gravity="center"
+            android:gravity="start"
             android:includeFontPadding="false"
             android:paddingVertical="@dimen/margin_4dp"
-            android:textColor="@color/neutral1"
+            android:textColor="@color/neutral500"
             android:textSize="@dimen/textSize14"
             app:customFontWeight="regular"
+            app:drawableTint="#616161"
             tools:text="@string/shb_action_logout" />
-
-        <vn.shb.lao.base.view.MyTextView
-            android:id="@+id/tvNumberAccount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/margin_6dp"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:textColor="@color/neutral1"
-            android:textSize="@dimen/textSize20"
-            app:customFontWeight="medium"
-            tools:text="0393870399" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/llValueBalance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_12dp"
             android:gravity="center">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -112,6 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingVertical="@dimen/margin_4dp"
+                android:tint="#616161"
                 app:srcCompat="@drawable/ic_eye_white" />
 
             <vn.shb.lao.base.view.MyTextView
@@ -119,43 +115,68 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_4dp"
-                android:drawableTint="@color/neutral1"
                 android:gravity="center"
                 android:includeFontPadding="false"
-                android:textColor="@color/neutral1"
+                android:textColor="@color/neutral500"
                 android:textSize="@dimen/textSize14"
                 app:customFontWeight="regular"
                 tools:text="@string/shb_action_logout" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clAction"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/llFeatureHome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_24dp"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/ivBackgroundAccountDetail">
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.333" />
 
-        <include
-            android:id="@+id/incItemTransfer"
-            layout="@layout/item_feature_home"
-            android:layout_width="@dimen/margin_0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="0.3" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.666" />
 
-        <include
-            android:id="@+id/incItemAccounts"
-            layout="@layout/item_feature_home"
-            android:layout_width="@dimen/margin_0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            <include
+                android:id="@+id/incItemTransfer"
+                layout="@layout/item_feature_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/gl1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <include
+                android:id="@+id/incItemAccounts"
+                layout="@layout/item_feature_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/gl2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/flQrCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_qr_code"
+                android:layout_marginBottom="@dimen/margin_20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/gl2"
+                app:layout_constraintStart_toEndOf="@+id/gl1"
+                app:layout_constraintTop_toTopOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -167,6 +188,7 @@
         android:clipChildren="false"
         android:clipToPadding="false"
         android:overScrollMode="never"
+        android:visibility="gone"
         app:layout_constraintHeight_percent="0.2"
         app:layout_constraintTop_toBottomOf="@+id/llFeatureHome" />
 

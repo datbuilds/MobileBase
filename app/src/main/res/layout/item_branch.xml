@@ -21,10 +21,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_8dp"
-            app:customFontWeight="semi_bold"
             android:gravity="top"
             android:textColor="@color/neutral10"
             android:textSize="@dimen/textSize14"
+            app:customFontWeight="medium"
             tools:text="1. SAIGON –HANOI BANK LAO LIMITEDHANOI BANK LAO LIMITEDHANOI BANK LAO LIMITED HANOI BANK LAO LIMITED" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -38,8 +38,10 @@
             android:id="@+id/tvBranchAddress"
             android:layout_width="@dimen/margin_36dp"
             android:layout_height="wrap_content"
-            android:text="@string/shbBranch1Address"
-            android:textColor="@color/neutral10" />
+            android:text="@string/add"
+            android:textColor="@color/neutral10"
+            android:textSize="@dimen/textSize14"
+            app:customFontWeight="medium" />
 
         <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvAddressDetail"
@@ -62,7 +64,9 @@
             android:layout_height="wrap_content"
             android:autoLink="phone"
             android:text="@string/tel"
-            android:textColor="@color/neutral10" />
+            android:textColor="@color/neutral10"
+            android:textSize="@dimen/textSize14"
+            app:customFontWeight="medium" />
 
         <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvHotlineDetail"

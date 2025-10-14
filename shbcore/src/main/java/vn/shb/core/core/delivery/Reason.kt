@@ -1,5 +1,6 @@
 package vn.shb.core.core.delivery
 
+import vn.shb.core.core.retrofit.SafeExecute
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -10,7 +11,6 @@ abstract class Reason : Throwable() {
 
     override fun toString(): String = errMessage
 
-    fun getErrorMessage(): String = errMessage
 }
 
 fun Throwable.toReason(): Reason =
@@ -47,11 +47,12 @@ class GenericError(
 ) : Reason()
 
 sealed class NetworkError(
-    override val errMessage: String
+    override val errMessage: String,
+    override val errorCode: String = "N"
 ) : Reason()
 
 class BadGatewayError : NetworkError(ReasonDescription.BAD_GATEWAY)
-class ConnectionError : NetworkError(ReasonDescription.NETWORK)
+class ConnectionError() : NetworkError(ReasonDescription.NETWORK, SafeExecute.HTTP_NOT_FOUND)
 class ResponseError : NetworkError(ReasonDescription.RESPONSE)
 class EmptyResultError : NetworkError(ReasonDescription.EMPTY)
 class TimeoutError : NetworkError(ReasonDescription.TIMEOUT)

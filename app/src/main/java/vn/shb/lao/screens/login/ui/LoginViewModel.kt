@@ -97,11 +97,7 @@ class LoginViewModel(
                 }
             }
             BottomSheetDialogHelper(context).message(
-                title = getString(R.string.passwordResetInstructions),
-                textNegative = getString(R.string.close),
-                negativeAction = {
-
-                }, supView = bindingSup.root
+                title = getString(R.string.passwordResetInstructions), supView = bindingSup.root, isClose = true
             )
         }
     }
@@ -109,30 +105,20 @@ class LoginViewModel(
     private fun getListAddress() : List<Branch> {
         return listOf(
             Branch(
-                "1. SAIGON – HANOI BANK LAO LIMITED",
-                "No.1, Lane Xang Avenue, Vientiane Capital, Laos P.D.R",
-                "(+85621) 968888"
+                "1. SAI GON - HA NOI BANK LAO SOLE CO., LIMITED",
+                "Unit 1, Lane Xang Avenue, Vientiane Captital, Laos P.D.R",
+                "+856 21 82 8888"
             ),
             Branch(
-                "2. SAIGON – HANOI BANK LAO LIMITED, CHAMPASAK BRANCH",
-                "336, 337, 338 Pakse New Market, Phonekung, Pakse, Champasak, Laos P.D.R",
-                "(+85621) 257167"
+                "2. SAIGON - HANOI BANK LAO LIMITED, CHAMPASAK BRANCH",
+                "336, 337, 338 Pakse New Market, Phonekung, Pakse, Champasack, Laos P.D.R",
+                "+856 31 257 167"
             ),
             Branch(
-                "3. SAIGON – HANOI BANK LAO LIMITED, SAVANNAKHET BRANCH",
-                "No. 130/136, Unit 12,13,14, Nongduang Village, Chanthabouly District, Savannakhet, Laos P.D.R",
-                "(+85621) 214888"
-            ),
-            Branch(
-                "4. SAIGON – HANOI BANK LAO LIMITED, LUANG PRABANG BRANCH",
-                "Ban Wat Xieng Mouane, Luang Prabang, Laos P.D.R",
-                "(+85621) 710999"
-            ),
-            Branch(
-                "5. SAIGON – HANOI BANK LAO LIMITED, PAKXAN BRANCH",
-                "No. 0236, Unit 1,2,3, Phonthan Village, Pakxan District, Bolikhamxay, Laos P.D.R",
-                "(+85621) 216888"
-            ),
+                "3. SAI GON - HA NOI BANK LAO SOLE CO., LIMITED, SAVANNAKHET BRANCH ",
+                "Unit 25, Lattanalangsy Neua Village, Kaisone Phomvihan City, Savannakhet Province, Laos ",
+                "+856 30 925 6666"
+            )
         )
     }
 }

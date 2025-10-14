@@ -127,4 +127,5 @@
     <color name="primary5">#FEF8F4</color>
     <color name="primary40">#FBC9A6</color>
     <color name="colorButtonPrimary">#FF7921</color>
+    <color name="neutral500">#616161</color>
 </resources>

@@ -82,7 +82,7 @@
 
    <vn.shb.lao.base.view.MyTextView
         android:id="@+id/btnLogout"
-        style="@style/MaterialDialog.ButtonActionMain"
+        style="@style/MaterialDialog.ButtonLogout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_32dp"

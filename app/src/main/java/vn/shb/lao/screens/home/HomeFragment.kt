@@ -137,7 +137,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
     private fun bindViewAccount(account: AccountInfo) {
         binding.tvCurrentAccount.text =
             account.accountType.plus(" - ").plus(account.accountType)
-        binding.tvNumberAccount.text = account.accountNumber
+//        binding.tvNumberAccount.text = account.accountNumber
         binding.tvValueBalance.text =
             (if (isShowValueBalance) account.casaTotal.toString() else textGoneValue).plus(" ")
                 .plus(account.currencyCode)

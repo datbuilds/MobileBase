@@ -102,4 +102,8 @@
         <item name="colorPrimary">@color/accent</item>
         <item name="colorPrimaryDark">@color/accent</item>
     </style>
+    
+    <style name="fab_3_rounded">
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

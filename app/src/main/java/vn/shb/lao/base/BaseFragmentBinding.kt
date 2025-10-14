@@ -23,6 +23,7 @@ import androidx.viewbinding.ViewBinding
 import com.google.android.material.transition.platform.MaterialFadeThrough
 import org.koin.android.ext.android.inject
 import vn.shb.core.core.delivery.Reason
+import vn.shb.core.core.retrofit.SafeExecute
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import vn.shb.data.entities.login.UserConverters
 import vn.shb.data.entities.login.UserLog
@@ -189,9 +190,13 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         reason: Reason,
         onAction: (() -> Unit)? = null
     ) {
+        var message = reason.errMessage
+        if (reason.errorCode == SafeExecute.HTTP_NOT_FOUND) {
+            message = getString(R.string.processingError)
+        }
         BottomSheetDialogHelper(context!!).message(
             title = getString(R.string.notification),
-            message = reason.errMessage,
+            message = message,
             textPositive = getString(R.string.close),
             positiveAction = {
                 onAction?.invoke()

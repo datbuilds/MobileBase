@@ -111,11 +111,12 @@
     <string name="currentBalance">Current balance</string>
     <string name="show">Show</string>
     <string name="myProfile">My Profile</string>
-    <string name="tel">Tel</string>
+    <string name="tel">Tel:</string>
     <string name="hide">Hide</string>
     <string name="account_info_format">%s - %s - %s</string>
     <string name="english">English</string>
     <string name="vietnamese">Vietnamese</string>
     <string name="lao">Lao</string>
+    <string name="add">Add:</string>
 
 </resources>

@@ -50,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.333" />
+        app:layout_constraintGuide_percent="0.36" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/llInfoUser"
@@ -203,7 +203,7 @@
                 android:imeActionLabel="@string/account_login"
                 android:imeOptions="actionDone"
                 android:importantForAutofill="no"
-                android:inputType="textPassword|number"
+                android:inputType="textVisiblePassword"
                 android:maxLength="6"
                 android:selectAllOnFocus="true" />
         </com.google.android.material.textfield.TextInputLayout>

@@ -1,5 +1,10 @@
 package vn.shb.core.core.domain.source.repository
 
+import android.graphics.Typeface
+import android.os.CountDownTimer
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.StyleSpan
 import vn.shb.core.core.delivery.ActionDone
 import vn.shb.core.core.delivery.ResultSHB
 import vn.shb.core.core.delivery.reason.AppReason
@@ -104,9 +109,41 @@ class RepositoryAuthImpl(
         else -> ResultSHB.Loading
     }
 
-    private fun resultLoginFail(contentResult: LoginResponse) = ResultSHB.Failure(
-        AppReason(message = contentResult.errorMessage, code = contentResult.errorCode)
-    )
+    private var countDownTimer: CountDownTimer? = null
+
+    private fun showLockMessage(totalMillis: Long = 15 * 60 * 1000L) {
+        val message = "You have exceeded 5 failed login attempts.\nPlease try again in "
+
+        countDownTimer?.cancel()
+        countDownTimer = object : CountDownTimer(totalMillis, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                val minutes = (millisUntilFinished / 1000) / 60
+                val seconds = (millisUntilFinished / 1000) % 60
+                val timeFormatted = String.format("%02d:%02d", minutes, seconds)
+
+                val fullText = "$message $timeFormatted"
+
+                val spannable = SpannableString(fullText)
+                val start = fullText.indexOf(timeFormatted)
+                val end = start + timeFormatted.length
+
+                // làm đậm phần thời gian
+                spannable.setSpan(
+                    StyleSpan(Typeface.BOLD),
+                    start,
+                    end,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+
+                tvLockMessage.text = spannable
+            }
+
+            override fun onFinish() {
+                tvLockMessage.text = "You can try logging in again."
+            }
+        }.start()
+    }
+
 
     private fun saveData(user: UserLog) {
         storage.apply {

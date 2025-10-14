@@ -6,7 +6,6 @@ import retrofit2.Response
 import vn.shb.core.core.delivery.BadRequestError
 import vn.shb.core.core.delivery.ErrorResponse
 import vn.shb.core.core.delivery.GenericError
-import vn.shb.core.core.delivery.NotFoundError
 import vn.shb.core.core.delivery.Reason
 import vn.shb.core.core.delivery.ReasonDescription
 import vn.shb.core.core.delivery.ResultSHB
@@ -22,7 +21,7 @@ abstract class SafeExecute() {
         private const val HTTP_BAD_REQUEST = 400
         private const val HTTP_UNAUTHORIZED = 401
         private const val HTTP_FORBIDDEN = 403
-        private const val HTTP_NOT_FOUND = 404
+        const val HTTP_NOT_FOUND = "404"
         private const val HTTP_METHOD_NOT_ALLOWED = 405
         private const val HTTP_CONFLICT = 409
         private const val HTTP_GONE = 410
@@ -76,10 +75,10 @@ abstract class SafeExecute() {
                 createUnauthorizedError(response, responseMessage)
             }
 
-            HTTP_NOT_FOUND -> {
-                println("$TAG Not Found (404) - Resource not found")
-                NotFoundError()
-            }
+//            HTTP_NOT_FOUND -> {
+//                println("$TAG Not Found (404) - Resource not found")
+//                NotFoundError()
+//            }
 
             HTTP_REQUEST_TIMEOUT -> {
                 println("$TAG Request Timeout (408) - Client timeout")
@@ -214,9 +213,9 @@ abstract class SafeExecute() {
         val serverMessage = extractServerMessage(response)
         return GenericError(
             errMessage =
-            serverMessage.ifEmpty {
-                "Gateway timeout - máy chủ trung gian hết thời gian chờ"
-            }
+                serverMessage.ifEmpty {
+                    "Gateway timeout - máy chủ trung gian hết thời gian chờ"
+                }
         )
     }
 

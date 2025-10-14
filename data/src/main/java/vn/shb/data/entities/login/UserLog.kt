@@ -15,6 +15,9 @@ data class UserLog(
     @SerializedName("userLog") val userLog: String = "",
     @SerializedName("title") val title: String = "",
     @SerializedName("scope") val scope: String = "",
+    @SerializedName("loginFailCount") val loginFailCount: String = "",
+    @SerializedName("lockedUntil") val lockedUntil: String = "",
+
     var pathAvatarUser: String = "",
 ) : Serializable {
 
