@@ -1,24 +1,38 @@
 package vn.shb.lao.screens.home
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.PopupWindow
+import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import vn.shb.core.core.delivery.ReasonDescription.ENGLISH
+import vn.shb.core.core.delivery.ReasonDescription.LAO
+import vn.shb.core.core.delivery.ReasonDescription.VIET
 import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.data.entities.getInitials
 import vn.shb.data.entities.home.AccountInfo
 import vn.shb.data.entities.login.UserLog
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentHomeBinding
+import vn.shb.lao.databinding.LayoutLanguagePopupBinding
 import vn.shb.lao.screens.home.helper.LoopingAdapter
 import vn.shb.lao.screens.home.widget.OnClickDetail
-import vn.shb.lao.utils.extensions.getTextWelcomeUser
+import vn.shb.lao.screens.login.ui.widget.setDisableAlpha
+import vn.shb.lao.utils.extensions.common.Constants
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
+import vn.shb.lao.utils.widgets.LocaleHelper
 
 class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
@@ -44,7 +58,6 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
 
     private fun getDataUser() {
         homeViewModel.getUserInfo()
-        homeViewModel.getAccounts()
     }
 
     private fun bindBannerView() {
@@ -135,11 +148,14 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
     }
 
     private fun bindViewAccount(account: AccountInfo) {
-        binding.tvCurrentAccount.text =
-            account.accountType.plus(" - ").plus(account.accountType)
-//        binding.tvNumberAccount.text = account.accountNumber
+        val valueAccount = homeViewModel.getTypeAccount(context!!, account)
+        binding.tvCurrentAccount.text = valueAccount.first.plus(Constants.SEPARATOR_DASH)
+            .plus(account.accountNumber).plus(
+                Constants.SEPARATOR_DASH
+                    .plus(account.currencyCode)
+            )
         binding.tvValueBalance.text =
-            (if (isShowValueBalance) account.casaTotal.toString() else textGoneValue).plus(" ")
+            (if (isShowValueBalance) valueAccount.second else textGoneValue).plus(" ")
                 .plus(account.currencyCode)
     }
 
@@ -167,15 +183,18 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
 
             ivEyeSeeValue.setOnSingleClickListener {
                 isShowValueBalance = !isShowValueBalance
-//                ivEyeSeeValue.setImageResource(
-//                    if (isShowValueBalance) R.drawable.ic_eye_open else R.drawable.ic_eye_close
-//                )
+                ivEyeSeeValue.setImageResource(
+                    if (isShowValueBalance) R.drawable.ic_eye_closed else R.drawable.ic_eye_show
+                )
                 homeViewModel.selectedAccount?.let { account ->
                     tvValueBalance.text =
                         (if (isShowValueBalance) account.casaTotal.toString() else textGoneValue).plus(
-                            " LAK"
+                            account.currencyCode
                         )
                 }
+            }
+            flQrCode.setOnClickListener {
+                showLanguagePopup(flQrCode)
             }
         }
     }
@@ -186,10 +205,8 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
                 launch {
                     stateUserInfo.collectLatest { userInfo ->
                         val userLog = getCurrentUser()
-                        userLog?.apply {
-                            username = userInfo.customerName
-                            setCurrentUser(this)
-                            mapUserInfo(userLog)
+                        userLog?.let { it ->
+                            mapUserInfo(it)
                         }
                     }
                 }
@@ -202,10 +219,86 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
         }
     }
 
-    private fun mapUserInfo(userLog: UserLog? = getCurrentUser()) {
-        userLog?.let { user ->
+    private fun mapUserInfo(userLog: UserLog) {
+        userLog.let { user ->
             binding.tvNameUser.text = user.username
-            binding.flAvatarUser.setUserName(user.pathAvatarUser, user.username.getInitials())
+            binding.flAvatarUser.setUserName(getPathAvatarUser(), user.username)
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(LocaleHelper.setLocale(context, LocaleHelper.getCurrentLanguage(context)))
+    }
+
+
+    fun updateLanguage(type: String) {
+        context?.let { ct ->
+            LocaleHelper.saveLanguage(ct, type)
+            LocaleHelper.setLocale(ct, type)
+//            restartApp(activity!!)
+            requireActivity().recreate()
+        }
+    }
+
+    private fun restartApp(context: Context) {
+        val intent = context.packageManager.getLaunchIntentForPackage(context.packageName)
+        intent?.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(intent)
+        if (context is Activity) {
+            context.finish()
+        }
+    }
+
+    private fun showLanguagePopup(anchor: View) {
+        val binding = LayoutLanguagePopupBinding.inflate(LayoutInflater.from(anchor.context))
+
+        val popupWindow = PopupWindow(
+            binding.root,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            true // focusable, click outside sẽ tự đóng
+        )
+
+        val currentLanguage = LocaleHelper.getCurrentLanguage(context!!)
+
+        // style
+        popupWindow.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
+        popupWindow.isOutsideTouchable = true
+        popupWindow.elevation = 8f
+
+        binding.apply {
+            iclLanguage1.apply {
+                ivLogo.setImageResource(R.drawable.ic_logo_uk)
+                tvNameLanguage.text = getString(R.string.english)
+                root.setDisableAlpha(currentLanguage == ENGLISH)
+                root.setOnSingleClickListener {
+                    updateLanguage(ENGLISH)
+                    popupWindow.dismiss()
+                }
+            }
+
+            iclLanguage2.apply {
+                ivLogo.setImageResource(R.drawable.ic_logo_vn)
+                tvNameLanguage.text = getString(R.string.vietnamese)
+                root.setDisableAlpha(currentLanguage == VIET)
+                root.setOnSingleClickListener {
+                    updateLanguage(VIET)
+                    popupWindow.dismiss()
+                }
+            }
+
+            iclLanguage3.apply {
+                ivLogo.setImageResource(R.drawable.ic_logo_lao)
+                tvNameLanguage.text = getString(R.string.lao)
+                root.setDisableAlpha(currentLanguage == LAO)
+                root.setOnSingleClickListener {
+                    updateLanguage(LAO)
+                    popupWindow.dismiss()
+                }
+            }
+        }
+
+        val marginRight = (130 * anchor.context.resources.displayMetrics.density).toInt()
+        popupWindow.showAsDropDown(anchor, -marginRight, 0, Gravity.END)
     }
 }

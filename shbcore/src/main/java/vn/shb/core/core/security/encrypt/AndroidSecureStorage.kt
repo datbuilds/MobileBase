@@ -74,9 +74,14 @@ class AndroidSecureStorage(private val context: Context, private val deviceManag
     fun setUserLog(user: String) = putPreference(USER_INFO, user)
     fun getUserLog() = getPreference(USER_INFO, "")
 
+    fun setPathAvatarUser(key: String, path: String) = putPreference(key, path)
+
+    fun getPathAvatarUser(key: String) = getPreference(key, "")
+
     /**
      * ---------------------End user--->
      */
+
 
     fun setExpireTime(data: Int) = putPreference(EXPIRE_TIME, data)
     fun getExpireTime() = getPreference(EXPIRE_TIME, 5)

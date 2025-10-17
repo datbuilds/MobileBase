@@ -1,5 +1,6 @@
 package vn.shb.lao.screens.home
 
+import android.content.Context
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -12,6 +13,7 @@ import vn.shb.core.core.domain.usecases.home.UseCaseUserInfo
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import vn.shb.data.entities.home.AccountInfo
 import vn.shb.data.entities.home.UserInfo
+import vn.shb.data.entities.login.UserConverters
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseViewModel
 import vn.shb.lao.screens.account.model.TransactionItem
@@ -34,6 +36,12 @@ class HomeViewModel(
         viewModelScope.launch {
             useCaseUserInfo.invoke(None).collect { result ->
                 result.onSuccess { (userInfo, accountData) ->
+                    val useLog = UserConverters.stringToUserInfo(storage.getUserLog())
+                    useLog?.apply {
+                        username = userInfo.customerName
+                        customerId = userInfo.customerId
+                        storage.setUserLog(UserConverters.userInfoToString(this))
+                    }
                     _stateUserInfo.value = userInfo
                     listAccount = accountData.array
                     currentUserInfo = userInfo
@@ -57,28 +65,29 @@ class HomeViewModel(
         if (selectedAccount != null) {
             _stateAccounts.value = selectedAccount!!
         }
-
     }
 
     fun getCurrentUserInfo(): UserInfo? {
         return currentUserInfo
     }
 
-    fun getAccounts() {
-//        viewModelScope.launch {
-//            useCaseAccounts.invoke(None).collect { result ->
-//                result.onSuccess { data ->
-//                    listAccount = data.array
-//                    if (listAccount.isNotEmpty()) {
-//                        selectedAccount = listAccount[0]
-//                    }
-//                    _stateAccounts.value = listAccount
-//                }
-//                result.onFailure { error ->
-//                }
-//                result.onLoading { }
-//            }
-//        }
+    fun getTypeAccount(
+        context: Context,
+        account: AccountInfo? = selectedAccount
+    ): Pair<String, String> {
+        return when (account?.accountType) {
+            "001" -> Pair(context.getString(R.string.currentAccount), account.casaTotal.toString())
+            "002" -> Pair(context.getString(R.string.loanAccount), account.loanTotal.toString())
+            "003" -> Pair(
+                context.getString(R.string.defaultCasaAccount),
+                account.tideTotal.toString()
+            )
+
+            else -> Pair(
+                context.getString(R.string.defaultCasaAccount),
+                account?.casaTotal.toString()
+            )
+        }
     }
 
     fun getListBanner(): List<Int> {

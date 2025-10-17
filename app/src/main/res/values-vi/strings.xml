@@ -10,7 +10,7 @@
     <string name="login">Đăng nhập</string>
     <string name="goodMorning">Chào buổi sáng</string>
     <string name="goodAfternoon">Chào buổi chiều</string>
-    <string name="goodnight">Chúc ngủ ngon</string>
+    <string name="goodnight">Chào buổi tối</string>
     <string name="welcome">Chào mừng</string>
     <string name="notification">Thông báo</string>
     <string name="incorrectUsernameOrPassword">Sai tên đăng nhập hoặc mật khẩu. Vui lòng thử lại.</string>
@@ -31,7 +31,7 @@
     <string name="logoutConfirm">Bạn có chắc muốn đăng xuất không?</string>
     <string name="cancel">Hủy</string>
     <string name="logout">Đăng xuất</string>
-    <string name="sessionExpired">Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.</string>
+    <string name="sessionExpired">Phiên làm việc của bạn đã hết hạn. Vui lòng đăng nhập lại.</string>
     <string name="close">Đóng</string>
     <string name="selectAccount">Chọn tài khoản</string>
     <string name="loanAccount">Tài khoản vay</string>
@@ -90,5 +90,14 @@
     <string name="invalidFormat">Định dạng không hợp lệ</string>
     <string name="pleaseEnterUsername">Vui lòng nhập tên tài khoản</string>
     <string name="pleaseEnterPassword">Vui lòng nhập mật khẩu</string>
+    <string name="pleaseTryAgainIn">Vui lòng thử lại sau</string>
+    <string name="currentBalance">Số dư hiện tại</string>
+    <string name="show">Hiện</string>
+    <string name="myProfile">Hồ sơ của tôi</string>
     <string name="tel">Hotline:</string>
+    <string name="hide">Ẩn</string>
+    <string name="english">Tiếng Anh</string>
+    <string name="vietnamese">Tiếng Việt</string>
+    <string name="lao">Tiếng Lào</string>
+    <string name="add">Địa chỉ:</string>
 </resources>

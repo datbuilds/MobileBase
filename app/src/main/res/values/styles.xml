@@ -214,7 +214,6 @@
 
     <style name="AppTextInputEditTextStyle">
         <item name="android:background">@null</item>
-        <item name="customFontWeight">medium</item>
         <item name="android:maxLines">1</item>
         <item name="android:singleLine">true</item>
         <item name="android:paddingHorizontal">@dimen/margin_12dp</item>
@@ -222,6 +221,7 @@
         <item name="android:textColor">@color/neutral1</item>
         <item name="android:textCursorDrawable">@null</item>
         <item name="android:textColorHint">@color/primary40</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
         <item name="android:textSize">@dimen/textSize14</item>
     </style>
 

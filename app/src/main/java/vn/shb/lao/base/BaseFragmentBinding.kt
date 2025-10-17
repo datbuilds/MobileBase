@@ -157,6 +157,12 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
     fun getCurrentUser() = UserConverters.stringToUserInfo(storage.getUserLog())
     fun setCurrentUser(user: UserLog) = storage.setUserLog(UserConverters.userInfoToString(user))
 
+    fun getPathAvatarUser(key: String? = getCurrentUser()?.customerId) =
+        key?.let { storage.getPathAvatarUser(it) }
+
+    fun setPathAvatarUser(path: String, key: String? = getCurrentUser()?.customerId) =
+        key?.let { storage.setPathAvatarUser(it, path) }
+
     open fun setNavigationBarColor(color: Int) {
         requireActivity().window.navigationBarColor = color
     }

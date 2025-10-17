@@ -80,7 +80,7 @@ object RefreshTokenManager {
                     synchronized(storage) {
                         storage.apply {
                             setToken(it.access_token)
-//                          storage.setRfToken(it.refresh_token)
+                            storage.setRfToken(it.refresh_token)
                             setExpireTime(TimeUnit.SECONDS.toMinutes(it.expireIn()).toInt())
                             setTokenInvalid(false)
                         }

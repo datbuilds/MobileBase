@@ -1,6 +1,7 @@
 package vn.shb.lao.screens.profile
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.delay
@@ -9,17 +10,21 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.home.AccountInfo
+import vn.shb.data.entities.home.UserInfo
 import vn.shb.dn.choosePhotoHelper.ChoosePhotoHelper
 import vn.shb.dn.choosePhotoHelper.callback.ChoosePhotoCallback
 import vn.shb.lao.R
 import vn.shb.lao.activity.login.LoginActivity
 import vn.shb.lao.base.BaseFragmentBinding
+import vn.shb.lao.base.view.MyTextView
 import vn.shb.lao.databinding.FragmentProfileBinding
 import vn.shb.lao.databinding.ItemProfileInfoBinding
 import vn.shb.lao.screens.home.HomeViewModel
 import vn.shb.lao.screens.home.widget.OnClickDetail
 import vn.shb.lao.screens.login.state.LogoutUiState
 import vn.shb.lao.screens.login.ui.LoginViewModel
+import vn.shb.lao.utils.extensions.common.Constants
 import vn.shb.lao.utils.extensions.hideProgressDialog
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.lao.utils.extensions.returnActivity
@@ -42,39 +47,48 @@ class ProfileFragment :
             .alwaysShowRemoveOption(true)
             .build(object : ChoosePhotoCallback<String> {
                 override fun onChoose(photo: String?) {
-                    val currentUser =
-                        getCurrentUser()?.apply {
-                            pathAvatarUser = photo ?: ""
-                        }
-                    currentUser?.toUserString()?.let {
-                        storage.setUserLog(it)
+                    photo?.let { path -> setPathAvatarUser(path) }
+                    getCurrentUser()?.let {
                         binding.flAvatarUser.setUserName(
-                            currentUser.pathAvatarUser,
-                            currentUser.username
+                            getPathAvatarUser(),
+                            it.username
                         )
                     }
+                    showAvatarUpdateStatus(binding.tvStatusUpdateAvatar, true)
+                }
+
+                override fun onError() {
+                    showAvatarUpdateStatus(binding.tvStatusUpdateAvatar, false)
                 }
             })
     }
 
     override fun initView(view: View) {
-        bindViewDetail()
+        val user = homeViewModel.getCurrentUserInfo()
+        val account = homeViewModel.selectedAccount
+        if (user != null && account != null) {
+            bindViewDetail(user, account)
+        } else {
+            homeViewModel.getUserInfo()
+            Log.i("2332323", "get API")
+        }
     }
 
-    private fun bindViewDetail() {
-        val user = homeViewModel.getCurrentUserInfo()
-        user?.let {
-            with(binding) {
-                flAvatarUser.setUserName(getCurrentUser()?.pathAvatarUser?:"", it.customerName)
-                tvNameUser.text = it.username
+    private fun bindViewDetail(user: UserInfo, account: AccountInfo) {
 
-                iclInfo1.bind(getString(R.string.customerId), it.customerId)
-                iclInfo2.bind(getString(R.string.customerName), it.customerName)
-                iclInfo3.bind(getString(R.string.defaultCasaAccount), it.defaultAcct?:"")
-                iclInfo4.bind(getString(R.string.email), it.email)
-                iclInfo5.bind(getString(R.string.shbOnline), it.authMethodName)
-                iclInfo6.bind(getString(R.string.userName), it.username)
-            }
+        with(binding) {
+            flAvatarUser.setUserName(getPathAvatarUser(), user.customerName)
+            tvNameUser.text = user.customerName
+
+            iclInfo1.bind(getString(R.string.customerId), user.customerId)
+            iclInfo2.bind(getString(R.string.customerName), user.customerName)
+            val defaultAccount =
+                homeViewModel.getTypeAccount(context!!).first.plus(Constants.SEPARATOR_DASH)
+                    .plus(account.accountNumber)
+            iclInfo3.bind(getString(R.string.defaultCasaAccount), defaultAccount)
+            iclInfo4.bind(getString(R.string.email), user.email)
+            iclInfo5.bind(getString(R.string.shbOnline), user.authMethodName)
+            iclInfo6.bind(getString(R.string.userName), user.username)
         }
 
     }
@@ -141,7 +155,67 @@ class ProfileFragment :
                     }
                 }
             }
+            launch {
+                homeViewModel.stateUserInfo.collect { userInfo ->
+                    val userLog = getCurrentUser()
+                    userLog?.let {
+                        homeViewModel.selectedAccount?.let { bindViewDetail(userInfo, it) }
+                    }
+                }
+            }
+            launch {
+                homeViewModel.stateSelectedAccount.collect { accountInfo ->
+                    homeViewModel.getCurrentUserInfo()?.let { bindViewDetail(it, accountInfo) }
+                }
+            }
         }
     }
 
+    fun showAvatarUpdateStatus(
+        textView: MyTextView,
+        isSuccess: Boolean
+    ) {
+        textView.visibility = View.VISIBLE
+
+        if (isSuccess) {
+            textView.apply {
+                text = context.getString(R.string.profilePictureUpdated)
+                setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.ic_success,
+                    0,
+                    R.drawable.ic_close,
+                    0
+                )
+                setBackgroundResource(R.drawable.bg_toast_change_avatar_ss)
+            }
+        } else {
+            textView.apply {
+                text = context.getString(R.string.profilePictureFailed)
+                setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.ic_error,
+                    0,
+                    R.drawable.ic_close,
+                    0
+                )
+                setBackgroundResource(R.drawable.bg_toast_change_avatar_error)
+            }
+        }
+
+        textView.animate()
+            .alpha(1f)
+            .setDuration(200)
+            .withEndAction {
+                textView.postDelayed({
+                    textView.animate()
+                        .alpha(0f)
+                        .setDuration(300)
+                        .withEndAction {
+                            textView.visibility = View.GONE
+                            textView.alpha = 1f
+                        }
+                        .start()
+                }, 3000)
+            }
+            .start()
+    }
 }

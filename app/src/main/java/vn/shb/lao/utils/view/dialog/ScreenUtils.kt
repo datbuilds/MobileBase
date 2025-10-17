@@ -1,8 +1,10 @@
 package vn.shb.lao.utils.view.dialog
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.os.Build
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowManager
@@ -14,11 +16,20 @@ object ScreenUtils {
         return (dp * scale + 0.5f).toInt()
     }
 
-    fun getScreenHeight(context: Context): Int {
-        val displayMetrics = DisplayMetrics()
-        val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        windowManager.defaultDisplay.getMetrics(displayMetrics)
-        return displayMetrics.heightPixels
+    fun getScreenHeight(activity: Activity): Int {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val windowMetrics = activity.windowManager.currentWindowMetrics
+            val insets = windowMetrics.windowInsets
+                .getInsetsIgnoringVisibility(android.view.WindowInsets.Type.systemBars())
+
+            val height = windowMetrics.bounds.height() - insets.top - insets.bottom
+            return height
+        } else {
+            val displayMetrics = DisplayMetrics()
+            activity.windowManager.defaultDisplay.getMetrics(displayMetrics)
+            return displayMetrics.heightPixels
+        }
+
     }
 
 

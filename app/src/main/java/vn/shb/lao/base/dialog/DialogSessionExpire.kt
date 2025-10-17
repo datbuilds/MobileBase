@@ -1,11 +1,7 @@
 package vn.shb.lao.base.dialog
 
 import android.content.Context
-import android.view.View
-import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.lao.R
-import vn.shb.lao.base.BaseBottomDialogBinding
-import vn.shb.lao.databinding.DialogSessionExpireBinding
 import vn.shb.lao.utils.view.dialog.BottomSheetDialogHelper
 
 class DialogSessionExpire {
@@ -13,11 +9,11 @@ class DialogSessionExpire {
         context: Context,
         onClickLogout: (() -> Unit)? = null
     ) {
-        with(context){
+        with(context) {
             BottomSheetDialogHelper(context).message(
                 getString(R.string.notification),
                 getString(R.string.sessionExpired),
-                getString(R.string.logout),
+                getString(R.string.close),
                 positiveAction = {
                     onClickLogout?.invoke()
                 }

@@ -9,8 +9,8 @@
 
     <vn.shb.lao.screens.home.widget.FrameAvatarUser
         android:id="@+id/flAvatarUser"
-        android:layout_width="@dimen/margin_42dp"
-        android:layout_height="@dimen/margin_42dp"
+        android:layout_width="@dimen/margin_48dp"
+        android:layout_height="@dimen/margin_48dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,6 +29,7 @@
             android:id="@+id/tvWelcomeSHB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_2dp"
             android:ellipsize="end"
             android:includeFontPadding="false"
             android:lines="1"
@@ -57,22 +58,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.4" />
+        app:layout_constraintGuide_percent="0.3" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glHeightBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivBgLayoutMain"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/margin_160dp"
+        android:layout_height="@dimen/margin_0dp"
         android:layout_marginTop="@dimen/margin_24dp"
         android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/glHeightBottom"
         app:layout_constraintTop_toBottomOf="@+id/glHeight"
         app:srcCompat="@drawable/bg_action_home" />
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/llMainAccount"
         android:layout_width="@dimen/margin_0dp"
         android:layout_height="@dimen/margin_0dp"
-        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/ivBgLayoutMain"
         app:layout_constraintEnd_toEndOf="@+id/ivBgLayoutMain"
         app:layout_constraintStart_toStartOf="@+id/ivBgLayoutMain"
@@ -83,16 +91,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_12dp"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:autoSizeMaxTextSize="@dimen/textSize15"
+            android:autoSizeMinTextSize="@dimen/textSize10"
+            android:autoSizeStepGranularity="1sp"
+            android:autoSizeTextType="uniform"
             android:drawableEnd="@drawable/ic_arrow_down"
             android:drawablePadding="@dimen/margin_12dp"
-            android:drawableTint="@color/neutral1"
             android:gravity="start"
             android:includeFontPadding="false"
             android:paddingVertical="@dimen/margin_4dp"
             android:textColor="@color/neutral500"
-            android:textSize="@dimen/textSize14"
             app:customFontWeight="regular"
-            app:drawableTint="#616161"
+            app:drawableTint="@color/neutral500"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/shb_action_logout" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -100,21 +113,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_12dp"
-            android:gravity="center">
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCurrentAccount">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivEyeSeeValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingVertical="@dimen/margin_4dp"
-                android:tint="#616161"
-                app:srcCompat="@drawable/ic_eye_white" />
+                android:tint="#727272"
+                app:srcCompat="@drawable/ic_eye_show" />
 
             <vn.shb.lao.base.view.MyTextView
                 android:id="@+id/tvValueBalance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_4dp"
+                android:autoSizeMaxTextSize="@dimen/textSize15"
+                android:autoSizeMinTextSize="@dimen/textSize10"
+                android:autoSizeStepGranularity="1sp"
+                android:autoSizeTextType="uniform"
                 android:gravity="center"
                 android:includeFontPadding="false"
                 android:textColor="@color/neutral500"
@@ -123,62 +142,75 @@
                 tools:text="@string/shb_action_logout" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clAction"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glVer1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.333" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.333" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glVer2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.666" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glTopButtonAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.461" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.666" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glTopQrcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.4" />
 
-            <include
-                android:id="@+id/incItemTransfer"
-                layout="@layout/item_feature_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/gl1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glBotQrcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.814" />
 
-            <include
-                android:id="@+id/incItemAccounts"
-                layout="@layout/item_feature_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/gl2"
-                app:layout_constraintTop_toTopOf="parent" />
+        <include
+            android:id="@+id/incItemTransfer"
+            layout="@layout/item_feature_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/glVer1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/glTopButtonAction" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/flQrCode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:importantForAccessibility="no"
-                android:src="@drawable/ic_qr_code"
-                android:layout_marginBottom="@dimen/margin_20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/gl2"
-                app:layout_constraintStart_toEndOf="@+id/gl1"
-                app:layout_constraintTop_toTopOf="parent"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <include
+            android:id="@+id/incItemAccounts"
+            layout="@layout/item_feature_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/glVer2"
+            app:layout_constraintTop_toTopOf="@+id/glTopButtonAction" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/flQrCode"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_qr_code"
+            app:layout_constraintBottom_toBottomOf="@+id/glBotQrcode"
+            app:layout_constraintEnd_toStartOf="@+id/glVer2"
+            app:layout_constraintStart_toEndOf="@+id/glVer1"
+            app:layout_constraintTop_toTopOf="@+id/glTopQrcode" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
@@ -188,8 +220,7 @@
         android:clipChildren="false"
         android:clipToPadding="false"
         android:overScrollMode="never"
-        android:visibility="gone"
         app:layout_constraintHeight_percent="0.2"
-        app:layout_constraintTop_toBottomOf="@+id/llFeatureHome" />
+        app:layout_constraintTop_toBottomOf="@+id/llMainAccount" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

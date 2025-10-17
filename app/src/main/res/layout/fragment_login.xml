@@ -11,8 +11,8 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivLogoSHB"
-        android:layout_width="80dp"
-        android:layout_height="35dp"
+        android:layout_width="@dimen/margin_140dp"
+        android:layout_height="@dimen/margin_36dp"
         android:layout_marginTop="@dimen/margin_8dp"
         android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="parent"
@@ -200,7 +200,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/enterPassword"
-                android:imeActionLabel="@string/account_login"
                 android:imeOptions="actionDone"
                 android:importantForAutofill="no"
                 android:inputType="textVisiblePassword"

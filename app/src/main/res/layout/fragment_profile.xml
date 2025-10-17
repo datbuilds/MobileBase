@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,84 +9,108 @@
     android:paddingHorizontal="20dp"
     android:paddingTop="16dp">
 
-   <vn.shb.lao.base.view.MyTextView
-        android:id="@+id/tvMyProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawablePadding="@dimen/margin_20dp"
-        app:customFontWeight="medium"
-        android:gravity="center"
-        android:includeFontPadding="false"
-        android:paddingHorizontal="@dimen/margin_4dp"
-        android:paddingVertical="@dimen/margin_8dp"
-        android:text="@string/myProfile"
-        android:textColor="@color/neutral10"
-        android:textSize="@dimen/textSize20"
-        app:drawableStartCompat="@drawable/ic_arrow_back" />
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <vn.shb.lao.screens.home.widget.FrameAvatarUser
-        android:id="@+id/flAvatarUser"
-        android:layout_width="@dimen/widthAvatarProfile"
-        android:layout_height="@dimen/widthAvatarProfile"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/margin_20dp">
+        <vn.shb.lao.base.view.MyTextView
+            android:id="@+id/tvMyProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/margin_20dp"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:paddingHorizontal="@dimen/margin_4dp"
+            android:paddingVertical="@dimen/margin_8dp"
+            android:text="@string/myProfile"
+            android:textColor="@color/neutral10"
+            android:textSize="@dimen/textSize20"
+            app:customFontWeight="medium"
+            app:drawableStartCompat="@drawable/ic_arrow_back" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivImageUser"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_gravity="end|bottom"
-            app:srcCompat="@drawable/ic_camera" />
-    </vn.shb.lao.screens.home.widget.FrameAvatarUser>
+        <vn.shb.lao.screens.home.widget.FrameAvatarUser
+            android:id="@+id/flAvatarUser"
+            android:layout_width="@dimen/widthAvatarProfile"
+            android:layout_height="@dimen/widthAvatarProfile"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_20dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivImageUser"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="end|bottom"
+                app:srcCompat="@drawable/ic_camera" />
+        </vn.shb.lao.screens.home.widget.FrameAvatarUser>
+
+        <vn.shb.lao.base.view.MyTextView
+            android:id="@+id/tvNameUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12dp"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:textAllCaps="true"
+            android:textColor="@color/neutral10"
+            android:textSize="@dimen/textSize18"
+            app:customFontWeight="medium"
+            tools:text="PHASOUK BOUNMIXAY" />
+
+        <!-- Info list -->
+        <include
+            android:id="@+id/iclInfo1"
+            layout="@layout/item_profile_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16dp" />
+
+        <include
+            android:id="@+id/iclInfo2"
+            layout="@layout/item_profile_info" />
+
+        <include
+            android:id="@+id/iclInfo3"
+            layout="@layout/item_profile_info" />
+
+        <include
+            android:id="@+id/iclInfo4"
+            layout="@layout/item_profile_info" />
+
+        <include
+            android:id="@+id/iclInfo5"
+            layout="@layout/item_profile_info" />
+
+        <include
+            android:id="@+id/iclInfo6"
+            layout="@layout/item_profile_info" />
+
+        <vn.shb.lao.base.view.MyTextView
+            android:id="@+id/btnLogout"
+            style="@style/MaterialDialog.ButtonLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_32dp"
+            android:text="@string/shb_action_logout"
+            app:layout_constraintTop_toBottomOf="@+id/tvForgotPassword" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <vn.shb.lao.base.view.MyTextView
-        android:id="@+id/tvNameUser"
+        android:id="@+id/tvStatusUpdateAvatar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_12dp"
-        app:customFontWeight="medium"
-        android:gravity="center"
+        android:drawableEnd="@drawable/ic_close"
+        android:drawablePadding="@dimen/margin_8dp"
+        android:gravity="center_vertical"
         android:includeFontPadding="false"
-        android:textAllCaps="true"
-        android:textColor="@color/neutral10"
-        android:textSize="@dimen/textSize18"
-        tools:text="PHASOUK BOUNMIXAY" />
-
-    <!-- Info list -->
-    <include
-        android:id="@+id/iclInfo1"
-        layout="@layout/item_profile_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_16dp" />
-
-    <include
-        android:id="@+id/iclInfo2"
-        layout="@layout/item_profile_info" />
-
-    <include
-        android:id="@+id/iclInfo3"
-        layout="@layout/item_profile_info" />
-
-    <include
-        android:id="@+id/iclInfo4"
-        layout="@layout/item_profile_info" />
-
-    <include
-        android:id="@+id/iclInfo5"
-        layout="@layout/item_profile_info" />
-
-    <include
-        android:id="@+id/iclInfo6"
-        layout="@layout/item_profile_info" />
-
-   <vn.shb.lao.base.view.MyTextView
-        android:id="@+id/btnLogout"
-        style="@style/MaterialDialog.ButtonLogout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_32dp"
-        android:text="@string/shb_action_logout"
-        app:layout_constraintTop_toBottomOf="@+id/tvForgotPassword" />
-
-</androidx.appcompat.widget.LinearLayoutCompat>
+        android:paddingHorizontal="@dimen/margin_10dp"
+        android:paddingVertical="@dimen/margin_10dp"
+        android:textColor="@color/neutral1"
+        android:textSize="@dimen/textSize14"
+        app:customFontWeight="medium"
+        app:drawableTint="@color/neutral1"
+        tools:background="@drawable/bg_toast_change_avatar_ss"
+        tools:drawableStart="@drawable/ic_success"
+        tools:text="Profile picture updated successfully" />
+</FrameLayout>

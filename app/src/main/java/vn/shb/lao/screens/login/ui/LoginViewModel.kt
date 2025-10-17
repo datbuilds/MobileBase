@@ -42,7 +42,7 @@ class LoginViewModel(
                 it.onResultHandle(loadingBlock = {
                     _state.value = LoginUiState.Loading
                 }, failureBlock = { reason ->
-                    _state.value = LoginUiState.Error(reason as AppReason)
+                    _state.value = LoginUiState.Error(reason)
                 }, successBlock = { state ->
                     _state.value = LoginUiState.Success(state)
                 })

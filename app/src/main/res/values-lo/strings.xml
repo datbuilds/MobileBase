@@ -90,4 +90,5 @@
     <string name="invalidFormat">ຮູບແບບທີ່ເລືອກບໍ່ຖືກຕ້ອງ</string>
     <string name="pleaseEnterUsername">ກະລຸນາປ້ອນຊື່ຜູ້ໃຊ້</string>
     <string name="pleaseEnterPassword">ກະລຸນາປ້ອນລະຫັດຜ່ານ</string>
+    <string name="pleaseTryAgainIn">ກະລຸນາລອງໃໝ່ໃນອີກ</string>
 </resources>

@@ -2,8 +2,10 @@ package vn.shb.lao.screens.home.widget
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import androidx.core.widget.TextViewCompat
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.getInitials
 import vn.shb.lao.databinding.FlAvatarUserBinding
@@ -30,11 +32,15 @@ class FrameAvatarUser @JvmOverloads constructor(
         binding.root.setOnSingleClickListener {
             onClickDetail?.onAvatarClick()
         }
+        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
+            binding.tvImageUser,
+            7, 18, 1, TypedValue.COMPLEX_UNIT_SP
+        )
     }
 
-    fun setUserName(urlAvatar : String = "", userName: String = "") {
+    fun setUserName(urlAvatar : String? = "", userName: String = "") {
         with(binding) {
-            if (urlAvatar.isNotEmpty()){
+            if (!urlAvatar.isNullOrEmpty()){
                 ivImageUser.loadAvatar(urlAvatar)
                 ivImageUser.visible()
                 tvImageUser.gone()

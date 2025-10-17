@@ -19,7 +19,6 @@ import androidx.media3.common.BuildConfig
 import androidx.viewbinding.ViewBinding
 import org.koin.android.ext.android.inject
 import vn.shb.core.core.domain.usecases.login.UseCaseRefreshToken
-import vn.shb.core.core.security.detectRoot.RootUtils
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import vn.shb.lao.R
 import vn.shb.lao.SHBApplication
@@ -29,8 +28,10 @@ import vn.shb.lao.base.dialog.DialogSessionExpire
 import vn.shb.lao.base.dialog.DialogWarningAccessibilityPermission
 import vn.shb.lao.base.dialog.DialogWarningDeviceRoot
 import vn.shb.lao.screens.splash.ui.SplashActivity
+import vn.shb.lao.utils.extensions.common.Constants
 import vn.shb.lao.utils.extensions.returnActivity
 import vn.shb.lao.utils.extensions.toast
+import vn.shb.lao.utils.refreshTK.RefreshTokenManager
 
 abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflater) -> T) :
     AppCompatActivity() {
@@ -95,13 +96,13 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
         checkSecurityApp()
 
 //        // Chỉ start RefreshTokenManager ở những activity cần thiết
-//        if (shouldStartRefreshTokenManager()) {
-//            RefreshTokenManager.start(
-//                activity = this,
-//                useCase = useCaseRefreshToken,
-//                storage = storage
-//            )
-//        }
+        if (shouldStartRefreshTokenManager()) {
+            RefreshTokenManager.start(
+                activity = this,
+                useCase = useCaseRefreshToken,
+                storage = storage
+            )
+        }
 
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         registerScreenReceiver()
@@ -112,9 +113,9 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
         checkSecurityApp()
         startUserInteractionTimer()
 
-//        if (shouldStartRefreshTokenManager()) {
-//            RefreshTokenManager.updateActivity(this)
-//        }
+        if (shouldStartRefreshTokenManager()) {
+            RefreshTokenManager.updateActivity(this)
+        }
     }
 
     override fun onPause() {
@@ -152,16 +153,15 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
     }
 
     open fun showDialogSessionExpire() {
-        DialogSessionExpire().show(context = this){
-            logout()
-        }
+        logout()
+        DialogSessionExpire().show(context = this)
     }
 
     override fun onDestroy() {
         stopInactivityTimer()
         onBackPressedCallback.remove()
         doubleBackHandler.removeCallbacks(doubleBackRunnable)
-//        RefreshTokenManager.updateActivity(null) // Clear activity reference
+        RefreshTokenManager.updateActivity(null) // Clear activity reference
         unregisterReceiver(screenReceiver)
         super.onDestroy()
     }
@@ -307,7 +307,7 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
         registerReceiver(screenReceiver, filter)
     }
 
-    private var mTime = 15 * 60 * 1000L
+    private var mTime = Constants.TIME_NO_ACTION * 60 * 1000L
     private var lastInteractionTime: Long = 0
     private val screenReceiver =
         object : BroadcastReceiver() {

@@ -12,13 +12,13 @@ data class UserLog(
     @SerializedName("session_state") val session_state: String = "",
     @SerializedName("id_token") val id_token: String = "",
     @SerializedName("username") var username: String = "",
-    @SerializedName("userLog") val userLog: String = "",
+    @SerializedName("userLog") val userLogin: String = "",
     @SerializedName("title") val title: String = "",
     @SerializedName("scope") val scope: String = "",
     @SerializedName("loginFailCount") val loginFailCount: String = "",
     @SerializedName("lockedUntil") val lockedUntil: String = "",
 
-    var pathAvatarUser: String = "",
+    var customerId : String = "",
 ) : Serializable {
 
     fun expireIn() = expires_in.toLong()

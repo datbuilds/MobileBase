@@ -108,6 +108,7 @@
     <string name="invalidFormat">Invalid selected date</string>
     <string name="pleaseEnterUsername">Please enter your username</string>
     <string name="pleaseEnterPassword">Please enter your password</string>
+    <string name="pleaseTryAgainIn">Please try again in</string>
     <string name="currentBalance">Current balance</string>
     <string name="show">Show</string>
     <string name="myProfile">My Profile</string>

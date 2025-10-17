@@ -76,15 +76,15 @@ class ChoosePhotoHelper private constructor(
             }
         } else {
             // Nếu user chọn "Deny", kiểm tra có quyền nào bị "Don't ask again" không
-            val shouldShowRationale = grants.keys.any { perm ->
-                fragment?.shouldShowRequestPermissionRationale(perm)
-                    ?: (activity as? ComponentActivity)?.shouldShowRequestPermissionRationale(perm)
-                    ?: false
-            }
+//            val shouldShowRationale = grants.keys.any { perm ->
+//                fragment?.shouldShowRequestPermissionRationale(perm)
+//                    ?: (activity as? ComponentActivity)?.shouldShowRequestPermissionRationale(perm)
+//                    ?: false
+//            }
 
-            if (shouldShowRationale) {
+//            if (shouldShowRationale) {
                 showRationalePopup()
-            }
+//            }
         }
     }
 
@@ -174,6 +174,7 @@ class ChoosePhotoHelper private constructor(
                         try {
                             bitmap = modifyOrientationSuspending(bitmap, it)
                         } catch (_: IOException) {
+                            callback.onError()
                         }
                         withContext(Dispatchers.Main) {
                             (callback as ChoosePhotoCallback<Bitmap>).onChoose(bitmap)

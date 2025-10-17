@@ -48,7 +48,7 @@ fun LoginFragment.setGreeting(textView: TextView) {
     spannable.setSpan(AbsoluteSizeSpan(14, true), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
     val customFont: Typeface? =
-        ResourcesCompat.getFont(context!!, R.font.onest_semi_bold)
+        ResourcesCompat.getFont(context!!, R.font.inter_semi_bold)
     if (customFont != null) {
         spannable.setSpan(customFont, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
     }

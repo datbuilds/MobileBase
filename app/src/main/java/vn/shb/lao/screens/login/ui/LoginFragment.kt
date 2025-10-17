@@ -3,7 +3,6 @@ package vn.shb.lao.screens.login.ui
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.text.InputType
 import android.view.View
@@ -12,10 +11,10 @@ import android.view.inputmethod.EditorInfo
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
-import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import vn.shb.core.core.delivery.reason.LoginFailReason
 import vn.shb.core.core.domain.usecases.login.StateLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseRefreshToken
@@ -40,6 +39,7 @@ import vn.shb.lao.utils.extensions.nextActivity
 import vn.shb.lao.utils.extensions.setCustomSpannable
 import vn.shb.lao.utils.extensions.showProgressDialog
 import vn.shb.lao.utils.extensions.visible
+import vn.shb.lao.utils.view.dialog.BottomSheetDialogHelper
 import vn.shb.lao.utils.widgets.LocaleHelper
 
 class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
@@ -153,6 +153,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
     private fun bindEdtPassword() {
         with(binding) {
+            val currentFont = edtInputPass.typeface
             if (isVisiblePassword) {
                 edtInputPass.inputType =
                     InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
@@ -162,7 +163,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                     InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
                 btnToggle.text = getString(R.string.show)
             }
-
+            edtInputPass.typeface = currentFont
             edtInputPass.setSelection(edtInputPass.text?.length ?: 0)
         }
     }
@@ -191,7 +192,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
     private fun login() {
         hideSoftKeyboard(0)
-        val accountLogin = currentUser?.userLog
+        val accountLogin = currentUser?.userLogin
             ?: binding.edtInputUsername.text?.trim().toString()
 //        val (_, encPsw) = getPassword()
         val password = binding.edtInputPass.text?.trim().toString()
@@ -226,10 +227,13 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
                         is LoginUiState.Error -> {
                             hideProgressDialog()
-                            showDialogError(
-                                reason = uiState.reason,
-                                onAction = {}
-                            )
+                            if (uiState.reason is LoginFailReason){
+                                showDialogErrorLockUser(uiState.reason)
+                            } else {
+                                showDialogError(
+                                    reason = uiState.reason
+                                )
+                            }
                         }
 
                         is LoginUiState.Success -> {
@@ -241,6 +245,10 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                 }
             }
         }
+    }
+
+    private fun showDialogErrorLockUser(reason: LoginFailReason) {
+        context?.let { BottomSheetDialogHelper(it).messageLoginFail(reason.errMessage, reason.lockedUntil) }
     }
 
     private fun resetInputLogin() {
@@ -259,7 +267,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         binding.apply {
             llInfoUser.visible()
             groupViewNoLastUser.gone()
-            flAvatarUser.setUserName(currentUser?.pathAvatarUser ?: "", currentUserName)
+            flAvatarUser.setUserName(getPathAvatarUser(user.customerId), currentUserName)
             binding.tvHelloUser.text = context!!.getTextWelcomeUser()
             binding.tvNameUser.text = currentUserName
             inputPasswordLayout.clearEditTextColorFilter()
@@ -278,7 +286,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             LocaleHelper.setLocale(ct, type)
             restartApp(activity!!)
         }
-
     }
 
     private fun restartApp(context: Context) {
