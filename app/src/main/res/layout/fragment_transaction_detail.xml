@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_transaction_detail"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:paddingTop="16dp">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="@dimen/margin_136dp"
+            app:srcCompat="@drawable/logo_shb_saha" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:padding="@dimen/margin_6dp"
+            app:srcCompat="@drawable/ic_close" />
+    </FrameLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_24dp"
+        app:srcCompat="@drawable/ic_success_transaction" />
+
+    <vn.shb.lao.base.view.MyTextView
+        android:id="@+id/tvTransactionAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_12dp"
+        android:text="@string/transactionAmount"
+        android:textColor="@color/colorSuccess"
+        android:textSize="@dimen/textSize18"
+        app:customFontWeight="medium" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llValueBalance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_8dp"
+        android:gravity="top"
+        android:orientation="horizontal">
+
+        <vn.shb.lao.base.view.MyTextView
+            android:id="@+id/tvValueBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize28"
+            app:customFontWeight="semi_bold"
+            tools:text="1,000,000" />
+
+        <vn.shb.lao.base.view.MyTextView
+            android:id="@+id/tvCurrentCode"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:layout_marginStart="@dimen/margin_8dp"
+            android:textColor="@color/neutral7"
+            android:textSize="@dimen/textSize16"
+            app:customFontWeight="regular"
+            tools:text="LAK" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <include
+        android:id="@+id/iclTransactionInfo1"
+        layout="@layout/child_view_transaction_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10dp" />
+    <include
+        android:id="@+id/iclTransactionInfo2"
+        layout="@layout/child_view_transaction_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10dp" />
+    <include
+        android:id="@+id/iclTransactionInfo3"
+        layout="@layout/child_view_transaction_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10dp" />
+    <include
+        android:id="@+id/iclTransactionInfo4"
+        layout="@layout/child_view_transaction_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10dp" />
+    <include
+        android:id="@+id/iclTransactionInfo5"
+        layout="@layout/child_view_transaction_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10dp" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

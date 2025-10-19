@@ -146,6 +146,10 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         findNavController().safeNavigate(currentDestinationId, actionId, bundle, options)
     }
 
+    fun backPress() {
+        findNavController().popBackStack()
+    }
+
     fun safeNavigate(deepLink: Uri) {
         try {
             findNavController().navigate(deepLink)
@@ -162,10 +166,6 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
 
     fun setPathAvatarUser(path: String, key: String? = getCurrentUser()?.customerId) =
         key?.let { storage.setPathAvatarUser(it, path) }
-
-    open fun setNavigationBarColor(color: Int) {
-        requireActivity().window.navigationBarColor = color
-    }
 
     open fun enableFullScreen() {
         val window = requireActivity().window

@@ -1,25 +1,32 @@
 package vn.shb.lao.screens.account.helper
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.home.TransactionItem
 import vn.shb.lao.R
 import vn.shb.lao.databinding.ItemHeaderBinding
 import vn.shb.lao.databinding.ItemTransactionBinding
-import vn.shb.lao.screens.account.model.TransactionItem
+import vn.shb.lao.utils.extensions.common.Const.SEPARATOR_SPACE
 
-class TransactionAdapter(private val items: List<TransactionItem>) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-    private var onClickDetail: (TransactionItem) -> Unit = {}
+class TransactionAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val items: ArrayList<TransactionItem> = arrayListOf()
+    private var onClickDetail: (TransactionItem.Transaction) -> Unit = {}
 
     companion object {
         private val TYPE_HEADER = 0
         private val TYPE_TRANSACTION = 1
     }
 
-    public fun setOnClickDetailListener(listener: (TransactionItem) -> Unit) {
+    fun submitList(newItems: List<TransactionItem>) {
+        items.clear()
+        items.addAll(newItems)
+        notifyDataSetChanged()
+    }
+
+    fun setOnClickDetailListener(listener: (TransactionItem.Transaction) -> Unit) {
         onClickDetail = listener
     }
 
@@ -54,7 +61,7 @@ class TransactionAdapter(private val items: List<TransactionItem>) :
     override fun getItemCount(): Int = items.size
 
     // --- ViewHolder cho Header ---
-    class HeaderViewHolder(private val binding: ItemHeaderBinding) :
+    inner class HeaderViewHolder(private val binding: ItemHeaderBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: TransactionItem.Header) {
             binding.root.text = item.title
@@ -62,25 +69,35 @@ class TransactionAdapter(private val items: List<TransactionItem>) :
     }
 
     // --- ViewHolder cho Transaction ---
-    class TransactionViewHolder(private val binding: ItemTransactionBinding) :
+    inner class TransactionViewHolder(private val binding: ItemTransactionBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: TransactionItem.Transaction) {
-            binding.tvName.text = item.name
-            binding.tvSubInfo.text = item.subInfo
 
-            val amountText = (if (item.isIncome) "+" else "-") +
-                    "%,d".format(item.amount) + " " + item.currency
-            binding.tvAmount.text = amountText
+            with(binding) {
+                tvName.text = item.transactionDescription
+//            tvSubInfo.text = item.subInfo
 
-            binding.tvAmount.setTextColor(
-                if (item.isIncome) Color.parseColor("#00AA00")
-                else Color.RED
-            )
+                val isIncome = !item.amountFormatted.startsWith("-")
 
-            binding.icon.setImageResource(
-                if (item.isIncome) R.drawable.ic_in_come
-                else R.drawable.ic_out_come
-            )
+                val amountText = item.amountFormatted + SEPARATOR_SPACE + item.currencyCode
+                tvAmount.text = amountText
+
+                tvAmount.setTextColor(
+                    ContextCompat.getColor(
+                        root.context,
+                        if (isIncome) R.color.color_income
+                        else R.color.color_outcome
+                    )
+                )
+                icon.setImageResource(
+                    if (isIncome) R.drawable.ic_in_come
+                    else R.drawable.ic_out_come
+                )
+
+                root.setOnSingleClickListener {
+                    onClickDetail.invoke(item)
+                }
+            }
         }
     }
 }

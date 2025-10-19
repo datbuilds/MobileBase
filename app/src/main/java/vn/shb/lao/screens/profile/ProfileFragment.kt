@@ -21,10 +21,11 @@ import vn.shb.lao.base.view.MyTextView
 import vn.shb.lao.databinding.FragmentProfileBinding
 import vn.shb.lao.databinding.ItemProfileInfoBinding
 import vn.shb.lao.screens.home.HomeViewModel
+import vn.shb.lao.screens.home.getTypeAccount
 import vn.shb.lao.screens.home.widget.OnClickDetail
 import vn.shb.lao.screens.login.state.LogoutUiState
 import vn.shb.lao.screens.login.ui.LoginViewModel
-import vn.shb.lao.utils.extensions.common.Constants
+import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.hideProgressDialog
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.lao.utils.extensions.returnActivity
@@ -83,7 +84,9 @@ class ProfileFragment :
             iclInfo1.bind(getString(R.string.customerId), user.customerId)
             iclInfo2.bind(getString(R.string.customerName), user.customerName)
             val defaultAccount =
-                homeViewModel.getTypeAccount(context!!).first.plus(Constants.SEPARATOR_DASH)
+                homeViewModel.selectedAccount?.let { getTypeAccount(context!!, it) }?.first.plus(
+                    Const.SEPARATOR_DASH
+                )
                     .plus(account.accountNumber)
             iclInfo3.bind(getString(R.string.defaultCasaAccount), defaultAccount)
             iclInfo4.bind(getString(R.string.email), user.email)

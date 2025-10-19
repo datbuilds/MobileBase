@@ -15,6 +15,7 @@ import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.home.AccountInfo
 import vn.shb.lao.R
 import vn.shb.lao.databinding.ItemAccountSelectBinding
+import vn.shb.lao.screens.home.getTypeAccount
 import vn.shb.lao.utils.extensions.gone
 import vn.shb.lao.utils.extensions.visible
 
@@ -36,14 +37,15 @@ class SelectAccountAdapter(
     override fun onBindViewHolder(holder: AccountInfoViewHolder, position: Int) {
         val accountItem = items[position]
         holder.binding.apply {
+            val valueAccount = getTypeAccount(context = root.context, accountItem)
             tvInfoAccount.text = root.context.getString(
                 R.string.account_info_format,
                 accountItem.accountNumber,
-                accountItem.accountType,
+                valueAccount.first,
                 accountItem.currencyCode
             )
             tvValueBalance.bindBalance(
-                String.format("%,.0f", accountItem.availableBalance),
+                valueAccount.second,
                 " ${accountItem.currencyCode}"
             )
             if (accountItem.isSelected) {

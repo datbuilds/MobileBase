@@ -57,7 +57,7 @@
 
     <fragment
         android:id="@+id/transactionHistory"
-        android:name="vn.shb.lao.screens.TransactionHistoryFragment"
+        android:name="vn.shb.lao.screens.transaction.TransactionHistoryFragment"
         android:label="@string/transactionHistory">
         <action
             android:id="@+id/backToAccountDetails"
@@ -67,5 +67,15 @@
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left" />
     </fragment>
+
+    <fragment
+        android:id="@+id/transactionDetailFragment"
+        android:name="vn.shb.lao.screens.transaction.TransactionDetailFragment"
+        android:label="TransactionDetailFragment"/>
+
+    <fragment
+        android:id="@+id/moneyTransferFragment"
+        android:name="vn.shb.lao.screens.transfer.MoneyTransferFragment"
+        android:label="MoneyTransferFragment"/>
 
 </navigation>

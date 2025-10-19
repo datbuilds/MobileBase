@@ -28,7 +28,7 @@ import vn.shb.lao.base.dialog.DialogSessionExpire
 import vn.shb.lao.base.dialog.DialogWarningAccessibilityPermission
 import vn.shb.lao.base.dialog.DialogWarningDeviceRoot
 import vn.shb.lao.screens.splash.ui.SplashActivity
-import vn.shb.lao.utils.extensions.common.Constants
+import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.returnActivity
 import vn.shb.lao.utils.extensions.toast
 import vn.shb.lao.utils.refreshTK.RefreshTokenManager
@@ -307,7 +307,7 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
         registerReceiver(screenReceiver, filter)
     }
 
-    private var mTime = Constants.TIME_NO_ACTION * 60 * 1000L
+    private var mTime = Const.TIME_NO_ACTION * 60 * 1000L
     private var lastInteractionTime: Long = 0
     private val screenReceiver =
         object : BroadcastReceiver() {

@@ -34,6 +34,7 @@ class OnSingleClickListener : View.OnClickListener {
 
 }
 
+
 fun View.setOnSingleClickListener(l: View.OnClickListener) {
     setOnClickListener(OnSingleClickListener(l))
 }

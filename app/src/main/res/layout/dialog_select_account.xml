@@ -1,64 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/bottomSheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/transparent"
-    android:orientation="vertical">
+    android:background="@drawable/bg_bottom_sheet"
+    android:paddingStart="@dimen/margin_20dp"
+    android:paddingEnd="@dimen/margin_14dp"
+    android:paddingBottom="@dimen/margin_24dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <vn.shb.lao.base.view.MyTextView
+        android:id="@+id/tvSelectAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_36dp"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="@string/selectAccount"
+        android:textColor="@color/neutral10"
+        android:textSize="@dimen/textSize20"
+        app:customFontWeight="semi_bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvAccount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_32dp"
-        android:background="@drawable/bg_bottom_sheet"
-        android:paddingStart="@dimen/margin_20dp"
-        android:paddingEnd="@dimen/margin_14dp"
-        android:paddingBottom="@dimen/margin_24dp">
+        android:layout_marginTop="@dimen/margin_12dp"
+        app:layout_constraintHeight_max="350dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvSelectAccount"
+        tools:itemCount="7"
+        tools:listitem="@layout/item_account_select" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivClose"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_28dp"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:padding="@dimen/margin_10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_close" />
-
-        <vn.shb.lao.base.view.MyTextView
-            android:id="@+id/tvSelectAccount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:customFontWeight="medium"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:text="@string/selectAccount"
-            android:textColor="@color/neutral10"
-            android:textSize="@dimen/textSize20"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivClose" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcvAccount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintHeight_max="350dp"
-            android:layout_marginTop="@dimen/margin_12dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvSelectAccount"
-            tools:itemCount="7"
-            tools:listitem="@layout/item_account_select" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivChoosePicture"
-        android:layout_width="@dimen/widthImageDialog"
-        android:layout_height="@dimen/widthImageDialog"
-        android:layout_gravity="center_horizontal"
-        app:srcCompat="@drawable/ic_choose_picture" />
-
-</FrameLayout>
+    <vn.shb.lao.base.view.MyTextView
+        android:id="@+id/tvDone"
+        style="@style/MaterialDialog.PositiveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:text="@string/done"
+        android:textSize="@dimen/textSize18"
+        app:layout_constraintTop_toBottomOf="@+id/rcvAccount" />
+</androidx.constraintlayout.widget.ConstraintLayout>

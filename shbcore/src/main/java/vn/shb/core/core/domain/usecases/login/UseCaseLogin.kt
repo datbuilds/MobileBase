@@ -12,7 +12,7 @@ class UseCaseLogin(private val repository: RepositoryAuth) :
         emit(repository.login(params))
     }
 
-    data class Params(
+    data class  Params(
         val username: String = "",
         val password: String = ""
     ) : UseCaseParameters

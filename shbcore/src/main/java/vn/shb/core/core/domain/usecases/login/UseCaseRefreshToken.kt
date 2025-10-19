@@ -1,5 +1,6 @@
 package vn.shb.core.core.domain.usecases.login
 
+import com.google.gson.annotations.SerializedName
 import kotlinx.coroutines.flow.FlowCollector
 import vn.shb.core.core.delivery.ResultSHB
 import vn.shb.core.core.domain.usecases.BaseUseCase
@@ -14,5 +15,6 @@ class UseCaseRefreshToken(
         emit(repository.refreshToken(params))
     }
 
-    data class Params(val refreshToken: String = "") : UseCaseParameters
+    data class Params(@SerializedName("refresh_token") val refreshToken: String = "") :
+        UseCaseParameters
 }

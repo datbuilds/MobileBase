@@ -30,7 +30,7 @@ import vn.shb.lao.databinding.LayoutLanguagePopupBinding
 import vn.shb.lao.screens.home.helper.LoopingAdapter
 import vn.shb.lao.screens.home.widget.OnClickDetail
 import vn.shb.lao.screens.login.ui.widget.setDisableAlpha
-import vn.shb.lao.utils.extensions.common.Constants
+import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.lao.utils.widgets.LocaleHelper
 
@@ -148,14 +148,14 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
     }
 
     private fun bindViewAccount(account: AccountInfo) {
-        val valueAccount = homeViewModel.getTypeAccount(context!!, account)
-        binding.tvCurrentAccount.text = valueAccount.first.plus(Constants.SEPARATOR_DASH)
+        val valueAccount = getTypeAccount(context!!, account)
+        binding.tvCurrentAccount.text = valueAccount.first.plus(Const.SEPARATOR_DASH)
             .plus(account.accountNumber).plus(
-                Constants.SEPARATOR_DASH
+                Const.SEPARATOR_DASH
                     .plus(account.currencyCode)
             )
         binding.tvValueBalance.text =
-            (if (isShowValueBalance) valueAccount.second else textGoneValue).plus(" ")
+            (if (isShowValueBalance) valueAccount.second else textGoneValue).plus(Const.SEPARATOR_SPACE)
                 .plus(account.currencyCode)
     }
 
@@ -176,7 +176,8 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
             }
 
             tvCurrentAccount.setOnSingleClickListener {
-                DialogSelectAccount.Build(homeViewModel.getListAccount()) { ac ->
+                DialogSelectAccount.Build(homeViewModel.getListAccount(), homeViewModel.selectedAccount) { ac ->
+                    homeViewModel.selectedAccount = ac
                     bindViewAccount(ac)
                 }.build().show(childFragmentManager, DialogSelectAccount.TAG)
             }
@@ -187,10 +188,11 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
                     if (isShowValueBalance) R.drawable.ic_eye_closed else R.drawable.ic_eye_show
                 )
                 homeViewModel.selectedAccount?.let { account ->
+                    val valueAccount = getTypeAccount(context!!, account)
                     tvValueBalance.text =
-                        (if (isShowValueBalance) account.casaTotal.toString() else textGoneValue).plus(
-                            account.currencyCode
-                        )
+                        (if (isShowValueBalance) valueAccount.second else textGoneValue).plus(
+                            Const.SEPARATOR_SPACE
+                        ).plus(account.currencyCode)
                 }
             }
             flQrCode.setOnClickListener {

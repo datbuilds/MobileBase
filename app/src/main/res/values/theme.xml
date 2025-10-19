@@ -19,8 +19,8 @@
         <!--        <item name="android:windowSplashScreenAnimatedIcon" tools:ignore="NewApi">@color/Transparent</item>-->
 
         <!--selection controls.-->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorSecondary">@color/primary</item>
+        <item name="colorPrimary">@color/primary100</item>
+        <item name="colorSecondary">@color/primary100</item>
 
         <item name="android:windowFullscreen">false</item>
 

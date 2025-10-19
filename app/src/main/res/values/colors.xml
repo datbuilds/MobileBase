@@ -128,4 +128,8 @@
     <color name="primary40">#FBC9A6</color>
     <color name="colorButtonPrimary">#FF7921</color>
     <color name="neutral500">#616161</color>
+    <color name="color_income">#52C41A</color>
+    <color name="color_outcome">#FF4D4F</color>
+    <color name="colorBgAccount">#FAF6ED</color>
+    <color name="colorSuccess">#00861F</color>
 </resources>

@@ -1,7 +1,8 @@
 package vn.shb.lao.di
 
 import org.koin.dsl.module
-import vn.shb.core.core.domain.usecases.home.UseCaseAccounts
+import vn.shb.core.core.domain.usecases.home.UseCaseAccountDetails
+import vn.shb.core.core.domain.usecases.home.UseCaseTransaction
 import vn.shb.core.core.domain.usecases.home.UseCaseUserInfo
 import vn.shb.core.core.domain.usecases.login.UseCaseLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseLogout
@@ -15,5 +16,6 @@ val domainModule = module {
 
     factory { UseCaseLogout(get()) }
     factory { UseCaseUserInfo(get()) }
-    factory { UseCaseAccounts(get()) }
+    factory { UseCaseAccountDetails(get()) }
+    factory { UseCaseTransaction(get()) }
 }

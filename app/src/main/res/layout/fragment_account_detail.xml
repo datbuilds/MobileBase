@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBg"
+    android:background="@color/colorBgAccount"
     android:orientation="vertical"
     android:paddingHorizontal="20dp"
     android:paddingTop="16dp">
@@ -53,6 +53,7 @@
             android:padding="@dimen/margin_8dp"
             app:layout_constraintBottom_toBottomOf="@+id/tvValueBalance"
             app:layout_constraintEnd_toEndOf="parent"
+            android:tint="@color/neutral8"
             app:layout_constraintTop_toTopOf="@+id/tvCurrentBalance"
             app:srcCompat="@drawable/ic_arrow_down" />
 
@@ -136,6 +137,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
+        android:id="@+id/flTransfer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_16dp"
@@ -145,7 +147,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:drawableTop="@drawable/ic_transfer"
+            android:drawableTop="@drawable/ic_transfer_2"
             android:drawablePadding="@dimen/margin_8dp"
             app:customFontWeight="medium"
             android:padding="@dimen/margin_16dp"
@@ -178,7 +180,7 @@
                 android:layout_weight="3"
                 app:customFontWeight="medium"
                 android:includeFontPadding="false"
-                android:text="@string/branch"
+                android:text="@string/transactionHistory"
                 android:textColor="@color/neutral10"
                 android:textSize="@dimen/textSize16" />
 
