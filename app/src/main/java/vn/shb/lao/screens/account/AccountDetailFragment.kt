@@ -81,13 +81,13 @@ class AccountDetailFragment :
         with(homeViewModel) {
             launchRepeatOnLifecycle {
                 launch {
-                    stateTransactions5First.collectLatest {
+                    stateTransactions5First.collect {
                         adapter.submitList(it)
                     }
                 }
 
                 launch {
-                    stateAccountDetails.collectLatest {
+                    stateAccountDetails.collect {
                         bindViewDetail(it)
                     }
                 }

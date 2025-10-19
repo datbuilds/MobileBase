@@ -31,7 +31,6 @@ class TransactionHistoryFragment :
 
     override fun initView(view: View) {
         setUpRecyclerView()
-        setupViewDate()
     }
 
     private fun setupViewDate() {
