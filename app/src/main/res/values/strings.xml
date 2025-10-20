@@ -43,7 +43,9 @@
     <string name="shbBranch3">SAI GON - HA NOI BANK LAO SOLE CO., LIMITED, SAVANNAKHET BRANCH</string>
     <string name="shbBranch3Address">Unit 25, Lattanalangsy Neua Village, Kaisone Phomvihan City, Savannakhet Province, Laos</string>
     <string name="welcomeToShb">Welcome to SHB</string>
-    <string name="currentAccount">Current Account</string>
+    <string name="currentAccount">CURRENT ACCOUNT</string>
+    <string name="flexibleSaving">FLEXIBLE SAVING</string>
+    <string name="staffLoans">SHB STAFF LOANS</string>
     <string name="transfer">Transfer</string>
     <string name="accounts">Accounts</string>
     <string name="logoutConfirm">Are you sure you want to log out?</string>
@@ -124,8 +126,6 @@
     <string name="yesterday">Yesterday</string>
     <string name="from">From</string>
     <string name="toDate">To Date</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="noTransactionHistory">No transaction history</string>
 
 </resources>

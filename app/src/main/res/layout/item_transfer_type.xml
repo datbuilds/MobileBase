@@ -26,7 +26,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvTitle">
 
         <vn.shb.lao.base.view.MyEditText
-            android:id="@+id/tvValue"
+            android:id="@+id/edtValue"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -47,6 +47,7 @@
             app:srcCompat="@drawable/ic_arrow_down" />
 
         <View
+            android:id="@+id/viewLine"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:layout_marginVertical="@dimen/margin_12dp"

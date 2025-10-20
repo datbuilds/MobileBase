@@ -11,10 +11,12 @@ import com.kongqw.network.monitor.interfaces.NetworkMonitor
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 import vn.shb.core.core.bus.EventBus
+import vn.shb.core.core.delivery.Reason
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import vn.shb.core.utils.logE
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseActivity
+import vn.shb.lao.base.dialog.DialogSessionExpire
 import vn.shb.lao.databinding.ActivityLoginBinding
 import vn.shb.lao.utils.extensions.CustomToastShowOnTop
 import vn.shb.lao.utils.widgets.LocaleHelper
@@ -27,12 +29,18 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
     private var token = ""
 
     companion object {
+        const val IS_SHOW_ERROR = "IS_SHOW_ERROR"
+
         @JvmStatic
-        fun intent(context: Context): Intent {
+        fun intent(context: Context, isShowError: Reason? = null): Intent {
             val intent = Intent(context, LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            if (isShowError != null) {
+                intent.putExtra(IS_SHOW_ERROR, true)
+            }
             return intent
         }
+
     }
 
     override fun attachBaseContext(newBase: Context?) {
@@ -47,6 +55,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
 
         val deviceToken = storage.getFcmToken()
         logE("deviceToken ===>", deviceToken)
+
+        if (intent.getBooleanExtra(IS_SHOW_ERROR, false)) {
+            DialogSessionExpire().show(context = this)
+        }
     }
 
     override fun initListener() {

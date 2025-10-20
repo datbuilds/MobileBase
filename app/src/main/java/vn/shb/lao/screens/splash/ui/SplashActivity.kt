@@ -65,14 +65,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
     }
 
     private fun errorDialog() {
-        showDialogError(
-            title = "Lỗi kết nối",
-            message = "Kết nối mạng an toàn không khả dụng. Vui lòng kiểm tra lại.",
-            tvAction = "Đóng ứng dụng",
-            isCancelable = false
-        ) {
-            finishAffinity()
-        }
     }
 
     override fun onResume() {

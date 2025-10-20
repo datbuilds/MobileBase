@@ -1,83 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBgAccount"
-    android:orientation="vertical"
     android:paddingHorizontal="20dp"
     android:paddingTop="16dp">
 
-    <vn.shb.lao.base.view.MyTextView
-        android:id="@+id/tvTransactionHistory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawablePadding="@dimen/margin_20dp"
-        android:gravity="center"
-        android:includeFontPadding="false"
-        android:paddingVertical="@dimen/margin_8dp"
-        android:paddingStart="@dimen/margin_4dp"
-        android:paddingEnd="@dimen/margin_10dp"
-        android:text="@string/transactionHistory"
-        android:textColor="@color/neutral10"
-        android:textSize="@dimen/textSize20"
-        app:customFontWeight="medium"
-        app:drawableStartCompat="@drawable/ic_arrow_back" />
-
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_16dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <include
-            android:id="@+id/iclFromDate"
-            layout="@layout/item_date_sort"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3" />
-
-        <androidx.appcompat.widget.AppCompatImageView
+        <vn.shb.lao.base.view.MyTextView
+            android:id="@+id/tvTransactionHistory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_8dp"
-            app:srcCompat="@drawable/ic_next_gray" />
+            android:drawablePadding="@dimen/margin_20dp"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:paddingVertical="@dimen/margin_8dp"
+            android:paddingStart="@dimen/margin_4dp"
+            android:paddingEnd="@dimen/margin_10dp"
+            android:text="@string/transactionHistory"
+            android:textColor="@color/neutral10"
+            android:textSize="@dimen/textSize20"
+            app:customFontWeight="medium"
+            app:drawableStartCompat="@drawable/ic_arrow_back" />
 
-        <include
-            android:id="@+id/iclToDate"
-            layout="@layout/item_date_sort"
-            android:layout_width="0dp"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3" />
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/iclFromDate"
+                layout="@layout/item_date_sort"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_8dp"
+                app:srcCompat="@drawable/ic_next_gray" />
+
+            <include
+                android:id="@+id/iclToDate"
+                layout="@layout/item_date_sort"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvTransaction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:layout_marginBottom="@dimen/margin_20dp"
+            android:background="@drawable/bg_child_view_account_details"
+            android:paddingHorizontal="@dimen/margin_16dp"
+            android:paddingVertical="@dimen/margin_20dp"
+            tools:itemCount="3" />
+
+        <vn.shb.lao.base.view.MyTextView
+            android:id="@+id/tvNoTransaction"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:layout_marginBottom="@dimen/margin_20dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_child_view_account_details"
+            android:gravity="center"
+            android:text="@string/noTransactionHistory"
+            android:textColor="@color/neutral7"
+            android:textSize="@dimen/textSize14"
+            android:visibility="gone"
+            app:customFontWeight="medium"
+            tools:visibility="visible" />
+
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcvTransaction"
+    <vn.shb.lao.base.view.MyTextView
+        android:id="@+id/tvStatusUpdateDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_16dp"
-        android:layout_marginBottom="@dimen/margin_20dp"
-        android:background="@drawable/bg_child_view_account_details"
-        android:paddingHorizontal="@dimen/margin_16dp"
-        android:paddingVertical="@dimen/margin_20dp"
-        tools:itemCount="3" />
-
-    <vn.shb.lao.base.view.MyTextView
-        android:id="@+id/tvNoTransaction"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@drawable/bg_child_view_account_details"
-        android:gravity="center"
-        android:text="@string/noTransactionHistory"
-        android:textColor="@color/neutral7"
+        android:background="@drawable/bg_toast_change_avatar_error"
+        android:drawableStart="@drawable/ic_error"
+        android:drawableEnd="@drawable/ic_close"
+        android:drawablePadding="@dimen/margin_8dp"
+        android:gravity="center_vertical"
+        android:includeFontPadding="false"
+        android:paddingHorizontal="@dimen/margin_10dp"
+        android:paddingVertical="@dimen/margin_10dp"
+        android:text="@string/invalidSelectedDate"
+        android:textColor="@color/neutral1"
         android:textSize="@dimen/textSize14"
-        android:visibility="gone"
-        android:layout_marginTop="@dimen/margin_16dp"
-        android:layout_marginBottom="@dimen/margin_20dp"
         app:customFontWeight="medium"
-        tools:visibility="visible" />
+        android:visibility="gone"
+        app:drawableTint="@color/neutral1" />
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+</FrameLayout>

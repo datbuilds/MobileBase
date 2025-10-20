@@ -12,6 +12,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseFragmentBinding
+import vn.shb.lao.base.view.MyTextView
 import vn.shb.lao.databinding.FragmentTransactionHistoryBinding
 import vn.shb.lao.screens.account.helper.TransactionAdapter
 import vn.shb.lao.screens.home.HomeViewModel
@@ -20,6 +21,7 @@ import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
 import java.util.Locale
 
 class TransactionHistoryFragment :
@@ -28,8 +30,8 @@ class TransactionHistoryFragment :
 
     private val homeViewModel: HomeViewModel by sharedViewModel()
 
-    private var fromDate: String = ""
-    private var toDate: String = ""
+    private var fromDateMillis: Long = 0L
+    private var toDateMillis: Long = 0L
 
     override fun initView(view: View) {
         setUpRecyclerView()
@@ -37,35 +39,44 @@ class TransactionHistoryFragment :
 
     private fun setupViewDate() {
         binding.iclFromDate.tvValueDate.apply {
-            if (fromDate.isEmpty()) {
+            if (fromDateMillis == 0L) {
                 text = getString(R.string.from)
                 setTextColor(ContextCompat.getColor(requireContext(), R.color.neutral6))
             } else {
-                text = fromDate
+                text = getViewDate(fromDateMillis ?: 0L)
                 setTextColor(ContextCompat.getColor(requireContext(), R.color.neutral8))
             }
         }
 
-        binding.iclToDate.apply {
-            tvValueDate.apply {
-                if (toDate.isEmpty()) {
-                    text = getString(R.string.toDate)
-                    setTextColor(ContextCompat.getColor(requireContext(), R.color.neutral6))
-                } else {
-                    text = toDate
-                    setTextColor(ContextCompat.getColor(requireContext(), R.color.neutral8))
-                }
+        binding.iclToDate.tvValueDate.apply {
+            if (toDateMillis == 0L) {
+                text = getString(R.string.toDate)
+                setTextColor(ContextCompat.getColor(requireContext(), R.color.neutral6))
+            } else {
+                text = getViewDate(toDateMillis ?: 0L)
+                setTextColor(ContextCompat.getColor(requireContext(), R.color.neutral8))
             }
         }
+    }
+
+    private fun getViewDate(value: Long): String {
+        val dateFormat = SimpleDateFormat(Const.FORMAT_TRANSACTION_DATE, Locale.getDefault())
+        return dateFormat.format(Date(value))
     }
 
     override fun onResume() {
         super.onResume()
         val initDate = homeViewModel.getInitDate()
-        fromDate = initDate.first
-        toDate = initDate.second
+        fromDateMillis = initDate.first
+        toDateMillis = initDate.second
         setupViewDate()
-        homeViewModel.getAllTransactions(requireContext())
+        homeViewModel.getAllTransactions(
+            requireContext(),
+            Pair(
+                getViewDate(fromDateMillis),
+                getViewDate(toDateMillis)
+            )
+        )
     }
 
     private fun setUpRecyclerView() {
@@ -86,18 +97,32 @@ class TransactionHistoryFragment :
             }
 
             iclFromDate.root.setOnSingleClickListener {
-                showDatePicker(requireContext(), fromDate) {
-                    fromDate = it
+                showDatePicker(requireContext(), fromDateMillis) { selected ->
+                    if (selected > toDateMillis) {
+                        showErrorChooseDate(tvStatusUpdateDate)
+                        return@showDatePicker
+                    }
+                    fromDateMillis = selected
                     setupViewDate()
-                    homeViewModel.getAllTransactions(requireContext(), pairDate = Pair(fromDate, toDate))
+                    homeViewModel.getAllTransactions(
+                        requireContext(),
+                        pairDate = Pair(getViewDate(fromDateMillis), getViewDate(toDateMillis))
+                    )
                 }
             }
 
             iclToDate.root.setOnSingleClickListener {
-                showDatePicker(requireContext(), toDate) {
-                    toDate = it
+                showDatePicker(requireContext(), toDateMillis) { selected ->
+                    if (selected < fromDateMillis) {
+                        showErrorChooseDate(tvStatusUpdateDate)
+                        return@showDatePicker
+                    }
+                    toDateMillis = selected
                     setupViewDate()
-                    homeViewModel.getAllTransactions(requireContext(), pairDate = Pair(fromDate, toDate))
+                    homeViewModel.getAllTransactions(
+                        requireContext(),
+                        pairDate = Pair(getViewDate(fromDateMillis), getViewDate(toDateMillis))
+                    )
                 }
             }
         }
@@ -117,26 +142,18 @@ class TransactionHistoryFragment :
                 }
                 launch {
                     stateError.collect { error ->
-                       handleErrorHome(error)
+                        handleErrorHome(error)
                     }
                 }
             }
         }
     }
 
-    fun showDatePicker(context: Context, selectedDate: String?, onDateSelected: (String) -> Unit) {
-        val dateFormat = SimpleDateFormat(Const.FORMAT_TRANSACTION_DATE, Locale.getDefault())
-
+    fun showDatePicker(context: Context, selectedMillis: Long?, onDateSelected: (Long) -> Unit) {
         val calendar = Calendar.getInstance()
         val today = Calendar.getInstance()
 
-        // Nếu có ngày đã chọn thì set lại làm mặc định
-        selectedDate?.let {
-            try {
-                val parsed = dateFormat.parse(it)
-                calendar.time = parsed!!
-            } catch (_: Exception) {}
-        }
+        selectedMillis?.let { calendar.timeInMillis = it }
 
         val minDate = Calendar.getInstance().apply {
             add(Calendar.MONTH, -3)
@@ -145,44 +162,42 @@ class TransactionHistoryFragment :
         val datePicker = DatePickerDialog(
             context,
             { _, year, month, dayOfMonth ->
-                val selectedDate = String.format("%02d/%02d/%d", dayOfMonth, month + 1, year)
-                onDateSelected(selectedDate)
+                val cal = Calendar.getInstance().apply {
+                    set(year, month, dayOfMonth, 0, 0, 0)
+                }
+                onDateSelected(cal.timeInMillis)
             },
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
         )
 
-        // 🔒 Giới hạn chỉ chọn trong 3 tháng gần nhất
         datePicker.datePicker.minDate = minDate.timeInMillis
         datePicker.datePicker.maxDate = today.timeInMillis
         datePicker.show()
     }
 
+    fun showErrorChooseDate(
+        textView: MyTextView
+    ) {
+        textView.visibility = View.VISIBLE
 
-//    val today = Calendar.getInstance()
-//    val threeMonthsAgo = Calendar.getInstance().apply { add(Calendar.MONTH, -3) }
-//
-//    val datePickerDialog = DatePickerDialog(
-//        context,
-//        { _, year, month, dayOfMonth ->
-//            val selectedDate = Calendar.getInstance().apply {
-//                set(year, month, dayOfMonth)
-//            }
-//
-//            if (selectedDate.before(threeMonthsAgo) || selectedDate.after(today)) {
-//                Toast.makeText(context, "Vui lòng chọn trong 3 tháng gần nhất", Toast.LENGTH_SHORT).show()
-//            } else {
-//                val formatted = "%02d/%02d/%d".format(dayOfMonth, month + 1, year)
-//                println("Ngày hợp lệ: $formatted")
-//            }
-//        },
-//        today.get(Calendar.YEAR),
-//        today.get(Calendar.MONTH),
-//        today.get(Calendar.DAY_OF_MONTH)
-//    )
-//
-//    datePickerDialog.show()
-
+        textView.animate()
+            .alpha(1f)
+            .setDuration(200)
+            .withEndAction {
+                textView.postDelayed({
+                    textView.animate()
+                        .alpha(0f)
+                        .setDuration(300)
+                        .withEndAction {
+                            textView.visibility = View.GONE
+                            textView.alpha = 1f
+                        }
+                        .start()
+                }, 2000)
+            }
+            .start()
+    }
 
 }

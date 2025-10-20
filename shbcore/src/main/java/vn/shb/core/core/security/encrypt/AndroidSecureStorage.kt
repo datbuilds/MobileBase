@@ -132,7 +132,7 @@ class AndroidSecureStorage(private val context: Context, private val deviceManag
     }
 
     fun resetUser() {
-        removeKey(USER_INFO) // Lỗi 999 - User đăng nhập trên thiết bị khác
+//        removeKey(USER_INFO) // Lỗi 999 - User đăng nhập trên thiết bị khác
         removeKey(AUTH_TOKEN)
         removeKey(REFRESH_TOKEN)
     }

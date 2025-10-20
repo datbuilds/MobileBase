@@ -91,7 +91,7 @@
     <string name="pleaseEnterUsername">Vui lòng nhập tên tài khoản</string>
     <string name="pleaseEnterPassword">Vui lòng nhập mật khẩu</string>
     <string name="pleaseTryAgainIn">Vui lòng thử lại sau</string>
-    <string name="currentBalance">Số dư hiện tại</string>
+    <string name="currentBalance">Số dư khả dụng</string>
     <string name="show">Hiện</string>
     <string name="myProfile">Hồ sơ của tôi</string>
     <string name="tel">Hotline:</string>
@@ -100,4 +100,7 @@
     <string name="vietnamese">Tiếng Việt</string>
     <string name="lao">Tiếng Lào</string>
     <string name="add">Địa chỉ:</string>
+    <string name="flexibleSaving">Tài khoản tiết kiệm</string>
+    <string name="staffLoans">Tài khoản lương</string>
+    <string name="noTransactionHistory">Không có giao dịch</string>
 </resources>

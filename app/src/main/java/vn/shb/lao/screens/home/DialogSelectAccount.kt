@@ -54,10 +54,10 @@ class DialogSelectAccount(private val listAccount: List<AccountInfo>) :
         bottomSheet?.let {
             val behavior = BottomSheetBehavior.from(it).apply {
                 state = BottomSheetBehavior.STATE_EXPANDED
-                skipCollapsed = true
-                isCancelable = false
+                skipCollapsed = false
+                isCancelable = true
             }
-            behavior.isDraggable = false
+            behavior.isDraggable = true
         }
     }
 
@@ -69,7 +69,7 @@ class DialogSelectAccount(private val listAccount: List<AccountInfo>) :
             }
             adapter = SelectAccountAdapter(listAccount) { account ->
                 selectAccount = account
-                binding.tvDone.isVisible = selectAccount?.accountType != Const.LOAN_ACCOUNT
+                binding.tvDone.isVisible = selectAccount?.accountType != Const.SAVING_ACCOUNT
             }
             setHasFixedSize(true)
         }

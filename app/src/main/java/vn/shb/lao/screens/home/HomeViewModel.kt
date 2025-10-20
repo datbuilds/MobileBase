@@ -93,6 +93,10 @@ class HomeViewModel(
         userInfo: UserInfo,
         listAccount: List<AccountInfo> = this.listAccount
     ) {
+        if (selectedAccount != null){
+            _stateAccounts.value = selectedAccount!!
+            return
+        }
         selectedAccount = listAccount.find { it.accountNumber == userInfo.defaultAcct }
         if (selectedAccount == null && listAccount.isNotEmpty()) {
             selectedAccount = listAccount[0]
@@ -161,9 +165,8 @@ class HomeViewModel(
         }
     }
 
-    fun getAllTransactions(context: Context, pairDate: Pair<String, String>? = null) {
+    fun getAllTransactions(context: Context, pairDate: Pair<String, String>) {
         viewModelScope.launch {
-            val pairDate = pairDate ?: getInitDate()
             val params = UseCaseTransaction.Params(
                 accountNumber = selectedAccount?.accountNumber ?: "",
                 queryType = FR_2_TO_DATE,
@@ -185,15 +188,12 @@ class HomeViewModel(
         }
     }
 
-    fun getInitDate(): Pair<String, String> {
-        val dateFormat = SimpleDateFormat(Const.FORMAT_TRANSACTION_DATE, Locale.getDefault())
+    fun getInitDate(): Pair<Long, Long> {
         val today = Calendar.getInstance()
         val threeMonthsAgo = Calendar.getInstance().apply {
             add(Calendar.MONTH, -3)
         }
-        val toDate = dateFormat.format(today.time)
-        val fromDate = dateFormat.format(threeMonthsAgo.time)
-        return Pair(fromDate, toDate)
+        return Pair(threeMonthsAgo.timeInMillis, today.timeInMillis)
     }
 
     fun mapTransactionsToItems(

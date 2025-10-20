@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -14,6 +15,7 @@ import android.view.accessibility.AccessibilityManager
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.media3.common.BuildConfig
 import androidx.viewbinding.ViewBinding
@@ -82,11 +84,11 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
         super.onCreate(savedInstanceState)
         _binding = inflate(layoutInflater)
         setContentView(binding.root)
-// Đặt màu nền cho status bar
-        window.statusBarColor = ContextCompat.getColor(this, R.color.colorBg)
 
         // Nếu nền cam sáng, đặt icon tối (đen)
-        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
+        window.statusBarColor = Color.TRANSPARENT
+        WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = true // nếu background sáng
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         handleSavedState(savedInstanceState)
         initView()
         initListener()
@@ -238,44 +240,6 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
 
     open fun isDialogShowing(tag: String): Boolean {
         return supportFragmentManager.findFragmentByTag(tag) != null
-    }
-
-    fun showDialogError(
-        errCode: String = "",
-        title: String = getString(vn.shb.lao.localization.R.string.title_noti),
-        message: String,
-        tvAction: String = getString(vn.shb.lao.localization.R.string.shb_action_close),
-        icon: Int = R.drawable.ic_warning,
-        isCancelable: Boolean = false,
-        onClose: (() -> Unit?)? = null
-    ) {
-        val (titleValue, messageValue, action) = Triple(title, message, tvAction)
-
-        val dialogError =
-            BaseErrorDialog.Build(
-                title = titleValue,
-                message = messageValue,
-                tvAction = action,
-                icon = icon,
-                onClose = onClose,
-                allowDismiss = isCancelable
-            )
-                .build()
-
-        dialogError.isCancelable = isCancelable
-
-        val prev = supportFragmentManager.findFragmentByTag(BaseErrorDialog.TAG)
-        if (prev != null) {
-            supportFragmentManager.beginTransaction().remove(prev).commit()
-        }
-
-        if (!isFinishing && !isDestroyed) {
-            try {
-                dialogError.show(supportFragmentManager, BaseErrorDialog.TAG)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
     }
 
     override fun attachBaseContext(newBase: Context?) {

@@ -10,13 +10,13 @@ fun getTypeAccount(
     account: AccountInfo
 ): Pair<String, String> {
     return when (account.accountType) {
-        Const.CURRENT_ACCOUNT -> Pair(context.getString(R.string.currentAccount), account.availableBalance.toString())
-        Const.SAVING_ACCOUNT -> Pair(account.productDescription, account.availableBalance.toString())
-        Const.LOAN_ACCOUNT -> Pair(account.productDescription, account.availableBalance.toString())
+        Const.CURRENT_ACCOUNT -> Pair(context.getString(R.string.currentAccount), account.getAvailableBalance())
+        Const.SAVING_ACCOUNT -> Pair(context.getString(R.string.flexibleSaving), account.getAvailableBalance())
+        Const.LOAN_ACCOUNT -> Pair(context.getString(R.string.staffLoans), account.getAvailableBalance())
 
         else -> Pair(
-            context.getString(R.string.defaultCasaAccount),
-            account.availableBalance.toString()
+            context.getString(R.string.currentAccount),
+            account.getAvailableBalance()
         )
     }
 }

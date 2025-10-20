@@ -1,6 +1,7 @@
 package vn.shb.data.entities.home
 
 import com.google.gson.annotations.SerializedName
+import vn.shb.data.entities.getBalance
 import java.io.Serializable
 
 data class AccountDetails(
@@ -17,4 +18,6 @@ data class AccountDetails(
     @SerializedName("availableBalance") val availableBalance: Double = 0.0,
     @SerializedName("rate") val rate: Double = 0.0,
     @SerializedName("isCoHolder") val isCoHolder: Boolean = false
-) : Serializable
+) : Serializable{
+    fun getAvailableBalance(): String = availableBalance.getBalance()
+}

@@ -14,10 +14,12 @@ import androidx.annotation.ColorRes
 import androidx.annotation.IdRes
 import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -25,7 +27,6 @@ import androidx.viewbinding.ViewBinding
 import com.google.android.material.transition.platform.MaterialFadeThrough
 import org.koin.android.ext.android.inject
 import vn.shb.core.core.delivery.Reason
-import vn.shb.core.core.retrofit.SafeExecute
 import vn.shb.core.core.retrofit.SafeExecute.Companion.AUTH_006
 import vn.shb.core.core.retrofit.SafeExecute.Companion.HTTP_NOT_FOUND
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
@@ -76,6 +77,11 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         initView(view)
         initListener()
         activity?.lifecycle?.addObserver(ActivityLifeCycleObserver { initObserve() })
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            val statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
+            v.updatePadding(top = statusBarHeight + 10)
+            insets
+        }
     }
 
     override fun onResume() {
@@ -202,7 +208,7 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         onAction: (() -> Unit)? = null
     ) {
         var message = reason.errMessage
-        if (reason.errorCode == SafeExecute.HTTP_NOT_FOUND) {
+        if (reason.errorCode == HTTP_NOT_FOUND) {
             message = getString(R.string.processingError)
         }
         BottomSheetDialogHelper(requireContext()).message(
@@ -218,20 +224,21 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
     fun handleErrorHome(error: Reason?) {
         if (error != null) {
             if (listErrorLogout.contains(error.errorCode)) {
-                logout()
+                logout(error)
+            } else {
+                showDialogError(error)
             }
-            showDialogError(error)
         }
     }
 
 
     fun getColor(@ColorRes colorId: Int) = ContextCompat.getColor(requireContext(), colorId)
 
-    fun logout() {
+    fun logout(error: Reason) {
         storage.resetUser()
         RefreshTokenManager.stop()
         finishAffinity(requireActivity())
-        returnActivity(LoginActivity.intent(requireActivity()))
+        returnActivity(LoginActivity.intent(requireActivity(), error))
     }
 
     // Removing the binding reference when not needed is recommended as it avoids memory leak

@@ -49,7 +49,7 @@ class AccountDetailFragment :
         account?.let {
             binding.apply {
                 tvValueBalance.text =
-                    "${accountDetails.availableBalance} ${accountDetails.currencyCode}"
+                    "${accountDetails.getAvailableBalance()} ${accountDetails.currencyCode}"
                 tvNumberAccount.text = accountDetails.accountNumber
                 tvNameBranch.text = accountDetails.positionDescription
             }
