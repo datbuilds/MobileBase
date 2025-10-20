@@ -52,7 +52,6 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
 
     override fun initView(view: View) {
         bindView()
-        getDataUser()
         bindBannerView()
     }
 
@@ -129,6 +128,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
 
     override fun onResume() {
         super.onResume()
+        getDataUser()
         handler.postDelayed(autoRunnable, AUTO_SCROLL_BANNER_DELAY)
         binding.viewPager.registerOnPageChangeCallback(pageCallback)
     }
@@ -148,7 +148,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
     }
 
     private fun bindViewAccount(account: AccountInfo) {
-        val valueAccount = getTypeAccount(context!!, account)
+        val valueAccount = getTypeAccount(requireContext(), account)
         binding.tvCurrentAccount.text = valueAccount.first.plus(Const.SEPARATOR_DASH)
             .plus(account.accountNumber).plus(
                 Const.SEPARATOR_DASH
@@ -188,7 +188,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
                     if (isShowValueBalance) R.drawable.ic_eye_closed else R.drawable.ic_eye_show
                 )
                 homeViewModel.selectedAccount?.let { account ->
-                    val valueAccount = getTypeAccount(context!!, account)
+                    val valueAccount = getTypeAccount(requireContext(), account)
                     tvValueBalance.text =
                         (if (isShowValueBalance) valueAccount.second else textGoneValue).plus(
                             Const.SEPARATOR_SPACE
@@ -215,6 +215,12 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
                 launch {
                     stateSelectedAccount.collectLatest { accountInfo ->
                         bindViewAccount(accountInfo)
+                    }
+                }
+
+                launch {
+                    stateError.collect { error ->
+                        handleErrorHome(error)
                     }
                 }
             }
@@ -261,7 +267,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
             true // focusable, click outside sẽ tự đóng
         )
 
-        val currentLanguage = LocaleHelper.getCurrentLanguage(context!!)
+        val currentLanguage = LocaleHelper.getCurrentLanguage(requireContext())
 
         // style
         popupWindow.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())

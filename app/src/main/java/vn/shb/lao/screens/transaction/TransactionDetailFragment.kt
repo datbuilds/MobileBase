@@ -1,6 +1,7 @@
 package vn.shb.lao.screens.transaction
 
 import android.view.View
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import vn.shb.core.utils.extesions.setOnSingleClickListener
@@ -9,6 +10,7 @@ import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.ChildViewTransactionInfoBinding
 import vn.shb.lao.databinding.FragmentTransactionDetailBinding
 import vn.shb.lao.screens.home.HomeViewModel
+
 import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 
@@ -32,7 +34,7 @@ class TransactionDetailFragment :
                 fromAccount
             )
             iclTransactionInfo2.bindView(
-                getString(R.string.fromAccount),
+                getString(R.string.toAccount),
                 trans.transactionDescription
             )
             iclTransactionInfo3.bindView(
@@ -50,11 +52,6 @@ class TransactionDetailFragment :
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        homeViewModel.getAllTransactions(context!!)
-    }
-
     override fun initListener() {
         binding.ivClose.setOnSingleClickListener {
             backPress()
@@ -65,6 +62,9 @@ class TransactionDetailFragment :
         with(homeViewModel) {
             launchRepeatOnLifecycle {
                 launch {
+                    stateError.collect { error ->
+                        handleErrorHome(error)
+                    }
                 }
             }
         }

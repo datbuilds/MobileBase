@@ -10,6 +10,6 @@ object Const {
     const val FORMAT_TRANSACTION_DATE = "dd/MM/yyyy"
 
     const val CURRENT_ACCOUNT = "001"
-    const val LOAN_ACCOUNT = "002"
-    const val CASA_ACCOUNT = "003"
+    const val SAVING_ACCOUNT = "002"
+    const val LOAN_ACCOUNT = "003"
 }

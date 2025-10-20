@@ -24,7 +24,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="/private/var/folders/_6/lxl6jdc954z9_92zdv1tpvmd8tgpct/T/ic_android_black_24dp.xml" />
+                                                <entry key="imagePath" value="C:\Users\dt_linhdq\AppData\Local\Temp\ic_android_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -67,7 +67,8 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="imagePath" value="/private/var/folders/_6/lxl6jdc954z9_92zdv1tpvmd8tgpct/T/ic_android_black_24dp.xml" />
+                                                <entry key="color" value="000000" />
+                                                <entry key="imagePath" value="C:\Users\dt_linhdq\AppData\Local\Temp\ic_android_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -79,8 +80,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="$USER_HOME$/Downloads/ic_logo_sale_android.png" />
-                                                <entry key="scalingPercent" value="73" />
+                                                <entry key="imagePath" value="C:\Users\dt_linhdq\Downloads\icon_app.png" />
+                                                <entry key="scalingPercent" value="101" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -110,6 +111,12 @@
                                       </entry>
                                     </map>
                                   </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="backgroundAssetType" value="COLOR" />
+                                      <entry key="backgroundColor" value="ffffff" />
+                                    </map>
+                                  </option>
                                 </PersistentState>
                               </value>
                             </entry>
@@ -124,7 +131,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="/private/var/folders/_6/lxl6jdc954z9_92zdv1tpvmd8tgpct/T/ic_android_black_24dp.xml" />
+                                                <entry key="imagePath" value="C:\Users\dt_linhdq\AppData\Local\Temp\ic_android_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -168,7 +175,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="/private/var/folders/_6/lxl6jdc954z9_92zdv1tpvmd8tgpct/T/ic_android_black_24dp.xml" />
+                                                <entry key="imagePath" value="C:\Users\dt_linhdq\AppData\Local\Temp\ic_android_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -232,7 +239,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="imagePath" value="/private/var/folders/_6/lxl6jdc954z9_92zdv1tpvmd8tgpct/T/ic_android_black_24dp.xml" />
+                                                <entry key="imagePath" value="C:\Users\dt_linhdq\AppData\Local\Temp\ic_android_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>

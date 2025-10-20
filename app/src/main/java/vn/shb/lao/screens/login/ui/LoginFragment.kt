@@ -57,8 +57,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { _: Boolean -> }
 
     override fun initView(view: View) {
-        mapUILogin()
-        bindEdtPassword()
     }
 
     private fun mapUILogin() {
@@ -268,7 +266,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             llInfoUser.visible()
             groupViewNoLastUser.gone()
             flAvatarUser.setUserName(getPathAvatarUser(user.customerId), currentUserName)
-            binding.tvHelloUser.text = context!!.getTextWelcomeUser()
+            binding.tvHelloUser.text = requireContext().getTextWelcomeUser()
             binding.tvNameUser.text = currentUserName
             inputPasswordLayout.clearEditTextColorFilter()
         }
@@ -284,7 +282,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         context?.let { ct ->
             LocaleHelper.saveLanguage(ct, type)
             LocaleHelper.setLocale(ct, type)
-            restartApp(activity!!)
+            restartApp(requireActivity())
         }
     }
 
@@ -299,6 +297,8 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
     override fun onResume() {
         super.onResume()
+        mapUILogin()
+        bindEdtPassword()
         clearFlag()
     }
 

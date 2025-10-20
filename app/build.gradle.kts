@@ -127,6 +127,8 @@ dependencies {
     //Room
     implementation(libs.roomKtx)
     implementation(libs.roomRuntime)
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
     kapt(libs.roomCompiler)
 
     //Paging

@@ -21,7 +21,6 @@ abstract class SafeExecute() {
         private const val HTTP_BAD_REQUEST = 400
         private const val HTTP_UNAUTHORIZED = 401
         private const val HTTP_FORBIDDEN = 403
-        const val HTTP_NOT_FOUND = "404"
         private const val HTTP_METHOD_NOT_ALLOWED = 405
         private const val HTTP_CONFLICT = 409
         private const val HTTP_GONE = 410
@@ -31,6 +30,9 @@ abstract class SafeExecute() {
         private const val HTTP_BAD_GATEWAY = 502
         private const val HTTP_SERVICE_UNAVAILABLE = 503
         private const val HTTP_GATEWAY_TIMEOUT = 504
+
+        const val HTTP_NOT_FOUND = "404"
+        const val AUTH_006 = "AUTH-006"
     }
 
     protected suspend fun <T : Any> execute(call: suspend () -> Response<T>): ResultSHB<T> {

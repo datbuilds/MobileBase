@@ -84,7 +84,12 @@ class ProfileFragment :
             iclInfo1.bind(getString(R.string.customerId), user.customerId)
             iclInfo2.bind(getString(R.string.customerName), user.customerName)
             val defaultAccount =
-                homeViewModel.selectedAccount?.let { getTypeAccount(context!!, it) }?.first.plus(
+                homeViewModel.selectedAccount?.let {
+                    getTypeAccount(
+                        requireContext(),
+                        it
+                    )
+                }?.first.plus(
                     Const.SEPARATOR_DASH
                 )
                     .plus(account.accountNumber)
@@ -107,7 +112,7 @@ class ProfileFragment :
                 safeNavigate(R.id.profileFragment, R.id.homeFragment)
             }
             btnLogout.setOnSingleClickListener {
-                BottomSheetDialogHelper(context!!).message(
+                BottomSheetDialogHelper(requireContext()).message(
                     getString(R.string.notification),
                     getString(R.string.logoutConfirm),
                     textPositive = getString(R.string.logout),
@@ -169,6 +174,12 @@ class ProfileFragment :
             launch {
                 homeViewModel.stateSelectedAccount.collect { accountInfo ->
                     homeViewModel.getCurrentUserInfo()?.let { bindViewDetail(it, accountInfo) }
+                }
+            }
+
+            launch {
+                homeViewModel.stateError.collect { error ->
+                    handleErrorHome(error)
                 }
             }
         }

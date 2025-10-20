@@ -62,6 +62,22 @@
         android:background="@drawable/bg_child_view_account_details"
         android:paddingHorizontal="@dimen/margin_16dp"
         android:paddingVertical="@dimen/margin_20dp"
-        tools:itemCount="33" />
+        tools:itemCount="3" />
+
+    <vn.shb.lao.base.view.MyTextView
+        android:id="@+id/tvNoTransaction"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/bg_child_view_account_details"
+        android:gravity="center"
+        android:text="@string/noTransactionHistory"
+        android:textColor="@color/neutral7"
+        android:textSize="@dimen/textSize14"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:layout_marginBottom="@dimen/margin_20dp"
+        app:customFontWeight="medium"
+        tools:visibility="visible" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

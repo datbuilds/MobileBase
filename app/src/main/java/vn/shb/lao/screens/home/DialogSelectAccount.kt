@@ -22,7 +22,6 @@ import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 class DialogSelectAccount(private val listAccount: List<AccountInfo>) :
     BaseBottomDialogBinding<DialogSelectAccountBinding>(DialogSelectAccountBinding::inflate) {
 
-    private val homeViewModel: HomeViewModel by sharedViewModel()
     private var onAction: ((AccountInfo) -> Unit)? = null
 
     private var selectAccount: AccountInfo? = null

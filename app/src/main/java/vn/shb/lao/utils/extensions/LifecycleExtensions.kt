@@ -52,7 +52,7 @@ fun <T> Fragment.collectState(flow: Flow<T>, collector: suspend (T) -> Unit) {
 
 
 fun LifecycleOwner.launchRepeatOnLifecycle(
-    state: Lifecycle.State = Lifecycle.State.CREATED,
+    state: Lifecycle.State = Lifecycle.State.STARTED,
     block: suspend CoroutineScope.() -> Unit
 ) {
     lifecycleScope.launch {

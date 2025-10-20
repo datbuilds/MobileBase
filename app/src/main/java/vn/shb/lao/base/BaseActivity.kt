@@ -179,7 +179,7 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
     open fun handleSavedState(savedInstanceState: Bundle?) {}
     open fun sessionExpired() {}
 
-    private fun logout() {
+    fun logout() {
         storage.resetToken()
         finishAffinity()
         returnActivity(LoginActivity.intent(this))

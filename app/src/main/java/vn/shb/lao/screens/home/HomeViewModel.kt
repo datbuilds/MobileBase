@@ -2,9 +2,13 @@ package vn.shb.lao.screens.home
 
 import android.content.Context
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import vn.shb.core.core.delivery.ConnectionError
+import vn.shb.core.core.delivery.Reason
 import vn.shb.core.core.delivery.onFailure
 import vn.shb.core.core.delivery.onLoading
 import vn.shb.core.core.delivery.onSuccess
@@ -49,11 +53,18 @@ class HomeViewModel(
     private val _stateAllTransactions = MutableStateFlow<List<TransactionItem>>(emptyList())
     val stateAllTransactions = _stateAllTransactions.asStateFlow()
 
+    private val _stateError = MutableSharedFlow<Reason?>()
+    val stateError = _stateError.asSharedFlow()
+
     private var currentUserInfo: UserInfo? = null
     private var listAccount = listOf<AccountInfo>()
     var selectedAccount: AccountInfo? = null
 
     var currentTransaction: TransactionItem.Transaction? = null
+
+    suspend fun showError(reason: Reason) {
+        _stateError.emit(reason)
+    }
 
     fun getUserInfo() {
         viewModelScope.launch {
@@ -71,6 +82,7 @@ class HomeViewModel(
                     getCurrentAccount(userInfo, accountData.array)
                 }
                 result.onFailure { error ->
+                    showError(error)
                 }
                 result.onLoading { }
             }
@@ -119,7 +131,7 @@ class HomeViewModel(
                         accountDetailsData.array.firstOrNull() ?: AccountDetails()
                 }
                 result.onFailure { error ->
-                    // Xử lý lỗi ở đây nếu cần
+                    showError(error)
                 }
                 result.onLoading {
                     // Xử lý trạng thái tải ở đây nếu cần
@@ -140,7 +152,7 @@ class HomeViewModel(
                         mapTransactionsToItems(context, transactionData.array ?: listOf())
                 }
                 result.onFailure { error ->
-                    // Xử lý lỗi ở đây nếu cần
+                    showError(error)
                 }
                 result.onLoading {
                     // Xử lý trạng thái tải ở đây nếu cần
@@ -149,9 +161,9 @@ class HomeViewModel(
         }
     }
 
-    fun getAllTransactions(context: Context) {
+    fun getAllTransactions(context: Context, pairDate: Pair<String, String>? = null) {
         viewModelScope.launch {
-            val pairDate = getInitDate()
+            val pairDate = pairDate ?: getInitDate()
             val params = UseCaseTransaction.Params(
                 accountNumber = selectedAccount?.accountNumber ?: "",
                 queryType = FR_2_TO_DATE,
@@ -164,7 +176,7 @@ class HomeViewModel(
                         mapTransactionsToItems(context, transactionData.array ?: listOf())
                 }
                 result.onFailure { error ->
-                    // Xử lý lỗi ở đây nếu cần
+                    showError(error)
                 }
                 result.onLoading {
                     // Xử lý trạng thái tải ở đây nếu cần

@@ -1,12 +1,14 @@
 package vn.shb.lao.screens.account
 
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.home.AccountDetails
+import vn.shb.data.entities.home.TransactionItem
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentAccountDetailBinding
@@ -45,8 +47,9 @@ class AccountDetailFragment :
     private fun bindViewDetail(accountDetails: AccountDetails) {
         val account = homeViewModel.selectedAccount
         account?.let {
-            with(binding) {
-                tvValueBalance.text = "${accountDetails.availableBalance} ${accountDetails.currencyCode}"
+            binding.apply {
+                tvValueBalance.text =
+                    "${accountDetails.availableBalance} ${accountDetails.currencyCode}"
                 tvNumberAccount.text = accountDetails.accountNumber
                 tvNameBranch.text = accountDetails.positionDescription
             }
@@ -60,20 +63,23 @@ class AccountDetailFragment :
                 safeNavigate(R.id.accountDetailFragment, R.id.backToHomeFragment)
             }
 
-//            flTransfer
+            flTransfer.setOnSingleClickListener {
+                safeNavigate(R.id.accountDetailFragment, R.id.moneyTransferFragment)
+            }
 
             tvViewAll.setOnSingleClickListener {
                 safeNavigate(R.id.accountDetailFragment, R.id.action_to_transaction_history)
             }
 
             ivExpandDown.setOnSingleClickListener {
-                DialogSelectAccount.Build(homeViewModel.getListAccount(), homeViewModel.selectedAccount) { ac ->
+                DialogSelectAccount.Build(
+                    homeViewModel.getListAccount(), homeViewModel.selectedAccount
+                ) { ac ->
                     homeViewModel.selectedAccount = ac
                     homeViewModel.getAccountDetails(ac.accountNumber)
-                    homeViewModel.getTake5Transaction(context!!)
+                    homeViewModel.getTake5Transaction(requireContext())
                 }.build().show(childFragmentManager, DialogSelectAccount.TAG)
             }
-
         }
     }
 
@@ -81,17 +87,31 @@ class AccountDetailFragment :
         with(homeViewModel) {
             launchRepeatOnLifecycle {
                 launch {
-                    stateTransactions5First.collect {
-                        adapter.submitList(it)
+                    stateTransactions5First.collectLatest {
+                        updateList(it)
                     }
                 }
 
                 launch {
-                    stateAccountDetails.collect {
+                    stateAccountDetails.collectLatest {
                         bindViewDetail(it)
                     }
                 }
+                launch {
+                    stateError.collect { error ->
+                        handleErrorHome(error)
+                    }
+                }
             }
+        }
+    }
+
+    private fun updateList(list: List<TransactionItem>) {
+        adapter.submitList(list)
+        binding.apply {
+            tvViewAll.isVisible = list.isNotEmpty()
+            rcvTransaction.isVisible = list.isNotEmpty()
+            tvNoTransaction.isVisible = list.isEmpty()
         }
     }
 

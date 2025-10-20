@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class AccountInfo(
-    @SerializedName("casaTotal") val casaTotal: Long = 0,
-    @SerializedName("tideTotal") val tideTotal: Long = 0,
-    @SerializedName("loanTotal") val loanTotal: Long = 0,
+    @SerializedName("casaTotal") val casaTotal: Double = 0.00,
+    @SerializedName("tideTotal") val tideTotal: Double = 0.00,
+    @SerializedName("loanTotal") val loanTotal: Double = 0.00,
     @SerializedName("accountType") val accountType: String = "",
     @SerializedName("accountTypeName") val accountTypeName: String = "",
     @SerializedName("accountNumber") val accountNumber: String = "",
@@ -15,6 +15,6 @@ data class AccountInfo(
     @SerializedName("positionDescription") val positionDescription: String = "",
     @SerializedName("productCode") val productCode: String = "",
     @SerializedName("productDescription") val productDescription: String = "",
-    @SerializedName("availableBalance") val availableBalance: Long = 0,
+    @SerializedName("availableBalance") val availableBalance: Double = 0.00,
     var isSelected: Boolean = false
 ) : Serializable

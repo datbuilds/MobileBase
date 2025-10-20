@@ -45,7 +45,7 @@ class SelectAccountAdapter(
                 accountItem.currencyCode
             )
             tvValueBalance.bindBalance(
-                valueAccount.second,
+                getBalance(accountItem.availableBalance),
                 " ${accountItem.currencyCode}"
             )
             if (accountItem.isSelected) {
@@ -66,6 +66,14 @@ class SelectAccountAdapter(
     }
 
     override fun getItemCount(): Int = items.size
+}
+
+fun getBalance(balance : Double) : String{
+    return if (balance % 1 == 0.0) {
+        String.format("%,.0f", balance) // không có phần thập phân
+    } else {
+        String.format("%,.2f", balance) // có 2 chữ số thập phân
+    }
 }
 
 fun TextView.bindBalance(amount: String, currency: String) {

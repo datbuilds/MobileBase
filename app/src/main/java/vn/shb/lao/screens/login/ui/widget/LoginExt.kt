@@ -35,7 +35,7 @@ import vn.shb.lao.utils.widgets.LocaleHelper
 
 fun LoginFragment.setGreeting(textView: TextView) {
 
-    val greeting = context!!.getTextWelcomeUser()
+    val greeting = requireContext().getTextWelcomeUser()
 
     val fullText = "$greeting, $currentUserName"
 
@@ -48,7 +48,7 @@ fun LoginFragment.setGreeting(textView: TextView) {
     spannable.setSpan(AbsoluteSizeSpan(14, true), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
     val customFont: Typeface? =
-        ResourcesCompat.getFont(context!!, R.font.inter_semi_bold)
+        ResourcesCompat.getFont(requireContext(), R.font.inter_semi_bold)
     if (customFont != null) {
         spannable.setSpan(customFont, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
     }
@@ -97,7 +97,7 @@ fun LoginFragment.showLanguagePopup(anchor: View) {
         true // focusable, click outside sẽ tự đóng
     )
 
-    val currentLanguage = LocaleHelper.getCurrentLanguage(context!!)
+    val currentLanguage = LocaleHelper.getCurrentLanguage(requireContext())
 
     // style
     popupWindow.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())

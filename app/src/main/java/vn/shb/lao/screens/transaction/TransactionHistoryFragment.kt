@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -14,6 +15,7 @@ import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentTransactionHistoryBinding
 import vn.shb.lao.screens.account.helper.TransactionAdapter
 import vn.shb.lao.screens.home.HomeViewModel
+
 import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import java.text.SimpleDateFormat
@@ -63,7 +65,7 @@ class TransactionHistoryFragment :
         fromDate = initDate.first
         toDate = initDate.second
         setupViewDate()
-        homeViewModel.getAllTransactions(context!!)
+        homeViewModel.getAllTransactions(requireContext())
     }
 
     private fun setUpRecyclerView() {
@@ -84,16 +86,18 @@ class TransactionHistoryFragment :
             }
 
             iclFromDate.root.setOnSingleClickListener {
-                showDatePicker(context!!, fromDate) {
+                showDatePicker(requireContext(), fromDate) {
                     fromDate = it
                     setupViewDate()
+                    homeViewModel.getAllTransactions(requireContext(), pairDate = Pair(fromDate, toDate))
                 }
             }
 
             iclToDate.root.setOnSingleClickListener {
-                showDatePicker(context!!, toDate) {
+                showDatePicker(requireContext(), toDate) {
                     toDate = it
                     setupViewDate()
+                    homeViewModel.getAllTransactions(requireContext(), pairDate = Pair(fromDate, toDate))
                 }
             }
         }
@@ -105,6 +109,15 @@ class TransactionHistoryFragment :
                 launch {
                     stateAllTransactions.collectLatest {
                         adapter.submitList(it)
+                        binding.apply {
+                            rcvTransaction.isVisible = it.isNotEmpty()
+                            tvNoTransaction.isVisible = it.isEmpty()
+                        }
+                    }
+                }
+                launch {
+                    stateError.collect { error ->
+                       handleErrorHome(error)
                     }
                 }
             }

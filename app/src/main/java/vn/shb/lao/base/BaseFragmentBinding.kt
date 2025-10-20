@@ -10,8 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER
+import androidx.annotation.ColorRes
 import androidx.annotation.IdRes
 import androidx.core.app.ActivityCompat.finishAffinity
+import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -24,12 +26,13 @@ import com.google.android.material.transition.platform.MaterialFadeThrough
 import org.koin.android.ext.android.inject
 import vn.shb.core.core.delivery.Reason
 import vn.shb.core.core.retrofit.SafeExecute
+import vn.shb.core.core.retrofit.SafeExecute.Companion.AUTH_006
+import vn.shb.core.core.retrofit.SafeExecute.Companion.HTTP_NOT_FOUND
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import vn.shb.data.entities.login.UserConverters
 import vn.shb.data.entities.login.UserLog
 import vn.shb.lao.R
 import vn.shb.lao.activity.login.LoginActivity
-import vn.shb.lao.utils.extensions.CustomToastShowOnTop
 import vn.shb.lao.utils.extensions.navigation.safeNavigate
 import vn.shb.lao.utils.extensions.returnActivity
 import vn.shb.lao.utils.refreshTK.RefreshTokenManager
@@ -50,6 +53,8 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
 
     val binding: T
         get() = _binding!!
+
+    private val listErrorLogout = listOf(AUTH_006)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -200,7 +205,7 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         if (reason.errorCode == SafeExecute.HTTP_NOT_FOUND) {
             message = getString(R.string.processingError)
         }
-        BottomSheetDialogHelper(context!!).message(
+        BottomSheetDialogHelper(requireContext()).message(
             title = getString(R.string.notification),
             message = message,
             textPositive = getString(R.string.close),
@@ -210,38 +215,23 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         )
     }
 
-    private fun logout() {
+    fun handleErrorHome(error: Reason?) {
+        if (error != null) {
+            if (listErrorLogout.contains(error.errorCode)) {
+                logout()
+            }
+            showDialogError(error)
+        }
+    }
+
+
+    fun getColor(@ColorRes colorId: Int) = ContextCompat.getColor(requireContext(), colorId)
+
+    fun logout() {
         storage.resetUser()
         RefreshTokenManager.stop()
         finishAffinity(requireActivity())
         returnActivity(LoginActivity.intent(requireActivity()))
-    }
-
-    open fun showNotificationOnTop(
-        view: View,
-        icon: Int = R.drawable.ic_close,
-        message: String,
-        background: Int = R.drawable.bg_custom_success,
-        duration: Long = 5000L
-    ) {
-        val toast =
-            CustomToastShowOnTop(
-                requireContext(),
-                view,
-                icon = icon,
-                message = message,
-                background = background,
-                duration = duration
-            )
-        toast.show()
-    }
-
-    open fun showDialogAlert(
-        view: View,
-        message: String,
-        duration: Long = 5000L
-    ) {
-//        context?.let { AlertDialogUtil.message(it, getString(R.string.notificationLabel), message = getString(R.string.)) }
     }
 
     // Removing the binding reference when not needed is recommended as it avoids memory leak

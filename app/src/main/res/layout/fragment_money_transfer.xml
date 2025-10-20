@@ -81,6 +81,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <vn.shb.lao.base.view.MyTextView
+            android:id="@+id/tvAccountNumber"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:drawableEnd="@drawable/ic_arrow_down"
@@ -107,6 +108,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvCurrentAccount" />
 
         <vn.shb.lao.base.view.MyTextView
+            android:id="@+id/tvBalanceValue"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:textColor="@color/neutral1"
