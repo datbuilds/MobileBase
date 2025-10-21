@@ -69,7 +69,7 @@ class DialogSelectAccount(private val listAccount: List<AccountInfo>) :
             }
             adapter = SelectAccountAdapter(listAccount) { account ->
                 selectAccount = account
-                binding.tvDone.isVisible = selectAccount?.accountType != Const.SAVING_ACCOUNT
+                binding.tvDone.isVisible = selectAccount?.accountType == Const.CURRENT_ACCOUNT
             }
             setHasFixedSize(true)
         }

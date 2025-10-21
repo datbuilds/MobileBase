@@ -69,7 +69,7 @@ class TransactionHistoryFragment :
         val initDate = homeViewModel.getInitDate()
         fromDateMillis = initDate.first
         toDateMillis = initDate.second
-        setupViewDate()
+//        setupViewDate()
         homeViewModel.getAllTransactions(
             requireContext(),
             Pair(

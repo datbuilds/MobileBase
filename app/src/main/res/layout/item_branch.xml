@@ -36,9 +36,10 @@
 
         <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvBranchAddress"
-            android:layout_width="@dimen/margin_36dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add"
+            android:lines="1"
             android:textColor="@color/neutral10"
             android:textSize="@dimen/textSize14"
             app:customFontWeight="medium" />
@@ -49,6 +50,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/color_hotline"
             android:textSize="@dimen/textSize14"
+            android:layout_marginStart="@dimen/margin_6dp"
             app:customFontWeight="medium"
             tools:text=" 123 ABC Street, XYZ Ward, HCM City 1123 ABC Street, XYZ Ward, HCM City123 ABC Street, XYZ Ward, HCM City23 ABC Street, XYZ Ward, HCM City" />
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -60,10 +62,11 @@
 
         <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvBranchTel"
-            android:layout_width="@dimen/margin_36dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autoLink="phone"
             android:text="@string/tel"
+            android:lines="1"
             android:textColor="@color/neutral10"
             android:textSize="@dimen/textSize14"
             app:customFontWeight="medium" />
@@ -74,6 +77,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/color_hotline"
             android:textSize="@dimen/textSize14"
+            android:layout_marginStart="@dimen/margin_6dp"
             app:customFontWeight="medium"
             tools:text=" 123 ABC Street, XYZ Ward, HCM City" />
     </androidx.appcompat.widget.LinearLayoutCompat>

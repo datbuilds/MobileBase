@@ -132,4 +132,5 @@
     <color name="color_outcome">#FF4D4F</color>
     <color name="colorBgAccount">#FAF6ED</color>
     <color name="colorSuccess">#00861F</color>
+    <color name="color_line_account">#E8E8E7</color>
 </resources>

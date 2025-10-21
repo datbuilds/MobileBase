@@ -204,7 +204,6 @@
                 android:importantForAutofill="no"
                 android:inputType="textVisiblePassword"
                 android:maxLength="6"
-                android:text="123456"
                 android:selectAllOnFocus="true" />
         </com.google.android.material.textfield.TextInputLayout>
 

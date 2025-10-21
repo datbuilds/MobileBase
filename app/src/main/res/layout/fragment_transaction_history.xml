@@ -82,7 +82,7 @@
             android:textSize="@dimen/textSize14"
             android:visibility="gone"
             app:customFontWeight="medium"
-            tools:visibility="visible" />
+            tools:visibility="gone" />
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>

@@ -28,8 +28,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 
     override fun initView(view: View) {
         bindView()
-        initTypeTransfer()
+        updateViewTypeTransfer()
         homeViewModel.selectedAccount?.let { bindViewAccount(it) }
+        resetStateTransfer()
     }
 
     private fun bindView() {
@@ -49,10 +50,28 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 viewLine.visible()
                 tvCurrentCode.visible()
             }
+
+            iclFee.apply {
+                tvTitle.text = getString(R.string.fee)
+                edtValue.hint = getString(R.string.zero)
+                ivExpandDown.gone()
+                viewLine.visible()
+                tvCurrentCode.visible()
+            }
+
+            iclTotalAmount.apply {
+                tvTitle.text = getString(R.string.totalAmount)
+                edtValue.hint = getString(R.string.zero)
+                ivExpandDown.gone()
+                viewLine.visible()
+                tvCurrentCode.visible()
+            }
             iclRemarks.apply {
                 tvTitle.text = getString(R.string.remarks)
-                edtValue.text = getCurrentUser()?.username.plus(Const.SEPARATOR_SPACE)
-                    .plus(getString(R.string.transfer))
+                edtValue.setText(
+                    getCurrentUser()?.username.plus(Const.SEPARATOR_SPACE)
+                        .plus(getString(R.string.transfer))
+                )
                 ivExpandDown.gone()
                 viewLine.gone()
                 tvCurrentCode.gone()
@@ -60,7 +79,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         }
     }
 
-    private fun initTypeTransfer() {
+    private fun updateViewTypeTransfer() {
         with(binding) {
             viewOptionTransfer(tvIntraBankTransfer, INTRABANK)
             viewOptionTransfer(tvOwnAccountTransfer, OWN_ACCOUNT)
@@ -77,6 +96,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         with(binding) {
             tvAccountNumber.text = account.accountNumber
             tvBalanceValue.text = account.getAvailableBalance()
+            iclAmount.tvCurrentCode.text = account.currencyCode
         }
     }
 
@@ -85,6 +105,41 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             tvMoneyTransferTitle.setOnSingleClickListener {
                 backPress()
             }
+
+            tvIntraBankTransfer.setOnSingleClickListener {
+                onChangeTypeTransfer(INTRABANK)
+            }
+            tvOwnAccountTransfer.setOnSingleClickListener {
+                onChangeTypeTransfer(OWN_ACCOUNT)
+            }
+        }
+    }
+
+    private fun resetStateTransfer() {
+        with(binding) {
+            iclToAccount.apply {
+                edtValue.setText(Const.EMPTY)
+                edtValue.hint =
+                    if (isIntrabank()) getString(R.string.enterAccountNumber) else getString(R.string.selectAccount)
+                ivExpandDown.setImageResource(if (!isIntrabank()) R.drawable.ic_arrow_down_black else R.drawable.ic_account_intrabank)
+            }
+            iclAmount.edtValue.setText(Const.EMPTY)
+            iclFee.root.gone()
+            iclTotalAmount.root.gone()
+            iclRemarks.edtValue.setText(
+                getCurrentUser()?.username.plus(Const.SEPARATOR_SPACE)
+                    .plus(getString(R.string.transfer))
+            )
+        }
+    }
+
+    private fun isIntrabank() = run { currentType == INTRABANK }
+
+    private fun onChangeTypeTransfer(type: String) {
+        if (currentType != type) {
+            currentType = type
+            updateViewTypeTransfer()
+            resetStateTransfer()
         }
     }
 

@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:padding="12dp">
+    android:paddingHorizontal="@dimen/margin_2dp"
+    android:paddingVertical="12dp">
 
     <!-- Icon -->
     <ImageView

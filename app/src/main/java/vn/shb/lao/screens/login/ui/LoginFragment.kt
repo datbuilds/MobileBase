@@ -300,6 +300,10 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         mapUILogin()
         bindEdtPassword()
         clearFlag()
+
+        //mock
+        binding.edtInputPass.setText("123456")
+        handleActionLogin()
     }
 
     companion object {

@@ -51,9 +51,11 @@ class SelectAccountAdapter(
             if (accountItem.isSelected) {
                 root.setBackgroundResource(R.drawable.bg_selected_account)
                 ivSelectAccount.visible()
+                viewLineAccount.gone()
             } else {
                 root.setBackgroundColor(Color.TRANSPARENT)
                 ivSelectAccount.gone()
+                viewLineAccount.visible()
             }
             root.setOnSingleClickListener {
                 items.forEach {

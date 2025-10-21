@@ -2,6 +2,7 @@ package vn.shb.lao.base.view
 
 import android.content.Context
 import android.util.AttributeSet
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
 import vn.shb.lao.R
 
@@ -9,7 +10,7 @@ class MyEditText @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : AppCompatTextView(context, attrs, defStyleAttr) {
+) : AppCompatEditText(context, attrs, defStyleAttr) {
 
     init {
         context.theme.obtainStyledAttributes(

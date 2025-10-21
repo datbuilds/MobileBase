@@ -169,7 +169,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
                 })
 
             incItemTransfer.root.setOnSingleClickListener {
-
+                safeNavigate(R.id.homeFragment, R.id.moneyTransferFragment)
             }
             incItemAccounts.root.setOnSingleClickListener {
                 safeNavigate(R.id.homeFragment, R.id.action_homeFragment_to_accountDetailFragment)
@@ -196,7 +196,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
                 }
             }
             flQrCode.setOnClickListener {
-                showLanguagePopup(flQrCode)
+//                showLanguagePopup(flQrCode)
             }
         }
     }

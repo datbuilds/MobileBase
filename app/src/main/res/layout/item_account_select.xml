@@ -1,50 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/margin_12dp"
-    android:layout_marginVertical="@dimen/margin_6dp"
-    tools:background="@drawable/bg_selected_account">
+    android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivSelectAccount"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_select_account_v" />
+        android:paddingHorizontal="@dimen/margin_16dp"
+        android:paddingVertical="@dimen/margin_12dp"
+        tools:background="@drawable/bg_selected_account">
 
-    <vn.shb.lao.base.view.MyTextView
-        android:id="@+id/tvInfoAccount"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        app:customFontWeight="regular"
-        android:singleLine="true"
-        android:textColor="@color/neutral10"
-        android:textSize="@dimen/textSize14"
-        app:layout_constraintEnd_toStartOf="@+id/ivSelectAccount"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="1001747332 - Current Account - LAK" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivSelectAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_select_account_v" />
 
-   <vn.shb.lao.base.view.MyTextView
-        android:id="@+id/tvValueBalance"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_10dp"
-        android:ellipsize="end"
-        app:customFontWeight="medium"
-        android:singleLine="true"
-        android:textColor="@color/neutral10"
-        android:textSize="@dimen/textSize20"
-        app:layout_constraintEnd_toStartOf="@+id/ivSelectAccount"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvInfoAccount"
-        tools:text="1001747332 - Current Account - LAK" />
+        <vn.shb.lao.base.view.MyTextView
+            android:id="@+id/tvInfoAccount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/neutral10"
+            android:textSize="@dimen/textSize14"
+            app:customFontWeight="regular"
+            app:layout_constraintEnd_toStartOf="@+id/ivSelectAccount"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1001747332 - Current Account - LAK" />
 
+        <vn.shb.lao.base.view.MyTextView
+            android:id="@+id/tvValueBalance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/neutral10"
+            android:textSize="@dimen/textSize20"
+            app:customFontWeight="medium"
+            app:layout_constraintEnd_toStartOf="@+id/ivSelectAccount"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvInfoAccount"
+            tools:text="1001747332 - Current Account - LAK" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:id="@+id/viewLineAccount"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/margin_16dp"
+        android:layout_gravity="bottom"
+        android:background="@color/color_line_account" />
+</FrameLayout>

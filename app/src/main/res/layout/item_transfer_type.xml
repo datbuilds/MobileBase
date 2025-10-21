@@ -43,7 +43,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
             android:padding="@dimen/margin_4dp"
-            android:tint="@color/black"
             app:srcCompat="@drawable/ic_arrow_down" />
 
         <View

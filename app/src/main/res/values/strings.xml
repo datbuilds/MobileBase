@@ -127,5 +127,6 @@
     <string name="from">From</string>
     <string name="toDate">To Date</string>
     <string name="noTransactionHistory">No transaction history</string>
+    <string name="zero">0</string>
 
 </resources>

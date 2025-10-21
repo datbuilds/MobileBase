@@ -208,7 +208,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_12dp"
             android:visibility="visible"
-            tools:visibility="gone"
+            tools:visibility="visible"
             tools:listitem="@layout/item_transaction"
             tools:itemCount="3" />
 
@@ -222,7 +222,7 @@
             android:gravity="center"
             android:paddingVertical="@dimen/margin_40dp"
             android:visibility="gone"
-            tools:visibility="visible"
+            tools:visibility="gone"
             android:textSize="@dimen/textSize14"
             app:customFontWeight="medium" />
 
