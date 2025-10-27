@@ -11,4 +11,12 @@ object ENDPOINT {
     const val ACCOUNTS_INFO = "account-service/api/v1/accounts"
     const val ACCOUNT_DETAILS = "account-service/api/v1/accounts/details"
     const val TRANSACTION = "fundtransfer-service/api/v1/transactions"
+
+    const val TRANSFER_ACCOUNT = "account-service/api/v1/accounts/transfer-accounts"
+    const val RECEIVE_ACCOUNT = "account-service/api/v1/accounts/receive-accounts"
+    const val TRANSFER_TRANSACTION = "fundtransfer-service/api/v1/transactions"
+    const val TRANSFER_TRANSACTION_CONFIRM =
+        "fundtransfer-service/api/v1/transactions/{transactionId}/confirms"
+
+    const val GET_ACCOUNT_BY_NUMBER = "account-service/api/v1/accounts/{accountNumber}/user-name"
 }

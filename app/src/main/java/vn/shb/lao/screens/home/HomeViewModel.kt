@@ -7,23 +7,36 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import vn.shb.core.core.delivery.ConnectionError
 import vn.shb.core.core.delivery.Reason
 import vn.shb.core.core.delivery.onFailure
 import vn.shb.core.core.delivery.onLoading
 import vn.shb.core.core.delivery.onSuccess
+import vn.shb.core.core.domain.source.response.AccountUserNameModel
+import vn.shb.core.core.domain.source.response.TransactionTransfer
+import vn.shb.core.core.domain.source.response.TransactionTransferConfirm
 import vn.shb.core.core.domain.usecases.None
 import vn.shb.core.core.domain.usecases.home.UseCaseAccountDetails
 import vn.shb.core.core.domain.usecases.home.UseCaseTransaction
 import vn.shb.core.core.domain.usecases.home.UseCaseUserInfo
+import vn.shb.core.core.domain.usecases.transfer.AccountInfoRequest
+import vn.shb.core.core.domain.usecases.transfer.FundTransferRequest
+import vn.shb.core.core.domain.usecases.transfer.OrderDetail
+import vn.shb.core.core.domain.usecases.transfer.UseCaseAccountByNumber
+import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionTransfer
+import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionTransferConfirm
+import vn.shb.core.core.domain.usecases.transfer.UseCaseTransferAccount
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
+import vn.shb.data.entities.AccountBase
 import vn.shb.data.entities.home.AccountDetails
 import vn.shb.data.entities.home.AccountInfo
 import vn.shb.data.entities.home.TransactionItem
 import vn.shb.data.entities.home.UserInfo
 import vn.shb.data.entities.login.UserConverters
+import vn.shb.data.entities.transfer.ConfirmationModel
+import vn.shb.data.entities.transfer.TransferAccount
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseViewModel
+import vn.shb.lao.utils.ApiConst
 import vn.shb.lao.utils.ApiConst.FR_2_TO_DATE
 import vn.shb.lao.utils.ApiConst.LAST5
 import vn.shb.lao.utils.extensions.common.Const
@@ -36,12 +49,16 @@ class HomeViewModel(
     private val storage: AndroidSecureStorage,
     private val useCaseUserInfo: UseCaseUserInfo,
     private val useCaseAccountDetails: UseCaseAccountDetails,
-    private val useCaseTransaction: UseCaseTransaction
+    private val useCaseTransaction: UseCaseTransaction,
+    private val useCaseTransferAccount: UseCaseTransferAccount,
+    private val useCaseTransactionTransfer: UseCaseTransactionTransfer,
+    private val useCaseTransactionTransferConfirm: UseCaseTransactionTransferConfirm,
+    private val useCaseAccountByNumber: UseCaseAccountByNumber
 ) : BaseViewModel() {
     private val _stateUserInfo = MutableStateFlow(UserInfo())
     val stateUserInfo = _stateUserInfo.asStateFlow()
 
-    private val _stateAccounts = MutableStateFlow(AccountInfo())
+    private val _stateAccounts = MutableStateFlow<AccountBase>(AccountInfo())
     val stateSelectedAccount = _stateAccounts.asStateFlow()
 
     private val _stateAccountDetails = MutableStateFlow(AccountDetails())
@@ -58,9 +75,32 @@ class HomeViewModel(
 
     private var currentUserInfo: UserInfo? = null
     private var listAccount = listOf<AccountInfo>()
-    var selectedAccount: AccountInfo? = null
+    var selectedAccount: AccountBase? = null
 
     var currentTransaction: TransactionItem.Transaction? = null
+
+    //transfer
+    private val _stateTransferAccount = MutableStateFlow<TransferAccount?>(null)
+    val stateTransferAccount = _stateTransferAccount.asStateFlow()
+
+    private val _stateReceiverAccount = MutableStateFlow<List<TransferAccount>>(emptyList())
+    val stateReceiverAccount = _stateReceiverAccount.asStateFlow()
+
+    private val _stateTransactionTransfer = MutableStateFlow<TransactionTransfer?>(null)
+    val stateTransactionTransfer = _stateTransactionTransfer.asStateFlow()
+
+    private val _stateTransactionTransferConfirm =
+        MutableStateFlow<TransactionTransferConfirm?>(null)
+    val stateTransactionTransferConfirm = _stateTransactionTransferConfirm.asStateFlow()
+
+    private val _stateAccountByNumber = MutableStateFlow<AccountUserNameModel?>(null)
+    val stateAccountByNumber = _stateAccountByNumber
+
+    var listTransferAccount = listOf<TransferAccount>()
+    var listReceiverAccount = listOf<TransferAccount>()
+    var listReceiverActive = listOf<TransferAccount>()
+
+    var confirmModel: ConfirmationModel? = null
 
     suspend fun showError(reason: Reason) {
         _stateError.emit(reason)
@@ -93,7 +133,7 @@ class HomeViewModel(
         userInfo: UserInfo,
         listAccount: List<AccountInfo> = this.listAccount
     ) {
-        if (selectedAccount != null){
+        if (selectedAccount != null) {
             _stateAccounts.value = selectedAccount!!
             return
         }
@@ -245,6 +285,110 @@ class HomeViewModel(
     private fun isSameDay(cal1: Calendar, cal2: Calendar): Boolean {
         return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
                 cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR)
+    }
+
+    //transfer money
+    fun getTransferAccount() {
+        viewModelScope.launch {
+            useCaseTransferAccount.invoke(UseCaseTransferAccount.Params(true)).collect { result ->
+                result.onSuccess { accountData ->
+                    listTransferAccount = accountData.array
+                    val account =
+                        listTransferAccount.firstOrNull { it.accountNumber == selectedAccount?.accountNumber }
+                            ?: listTransferAccount.firstOrNull()
+                    _stateTransferAccount.value = account
+                }
+                result.onFailure { error ->
+                    showError(error)
+                }
+                result.onLoading { }
+            }
+        }
+    }
+
+    fun listenChangeFromAccount(account: AccountBase) {
+        listReceiverActive = listReceiverAccount.filter { it.currencyCode == account.currencyCode }
+        _stateReceiverAccount.value = listReceiverActive
+    }
+
+    fun getReceiverAccount() {
+        viewModelScope.launch {
+            useCaseTransferAccount.invoke(UseCaseTransferAccount.Params(false)).collect { result ->
+                result.onSuccess { accountData ->
+                    listReceiverAccount = accountData.array
+                    _stateTransferAccount.value?.let { listenChangeFromAccount(it) }
+                }
+                result.onFailure { error ->
+                    showError(error)
+                }
+                result.onLoading { }
+            }
+        }
+    }
+
+    fun postTransactionTransfer(
+        fromAccount: String,
+        toAccount: String,
+        amount: Double,
+        currency: String,
+        remarks: String
+    ) {
+        viewModelScope.launch {
+            val params = FundTransferRequest(
+                orderDetail = OrderDetail(
+                    paymentType = ApiConst.SELF,
+                    amount = amount,
+                    currency = currency,
+                    remark = remarks,
+                    saveNewAccount = true
+                ),
+                sender = AccountInfoRequest(accountNo = fromAccount),
+                beneficiary = AccountInfoRequest(accountNo = toAccount)
+            )
+            useCaseTransactionTransfer.invoke(params).collect { result ->
+                result.onSuccess { transactionTransferData ->
+                    _stateTransactionTransfer.value = transactionTransferData
+                }
+                result.onFailure { error ->
+                    showError(error)
+                }
+                result.onLoading { }
+            }
+        }
+    }
+
+    fun confirmTransactionTransfer(otp: String) {
+        viewModelScope.launch {
+            val currentTransfer = stateTransactionTransfer.value ?: return@launch
+            val params = UseCaseTransactionTransferConfirm.Params(
+                transactionId = currentTransfer.transactionId.toString(),
+                confirmStatus = ApiConst.ACCEPTED,
+                otp = otp
+            )
+            useCaseTransactionTransferConfirm.invoke(params).collect { result ->
+                result.onSuccess { transactionTransferConfirmData ->
+                    _stateTransactionTransferConfirm.value = transactionTransferConfirmData
+                }
+                result.onFailure { error ->
+                    showError(error)
+                }
+                result.onLoading { }
+            }
+        }
+    }
+
+    fun getAccountByNumber(accountNumber: String) {
+        viewModelScope.launch {
+            useCaseAccountByNumber.invoke(UseCaseAccountByNumber.Params(accountNumber)).collect { result ->
+                result.onSuccess { accountUserName ->
+                    _stateAccountByNumber.value = accountUserName
+                }
+                result.onFailure { error ->
+                    showError(error)
+                }
+                result.onLoading { }
+            }
+        }
     }
 
 

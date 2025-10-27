@@ -29,5 +29,8 @@ class MyEditText @JvmOverloads constructor(
                 recycle()
             }
         }
+        isFocusable = true
+        isFocusableInTouchMode = true
+
     }
 }

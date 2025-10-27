@@ -38,9 +38,11 @@ import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.lao.utils.extensions.nextActivity
 import vn.shb.lao.utils.extensions.setCustomSpannable
 import vn.shb.lao.utils.extensions.showProgressDialog
+import vn.shb.lao.utils.extensions.textValue
 import vn.shb.lao.utils.extensions.visible
 import vn.shb.lao.utils.view.dialog.BottomSheetDialogHelper
 import vn.shb.lao.utils.widgets.LocaleHelper
+import java.util.Base64
 
 class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
 
@@ -192,9 +194,8 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         hideSoftKeyboard(0)
         val accountLogin = currentUser?.userLogin
             ?: binding.edtInputUsername.text?.trim().toString()
-//        val (_, encPsw) = getPassword()
-        val password = binding.edtInputPass.text?.trim().toString()
-        postLogin(accountLogin, password)
+        val (_, encPsw) = getPassword()
+        postLogin(accountLogin, encPsw)
     }
 
     private fun postLogin(us: String, psW: String) {
@@ -202,12 +203,12 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         loginViewModel.login(params)
     }
 
-//    private fun getPassword(): Pair<String, String> {
-//        val psw = binding.edtInputPass.textValue()
-//        val pswEncrypt = encryptFactory.encryptRSA(plainText = psw)
-//        val encPsw = Base64.getEncoder().encodeToString(pswEncrypt)
-//        return Pair(psw, encPsw)
-//    }
+    private fun getPassword(): Pair<String, String> {
+        val psw = binding.edtInputPass.textValue()
+        val pswEncrypt = encryptFactory.encryptRSA(plainText = psw)
+        val encPsw = Base64.getEncoder().encodeToString(pswEncrypt)
+        return Pair(psw, encPsw)
+    }
 
     private fun nextDashboard() {
         nextActivity(DashboardActivity.intent(requireContext()))
@@ -303,7 +304,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
         //mock
         binding.edtInputPass.setText("123456")
-        handleActionLogin()
+//        handleActionLogin()
     }
 
     companion object {

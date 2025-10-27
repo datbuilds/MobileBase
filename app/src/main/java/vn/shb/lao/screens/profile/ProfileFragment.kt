@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.data.entities.home.AccountInfo
+import vn.shb.data.entities.AccountBase
 import vn.shb.data.entities.home.UserInfo
 import vn.shb.dn.choosePhotoHelper.ChoosePhotoHelper
 import vn.shb.dn.choosePhotoHelper.callback.ChoosePhotoCallback
@@ -75,7 +75,7 @@ class ProfileFragment :
         }
     }
 
-    private fun bindViewDetail(user: UserInfo, account: AccountInfo) {
+    private fun bindViewDetail(user: UserInfo, account: AccountBase) {
 
         with(binding) {
             flAvatarUser.setUserName(getPathAvatarUser(), user.customerName)
@@ -89,7 +89,7 @@ class ProfileFragment :
                         requireContext(),
                         it
                     )
-                }?.first.plus(
+                }.plus(
                     Const.SEPARATOR_DASH
                 )
                     .plus(account.accountNumber)

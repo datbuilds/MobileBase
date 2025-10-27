@@ -35,7 +35,7 @@
     <string name="exceededLoginAttempts">You have exceeded 5 failed login attempts. Please try again in 15 minutes.</string>
     <string name="processingError">Processing error. Please try again later.</string>
     <string name="passwordResetInstructions">Password Reset Instructions</string>
-    <string name="pleaseBringIdToResetPassword">Please bring your identity card to SHB branch to reset your password.</string>
+    <string name="pleaseBringIdToResetPassword">Please bring your ID card or passport to any SHB transaction point to reset your password.</string>
     <string name="shbBranch1">1. SAI GON - HA NOI BANK LAO SOLE CO., LIMITED</string>
     <string name="shbBranch1Address">Unit.1, Lane Xang Avenue, Vientiane Captital, Laos P.D.R</string>
     <string name="shbBranch2">2. SAIGON - HANOI BANK LAO LIMITED, CHAMPASAK BRANCH</string>
@@ -47,6 +47,7 @@
     <string name="flexibleSaving">FLEXIBLE SAVING</string>
     <string name="staffLoans">SHB STAFF LOANS</string>
     <string name="transfer">Transfer</string>
+    <string name="transferCAP">TRANSFER</string>
     <string name="accounts">Accounts</string>
     <string name="logoutConfirm">Are you sure you want to log out?</string>
     <string name="cancel">Cancel</string>
@@ -128,5 +129,14 @@
     <string name="toDate">To Date</string>
     <string name="noTransactionHistory">No transaction history</string>
     <string name="zero">0</string>
+    <string name="noAccountAvailable">No accounts available</string>
+    <string name="invalidRemarks">Invalid remarks</string>
+    <string name="confirmation">Confirmation</string>
+    <string name="accountName">Account Name</string>
+    <string name="pleaseEnterConfirmCode">Please enter confirmaion code at C5 possition on eSecure Card</string>
+    <string name="transactionFailedDueToExceeding">Transaction failed due to exceeding the limit</string>
+    <string name="enterCode">Enter code</string>
+    <string name="remainingTime">Remaining time</string>
+    <string name="second">second</string>
 
 </resources>

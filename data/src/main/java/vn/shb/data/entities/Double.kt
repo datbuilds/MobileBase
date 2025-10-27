@@ -24,15 +24,6 @@ fun Double.roundNearestInteger(): Int {
     return round(this).toInt()
 }
 
-/**
- * số thập phân
- */
-
-@SuppressLint("NewApi")
-fun Double.roundDecimal(): Double {
-    return this.toBigDecimal().setScale(2, BigDecimal.ROUND_HALF_UP).toDouble()
-}
-
 fun roundDecimal(data: Double?): String {
     val decimalFormat = DecimalFormat("#.##")
     return decimalFormat.format(data)

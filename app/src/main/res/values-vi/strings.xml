@@ -17,7 +17,7 @@
     <string name="exceededLoginAttempts">Bạn đã nhập sai quá 5 lần. Vui lòng thử lại sau 15 phút.</string>
     <string name="processingError">Lỗi xử lý. Vui lòng thử lại sau.</string>
     <string name="passwordResetInstructions">HƯỚNG DẪN ĐẶT LẠI MẬT KHẨU</string>
-    <string name="pleaseBringIdToResetPassword">Vui lòng mang chứng minh nhân dân/căn cước công dân đến chi nhánh SHB để đặt lại mật khẩu.</string>
+    <string name="pleaseBringIdToResetPassword">Vui lòng mang căn cước công dân/ Hộ chiếu đến các điểm giao dịch SHB để đặt lại mật khẩu.</string>
     <string name="shbBranch1">Ngân hàng Sài Gòn - Hà Nội Lào TNHH MTV</string>
     <string name="shbBranch1Address">Số 1, Đại lộ Lane Xang, Thủ đô Viêng Chăn, CHDCND Lào</string>
     <string name="shbBranch2">Ngân hàng Sài Gòn - Hà Nội Lào, Chi nhánh Champasak</string>
@@ -27,6 +27,7 @@
     <string name="welcomeToShb">Chào mừng đến với SHB</string>
     <string name="currentAccount">Tài khoản thanh toán</string>
     <string name="transfer">Chuyển khoản</string>
+    <string name="transferCAP">CHUYỂN KHOẢN</string>
     <string name="accounts">Tài khoản</string>
     <string name="logoutConfirm">Bạn có chắc muốn đăng xuất không?</string>
     <string name="cancel">Hủy</string>
@@ -59,7 +60,7 @@
     <string name="referenceNumber">Mã tham chiếu</string>
     <string name="moneyTransfer">Chuyển tiền</string>
     <string name="intrabankTransfer">Chuyển khoản nội bộ</string>
-    <string name="ownAccountTransfer">Chuyển khoản giữa các tài khoản của tôi</string>
+    <string name="ownAccountTransfer">Đến tôi tại SHB</string>
     <string name="balance">Số dư</string>
     <string name="toAccount">Đến tài khoản</string>
     <string name="amount">Số tiền</string>
@@ -101,6 +102,6 @@
     <string name="lao">Tiếng Lào</string>
     <string name="add">Địa chỉ:</string>
     <string name="flexibleSaving">Tài khoản tiết kiệm</string>
-    <string name="staffLoans">Tài khoản lương</string>
+    <string name="staffLoans">Tài khoản vay nhân viên SHB</string>
     <string name="noTransactionHistory">Không có giao dịch</string>
 </resources>

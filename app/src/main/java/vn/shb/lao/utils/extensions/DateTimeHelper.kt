@@ -54,12 +54,10 @@ class DateTimeHelper {
             }
         }
 
-        @SuppressLint("NewApi")
-        fun getDateFromCurrentDate(time: Long): String {
+        fun getDateFromCurrentDate(): String {
             val currentDate = LocalDate.now()
-            val date = currentDate.minusDays(time)
-            val formatter = DateTimeFormatter.ofPattern(DATE_NO_FORMAT)
-            return date.format(formatter)
+            val formatter = DateTimeFormatter.ofPattern(DATE_FORMAT)
+            return currentDate.format(formatter)
         }
 
         @SuppressLint("NewApi")

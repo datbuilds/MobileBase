@@ -34,6 +34,7 @@
             android:textColor="@color/neutral10"
             android:textColorHint="@color/neutral6"
             android:textSize="@dimen/textSize14"
+            android:imeOptions="actionDone"
             app:customFontWeight="medium"
             tools:hint="selected account" />
 
@@ -50,7 +51,7 @@
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:layout_marginVertical="@dimen/margin_12dp"
-            android:background="@color/black" />
+            android:background="@color/colorLineGray" />
 
         <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvCurrentCode"
@@ -62,5 +63,17 @@
             app:customFontWeight="medium"
             tools:text="LAK" />
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <vn.shb.lao.base.view.MyTextView
+        android:id="@+id/tvError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_error_text_login"
+        android:textSize="@dimen/textSize12"
+        app:customFontWeight="medium"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/llEdit"
+        tools:text="@string/invalidSelectedDate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

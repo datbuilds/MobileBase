@@ -17,7 +17,7 @@
     <string name="exceededLoginAttempts">ທ່ານໄດ້ເຂົ້າສູ່ລະບົບລົ້ມເຫຼວເກີນ 5 ຄັ້ງ. ກະລຸນາລອງໃໝ່ໃນອີກ 15 ນາທີ.</string>
     <string name="processingError">ການປະມວນຜົນຜິດພາດ. ກະລຸນາລອງໃໝ່ໃນພາຍຫຼັງ.</string>
     <string name="passwordResetInstructions">ຄຳແນະນຳການຕັ້ງລະຫັດຜ່ານໃໝ່</string>
-    <string name="pleaseBringIdToResetPassword">ກະລຸນາເອົາບັດປະຈໍາຕົວຂອງທ່ານເຂົ້າ​ໄປ​ສາຂາ SHB ເພື່ອຣີເຊັດລະຫັດຜ່ານຂອງທ່ານ.</string>
+    <string name="pleaseBringIdToResetPassword">ກະລຸນາ ຖືບັດປະຈຳຕົວ/ໜັງສືຜ່ານແດນ ເຂົ້າມາປ່ອງບໍລິການຂອງ SHB ເພື່ອປ່ຽນລະຫັດຜ່ານ</string>
     <string name="shbBranch1">​ທະ​ນາ​ຄານ ໄຊ​ງ່ອນ - ຮ່​າ​ໂນ້ຍ ລາວ​ຈຳ​ກັດ ຜູ້ດຽວ</string>
     <string name="shbBranch1Address">ໜ່ວຍ 1. ຖະ​ໜົນ​ລ້ານ​ຊ້​າງ, ນະ​ຄອນຫຼວງວຽງ​ຈັນ, ສ​ປ​ປ ລາວ</string>
     <string name="shbBranch2">​ທະ​ນາ​ຄານ ໄຊ​ງ່ອນ - ຮ່​າ​ໂນ້ຍ ລາວ​ຈຳ​ກັດ ຜູ້​ດຽວ ສາ​ຂາ ຈຳ​ປາ​ສັກ</string>
@@ -27,6 +27,7 @@
     <string name="welcomeToShb">​ຍິນ​ດີ​ຕ້ອນ​ຮັບ​ສູ່ SHB</string>
     <string name="currentAccount">ບັນ​ຊີ​ປະ​ຈຸ​ບັນ</string>
     <string name="transfer">ໂອນ​ເງິນ</string>
+    <string name="transferCAP">ໂອນ​ເງິນ</string>
     <string name="accounts">ບັນ​ຊີ</string>
     <string name="logoutConfirm">ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການອອກຈາກລະບົບ?</string>
     <string name="cancel">ຍົກ​ເລີກ</string>

@@ -83,29 +83,53 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_10dp" />
+
     <include
         android:id="@+id/iclTransactionInfo2"
         layout="@layout/child_view_transaction_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_10dp" />
+
     <include
         android:id="@+id/iclTransactionInfo3"
         layout="@layout/child_view_transaction_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_10dp" />
+
     <include
         android:id="@+id/iclTransactionInfo4"
         layout="@layout/child_view_transaction_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_10dp" />
+
     <include
         android:id="@+id/iclTransactionInfo5"
         layout="@layout/child_view_transaction_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_10dp" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <vn.shb.lao.base.view.MyTextView
+            android:id="@+id/tvCreateNewTransaction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginVertical="@dimen/margin_24dp"
+            android:background="@drawable/bg_account_info_transfer"
+            android:gravity="center"
+            android:paddingVertical="@dimen/margin_10dp"
+            android:text="@string/createNewTransaction"
+            android:visibility="gone"
+            android:textColor="@color/neutral1"
+            android:textSize="@dimen/textSize14"
+            app:customFontWeight="semi_bold" />
+    </FrameLayout>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

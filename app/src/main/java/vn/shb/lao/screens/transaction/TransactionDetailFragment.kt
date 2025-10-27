@@ -1,7 +1,7 @@
 package vn.shb.lao.screens.transaction
 
+import android.os.Bundle
 import android.view.View
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import vn.shb.core.utils.extesions.setOnSingleClickListener
@@ -10,7 +10,7 @@ import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.ChildViewTransactionInfoBinding
 import vn.shb.lao.databinding.FragmentTransactionDetailBinding
 import vn.shb.lao.screens.home.HomeViewModel
-
+import vn.shb.lao.utils.ApiConst
 import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 
@@ -18,6 +18,12 @@ class TransactionDetailFragment :
     BaseFragmentBinding<FragmentTransactionDetailBinding>(FragmentTransactionDetailBinding::inflate) {
 
     private val homeViewModel: HomeViewModel by sharedViewModel()
+    private var isNewReferenceNumber : String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        isNewReferenceNumber = arguments?.getString(ApiConst.KEY_REFERENCE_NUMBER_TRANSACTION)
+    }
 
     override fun initView(view: View) {
         setupView()
@@ -28,7 +34,8 @@ class TransactionDetailFragment :
         with(binding) {
             binding.tvValueBalance.text = trans.amountFormatted
             tvCurrentCode.text = trans.currencyCode
-            val fromAccount = (homeViewModel.selectedAccount?.positionDescription ?: "") + Const.SEPARATOR_DASH  + homeViewModel.selectedAccount?.accountNumber
+            val fromAccount = (homeViewModel.selectedAccount?.positionDescription
+                ?: "") + Const.SEPARATOR_DASH + homeViewModel.selectedAccount?.accountNumber
             iclTransactionInfo1.bindView(
                 getString(R.string.fromAccount),
                 fromAccount

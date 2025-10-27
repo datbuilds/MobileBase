@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,6 +58,8 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
 
     private val listErrorLogout = listOf(AUTH_006)
 
+    open fun isPaddingBottom() = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setBaseTransitions()
@@ -77,10 +80,30 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         initView(view)
         initListener()
         activity?.lifecycle?.addObserver(ActivityLifeCycleObserver { initObserve() })
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            val statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars())
-            v.updatePadding(top = statusBarHeight.top + 10, bottom =  statusBarHeight.bottom + 100)
-            insets
+        insertPaddingView()
+    }
+
+    private fun insertPaddingView() {
+        if (!isPaddingBottom()) {
+            ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+                val statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars())
+                v.updatePadding(
+                    top = statusBarHeight.top + 10,
+                    bottom = statusBarHeight.bottom + 100
+                )
+                insets
+            }
+        } else {
+            ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
+                val statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.statusBars())
+                val navBarInsets = insets.getInsets(WindowInsetsCompat.Type.navigationBars())
+                view.updatePadding(
+                    top = statusBarInsets.top,
+                    bottom = navBarInsets.bottom
+                )
+
+                insets
+            }
         }
     }
 

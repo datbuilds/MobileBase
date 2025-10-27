@@ -21,6 +21,7 @@ import vn.shb.core.core.delivery.ReasonDescription.ENGLISH
 import vn.shb.core.core.delivery.ReasonDescription.LAO
 import vn.shb.core.core.delivery.ReasonDescription.VIET
 import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.AccountBase
 import vn.shb.data.entities.home.AccountInfo
 import vn.shb.data.entities.login.UserLog
 import vn.shb.lao.R
@@ -147,15 +148,15 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
         }
     }
 
-    private fun bindViewAccount(account: AccountInfo) {
+    private fun bindViewAccount(account: AccountBase) {
         val valueAccount = getTypeAccount(requireContext(), account)
-        binding.tvCurrentAccount.text = valueAccount.first.plus(Const.SEPARATOR_DASH)
+        binding.tvCurrentAccount.text = valueAccount.plus(Const.SEPARATOR_DASH)
             .plus(account.accountNumber).plus(
                 Const.SEPARATOR_DASH
                     .plus(account.currencyCode)
             )
         binding.tvValueBalance.text =
-            (if (isShowValueBalance) valueAccount.second else textGoneValue).plus(Const.SEPARATOR_SPACE)
+            (if (isShowValueBalance) account.getAvailableBalance() else textGoneValue).plus(Const.SEPARATOR_SPACE)
                 .plus(account.currencyCode)
     }
 
@@ -188,9 +189,8 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
                     if (isShowValueBalance) R.drawable.ic_eye_closed else R.drawable.ic_eye_show
                 )
                 homeViewModel.selectedAccount?.let { account ->
-                    val valueAccount = getTypeAccount(requireContext(), account)
                     tvValueBalance.text =
-                        (if (isShowValueBalance) valueAccount.second else textGoneValue).plus(
+                        (if (isShowValueBalance) account.getAvailableBalance() else textGoneValue).plus(
                             Const.SEPARATOR_SPACE
                         ).plus(account.currencyCode)
                 }

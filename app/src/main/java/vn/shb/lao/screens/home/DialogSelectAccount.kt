@@ -9,8 +9,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.AccountBase
 import vn.shb.data.entities.home.AccountInfo
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseBottomDialogBinding
@@ -19,21 +19,21 @@ import vn.shb.lao.screens.home.helper.SelectAccountAdapter
 import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 
-class DialogSelectAccount(private val listAccount: List<AccountInfo>) :
+class DialogSelectAccount(private val listAccount: List<AccountBase>) :
     BaseBottomDialogBinding<DialogSelectAccountBinding>(DialogSelectAccountBinding::inflate) {
 
-    private var onAction: ((AccountInfo) -> Unit)? = null
+    private var onAction: ((AccountBase) -> Unit)? = null
 
-    private var selectAccount: AccountInfo? = null
+    private var selectAccount: AccountBase? = null
 
     companion object {
         const val TAG = "DialogSelectAccount"
     }
 
     class Build(
-        val list: List<AccountInfo>,
-        val selectedAccount: AccountInfo? = null,
-        val action: (AccountInfo) -> Unit
+        val list: List<AccountBase>,
+        val selectedAccount: AccountBase? = null,
+        val action: (AccountBase) -> Unit
     ) {
         fun build() = DialogSelectAccount(list).apply {
             selectAccount = selectedAccount
@@ -65,11 +65,13 @@ class DialogSelectAccount(private val listAccount: List<AccountInfo>) :
         binding.rcvAccount.apply {
             layoutManager = LinearLayoutManager(context)
             listAccount.forEach {
-                it.isSelected = it.accountNumber == selectAccount?.accountNumber
+                it.setSelected(it.accountNumber == selectAccount?.accountNumber)
             }
             adapter = SelectAccountAdapter(listAccount) { account ->
                 selectAccount = account
-                binding.tvDone.isVisible = selectAccount?.accountType == Const.CURRENT_ACCOUNT
+                val statusDone =
+                    if (selectAccount is AccountInfo) selectAccount?.accountType == Const.CURRENT_ACCOUNT else true
+                binding.tvDone.isVisible = statusDone
             }
             setHasFixedSize(true)
         }

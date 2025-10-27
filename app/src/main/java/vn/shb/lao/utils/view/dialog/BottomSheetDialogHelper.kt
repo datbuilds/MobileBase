@@ -9,12 +9,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
+import androidx.viewbinding.ViewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.lao.R
 import vn.shb.lao.base.view.MyTextView
+import vn.shb.lao.databinding.ConfirmCodeFragmentBinding
 import vn.shb.lao.databinding.CustomDialogLayoutBinding
 import vn.shb.lao.utils.extensions.CustomCountdownTimer
+import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.gone
 import vn.shb.lao.utils.extensions.invisible
 import vn.shb.lao.utils.extensions.visible
@@ -50,7 +54,7 @@ class BottomSheetDialogHelper(context: Context) {
         val currentMillis = System.currentTimeMillis()
 
         val remainingMillis = unlockMillis - currentMillis
-        bindingView.tvContentAlert.countdownAndDismiss(messageError, remainingMillis){
+        bindingView.tvContentAlert.countdownAndDismiss(messageError, remainingMillis) {
             dismiss()
         }
         dialog?.show()
@@ -86,9 +90,29 @@ class BottomSheetDialogHelper(context: Context) {
         dialog?.show()
     }
 
+    fun showDialogConfirmCode(
+        isCancelable: Boolean = true,
+        actionConfirmCode : (String) -> Unit
+    ) {
+        val context = contextRef.get() ?: return
+        val bindingView = ConfirmCodeFragmentBinding.inflate(LayoutInflater.from(context))
+        createDialog(context, bindingView, isCancelable)
+
+        bindingView.tvRemainingTime.countdownConfirmCode( 2) {
+            dismiss()
+        }
+
+        bindingView.edtEnterCode.doAfterTextChanged {
+            if ((it?.length ?: 0) >= 3){
+                actionConfirmCode.invoke(it.toString())
+            }
+        }
+        dialog?.show()
+    }
+
     private fun createDialog(
         context: Context,
-        bindingView: CustomDialogLayoutBinding,
+        bindingView: ViewBinding,
         isCancelable: Boolean = false
     ) {
         dialog = BottomSheetDialog(context, R.style.BottomSheetDialogSlideAnimation)
@@ -169,7 +193,11 @@ class BottomSheetDialogHelper(context: Context) {
         }
     }
 
-    fun MyTextView.countdownAndDismiss(message: String, timeLock: Long, onDismiss: (() -> Unit)? = null) {
+    fun MyTextView.countdownAndDismiss(
+        message: String,
+        timeLock: Long,
+        onDismiss: (() -> Unit)? = null
+    ) {
 
         val countdownTimer = CustomCountdownTimer(
             totalTimeMillis = timeLock,
@@ -180,7 +208,9 @@ class BottomSheetDialogHelper(context: Context) {
                 val formatted = String.format("%02d:%02d", m, s)
 
                 val baseMsg = message
-                val fullMsg = "${baseMsg.plus(" ")}${context.getString(R.string.pleaseTryAgainIn).plus(" ")}$formatted"
+                val fullMsg = "${baseMsg.plus(" ")}${
+                    context.getString(R.string.pleaseTryAgainIn).plus(" ")
+                }$formatted"
 
                 val spannable = SpannableString(fullMsg)
                 val start = fullMsg.indexOf(formatted)
@@ -194,7 +224,39 @@ class BottomSheetDialogHelper(context: Context) {
                 this.text = spannable
             },
             onFinishAction = {
-             onDismiss?.invoke()
+                onDismiss?.invoke()
+            }
+        )
+
+        countdownTimer.start()
+    }
+
+    fun MyTextView.countdownConfirmCode(timeLock: Long, onDismiss: (() -> Unit)? = null) {
+
+        val countdownTimer = CustomCountdownTimer(
+            totalTimeMillis = timeLock,
+            intervalMillis = 1000L,
+            onTickAction = { millisUntilFinished ->
+                val m = (millisUntilFinished / 1000) / 60
+                val s = (millisUntilFinished / 1000) % 60
+                val formatted = String.format("%02d", s)
+
+                val fullMsg = "${context.getString(R.string.remainingTime).plus(" ")}${formatted.plus(
+                    Const.SEPARATOR_SPACE).plus(context.getString(R.string.second))}"
+
+                val spannable = SpannableString(fullMsg)
+                val start = fullMsg.indexOf(formatted)
+                val end = start + formatted.length
+                spannable.setSpan(
+                    StyleSpan(Typeface.BOLD),
+                    start,
+                    end,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                this.text = spannable
+            },
+            onFinishAction = {
+                onDismiss?.invoke()
             }
         )
 
