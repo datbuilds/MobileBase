@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 abstract class AccountBase(
-    @SerializedName("accountNumber") val accountNumber: String = "",
+    @SerializedName("accountNumber") var accountNumber: String = "",
     @SerializedName("accountType") val accountType: String = "",
     @SerializedName("currencyCode") val currencyCode: String = "",
     @SerializedName("positionDescription") val positionDescription: String = "",

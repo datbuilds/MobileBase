@@ -23,11 +23,11 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/buildSrc" />
+            <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/library" />
             <option value="$PROJECT_DIR$/library/choosePhotoHelper" />
             <option value="$PROJECT_DIR$/localization" />
-            <option value="$PROJECT_DIR$/shbcore" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -6,16 +6,18 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import vn.shb.core.core.domain.source.response.AccountUserNameModel
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.AccountBase
+import vn.shb.data.entities.home.AccountInfo
 import vn.shb.data.entities.transfer.ConfirmationModel
 import vn.shb.data.entities.transfer.TransferAccount
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentMoneyTransferBinding
 import vn.shb.lao.screens.home.DialogSelectAccount
+import vn.shb.lao.screens.home.DialogSelectBeneficiary
 import vn.shb.lao.screens.home.HomeViewModel
+import vn.shb.lao.utils.ApiConst
 import vn.shb.lao.utils.extensions.DateTimeHelper.Companion.getDateFromCurrentDate
 import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.gone
@@ -79,18 +81,18 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 }
 
                 launch {
-                    stateTransactionTransfer.collect {
+                    stateAccountByNumber.collect {
                         if (it != null) {
-                            homeViewModel.confirmModel = getConfirmationStatus()
-                            safeNavigate(R.id.moneyTransferFragment, R.id.confirmationFragment)
+                            bindViewReceiverAccount(it.customerName)
                         }
                     }
                 }
 
                 launch {
-                    stateAccountByNumber.collect {
-                        if (it != null) {
-                            bindToAccountName(it)
+                    stateErrorFillAccountNumber.collect {
+                        binding.iclToAccount.tvError.apply {
+                            text = getString(R.string.incorrectAccountInfomation)
+                            visible()
                         }
                     }
                 }
@@ -122,9 +124,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 }.build().show(childFragmentManager, DialogSelectAccount.TAG)
             }
 
-            iclToAccount.edtValue.setOnSingleClickListener {
-                handleShowDialogSelectAccount()
-            }
+//            iclToAccount.edtValue.setOnSingleClickListener {
+//                handleShowDialogSelectAccount()
+//            }
 
             iclToAccount.edtValue.setOnEditorActionListener { v, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -134,6 +136,12 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                     true
                 } else {
                     false
+                }
+            }
+
+            iclToAccount.edtValue.setOnFocusChangeListener { v, hasFocus ->
+                if (!hasFocus && isIntrabank()) {
+                    homeViewModel.getAccountByNumber(iclToAccount.edtValue.text.toString())
                 }
             }
 
@@ -153,19 +161,23 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             }
 
             tvTransferAction.setOnSingleClickListener {
-                homeViewModel.postTransactionTransfer(
-                    fromAccount?.accountNumber!!, toAccount?.accountNumber!!,
-                    totalAmount, fromAccount?.currencyCode!!, remarks
-                )
+                homeViewModel.confirmModel = getConfirmationStatus()
+                safeNavigate(R.id.moneyTransferFragment, R.id.confirmationFragment)
             }
         }
+    }
+
+    private fun showListBeneficiary() {
+        DialogSelectBeneficiary.Build(listOf()) { selectedAccount ->
+            bindViewReceiverAccount(selectedAccount)
+        }.build().show(childFragmentManager, DialogSelectAccount.TAG)
     }
 
     private fun getConfirmationStatus(): ConfirmationModel {
         return ConfirmationModel(
             fromAccount!!, toAccount!!, remarks, transactionDate = getDateFromCurrentDate(),
-            totalAmount, 0.0, totalAmount
-
+            totalAmount, 0.0, totalAmount,
+            paymentType = if (isIntrabank()) ApiConst.INTRA else ApiConst.SELF
         )
     }
 
@@ -176,6 +188,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             ) { selectedAccount ->
                 bindViewReceiverAccount(selectedAccount)
             }.build().show(childFragmentManager, DialogSelectAccount.TAG)
+        } else {
+            showListBeneficiary()
         }
     }
 
@@ -301,6 +315,23 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         updateStatusTransfer()
     }
 
+    private fun bindViewReceiverAccount(userName: String) {
+        binding.iclAccountName.apply {
+            root.isVisible = true
+            edtValue.setText(userName)
+        }
+        toAccount = AccountInfo().apply {
+            setValueAccountNumber(binding.iclToAccount.edtValue.text.toString())
+        }
+        with(binding) {
+            iclToAccount.tvError.gone()
+            iclFee.root.visible()
+            iclTotalAmount.root.visible()
+        }
+
+        updateStatusTransfer()
+    }
+
     private fun resetStateTransfer() {
         with(binding) {
             iclToAccount.apply {
@@ -318,6 +349,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             iclAmount.edtValue.setText(Const.EMPTY)
             iclFee.root.gone()
             iclTotalAmount.root.gone()
+            iclAccountName.root.gone()
             iclToAccount.tvError.gone()
             iclAmount.tvError.gone()
             iclRemarks.tvError.gone()
@@ -349,10 +381,4 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         }
     }
 
-    private fun bindToAccountName(accountUserNameModel: AccountUserNameModel){
-        binding.iclAccountName.apply {
-            root.isVisible = true
-            edtValue.setText(accountUserNameModel.customerName)
-        }
-    }
 }

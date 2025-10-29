@@ -6,8 +6,10 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import vn.shb.core.core.delivery.Reason
+import vn.shb.core.core.delivery.ResultSHB
 import vn.shb.core.core.delivery.onFailure
 import vn.shb.core.core.delivery.onLoading
 import vn.shb.core.core.delivery.onSuccess
@@ -22,6 +24,7 @@ import vn.shb.core.core.domain.usecases.transfer.AccountInfoRequest
 import vn.shb.core.core.domain.usecases.transfer.FundTransferRequest
 import vn.shb.core.core.domain.usecases.transfer.OrderDetail
 import vn.shb.core.core.domain.usecases.transfer.UseCaseAccountByNumber
+import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionDetail
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionTransfer
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionTransferConfirm
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransferAccount
@@ -29,6 +32,7 @@ import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import vn.shb.data.entities.AccountBase
 import vn.shb.data.entities.home.AccountDetails
 import vn.shb.data.entities.home.AccountInfo
+import vn.shb.data.entities.home.TransactionDetail
 import vn.shb.data.entities.home.TransactionItem
 import vn.shb.data.entities.home.UserInfo
 import vn.shb.data.entities.login.UserConverters
@@ -53,7 +57,8 @@ class HomeViewModel(
     private val useCaseTransferAccount: UseCaseTransferAccount,
     private val useCaseTransactionTransfer: UseCaseTransactionTransfer,
     private val useCaseTransactionTransferConfirm: UseCaseTransactionTransferConfirm,
-    private val useCaseAccountByNumber: UseCaseAccountByNumber
+    private val useCaseAccountByNumber: UseCaseAccountByNumber,
+    private val useCaseTransactionDetail: UseCaseTransactionDetail
 ) : BaseViewModel() {
     private val _stateUserInfo = MutableStateFlow(UserInfo())
     val stateUserInfo = _stateUserInfo.asStateFlow()
@@ -89,12 +94,20 @@ class HomeViewModel(
     private val _stateTransactionTransfer = MutableStateFlow<TransactionTransfer?>(null)
     val stateTransactionTransfer = _stateTransactionTransfer.asStateFlow()
 
-    private val _stateTransactionTransferConfirm =
-        MutableStateFlow<TransactionTransferConfirm?>(null)
-    val stateTransactionTransferConfirm = _stateTransactionTransferConfirm.asStateFlow()
+    private val _stateTransactionTransferConfirm = MutableSharedFlow<TransactionTransferConfirm?>()
+    val stateTransactionTransferConfirm = _stateTransactionTransferConfirm.asSharedFlow()
 
-    private val _stateAccountByNumber = MutableStateFlow<AccountUserNameModel?>(null)
-    val stateAccountByNumber = _stateAccountByNumber
+    private val _stateTransactionDetail = MutableStateFlow<TransactionDetail?>(null)
+    val stateTransactionDetail = _stateTransactionDetail.asStateFlow()
+
+    private val _stateAccountByNumber = MutableSharedFlow<AccountUserNameModel?>()
+    val stateAccountByNumber = _stateAccountByNumber.asSharedFlow()
+
+    private val _stateErrorFillAccountNumber = MutableSharedFlow<Boolean>()
+    val stateErrorFillAccountNumber = _stateErrorFillAccountNumber.asSharedFlow()
+
+    private val _stateLoading = MutableStateFlow<Boolean>(false)
+    val stateLoading = _stateLoading.asStateFlow()
 
     var listTransferAccount = listOf<TransferAccount>()
     var listReceiverAccount = listOf<TransferAccount>()
@@ -102,8 +115,12 @@ class HomeViewModel(
 
     var confirmModel: ConfirmationModel? = null
 
-    suspend fun showError(reason: Reason) {
+    suspend fun stateError(reason: Reason) {
         _stateError.emit(reason)
+    }
+
+    suspend fun stateLoading(isLoading: Boolean) {
+        _stateLoading.emit(isLoading)
     }
 
     fun getUserInfo() {
@@ -122,7 +139,7 @@ class HomeViewModel(
                     getCurrentAccount(userInfo, accountData.array)
                 }
                 result.onFailure { error ->
-                    showError(error)
+                    stateError(error)
                 }
                 result.onLoading { }
             }
@@ -175,7 +192,7 @@ class HomeViewModel(
                         accountDetailsData.array.firstOrNull() ?: AccountDetails()
                 }
                 result.onFailure { error ->
-                    showError(error)
+                    stateError(error)
                 }
                 result.onLoading {
                     // Xử lý trạng thái tải ở đây nếu cần
@@ -196,7 +213,7 @@ class HomeViewModel(
                         mapTransactionsToItems(context, transactionData.array ?: listOf())
                 }
                 result.onFailure { error ->
-                    showError(error)
+                    stateError(error)
                 }
                 result.onLoading {
                     // Xử lý trạng thái tải ở đây nếu cần
@@ -219,7 +236,7 @@ class HomeViewModel(
                         mapTransactionsToItems(context, transactionData.array ?: listOf())
                 }
                 result.onFailure { error ->
-                    showError(error)
+                    stateError(error)
                 }
                 result.onLoading {
                     // Xử lý trạng thái tải ở đây nếu cần
@@ -299,7 +316,7 @@ class HomeViewModel(
                     _stateTransferAccount.value = account
                 }
                 result.onFailure { error ->
-                    showError(error)
+                    stateError(error)
                 }
                 result.onLoading { }
             }
@@ -319,7 +336,7 @@ class HomeViewModel(
                     _stateTransferAccount.value?.let { listenChangeFromAccount(it) }
                 }
                 result.onFailure { error ->
-                    showError(error)
+                    stateError(error)
                 }
                 result.onLoading { }
             }
@@ -327,6 +344,7 @@ class HomeViewModel(
     }
 
     fun postTransactionTransfer(
+        type: String,
         fromAccount: String,
         toAccount: String,
         amount: Double,
@@ -336,7 +354,7 @@ class HomeViewModel(
         viewModelScope.launch {
             val params = FundTransferRequest(
                 orderDetail = OrderDetail(
-                    paymentType = ApiConst.SELF,
+                    paymentType = type,
                     amount = amount,
                     currency = currency,
                     remark = remarks,
@@ -346,13 +364,16 @@ class HomeViewModel(
                 beneficiary = AccountInfoRequest(accountNo = toAccount)
             )
             useCaseTransactionTransfer.invoke(params).collect { result ->
-                result.onSuccess { transactionTransferData ->
-                    _stateTransactionTransfer.value = transactionTransferData
-                }
-                result.onFailure { error ->
-                    showError(error)
-                }
-                result.onLoading { }
+                result.onResultHandle(
+                    { transactionTransferData ->
+                        _stateTransactionTransfer.value = transactionTransferData
+                    },
+                    { reason ->
+                        viewModelScope.launch {
+                            stateError(reason)
+                        }
+                    }
+                )
             }
         }
     }
@@ -366,30 +387,96 @@ class HomeViewModel(
                 otp = otp
             )
             useCaseTransactionTransferConfirm.invoke(params).collect { result ->
-                result.onSuccess { transactionTransferConfirmData ->
-                    _stateTransactionTransferConfirm.value = transactionTransferConfirmData
-                }
-                result.onFailure { error ->
-                    showError(error)
-                }
-                result.onLoading { }
+                result.onResultHandle(
+                    { transactionTransferConfirmData ->
+                        viewModelScope.launch {
+                            _stateTransactionTransferConfirm.emit(transactionTransferConfirmData)
+                        }
+                    }, { reason ->
+                        viewModelScope.launch {
+                            stateError(reason)
+                        }
+                    }
+                )
             }
         }
     }
 
     fun getAccountByNumber(accountNumber: String) {
         viewModelScope.launch {
-            useCaseAccountByNumber.invoke(UseCaseAccountByNumber.Params(accountNumber)).collect { result ->
-                result.onSuccess { accountUserName ->
-                    _stateAccountByNumber.value = accountUserName
+            useCaseAccountByNumber.invoke(UseCaseAccountByNumber.Params(accountNumber))
+                .collectLatest { result ->
+                    result.onResultHandle(
+                        failureBlock = { error ->
+                            handleErrorFillAccountNumber(error)
+                        },
+                        successBlock = { accountUserName ->
+                            viewModelScope.launch {
+                                _stateAccountByNumber.emit(accountUserName)
+                            }
+                        }
+                    )
+                }
+        }
+    }
+
+    private fun handleErrorFillAccountNumber(error: Reason) {
+        viewModelScope.launch {
+            when (error.errorCode) {
+                "AUTH-005", "AUTH-001", "AUTH-002", "AUTH-006" -> {
+                    stateError(error)
+                }
+
+                else -> {
+                    _stateErrorFillAccountNumber.emit(true)
+                }
+            }
+        }
+    }
+
+    fun getTransactionDetail(params: UseCaseTransactionDetail.Params) {
+        viewModelScope.launch {
+            useCaseTransactionDetail.invoke(params).collect { result ->
+                result.onSuccess { trans ->
+                    _stateTransactionDetail.value = trans
                 }
                 result.onFailure { error ->
-                    showError(error)
+                    stateError(error)
                 }
                 result.onLoading { }
             }
         }
     }
 
+    fun clearSessionTransaction() {
+        confirmModel = null
+        viewModelScope.launch {
+            _stateTransactionTransferConfirm.emit(null)
+            _stateTransactionTransfer.emit(null)
+        }
+    }
+
+    private suspend fun <T> ResultSHB<T>.onResultHandle(
+        successBlock: (T) -> Unit,
+        failureBlock: (Reason) -> Unit,
+        loadingBlock: (() -> Unit)? = null
+    ) {
+        when (this) {
+            is ResultSHB.Success -> {
+                successBlock(successData)
+                stateLoading(false)
+            }
+
+            is ResultSHB.Failure -> {
+                failureBlock(reason)
+                stateLoading(false)
+            }
+
+            is ResultSHB.Loading -> {
+                loadingBlock?.invoke()
+                stateLoading(true)
+            }
+        }
+    }
 
 }

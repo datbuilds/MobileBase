@@ -17,6 +17,8 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 import timber.log.Timber
+import vn.shb.core.core.delivery.Reason
+import vn.shb.core.core.delivery.ReasonDescription.LAO
 import vn.shb.lao.base.view.FontManager
 import vn.shb.lao.di.appComponent
 import vn.shb.lao.utils.widgets.LocaleHelper
@@ -35,7 +37,6 @@ class SHBApplication : Application(), LifecycleEventObserver {
 
     override fun onCreate() {
         super.onCreate()
-        FontManager.init(this, "inter")
         NetworkMonitorManager.getInstance().init(this)
 
         startKoin {

@@ -32,14 +32,15 @@
         style="@style/MaterialDialog.Message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/pleaseEnterConfirmCode" />
+        tools:text="@string/pleaseEnterConfirmCode" />
 
     <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvContentAlert2"
         style="@style/MaterialDialog.Message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/transactionFailedDueToExceeding" />
+        android:text="@string/transactionFailedDueToExceeding"
+        android:visibility="gone" />
 
     <vn.shb.lao.base.view.MyEditText
         android:id="@+id/edtEnterCode"
@@ -49,6 +50,9 @@
         android:layout_marginTop="@dimen/margin_10dp"
         android:background="@drawable/bg_enter_code"
         android:hint="@string/enterCode"
+        android:imeOptions="actionDone"
+        android:maxLength="3"
+        android:maxLines="1"
         android:paddingHorizontal="@dimen/margin_12dp"
         android:paddingVertical="@dimen/margin_13dp"
         android:textColor="@color/black"
@@ -62,12 +66,12 @@
         tools:text="remaining Time" />
 
     <vn.shb.lao.base.view.MyTextView
-        android:id="@+id/button_positive"
+        android:id="@+id/tvConfirm"
         style="@style/MaterialDialog.PositiveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_16dp"
         android:layout_marginTop="@dimen/margin_8dp"
         android:layout_weight="5"
-        android:text="@string/shb_action_logout" />
+        android:text="@string/confirm" />
 </androidx.appcompat.widget.LinearLayoutCompat>

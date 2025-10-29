@@ -2,16 +2,18 @@ package vn.shb.lao.utils.view.dialog
 
 import android.content.Context
 import android.graphics.Typeface
+import android.service.credentials.Action
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
+import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
-import androidx.core.widget.doAfterTextChanged
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import vn.shb.core.core.delivery.ActionDone
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.lao.R
 import vn.shb.lao.base.view.MyTextView
@@ -91,22 +93,47 @@ class BottomSheetDialogHelper(context: Context) {
     }
 
     fun showDialogConfirmCode(
+        authSms: String,
         isCancelable: Boolean = true,
-        actionConfirmCode : (String) -> Unit
+        actionConfirmCode: (String) -> Unit,
+        actionDismiss: () -> Unit
     ) {
         val context = contextRef.get() ?: return
         val bindingView = ConfirmCodeFragmentBinding.inflate(LayoutInflater.from(context))
         createDialog(context, bindingView, isCancelable)
 
-        bindingView.tvRemainingTime.countdownConfirmCode( 2) {
+        with(bindingView) {
+            tvContentAlert.text = context.getString(R.string.pleaseEnterConfirmCode, authSms)
+            ivCloseDialog.setOnSingleClickListener { dismiss() }
+            edtEnterCode.imeOptions = EditorInfo.IME_ACTION_DONE
+        }
+
+        bindingView.tvRemainingTime.countdownConfirmCode() {
+            actionDismiss.invoke()
             dismiss()
         }
 
-        bindingView.edtEnterCode.doAfterTextChanged {
-            if ((it?.length ?: 0) >= 3){
-                actionConfirmCode.invoke(it.toString())
+        bindingView.edtEnterCode.setOnEditorActionListener { v, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                v.clearFocus()
+                dismiss()
+                actionConfirmCode.invoke(bindingView.edtEnterCode.text.toString())
+                true
+            } else {
+                false
             }
         }
+
+        bindingView.tvConfirm.setOnSingleClickListener {
+            dismiss()
+            actionConfirmCode.invoke(bindingView.edtEnterCode.text.toString())
+        }
+
+//        bindingView.edtEnterCode.doAfterTextChanged {
+//            if ((it?.length ?: 0) >= 3) {
+//                actionConfirmCode.invoke(it.toString())
+//            }
+//        }
         dialog?.show()
     }
 
@@ -231,18 +258,23 @@ class BottomSheetDialogHelper(context: Context) {
         countdownTimer.start()
     }
 
-    fun MyTextView.countdownConfirmCode(timeLock: Long, onDismiss: (() -> Unit)? = null) {
+    fun MyTextView.countdownConfirmCode(
+        timeLock: Long = 2,
+        onDismiss: (() -> Unit)? = null
+    ) {
 
         val countdownTimer = CustomCountdownTimer(
-            totalTimeMillis = timeLock,
+            totalTimeMillis = timeLock * 60 * 1000,
             intervalMillis = 1000L,
             onTickAction = { millisUntilFinished ->
-                val m = (millisUntilFinished / 1000) / 60
-                val s = (millisUntilFinished / 1000) % 60
+                val s = millisUntilFinished / 1000
                 val formatted = String.format("%02d", s)
 
-                val fullMsg = "${context.getString(R.string.remainingTime).plus(" ")}${formatted.plus(
-                    Const.SEPARATOR_SPACE).plus(context.getString(R.string.second))}"
+                val fullMsg = "${context.getString(R.string.remainingTime).plus(" ")}${
+                    formatted.plus(
+                        Const.SEPARATOR_SPACE
+                    ).plus(context.getString(R.string.second))
+                }"
 
                 val spannable = SpannableString(fullMsg)
                 val start = fullMsg.indexOf(formatted)

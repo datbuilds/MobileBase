@@ -133,10 +133,15 @@
     <string name="invalidRemarks">Invalid remarks</string>
     <string name="confirmation">Confirmation</string>
     <string name="accountName">Account Name</string>
-    <string name="pleaseEnterConfirmCode">Please enter confirmaion code at C5 possition on eSecure Card</string>
+    <string name="pleaseEnterConfirmCode">Please enter confirmation code at %s possition on eSecure Card</string>
     <string name="transactionFailedDueToExceeding">Transaction failed due to exceeding the limit</string>
     <string name="enterCode">Enter code</string>
     <string name="remainingTime">Remaining time</string>
     <string name="second">second</string>
+    <string name="authenticationFailed">Authentication failed. Please try again.</string>
+    <string name="transactionFail">Transaction Fail!</string>
+    <string name="anErrorHasOccurred">An error has occurred, the transaction was not completed. Please try again!</string>
+    <string name="incorrectAccountInfomation">Incorrect account information</string>
+    <string name="enterRecipientName">Enter recipient name</string>
 
 </resources>

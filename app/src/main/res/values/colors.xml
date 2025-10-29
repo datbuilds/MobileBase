@@ -104,6 +104,7 @@
     <color name="colorTextMoneyC">#31AA73</color>
     <color name="colorTextMoneyD">#0C1A3D</color>
     <color name="colorBg">#EB7F23</color>
+    <color name="colorBgProcessBar">#30EDF2F7</color>
 
     //login
     <color name="colorTitleDialog">#201D0F</color>

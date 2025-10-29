@@ -6,13 +6,14 @@ import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.core.content.edit
 import vn.shb.lao.R
+import vn.shb.lao.base.view.FontManager
 import java.util.Locale
 
 object LocaleHelper {
 
     private const val PREFS_NAME = "app_prefs"
     private const val KEY_LANGUAGE = "key_language"
-    private const val DEFAULT_LANGUAGE = "en"
+    private const val DEFAULT_LANGUAGE = "lo"
 
     /**
      * Dùng trong Application.attachBaseContext()
@@ -30,8 +31,15 @@ object LocaleHelper {
 
         val config = Configuration()
         config.setLocale(locale)
+        val newContext = context.createConfigurationContext(config)
 
-        return context.createConfigurationContext(config)
+        if (language.equals("lo", ignoreCase = true)) {
+            FontManager.init(newContext)
+        } else {
+            FontManager.init(newContext, "inter")
+        }
+
+        return newContext
     }
 
     fun saveLanguage(context: Context, language: String) {

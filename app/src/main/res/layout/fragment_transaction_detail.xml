@@ -77,6 +77,19 @@
             tools:text="LAK" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
+    <vn.shb.lao.base.view.MyTextView
+        android:id="@+id/tvAnErrorHasOccurred"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="@string/anErrorHasOccurred"
+        android:textColor="@color/color_error_text_login"
+        android:textSize="@dimen/textSize14"
+        android:layout_marginTop="@dimen/margin_10dp"
+        app:customFontWeight="medium"/>
+
     <include
         android:id="@+id/iclTransactionInfo1"
         layout="@layout/child_view_transaction_info"
@@ -126,10 +139,11 @@
             android:gravity="center"
             android:paddingVertical="@dimen/margin_10dp"
             android:text="@string/createNewTransaction"
-            android:visibility="gone"
             android:textColor="@color/neutral1"
             android:textSize="@dimen/textSize14"
-            app:customFontWeight="semi_bold" />
+            android:visibility="gone"
+            app:customFontWeight="semi_bold"
+            tools:visibility="visible" />
     </FrameLayout>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

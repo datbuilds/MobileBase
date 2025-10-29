@@ -35,8 +35,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="67" />
-                            <option name="y" value="49" />
+                            <option name="x" value="83" />
+                            <option name="y" value="-40" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -52,6 +52,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="confirmationFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="179" />
+                            <option name="y" value="-755" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -89,6 +101,18 @@
                           <Point>
                             <option name="x" value="77" />
                             <option name="y" value="410" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="paymentTransferFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-88" />
+                            <option name="y" value="-727" />
                           </Point>
                         </option>
                       </LayoutPositions>

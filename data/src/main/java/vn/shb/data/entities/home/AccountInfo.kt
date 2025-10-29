@@ -18,4 +18,8 @@ data class AccountInfo(
     override fun setSelected(selected: Boolean) {
         select = selected
     }
+
+    fun setValueAccountNumber(number : String){
+        accountNumber = number
+    }
 }

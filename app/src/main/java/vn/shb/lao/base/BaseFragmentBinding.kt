@@ -5,7 +5,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.transition.TransitionManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -182,6 +181,10 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
 
     fun backPress() {
         findNavController().popBackStack()
+    }
+
+    fun popBackTo(@IdRes id: Int) {
+        findNavController().popBackStack(id, false)
     }
 
     fun safeNavigate(deepLink: Uri) {

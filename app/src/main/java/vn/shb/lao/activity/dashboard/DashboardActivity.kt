@@ -5,14 +5,23 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.core.view.isVisible
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import vn.shb.lao.base.BaseActivity
 import vn.shb.lao.databinding.ActivityDashboardBinding
+import vn.shb.lao.screens.home.HomeViewModel
+import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.lao.utils.widgets.LocaleHelper
 
 class DashboardActivity :
     BaseActivity<ActivityDashboardBinding>(ActivityDashboardBinding::inflate) {
     private val sessionTimeout: Long = 15 * 60 * 1000L // 15 phút = 900.000 ms
     private val handler = Handler(Looper.getMainLooper())
+
+    private val homeViewModel: HomeViewModel by viewModel()
+
     private val logoutRunnable = Runnable {
         showDialogSessionExpire()
     }
@@ -24,6 +33,17 @@ class DashboardActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         startSessionTimer()
+        observer()
+    }
+
+    private fun observer() {
+        launchRepeatOnLifecycle {
+            launch {
+                homeViewModel.stateLoading.collectLatest {
+                    binding.flProcessBar.isVisible = it
+                }
+            }
+        }
     }
 
     private fun startSessionTimer() {
@@ -34,6 +54,7 @@ class DashboardActivity :
         super.onDestroy()
         handler.removeCallbacks(logoutRunnable)
     }
+
     companion object {
         @JvmStatic
         fun intent(context: Context): Intent {

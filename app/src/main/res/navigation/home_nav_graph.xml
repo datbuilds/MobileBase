@@ -82,4 +82,9 @@
         android:name="vn.shb.lao.screens.transfer.ConfirmationFragment"
         android:label="ConfirmationFragment" />
 
+    <fragment
+        android:id="@+id/paymentTransferFragment"
+        android:name="vn.shb.lao.screens.transfer.PaymentTransferFragment"
+        android:label="PaymentTransferFragment" />
+
 </navigation>

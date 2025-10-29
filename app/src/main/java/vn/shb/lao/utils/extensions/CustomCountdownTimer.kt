@@ -1,6 +1,7 @@
 package vn.shb.lao.utils.extensions
 
 import android.os.CountDownTimer
+import android.util.Log
 
 class CustomCountdownTimer(
     private val totalTimeMillis: Long,

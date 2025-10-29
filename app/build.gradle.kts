@@ -80,7 +80,7 @@ dependencies {
 
     //Import module
     implementation(projects.localization)
-    implementation(projects.shbcore)
+    implementation(projects.core)
     implementation(projects.library.choosePhotoHelper)
 
     //exoPlayer

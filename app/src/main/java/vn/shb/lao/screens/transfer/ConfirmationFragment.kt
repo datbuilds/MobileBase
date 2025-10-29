@@ -1,8 +1,9 @@
 package vn.shb.lao.screens.transfer
 
-import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.getBalance
@@ -13,6 +14,7 @@ import vn.shb.lao.screens.home.HomeViewModel
 import vn.shb.lao.utils.ApiConst
 import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
+import vn.shb.lao.utils.view.dialog.BottomSheetDialogHelper
 
 class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
     FragmentConfirmationBinding::inflate
@@ -70,18 +72,56 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        homeViewModel.getTransferAccount()
-    }
-
     override fun initObserve() {
         launchRepeatOnLifecycle {
             with(homeViewModel) {
-                stateTransactionTransferConfirm.collectLatest {
-                    safeNavigate(
-                        R.id.confirmationFragment, R.id.transactionDetailFragment,
-                        bundle = Bundle().apply { putString(ApiConst.KEY_REFERENCE_NUMBER_TRANSACTION, it?.refNo) })
+                launch {
+                    stateTransactionTransferConfirm.collectLatest {
+                        if (it != null) {
+                            safeNavigate(
+                                R.id.confirmationFragment, R.id.paymentTransferFragment,
+                                bundle =
+                                    bundleOf(
+                                        ApiConst.KEY_REFERENCE_NUMBER_TRANSACTION to it.refNo,
+                                        ApiConst.KEY_ACCOUNT_NO_TRANSACTION to confirmModel!!.fromAccount.accountNumber,
+                                        ApiConst.KEY_STATUS_CONFIRM_TRANSACTION to it.status
+                                    )
+                            )
+                            homeViewModel.clearSessionTransaction()
+                        }
+                    }
+                }
+
+                launch {
+                    stateTransactionTransfer.collectLatest {
+                        if (it?.paymentType.equals(ApiConst.SELF)) {
+                            homeViewModel.confirmTransactionTransfer(Const.EMPTY)
+                        } else {
+                            if (it?.paymentType.equals(ApiConst.INTRA)) {
+                                BottomSheetDialogHelper(requireContext()).showDialogConfirmCode(
+                                    it?.authSms ?: "",
+                                    actionConfirmCode = { otp ->
+                                            homeViewModel.confirmTransactionTransfer(otp)
+                                    },
+                                    actionDismiss = {
+                                        BottomSheetDialogHelper(requireContext()).message(
+                                            title = getString(R.string.notification),
+                                            message = getString(R.string.authenticationFailed),
+                                            textPositive = getString(R.string.close),
+                                            positiveAction = {
+                                            }
+                                        )
+                                    }
+                                )
+                            }
+                        }
+                    }
+                }
+
+                launch {
+                    stateError.collect { error ->
+                        handleErrorHome(error)
+                    }
                 }
             }
         }
@@ -93,7 +133,13 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                 backPress()
             }
             tvConfirm.setOnSingleClickListener {
-                homeViewModel.confirmTransactionTransfer(Const.EMPTY)
+                homeViewModel.confirmModel?.let { cf ->
+                    homeViewModel.postTransactionTransfer(
+                        cf.paymentType,
+                        cf.fromAccount.accountNumber, cf.toAccount.accountNumber,
+                        cf.totalAmount, cf.fromAccount.currencyCode, cf.remarks
+                    )
+                }
             }
         }
     }

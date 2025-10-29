@@ -3,7 +3,9 @@ package vn.shb.lao.base.view
 import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
+import vn.shb.core.core.delivery.ReasonDescription.LAO
 import vn.shb.lao.R
+import vn.shb.lao.utils.widgets.LocaleHelper
 
 class MyTextView @JvmOverloads constructor(
     context: Context,
@@ -12,6 +14,7 @@ class MyTextView @JvmOverloads constructor(
 ) : AppCompatTextView(context, attrs, defStyleAttr) {
 
     init {
+        val isLao = LocaleHelper.getCurrentLanguage(context) == LAO
         context.theme.obtainStyledAttributes(
             attrs,
             R.styleable.MyTextView,

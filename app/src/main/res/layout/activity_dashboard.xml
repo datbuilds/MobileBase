@@ -18,5 +18,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/home_nav_graph" />
 
+    <FrameLayout
+        android:id="@+id/flProcessBar"
+        android:layout_width="match_parent"
+        android:background="@color/colorBgProcessBar"
+        android:layout_height="match_parent">
+
+        <vn.shb.lao.utils.widgets.CustomProgressBar
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 

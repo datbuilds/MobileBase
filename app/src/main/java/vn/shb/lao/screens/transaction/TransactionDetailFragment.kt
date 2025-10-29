@@ -18,12 +18,6 @@ class TransactionDetailFragment :
     BaseFragmentBinding<FragmentTransactionDetailBinding>(FragmentTransactionDetailBinding::inflate) {
 
     private val homeViewModel: HomeViewModel by sharedViewModel()
-    private var isNewReferenceNumber : String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        isNewReferenceNumber = arguments?.getString(ApiConst.KEY_REFERENCE_NUMBER_TRANSACTION)
-    }
 
     override fun initView(view: View) {
         setupView()
