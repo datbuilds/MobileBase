@@ -4,13 +4,11 @@ import android.view.View
 import androidx.core.os.bundleOf
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.getBalance
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentConfirmationBinding
-import vn.shb.lao.screens.home.HomeViewModel
 import vn.shb.lao.utils.ApiConst
 import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
@@ -19,8 +17,6 @@ import vn.shb.lao.utils.view.dialog.BottomSheetDialogHelper
 class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
     FragmentConfirmationBinding::inflate
 ) {
-
-    private val homeViewModel: HomeViewModel by sharedViewModel()
 
     override fun isPaddingBottom(): Boolean {
         return true
@@ -101,7 +97,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                                 BottomSheetDialogHelper(requireContext()).showDialogConfirmCode(
                                     it?.authSms ?: "",
                                     actionConfirmCode = { otp ->
-                                            homeViewModel.confirmTransactionTransfer(otp)
+                                        homeViewModel.confirmTransactionTransfer(otp)
                                     },
                                     actionDismiss = {
                                         BottomSheetDialogHelper(requireContext()).message(
@@ -118,11 +114,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                     }
                 }
 
-                launch {
-                    stateError.collect { error ->
-                        handleErrorHome(error)
-                    }
-                }
+
             }
         }
     }

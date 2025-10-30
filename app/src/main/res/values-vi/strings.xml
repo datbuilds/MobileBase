@@ -26,8 +26,8 @@
     <string name="shbBranch3Address">Số 25, Bản Lattanalangsy Neua, TP Kaisone Phomvihan, Savannakhet, Lào</string>
     <string name="welcomeToShb">Chào mừng đến với SHB</string>
     <string name="currentAccount">Tài khoản thanh toán</string>
-    <string name="transfer">Chuyển khoản</string>
-    <string name="transferCAP">CHUYỂN KHOẢN</string>
+    <string name="transfer">Chuyển tiền</string>
+    <string name="transferCAP">CHUYEN KHOAN</string>
     <string name="accounts">Tài khoản</string>
     <string name="logoutConfirm">Bạn có chắc muốn đăng xuất không?</string>
     <string name="cancel">Hủy</string>
@@ -60,9 +60,9 @@
     <string name="referenceNumber">Mã tham chiếu</string>
     <string name="moneyTransfer">Chuyển tiền</string>
     <string name="intrabankTransfer">Chuyển khoản nội bộ</string>
-    <string name="ownAccountTransfer">Đến tôi tại SHB</string>
+    <string name="ownAccountTransfer">Chuyển giữa tài khoản</string>
     <string name="balance">Số dư</string>
-    <string name="toAccount">Đến tài khoản</string>
+    <string name="toAccount">Tài khoản nhận</string>
     <string name="amount">Số tiền</string>
     <string name="enterAccountNumber">Nhập số tài khoản</string>
     <string name="enterAmount">Nhập số tiền</string>

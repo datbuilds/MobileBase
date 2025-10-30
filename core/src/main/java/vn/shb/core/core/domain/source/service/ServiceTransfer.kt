@@ -5,6 +5,7 @@ import vn.shb.core.core.domain.source.api.ApiTransfer
 import vn.shb.core.core.domain.usecases.transfer.FundTransferRequest
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionDetail
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionTransferConfirm
+import vn.shb.core.core.domain.usecases.transfer.UseCaseValidateTransaction
 import vn.shb.core.core.retrofit.SafeExecute
 
 class ServiceTransfer(private val api: ApiTransfer) : SafeExecute() {
@@ -38,5 +39,9 @@ class ServiceTransfer(private val api: ApiTransfer) : SafeExecute() {
             params.acctNo,
             params.drCrFlg
         )
+    }
+
+    suspend fun validateTransaction(params: UseCaseValidateTransaction.Params) = execute {
+        api.validateTransfer(params)
     }
 }

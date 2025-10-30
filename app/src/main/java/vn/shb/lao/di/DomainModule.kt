@@ -12,6 +12,7 @@ import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionDetail
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionTransfer
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionTransferConfirm
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransferAccount
+import vn.shb.core.core.domain.usecases.transfer.UseCaseValidateTransaction
 
 val domainModule = module {
     // refreshToken
@@ -28,4 +29,5 @@ val domainModule = module {
     factory { UseCaseTransactionTransfer(get()) }
     factory { UseCaseTransactionTransferConfirm(get()) }
     factory { UseCaseTransactionDetail(get()) }
+    factory { UseCaseValidateTransaction(get()) }
 }

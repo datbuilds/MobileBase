@@ -37,8 +37,6 @@ import vn.shb.lao.utils.widgets.LocaleHelper
 
 class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
-    private val homeViewModel: HomeViewModel by sharedViewModel()
-
     private lateinit var adapter: LoopingAdapter
     private val handler = Handler(Looper.getMainLooper())
     private lateinit var autoRunnable: Runnable
@@ -196,7 +194,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
                 }
             }
             flQrCode.setOnClickListener {
-//                showLanguagePopup(flQrCode)
+                showLanguagePopup(flQrCode)
             }
         }
     }
@@ -218,11 +216,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
                     }
                 }
 
-                launch {
-                    stateError.collect { error ->
-                        handleErrorHome(error)
-                    }
-                }
+
             }
         }
     }

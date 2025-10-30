@@ -304,8 +304,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_search" />
-                            <entry key="sourceFile" value="C:\Users\dt_linhdq\Desktop\SHB_Resource\ic_search.svg" />
+                            <entry key="outputName" value="ic_error_system" />
+                            <entry key="sourceFile" value="C:\Users\dt_linhdq\Desktop\SHB_Resource\ic_error_system.svg" />
                           </map>
                         </option>
                       </PersistentState>

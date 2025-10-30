@@ -2,7 +2,6 @@ package vn.shb.lao.utils.view.dialog
 
 import android.content.Context
 import android.graphics.Typeface
-import android.service.credentials.Action
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.StyleSpan
@@ -13,12 +12,12 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import vn.shb.core.core.delivery.ActionDone
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.lao.R
 import vn.shb.lao.base.view.MyTextView
 import vn.shb.lao.databinding.ConfirmCodeFragmentBinding
 import vn.shb.lao.databinding.CustomDialogLayoutBinding
+import vn.shb.lao.databinding.DialogSystemErrorBinding
 import vn.shb.lao.utils.extensions.CustomCountdownTimer
 import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.gone
@@ -88,6 +87,22 @@ class BottomSheetDialogHelper(context: Context) {
             isClose = isClose,
             supView = supView
         )
+
+        dialog?.show()
+    }
+
+    fun messageErrorCode(
+        message: String = "",
+        isCancelable: Boolean = false
+    ) {
+        val context = contextRef.get() ?: return
+        val bindingView = DialogSystemErrorBinding.inflate(LayoutInflater.from(context))
+        createDialog(context, bindingView, isCancelable)
+
+        bindingView.tvContentAlert.text = message
+        bindingView.tvClose.setOnSingleClickListener {
+            dismiss()
+        }
 
         dialog?.show()
     }

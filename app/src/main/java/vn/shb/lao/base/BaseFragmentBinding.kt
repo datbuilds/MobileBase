@@ -25,7 +25,9 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.transition.platform.MaterialFadeThrough
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import vn.shb.core.core.delivery.Reason
 import vn.shb.core.core.retrofit.SafeExecute.Companion.AUTH_006
 import vn.shb.core.core.retrofit.SafeExecute.Companion.HTTP_NOT_FOUND
@@ -34,6 +36,9 @@ import vn.shb.data.entities.login.UserConverters
 import vn.shb.data.entities.login.UserLog
 import vn.shb.lao.R
 import vn.shb.lao.activity.login.LoginActivity
+import vn.shb.lao.screens.home.HomeViewModel
+import vn.shb.lao.utils.ApiConst
+import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.lao.utils.extensions.navigation.safeNavigate
 import vn.shb.lao.utils.extensions.returnActivity
 import vn.shb.lao.utils.refreshTK.RefreshTokenManager
@@ -44,6 +49,8 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
 ) : Fragment() {
 
     protected val storage: AndroidSecureStorage by inject()
+
+    protected val homeViewModel: HomeViewModel by sharedViewModel()
 
     companion object {
         private const val DELAY_MILLIS = 500L
@@ -78,7 +85,10 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         handleSavedState(savedInstanceState)
         initView(view)
         initListener()
-        activity?.lifecycle?.addObserver(ActivityLifeCycleObserver { initObserve() })
+        activity?.lifecycle?.addObserver(ActivityLifeCycleObserver {
+            initObserve()
+            observerStateError()
+        })
         insertPaddingView()
     }
 
@@ -233,6 +243,10 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         reason: Reason,
         onAction: (() -> Unit)? = null
     ) {
+        if (reason.errorCode == ApiConst.FUN_017) {
+            BottomSheetDialogHelper(requireContext()).messageErrorCode(reason.errMessage)
+            return
+        }
         var message = reason.errMessage
         if (reason.errorCode == HTTP_NOT_FOUND) {
             message = getString(R.string.processingError)
@@ -247,12 +261,22 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         )
     }
 
-    fun handleErrorHome(error: Reason?) {
+    private fun handleErrorHome(error: Reason?) {
         if (error != null) {
             if (listErrorLogout.contains(error.errorCode)) {
                 logout(error)
             } else {
                 showDialogError(error)
+            }
+        }
+    }
+
+    private fun observerStateError() {
+        launchRepeatOnLifecycle {
+            launch {
+                homeViewModel.stateError.collect { error ->
+                    handleErrorHome(error)
+                }
             }
         }
     }

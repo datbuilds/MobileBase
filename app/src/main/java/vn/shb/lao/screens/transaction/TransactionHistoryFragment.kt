@@ -15,7 +15,7 @@ import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.base.view.MyTextView
 import vn.shb.lao.databinding.FragmentTransactionHistoryBinding
 import vn.shb.lao.screens.account.helper.TransactionAdapter
-import vn.shb.lao.screens.home.HomeViewModel
+
 
 import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
@@ -28,7 +28,7 @@ class TransactionHistoryFragment :
     BaseFragmentBinding<FragmentTransactionHistoryBinding>(FragmentTransactionHistoryBinding::inflate) {
     private val adapter by lazy { TransactionAdapter() }
 
-    private val homeViewModel: HomeViewModel by sharedViewModel()
+
 
     private var fromDateMillis: Long = 0L
     private var toDateMillis: Long = 0L
@@ -140,11 +140,7 @@ class TransactionHistoryFragment :
                         }
                     }
                 }
-                launch {
-                    stateError.collect { error ->
-                        handleErrorHome(error)
-                    }
-                }
+
             }
         }
     }

@@ -12,7 +12,7 @@ import vn.shb.lao.R
 import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.ChildViewTransactionInfoBinding
 import vn.shb.lao.databinding.FragmentTransactionDetailBinding
-import vn.shb.lao.screens.home.HomeViewModel
+
 import vn.shb.lao.utils.ApiConst
 import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
@@ -21,7 +21,7 @@ import vn.shb.lao.utils.extensions.visible
 class PaymentTransferFragment :
     BaseFragmentBinding<FragmentTransactionDetailBinding>(FragmentTransactionDetailBinding::inflate) {
 
-    private val homeViewModel: HomeViewModel by sharedViewModel()
+
     private var newReferenceNumber: String? = null
     private var accountNo: String? = null
     private var statusPayment: Boolean? = false
@@ -115,11 +115,7 @@ class PaymentTransferFragment :
     override fun initObserve() {
         with(homeViewModel) {
             launchRepeatOnLifecycle {
-                launch {
-                    stateError.collect { error ->
-                        handleErrorHome(error)
-                    }
-                }
+
 
                 launch {
                     stateTransactionDetail.collectLatest {

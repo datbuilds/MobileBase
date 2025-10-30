@@ -105,7 +105,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_6dp"
-                android:text="@string/balance"
+                android:text="@string/currentBalance"
                 android:textColor="@color/neutral1"
                 android:textSize="@dimen/textSize14"
                 app:customFontWeight="regular"

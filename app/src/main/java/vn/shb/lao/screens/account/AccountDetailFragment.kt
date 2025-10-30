@@ -5,6 +5,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.getSharedViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.home.AccountDetails
@@ -14,14 +15,12 @@ import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentAccountDetailBinding
 import vn.shb.lao.screens.account.helper.TransactionAdapter
 import vn.shb.lao.screens.home.DialogSelectAccount
-import vn.shb.lao.screens.home.HomeViewModel
+
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 
 class AccountDetailFragment :
     BaseFragmentBinding<FragmentAccountDetailBinding>(FragmentAccountDetailBinding::inflate) {
     private val adapter by lazy { TransactionAdapter() }
-
-    private val homeViewModel: HomeViewModel by sharedViewModel()
 
     override fun initView(view: View) {
         setUpRecyclerView()
@@ -97,11 +96,7 @@ class AccountDetailFragment :
                         bindViewDetail(it)
                     }
                 }
-                launch {
-                    stateError.collect { error ->
-                        handleErrorHome(error)
-                    }
-                }
+
             }
         }
     }

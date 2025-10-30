@@ -19,4 +19,6 @@ interface RepositoryTransfer {
     suspend fun getAccountByNumber(accountNumber : String) : ResultSHB<AccountUserNameModel>
 
     suspend fun getTransactionDetail(params: UseCaseTransactionDetail.Params): ResultSHB<TransactionDetail>
+
+    suspend fun validateTransaction(params : UseCaseValidateTransaction.Params) : ResultSHB<String>
 }

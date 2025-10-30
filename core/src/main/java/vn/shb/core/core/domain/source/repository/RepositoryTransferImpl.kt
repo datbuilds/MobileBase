@@ -10,11 +10,13 @@ import vn.shb.core.core.domain.source.response.TransactionTransferConfirmRespons
 import vn.shb.core.core.domain.source.response.TransactionTransferResponse
 import vn.shb.core.core.domain.source.response.TransferAccountData
 import vn.shb.core.core.domain.source.response.TransferAccountResponse
+import vn.shb.core.core.domain.source.response.ValidateTransactionResponse
 import vn.shb.core.core.domain.source.service.ServiceTransfer
 import vn.shb.core.core.domain.usecases.transfer.FundTransferRequest
 import vn.shb.core.core.domain.usecases.transfer.RepositoryTransfer
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionDetail
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionTransferConfirm
+import vn.shb.core.core.domain.usecases.transfer.UseCaseValidateTransaction
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import vn.shb.data.entities.home.TransactionDetail
 
@@ -44,6 +46,31 @@ class RepositoryTransferImpl(
 
     override suspend fun getTransactionDetail(params: UseCaseTransactionDetail.Params): ResultSHB<TransactionDetail> {
         return resultGetTransactionDetail(serviceTransfer.getTransactionDetail(params))
+    }
+
+    override suspend fun validateTransaction(params: UseCaseValidateTransaction.Params): ResultSHB<String> {
+        return resultValidateTransaction(serviceTransfer.validateTransaction(params))
+    }
+
+    private fun resultValidateTransaction(result: ResultSHB<ValidateTransactionResponse>): ResultSHB<String> {
+        return when (result) {
+            is ResultSHB.Success -> {
+                val contentResult = result.successData
+                if (contentResult.isSuccess()) {
+                    ResultSHB.Success("")
+                } else {
+                    handleFailure(contentResult)
+                }
+            }
+
+            is ResultSHB.Failure -> {
+                handleFailure(result.reason)
+            }
+
+            else -> {
+                ResultSHB.Loading
+            }
+        }
     }
 
     private fun resultGetTransactionDetail(result: ResultSHB<TransactionDetailResponse>): ResultSHB<TransactionDetail> {

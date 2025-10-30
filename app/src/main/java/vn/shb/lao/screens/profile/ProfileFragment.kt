@@ -20,7 +20,7 @@ import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.base.view.MyTextView
 import vn.shb.lao.databinding.FragmentProfileBinding
 import vn.shb.lao.databinding.ItemProfileInfoBinding
-import vn.shb.lao.screens.home.HomeViewModel
+
 import vn.shb.lao.screens.home.getTypeAccount
 import vn.shb.lao.screens.home.widget.OnClickDetail
 import vn.shb.lao.screens.login.state.LogoutUiState
@@ -38,7 +38,7 @@ class ProfileFragment :
 
     private val viewModel: LoginViewModel by inject()
 
-    private val homeViewModel: HomeViewModel by sharedViewModel()
+
     private lateinit var photoHelper: ChoosePhotoHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -174,12 +174,6 @@ class ProfileFragment :
             launch {
                 homeViewModel.stateSelectedAccount.collect { accountInfo ->
                     homeViewModel.getCurrentUserInfo()?.let { bindViewDetail(it, accountInfo) }
-                }
-            }
-
-            launch {
-                homeViewModel.stateError.collect { error ->
-                    handleErrorHome(error)
                 }
             }
         }

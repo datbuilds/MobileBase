@@ -13,8 +13,10 @@ import vn.shb.core.core.domain.source.response.TransactionDetailResponse
 import vn.shb.core.core.domain.source.response.TransactionTransferConfirmResponse
 import vn.shb.core.core.domain.source.response.TransactionTransferResponse
 import vn.shb.core.core.domain.source.response.TransferAccountResponse
+import vn.shb.core.core.domain.source.response.ValidateTransactionResponse
 import vn.shb.core.core.domain.usecases.transfer.FundTransferRequest
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionTransferConfirm
+import vn.shb.core.core.domain.usecases.transfer.UseCaseValidateTransaction
 
 interface ApiTransfer {
 
@@ -44,4 +46,9 @@ interface ApiTransfer {
         @Query("acctNo") acctNo: String = "",
         @Query("drCrFlg") drCrFlg: String = "D",
     ): Response<TransactionDetailResponse>
+
+
+    @POST(ENDPOINT.VALIDATE_TRANSFER)
+    suspend fun validateTransfer(@Body params: UseCaseValidateTransaction.Params)
+            : Response<ValidateTransactionResponse>
 }
