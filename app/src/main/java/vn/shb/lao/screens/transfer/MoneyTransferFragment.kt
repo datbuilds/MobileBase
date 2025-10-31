@@ -4,7 +4,6 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import vn.shb.core.core.domain.usecases.transfer.UseCaseValidateTransaction
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.AccountBase
@@ -16,7 +15,6 @@ import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentMoneyTransferBinding
 import vn.shb.lao.screens.home.DialogSelectAccount
 import vn.shb.lao.screens.home.DialogSelectBeneficiary
-
 import vn.shb.lao.screens.home.getTypeAccount
 import vn.shb.lao.utils.ApiConst
 import vn.shb.lao.utils.extensions.DateTimeHelper.Companion.getDateFromCurrentDate
@@ -28,9 +26,6 @@ import vn.shb.lao.utils.extensions.visible
 class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     FragmentMoneyTransferBinding::inflate
 ) {
-
-
-
     var currentTypeTransfer: String = INTRABANK
 
     private var fromAccount: AccountBase? = null
@@ -91,8 +86,12 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 launch {
                     stateErrorFillAccountNumber.collect {
                         binding.iclToAccount.tvError.apply {
-                            text = getString(R.string.incorrectAccountInfomation)
+                            text = getString(R.string.invalidBeneficiaryAccount)
                             visible()
+                        }
+                        binding.iclAccountName.apply {
+                            root.gone()
+                            edtValue.setText("")
                         }
                     }
                 }
@@ -103,9 +102,6 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                         safeNavigate(R.id.moneyTransferFragment, R.id.confirmationFragment)
                     }
                 }
-
-
-
             }
         }
     }
@@ -167,7 +163,6 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 
     private fun checkAmountValidate() {
         val text = binding.iclAmount.edtValue.text.toString().trim()
-        binding.iclTotalAmount.edtValue.setText(text)
         checkBalanceInvalid(text)
         updateStatusTransfer()
     }
@@ -201,12 +196,14 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     private fun checkBalanceInvalid(valueBalance: String) {
         totalAmount =
             if (valueBalance.isNotBlank()) valueBalance.replace(",", "").toDouble() else 0.0
-        binding.iclFee.root.apply {
-            if (!isVisible && !valueBalance.isEmpty()) visible()
+        binding.iclFee.apply {
+            edtValue.setText(Const.EMPTY)
+            if (!valueBalance.isEmpty()) root.visible()
         }
 
-        binding.iclTotalAmount.root.apply {
-            if (!isVisible && !valueBalance.isEmpty()) visible()
+        binding.iclTotalAmount.apply {
+            edtValue.setText(valueBalance)
+            if (!valueBalance.isEmpty()) root.visible()
         }
 
         val isError = totalAmount > (fromAccount?.availableBalance ?: 0.0)
@@ -233,7 +230,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 
             iclAccountName.apply {
                 tvTitle.text = getString(R.string.accountName)
-                llEdit.alpha = 0.8f
+                edtValue.setTextColor(getColor(R.color.neutral7))
+                viewLine.gone()
+                edtValue.isEnabled = false
             }
 
             iclAmount.apply {
@@ -264,6 +263,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 edtValue.enableInput(false)
                 llEdit.alpha = 0.8f
             }
+
             iclRemarks.apply {
                 tvTitle.text = getString(R.string.remarks)
                 resetRemarks()
@@ -272,8 +272,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 tvCurrentCode.gone()
                 tvError.text = getString(R.string.invalidRemarks)
                 edtValue.setInputEditText(false)
-                finishTyping(this.edtValue, true) {
-                    val text = this.edtValue.text.toString()
+                finishTyping(iclRemarks.edtValue, true) {
+                    val text = iclRemarks.edtValue.text.toString()
                     edtValue.setText(removeVietnameseAccents(text))
                 }
             }
@@ -328,7 +328,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     private fun bindViewReceiverAccount(account: AccountBase) {
         with(binding) {
             iclToAccount.edtValue.setText(
-                getTypeAccount(requireContext(), account).plus(Const.SEPARATOR_DASH).plus(account.accountNumber)
+                getTypeAccount(requireContext(), account).plus(Const.SEPARATOR_DASH)
+                    .plus(account.accountNumber)
             )
             val isDuplicate = account.accountNumber == fromAccount?.accountNumber
             iclToAccount.bindViewError(
@@ -352,8 +353,10 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         }
         with(binding) {
             iclToAccount.tvError.gone()
-            iclFee.root.visible()
-            iclTotalAmount.root.visible()
+            iclFee.edtValue.setText("")
+            iclFee.root.gone()
+            iclTotalAmount.edtValue.setText("")
+            iclTotalAmount.root.gone()
         }
 
         updateStatusTransfer()

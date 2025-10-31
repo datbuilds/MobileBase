@@ -8,18 +8,15 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
-import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.lao.R
 import vn.shb.lao.base.view.MyTextView
-import vn.shb.lao.databinding.ConfirmCodeFragmentBinding
 import vn.shb.lao.databinding.CustomDialogLayoutBinding
 import vn.shb.lao.databinding.DialogSystemErrorBinding
 import vn.shb.lao.utils.extensions.CustomCountdownTimer
-import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.gone
 import vn.shb.lao.utils.extensions.invisible
 import vn.shb.lao.utils.extensions.visible
@@ -104,51 +101,6 @@ class BottomSheetDialogHelper(context: Context) {
             dismiss()
         }
 
-        dialog?.show()
-    }
-
-    fun showDialogConfirmCode(
-        authSms: String,
-        isCancelable: Boolean = true,
-        actionConfirmCode: (String) -> Unit,
-        actionDismiss: () -> Unit
-    ) {
-        val context = contextRef.get() ?: return
-        val bindingView = ConfirmCodeFragmentBinding.inflate(LayoutInflater.from(context))
-        createDialog(context, bindingView, isCancelable)
-
-        with(bindingView) {
-            tvContentAlert.text = context.getString(R.string.pleaseEnterConfirmCode, authSms)
-            ivCloseDialog.setOnSingleClickListener { dismiss() }
-            edtEnterCode.imeOptions = EditorInfo.IME_ACTION_DONE
-        }
-
-        bindingView.tvRemainingTime.countdownConfirmCode() {
-            actionDismiss.invoke()
-            dismiss()
-        }
-
-        bindingView.edtEnterCode.setOnEditorActionListener { v, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                v.clearFocus()
-                dismiss()
-                actionConfirmCode.invoke(bindingView.edtEnterCode.text.toString())
-                true
-            } else {
-                false
-            }
-        }
-
-        bindingView.tvConfirm.setOnSingleClickListener {
-            dismiss()
-            actionConfirmCode.invoke(bindingView.edtEnterCode.text.toString())
-        }
-
-//        bindingView.edtEnterCode.doAfterTextChanged {
-//            if ((it?.length ?: 0) >= 3) {
-//                actionConfirmCode.invoke(it.toString())
-//            }
-//        }
         dialog?.show()
     }
 
@@ -253,43 +205,6 @@ class BottomSheetDialogHelper(context: Context) {
                 val fullMsg = "${baseMsg.plus(" ")}${
                     context.getString(R.string.pleaseTryAgainIn).plus(" ")
                 }$formatted"
-
-                val spannable = SpannableString(fullMsg)
-                val start = fullMsg.indexOf(formatted)
-                val end = start + formatted.length
-                spannable.setSpan(
-                    StyleSpan(Typeface.BOLD),
-                    start,
-                    end,
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-                this.text = spannable
-            },
-            onFinishAction = {
-                onDismiss?.invoke()
-            }
-        )
-
-        countdownTimer.start()
-    }
-
-    fun MyTextView.countdownConfirmCode(
-        timeLock: Long = 2,
-        onDismiss: (() -> Unit)? = null
-    ) {
-
-        val countdownTimer = CustomCountdownTimer(
-            totalTimeMillis = timeLock * 60 * 1000,
-            intervalMillis = 1000L,
-            onTickAction = { millisUntilFinished ->
-                val s = millisUntilFinished / 1000
-                val formatted = String.format("%02d", s)
-
-                val fullMsg = "${context.getString(R.string.remainingTime).plus(" ")}${
-                    formatted.plus(
-                        Const.SEPARATOR_SPACE
-                    ).plus(context.getString(R.string.second))
-                }"
 
                 val spannable = SpannableString(fullMsg)
                 val start = fullMsg.indexOf(formatted)

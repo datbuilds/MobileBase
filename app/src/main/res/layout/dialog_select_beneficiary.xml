@@ -58,7 +58,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_12dp"
-            android:hint="@string/enterRecipientName" />
+            android:hint="@string/enterRecipientName"
+            android:includeFontPadding="false"
+            android:textColor="@color/black"
+            android:textColorHint="@color/neutral6"
+            android:textSize="@dimen/textSize14" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

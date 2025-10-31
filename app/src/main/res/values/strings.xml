@@ -84,7 +84,7 @@
     <string name="balance">Balance</string>
     <string name="toAccount">To Account</string>
     <string name="amount">Amount</string>
-    <string name="enterAccountNumber">Enter account number</string>
+    <string name="enterAccountNumber">Enter Account Number</string>
     <string name="enterAmount">Enter Amount</string>
     <string name="insufficientBalance">Insufficient account balance. Please try again.</string>
     <string name="fee">Fee</string>
@@ -141,9 +141,10 @@
     <string name="authenticationFailed">Authentication failed. Please try again.</string>
     <string name="transactionFail">Transaction Fail!</string>
     <string name="anErrorHasOccurred">An error has occurred, the transaction was not completed. Please try again!</string>
-    <string name="incorrectAccountInfomation">Incorrect account information</string>
     <string name="enterRecipientName">Enter recipient name</string>
     <string name="pleaseEnterTheAmount">Please enter the amount</string>
     <string name="errorCode">Errorcode</string>
+    <string name="to">To</string>
+    <string name="SHBAccount">SHB Account</string>
 
 </resources>

@@ -275,7 +275,10 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         launchRepeatOnLifecycle {
             launch {
                 homeViewModel.stateError.collect { error ->
-                    handleErrorHome(error)
+                    if (error != null){
+                        handleErrorHome(error)
+                        homeViewModel.stateError(null)
+                    }
                 }
             }
         }

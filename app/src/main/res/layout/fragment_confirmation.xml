@@ -37,9 +37,8 @@
         app:layout_constraintTop_toBottomOf="@+id/tvConfirmation">
 
         <include
-            android:id="@+id/iclReferenceNumber"
-            layout="@layout/child_view_confirmation"
-            android:visibility="gone" />
+            android:id="@+id/iclTo"
+            layout="@layout/child_view_confirmation" />
 
         <include
             android:id="@+id/iclFromAccount"

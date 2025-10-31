@@ -120,7 +120,7 @@ class HomeViewModel(
 
     var confirmModel: ConfirmationModel? = null
 
-    suspend fun stateError(reason: Reason) {
+    suspend fun stateError(reason: Reason?) {
         _stateError.emit(reason)
     }
 

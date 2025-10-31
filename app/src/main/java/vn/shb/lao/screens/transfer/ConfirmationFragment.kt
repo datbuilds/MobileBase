@@ -9,6 +9,7 @@ import vn.shb.data.entities.getBalance
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentConfirmationBinding
+import vn.shb.lao.screens.transfer.dialog.ConfirmCodeBottomSheetDialogFragment
 import vn.shb.lao.utils.ApiConst
 import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
@@ -29,6 +30,8 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
 
     private fun bindViewDefault() {
         with(binding) {
+            iclTo.tvLabel.text = getString(R.string.to)
+            iclTo.tvValue.text = getString(R.string.SHBAccount)
             iclFromAccount.tvLabel.text = getString(R.string.fromAccount)
             iclToAccount.tvLabel.text = getString(R.string.toAccount)
             iclRemarks.tvLabel.text = getString(R.string.remarks)
@@ -44,10 +47,10 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
             with(binding) {
                 iclFromAccount.tvValue.text =
                     cf.fromAccount.productDescription.plus(Const.SEPARATOR_DASH)
-                        .plus(cf.fromAccount.getAvailableBalance())
+                        .plus(cf.fromAccount.accountNumber)
                 iclToAccount.tvValue.text =
                     cf.toAccount.productDescription.plus(Const.SEPARATOR_DASH)
-                        .plus(cf.toAccount.getAvailableBalance())
+                        .plus(cf.toAccount.accountNumber)
                 iclRemarks.tvValue.text = cf.remarks
                 iclTransactionDate.tvValue.text = cf.transactionDate
                 val currencyCode = cf.fromAccount.currencyCode
@@ -94,21 +97,23 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                             homeViewModel.confirmTransactionTransfer(Const.EMPTY)
                         } else {
                             if (it?.paymentType.equals(ApiConst.INTRA)) {
-                                BottomSheetDialogHelper(requireContext()).showDialogConfirmCode(
-                                    it?.authSms ?: "",
-                                    actionConfirmCode = { otp ->
-                                        homeViewModel.confirmTransactionTransfer(otp)
+                                ConfirmCodeBottomSheetDialogFragment(
+                                    authSms = it?.authSms ?: "",
+                                    actionConfirmCode = { code ->
+                                        homeViewModel.confirmTransactionTransfer(code)
                                     },
                                     actionDismiss = {
-                                        BottomSheetDialogHelper(requireContext()).message(
-                                            title = getString(R.string.notification),
-                                            message = getString(R.string.authenticationFailed),
-                                            textPositive = getString(R.string.close),
-                                            positiveAction = {
-                                            }
-                                        )
+                                        context?.let { ct ->
+                                            BottomSheetDialogHelper(ct).message(
+                                                title = getString(R.string.notification),
+                                                message = getString(R.string.authenticationFailed),
+                                                textPositive = getString(R.string.close),
+                                                positiveAction = {
+                                                }
+                                            )
+                                        }
                                     }
-                                )
+                                ).show(parentFragmentManager, "ConfirmCodeBottomSheetDialog")
                             }
                         }
                     }
