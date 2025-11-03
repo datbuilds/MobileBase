@@ -17,8 +17,6 @@ import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 class TransactionDetailFragment :
     BaseFragmentBinding<FragmentTransactionDetailBinding>(FragmentTransactionDetailBinding::inflate) {
 
-
-
     override fun initView(view: View) {
         setupView()
     }

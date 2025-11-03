@@ -104,4 +104,13 @@
     <string name="flexibleSaving">Tài khoản tiết kiệm</string>
     <string name="staffLoans">Tài khoản vay nhân viên SHB</string>
     <string name="noTransactionHistory">Không có giao dịch</string>
+    <string name="done">Xong</string>
+    <string name="invalidRemarks">Nội dung không hợp lệ</string>
+    <string name="pleaseEnterConfirmCode">Vui lòng nhập mã xác nhận tại vị trí %s trên Thẻ eSecure</string>
+    <string name="transactionFailedDueToExceeding">Giao dịch chưa thực hiện được vì vượt hạn mức hiện có. Vui lòng thử lại.</string>
+    <string name="authenticationFailed">Xác thực không thành công, xin vui lòng thử lại</string>
+    <string name="transactionFail">Giao dịch thất bại</string>
+    <string name="anErrorHasOccurred">Đã xảy ra lỗi, giao dịch chưa được thực hiện. Vui lòng thử lại!</string>
+    <string name="enterRecipientName">Nhập tên người thụ hưởng</string>
+    <string name="pleaseEnterTheAmount">Vui lòng nhập số tiền</string>
 </resources>

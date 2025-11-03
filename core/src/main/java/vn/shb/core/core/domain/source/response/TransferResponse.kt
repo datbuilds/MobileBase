@@ -32,7 +32,10 @@ data class TransactionTransferConfirm(
 ) : Serializable
 
 data class AccountUserNameModel(
-    @SerializedName("customerName") val customerName : String = ""
+    @SerializedName("customerName") val customerName : String = "",
+    @SerializedName("currency") val currency : String = "",
+    @SerializedName("productCode") val productCode : String = "",
+    @SerializedName("productDescription") val productDescription : String = "",
 )
 
 

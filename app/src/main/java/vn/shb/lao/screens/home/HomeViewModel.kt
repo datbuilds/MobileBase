@@ -453,18 +453,20 @@ class HomeViewModel(
         }
     }
 
-    fun validateTransaction(params : UseCaseValidateTransaction.Params){
+    fun validateTransaction(params : UseCaseValidateTransaction.Params, callFinish : () -> Unit){
         viewModelScope.launch {
             useCaseValidateTransaction.invoke(params).collect { resultSHB ->
                 resultSHB.onResultHandle(
                     successBlock = {
                         viewModelScope.launch {
                             _stateValidateTransaction.emit("")
+                            callFinish.invoke()
                         }
                     },
                     failureBlock = { reason ->
                         viewModelScope.launch {
                             stateError(reason)
+                            callFinish.invoke()
                         }
                     }
                 )

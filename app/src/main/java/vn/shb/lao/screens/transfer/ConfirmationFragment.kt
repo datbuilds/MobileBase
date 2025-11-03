@@ -1,5 +1,6 @@
 package vn.shb.lao.screens.transfer
 
+import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import kotlinx.coroutines.flow.collectLatest
@@ -12,12 +13,16 @@ import vn.shb.lao.databinding.FragmentConfirmationBinding
 import vn.shb.lao.screens.transfer.dialog.ConfirmCodeBottomSheetDialogFragment
 import vn.shb.lao.utils.ApiConst
 import vn.shb.lao.utils.extensions.common.Const
+import vn.shb.lao.utils.extensions.gone
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
+import vn.shb.lao.utils.extensions.visible
 import vn.shb.lao.utils.view.dialog.BottomSheetDialogHelper
 
 class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
     FragmentConfirmationBinding::inflate
 ) {
+
+    private val isIntrabank by lazy { arguments?.getBoolean(ApiConst.KEY_TYPE_TRANSFER_INTRABANK) ?: false }
 
     override fun isPaddingBottom(): Boolean {
         return true
@@ -30,8 +35,13 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
 
     private fun bindViewDefault() {
         with(binding) {
-            iclTo.tvLabel.text = getString(R.string.to)
-            iclTo.tvValue.text = getString(R.string.SHBAccount)
+            if (isIntrabank){
+                iclTo.root.visible()
+                iclTo.tvLabel.text = getString(R.string.to)
+                iclTo.tvValue.text = getString(R.string.SHBAccount)
+            } else {
+                iclTo.root.gone()
+            }
             iclFromAccount.tvLabel.text = getString(R.string.fromAccount)
             iclToAccount.tvLabel.text = getString(R.string.toAccount)
             iclRemarks.tvLabel.text = getString(R.string.remarks)

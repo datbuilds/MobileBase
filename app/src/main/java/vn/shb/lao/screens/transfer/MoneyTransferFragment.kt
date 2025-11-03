@@ -1,9 +1,11 @@
 package vn.shb.lao.screens.transfer
 
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import kotlinx.coroutines.launch
+import vn.shb.core.core.domain.source.response.AccountUserNameModel
 import vn.shb.core.core.domain.usecases.transfer.UseCaseValidateTransaction
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.AccountBase
@@ -78,7 +80,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 launch {
                     stateAccountByNumber.collect {
                         if (it != null) {
-                            bindViewReceiverAccount(it.customerName)
+                            bindViewReceiverAccount(it)
                         }
                     }
                 }
@@ -99,7 +101,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 launch {
                     stateValidateTransaction.collect {
                         homeViewModel.confirmModel = getConfirmationStatus()
-                        safeNavigate(R.id.moneyTransferFragment, R.id.confirmationFragment)
+                        safeNavigate(R.id.moneyTransferFragment, R.id.confirmationFragment,
+                            bundleOf(ApiConst.KEY_TYPE_TRANSFER_INTRABANK to isIntrabank())
+                        )
                     }
                 }
             }
@@ -149,6 +153,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             }
 
             tvTransferAction.setOnSingleClickListener {
+                tvTransferAction.isEnabled = false
                 homeViewModel.validateTransaction(
                     UseCaseValidateTransaction.Params(
                         UseCaseValidateTransaction.OrderTransaction(
@@ -156,7 +161,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                             amount = totalAmount, fromAccount?.currencyCode!!
                         )
                     )
-                )
+                ) {
+                    tvTransferAction.isEnabled = true
+                }
             }
         }
     }
@@ -294,6 +301,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             && toAccount?.accountNumber != null
             && fromAccount?.accountNumber != toAccount?.accountNumber
             && fromAccount?.currencyCode?.isNotEmpty() == true
+            && fromAccount?.currencyCode == toAccount?.currencyCode
             && totalAmount <= (fromAccount?.availableBalance ?: 0.0) && totalAmount > 0.0
             && remarks.isNotEmpty()
         ) {
@@ -343,20 +351,31 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         updateStatusTransfer()
     }
 
-    private fun bindViewReceiverAccount(userName: String) {
+    private fun bindViewReceiverAccount(userInfo: AccountUserNameModel) {
         binding.iclAccountName.apply {
             root.isVisible = true
-            edtValue.setText(userName)
+            edtValue.setText(userInfo.customerName)
         }
-        toAccount = AccountInfo().apply {
-            setValueAccountNumber(binding.iclToAccount.edtValue.text.toString())
-        }
-        with(binding) {
-            iclToAccount.tvError.gone()
-            iclFee.edtValue.setText("")
-            iclFee.root.gone()
-            iclTotalAmount.edtValue.setText("")
-            iclTotalAmount.root.gone()
+        if (userInfo.currency != fromAccount?.currencyCode) {
+            with(binding) {
+                iclToAccount.tvError.text =
+                    getString(R.string.transferAccountAndReceivingAccountNotSame)
+                iclToAccount.tvError.visible()
+            }
+        } else {
+            toAccount = AccountInfo().apply {
+                setValueAccountNumber(binding.iclToAccount.edtValue.text.toString())
+                currencyCode = userInfo.currency
+                productCode = userInfo.productCode
+                productDescription = userInfo.productDescription
+            }
+            with(binding) {
+                iclToAccount.tvError.gone()
+                iclFee.edtValue.setText("")
+                iclFee.root.gone()
+                iclTotalAmount.edtValue.setText("")
+                iclTotalAmount.root.gone()
+            }
         }
 
         updateStatusTransfer()

@@ -92,4 +92,22 @@
     <string name="pleaseEnterUsername">ກະລຸນາປ້ອນຊື່ຜູ້ໃຊ້</string>
     <string name="pleaseEnterPassword">ກະລຸນາປ້ອນລະຫັດຜ່ານ</string>
     <string name="pleaseTryAgainIn">ກະລຸນາລອງໃໝ່ໃນອີກ</string>
+    <string name="currentBalance">​ຍອ​ດ​ເງິນ​ປະ​ຈຸ​ບັນ</string>
+    <string name="show">​ສະ​ແດງ</string>
+    <string name="myProfile">ໂປ​ຣ​ຟາຍ​ຂອງ​ຂ້ອຍ</string>
+    <string name="tel">​ເບີ​ໂທ:</string>
+    <string name="hide">ຊ່ອນ</string>
+    <string name="english">​ພາ​ສາ ອັງ​ກິດ</string>
+    <string name="vietnamese">​ພາ​ສາ ຫວຽດ​ນາມ</string>
+    <string name="lao">ພາ​ສາ ລາວ</string>
+    <string name="add">Add:</string>
+    <string name="done">​ສ​ຳ​ເລັດ</string>
+    <string name="invalidRemarks">​ເນື້ອ​ໃນ​ບໍ່​ຖືກ​ຕ້ອງ</string>
+    <string name="pleaseEnterConfirmCode">ກະລຸນາປ້ອນລະຫັດຢືນຢັນທີ່ຈຸດ %s ໃນບັດ eSecure</string>
+    <string name="transactionFailedDueToExceeding">ທຸລະກຳລົ້ມເຫຼວຍ້ອນເກີນວົງເງິນ</string>
+    <string name="authenticationFailed">ການ​ຢືນ​ຢັນ​ລົ້ມ​ເຫຼວ. ກະ​ລຸ​ນາ​ລອງ​ໃໝ່​ອີກ​ຄັ້ງ</string>
+    <string name="transactionFail">ທຸລະກຳລົ້ມເຫຼວ!</string>
+    <string name="anErrorHasOccurred">​ເກີດ​ຂໍ້​ຜິດ​ພ​າດ​. ທຸ​ລະ​ກຳ​ບໍ່​ສຳ​ເລັດ. ກະ​ລຸ​ນາ​ລອງ​ໃໝ່​ອີກ​ຄັ້ງ!</string>
+    <string name="enterRecipientName">​ປ້ອນ​ຊື່​ຜູ້​ຮັບ</string>
+    <string name="pleaseEnterTheAmount">ກະ​ລຸ​ນາ ປ້ອນ​ຈຳ​ນວນ​ເງິນ</string>
 </resources>

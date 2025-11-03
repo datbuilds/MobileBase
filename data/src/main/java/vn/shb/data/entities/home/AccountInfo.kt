@@ -10,7 +10,7 @@ data class AccountInfo(
     @SerializedName("loanTotal") val loanTotal: Double = 0.00,
     @SerializedName("accountTypeName") val accountTypeName: String = "",
     @SerializedName("positionCode") val positionCode: Int = 0,
-    @SerializedName("productCode") val productCode: String = "",
+    @SerializedName("productCode") var productCode: String = "",
     var select: Boolean = false
 ) : AccountBase() {
     override fun getAvailableBalance(): String = availableBalance.getBalance()

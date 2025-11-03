@@ -117,34 +117,35 @@
     <string name="myProfile">My Profile</string>
     <string name="tel">Tel:</string>
     <string name="hide">Hide</string>
-    <string name="account_info_format">%s - %s - %s</string>
+    <string name="account_info_format" translatable="false">%s - %s - %s</string>
     <string name="english">English</string>
     <string name="vietnamese">Vietnamese</string>
     <string name="lao">Lao</string>
     <string name="add">Add:</string>
     <string name="done">Done</string>
-    <string name="today">Today</string>
-    <string name="yesterday">Yesterday</string>
-    <string name="from">From</string>
-    <string name="toDate">To Date</string>
-    <string name="noTransactionHistory">No transaction history</string>
-    <string name="zero">0</string>
-    <string name="noAccountAvailable">No accounts available</string>
+    <string name="zero" translatable="false">0</string>
     <string name="invalidRemarks">Invalid remarks</string>
-    <string name="confirmation">Confirmation</string>
-    <string name="accountName">Account Name</string>
     <string name="pleaseEnterConfirmCode">Please enter confirmation code at %s possition on eSecure Card</string>
     <string name="transactionFailedDueToExceeding">Transaction failed due to exceeding the limit</string>
-    <string name="enterCode">Enter code</string>
-    <string name="remainingTime">Remaining time</string>
-    <string name="second">second</string>
     <string name="authenticationFailed">Authentication failed. Please try again.</string>
     <string name="transactionFail">Transaction Fail!</string>
     <string name="anErrorHasOccurred">An error has occurred, the transaction was not completed. Please try again!</string>
     <string name="enterRecipientName">Enter recipient name</string>
     <string name="pleaseEnterTheAmount">Please enter the amount</string>
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="from">From</string>
+    <string name="toDate">To Date</string>
+    <string name="noTransactionHistory">No transaction history</string>
+    <string name="noAccountAvailable">No accounts available</string>
+    <string name="confirmation">Confirmation</string>
+    <string name="accountName">Account Name</string>
+    <string name="enterCode">Enter code</string>
+    <string name="remainingTime">Remaining time</string>
+    <string name="second">second</string>
     <string name="errorCode">Errorcode</string>
     <string name="to">To</string>
     <string name="SHBAccount">SHB Account</string>
+    <string name="transferAccountAndReceivingAccountNotSame">Transfer account and receiving account are not the same currency</string>
 
 </resources>

@@ -7,6 +7,7 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionDetail
 import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.getBalance
 import vn.shb.data.entities.home.TransactionDetail
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseFragmentBinding
@@ -76,7 +77,7 @@ class PaymentTransferFragment :
 
     private fun setupView(trans: TransactionDetail) {
         with(binding) {
-            tvValueBalance.text = trans.amount.toString()
+            tvValueBalance.text = trans.amount.getBalance()
             tvCurrentCode.text = trans.currency
             val fromAccount = trans.ordAccType.plus(Const.SEPARATOR_SPACE).plus(trans.ordAccount)
             iclTransactionInfo1.bindView(
@@ -115,7 +116,6 @@ class PaymentTransferFragment :
     override fun initObserve() {
         with(homeViewModel) {
             launchRepeatOnLifecycle {
-
 
                 launch {
                     stateTransactionDetail.collectLatest {

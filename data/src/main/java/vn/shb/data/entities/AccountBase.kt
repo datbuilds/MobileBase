@@ -6,9 +6,9 @@ import java.io.Serializable
 abstract class AccountBase(
     @SerializedName("accountNumber") var accountNumber: String = "",
     @SerializedName("accountType") val accountType: String = "",
-    @SerializedName("currencyCode") val currencyCode: String = "",
+    @SerializedName("currencyCode") var currencyCode: String = "",
     @SerializedName("positionDescription") val positionDescription: String = "",
-    @SerializedName("productDescription") val productDescription: String = "",
+    @SerializedName("productDescription") var productDescription: String = "",
     @SerializedName("availableBalance") val availableBalance: Double = 0.0,
 ) :
     Serializable {
