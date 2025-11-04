@@ -1,10 +1,10 @@
 package vn.shb.lao.utils.extensions
 
-import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
@@ -60,47 +60,15 @@ class DateTimeHelper {
             return currentDate.format(formatter)
         }
 
-        @SuppressLint("NewApi")
-        fun minusMonthFromCurrentDate(time: Long): String {
-            val currentDate = LocalDate.now()
-            val fromDate = currentDate.minusMonths(time)
-
-            val formatter = DateTimeFormatter.ofPattern(DATE_FORMAT)
-            return fromDate.format(formatter)
-        }
-
-        @SuppressLint("NewApi")
-        fun getMinusCalendarFromCurrentDate(time: Long): Calendar {
-            val calendarResult = Calendar.getInstance()
-            val currentDate = LocalDate.now()
-            val fromDate = currentDate.minusMonths(time)
-            calendarResult.set(Calendar.YEAR, fromDate.year)
-            calendarResult.set(Calendar.MONTH, fromDate.monthValue)
-            calendarResult.set(Calendar.DAY_OF_MONTH, fromDate.dayOfMonth)
-
-            return calendarResult
-        }
-
-        fun getTime(format: String, time: Date) =
-            SimpleDateFormat(format, Locale.getDefault()).format(time)
-
-        fun Long.timeFormatAgo(): String {
-            val now = System.currentTimeMillis()
-            val diff = now - this
-
-            return when {
-                diff < 60_000L -> "vừa xong"
-                diff < 3_600_000L -> "${diff / 60_000} phút trước"
-                diff < 86_400_000L -> "${diff / 3_600_000} giờ trước"
-                else -> "${diff / 86_400_000} ngày trước"
+        fun toDisplayDate(text: String): String {
+            return try {
+                val inputFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
+                val outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
+                val dateTime = LocalDateTime.parse(text, inputFormatter)
+                dateTime.format(outputFormatter)
+            } catch (e: DateTimeParseException) {
+                text // Nếu lỗi parse, trả về chuỗi gốc để tránh crash
             }
-        }
-
-        @SuppressLint("NewApi")
-        fun Long.formatEpochTime(): String {
-            val time = this / 1000
-            val formatter = DateTimeFormatter.ofPattern(DATE_FORMAT)
-            return LocalDate.ofEpochDay(time / (24 * 60 * 60)).format(formatter)
         }
 
         fun Int.getTimeLess(): String {

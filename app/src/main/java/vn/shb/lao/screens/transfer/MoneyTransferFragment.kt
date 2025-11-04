@@ -101,7 +101,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 launch {
                     stateValidateTransaction.collect {
                         homeViewModel.confirmModel = getConfirmationStatus()
-                        safeNavigate(R.id.moneyTransferFragment, R.id.confirmationFragment,
+                        safeNavigate(
+                            R.id.moneyTransferFragment, R.id.confirmationFragment,
                             bundleOf(ApiConst.KEY_TYPE_TRANSFER_INTRABANK to isIntrabank())
                         )
                     }
@@ -204,7 +205,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         totalAmount =
             if (valueBalance.isNotBlank()) valueBalance.replace(",", "").toDouble() else 0.0
         binding.iclFee.apply {
-            edtValue.setText(Const.EMPTY)
+            edtValue.setText(Const.ZERO)
             if (!valueBalance.isEmpty()) root.visible()
         }
 
@@ -249,16 +250,17 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 viewLine.visible()
                 tvCurrentCode.visible()
                 tvError.text = getString(R.string.insufficientBalance)
+                bindColor(R.color.neutral8)
             }
 
             iclFee.apply {
                 tvTitle.text = getString(R.string.fee)
-                edtValue.hint = getString(R.string.zero)
+                edtValue.setText(Const.ZERO)
                 ivExpandDown.gone()
                 viewLine.visible()
                 tvCurrentCode.visible()
                 edtValue.enableInput(false)
-                llEdit.alpha = 0.8f
+                bindColor(R.color.neutral7)
             }
 
             iclTotalAmount.apply {
@@ -268,7 +270,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 viewLine.visible()
                 tvCurrentCode.visible()
                 edtValue.enableInput(false)
-                llEdit.alpha = 0.8f
+                bindColor(R.color.neutral7)
             }
 
             iclRemarks.apply {
@@ -278,6 +280,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 viewLine.gone()
                 tvCurrentCode.gone()
                 tvError.text = getString(R.string.invalidRemarks)
+                bindColor(R.color.neutral8)
                 edtValue.setInputEditText(false)
                 finishTyping(iclRemarks.edtValue, true) {
                     val text = iclRemarks.edtValue.text.toString()
@@ -368,10 +371,11 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 currencyCode = userInfo.currency
                 productCode = userInfo.productCode
                 productDescription = userInfo.productDescription
+                customerName = userInfo.customerName
             }
             with(binding) {
                 iclToAccount.tvError.gone()
-                iclFee.edtValue.setText("")
+                iclFee.edtValue.setText(Const.ZERO)
                 iclFee.root.gone()
                 iclTotalAmount.edtValue.setText("")
                 iclTotalAmount.root.gone()

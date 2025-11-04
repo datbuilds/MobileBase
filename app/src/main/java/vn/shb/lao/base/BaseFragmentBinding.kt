@@ -244,7 +244,7 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         onAction: (() -> Unit)? = null
     ) {
         if (reason.errorCode == ApiConst.FUN_017) {
-            BottomSheetDialogHelper(requireContext()).messageErrorCode(reason.errMessage)
+            BottomSheetDialogHelper(requireContext()).messageErrorCode(reason)
             return
         }
         var message = reason.errMessage
@@ -275,10 +275,8 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         launchRepeatOnLifecycle {
             launch {
                 homeViewModel.stateError.collect { error ->
-                    if (error != null){
-                        handleErrorHome(error)
-                        homeViewModel.stateError(null)
-                    }
+                    handleErrorHome(error)
+//                    homeViewModel.stateError(null)
                 }
             }
         }

@@ -27,7 +27,7 @@
     <string name="welcomeToShb">Chào mừng đến với SHB</string>
     <string name="currentAccount">Tài khoản thanh toán</string>
     <string name="transfer">Chuyển tiền</string>
-    <string name="transferCAP">CHUYEN KHOAN</string>
+    <string name="transferCAP">chuyen tien</string>
     <string name="accounts">Tài khoản</string>
     <string name="logoutConfirm">Bạn có chắc muốn đăng xuất không?</string>
     <string name="cancel">Hủy</string>
@@ -68,7 +68,7 @@
     <string name="enterAmount">Nhập số tiền</string>
     <string name="insufficientBalance">Số dư tài khoản không đủ. Vui lòng thử lại.</string>
     <string name="fee">Phí</string>
-    <string name="totalAmount">Tổng số tiền</string>
+    <string name="totalAmount">Tổng tiền</string>
     <string name="transactionFailed">Giao dịch thất bại. Vui lòng thử lại.</string>
     <string name="tryAgain">Thử lại</string>
     <string name="transactionExceedLimit">Giao dịch thất bại do vượt hạn mức</string>
@@ -86,7 +86,7 @@
     <string name="complete">Hoàn tất</string>
     <string name="nicknameSetSuccess">Đặt tên gợi nhớ thành công</string>
     <string name="profilePictureFailed">Cập nhật ảnh hồ sơ thất bại</string>
-    <string name="invalidBeneficiaryAccount">Tài khoản người nhận không hợp lệ</string>
+    <string name="invalidBeneficiaryAccount">Tài khoản nhận không hợp lệ</string>
     <string name="invalidSelectedDate">Ngày được chọn không hợp lệ</string>
     <string name="invalidFormat">Định dạng không hợp lệ</string>
     <string name="pleaseEnterUsername">Vui lòng nhập tên tài khoản</string>
@@ -103,7 +103,8 @@
     <string name="add">Địa chỉ:</string>
     <string name="flexibleSaving">Tài khoản tiết kiệm</string>
     <string name="staffLoans">Tài khoản vay nhân viên SHB</string>
-    <string name="noTransactionHistory">Không có giao dịch</string>
+    <string name="toDate">Đến ngày</string>
+    <string name="noTransactionHistory">Không có lịch sử giao dịch</string>
     <string name="done">Xong</string>
     <string name="invalidRemarks">Nội dung không hợp lệ</string>
     <string name="pleaseEnterConfirmCode">Vui lòng nhập mã xác nhận tại vị trí %s trên Thẻ eSecure</string>
@@ -113,4 +114,16 @@
     <string name="anErrorHasOccurred">Đã xảy ra lỗi, giao dịch chưa được thực hiện. Vui lòng thử lại!</string>
     <string name="enterRecipientName">Nhập tên người thụ hưởng</string>
     <string name="pleaseEnterTheAmount">Vui lòng nhập số tiền</string>
+    <string name="today">Hôm nay</string>
+    <string name="yesterday">Hôm qua</string>
+    <string name="from">Từ ngày</string>
+    <string name="noAccountAvailable">Không có tài khoản khả dụng</string>
+    <string name="confirmation">"Xác nhận "</string>
+    <string name="accountName">Tên tài khoản</string>
+    <string name="enterCode">Nhập mã</string>
+    <string name="remainingTime">Thời gian còn lại</string>
+    <string name="second">Giây</string>
+    <string name="to">Đến</string>
+    <string name="SHBAccount">Tài khoản SHB</string>
+    <string name="transferAccountAndReceivingAccountNotSame">Tài khoản chuyển và tài khoản nhận không cùng loại tiền tệ</string>
 </resources>

@@ -10,6 +10,7 @@ abstract class AccountBase(
     @SerializedName("positionDescription") val positionDescription: String = "",
     @SerializedName("productDescription") var productDescription: String = "",
     @SerializedName("availableBalance") val availableBalance: Double = 0.0,
+    var customerName : String = ""
 ) :
     Serializable {
     abstract fun isSelected(): Boolean

@@ -4,6 +4,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.DigitsKeyListener
 import android.view.inputmethod.EditorInfo
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import vn.shb.data.entities.DecimalDigitsInputFilter
@@ -111,9 +112,15 @@ fun MoneyTransferFragment.resetRemarks() {
 fun ItemTransferTypeBinding.bindViewError(text: String? = null) {
     val isError = text != null
     tvError.isVisible = isError
-    edtValue.alpha = if (isError) 0.6f else 1f
+//    edtValue.alpha = if (isError) 0.6f else 1f
     if (!isError) return
     tvError.text = text
+}
+
+fun ItemTransferTypeBinding.bindColor(idColor : Int){
+    val color = ContextCompat.getColor(root.context, idColor)
+    edtValue.setTextColor(color)
+    tvCurrentCode.setTextColor(color)
 }
 
 fun Fragment.finishTyping(

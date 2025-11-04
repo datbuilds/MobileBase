@@ -2,11 +2,13 @@ package vn.shb.lao.screens.home
 
 import android.content.Context
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import vn.shb.core.core.delivery.Reason
 import vn.shb.core.core.delivery.ResultSHB
@@ -77,8 +79,8 @@ class HomeViewModel(
     private val _stateAllTransactions = MutableStateFlow<List<TransactionItem>>(emptyList())
     val stateAllTransactions = _stateAllTransactions.asStateFlow()
 
-    private val _stateError = MutableSharedFlow<Reason?>()
-    val stateError = _stateError.asSharedFlow()
+    private val _stateError = Channel<Reason>(Channel.BUFFERED)
+    val stateError = _stateError.receiveAsFlow()
 
     private var currentUserInfo: UserInfo? = null
     private var listAccount = listOf<AccountInfo>()
@@ -120,8 +122,8 @@ class HomeViewModel(
 
     var confirmModel: ConfirmationModel? = null
 
-    suspend fun stateError(reason: Reason?) {
-        _stateError.emit(reason)
+    suspend fun stateError(reason: Reason) {
+        _stateError.send(reason)
     }
 
     suspend fun stateLoading(isLoading: Boolean) {

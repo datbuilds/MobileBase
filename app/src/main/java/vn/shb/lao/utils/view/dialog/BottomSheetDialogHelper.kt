@@ -11,6 +11,7 @@ import android.view.WindowManager
 import androidx.core.view.isVisible
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import vn.shb.core.core.delivery.Reason
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.lao.R
 import vn.shb.lao.base.view.MyTextView
@@ -89,14 +90,15 @@ class BottomSheetDialogHelper(context: Context) {
     }
 
     fun messageErrorCode(
-        message: String = "",
+        reason: Reason,
         isCancelable: Boolean = false
     ) {
         val context = contextRef.get() ?: return
         val bindingView = DialogSystemErrorBinding.inflate(LayoutInflater.from(context))
         createDialog(context, bindingView, isCancelable)
 
-        bindingView.tvContentAlert.text = message
+        bindingView.tvErrorCode.text = reason.errorCode
+        bindingView.tvContentAlert.text = reason.errMessage
         bindingView.tvClose.setOnSingleClickListener {
             dismiss()
         }

@@ -12,6 +12,7 @@ import vn.shb.lao.databinding.FragmentTransactionDetailBinding
 
 import vn.shb.lao.utils.ApiConst
 import vn.shb.lao.utils.extensions.common.Const
+import vn.shb.lao.utils.extensions.gone
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 
 class TransactionDetailFragment :
@@ -28,23 +29,24 @@ class TransactionDetailFragment :
             tvCurrentCode.text = trans.currencyCode
             val fromAccount = (homeViewModel.selectedAccount?.positionDescription
                 ?: "") + Const.SEPARATOR_DASH + homeViewModel.selectedAccount?.accountNumber
-            iclTransactionInfo1.bindView(
+            iclFromAccount.bindView(
                 getString(R.string.fromAccount),
                 fromAccount
             )
-            iclTransactionInfo2.bindView(
+            iclToAccount.bindView(
                 getString(R.string.toAccount),
                 trans.transactionDescription
             )
-            iclTransactionInfo3.bindView(
+            iclAccountName.root.gone()
+            iclRemarks.bindView(
                 getString(R.string.remarks),
                 trans.transactionDescription
             )
-            iclTransactionInfo4.bindView(
+            iclTransactionDate.bindView(
                 getString(R.string.transactionDate),
                 trans.transactionDateFormatted
             )
-            iclTransactionInfo5.bindView(
+            iclReferenceNumber.bindView(
                 getString(R.string.referenceNumber),
                 trans.referenceNumber
             )

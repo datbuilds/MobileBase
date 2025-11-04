@@ -1,10 +1,8 @@
 package vn.shb.lao.screens.transfer
 
-import android.os.Bundle
 import android.view.View
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionDetail
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.getBalance
@@ -13,31 +11,35 @@ import vn.shb.lao.R
 import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.ChildViewTransactionInfoBinding
 import vn.shb.lao.databinding.FragmentTransactionDetailBinding
-
 import vn.shb.lao.utils.ApiConst
+import vn.shb.lao.utils.extensions.DateTimeHelper
 import vn.shb.lao.utils.extensions.common.Const
+import vn.shb.lao.utils.extensions.gone
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.lao.utils.extensions.visible
 
 class PaymentTransferFragment :
     BaseFragmentBinding<FragmentTransactionDetailBinding>(FragmentTransactionDetailBinding::inflate) {
 
+    private val newReferenceNumber by lazy {
+        arguments?.getString(ApiConst.KEY_REFERENCE_NUMBER_TRANSACTION)
+    }
 
-    private var newReferenceNumber: String? = null
-    private var accountNo: String? = null
-    private var statusPayment: Boolean? = false
+    private val accountNo by lazy {
+        arguments?.getString(ApiConst.KEY_ACCOUNT_NO_TRANSACTION)
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        newReferenceNumber = arguments?.getString(ApiConst.KEY_REFERENCE_NUMBER_TRANSACTION)
-        accountNo = arguments?.getString(ApiConst.KEY_ACCOUNT_NO_TRANSACTION)
-        statusPayment =
-            arguments?.getString(ApiConst.KEY_STATUS_CONFIRM_TRANSACTION) == ApiConst.SUCCESS
+    private val statusPayment by lazy {
+        arguments?.getString(ApiConst.KEY_STATUS_CONFIRM_TRANSACTION) == ApiConst.SUCCESS
+    }
+
+    private val isIntrabank by lazy {
+        arguments?.getBoolean(ApiConst.KEY_TYPE_TRANSFER_INTRABANK) == true
     }
 
     override fun initView(view: View) {
         bindViewPayment()
-        if (newReferenceNumber != null && accountNo != null && statusPayment == true) {
+        if (newReferenceNumber != null && accountNo != null && statusPayment) {
             homeViewModel.getTransactionDetail(
                 UseCaseTransactionDetail.Params(
                     newReferenceNumber!!, accountNo!!,
@@ -80,26 +82,35 @@ class PaymentTransferFragment :
             tvValueBalance.text = trans.amount.getBalance()
             tvCurrentCode.text = trans.currency
             val fromAccount = trans.ordAccType.plus(Const.SEPARATOR_SPACE).plus(trans.ordAccount)
-            iclTransactionInfo1.bindView(
+            iclFromAccount.bindView(
                 getString(R.string.fromAccount),
                 fromAccount
             )
-            iclTransactionInfo2.bindView(
+            iclToAccount.bindView(
                 getString(R.string.toAccount),
                 trans.benAccType.plus(Const.SEPARATOR_SPACE).plus(trans.benAccount)
             )
-            iclTransactionInfo3.bindView(
+            iclRemarks.bindView(
                 getString(R.string.remarks),
                 trans.remarks
             )
-            iclTransactionInfo4.bindView(
+            iclTransactionDate.bindView(
                 getString(R.string.transactionDate),
-                trans.transDate
+                DateTimeHelper.toDisplayDate(trans.transDate)
             )
-            iclTransactionInfo5.bindView(
+            iclReferenceNumber.bindView(
                 getString(R.string.referenceNumber),
                 trans.refNo
             )
+            if (isIntrabank) {
+                iclAccountName.root.visible()
+                iclAccountName.bindView(
+                    getString(R.string.accountName),
+                    "đợi api trả về"
+                )
+            } else {
+                iclAccountName.root.gone()
+            }
         }
     }
 

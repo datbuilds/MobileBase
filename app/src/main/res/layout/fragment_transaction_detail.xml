@@ -91,35 +91,42 @@
         app:customFontWeight="medium"/>
 
     <include
-        android:id="@+id/iclTransactionInfo1"
+        android:id="@+id/iclFromAccount"
         layout="@layout/child_view_transaction_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_10dp" />
 
     <include
-        android:id="@+id/iclTransactionInfo2"
+        android:id="@+id/iclToAccount"
         layout="@layout/child_view_transaction_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_10dp" />
 
     <include
-        android:id="@+id/iclTransactionInfo3"
+        android:id="@+id/iclAccountName"
         layout="@layout/child_view_transaction_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_10dp" />
 
     <include
-        android:id="@+id/iclTransactionInfo4"
+        android:id="@+id/iclRemarks"
         layout="@layout/child_view_transaction_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_10dp" />
 
     <include
-        android:id="@+id/iclTransactionInfo5"
+        android:id="@+id/iclTransactionDate"
+        layout="@layout/child_view_transaction_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10dp" />
+
+    <include
+        android:id="@+id/iclReferenceNumber"
         layout="@layout/child_view_transaction_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

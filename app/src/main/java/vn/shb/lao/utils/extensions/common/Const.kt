@@ -2,6 +2,7 @@ package vn.shb.lao.utils.extensions.common
 
 object Const {
     const val EMPTY = ""
+    const val ZERO = "0"
     const val  SEPARATOR_DASH = " - "
     const val  SEPARATOR_SPACE = " "
 

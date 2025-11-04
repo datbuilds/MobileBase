@@ -49,6 +49,10 @@
             layout="@layout/child_view_confirmation" />
 
         <include
+            android:id="@+id/iclAccountName"
+            layout="@layout/child_view_confirmation" />
+
+        <include
             android:id="@+id/iclRemarks"
             layout="@layout/child_view_confirmation" />
 

@@ -53,6 +53,7 @@
         android:imeOptions="actionDone"
         android:maxLines="1"
         android:lines="1"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         android:paddingHorizontal="@dimen/margin_12dp"
         android:paddingVertical="@dimen/margin_13dp"
         android:textColor="@color/black"
@@ -72,6 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_16dp"
         android:layout_marginTop="@dimen/margin_8dp"
+        android:alpha="0.5"
         android:layout_weight="5"
         android:text="@string/confirm" />
 </androidx.appcompat.widget.LinearLayoutCompat>

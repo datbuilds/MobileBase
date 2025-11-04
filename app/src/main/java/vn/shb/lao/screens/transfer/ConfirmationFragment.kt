@@ -39,8 +39,10 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                 iclTo.root.visible()
                 iclTo.tvLabel.text = getString(R.string.to)
                 iclTo.tvValue.text = getString(R.string.SHBAccount)
+                iclAccountName.tvLabel.text = getString(R.string.accountName)
             } else {
                 iclTo.root.gone()
+                iclAccountName.root.gone()
             }
             iclFromAccount.tvLabel.text = getString(R.string.fromAccount)
             iclToAccount.tvLabel.text = getString(R.string.toAccount)
@@ -76,7 +78,9 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                     tvValue.text = cf.totalAmount.getBalance()
                     tvCurrencyCode.text = currencyCode
                 }
-
+                if (isIntrabank){
+                    iclAccountName.tvValue.text = cf.toAccount.customerName
+                }
             }
         }
     }
@@ -93,7 +97,8 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                                     bundleOf(
                                         ApiConst.KEY_REFERENCE_NUMBER_TRANSACTION to it.refNo,
                                         ApiConst.KEY_ACCOUNT_NO_TRANSACTION to confirmModel!!.fromAccount.accountNumber,
-                                        ApiConst.KEY_STATUS_CONFIRM_TRANSACTION to it.status
+                                        ApiConst.KEY_STATUS_CONFIRM_TRANSACTION to it.status,
+                                        ApiConst.KEY_TYPE_TRANSFER_INTRABANK to isIntrabank
                                     )
                             )
                             homeViewModel.clearSessionTransaction()

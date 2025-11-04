@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
+import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.lao.R
@@ -47,9 +48,15 @@ class ConfirmCodeBottomSheetDialogFragment(
             ivCloseDialog.setOnSingleClickListener {
                 dismiss()
             }
+//
+//            edtEnterCode.apply {
+//                imeOptions = EditorInfo.IME_ACTION_DONE or EditorInfo.IME_FLAG_NO_EXTRACT_UI
+//            }
 
-            edtEnterCode.apply {
-                imeOptions = EditorInfo.IME_ACTION_DONE or EditorInfo.IME_FLAG_NO_EXTRACT_UI
+            edtEnterCode.doAfterTextChanged {
+                val enable = !it.toString().isBlank()
+                tvConfirm.isEnabled = enable
+                tvConfirm.alpha = if (enable) 1f else 0.5f
             }
 
             tvConfirm.setOnSingleClickListener {
