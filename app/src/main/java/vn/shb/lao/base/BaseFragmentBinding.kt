@@ -29,6 +29,8 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import vn.shb.core.core.delivery.Reason
+import vn.shb.core.core.retrofit.SafeExecute.Companion.AUTH_001
+import vn.shb.core.core.retrofit.SafeExecute.Companion.AUTH_002
 import vn.shb.core.core.retrofit.SafeExecute.Companion.AUTH_006
 import vn.shb.core.core.retrofit.SafeExecute.Companion.HTTP_NOT_FOUND
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
@@ -62,7 +64,7 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
     val binding: T
         get() = _binding!!
 
-    private val listErrorLogout = listOf(AUTH_006)
+    private val listErrorLogout = listOf(AUTH_006, AUTH_001, AUTH_002)
 
     open fun isPaddingBottom() = false
 

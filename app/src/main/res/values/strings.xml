@@ -19,7 +19,7 @@
     <string name="amcalendar_sunday_short" translatable="false">CN</string>
 
     <string name="personalInternetBanking">Personal Internet Banking</string>
-    <string name="enterYourDetailToSignIn">Enter your detail to sign in</string>
+    <string name="enterYourDetailToSignIn">Enter your details to sign in</string>
     <string name="userName">User name</string>
     <string name="enterYourUserName">Enter Your User Name</string>
     <string name="password">Password</string>
@@ -44,8 +44,6 @@
     <string name="shbBranch3Address">Unit 25, Lattanalangsy Neua Village, Kaisone Phomvihan City, Savannakhet Province, Laos</string>
     <string name="welcomeToShb">Welcome to SHB</string>
     <string name="currentAccount">CURRENT ACCOUNT</string>
-    <string name="flexibleSaving">FLEXIBLE SAVING</string>
-    <string name="staffLoans">SHB STAFF LOANS</string>
     <string name="transfer">Transfer</string>
     <string name="transferCAP">TRANSFER</string>
     <string name="accounts">Accounts</string>
@@ -132,6 +130,8 @@
     <string name="anErrorHasOccurred">An error has occurred, the transaction was not completed. Please try again!</string>
     <string name="enterRecipientName">Enter recipient name</string>
     <string name="pleaseEnterTheAmount">Please enter the amount</string>
+    <string name="flexibleSaving">FLEXIBLE SAVING</string>
+    <string name="staffLoans">SHB STAFF LOANS</string>
     <string name="today">Today</string>
     <string name="yesterday">Yesterday</string>
     <string name="from">From</string>
@@ -143,9 +143,13 @@
     <string name="enterCode">Enter code</string>
     <string name="remainingTime">Remaining time</string>
     <string name="second">second</string>
-    <string name="errorCode">Errorcode</string>
+    <string name="errorCode" translatable="false">Errorcode</string>
     <string name="to">To</string>
     <string name="SHBAccount">SHB Account</string>
     <string name="transferAccountAndReceivingAccountNotSame">Transfer account and receiving account are not the same currency</string>
+    <string name="pleaseEnterTheAccountNumber">Please enter the Account Number</string>
+    <string name="pleaseEnterTheRemarks">Please enter the remarks</string>
+    <string name="enterRemarks">Enter remarks</string>
+    <string name="transactionSuccess">Transaction Success!</string>
 
 </resources>

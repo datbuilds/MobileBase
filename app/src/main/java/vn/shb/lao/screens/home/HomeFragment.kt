@@ -194,7 +194,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
                 }
             }
             flQrCode.setOnClickListener {
-                showLanguagePopup(flQrCode)
+//                showLanguagePopup(flQrCode)
             }
         }
     }

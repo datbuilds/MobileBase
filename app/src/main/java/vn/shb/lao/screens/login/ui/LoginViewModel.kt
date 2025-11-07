@@ -110,7 +110,7 @@ class LoginViewModel(
                 "+856 21 82 8888"
             ),
             Branch(
-                "2. SAIGON - HANOI BANK LAO LIMITED, CHAMPASAK BRANCH",
+                "2. SAI GON - HA NOI BANK LAO SOLE CO., LIMITED, CHAMPASAK BRANCH",
                 "336, 337, 338 Pakse New Market, Phonekung, Pakse, Champasack, Laos P.D.R",
                 "+856 31 257 167"
             ),

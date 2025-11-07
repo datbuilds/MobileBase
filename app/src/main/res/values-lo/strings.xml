@@ -110,4 +110,24 @@
     <string name="anErrorHasOccurred">​ເກີດ​ຂໍ້​ຜິດ​ພ​າດ​. ທຸ​ລະ​ກຳ​ບໍ່​ສຳ​ເລັດ. ກະ​ລຸ​ນາ​ລອງ​ໃໝ່​ອີກ​ຄັ້ງ!</string>
     <string name="enterRecipientName">​ປ້ອນ​ຊື່​ຜູ້​ຮັບ</string>
     <string name="pleaseEnterTheAmount">ກະ​ລຸ​ນາ ປ້ອນ​ຈຳ​ນວນ​ເງິນ</string>
+    <string name="flexibleSaving">ເງິນ​ຝາກ​ແບບ​ພິ​ເສດ</string>
+    <string name="staffLoans">​ບັນ​ຊີ​ເງິນກ​ູ້​ພະ​ນັກ​ງານ</string>
+    <string name="today">ມື້ນີ້</string>
+    <string name="yesterday">ມື້​ວານນີ້</string>
+    <string name="from">​ຈາກ</string>
+    <string name="toDate">ຮອດ</string>
+    <string name="noTransactionHistory">ບໍ່​ມີ​ປະ​ຫວັດ​ການ​ເຮັດ​ທຸ​ລະ​ກຳ</string>
+    <string name="noAccountAvailable">ບໍ່​ມີ​ບັນ​ຊີ​ສາ​ມາດ​ໃຊ້​ໄດ້</string>
+    <string name="confirmation">ຢືນ​ຢັນ</string>
+    <string name="accountName">ຊື່​ບັນ​ຊີ</string>
+    <string name="enterCode">ປ້ອນລະ​ຫັດ</string>
+    <string name="remainingTime">​ເວ​ລາ​ຍັງ​ເຫຼືອ</string>
+    <string name="second">ວິ​ນາ​ທີ</string>
+    <string name="to">ຮອດ</string>
+    <string name="SHBAccount">ເລກ​ບັນ​ຊີ SHB</string>
+    <string name="transferAccountAndReceivingAccountNotSame">ບັນ​ຊີ​ໂອນ ແລະ ບັນ​ຊີ​ຮັບ​ ສະ​ກຸນ​ເງິນ​ຕ່າງ​ກັນ</string>
+    <string name="pleaseEnterTheAccountNumber">​ກະ​ລຸ​ນາ​ປ່ອນ​ເລກ​ບັນ​ຊີ​</string>
+    <string name="pleaseEnterTheRemarks">ກະ​ລຸ​ນາ​ປ່ອນເນື້ອ​ໃນ</string>
+    <string name="enterRemarks">​ປ່ອນເນື້ອ​ໃນ</string>
+    <string name="transactionSuccess">ສຳເລັດການຊຳລະ !</string>
 </resources>

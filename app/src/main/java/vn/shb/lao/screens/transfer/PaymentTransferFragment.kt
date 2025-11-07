@@ -79,16 +79,18 @@ class PaymentTransferFragment :
 
     private fun setupView(trans: TransactionDetail) {
         with(binding) {
+            tvTransactionAmount.text = getString(R.string.transactionSuccess)
+            tvTransactionAmount.setTextColor(getColor(R.color.colorSuccess))
             tvValueBalance.text = trans.amount.getBalance()
             tvCurrentCode.text = trans.currency
-            val fromAccount = trans.ordAccType.plus(Const.SEPARATOR_SPACE).plus(trans.ordAccount)
+            val fromAccount = trans.ordAccType.plus(Const.SEPARATOR_DASH).plus(trans.ordAccount)
             iclFromAccount.bindView(
                 getString(R.string.fromAccount),
                 fromAccount
             )
             iclToAccount.bindView(
                 getString(R.string.toAccount),
-                trans.benAccType.plus(Const.SEPARATOR_SPACE).plus(trans.benAccount)
+                trans.benAccType.plus(Const.SEPARATOR_DASH).plus(trans.benAccount)
             )
             iclRemarks.bindView(
                 getString(R.string.remarks),
@@ -106,7 +108,7 @@ class PaymentTransferFragment :
                 iclAccountName.root.visible()
                 iclAccountName.bindView(
                     getString(R.string.accountName),
-                    "đợi api trả về"
+                    trans.accountName
                 )
             } else {
                 iclAccountName.root.gone()

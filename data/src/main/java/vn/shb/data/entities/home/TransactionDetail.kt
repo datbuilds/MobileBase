@@ -12,5 +12,6 @@ data class TransactionDetail(
     @SerializedName("transDate") val transDate: String = "",
     @SerializedName("amount") val amount: Double = 0.0,
     @SerializedName("remarks") val remarks: String = "",
-    @SerializedName("currency") val currency: String = ""
+    @SerializedName("currency") val currency: String = "",
+    @SerializedName("accountName") val accountName: String = ""
 ) : Serializable

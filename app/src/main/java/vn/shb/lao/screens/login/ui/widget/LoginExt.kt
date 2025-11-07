@@ -106,6 +106,15 @@ fun LoginFragment.showLanguagePopup(anchor: View) {
 
     binding.apply {
         iclLanguage1.apply {
+            ivLogo.setImageResource(R.drawable.ic_logo_lao)
+            tvNameLanguage.text = getString(R.string.lao)
+            root.setDisableAlpha(currentLanguage == LAO)
+            root.setOnSingleClickListener {
+                updateLanguage(LAO)
+                popupWindow.dismiss()
+            }
+        }
+        iclLanguage2.apply {
             ivLogo.setImageResource(R.drawable.ic_logo_uk)
             tvNameLanguage.text = getString(R.string.english)
             root.setDisableAlpha(currentLanguage == ENGLISH)
@@ -115,22 +124,12 @@ fun LoginFragment.showLanguagePopup(anchor: View) {
             }
         }
 
-        iclLanguage2.apply {
+        iclLanguage3.apply {
             ivLogo.setImageResource(R.drawable.ic_logo_vn)
             tvNameLanguage.text = getString(R.string.vietnamese)
             root.setDisableAlpha(currentLanguage == VIET)
             root.setOnSingleClickListener {
                 updateLanguage(VIET)
-                popupWindow.dismiss()
-            }
-        }
-
-        iclLanguage3.apply {
-            ivLogo.setImageResource(R.drawable.ic_logo_lao)
-            tvNameLanguage.text = getString(R.string.lao)
-            root.setDisableAlpha(currentLanguage == LAO)
-            root.setOnSingleClickListener {
-                updateLanguage(LAO)
                 popupWindow.dismiss()
             }
         }

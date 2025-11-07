@@ -1,5 +1,6 @@
 package vn.shb.lao.screens.transfer
 
+import android.text.InputFilter
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
@@ -87,14 +88,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 
                 launch {
                     stateErrorFillAccountNumber.collect {
-                        binding.iclToAccount.tvError.apply {
-                            text = getString(R.string.invalidBeneficiaryAccount)
-                            visible()
-                        }
-                        binding.iclAccountName.apply {
-                            root.gone()
-                            edtValue.setText("")
-                        }
+                        errorAccountNumber(getString(R.string.invalidBeneficiaryAccount))
                     }
                 }
 
@@ -108,6 +102,17 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                     }
                 }
             }
+        }
+    }
+
+    private fun errorAccountNumber(value: String) {
+        binding.iclToAccount.tvError.apply {
+            text = value
+            visible()
+        }
+        binding.iclAccountName.apply {
+            root.gone()
+            edtValue.setText("")
         }
     }
 
@@ -135,7 +140,20 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             }
 
             finishTyping(iclToAccount.edtValue, isIntrabank()) {
-                homeViewModel.getAccountByNumber(iclToAccount.edtValue.text.toString())
+                val textAccountNo = iclToAccount.edtValue.text.toString()
+                when {
+                    textAccountNo.isEmpty() -> {
+                        errorAccountNumber(getString(R.string.pleaseEnterTheAccountNumber))
+                    }
+
+                    textAccountNo == fromAccount?.accountNumber -> {
+                        errorAccountNumber(getString(R.string.invalidBeneficiaryAccount))
+                    }
+
+                    else -> {
+                        homeViewModel.getAccountByNumber(iclToAccount.edtValue.text.toString())
+                    }
+                }
             }
 
             iclToAccount.ivExpandDown.setOnSingleClickListener {
@@ -279,12 +297,13 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 ivExpandDown.gone()
                 viewLine.gone()
                 tvCurrentCode.gone()
-                tvError.text = getString(R.string.invalidRemarks)
+                tvError.text = getString(R.string.pleaseEnterTheRemarks)
                 bindColor(R.color.neutral8)
                 edtValue.setInputEditText(false)
+                edtValue.hint = getString(R.string.enterRemarks)
                 finishTyping(iclRemarks.edtValue, true) {
                     val text = iclRemarks.edtValue.text.toString()
-                    edtValue.setText(removeVietnameseAccents(text))
+                    edtValue.setText(text.cleanVietnameseText())
                 }
             }
         }
@@ -398,6 +417,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                     isClickable = !isIntrabank()
                     isLongClickable = isIntrabank()
                 }
+
+                edtValue.filters = arrayOf(InputFilter.LengthFilter(if (isIntrabank()) 10 else 1000000))
             }
             iclAmount.edtValue.setText(Const.EMPTY)
             iclFee.root.gone()

@@ -33,6 +33,8 @@ abstract class SafeExecute() {
 
         const val HTTP_NOT_FOUND = "404"
         const val AUTH_006 = "AUTH-006"
+        const val AUTH_001 = "AUTH-001"
+        const val AUTH_002 = "AUTH-002"
     }
 
     protected suspend fun <T : Any> execute(call: suspend () -> Response<T>): ResultSHB<T> {
