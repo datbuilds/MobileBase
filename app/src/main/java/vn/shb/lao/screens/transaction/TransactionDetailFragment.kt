@@ -1,55 +1,75 @@
 package vn.shb.lao.screens.transaction
 
-import android.os.Bundle
 import android.view.View
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionDetail
 import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.getBalance
+import vn.shb.data.entities.home.TransactionDetail
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.ChildViewTransactionInfoBinding
 import vn.shb.lao.databinding.FragmentTransactionDetailBinding
-
 import vn.shb.lao.utils.ApiConst
+import vn.shb.lao.utils.extensions.DateTimeHelper
 import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.gone
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
+import vn.shb.lao.utils.extensions.visible
 
 class TransactionDetailFragment :
     BaseFragmentBinding<FragmentTransactionDetailBinding>(FragmentTransactionDetailBinding::inflate) {
 
+        private var prefixAmount = ""
+
     override fun initView(view: View) {
-        setupView()
+        val trans = homeViewModel.currentTransaction ?: return
+        homeViewModel.getTransactionDetail(
+            UseCaseTransactionDetail.Params(
+                trans.referenceNumber, homeViewModel.selectedAccount?.accountNumber ?: "",
+                if (trans.debitAmount > 0) ApiConst.D_TRANSFER_MONEY else ApiConst.C_RECEIVE_MONEY
+            )
+        )
+        prefixAmount = if (trans.debitAmount > 0) Const.TRU else Const.CONG
     }
 
-    private fun setupView() {
-        val trans = homeViewModel.currentTransaction ?: return
+    private fun setupView(trans: TransactionDetail) {
         with(binding) {
-            binding.tvValueBalance.text = trans.amountFormatted
-            tvCurrentCode.text = trans.currencyCode
-            val fromAccount = (homeViewModel.selectedAccount?.positionDescription
-                ?: "") + Const.SEPARATOR_DASH + homeViewModel.selectedAccount?.accountNumber
+            tvTransactionAmount.text = getString(R.string.transactionAmount)
+            tvTransactionAmount.setTextColor(getColor(R.color.colorSuccess))
+            tvValueBalance.text = prefixAmount.plus(trans.amount.getBalance())
+            tvCurrentCode.text = trans.currency
+            val fromAccount = trans.ordAccType.plus(Const.SEPARATOR_DASH).plus(trans.ordAccount)
             iclFromAccount.bindView(
                 getString(R.string.fromAccount),
                 fromAccount
             )
             iclToAccount.bindView(
                 getString(R.string.toAccount),
-                trans.transactionDescription
+                trans.benAccType.plus(Const.SEPARATOR_DASH).plus(trans.benAccount)
             )
-            iclAccountName.root.gone()
             iclRemarks.bindView(
                 getString(R.string.remarks),
-                trans.transactionDescription
+                trans.remarks
             )
             iclTransactionDate.bindView(
                 getString(R.string.transactionDate),
-                trans.transactionDateFormatted
+                DateTimeHelper.toDisplayDate(trans.transDate)
             )
             iclReferenceNumber.bindView(
                 getString(R.string.referenceNumber),
-                trans.referenceNumber
+                trans.refNo
             )
+            if (!trans.accountName.isBlank()) {
+                iclAccountName.root.visible()
+                iclAccountName.bindView(
+                    getString(R.string.accountName),
+                    trans.accountName
+                )
+            } else {
+                iclAccountName.root.gone()
+            }
         }
     }
 
@@ -62,7 +82,11 @@ class TransactionDetailFragment :
     override fun initObserve() {
         with(homeViewModel) {
             launchRepeatOnLifecycle {
-
+                launch {
+                    stateTransactionDetail.collectLatest {
+                        it?.let { trans -> setupView(trans) }
+                    }
+                }
             }
         }
     }

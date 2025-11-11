@@ -42,22 +42,33 @@
         android:text="@string/transactionFailedDueToExceeding"
         android:visibility="gone" />
 
-    <vn.shb.lao.base.view.MyEditText
-        android:id="@+id/edtEnterCode"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputPasswordLayout"
+        style="@style/AppTextInputLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_16dp"
         android:layout_marginTop="@dimen/margin_10dp"
+        android:layout_weight="1"
         android:background="@drawable/bg_enter_code"
-        android:hint="@string/enterCode"
-        android:imeOptions="actionDone"
-        android:maxLines="1"
-        android:lines="1"
-        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        android:paddingHorizontal="@dimen/margin_12dp"
-        android:paddingVertical="@dimen/margin_13dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/neutral6" />
+        android:paddingVertical="@dimen/margin_12dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtEnterCode"
+            style="@style/AppTextInputEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+            android:hint="@string/enterCode"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="textVisiblePassword"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textColorHint="@color/neutral6" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvRemainingTime"
@@ -73,7 +84,8 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_16dp"
         android:layout_marginTop="@dimen/margin_8dp"
-        android:alpha="0.5"
         android:layout_weight="5"
+        android:alpha="0.5"
+        android:enabled="false"
         android:text="@string/confirm" />
 </androidx.appcompat.widget.LinearLayoutCompat>

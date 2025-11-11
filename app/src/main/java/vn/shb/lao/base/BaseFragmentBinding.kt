@@ -99,8 +99,8 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
             ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
                 val statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars())
                 v.updatePadding(
-                    top = statusBarHeight.top + 10,
-                    bottom = statusBarHeight.bottom + 100
+                    top = statusBarHeight.top + 40,
+                    bottom = statusBarHeight.bottom + 40
                 )
                 insets
             }

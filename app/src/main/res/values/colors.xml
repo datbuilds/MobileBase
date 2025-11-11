@@ -136,4 +136,5 @@
     <color name="color_line_account">#E8E8E7</color>
     <color name="neutral3">#F5F5F5</color>
     <color name="color_error_code">#8A8881</color>
+    <color name="color_bg_dialog">#20FFFFFF</color>
 </resources>

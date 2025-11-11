@@ -49,32 +49,8 @@ fun Fragment.hideSoftKeyboard(flag: Int = 0) {
 }
 
 fun Fragment.setStatusBarAndNavigationBarColor(color: Int) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        this.requireActivity().window.statusBarColor = requireContext().getColor(color)
-        this.requireActivity().window.navigationBarColor = requireContext().getColor(color)
-    }
-}
-
-fun Fragment.setupActionBarWithNavController(toolbar: MaterialToolbar) {
-
-//     Định nghĩa margin (sử dụng dp)
-//    val marginInDp = 24
-//    val marginInPx = TypedValue.applyDimension(
-//        TypedValue.COMPLEX_UNIT_DIP, marginInDp.toFloat(),
-//        resources.displayMetrics
-//    ).toInt()
-//    // Lấy LayoutParams hiện tại
-//    val layoutParams = toolbar.layoutParams as ViewGroup.MarginLayoutParams
-//    layoutParams.setMargins(0, marginInPx, 0, 0)
-//    // Gán lại LayoutParams vào Toolbar
-//    toolbar.layoutParams = layoutParams
-
-    val activity = requireActivity() as AppCompatActivity
-    val navController = findNavController()
-
-    activity.setSupportActionBar(toolbar)
-    activity.supportActionBar?.setDisplayShowTitleEnabled(false)
-    NavigationUI.setupActionBarWithNavController(activity, navController)
+    this.requireActivity().window.statusBarColor = requireContext().getColor(color)
+    this.requireActivity().window.navigationBarColor = requireContext().getColor(color)
 }
 
 fun AppCompatActivity.setupActionBarWithNavController(toolbar: MaterialToolbar) {

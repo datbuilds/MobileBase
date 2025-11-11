@@ -101,8 +101,15 @@ class HomeViewModel(
     private val _stateTransactionTransferConfirm = MutableSharedFlow<TransactionTransferConfirm?>()
     val stateTransactionTransferConfirm = _stateTransactionTransferConfirm.asSharedFlow()
 
+    private val _stateTransferConfirmError = Channel<Reason>(Channel.BUFFERED)
+    val stateTransferConfirmError = _stateTransferConfirmError.receiveAsFlow()
+
     private val _stateTransactionDetail = MutableStateFlow<TransactionDetail?>(null)
     val stateTransactionDetail = _stateTransactionDetail.asStateFlow()
+
+
+    private val _stateDetailError = Channel<Reason>(Channel.BUFFERED)
+    val stateDetailError = _stateDetailError.receiveAsFlow()
 
     private val _stateAccountByNumber = MutableSharedFlow<AccountUserNameModel?>()
     val stateAccountByNumber = _stateAccountByNumber.asSharedFlow()
@@ -121,6 +128,8 @@ class HomeViewModel(
     var listReceiverActive = listOf<TransferAccount>()
 
     var confirmModel: ConfirmationModel? = null
+
+    private var listErrorCodeConfirmContinue = listOf(ApiConst.FUN_017, ApiConst.FUN_016)
 
     suspend fun stateError(reason: Reason) {
         _stateError.send(reason)
@@ -401,7 +410,11 @@ class HomeViewModel(
                         }
                     }, { reason ->
                         viewModelScope.launch {
-                            stateError(reason)
+                            if (listErrorCodeConfirmContinue.contains(reason.errorCode)){
+                                stateError(reason)
+                            } else {
+                                _stateTransferConfirmError.send(reason)
+                            }
                         }
                     }
                 )
@@ -448,7 +461,7 @@ class HomeViewModel(
                     _stateTransactionDetail.value = trans
                 }
                 result.onFailure { error ->
-                    stateError(error)
+                    _stateDetailError.send(error)
                 }
                 result.onLoading { }
             }

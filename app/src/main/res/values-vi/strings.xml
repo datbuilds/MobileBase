@@ -57,7 +57,7 @@
     <string name="fromAccount">Từ tài khoản</string>
     <string name="remarks">Nội dung</string>
     <string name="transactionDate">Ngày giao dịch</string>
-    <string name="referenceNumber">Mã tham chiếu</string>
+    <string name="referenceNumber">Số tham chiếu</string>
     <string name="moneyTransfer">Chuyển tiền</string>
     <string name="intrabankTransfer">Chuyển khoản nội bộ</string>
     <string name="ownAccountTransfer">Chuyển giữa tài khoản</string>
@@ -119,7 +119,7 @@
     <string name="from">Từ ngày</string>
     <string name="noAccountAvailable">Không có tài khoản khả dụng</string>
     <string name="confirmation">"Xác nhận "</string>
-    <string name="accountName">Tên tài khoản</string>
+    <string name="accountName">Tên người nhận</string>
     <string name="enterCode">Nhập mã</string>
     <string name="remainingTime">Thời gian còn lại</string>
     <string name="second">giây</string>

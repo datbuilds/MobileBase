@@ -1,6 +1,5 @@
 package vn.shb.lao.screens.transfer
 
-import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import kotlinx.coroutines.flow.collectLatest
@@ -22,7 +21,9 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
     FragmentConfirmationBinding::inflate
 ) {
 
-    private val isIntrabank by lazy { arguments?.getBoolean(ApiConst.KEY_TYPE_TRANSFER_INTRABANK) ?: false }
+    private val isIntrabank by lazy {
+        arguments?.getBoolean(ApiConst.KEY_TYPE_TRANSFER_INTRABANK) ?: false
+    }
 
     override fun isPaddingBottom(): Boolean {
         return true
@@ -35,7 +36,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
 
     private fun bindViewDefault() {
         with(binding) {
-            if (isIntrabank){
+            if (isIntrabank) {
                 iclTo.root.visible()
                 iclTo.tvLabel.text = getString(R.string.to)
                 iclTo.tvValue.text = getString(R.string.SHBAccount)
@@ -78,7 +79,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                     tvValue.text = cf.totalAmount.getBalance()
                     tvCurrencyCode.text = currencyCode
                 }
-                if (isIntrabank){
+                if (isIntrabank) {
                     iclAccountName.tvValue.text = cf.toAccount.customerName
                 }
             }
@@ -101,8 +102,16 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                                         ApiConst.KEY_TYPE_TRANSFER_INTRABANK to isIntrabank
                                     )
                             )
-                            homeViewModel.clearSessionTransaction()
                         }
+                    }
+                }
+
+                launch {
+                    stateTransferConfirmError.collectLatest {
+                        safeNavigate(
+                            R.id.confirmationFragment, R.id.paymentTransferFragment,
+                            bundle = bundleOf(ApiConst.KEY_CONFIRM_ERROR to true)
+                        )
                     }
                 }
 
@@ -112,29 +121,20 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                             homeViewModel.confirmTransactionTransfer(Const.EMPTY)
                         } else {
                             if (it?.paymentType.equals(ApiConst.INTRA)) {
+                                binding.flBru.visible()
                                 ConfirmCodeBottomSheetDialogFragment(
                                     authSms = it?.authSms ?: "",
                                     actionConfirmCode = { code ->
                                         homeViewModel.confirmTransactionTransfer(code)
                                     },
                                     actionDismiss = {
-                                        context?.let { ct ->
-                                            BottomSheetDialogHelper(ct).message(
-                                                title = getString(R.string.notification),
-                                                message = getString(R.string.authenticationFailed),
-                                                textPositive = getString(R.string.close),
-                                                positiveAction = {
-                                                }
-                                            )
-                                        }
+                                       binding.flBru.gone()
                                     }
                                 ).show(parentFragmentManager, "ConfirmCodeBottomSheetDialog")
                             }
                         }
                     }
                 }
-
-
             }
         }
     }

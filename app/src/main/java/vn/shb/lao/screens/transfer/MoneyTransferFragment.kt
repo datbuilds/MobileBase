@@ -42,9 +42,10 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         const val OWN_ACCOUNT = "OWN_ACCOUNT"
     }
 
-    override fun onStart() {
-        super.onStart()
-//        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        toAccount = null
+        totalAmount = 0.0
     }
 
     override fun isPaddingBottom(): Boolean {
@@ -59,6 +60,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 
     override fun onResume() {
         super.onResume()
+        onChangeTypeTransfer(INTRABANK)
         homeViewModel.getTransferAccount()
     }
 

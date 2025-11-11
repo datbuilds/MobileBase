@@ -7,7 +7,7 @@
     android:background="@drawable/bg_transaction_detail"
     android:orientation="vertical"
     android:paddingHorizontal="20dp"
-    android:paddingTop="16dp">
+    android:paddingTop="@dimen/margin_30dp">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -141,7 +141,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginVertical="@dimen/margin_24dp"
+            android:layout_marginVertical="@dimen/margin_16dp"
             android:background="@drawable/bg_account_info_transfer"
             android:gravity="center"
             android:paddingVertical="@dimen/margin_10dp"

@@ -1,9 +1,9 @@
 package vn.shb.lao.screens.transfer.dialog
 
+import android.app.Dialog
 import android.content.DialogInterface
 import android.graphics.Typeface
 import android.os.Bundle
-import android.text.InputType
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.StyleSpan
@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import androidx.core.widget.doAfterTextChanged
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.lao.R
@@ -20,6 +21,7 @@ import vn.shb.lao.base.view.MyTextView
 import vn.shb.lao.databinding.ConfirmCodeFragmentBinding
 import vn.shb.lao.utils.extensions.CustomCountdownTimer
 import vn.shb.lao.utils.extensions.common.Const
+import vn.shb.lao.utils.extensions.hideSoftKeyboard
 
 class ConfirmCodeBottomSheetDialogFragment(
     private val authSms: String,
@@ -29,6 +31,13 @@ class ConfirmCodeBottomSheetDialogFragment(
 
     private var _binding: ConfirmCodeFragmentBinding? = null
     private val binding get() = _binding!!
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setCancelable(false)
+        return dialog
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,15 +57,21 @@ class ConfirmCodeBottomSheetDialogFragment(
             ivCloseDialog.setOnSingleClickListener {
                 dismiss()
             }
-//
-//            edtEnterCode.apply {
-//                imeOptions = EditorInfo.IME_ACTION_DONE or EditorInfo.IME_FLAG_NO_EXTRACT_UI
-//            }
 
             edtEnterCode.doAfterTextChanged {
                 val enable = !it.toString().isBlank()
                 tvConfirm.isEnabled = enable
                 tvConfirm.alpha = if (enable) 1f else 0.5f
+            }
+
+            edtEnterCode.setOnEditorActionListener { v, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    v.clearFocus()
+                    hideSoftKeyboard()
+                    true
+                } else {
+                    false
+                }
             }
 
             tvConfirm.setOnSingleClickListener {
@@ -65,8 +80,7 @@ class ConfirmCodeBottomSheetDialogFragment(
             }
 
             tvRemainingTime.countdownConfirmCode {
-                if (dialog?.isShowing == true){
-                    actionDismiss.invoke()
+                if (dialog?.isShowing == true) {
                     dismiss()
                 }
             }
@@ -114,6 +128,7 @@ class ConfirmCodeBottomSheetDialogFragment(
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
+        actionDismiss.invoke()
     }
 
     override fun onDestroyView() {

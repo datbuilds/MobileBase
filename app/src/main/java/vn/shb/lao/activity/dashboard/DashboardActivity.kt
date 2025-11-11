@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.lao.base.BaseActivity
 import vn.shb.lao.databinding.ActivityDashboardBinding
 import vn.shb.lao.screens.home.HomeViewModel
@@ -67,7 +68,7 @@ class DashboardActivity :
     }
 
     override fun initView() {
-
+        binding.flProcessBar.setOnSingleClickListener {  }
     }
 
     override fun initListener() {

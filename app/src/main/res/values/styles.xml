@@ -76,6 +76,19 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
+    <style name="BottomSheetDialogFragmentSlideAnimation" parent="Theme.Design.Light.BottomSheetDialog">
+        <!-- Giữ lại dim background -->
+<!--        <item name="android:windowIsTranslucent">true</item>-->
+<!--        <item name="dim">0.5</item>-->
+
+        <!-- Animation -->
+        <item name="android:windowEnterAnimation">@anim/slide_in_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_down</item>
+
+        <!-- Background trong suốt -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
     <style name="SplashTheme" parent="AppTheme">
         <item name="android:windowBackground">@color/white</item>
     </style>

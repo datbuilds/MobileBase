@@ -13,4 +13,7 @@ object Const {
     const val CURRENT_ACCOUNT = "001"
     const val SAVING_ACCOUNT = "002"
     const val LOAN_ACCOUNT = "003"
+
+    const val CONG = "+"
+    const val TRU = "-"
 }

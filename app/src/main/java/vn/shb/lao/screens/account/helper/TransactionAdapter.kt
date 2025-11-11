@@ -5,10 +5,12 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.getBalance
 import vn.shb.data.entities.home.TransactionItem
 import vn.shb.lao.R
 import vn.shb.lao.databinding.ItemHeaderBinding
 import vn.shb.lao.databinding.ItemTransactionBinding
+import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.common.Const.SEPARATOR_SPACE
 
 class TransactionAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -79,7 +81,12 @@ class TransactionAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
                 val isIncome = !item.amountFormatted.startsWith("-")
 
-                val amountText = item.amountFormatted + SEPARATOR_SPACE + item.currencyCode
+                val amountValue =
+                    if (isIncome) Const.CONG.plus(item.creditAmount.getBalance()) else Const.TRU.plus(
+                        item.debitAmount.getBalance()
+                    )
+
+                val amountText = amountValue + SEPARATOR_SPACE + item.currencyCode
                 tvAmount.text = amountText
 
                 tvAmount.setTextColor(

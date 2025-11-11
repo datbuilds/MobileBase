@@ -37,13 +37,17 @@ class PaymentTransferFragment :
         arguments?.getBoolean(ApiConst.KEY_TYPE_TRANSFER_INTRABANK) == true
     }
 
+    private val isConfirmError by lazy {
+        arguments?.getBoolean(ApiConst.KEY_CONFIRM_ERROR) == true
+    }
+
     override fun initView(view: View) {
         bindViewPayment()
-        if (newReferenceNumber != null && accountNo != null && statusPayment) {
+        if (newReferenceNumber != null && accountNo != null && statusPayment && !isConfirmError) {
             homeViewModel.getTransactionDetail(
                 UseCaseTransactionDetail.Params(
                     newReferenceNumber!!, accountNo!!,
-                    ApiConst.D_CONFIRM
+                    ApiConst.D_TRANSFER_MONEY
                 )
             )
         } else {
@@ -133,6 +137,12 @@ class PaymentTransferFragment :
                 launch {
                     stateTransactionDetail.collectLatest {
                         it?.let { trans -> setupView(trans) }
+                    }
+                }
+
+                launch {
+                    stateDetailError.collectLatest {
+                        bindViewFailed()
                     }
                 }
             }
