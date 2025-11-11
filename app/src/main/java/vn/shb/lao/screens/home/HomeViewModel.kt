@@ -104,8 +104,8 @@ class HomeViewModel(
     private val _stateTransferConfirmError = Channel<Reason>(Channel.BUFFERED)
     val stateTransferConfirmError = _stateTransferConfirmError.receiveAsFlow()
 
-    private val _stateTransactionDetail = MutableStateFlow<TransactionDetail?>(null)
-    val stateTransactionDetail = _stateTransactionDetail.asStateFlow()
+    private val _stateTransactionDetail = Channel<TransactionDetail?>(Channel.BUFFERED)
+    val stateTransactionDetail = _stateTransactionDetail.receiveAsFlow()
 
 
     private val _stateDetailError = Channel<Reason>(Channel.BUFFERED)
@@ -458,7 +458,7 @@ class HomeViewModel(
         viewModelScope.launch {
             useCaseTransactionDetail.invoke(params).collect { result ->
                 result.onSuccess { trans ->
-                    _stateTransactionDetail.value = trans
+                    _stateTransactionDetail.send(trans)
                 }
                 result.onFailure { error ->
                     _stateDetailError.send(error)

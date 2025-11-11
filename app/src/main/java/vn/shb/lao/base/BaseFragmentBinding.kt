@@ -263,12 +263,12 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         )
     }
 
-    private fun handleErrorHome(error: Reason?) {
+    protected fun handleErrorHome(error: Reason?, onAction: (() -> Unit)? = null) {
         if (error != null) {
             if (listErrorLogout.contains(error.errorCode)) {
                 logout(error)
             } else {
-                showDialogError(error)
+                showDialogError(error, onAction)
             }
         }
     }

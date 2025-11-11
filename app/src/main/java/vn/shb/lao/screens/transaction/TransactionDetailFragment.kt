@@ -21,9 +21,11 @@ import vn.shb.lao.utils.extensions.visible
 class TransactionDetailFragment :
     BaseFragmentBinding<FragmentTransactionDetailBinding>(FragmentTransactionDetailBinding::inflate) {
 
-        private var prefixAmount = ""
+    private var prefixAmount = ""
 
     override fun initView(view: View) {
+        binding.ivStatus.gone()
+        binding.tvTransactionAmount.gone()
         val trans = homeViewModel.currentTransaction ?: return
         homeViewModel.getTransactionDetail(
             UseCaseTransactionDetail.Params(
@@ -36,6 +38,8 @@ class TransactionDetailFragment :
 
     private fun setupView(trans: TransactionDetail) {
         with(binding) {
+            ivStatus.visible()
+            tvTransactionAmount.visible()
             tvTransactionAmount.text = getString(R.string.transactionAmount)
             tvTransactionAmount.setTextColor(getColor(R.color.colorSuccess))
             tvValueBalance.text = prefixAmount.plus(trans.amount.getBalance())
@@ -87,16 +91,29 @@ class TransactionDetailFragment :
                         it?.let { trans -> setupView(trans) }
                     }
                 }
+                launch {
+                    stateDetailError.collectLatest {
+                        binding.ivStatus.gone()
+                        binding.tvTransactionAmount.gone()
+                        handleErrorHome(it) {
+                            backPress()
+                        }
+                    }
+                }
             }
         }
     }
 
     private fun ChildViewTransactionInfoBinding.bindView(
-        title: String,
-        des: String
+        title: String?,
+        des: String?
     ) {
-        tvLabel.text = title
-        tvValue.text = des
+        if (title != null) {
+            tvLabel.text = title
+        }
+        if (des != null) {
+            tvValue.text = des
+        }
     }
 
 }
