@@ -187,12 +187,6 @@ class HomeViewModel(
         return listOf(
             R.drawable.banner_1,
             R.drawable.banner_2,
-            R.drawable.banner_3,
-            R.drawable.banner_1,
-            R.drawable.banner_2,
-            R.drawable.banner_3,
-            R.drawable.banner_1,
-            R.drawable.banner_2,
             R.drawable.banner_3
         )
     }

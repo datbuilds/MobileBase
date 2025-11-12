@@ -7,7 +7,6 @@ import android.graphics.Canvas
 import android.os.Build
 import android.util.DisplayMetrics
 import android.view.View
-import android.view.WindowManager
 
 object ScreenUtils {
 
@@ -30,6 +29,12 @@ object ScreenUtils {
             return displayMetrics.heightPixels
         }
 
+    }
+
+    fun getScreenWidth(activity: Activity): Int {
+        val displayMetrics = DisplayMetrics()
+        activity.windowManager.defaultDisplay.getMetrics(displayMetrics)
+        return displayMetrics.widthPixels
     }
 
 

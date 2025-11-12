@@ -10,10 +10,17 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.PopupWindow
 import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 import androidx.viewpager2.widget.ViewPager2
+import com.example.imagecrouse.databinding.ItemCustomFixedSizeLayout1Binding
+import com.example.imagecrouse.ui.whynotimagecarousel.listener.CarouselListener
+import com.example.imagecrouse.ui.whynotimagecarousel.listener.CarouselOnScrollListener
+import com.example.imagecrouse.ui.whynotimagecarousel.model.CarouselItem
+import com.example.imagecrouse.ui.whynotimagecarousel.utils.setImage
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -33,14 +40,13 @@ import vn.shb.lao.screens.home.widget.OnClickDetail
 import vn.shb.lao.screens.login.ui.widget.setDisableAlpha
 import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
+import vn.shb.lao.utils.view.dialog.ScreenUtils
+import vn.shb.lao.utils.view.setWidth
 import vn.shb.lao.utils.widgets.LocaleHelper
 
 class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
     private lateinit var adapter: LoopingAdapter
-    private val handler = Handler(Looper.getMainLooper())
-    private lateinit var autoRunnable: Runnable
-    private lateinit var pageCallback: ViewPager2.OnPageChangeCallback
 
     private var isShowValueBalance = false
     private var textGoneValue = "********"
@@ -51,85 +57,57 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
 
     override fun initView(view: View) {
         bindView()
-        bindBannerView()
+        setup()
+    }
+
+    private fun setup() {
+        binding.carousel3.registerLifecycle(lifecycle)
+
+        // Custom view
+        binding.carousel3.carouselListener =
+            object : CarouselListener {
+                override fun onCreateViewHolder(
+                    layoutInflater: LayoutInflater,
+                    parent: ViewGroup,
+                ): ViewBinding = ItemCustomFixedSizeLayout1Binding.inflate(layoutInflater, parent, false)
+
+                override fun onBindViewHolder(
+                    binding: ViewBinding,
+                    item: CarouselItem,
+                    position: Int,
+                ) {
+                    val currentBinding = binding as ItemCustomFixedSizeLayout1Binding
+                    currentBinding.root.setWidth((ScreenUtils.getScreenWidth(requireActivity())*0.7).toInt())
+                    currentBinding.imageView.apply {
+                        scaleType = ImageView.ScaleType.CENTER_CROP
+
+                        // carousel_default_placeholder is the default placeholder comes with
+                        // the library.
+                        setImage(item, R.drawable.bg_place_holder)
+                    }
+                }
+            }
+
+        val listThree = mutableListOf<CarouselItem>()
+
+        for (item in homeViewModel.getListBanner()) {
+            listThree.add(
+                CarouselItem(
+                    imageDrawable = item
+                ),
+            )
+        }
+
+        binding.carousel3.setData(listThree)
     }
 
     private fun getDataUser() {
         homeViewModel.getUserInfo()
     }
 
-    private fun bindBannerView() {
-        val images = homeViewModel.getListBanner()
-        adapter = LoopingAdapter(images)
-        binding.viewPager.adapter = adapter
-
-        // --- cho phép xem 1 phần ảnh sau ---
-        val pageMargin = resources.getDimensionPixelOffset(R.dimen.pageMargin)
-        val pageOffset = resources.getDimensionPixelOffset(R.dimen.pageOffset)
-
-        binding.viewPager.offscreenPageLimit = 3
-
-        // allow children to draw outside
-        val recyclerView = binding.viewPager.getChildAt(0) as RecyclerView
-        recyclerView.clipToPadding = false
-        recyclerView.clipChildren = false
-        binding.viewPager.clipToPadding = false
-        binding.viewPager.clipChildren = false
-
-        // padding để lộ phần ảnh kế
-        binding.viewPager.setPadding(pageOffset, 0, pageOffset, 0)
-
-        // transformer để tạo khoảng cách / hiệu ứng
-        binding.viewPager.setPageTransformer { page, position ->
-            val offset = position * -(2 * pageOffset + pageMargin)
-            page.translationX = offset
-        }
-
-        // Bắt đầu ở khối giữa (đảm bảo có trống trước/sau)
-        val start = adapter.getMiddlePosition()
-        binding.viewPager.setCurrentItem(start, false)
-
-        // --- Đăng ký callback: khi vào khối đầu/cuối thì nhảy vào khối giữa (no animation) ---
-        pageCallback = object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                val real = adapter.getRealCount()
-                // nếu đi tới khối sau cùng -> nhảy về tương ứng trong khối giữa
-                if (position >= real * 2) {
-                    val newPos = position - real
-                    binding.viewPager.setCurrentItem(newPos, false)
-                } else if (position < real) {
-                    // nếu đi tới khối trước cùng -> nhảy về tương ứng trong khối giữa
-                    val newPos = position + real
-                    binding.viewPager.setCurrentItem(newPos, false)
-                }
-            }
-        }
-        binding.viewPager.registerOnPageChangeCallback(pageCallback)
-
-        // --- Auto-scroll ---
-        autoRunnable = object : Runnable {
-            override fun run() {
-                // next item, callback trên sẽ tự điều chỉnh nếu cần
-                val next = binding.viewPager.currentItem + 1
-                binding.viewPager.setCurrentItem(next, true)
-                handler.postDelayed(this, AUTO_SCROLL_BANNER_DELAY)
-            }
-        }
-        handler.postDelayed(autoRunnable, AUTO_SCROLL_BANNER_DELAY)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        handler.removeCallbacks(autoRunnable)
-        binding.viewPager.unregisterOnPageChangeCallback(pageCallback)
-    }
-
     override fun onResume() {
         super.onResume()
         getDataUser()
-        handler.postDelayed(autoRunnable, AUTO_SCROLL_BANNER_DELAY)
-        binding.viewPager.registerOnPageChangeCallback(pageCallback)
     }
 
 

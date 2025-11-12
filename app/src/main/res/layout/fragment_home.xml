@@ -208,15 +208,23 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
+    <com.example.imagecrouse.ui.whynotimagecarousel.ImageCarousel
+        android:id="@+id/carousel3"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/margin_24dp"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:overScrollMode="never"
-        app:layout_constraintHeight_percent="0.2"
-        app:layout_constraintTop_toBottomOf="@+id/llMainAccount" />
+        android:layout_height="150dp"
+        android:layout_marginTop="24dp"
+        android:translationZ="8dp"
+        app:autoPlay="true"
+        app:autoPlayDelay="3000"
+        app:carouselGravity="CENTER"
+        app:carouselType="SHOWCASE"
+        app:imageScaleType="centerCrop"
+        app:layout_constraintTop_toBottomOf="@+id/llMainAccount"
+        app:showBottomShadow="false"
+        app:showCaption="false"
+        app:showIndicator="false"
+        app:showNavigationButtons="false"
+        app:showTopShadow="false"
+        app:touchToPause="false" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

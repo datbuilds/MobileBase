@@ -13,6 +13,7 @@ rootProject.name = "SHB_SAHA_LAOS"
 
 //libraries module
 include("library:choosePhotoHelper")
+include("library:imagecrouse")
 
 //app
 include(":app")

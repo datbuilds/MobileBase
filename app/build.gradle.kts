@@ -82,6 +82,7 @@ dependencies {
     implementation(projects.localization)
     implementation(projects.core)
     implementation(projects.library.choosePhotoHelper)
+    implementation(projects.library.imagecrouse)
 
     //exoPlayer
     implementation(libs.media3Exoplayer)
