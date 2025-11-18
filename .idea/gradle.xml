@@ -27,6 +27,7 @@
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/library" />
             <option value="$PROJECT_DIR$/library/choosePhotoHelper" />
+            <option value="$PROJECT_DIR$/library/imagecrouse" />
             <option value="$PROJECT_DIR$/localization" />
           </set>
         </option>
