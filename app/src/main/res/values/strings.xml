@@ -151,5 +151,9 @@
     <string name="pleaseEnterTheRemarks">Please enter the remarks</string>
     <string name="enterRemarks">Enter remarks</string>
     <string name="transactionSuccess">Transaction Success!</string>
+    <string name="beneficiary">Beneficiary</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="addNew">Add new</string>
 
 </resources>

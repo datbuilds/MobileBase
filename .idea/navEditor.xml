@@ -56,6 +56,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="beneficiaryFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="confirmationFragment">
                     <value>
                       <LayoutPositions>
@@ -80,6 +92,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_homeFragment_to_accountDetailFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_homeFragment_to_beneficiaryFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

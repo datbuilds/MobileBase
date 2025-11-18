@@ -6,6 +6,7 @@ plugins {
     id(Plugins.ANDROID_KOTLIN)
     id(Plugins.ANDROID_MAVEN_PUBLISH)
     kotlin(Plugins.KOTLIN_KAPT)
+//    alias(libs.plugins.kotlin.android)
 }
 
 //apply(from = "autodimension.gradle")

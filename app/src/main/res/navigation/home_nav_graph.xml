@@ -25,6 +25,15 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_beneficiaryFragment"
+            app:destination="@id/beneficiaryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
     </fragment>
 
     <fragment
@@ -87,4 +96,10 @@
         android:name="vn.shb.lao.screens.transfer.PaymentTransferFragment"
         android:label="PaymentTransferFragment" />
 
+    <!--phase2-->
+
+    <fragment
+        android:id="@+id/beneficiaryFragment"
+        android:name="vn.shb.lao.screens.beneficiary.BeneficiaryFragment"
+        android:label="@string/beneficiary" />
 </navigation>

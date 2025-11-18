@@ -4,8 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.os.Handler
-import android.os.Looper
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -13,23 +11,18 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.PopupWindow
 import androidx.core.graphics.drawable.toDrawable
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import androidx.viewpager2.widget.ViewPager2
 import com.example.imagecrouse.databinding.ItemCustomFixedSizeLayout1Binding
 import com.example.imagecrouse.ui.whynotimagecarousel.listener.CarouselListener
-import com.example.imagecrouse.ui.whynotimagecarousel.listener.CarouselOnScrollListener
 import com.example.imagecrouse.ui.whynotimagecarousel.model.CarouselItem
 import com.example.imagecrouse.ui.whynotimagecarousel.utils.setImage
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import vn.shb.core.core.delivery.ReasonDescription.ENGLISH
 import vn.shb.core.core.delivery.ReasonDescription.LAO
 import vn.shb.core.core.delivery.ReasonDescription.VIET
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.AccountBase
-import vn.shb.data.entities.home.AccountInfo
 import vn.shb.data.entities.login.UserLog
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseFragmentBinding
@@ -69,7 +62,8 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
                 override fun onCreateViewHolder(
                     layoutInflater: LayoutInflater,
                     parent: ViewGroup,
-                ): ViewBinding = ItemCustomFixedSizeLayout1Binding.inflate(layoutInflater, parent, false)
+                ): ViewBinding =
+                    ItemCustomFixedSizeLayout1Binding.inflate(layoutInflater, parent, false)
 
                 override fun onBindViewHolder(
                     binding: ViewBinding,
@@ -77,7 +71,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
                     position: Int,
                 ) {
                     val currentBinding = binding as ItemCustomFixedSizeLayout1Binding
-                    currentBinding.root.setWidth((ScreenUtils.getScreenWidth(requireActivity())*0.7).toInt())
+                    currentBinding.root.setWidth((ScreenUtils.getScreenWidth(requireActivity()) * 0.7).toInt())
                     currentBinding.imageView.apply {
                         scaleType = ImageView.ScaleType.CENTER_CROP
 
@@ -153,7 +147,10 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
             }
 
             tvCurrentAccount.setOnSingleClickListener {
-                DialogSelectAccount.Build(homeViewModel.getListAccount(), homeViewModel.selectedAccount) { ac ->
+                DialogSelectAccount.Build(
+                    homeViewModel.getListAccount(),
+                    homeViewModel.selectedAccount
+                ) { ac ->
                     homeViewModel.selectedAccount = ac
                     bindViewAccount(ac)
                 }.build().show(childFragmentManager, DialogSelectAccount.TAG)
@@ -173,6 +170,9 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
             }
             flQrCode.setOnClickListener {
 //                showLanguagePopup(flQrCode)
+            }
+            flBeneficiary.setOnSingleClickListener {
+                safeNavigate(R.id.homeFragment, R.id.action_homeFragment_to_beneficiaryFragment)
             }
         }
     }
