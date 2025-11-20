@@ -102,4 +102,9 @@
         android:id="@+id/beneficiaryFragment"
         android:name="vn.shb.lao.screens.beneficiary.BeneficiaryFragment"
         android:label="@string/beneficiary" />
+
+    <fragment
+        android:id="@+id/editBeneficiaryFragment"
+        android:name="vn.shb.lao.screens.beneficiary.EditBeneficiaryFragment"
+        android:label="@string/editBeneficiary"/>
 </navigation>

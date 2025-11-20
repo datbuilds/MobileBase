@@ -169,7 +169,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
                 }
             }
             flQrCode.setOnClickListener {
-//                showLanguagePopup(flQrCode)
+                showLanguagePopup(flQrCode)
             }
             flBeneficiary.setOnSingleClickListener {
                 safeNavigate(R.id.homeFragment, R.id.action_homeFragment_to_beneficiaryFragment)

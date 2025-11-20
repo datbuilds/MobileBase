@@ -38,6 +38,7 @@ import vn.shb.data.entities.home.AccountInfo
 import vn.shb.data.entities.home.TransactionDetail
 import vn.shb.data.entities.home.TransactionItem
 import vn.shb.data.entities.home.UserInfo
+import vn.shb.data.entities.home.beneficiary.BeneficiaryUser
 import vn.shb.data.entities.login.UserConverters
 import vn.shb.data.entities.transfer.ConfirmationModel
 import vn.shb.data.entities.transfer.TransferAccount
@@ -78,6 +79,9 @@ class HomeViewModel(
 
     private val _stateAllTransactions = MutableStateFlow<List<TransactionItem>>(emptyList())
     val stateAllTransactions = _stateAllTransactions.asStateFlow()
+
+    private val _stateAllBeneficiary = MutableStateFlow<List<BeneficiaryUser>>(emptyList())
+    val stateAllBeneficiary = _stateAllBeneficiary.asStateFlow()
 
     private val _stateError = Channel<Reason>(Channel.BUFFERED)
     val stateError = _stateError.receiveAsFlow()
@@ -512,6 +516,19 @@ class HomeViewModel(
                 stateLoading(true)
             }
         }
+    }
+
+    fun getAllBeneficiary() {
+       val listB = arrayListOf<BeneficiaryUser>()
+        for(i in 0..9){
+            listB.add(BeneficiaryUser(
+                nameUser = "MS VATHANA SISANE",
+                accountNumber = (i*1111111111).toString(),
+                nameAddressBank = "Saigon – Hanoi Commercial Joint Stock Bank",
+                bankCode = "3"
+            ))
+        }
+        _stateAllBeneficiary.value = listB
     }
 
 }
