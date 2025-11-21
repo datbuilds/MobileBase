@@ -35,7 +35,7 @@ android {
                 buildConfigField(
                     "String",
                     "BASE_URL",
-                    "\"https://uat-app.shb.com.vn/api/v1/\""
+                    "\"https://t-apigw-la.shb.com.vn/external/shb-mobile-lao/1.0.0/\""
                 )
             },
             dev = {
