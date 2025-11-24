@@ -16,7 +16,7 @@
         android:layout_height="0dp"
         android:layout_marginHorizontal="20dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/tvAddNew"
+        app:layout_constraintBottom_toTopOf="@+id/tvConfirmation"
         app:layout_constraintTop_toTopOf="parent">
 
         <vn.shb.lao.base.view.MyTextView
@@ -36,14 +36,14 @@
             app:drawableStartCompat="@drawable/ic_arrow_back" />
 
         <include
-            android:id="@+id/iclAccountNumber"
+            android:id="@+id/iclBank"
             layout="@layout/item_transfer_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_20dp" />
 
         <include
-            android:id="@+id/iclBank"
+            android:id="@+id/iclAccountNumber"
             layout="@layout/item_transfer_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -107,10 +107,10 @@
         android:id="@+id/ivHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_to_home"
-        app:layout_constraintTop_toTopOf="@+id/llBody"
         android:padding="@dimen/margin_4dp"
-        app:layout_constraintEnd_toEndOf="@+id/llBody"/>
+        app:layout_constraintEnd_toEndOf="@+id/llBody"
+        app:layout_constraintTop_toTopOf="@+id/llBody"
+        app:srcCompat="@drawable/ic_to_home" />
 
     <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvConfirmation"
@@ -123,6 +123,7 @@
         android:includeFontPadding="false"
         android:paddingVertical="@dimen/margin_12dp"
         android:text="@string/confirmation"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

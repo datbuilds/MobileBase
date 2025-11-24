@@ -11,6 +11,9 @@ import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentEditBeneficiaryBinding
 
 class EditBeneficiaryFragment : BaseFragmentBinding<FragmentEditBeneficiaryBinding>(FragmentEditBeneficiaryBinding::inflate) {
+
+
+
     override fun initView(view: View) {
         initTitle()
     }
