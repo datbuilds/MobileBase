@@ -67,7 +67,7 @@ class PaymentTransferFragment :
             tvTransactionAmount.text = getString(R.string.transactionFail)
             tvTransactionAmount.setTextColor(getColor(R.color.color_error_text_login))
             homeViewModel.confirmModel?.let { cf ->
-                tvValueBalance.text = cf.amount.toString()
+                tvValueBalance.text = cf.amount.getBalance()
                 tvCurrentCode.text = cf.fromAccount.currencyCode
             }
             tvAnErrorHasOccurred.visible()
