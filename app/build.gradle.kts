@@ -35,7 +35,7 @@ android {
                 buildConfigField(
                     "String",
                     "BASE_URL",
-                    "\"https://t-apigw-la.shb.com.vn/external/shb-mobile-lao/1.0.0/\""
+                    "\"https://t-apigw-la.shb.com.vn/external/shb-mobile-lao/1.0.0/mblao/\""
                 )
             },
             dev = {
@@ -43,7 +43,7 @@ android {
                 buildConfigField(
                     "String",
                     "BASE_URL",
-                    "\"https://api-gw-ext-dev.shb.com.vn/external/shb-mobile-lao/1.0.0/\""
+                    "\"https://api-gw-ext-dev.shb.com.vn/external/shb-mobile-lao/1.0.0/mblao/\""
                 )
             }
         )

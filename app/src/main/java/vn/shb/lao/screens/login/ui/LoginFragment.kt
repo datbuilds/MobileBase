@@ -226,7 +226,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
                         is LoginUiState.Error -> {
                             hideProgressDialog()
-                            if (uiState.reason is LoginFailReason){
+                            if (uiState.reason is LoginFailReason) {
                                 showDialogErrorLockUser(uiState.reason)
                             } else {
                                 showDialogError(
@@ -247,7 +247,12 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     }
 
     private fun showDialogErrorLockUser(reason: LoginFailReason) {
-        context?.let { BottomSheetDialogHelper(it).messageLoginFail(reason.errMessage, reason.lockedUntil) }
+        context?.let {
+            BottomSheetDialogHelper(it).messageLoginFail(
+                reason.errMessage,
+                reason.lockedUntil
+            )
+        }
     }
 
     private fun resetInputLogin() {
@@ -303,12 +308,12 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         clearFlag()
 
         //mock
-        binding.edtInputPass.setText("123456")
-        handleActionLogin()
+//        binding.edtInputPass.setText("123456")
+//        handleActionLogin()
     }
 
     companion object {
         const val TAG = "LoginFragment"
-
     }
 }
+

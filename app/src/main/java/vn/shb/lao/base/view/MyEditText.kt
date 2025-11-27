@@ -1,6 +1,7 @@
 package vn.shb.lao.base.view
 
 import android.content.Context
+import android.text.InputType
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
@@ -31,6 +32,6 @@ class MyEditText @JvmOverloads constructor(
         }
         isFocusable = true
         isFocusableInTouchMode = true
-
+        inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
     }
 }

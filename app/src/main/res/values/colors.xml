@@ -137,5 +137,6 @@
     <color name="neutral3">#F5F5F5</color>
     <color name="color_error_code">#8A8881</color>
     <color name="color_bg_dialog">#20FFFFFF</color>
+    <color name="colorShadow">#91CECBCB</color>
     <color name="bg_beneficiary">#FAF6ED</color>
 </resources>

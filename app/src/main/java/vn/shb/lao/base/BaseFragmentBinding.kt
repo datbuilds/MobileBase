@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +40,7 @@ import vn.shb.data.entities.login.UserLog
 import vn.shb.lao.R
 import vn.shb.lao.activity.login.LoginActivity
 import vn.shb.lao.screens.home.HomeViewModel
+import vn.shb.lao.screens.login.ui.LoginFragment
 import vn.shb.lao.utils.ApiConst
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.lao.utils.extensions.navigation.safeNavigate
@@ -99,9 +101,12 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
             ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
                 val statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars())
                 v.updatePadding(
-                    top = statusBarHeight.top + 40,
-                    bottom = statusBarHeight.bottom + 40
+                    top = statusBarHeight.top,
+                    bottom = statusBarHeight.bottom + 60
                 )
+                if (this is LoginFragment){
+                    Log.i("23423423443", "insertPaddingView2: ${statusBarHeight.top}")
+                }
                 insets
             }
         } else {
@@ -110,9 +115,8 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
                 val navBarInsets = insets.getInsets(WindowInsetsCompat.Type.navigationBars())
                 view.updatePadding(
                     top = statusBarInsets.top,
-                    bottom = navBarInsets.bottom
+                    bottom = navBarInsets.bottom + 20
                 )
-
                 insets
             }
         }

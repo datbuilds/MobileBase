@@ -1,295 +1,320 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_login"
-    android:paddingHorizontal="@dimen/margin_root"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivLogoSHB"
-        android:layout_width="@dimen/margin_140dp"
-        android:layout_height="@dimen/margin_36dp"
-        android:layout_marginTop="@dimen/margin_8dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_shb" />
-
-    <LinearLayout
-        android:id="@+id/llLanguage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_layout_language"
-        android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/margin_12dp"
-        android:paddingVertical="@dimen/margin_6dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ivLogoSHB"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ivLogoSHB">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivLogoLanguage"
-            android:layout_width="@dimen/widthLogoLanguage"
-            android:layout_height="@dimen/widthLogoLanguage"
-            android:layout_marginEnd="@dimen/margin_6dp"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/ic_logo_uk" />
+            android:id="@+id/ivImageLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/image_bg_login"/>
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivImageLogin2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/bg_login"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivLogoSHB"
+            android:layout_width="@dimen/margin_140dp"
+            android:layout_height="@dimen/margin_36dp"
+            android:scaleType="fitCenter"
+            android:layout_marginHorizontal="@dimen/margin_20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo_shb" />
+
+        <LinearLayout
+            android:id="@+id/llLanguage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_arrow_down" />
-    </LinearLayout>
+            android:background="@drawable/bg_layout_language"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/margin_12dp"
+            android:layout_marginHorizontal="@dimen/margin_20dp"
+            android:paddingVertical="@dimen/margin_6dp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivLogoSHB"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ivLogoSHB">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/glHeight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.36" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivLogoLanguage"
+                android:layout_width="@dimen/widthLogoLanguage"
+                android:layout_height="@dimen/widthLogoLanguage"
+                android:layout_marginEnd="@dimen/margin_6dp"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/ic_logo_uk" />
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/llInfoUser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_24dp"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/glHeight">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_arrow_down" />
+        </LinearLayout>
 
-        <vn.shb.lao.screens.home.widget.FrameAvatarUser
-            android:id="@+id/flAvatarUser"
-            android:layout_width="@dimen/margin_42dp"
-            android:layout_height="@dimen/margin_42dp"
-            tools:background="@color/blue" />
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llInfoUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="@dimen/margin_20dp"
+            app:layout_constraintTop_toBottomOf="@+id/ivImageLogin"
+            tools:visibility="visible">
+
+            <vn.shb.lao.screens.home.widget.FrameAvatarUser
+                android:id="@+id/flAvatarUser"
+                android:layout_width="@dimen/margin_42dp"
+                android:layout_height="@dimen/margin_42dp"
+                tools:background="@color/blue" />
+
+            <vn.shb.lao.base.view.MyTextView
+                android:id="@+id/tvHelloUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin_8dp"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:gravity="center"
+                android:textColor="@color/colorNameUser"
+                android:textSize="@dimen/textSize16"
+                app:customFontWeight="regular"
+                tools:text="name User" />
+
+
+            <vn.shb.lao.base.view.MyTextView
+                android:id="@+id/tvNameUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin_8dp"
+                android:gravity="center"
+                android:textColor="@color/colorNameUser"
+                android:textSize="@dimen/textSize16"
+                app:customFontWeight="medium"
+                tools:text=" PHASOUK BOUNMIXAY" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <vn.shb.lao.base.view.MyTextView
-            android:id="@+id/tvHelloUser"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvInternetBanking"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="@dimen/margin_8dp"
-            android:layout_marginTop="@dimen/margin_8dp"
+            android:layout_marginTop="@dimen/margin_24dp"
+            app:layout_goneMarginTop="@dimen/margin_0dp"
             android:gravity="center"
-            android:textColor="@color/colorNameUser"
+            android:text="@string/personalInternetBanking"
+            android:textColor="@color/neutral1"
+            android:textSize="@dimen/textSize24"
+            android:layout_marginHorizontal="@dimen/margin_20dp"
+            app:customFontWeight="medium"
+            app:layout_constraintTop_toBottomOf="@+id/llInfoUser" />
+
+        <vn.shb.lao.base.view.MyTextView
+            android:id="@+id/tvEnterYourDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:layout_marginHorizontal="@dimen/margin_20dp"
+            android:gravity="center"
+            android:text="@string/enterYourDetailToSignIn"
+            android:textColor="@color/neutral1"
             android:textSize="@dimen/textSize16"
             app:customFontWeight="regular"
-            tools:text="@string/account_forget_password" />
+            app:layout_constraintTop_toBottomOf="@+id/tvInternetBanking" />
 
-
-        <vn.shb.lao.base.view.MyTextView
-            android:id="@+id/tvNameUser"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_marginHorizontal="@dimen/margin_20dp"
+            android:id="@+id/userNameContainer"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="@dimen/margin_8dp"
-            android:gravity="center"
-            android:textColor="@color/colorNameUser"
-            android:textSize="@dimen/textSize16"
-            app:customFontWeight="medium"
-            tools:text=" PHASOUK BOUNMIXAY" />
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <vn.shb.lao.base.view.MyTextView
-        android:id="@+id/tvInternetBanking"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_24dp"
-        android:gravity="center"
-        android:text="@string/personalInternetBanking"
-        android:textColor="@color/neutral1"
-        android:textSize="@dimen/textSize24"
-        app:customFontWeight="medium"
-        app:layout_constraintTop_toBottomOf="@+id/llInfoUser" />
-
-    <vn.shb.lao.base.view.MyTextView
-        android:id="@+id/tvEnterYourDetail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_8dp"
-        android:gravity="center"
-        android:text="@string/enterYourDetailToSignIn"
-        android:textColor="@color/neutral1"
-        android:textSize="@dimen/textSize16"
-        app:customFontWeight="regular"
-        app:layout_constraintTop_toBottomOf="@+id/tvInternetBanking" />
-
-    <LinearLayout
-        android:id="@+id/userNameContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_24dp"
-        android:background="@drawable/selector_edt"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvEnterYourDetail">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputUserNameLayout"
-            style="@style/AppTextInputLayoutStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingVertical="@dimen/margin_8dp"
+            android:layout_marginTop="@dimen/margin_24dp"
+            android:background="@drawable/selector_edt"
+            android:orientation="horizontal"
+            android:padding="8dp"
             app:layout_constraintTop_toBottomOf="@+id/tvEnterYourDetail">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_input_username"
-                style="@style/AppTextInputEditTextStyle"
-                android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputUserNameLayout"
+                style="@style/AppTextInputLayoutStyle"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/enterYourUserName"
-                android:imeOptions="actionNext"
-                android:inputType="number"
-                android:maxLength="10" />
+                android:layout_weight="1"
+                android:paddingVertical="@dimen/margin_8dp"
+                app:layout_constraintTop_toBottomOf="@+id/tvEnterYourDetail">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_input_username"
+                    style="@style/AppTextInputEditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enterYourUserName"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="10" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/btn_clear_username"
-            android:layout_width="wrap_content"
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/btn_clear_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:contentDescription="Clear username"
+                android:src="@drawable/ic_clear_text"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+        </LinearLayout>
+
+        <vn.shb.lao.base.view.MyTextView
+            android:id="@+id/tvErrorUsername"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            android:contentDescription="Clear username"
-            android:src="@drawable/ic_clear_text"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:text="@string/pleaseEnterUsername"
+            android:textColor="@color/neutral1"
+            android:textSize="@dimen/textSize12"
             android:visibility="gone"
+            android:layout_marginHorizontal="@dimen/margin_20dp"
+            app:customFontWeight="medium"
+            app:layout_constraintTop_toBottomOf="@+id/userNameContainer"
             tools:visibility="visible" />
 
-    </LinearLayout>
-
-    <vn.shb.lao.base.view.MyTextView
-        android:id="@+id/tvErrorUsername"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_8dp"
-        android:text="@string/pleaseEnterUsername"
-        android:textColor="@color/neutral1"
-        android:textSize="@dimen/textSize12"
-        android:visibility="gone"
-        app:customFontWeight="medium"
-        app:layout_constraintTop_toBottomOf="@+id/userNameContainer"
-        tools:visibility="visible" />
-
-    <LinearLayout
-        android:id="@+id/passwordContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_24dp"
-        android:background="@drawable/selector_edt"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvErrorUsername">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputPasswordLayout"
-            style="@style/AppTextInputLayoutStyle"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/passwordContainer"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingVertical="@dimen/margin_8dp">
+            android:layout_marginTop="@dimen/margin_24dp"
+            android:background="@drawable/selector_edt"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="@dimen/margin_20dp"
+            android:padding="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvErrorUsername">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_input_pass"
-                style="@style/AppTextInputEditTextStyle"
-                android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputPasswordLayout"
+                style="@style/AppTextInputLayoutStyle"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/enterPassword"
-                android:imeOptions="actionDone"
-                android:importantForAutofill="no"
-                android:inputType="textVisiblePassword"
-                android:maxLength="6"
-                android:selectAllOnFocus="true" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_weight="1"
+                android:paddingVertical="@dimen/margin_8dp">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/btn_clear_password"
-            android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_input_pass"
+                    style="@style/AppTextInputEditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enterPassword"
+                    android:imeOptions="actionDone"
+                    android:importantForAutofill="no"
+                    android:inputType="textVisiblePassword"
+                    android:maxLength="6"
+                    android:selectAllOnFocus="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/btn_clear_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:contentDescription="Clear password"
+                android:src="@drawable/ic_clear_text"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <vn.shb.lao.base.view.MyTextView
+                android:id="@+id/btn_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:gravity="center_vertical"
+                android:text="@string/show"
+                android:textColor="@color/neutral1"
+                android:textSize="@dimen/textSize14"
+                android:visibility="gone"
+                app:customFontWeight="regular" />
+        </LinearLayout>
+
+        <vn.shb.lao.base.view.MyTextView
+            android:id="@+id/tvErrorPassword"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            android:contentDescription="Clear password"
-            android:src="@drawable/ic_clear_text"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:text="@string/pleaseEnterPassword"
+            android:textColor="@color/neutral1"
+            android:textSize="@dimen/textSize12"
             android:visibility="gone"
+            android:layout_marginHorizontal="@dimen/margin_20dp"
+            app:customFontWeight="medium"
+            app:layout_constraintTop_toBottomOf="@+id/passwordContainer"
             tools:visibility="visible" />
 
         <vn.shb.lao.base.view.MyTextView
-            android:id="@+id/btn_toggle"
+            android:id="@+id/btnLogin"
+            style="@style/MaterialDialog.ButtonActionMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24dp"
+            android:paddingVertical="@dimen/margin_12dp"
+            android:layout_marginHorizontal="@dimen/margin_20dp"
+            android:text="@string/login"
+            app:layout_constraintTop_toBottomOf="@+id/tvErrorPassword" />
+
+        <vn.shb.lao.base.view.MyTextView
+            android:id="@+id/tvForgotPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24dp"
+            android:layout_marginHorizontal="@dimen/margin_20dp"
+            android:gravity="center_horizontal"
+            android:text="@string/forgotPassword"
+            android:textAllCaps="false"
+            android:textColor="@color/neutral1"
+            android:textSize="@dimen/textSize12"
+            app:customFontWeight="medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
+        <vn.shb.lao.base.view.MyTextView
+            android:id="@+id/tvHotline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:gravity="center_vertical"
-            android:text="@string/show"
-            android:visibility="gone"
-            android:textColor="@color/neutral1"
+            android:layout_marginBottom="@dimen/margin_20dp"
+            android:drawableStart="@drawable/ic_hotline"
+            android:drawablePadding="@dimen/margin_8dp"
+            android:gravity="center"
+            android:textColor="@color/color_hotline"
             android:textSize="@dimen/textSize14"
-            app:customFontWeight="regular" />
-    </LinearLayout>
+            android:layout_marginHorizontal="@dimen/margin_20dp"
+            android:visibility="gone"
+            app:customFontWeight="medium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Hotline: +856.21.968.888 - +856.31.257.167" />
 
-    <vn.shb.lao.base.view.MyTextView
-        android:id="@+id/tvErrorPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_8dp"
-        android:text="@string/pleaseEnterPassword"
-        android:textColor="@color/neutral1"
-        android:textSize="@dimen/textSize12"
-        android:visibility="gone"
-        app:customFontWeight="medium"
-        app:layout_constraintTop_toBottomOf="@+id/passwordContainer"
-        tools:visibility="visible" />
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/groupViewNoLastUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:constraint_referenced_ids="tvInternetBanking, tvEnterYourDetail, userNameContainer" />
 
-    <vn.shb.lao.base.view.MyTextView
-        android:id="@+id/btnLogin"
-        style="@style/MaterialDialog.ButtonActionMain"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_24dp"
-        android:paddingVertical="@dimen/margin_12dp"
-        android:text="@string/login"
-        app:layout_constraintTop_toBottomOf="@+id/tvErrorPassword" />
-
-    <vn.shb.lao.base.view.MyTextView
-        android:id="@+id/tvForgotPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_24dp"
-        android:gravity="center_horizontal"
-        android:text="@string/forgotPassword"
-        android:textAllCaps="false"
-        android:textColor="@color/neutral1"
-        android:textSize="@dimen/textSize12"
-        app:customFontWeight="medium"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
-
-    <vn.shb.lao.base.view.MyTextView
-        android:id="@+id/tvHotline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_20dp"
-        android:drawableStart="@drawable/ic_hotline"
-        android:drawablePadding="@dimen/margin_8dp"
-        android:gravity="center"
-        android:textColor="@color/color_hotline"
-        android:textSize="@dimen/textSize14"
-        android:visibility="gone"
-        app:customFontWeight="medium"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Hotline: +856.21.968.888 - +856.31.257.167" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/groupViewNoLastUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        app:constraint_referenced_ids="tvInternetBanking, tvEnterYourDetail, userNameContainer" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
