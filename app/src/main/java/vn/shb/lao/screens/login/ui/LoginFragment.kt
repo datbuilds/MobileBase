@@ -59,6 +59,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { _: Boolean -> }
 
     override fun initView(view: View) {
+        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
     }
 
     private fun mapUILogin() {

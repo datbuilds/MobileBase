@@ -21,7 +21,7 @@
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bg_login_long" />
+        app:srcCompat="@drawable/bg_login" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivLogoSHB"
