@@ -88,9 +88,10 @@ class LoginViewModel(
                         val intent = Intent(Intent.ACTION_DIAL, "tel:${branch.tel}".toUri())
                         context.startActivity(intent)
                     } else {
+                        val query = "${branch.latitude},${branch.latitude}"
                         val mapIntent = Intent(
                             Intent.ACTION_VIEW,
-                            "geo:0,0?q=${branch.address}".toUri()
+                            "geo:$query?q=$query(${branch.address})".toUri()
                         )
                         context.startActivity(mapIntent)
                     }
@@ -107,17 +108,23 @@ class LoginViewModel(
             Branch(
                 "1. SAI GON - HA NOI BANK LAO SOLE CO., LIMITED",
                 "Unit 1, Lane Xang Avenue, Vientiane Captital, Laos P.D.R",
-                "+856 21 82 8888"
+                "+856 21 82 8888",
+                "17.96729",
+                "102.61563"
             ),
             Branch(
                 "2. SAI GON - HA NOI BANK LAO SOLE CO., LIMITED, CHAMPASAK BRANCH",
                 "336, 337, 338 Pakse New Market, Phonekung, Pakse, Champasack, Laos P.D.R",
-                "+856 31 257 167"
+                "+856 31 257 167",
+                "15.1136",
+                "105.81568"
             ),
             Branch(
                 "3. SAI GON - HA NOI BANK LAO SOLE CO., LIMITED, SAVANNAKHET BRANCH ",
                 "Unit 25, Lattanalangsy Neua Village, Kaisone Phomvihan City, Savannakhet Province, Laos ",
-                "+856 30 925 6666"
+                "+856 30 925 6666",
+                "16.56037",
+                "104.75389"
             )
         )
     }
