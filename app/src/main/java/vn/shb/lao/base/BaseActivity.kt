@@ -6,11 +6,16 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.StrictMode
 import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.accessibility.AccessibilityManager
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +26,7 @@ import androidx.media3.common.BuildConfig
 import androidx.viewbinding.ViewBinding
 import org.koin.android.ext.android.inject
 import vn.shb.core.core.domain.usecases.login.UseCaseRefreshToken
+import vn.shb.core.core.security.detectRoot.RootUtils
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import vn.shb.lao.R
 import vn.shb.lao.SHBApplication
@@ -82,13 +88,19 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
+        // Làm mờ / ẩn app trong Recent Apps
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_SECURE,
+            WindowManager.LayoutParams.FLAG_SECURE
+        )
         _binding = inflate(layoutInflater)
         setContentView(binding.root)
 
         // Nếu nền cam sáng, đặt icon tối (đen)
-        window.statusBarColor = Color.TRANSPARENT
-        WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = true // nếu background sáng
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+//        window.statusBarColor = Color.TRANSPARENT
+//        WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = true // nếu background sáng
+//        WindowCompat.setDecorFitsSystemWindows(window, false)
+        WindowCompat.setDecorFitsSystemWindows(window, true)
         handleSavedState(savedInstanceState)
         initView()
         initListener()
@@ -108,6 +120,18 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
 
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         registerScreenReceiver()
+
+        // Chặn toàn bộ overlay trên Android 12+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            window.setHideOverlayWindows(true)
+        }
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if (ev?.flags?.and(MotionEvent.FLAG_WINDOW_IS_PARTIALLY_OBSCURED) != 0) {
+            return false
+        }
+        return super.dispatchTouchEvent(ev)
     }
 
     override fun onResume() {
@@ -204,11 +228,11 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
     }
 
     private fun checkSecurityApp() {
-//        if (RootUtils.isDeviceRooted(this)) {
-//            showDialogWarningDeviceRoot()
-//        } else {
-//            checkAccessibilityPermission()
-//        }
+        if (RootUtils.isDeviceRooted(this)) {
+            showDialogWarningDeviceRoot()
+        } else {
+            checkAccessibilityPermission()
+        }
     }
 
     open fun checkAccessibilityPermission() {

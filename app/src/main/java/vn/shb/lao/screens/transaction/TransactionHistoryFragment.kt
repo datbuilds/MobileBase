@@ -27,8 +27,7 @@ import java.util.Locale
 class TransactionHistoryFragment :
     BaseFragmentBinding<FragmentTransactionHistoryBinding>(FragmentTransactionHistoryBinding::inflate) {
     private val adapter by lazy { TransactionAdapter() }
-
-
+    private var isStarted = false
 
     private var fromDateMillis: Long = 0L
     private var toDateMillis: Long = 0L
@@ -43,7 +42,7 @@ class TransactionHistoryFragment :
                 text = getString(R.string.from)
                 setTextColor(ContextCompat.getColor(requireContext(), R.color.neutral6))
             } else {
-                text = getViewDate(fromDateMillis ?: 0L)
+                text = getViewDate(fromDateMillis)
                 setTextColor(ContextCompat.getColor(requireContext(), R.color.neutral8))
             }
         }
@@ -53,7 +52,7 @@ class TransactionHistoryFragment :
                 text = getString(R.string.toDate)
                 setTextColor(ContextCompat.getColor(requireContext(), R.color.neutral6))
             } else {
-                text = getViewDate(toDateMillis ?: 0L)
+                text = getViewDate(toDateMillis)
                 setTextColor(ContextCompat.getColor(requireContext(), R.color.neutral8))
             }
         }
@@ -66,10 +65,12 @@ class TransactionHistoryFragment :
 
     override fun onResume() {
         super.onResume()
-        val initDate = homeViewModel.getInitDate()
-        fromDateMillis = initDate.first
-        toDateMillis = initDate.second
-//        setupViewDate()
+        if ((fromDateMillis == 0L || toDateMillis == 0L) && isStarted){
+            val initDate = homeViewModel.getInitDate()
+            fromDateMillis = initDate.first
+            toDateMillis = initDate.second
+        }
+        setupViewDate()
         homeViewModel.getAllTransactions(
             requireContext(),
             Pair(
@@ -77,6 +78,7 @@ class TransactionHistoryFragment :
                 getViewDate(toDateMillis)
             )
         )
+        isStarted = true
     }
 
     private fun setUpRecyclerView() {

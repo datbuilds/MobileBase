@@ -10,6 +10,7 @@
         android:name="android.hardware.camera"
         android:required="false" />
 
+    <uses-permission android:name="android.permission.HIDE_OVERLAY_WINDOWS" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -58,7 +59,7 @@
         tools:targetApi="tiramisu">
         <activity
             android:name="vn.shb.lao.screens.splash.ui.SplashActivity"
-            android:exported="true"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:showOnLockScreen="true"
             android:showWhenLocked="false"

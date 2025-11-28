@@ -7,7 +7,7 @@
     android:layout_gravity="bottom"
     android:background="@color/bg_beneficiary"
     android:orientation="vertical"
-    android:paddingTop="16dp"
+    android:paddingTop="@dimen/paddingTopLayout"
     tools:context=".screens.beneficiary.BeneficiaryFragment">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -117,7 +117,6 @@
         android:layout_gravity="bottom"
         android:background="@color/white"
         android:elevation="6dp"
-        android:paddingVertical="@dimen/margin_20dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <vn.shb.lao.base.view.MyTextView
@@ -125,7 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_20dp"
-            android:layout_marginBottom="@dimen/margin_16dp"
+            android:layout_marginVertical="@dimen/paddingBottomLayout"
             android:background="@drawable/bg_button_action_material"
             android:gravity="center"
             android:textColor="@color/white"

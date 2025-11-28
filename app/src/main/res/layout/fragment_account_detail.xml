@@ -7,7 +7,7 @@
     android:background="@color/colorBgAccount"
     android:orientation="vertical"
     android:paddingHorizontal="20dp"
-    android:paddingTop="16dp">
+    android:paddingTop="@dimen/paddingTopLayout">
 
     <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvAccountDetails"
@@ -160,7 +160,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_16dp"
-        android:layout_marginBottom="@dimen/margin_20dp"
+        android:layout_marginBottom="@dimen/paddingBottomLayout"
         android:background="@drawable/bg_child_view_account_details"
         android:orientation="vertical"
         android:paddingHorizontal="@dimen/margin_16dp"
@@ -210,7 +210,7 @@
             android:visibility="visible"
             tools:visibility="visible"
             tools:listitem="@layout/item_transaction"
-            tools:itemCount="3" />
+            tools:itemCount="33" />
 
         <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvNoTransaction"

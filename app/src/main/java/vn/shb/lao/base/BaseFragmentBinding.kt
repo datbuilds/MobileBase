@@ -93,7 +93,7 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
             initObserve()
             observerStateError()
         })
-        insertPaddingView()
+//        insertPaddingView()
     }
 
     private fun insertPaddingView() {
@@ -104,9 +104,6 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
                     top = statusBarHeight.top,
                     bottom = statusBarHeight.bottom + 60
                 )
-                if (this is LoginFragment){
-                    Log.i("23423423443", "insertPaddingView2: ${statusBarHeight.top}")
-                }
                 insets
             }
         } else {

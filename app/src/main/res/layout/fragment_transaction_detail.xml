@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_transaction_detail"
     android:orientation="vertical"
-    android:paddingHorizontal="20dp"
-    android:paddingTop="@dimen/margin_30dp">
+    android:paddingHorizontal="20dp">
 
     <FrameLayout
         android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/paddingTopLayout"
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -144,7 +144,7 @@
             android:layout_marginTop="@dimen/margin_16dp"
             android:background="@drawable/bg_account_info_transfer"
             android:gravity="center"
-            android:layout_marginBottom="@dimen/margin_30dp"
+            android:layout_marginBottom="@dimen/margin_24dp"
             android:paddingVertical="@dimen/margin_10dp"
             android:text="@string/createNewTransaction"
             android:textColor="@color/neutral1"

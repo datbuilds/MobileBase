@@ -144,4 +144,6 @@
     <dimen name="pageMargin">8dp</dimen>
     <dimen name="pageOffset">16dp</dimen>
     <dimen name="widthImageDialog">120dp</dimen>
+    <dimen name="paddingTopLayout">8dp</dimen>
+    <dimen name="paddingBottomLayout">16dp</dimen>
 </resources>

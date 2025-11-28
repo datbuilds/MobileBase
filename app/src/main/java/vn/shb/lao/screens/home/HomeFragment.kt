@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -193,8 +194,6 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
                         bindViewAccount(accountInfo)
                     }
                 }
-
-
             }
         }
     }
@@ -220,7 +219,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
         }
     }
 
-    private fun restartApp(context: Context) {
+/*    private fun restartApp(context: Context) {
         val intent = context.packageManager.getLaunchIntentForPackage(context.packageName)
         intent?.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)
@@ -280,5 +279,5 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
 
         val marginRight = (130 * anchor.context.resources.displayMetrics.density).toInt()
         popupWindow.showAsDropDown(anchor, -marginRight, 0, Gravity.END)
-    }
+    }*/
 }

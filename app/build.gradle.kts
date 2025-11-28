@@ -31,7 +31,7 @@ android {
                 )
             },
             uat = {
-                resValue("string", "app_name", "SHB SAHA LAOS UAT")
+                resValue("string", "app_name", " UAT SHB SAHA LAOS")
                 buildConfigField(
                     "String",
                     "BASE_URL",
@@ -39,7 +39,7 @@ android {
                 )
             },
             dev = {
-                resValue("string", "app_name", "SHB SAHA LAOS DEV")
+                resValue("string", "app_name", "DEV SHB SAHA LAOS")
                 buildConfigField(
                     "String",
                     "BASE_URL",

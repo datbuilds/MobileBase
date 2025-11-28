@@ -122,14 +122,14 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             edtInputPass.setOnFocusChangeListener { _, hasFocus ->
                 passwordContainer.isSelected = hasFocus
             }
-            edtInputPass.setOnEditorActionListener { _, actionId, _ ->
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    login()
-                    true
-                } else {
-                    false
-                }
-            }
+//            edtInputPass.setOnEditorActionListener { _, actionId, _ ->
+//                if (actionId == EditorInfo.IME_ACTION_DONE) {
+//                    login()
+//                    true
+//                } else {
+//                    false
+//                }
+//            }
 
             btnToggle.setOnClickListener {
                 isVisiblePassword = !isVisiblePassword

@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    android:paddingHorizontal="20dp"
-    android:paddingTop="16dp">
+    android:paddingHorizontal="20dp">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/paddingTopLayout"
         android:orientation="vertical">
 
         <vn.shb.lao.base.view.MyTextView
@@ -108,6 +108,7 @@
         android:paddingVertical="@dimen/margin_10dp"
         android:textColor="@color/neutral1"
         android:textSize="@dimen/textSize14"
+        android:layout_marginTop="@dimen/paddingTopLayout"
         app:customFontWeight="medium"
         app:drawableTint="@color/neutral1"
         tools:background="@drawable/bg_toast_change_avatar_ss"

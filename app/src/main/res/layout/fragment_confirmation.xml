@@ -2,12 +2,12 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@color/colorBgAccount"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBgAccount"
         android:paddingHorizontal="20dp"
         android:paddingTop="16dp">
 
@@ -29,61 +29,69 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/llConfirmation"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_0dp"
+            android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin_24dp"
-            android:background="@drawable/bg_child_view_account_details"
-            android:orientation="vertical"
-            android:paddingHorizontal="@dimen/margin_12dp"
-            android:paddingVertical="@dimen/margin_12dp"
+            android:layout_marginBottom="@dimen/margin_16dp"
+            app:layout_constraintBottom_toTopOf="@+id/tvConfirm"
             app:layout_constraintTop_toBottomOf="@+id/tvConfirmation">
 
-            <include
-                android:id="@+id/iclTo"
-                layout="@layout/child_view_confirmation" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/llConfirmation"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_child_view_account_details"
+                android:paddingHorizontal="@dimen/margin_12dp"
+                android:paddingVertical="@dimen/margin_12dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/tvConfirmation">
 
-            <include
-                android:id="@+id/iclFromAccount"
-                layout="@layout/child_view_confirmation" />
+                <include
+                    android:id="@+id/iclTo"
+                    layout="@layout/child_view_confirmation" />
 
-            <include
-                android:id="@+id/iclToAccount"
-                layout="@layout/child_view_confirmation" />
+                <include
+                    android:id="@+id/iclFromAccount"
+                    layout="@layout/child_view_confirmation" />
 
-            <include
-                android:id="@+id/iclAccountName"
-                layout="@layout/child_view_confirmation" />
+                <include
+                    android:id="@+id/iclToAccount"
+                    layout="@layout/child_view_confirmation" />
 
-            <include
-                android:id="@+id/iclRemarks"
-                layout="@layout/child_view_confirmation" />
+                <include
+                    android:id="@+id/iclAccountName"
+                    layout="@layout/child_view_confirmation" />
 
-            <include
-                android:id="@+id/iclTransactionDate"
-                layout="@layout/child_view_confirmation" />
+                <include
+                    android:id="@+id/iclRemarks"
+                    layout="@layout/child_view_confirmation" />
 
-            <include
-                android:id="@+id/iclAmount"
-                layout="@layout/child_view_amount" />
+                <include
+                    android:id="@+id/iclTransactionDate"
+                    layout="@layout/child_view_confirmation" />
 
-            <include
-                android:id="@+id/iclFee"
-                layout="@layout/child_view_amount" />
+                <include
+                    android:id="@+id/iclAmount"
+                    layout="@layout/child_view_amount" />
 
-            <include
-                android:id="@+id/iclTotalAmount"
-                layout="@layout/child_view_amount" />
+                <include
+                    android:id="@+id/iclFee"
+                    layout="@layout/child_view_amount" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                <include
+                    android:id="@+id/iclTotalAmount"
+                    layout="@layout/child_view_amount" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.core.widget.NestedScrollView>
 
         <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvConfirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginVertical="@dimen/margin_24dp"
+            android:layout_marginVertical="@dimen/paddingBottomLayout"
             android:background="@drawable/bg_account_info_transfer"
             android:gravity="center"
             android:paddingVertical="@dimen/margin_10dp"
@@ -100,6 +108,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="0.3"
-        android:visibility="gone"
-        android:background="@color/neutral7" />
+        android:background="@color/neutral7"
+        android:visibility="gone" />
 </FrameLayout>

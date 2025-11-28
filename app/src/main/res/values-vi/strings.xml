@@ -46,7 +46,7 @@
     <string name="chooseProfilePicture">Chọn ảnh hồ sơ</string>
     <string name="takePhoto">Chụp ảnh</string>
     <string name="selectFromPhotoLibrary">Chọn từ thư viện ảnh</string>
-    <string name="profilePictureUpdated">Cập nhật ảnh hồ sơ thành công</string>
+    <string name="profilePictureUpdated">Cập nhật ảnh đại diện thành công</string>
     <string name="accountDetails">Chi tiết tài khoản</string>
     <string name="availableBalance">Số dư khả dụng</string>
     <string name="accountNumber">Số tài khoản</string>

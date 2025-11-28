@@ -5,7 +5,7 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_login"
+    android:background="#FF6F00"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,13 +26,14 @@
             android:layout_height="match_parent"
             android:scaleType="fitXY"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/bg_login"/>
+            app:srcCompat="@drawable/bg_login_long"/>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivLogoSHB"
             android:layout_width="@dimen/margin_140dp"
             android:layout_height="@dimen/margin_36dp"
             android:scaleType="fitCenter"
+            android:layout_marginTop="@dimen/paddingTopLayout"
             android:layout_marginHorizontal="@dimen/margin_20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -220,7 +221,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/enterPassword"
-                    android:imeOptions="actionDone"
                     android:importantForAutofill="no"
                     android:inputType="textVisiblePassword"
                     android:maxLength="6"

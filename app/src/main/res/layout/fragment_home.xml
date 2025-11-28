@@ -4,13 +4,14 @@
     android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_login"
+    android:background="@drawable/bg_login_long"
     android:paddingHorizontal="@dimen/margin_20dp">
 
     <vn.shb.lao.screens.home.widget.FrameAvatarUser
         android:id="@+id/flAvatarUser"
         android:layout_width="@dimen/margin_48dp"
         android:layout_height="@dimen/margin_48dp"
+        android:layout_marginTop="@dimen/paddingTopLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -214,6 +215,7 @@
         android:id="@+id/flBeneficiary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_marginTop="@dimen/margin_16dp"
         android:background="@drawable/bg_option_beneficiary"
         android:paddingVertical="@dimen/margin_12dp"

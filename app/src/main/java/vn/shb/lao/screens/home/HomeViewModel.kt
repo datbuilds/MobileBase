@@ -171,6 +171,7 @@ class HomeViewModel(
         listAccount: List<AccountInfo> = this.listAccount
     ) {
         if (selectedAccount != null) {
+            selectedAccount = listAccount.find { it.accountNumber == selectedAccount!!.accountNumber }
             _stateAccounts.value = selectedAccount!!
             return
         }
