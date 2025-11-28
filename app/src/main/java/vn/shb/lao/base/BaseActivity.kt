@@ -15,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.view.accessibility.AccessibilityManager
 import androidx.activity.OnBackPressedCallback
@@ -95,11 +96,15 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
         )
         _binding = inflate(layoutInflater)
         setContentView(binding.root)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            window.insetsController?.apply {
+                    systemBarsBehavior = WindowInsetsController.BEHAVIOR_DEFAULT
+            }
+        }
 
         // Nếu nền cam sáng, đặt icon tối (đen)
 //        window.statusBarColor = Color.TRANSPARENT
 //        WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = true // nếu background sáng
-//        WindowCompat.setDecorFitsSystemWindows(window, false)
         WindowCompat.setDecorFitsSystemWindows(window, true)
         handleSavedState(savedInstanceState)
         initView()
