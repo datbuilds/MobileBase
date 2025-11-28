@@ -27,7 +27,7 @@ import java.util.Locale
 class TransactionHistoryFragment :
     BaseFragmentBinding<FragmentTransactionHistoryBinding>(FragmentTransactionHistoryBinding::inflate) {
     private val adapter by lazy { TransactionAdapter() }
-    private var isStarted = false
+//    private var isStarted = false
 
     private var fromDateMillis: Long = 0L
     private var toDateMillis: Long = 0L
@@ -65,7 +65,7 @@ class TransactionHistoryFragment :
 
     override fun onResume() {
         super.onResume()
-        if ((fromDateMillis == 0L || toDateMillis == 0L) && isStarted){
+        if ((fromDateMillis == 0L || toDateMillis == 0L)){
             val initDate = homeViewModel.getInitDate()
             fromDateMillis = initDate.first
             toDateMillis = initDate.second
@@ -78,7 +78,7 @@ class TransactionHistoryFragment :
                 getViewDate(toDateMillis)
             )
         )
-        isStarted = true
+//        isStarted = true
     }
 
     private fun setUpRecyclerView() {

@@ -155,7 +155,7 @@ class ProfileFragment :
                         }
                     }
                     if (state is LogoutUiState.Error) {
-                        showDialogError(state.reason)
+                        handleErrorHome(state.reason)
                         hideProgressDialog()
                     }
                     if (state is LogoutUiState.Loading) {

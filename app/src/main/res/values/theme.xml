@@ -23,14 +23,13 @@
         <item name="colorSecondary">@color/primary100</item>
 
         <item name="android:windowFullscreen">false</item>
-        <item name="enableEdgeToEdge">false</item>
 
         <!-- Window decor -->
-<!--        <item name="android:windowLightStatusBar" tools:targetApi="m">@bool/use_light_status</item>-->
-<!--        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1"></item>-->
-<!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
-<!--        <item name="android:statusBarColor">@color/white</item>-->
-<!--        <item name="android:navigationBarColor">@color/white</item>-->
+        <item name="android:windowLightStatusBar" tools:targetApi="m">@bool/use_light_status</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1"></item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/black</item>
+        <item name="android:navigationBarColor">@color/black</item>
 
         <item name="android:textViewStyle">@style/TextViewFontStyle</item>
         <item name="android:editTextStyle">@style/EdittextFontStyle</item>
