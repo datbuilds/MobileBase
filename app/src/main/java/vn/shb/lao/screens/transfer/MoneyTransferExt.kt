@@ -74,7 +74,7 @@ fun MyEditText.enableInput(enable: Boolean) {
     isLongClickable = enable
 }
 
-fun MyEditText.setupDecimalInput(maxDecimal: Int = 2) {
+fun MyEditText.setupDecimalInput() {
 
     addTextChangedListener(object : TextWatcher {
         private var current = ""
@@ -90,10 +90,34 @@ fun MyEditText.setupDecimalInput(maxDecimal: Int = 2) {
 
             editing = true
 
+            if (text.isNotEmpty()) {
+
+                if (text.startsWith("0")) {
+                    setText("")
+                    current = ""
+                    editing = false
+                    return
+                }
+
+                if (text.startsWith(".")) {
+                    setText("")
+                    current = ""
+                    editing = false
+                    return
+                }
+
+                val numeric = text.replace(",", "").toDoubleOrNull()
+                if (numeric != null && numeric < 1) {
+                    setText("")
+                    current = ""
+                    editing = false
+                    return
+                }
+            }
+
             try {
                 // Lưu lại vị trí con trỏ hiện tại
                 val cursorStart = selectionStart
-                val cursorEnd = selectionEnd
 
                 // Không format khi user đang nhập dấu "." ở cuối
                 if (text.endsWith(".") || text == "." || text.isEmpty()) {
@@ -134,7 +158,7 @@ fun ItemTransferTypeBinding.bindViewError(text: String? = null) {
     tvError.text = text
 }
 
-fun ItemTransferTypeBinding.bindColor(idColor : Int){
+fun ItemTransferTypeBinding.bindColor(idColor: Int) {
     val color = ContextCompat.getColor(root.context, idColor)
     edtValue.setTextColor(color)
     tvCurrentCode.setTextColor(color)
