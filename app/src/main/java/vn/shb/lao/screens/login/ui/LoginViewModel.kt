@@ -2,6 +2,7 @@ package vn.shb.lao.screens.login.ui
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import androidx.core.net.toUri
 import androidx.lifecycle.viewModelScope
@@ -88,12 +89,7 @@ class LoginViewModel(
                         val intent = Intent(Intent.ACTION_DIAL, "tel:${branch.tel}".toUri())
                         context.startActivity(intent)
                     } else {
-                        val query = "${branch.latitude},${branch.latitude}"
-                        val mapIntent = Intent(
-                            Intent.ACTION_VIEW,
-                            "geo:$query?q=$query(${branch.address})".toUri()
-                        )
-                        context.startActivity(mapIntent)
+                        openMap(context, branch.latitude, branch.longitude, branch.address)
                     }
                 }
             }
@@ -101,6 +97,26 @@ class LoginViewModel(
                 title = getString(R.string.passwordResetInstructions), supView = bindingSup.root, isClose = true
             )
         }
+    }
+
+    fun openMap(context: Context, latitude: String, longitude: String, placeName: String) {
+        val uri = "$latitude,$longitude"
+
+        // Thử mở Google Maps trước
+        val gmmIntentUri = Uri.parse("geo:$uri?q=$uri($placeName)")
+        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+        mapIntent.setPackage("com.google.android.apps.maps")
+
+        if (mapIntent.resolveActivity(context.packageManager) != null) {
+            context.startActivity(mapIntent)
+            return
+        }
+
+        // Fallback: mở app bản đồ mặc định
+        val fallbackUri = Uri.parse("geo:$uri?q=$uri($placeName)")
+        val fallbackIntent = Intent(Intent.ACTION_VIEW, fallbackUri)
+
+        context.startActivity(fallbackIntent)
     }
 
     private fun getListAddress() : List<Branch> {
