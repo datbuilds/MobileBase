@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="personalInternetBanking">ທະ​ນາ​ຄານ​ອິນ​ເຕີ​ເນັດ​ສ່ວນ​ບຸກ​ຄົນ</string>
-    <string name="enterYourDetailToSignIn">ໃສ່ລາຍລະອຽດຂອງທ່ານເພື່ອເຂົ້າສູ່ລະບົບ</string>
-    <string name="userName">ຊື່​ຜູ້​ໃຊ້</string>
+    <string name="personalInternetBanking">ທະ​ນາ​ຄານ ອອ​ນ​ໄລ​ນ໌ ສ່ວນ​ຕົວ</string>
+    <string name="enterYourDetailToSignIn">ປ້ອນລາຍລະອຽດຂອງທ່ານເພື່ອເຂົ້າສູ່ລະບົບ</string>
+    <string name="userName">​ຊື່​ຜູ້​ໃຊ້</string>
     <string name="enterYourUserName">ຊື່​ຜູ້​ໃຊ້</string>
     <string name="password">ລະ​ຫັດ​ຜ່ານ</string>
     <string name="enterPassword">ລະ​ຫັດ​ຜ່ານ</string>
@@ -25,14 +25,14 @@
     <string name="shbBranch3">​ທະ​ນາ​ຄານ ໄຊ​ງ່ອນ - ຮ່​າ​ໂນ້ຍ ລາວ​ຈຳ​ກັດ ຜູ້ດຽວ ສາ​ຂາ ​ສະ​ຫວັນ​ນະ​ເຂດ</string>
     <string name="shbBranch3Address">​ໜ່ວຍ 25 ບ້ານ ລັດ​ຕະ​ນະ​ລັງ​ສີ​ເໜືອ, ນະ​ຄອນໄກ​ສອນ​ພົມ​ວິ​ຫານ, ແຂວງ ສະ​ຫວັນ​ນະ​ເຂດ</string>
     <string name="welcomeToShb">​ຍິນ​ດີ​ຕ້ອນ​ຮັບ​ສູ່ SHB</string>
-    <string name="currentAccount">ບັນ​ຊີ​ປະ​ຈຸ​ບັນ</string>
+    <string name="currentAccount">ບັນ​ຊີ​ກະ​ແສ​ລາຍ​ວັນ</string>
     <string name="transfer">ໂອນ​ເງິນ</string>
     <string name="transferCAP">ໂອນ​ເງິນ</string>
     <string name="accounts">ບັນ​ຊີ</string>
-    <string name="logoutConfirm">ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການອອກຈາກລະບົບ?</string>
+    <string name="logoutConfirm">ທ່ານຕ້ອງການອອກຈາກລະບົບ​ບໍ່?</string>
     <string name="cancel">ຍົກ​ເລີກ</string>
     <string name="logout">ອອກ​ຈາກ​ລະ​ບົບ</string>
-    <string name="sessionExpired">ເຊ​ສຊັນຂອງທ່ານໝົດອາຍຸແລ້ວ. ກະລຸນາເຂົ້າສູ່ລະບົບອີກຄັ້ງ.</string>
+    <string name="sessionExpired">ບໍ່​ມີ​ການ​ເຄື່ອນ​ໄຫວ​ດົນ​ເກີນ​ໄປ. ກະລຸນາເຂົ້າສູ່ລະບົບອີກຄັ້ງ.</string>
     <string name="close">ປິດ</string>
     <string name="selectAccount">ເລືອກບັນຊີ</string>
     <string name="loanAccount">ບັນຊີເງິນກູ້</string>
@@ -53,27 +53,27 @@
     <string name="branch">ສາຂາ</string>
     <string name="transactionHistory">ປະຫວັດ​ການເຮັດທຸລະກໍາ</string>
     <string name="viewAll">ເບິ່ງທັງໝົດ</string>
-    <string name="transactionAmount">ຈໍານວນການເຮັດທຸລະກໍາ</string>
+    <string name="transactionAmount">​ຈຳ​ນວນ​ເງິນ​ເຮັດ​ທຸ​ລະ​ກຳ</string>
     <string name="fromAccount">ຈາກບັນຊີ</string>
-    <string name="remarks">ເນື້ອ​ໃນ</string>
+    <string name="remarks">​ເນື້ອ​ໃນ</string>
     <string name="transactionDate">ວັນທີ​ເຮັດທຸລະກໍາ</string>
     <string name="referenceNumber">ໝາຍເລກອ້າງອີງ</string>
     <string name="moneyTransfer">ໂອນເງິນ</string>
-    <string name="intrabankTransfer">ການໂອນເງິນພາຍໃນທະນາຄານ</string>
+    <string name="intrabankTransfer">ໂອນເງິນພາຍໃນທະນາຄານ</string>
     <string name="ownAccountTransfer">​ໂອນ​​ເງິນລ​ະ​ຫວ່າງ​ບັນ​ຊີ​ຕົນ​ເອງ</string>
     <string name="balance">ຍອດເງິນ</string>
-    <string name="toAccount">ເຂົ້າບັນຊີ</string>
+    <string name="toAccount">ຫາບັນຊີ</string>
     <string name="amount">ຈໍານວນ</string>
     <string name="enterAccountNumber">ປ້ອນເລກບັນຊີ</string>
     <string name="enterAmount">ປ້ອນຈໍານວນ​ເງິນ</string>
-    <string name="insufficientBalance">ຍອດເງິນໃນບັນຊີບໍ່ພຽງພໍ. ກະລຸນາລອງອີກຄັ້ງ.</string>
+    <string name="insufficientBalance">ຍອດເງິນໃນບັນຊີບໍ່ພຽງພໍ. ກະລຸນາລອງ​ໃໝ່ອີກຄັ້ງ.</string>
     <string name="fee">ຄ່າທຳນຽມ</string>
     <string name="totalAmount">ຈໍານວນ​ເງິນທັງໝົດ</string>
     <string name="transactionFailed">ທຸລະກຳລົ້ມເຫຼວ. ກະລຸນາລອງອີກຄັ້ງ.</string>
     <string name="tryAgain">ລອງອີກຄັ້ງ</string>
     <string name="transactionExceedLimit">ທຸລະກຳລົ້ມເຫຼວ​ຍ້ອນ​ເກີນ​ວົງ​ເງິນ​​ເຮ​ັດ​ທຸ​ລ​ະ​ກຳ</string>
     <string name="paymentSuccess">ທຸ​ລະ​ກຳສຳເລັດ!</string>
-    <string name="createNewTransaction">ສ້າງທຸລະກໍາໃຫມ່</string>
+    <string name="createNewTransaction">ສ້າງທຸລະກໍາໃໝ່</string>
     <string name="selectBeneficiary">ເລືອກຜູ້ຮັບ</string>
     <string name="confirmationCode">ລະຫັດຢືນຢັນ</string>
     <string name="enterConfirmationCode">ກະລຸນາປ້ອນລະຫັດຢືນຢັນ​ທີ​່​ຈ​ຸດ C5 ໃນບັດ eSecure</string>
@@ -94,9 +94,9 @@
     <string name="pleaseTryAgainIn">ກະລຸນາລອງໃໝ່ໃນອີກ</string>
     <string name="currentBalance">​ຍອ​ດ​ເງິນ​ປະ​ຈຸ​ບັນ</string>
     <string name="show">​ສະ​ແດງ</string>
-    <string name="myProfile">ໂປ​ຣ​ຟາຍ​ຂອງ​ຂ້ອຍ</string>
+    <string name="myProfile">ໂປຣໄຟລ໌​ຂອງ​ຂ້ອຍ</string>
     <string name="tel">​ເບີ​ໂທ:</string>
-    <string name="hide">ຊ່ອນ</string>
+    <string name="hide">ເຊື່ອງ</string>
     <string name="english">​ພາ​ສາ ອັງ​ກິດ</string>
     <string name="vietnamese">​ພາ​ສາ ຫວຽດ​ນາມ</string>
     <string name="lao">ພາ​ສາ ລາວ</string>
@@ -128,7 +128,7 @@
     <string name="transferAccountAndReceivingAccountNotSame">ບັນ​ຊີ​ໂອນ ແລະ ບັນ​ຊີ​ຮັບ​ ສະ​ກຸນ​ເງິນ​ຕ່າງ​ກັນ</string>
     <string name="pleaseEnterTheAccountNumber">​ກະ​ລຸ​ນາ​ປ້ອນ​ເລກ​ບັນ​ຊີ​</string>
     <string name="pleaseEnterTheRemarks">ກະ​ລຸ​ນາ​ປ້ອນເນື້ອ​ໃນ</string>
-    <string name="enterRemarks">​ປ່ອນເນື້ອ​ໃນ</string>
+    <string name="enterRemarks">​ປ້ອນເນື້ອ​ໃນ</string>
     <string name="transactionSuccess">ສຳເລັດການຊຳລະ !</string>
     <string name="errorCode">ລະ​ຫັດ​ບໍ່​ຖືກ​ຕ້ອງ</string>
 </resources>
