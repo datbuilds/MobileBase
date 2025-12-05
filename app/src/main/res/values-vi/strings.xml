@@ -130,4 +130,5 @@
     <string name="pleaseEnterTheRemarks">Vui lòng nhập nội dung</string>
     <string name="enterRemarks">Nhập nội dung</string>
     <string name="transactionSuccess">Giao dịch thành công!</string>
+    <string name="minus">phút</string>
 </resources>

@@ -131,4 +131,5 @@
     <string name="enterRemarks">​ປ້ອນເນື້ອ​ໃນ</string>
     <string name="transactionSuccess">ສຳເລັດການຊຳລະ !</string>
     <string name="errorCode">ລະ​ຫັດ​ບໍ່​ຖືກ​ຕ້ອງ</string>
+    <string name="minus">ນາທີ</string>
 </resources>

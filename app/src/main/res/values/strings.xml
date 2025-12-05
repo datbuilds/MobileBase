@@ -158,5 +158,6 @@
     <string name="editBeneficiary">Edit beneficiary</string>
     <string name="bank">Bank</string>
     <string name="defaultRemarks">Default Remarks</string>
+    <string name="minus">minutes</string>
 
 </resources>

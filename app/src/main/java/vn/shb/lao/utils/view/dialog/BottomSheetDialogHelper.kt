@@ -18,6 +18,7 @@ import vn.shb.lao.base.view.MyTextView
 import vn.shb.lao.databinding.CustomDialogLayoutBinding
 import vn.shb.lao.databinding.DialogSystemErrorBinding
 import vn.shb.lao.utils.extensions.CustomCountdownTimer
+import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.gone
 import vn.shb.lao.utils.extensions.invisible
 import vn.shb.lao.utils.extensions.visible
@@ -205,8 +206,8 @@ class BottomSheetDialogHelper(context: Context) {
 
                 val baseMsg = message
                 val fullMsg = "${baseMsg.plus(" ")}${
-                    context.getString(R.string.pleaseTryAgainIn).plus(" ")
-                }$formatted"
+                    context.getString(R.string.pleaseTryAgainIn).plus(Const.SEPARATOR_SPACE)
+                }$formatted ${context.getString(R.string.minus)}."
 
                 val spannable = SpannableString(fullMsg)
                 val start = fullMsg.indexOf(formatted)
