@@ -6,7 +6,7 @@ object AndroidConfig {
     // Version name scheme: major.minor.patch
     private const val versionMajor = 1
     private const val versionMinor = 0
-    private const val versionPatch = 0
+    private const val versionPatch = 1
 
     /**
      * Prepare the version name in [versionMajor].[versionMinor].[versionPatch] format.
@@ -16,7 +16,7 @@ object AndroidConfig {
     /**
      *
      */
-    const val VERSION_CODE = 1
+    const val VERSION_CODE = 3
 
     /**
      *
