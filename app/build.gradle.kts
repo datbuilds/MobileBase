@@ -27,7 +27,7 @@ android {
                 buildConfigField(
                     "String",
                     "BASE_URL",
-                    "\"https://app.shb.com.vn/api/v1/\""
+                    "\"https://ibanking.shb.la/external/shb-mobile-lao/1.0.0/\""
                 )
             },
             uat = {
