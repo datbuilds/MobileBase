@@ -80,7 +80,7 @@ class LoginViewModel(
             val bindingSup = LayoutBranchListBinding.inflate(LayoutInflater.from(this))
 
             //mock data
-            val branches = getListAddress()
+            val branches = getListAddress(context)
 
             bindingSup.rvBranches.apply {
                 layoutManager = LinearLayoutManager(context)
@@ -119,25 +119,25 @@ class LoginViewModel(
         context.startActivity(fallbackIntent)
     }
 
-    private fun getListAddress() : List<Branch> {
+    private fun getListAddress(context: Context) : List<Branch> {
         return listOf(
             Branch(
-                "1. SAI GON - HA NOI BANK LAO SOLE CO., LIMITED",
-                "Unit 1, Lane Xang Avenue, Vientiane Captital, Laos P.D.R",
+                context.getString(R.string.shbBranch1),
+                context.getString(R.string.shbBranch1Address),
                 "+856 21 82 8888",
                 "17.96729",
                 "102.61563"
             ),
             Branch(
-                "2. SAI GON - HA NOI BANK LAO SOLE CO., LIMITED, CHAMPASAK BRANCH",
-                "336, 337, 338 Pakse New Market, Phonekung, Pakse, Champasack, Laos P.D.R",
+                context.getString(R.string.shbBranch2),
+                context.getString(R.string.shbBranch2Address),
                 "+856 31 257 167",
                 "15.1136",
                 "105.81568"
             ),
             Branch(
-                "3. SAI GON - HA NOI BANK LAO SOLE CO., LIMITED, SAVANNAKHET BRANCH ",
-                "Unit 25, Lattanalangsy Neua Village, Kaisone Phomvihan City, Savannakhet Province, Laos ",
+                context.getString(R.string.shbBranch3),
+                context.getString(R.string.shbBranch3Address),
                 "+856 30 925 6666",
                 "16.56037",
                 "104.75389"

@@ -276,6 +276,7 @@ fun TextView.setCustomSpannable(
     highlightColor = Color.TRANSPARENT
     isClickable = true
 
+
     // Xử lý hiệu ứng pressed thủ công vì dialog không support hiệu ứng này
     setOnTouchListener { v, event ->
         when (event.action) {

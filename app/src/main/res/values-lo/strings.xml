@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="personalInternetBanking">ທະ​ນາ​ຄານ ອອ​ນ​ໄລ​ນ໌ ສ່ວນ​ຕົວ</string>
+    <string name="personalInternetBanking">ທະ​ນາ​ຄານ​ອິນ​ເຕີ​ເນັດ​ສ່ວນ​ບຸກ​ຄົນ</string>
     <string name="enterYourDetailToSignIn">ປ້ອນລາຍລະອຽດຂອງທ່ານເພື່ອເຂົ້າສູ່ລະບົບ</string>
     <string name="userName">​ຊື່​ຜູ້​ໃຊ້</string>
     <string name="enterYourUserName">ຊື່​ຜູ້​ໃຊ້</string>
@@ -12,7 +12,7 @@
     <string name="goodAfternoon">​ສະ​ບາຍ​ດີ ຕອນ​ບ່າຍ</string>
     <string name="goodnight">​ສະ​ບາຍ​ດີ​ ຕອນ​ຄ່ຳ</string>
     <string name="welcome">​ຍິນ​ດີ​ຕ້ອນ​ຮັບ</string>
-    <string name="notification">​ການ​ແຈ້ງ​ເຕືອນ</string>
+    <string name="notification">ແຈ້ງ​ເຕືອນ</string>
     <string name="incorrectUsernameOrPassword">​ຊື່​ຜູ້​ໃຊ້ ຫຼື ລະ​ຫັດ​ຜ່ານ​ບໍ່​ຖືກ​ຕ້ອງ</string>
     <string name="exceededLoginAttempts">ທ່ານໄດ້ເຂົ້າສູ່ລະບົບລົ້ມເຫຼວເກີນ 5 ຄັ້ງ. ກະລຸນາລອງໃໝ່ໃນອີກ 15 ນາທີ.</string>
     <string name="processingError">ການປະມວນຜົນຜິດພາດ. ກະລຸນາລອງໃໝ່ໃນພາຍຫຼັງ.</string>
@@ -20,7 +20,7 @@
     <string name="pleaseBringIdToResetPassword">ກະລຸນາ ຖືບັດປະຈຳຕົວ/ໜັງສືຜ່ານແດນ ເຂົ້າມາປ່ອງບໍລິການຂອງ SHB ເພື່ອປ່ຽນລະຫັດຜ່ານ</string>
     <string name="shbBranch1">​ທະ​ນາ​ຄານ ໄຊ​ງ່ອນ - ຮ່​າ​ໂນ້ຍ ລາວ​ຈຳ​ກັດ ຜູ້ດຽວ</string>
     <string name="shbBranch1Address">ໜ່ວຍ 1. ຖະ​ໜົນ​ລ້ານ​ຊ້​າງ, ນະ​ຄອນຫຼວງວຽງ​ຈັນ, ສ​ປ​ປ ລາວ</string>
-    <string name="shbBranch2">​ທະ​ນາ​ຄານ ໄຊ​ງ່ອນ - ຮ່​າ​ໂນ້ຍ ລາວ​ຈຳ​ກັດ ຜູ້​ດຽວ ສາ​ຂາ ຈຳ​ປາ​ສັກ</string>
+    <string name="shbBranch2">ທະ​ນາ​ຄານ ໄຊ​ງ່ອນ - ຮ່​າ​ໂນ້ຍ ລາວ​ຈຳ​ກັດ ຜູ້​ດຽວ ສາ​ຂາ ຈຳ​ປາ​ສັກ</string>
     <string name="shbBranch2Address">336, 337, 338 ຕະຫຼາດ​ໃໝ່​ປາກເຊ, ບ້ານ ໂພນ​ກຸງ, ນະ​ຄອນ​ປາກ​ເຊ, ແຂວງ ຈຳ​ປາ​ສັກ</string>
     <string name="shbBranch3">​ທະ​ນາ​ຄານ ໄຊ​ງ່ອນ - ຮ່​າ​ໂນ້ຍ ລາວ​ຈຳ​ກັດ ຜູ້ດຽວ ສາ​ຂາ ​ສະ​ຫວັນ​ນະ​ເຂດ</string>
     <string name="shbBranch3Address">​ໜ່ວຍ 25 ບ້ານ ລັດ​ຕະ​ນະ​ລັງ​ສີ​ເໜືອ, ນະ​ຄອນໄກ​ສອນ​ພົມ​ວິ​ຫານ, ແຂວງ ສະ​ຫວັນ​ນະ​ເຂດ</string>
@@ -57,13 +57,13 @@
     <string name="fromAccount">ຈາກບັນຊີ</string>
     <string name="remarks">​ເນື້ອ​ໃນ</string>
     <string name="transactionDate">ວັນທີ​ເຮັດທຸລະກໍາ</string>
-    <string name="referenceNumber">ໝາຍເລກອ້າງອີງ</string>
+    <string name="referenceNumber">ເລກອ້າງອີງ</string>
     <string name="moneyTransfer">ໂອນເງິນ</string>
     <string name="intrabankTransfer">ໂອນເງິນພາຍໃນທະນາຄານ</string>
     <string name="ownAccountTransfer">​ໂອນ​​ເງິນລ​ະ​ຫວ່າງ​ບັນ​ຊີ​ຕົນ​ເອງ</string>
     <string name="balance">ຍອດເງິນ</string>
     <string name="toAccount">ຫາບັນຊີ</string>
-    <string name="amount">ຈໍານວນ</string>
+    <string name="amount">ຈໍານວນເງິນ</string>
     <string name="enterAccountNumber">ປ້ອນເລກບັນຊີ</string>
     <string name="enterAmount">ປ້ອນຈໍານວນ​ເງິນ</string>
     <string name="insufficientBalance">ຍອດເງິນໃນບັນຊີບໍ່ພຽງພໍ. ກະລຸນາລອງ​ໃໝ່ອີກຄັ້ງ.</string>
@@ -118,7 +118,7 @@
     <string name="toDate">ຫາ​ວັນ​ທີ</string>
     <string name="noTransactionHistory">ບໍ່​ມີ​ປະ​ຫວັດ​ການ​ເຮັດ​ທຸ​ລະ​ກຳ</string>
     <string name="noAccountAvailable">ບໍ່​ມີ​ບັນ​ຊີ​ສາ​ມາດ​ນຳ​ໃຊ້​ໄດ້</string>
-    <string name="confirmation">ຢືນ​ຢັນ</string>
+    <string name="confirmation">ການຢືນ​ຢັນ</string>
     <string name="accountName">ຊື່​ບັນ​ຊີ</string>
     <string name="enterCode">ປ້ອນລະ​ຫັດ</string>
     <string name="remainingTime">​ເວ​ລາ​ຍັງ​ເຫຼືອ</string>

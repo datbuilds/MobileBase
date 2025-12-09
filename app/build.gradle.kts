@@ -23,7 +23,7 @@ android {
     productFlavors {
         createApplicationFlavor(
             pro = {
-                resValue("string", "app_name", "SHB SAHA LAOS")
+                resValue("string", "app_name", "SHB SAHA Laos")
                 buildConfigField(
                     "String",
                     "BASE_URL",
@@ -31,7 +31,7 @@ android {
                 )
             },
             uat = {
-                resValue("string", "app_name", " UAT SHB SAHA LAOS")
+                resValue("string", "app_name", " UAT SHB SAHA Laos")
                 buildConfigField(
                     "String",
                     "BASE_URL",
@@ -39,7 +39,7 @@ android {
                 )
             },
             dev = {
-                resValue("string", "app_name", "DEV SHB SAHA LAOS")
+                resValue("string", "app_name", "DEV SHB SAHA Laos")
                 buildConfigField(
                     "String",
                     "BASE_URL",
