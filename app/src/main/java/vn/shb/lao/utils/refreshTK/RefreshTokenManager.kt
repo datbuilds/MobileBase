@@ -87,6 +87,7 @@ object RefreshTokenManager {
                             setToken(response.access_token)
                             setExpireTime(TimeUnit.SECONDS.toMinutes(response.expireIn()).toInt())
                             setTokenInvalid(false)
+                            setRfToken(response.refresh_token)
                         }
                     }
                     isErrorShowing = false // Reset flag khi refresh thành công

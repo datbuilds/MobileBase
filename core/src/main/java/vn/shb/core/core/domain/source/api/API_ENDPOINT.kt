@@ -22,4 +22,5 @@ object ENDPOINT {
 
     const val GET_TRANSACTION_DETAIL = "fundtransfer-service/api/v1/transactions/details"
     const val VALIDATE_TRANSFER = "fundtransfer-service/api/v1/transactions/validate"
+    const val WSO_END_POINT = "oauth2/token"
 }
