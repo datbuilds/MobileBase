@@ -45,10 +45,6 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
     private var isShowValueBalance = false
     private var textGoneValue = "********"
 
-    companion object {
-        const val AUTO_SCROLL_BANNER_DELAY = 2000L
-    }
-
     override fun initView(view: View) {
         bindView()
         setup()
@@ -182,7 +178,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
         with(homeViewModel) {
             launchRepeatOnLifecycle {
                 launch {
-                    stateUserInfo.collectLatest { userInfo ->
+                    stateUserInfo.collectLatest {
                         val userLog = getCurrentUser()
                         userLog?.let { it ->
                             mapUserInfo(it)
@@ -208,76 +204,4 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
     override fun onAttach(context: Context) {
         super.onAttach(LocaleHelper.setLocale(context, LocaleHelper.getCurrentLanguage(context)))
     }
-
-
-    fun updateLanguage(type: String) {
-        context?.let { ct ->
-            LocaleHelper.saveLanguage(ct, type)
-            LocaleHelper.setLocale(ct, type)
-//            restartApp(activity!!)
-            requireActivity().recreate()
-        }
-    }
-
-/*    private fun restartApp(context: Context) {
-        val intent = context.packageManager.getLaunchIntentForPackage(context.packageName)
-        intent?.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-        context.startActivity(intent)
-        if (context is Activity) {
-            context.finish()
-        }
-    }
-
-    private fun showLanguagePopup(anchor: View) {
-        val binding = LayoutLanguagePopupBinding.inflate(LayoutInflater.from(anchor.context))
-
-        val popupWindow = PopupWindow(
-            binding.root,
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            true // focusable, click outside sẽ tự đóng
-        )
-
-        val currentLanguage = LocaleHelper.getCurrentLanguage(requireContext())
-
-        // style
-        popupWindow.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
-        popupWindow.isOutsideTouchable = true
-        popupWindow.elevation = 8f
-
-        binding.apply {
-            iclLanguage1.apply {
-                ivLogo.setImageResource(R.drawable.ic_logo_uk)
-                tvNameLanguage.text = getString(R.string.english)
-                root.setDisableAlpha(currentLanguage == ENGLISH)
-                root.setOnSingleClickListener {
-                    updateLanguage(ENGLISH)
-                    popupWindow.dismiss()
-                }
-            }
-
-            iclLanguage2.apply {
-                ivLogo.setImageResource(R.drawable.ic_logo_vn)
-                tvNameLanguage.text = getString(R.string.vietnamese)
-                root.setDisableAlpha(currentLanguage == VIET)
-                root.setOnSingleClickListener {
-                    updateLanguage(VIET)
-                    popupWindow.dismiss()
-                }
-            }
-
-            iclLanguage3.apply {
-                ivLogo.setImageResource(R.drawable.ic_logo_lao)
-                tvNameLanguage.text = getString(R.string.lao)
-                root.setDisableAlpha(currentLanguage == LAO)
-                root.setOnSingleClickListener {
-                    updateLanguage(LAO)
-                    popupWindow.dismiss()
-                }
-            }
-        }
-
-        val marginRight = (130 * anchor.context.resources.displayMetrics.density).toInt()
-        popupWindow.showAsDropDown(anchor, -marginRight, 0, Gravity.END)
-    }*/
 }

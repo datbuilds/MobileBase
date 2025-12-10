@@ -93,7 +93,6 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
             initObserve()
             observerStateError()
         })
-//        insertPaddingView()
     }
 
     private fun insertPaddingView() {
@@ -152,35 +151,8 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
 
     abstract fun initObserve()
 
-    open fun addFlag() {
-        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-    }
-
     open fun clearFlag() {
         activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-    }
-
-    open fun isDialogShowing(TAG: String): Boolean {
-        return requireActivity().supportFragmentManager.findFragmentByTag(TAG) != null
-    }
-
-    @SuppressLint("InlinedApi")
-    open fun hideSystemUi(view: View) {
-        val window = requireActivity().window
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-
-        val insetsController = WindowInsetsControllerCompat(window, view)
-        insetsController.hide(WindowInsetsCompat.Type.systemBars())
-        insetsController.systemBarsBehavior = BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-    }
-
-    protected fun safeAction(action: () -> Unit) {
-        val currentTimeMillis = System.currentTimeMillis()
-
-        if (currentTimeMillis >= previousClickTimeMillis + DELAY_MILLIS) {
-            previousClickTimeMillis = currentTimeMillis
-            action()
-        }
     }
 
     fun safeNavigate(
@@ -209,7 +181,6 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
     }
 
     fun getCurrentUser() = UserConverters.stringToUserInfo(storage.getUserLog())
-    fun setCurrentUser(user: UserLog) = storage.setUserLog(UserConverters.userInfoToString(user))
 
     fun getPathAvatarUser(key: String? = getCurrentUser()?.customerId) =
         key?.let { storage.getPathAvatarUser(it) }
@@ -217,30 +188,6 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
     fun setPathAvatarUser(path: String, key: String? = getCurrentUser()?.customerId) =
         key?.let { storage.setPathAvatarUser(it, path) }
 
-    open fun enableFullScreen() {
-        val window = requireActivity().window
-        val insetsController = WindowCompat.getInsetsController(window, window.decorView)
-
-        insetsController.apply {
-            hide(WindowInsetsCompat.Type.systemBars())
-            systemBarsBehavior = BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        }
-    }
-
-    open fun disableFullScreen() {
-        val window = requireActivity().window
-        window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_FULLSCREEN)
-        val insetsController = WindowCompat.getInsetsController(window, window.decorView)
-
-        insetsController.apply {
-            show(WindowInsetsCompat.Type.systemBars())
-            systemBarsBehavior = BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            window.attributes.layoutInDisplayCutoutMode = LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER
-        }
-    }
 
     open fun showDialogError(
         reason: Reason,
@@ -279,7 +226,6 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
             launch {
                 homeViewModel.stateError.collect { error ->
                     handleErrorHome(error)
-//                    homeViewModel.stateError(null)
                 }
             }
         }

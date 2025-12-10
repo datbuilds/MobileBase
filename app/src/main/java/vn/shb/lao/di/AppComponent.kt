@@ -25,11 +25,9 @@ fun appComponent(context: Context) = listOf(
         single { LocalBroadcastManager.getInstance(get()) }
     },
     *createNetworkModule(BuildConfig.BASE_URL, BuildConfig.DEBUG),
-    databaseModule,
     domainModule,
     localModule,
     repositoryModule,
-
     // feature module
     featureModule,
 )

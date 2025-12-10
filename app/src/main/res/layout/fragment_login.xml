@@ -210,7 +210,7 @@
             android:paddingVertical="@dimen/margin_8dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_input_pass"
+                android:id="@+id/edtInputPass"
                 style="@style/AppTextInputEditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

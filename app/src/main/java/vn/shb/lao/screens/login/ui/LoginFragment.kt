@@ -4,10 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputFilter
 import android.text.InputType
 import android.view.View
 import android.view.WindowManager
-import android.view.inputmethod.EditorInfo
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
@@ -122,14 +122,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             edtInputPass.setOnFocusChangeListener { _, hasFocus ->
                 passwordContainer.isSelected = hasFocus
             }
-//            edtInputPass.setOnEditorActionListener { _, actionId, _ ->
-//                if (actionId == EditorInfo.IME_ACTION_DONE) {
-//                    login()
-//                    true
-//                } else {
-//                    false
-//                }
-//            }
 
             btnToggle.setOnClickListener {
                 isVisiblePassword = !isVisiblePassword
@@ -153,6 +145,10 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
     private fun bindEdtPassword() {
         with(binding) {
+            edtInputPass.filters =
+                arrayOf(InputFilter.LengthFilter(50), InputFilter { source, _, _, _, _, _ ->
+                    if (source != null && source.contains(" ")) "" else null
+                })
             val currentFont = edtInputPass.typeface
             if (isVisiblePassword) {
                 edtInputPass.inputType =

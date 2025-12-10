@@ -37,7 +37,7 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
         adapter.setListenAction(
             object : ActionEditBeneficiary {
                 override fun edit(item: BeneficiaryUser) {
-                    navToEditBeneficiary(false)
+                    navToEditBeneficiary()
                     safeNavigate(R.id.beneficiaryFragment, R.id.editBeneficiaryFragment)
                 }
 
@@ -67,7 +67,7 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
             }
 
             tvAddNew.setOnSingleClickListener {
-                navToEditBeneficiary(true)
+                navToEditBeneficiary()
             }
 
             edtSearchBeneficiary.addTextChangedListener { text ->
@@ -88,7 +88,7 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
         }
     }
 
-    private fun navToEditBeneficiary(isAddNew : Boolean){
+    private fun navToEditBeneficiary(){
         safeNavigate(R.id.beneficiaryFragment, R.id.editBeneficiaryFragment)
     }
 
