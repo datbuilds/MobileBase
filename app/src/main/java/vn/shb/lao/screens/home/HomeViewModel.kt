@@ -76,8 +76,8 @@ class HomeViewModel(
     private val _stateAccountDetails = MutableStateFlow(AccountDetails())
     val stateAccountDetails = _stateAccountDetails.asStateFlow()
 
-    private val _stateTransactions5First = MutableStateFlow<List<TransactionItem>>(emptyList())
-    val stateTransactions5First = _stateTransactions5First.asStateFlow()
+    private val _stateTransactions5First = Channel<List<TransactionItem>>(Channel.BUFFERED)
+    val stateTransactions5First = _stateTransactions5First.receiveAsFlow()
 
     private val _stateAllTransactions = MutableStateFlow<List<TransactionItem>>(emptyList())
     val stateAllTransactions = _stateAllTransactions.asStateFlow()
@@ -104,7 +104,7 @@ class HomeViewModel(
     private val _stateTransactionTransfer = Channel<TransactionTransfer?>(Channel.BUFFERED)
     val stateTransactionTransfer = _stateTransactionTransfer.receiveAsFlow()
 
-    private var transactionTransferRealtime : TransactionTransfer? = null
+    private var transactionTransferRealtime: TransactionTransfer? = null
 
     private val _stateTransactionTransferConfirm = MutableSharedFlow<TransactionTransferConfirm?>()
     val stateTransactionTransferConfirm = _stateTransactionTransferConfirm.asSharedFlow()
@@ -175,7 +175,8 @@ class HomeViewModel(
         listAccount: List<AccountInfo> = this.listAccount
     ) {
         if (selectedAccount != null) {
-            selectedAccount = listAccount.find { it.accountNumber == selectedAccount!!.accountNumber }
+            selectedAccount =
+                listAccount.find { it.accountNumber == selectedAccount!!.accountNumber }
             viewModelScope.launch {
                 _stateAccounts.send(selectedAccount!!)
             }
@@ -232,8 +233,12 @@ class HomeViewModel(
             )
             useCaseTransaction.invoke(params).collect { result ->
                 result.onSuccess { transactionData ->
-                    _stateTransactions5First.value =
-                        mapTransactionsToItems(context, transactionData.array ?: listOf())
+                    _stateTransactions5First.send(
+                        mapTransactionsToItems(
+                            context,
+                            transactionData.array ?: listOf()
+                        )
+                    )
                 }
                 result.onFailure { error ->
                     stateError(error)
@@ -421,7 +426,7 @@ class HomeViewModel(
                         }
                     }, { reason ->
                         viewModelScope.launch {
-                            if (listErrorCodeConfirmContinue.contains(reason.errorCode)){
+                            if (listErrorCodeConfirmContinue.contains(reason.errorCode)) {
                                 stateError(reason)
                             } else {
                                 _stateTransferConfirmError.send(reason)
@@ -479,7 +484,7 @@ class HomeViewModel(
         }
     }
 
-    fun validateTransaction(params : UseCaseValidateTransaction.Params, callFinish : () -> Unit){
+    fun validateTransaction(params: UseCaseValidateTransaction.Params, callFinish: () -> Unit) {
         viewModelScope.launch {
             useCaseValidateTransaction.invoke(params).collect { resultSHB ->
                 resultSHB.onResultHandle(
@@ -541,14 +546,16 @@ class HomeViewModel(
     }
 
     fun getAllBeneficiary() {
-       val listB = arrayListOf<BeneficiaryUser>()
-        for(i in 0..9){
-            listB.add(BeneficiaryUser(
-                nameUser = "MS VATHANA SISANE",
-                accountNumber = (i*1111111111).toString(),
-                nameAddressBank = "Saigon – Hanoi Commercial Joint Stock Bank",
-                bankCode = "3"
-            ))
+        val listB = arrayListOf<BeneficiaryUser>()
+        for (i in 0..9) {
+            listB.add(
+                BeneficiaryUser(
+                    nameUser = "MS VATHANA SISANE",
+                    accountNumber = (i * 1111111111).toString(),
+                    nameAddressBank = "Saigon – Hanoi Commercial Joint Stock Bank",
+                    bankCode = "3"
+                )
+            )
         }
         _stateAllBeneficiary.value = listB
     }

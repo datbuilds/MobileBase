@@ -27,7 +27,6 @@ import java.util.Locale
 class TransactionHistoryFragment :
     BaseFragmentBinding<FragmentTransactionHistoryBinding>(FragmentTransactionHistoryBinding::inflate) {
     private val adapter by lazy { TransactionAdapter() }
-//    private var isStarted = false
 
     private var fromDateMillis: Long = 0L
     private var toDateMillis: Long = 0L
@@ -78,7 +77,6 @@ class TransactionHistoryFragment :
                 getViewDate(toDateMillis)
             )
         )
-//        isStarted = true
     }
 
     private fun setUpRecyclerView() {
@@ -95,7 +93,6 @@ class TransactionHistoryFragment :
     override fun initListener() {
         with(binding) {
             tvTransactionHistory.setOnSingleClickListener {
-//                safeNavigate(R.id.transactionHistory, R.id.backToAccountDetails)
                 backPress()
             }
 
