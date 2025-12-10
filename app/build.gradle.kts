@@ -27,7 +27,7 @@ android {
                 buildConfigField(
                     "String",
                     "BASE_URL",
-                    "\"https://ibanking.shb.la/external/shb-mobile-lao/1.0.0/\""
+                    "\"https://ibanking.shb.la/external/shb-mobile-lao/1.0.0/mblao/\""
                 )
             },
             uat = {

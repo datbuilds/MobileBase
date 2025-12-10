@@ -95,7 +95,8 @@ class TransactionHistoryFragment :
     override fun initListener() {
         with(binding) {
             tvTransactionHistory.setOnSingleClickListener {
-                safeNavigate(R.id.transactionHistory, R.id.backToAccountDetails)
+//                safeNavigate(R.id.transactionHistory, R.id.backToAccountDetails)
+                backPress()
             }
 
             iclFromDate.root.setOnSingleClickListener {
@@ -197,5 +198,4 @@ class TransactionHistoryFragment :
             }
             .start()
     }
-
 }

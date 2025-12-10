@@ -91,9 +91,11 @@ fun createNetworkModule(
         factory { ServiceSplash(get()) }
 
         factory { get<Retrofit>(named(RETROFIT_NORMAL)).create(ApiAuth::class.java) }
-        factory { get<Retrofit>(named(RETROFIT_NORMAL)).create(ApiUser::class.java) }
-        factory { get<Retrofit>(named(RETROFIT_NORMAL)).create(ApiTransfer::class.java) }
         factory { ServiceAuth(get()) }
+
+        factory { get<Retrofit>().create(ApiUser::class.java) }
+        factory { get<Retrofit>().create(ApiTransfer::class.java) }
+
         factory { ServiceUser(get()) }
         factory { ServiceTransfer(get()) }
     }

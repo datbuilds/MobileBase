@@ -68,8 +68,8 @@ class HomeViewModel(
     private val _stateUserInfo = MutableStateFlow(UserInfo())
     val stateUserInfo = _stateUserInfo.asStateFlow()
 
-    private val _stateAccounts = MutableStateFlow<AccountBase>(AccountInfo())
-    val stateSelectedAccount = _stateAccounts.asStateFlow()
+    private val _stateAccounts = Channel<AccountBase>(Channel.BUFFERED)
+    val stateSelectedAccount = _stateAccounts.receiveAsFlow()
 
     private val _stateAccountDetails = MutableStateFlow(AccountDetails())
     val stateAccountDetails = _stateAccountDetails.asStateFlow()
@@ -99,8 +99,10 @@ class HomeViewModel(
     private val _stateReceiverAccount = MutableStateFlow<List<TransferAccount>>(emptyList())
     val stateReceiverAccount = _stateReceiverAccount.asStateFlow()
 
-    private val _stateTransactionTransfer = MutableStateFlow<TransactionTransfer?>(null)
-    val stateTransactionTransfer = _stateTransactionTransfer.asStateFlow()
+    private val _stateTransactionTransfer = Channel<TransactionTransfer?>(Channel.BUFFERED)
+    val stateTransactionTransfer = _stateTransactionTransfer.receiveAsFlow()
+
+    private var transactionTransferRealtime : TransactionTransfer? = null
 
     private val _stateTransactionTransferConfirm = MutableSharedFlow<TransactionTransferConfirm?>()
     val stateTransactionTransferConfirm = _stateTransactionTransferConfirm.asSharedFlow()
@@ -172,7 +174,9 @@ class HomeViewModel(
     ) {
         if (selectedAccount != null) {
             selectedAccount = listAccount.find { it.accountNumber == selectedAccount!!.accountNumber }
-            _stateAccounts.value = selectedAccount!!
+            viewModelScope.launch {
+                _stateAccounts.send(selectedAccount!!)
+            }
             return
         }
         selectedAccount = listAccount.find { it.accountNumber == userInfo.defaultAcct }
@@ -180,7 +184,9 @@ class HomeViewModel(
             selectedAccount = listAccount[0]
         }
         if (selectedAccount != null) {
-            _stateAccounts.value = selectedAccount!!
+            viewModelScope.launch {
+                _stateAccounts.send(selectedAccount!!)
+            }
         }
     }
 
@@ -339,6 +345,7 @@ class HomeViewModel(
     }
 
     fun listenChangeFromAccount(account: AccountBase) {
+        selectedAccount = account
         listReceiverActive = listReceiverAccount.filter { it.currencyCode == account.currencyCode }
         _stateReceiverAccount.value = listReceiverActive
     }
@@ -348,7 +355,7 @@ class HomeViewModel(
             useCaseTransferAccount.invoke(UseCaseTransferAccount.Params(false)).collect { result ->
                 result.onSuccess { accountData ->
                     listReceiverAccount = accountData.array
-                    _stateTransferAccount.value?.let { listenChangeFromAccount(it) }
+                    selectedAccount?.let { listenChangeFromAccount(it) }
                 }
                 result.onFailure { error ->
                     stateError(error)
@@ -381,7 +388,10 @@ class HomeViewModel(
             useCaseTransactionTransfer.invoke(params).collect { result ->
                 result.onResultHandle(
                     { transactionTransferData ->
-                        _stateTransactionTransfer.value = transactionTransferData
+                        viewModelScope.launch {
+                            _stateTransactionTransfer.send(transactionTransferData)
+                            transactionTransferRealtime = transactionTransferData
+                        }
                     },
                     { reason ->
                         viewModelScope.launch {
@@ -395,7 +405,7 @@ class HomeViewModel(
 
     fun confirmTransactionTransfer(otp: String) {
         viewModelScope.launch {
-            val currentTransfer = stateTransactionTransfer.value ?: return@launch
+            val currentTransfer = transactionTransferRealtime ?: return@launch
             val params = UseCaseTransactionTransferConfirm.Params(
                 transactionId = currentTransfer.transactionId.toString(),
                 confirmStatus = ApiConst.ACCEPTED,
@@ -492,7 +502,8 @@ class HomeViewModel(
         confirmModel = null
         viewModelScope.launch {
             _stateTransactionTransferConfirm.emit(null)
-            _stateTransactionTransfer.emit(null)
+            transactionTransferRealtime = null
+//            _stateTransactionTransfer.send(null)
         }
     }
 
