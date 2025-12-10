@@ -17,23 +17,18 @@ fun Interceptor.Chain.appRequestBuilder(
     val originalRequest: Request
     synchronized(this) {
         val requestBuilder = original.newBuilder().apply {
-            addHeader("Accept", "*/*")
-            addHeader("Content-type", "application/json")
-            addHeader("Connection", "keep-alive")
+            addHeader("Content-Type", "application/json")
             addHeader("X-Platform", "MOBILE")
             addHeader("X-Device-ID", deviceId ?: "")
             addHeader("X-Language", Locale.getDefault().language)
 
             val info = "$versionName(Android$deviceVersion; $deviceModel; $deviceManufacturer"
-            val agent = "SaleApp/$info"
+            val agent = "SHB SAHA Laos App/$info"
             addHeader("User-Agent", "Mozilla/5.0 ($agent)")
 
-            val bearer = if (token?.isNotEmpty() == true) {
-                "Bearer $token"
-            } else {
-                ""
+            if (token?.isNotEmpty() == true) {
+                addHeader("Authorization", "Bearer $token")
             }
-            addHeader("Authorization", bearer)
 
             method(original.method, original.body)
         }

@@ -95,11 +95,14 @@ fun createNetworkModule(
     module {
         factory { get<Retrofit>(named(RETROFIT_NORMAL)).create(ApiSplash::class.java) }
         factory { ServiceSplash(get()) }
+
         factory { get<Retrofit>(named(RETROFIT_NORMAL)).create(ApiAuth::class.java) }
-        factory { get<Retrofit>(named(RETROFIT_NORMAL)).create(ApiUser::class.java) }
-        factory { get<Retrofit>(named(RETROFIT_NORMAL)).create(ApiTransfer::class.java) }
-        factory { get<Retrofit>(named(RETROFIT_WSO2)).create(ApiWSO2::class.java) }
         factory { ServiceAuth(get()) }
+
+        factory { get<Retrofit>().create(ApiUser::class.java) }
+        factory { get<Retrofit>().create(ApiTransfer::class.java) }
+        factory { get<Retrofit>(named(RETROFIT_WSO2)).create(ApiWSO2::class.java) }
+
         factory { ServiceUser(get()) }
         factory { ServiceTransfer(get()) }
         factory { ServiceWso2(get()) }

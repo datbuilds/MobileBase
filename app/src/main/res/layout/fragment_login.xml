@@ -217,7 +217,6 @@
                 android:hint="@string/enterPassword"
                 android:importantForAutofill="no"
                 android:inputType="textVisiblePassword"
-                android:maxLength="6"
                 android:selectAllOnFocus="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
