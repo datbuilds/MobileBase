@@ -34,7 +34,7 @@ class SettingDialog : BaseDialogBinding<DialogSettingBinding>(DialogSettingBindi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, vn.shb.lao.ui.R.style.FullScreenDialog)
+        setStyle(STYLE_NORMAL, R.style.FullScreenDialog)
     }
 
     override fun onStart() {
@@ -48,7 +48,7 @@ class SettingDialog : BaseDialogBinding<DialogSettingBinding>(DialogSettingBindi
     override fun initView(view: View) {
         with(binding) {
             toolbar.setTitle("Cài đặt")
-            stringToUserInfo(storage.getUserInfo())?.let { user ->
+            stringToUserInfo(storage.getUserLog())?.let { user ->
                 ivAvatar.loadAvatarText(
                     fallbackName = user.username,
                     colorBg = "#FFFFFF",

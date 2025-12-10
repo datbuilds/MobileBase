@@ -1,13 +1,20 @@
 package vn.shb.data.entities
 
+import android.content.Intent
 import android.graphics.Typeface
 import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.util.Patterns
+import android.view.View
+import androidx.core.net.toUri
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.security.MessageDigest
@@ -17,6 +24,8 @@ import java.text.NumberFormat
 import java.util.Currency
 import java.util.Locale
 import java.util.regex.Pattern
+import kotlin.text.ifEmpty
+import kotlin.text.trim
 
 fun String.isNumeric(): Boolean {
     return try {
@@ -38,7 +47,7 @@ fun String?.formatAmount(): String {
     }
 }
 
-fun amount(amount: BigDecimal = BigDecimal.ZERO, ccy: String = "VND") : String {
+fun amount(amount: BigDecimal = BigDecimal.ZERO, ccy: String = "VND"): String {
     return try {
         val formatter: NumberFormat = DecimalFormat("#,###")
         val formattedAmount = when {
@@ -175,3 +184,22 @@ fun randomString(length: Int = 15): String {
         .map { allowedChars.random() }
         .joinToString("")
 }
+
+fun String.getInitials(): String {
+    val name = this.ifEmpty { "SHB" }
+    val parts = name.trim().split("\\s+".toRegex()) // tách theo khoảng trắng
+    return when {
+        parts.isEmpty() -> ""
+        parts.size == 1 -> parts[0].take(1).uppercase() // chỉ có 1 từ
+        else -> (parts[0].take(1) + parts[1].take(1)).uppercase()
+    }
+}
+
+fun String.makeClickableSpan(): ClickableSpan {
+    return object : ClickableSpan() {
+        override fun onClick(widget: View) {
+        }
+    }
+}
+
+

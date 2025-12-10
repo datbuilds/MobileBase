@@ -1,5 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.SHB.Lao.Mobile" parent="Base.AppTheme" />
+    <!-- Base application theme. -->
+    <style name="Base.AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <!--        disable Android 12 default splash screen-->
+        <item name="android:windowIsTranslucent">false</item>
+
+        <!--        hide of Bubble cursor on EditText?-->
+        <item name="android:textSelectHandleLeft">@drawable/zero_transparent</item>
+        <item name="android:textSelectHandleRight">@drawable/zero_transparent</item>
+        <item name="android:textSelectHandle">@drawable/zero_transparent</item>
+
+        <!--         Set a transparent .png as your icon -->
+        <!--        <item name="android:windowSplashScreenAnimatedIcon" tools:ignore="NewApi">@color/Transparent</item>-->
+
+        <!--selection controls.-->
+        <item name="colorPrimary">@color/primary100</item>
+        <item name="colorSecondary">@color/primary100</item>
+
+        <item name="android:windowFullscreen">false</item>
+
+        <!-- Window decor -->
+        <item name="android:windowLightStatusBar" tools:targetApi="m">@bool/use_light_status</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1"></item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/black</item>
+        <item name="android:navigationBarColor">@color/black</item>
+
+        <item name="android:textViewStyle">@style/TextViewFontStyle</item>
+        <item name="android:editTextStyle">@style/EdittextFontStyle</item>
+        <item name="customFontWeight">regular</item>
+        <item name="android:buttonStyle">@style/ButtonFontStyle</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        <item name="android:windowAnimationStyle">@style/NoAnimation</item>
+    </style>
+
+    <style name="NoAnimation">
+        <item name="android:activityOpenEnterAnimation">@null</item>
+        <item name="android:activityOpenExitAnimation">@null</item>
+        <item name="android:activityCloseEnterAnimation">@null</item>
+        <item name="android:activityCloseExitAnimation">@null</item>
+        <item name="android:taskOpenEnterAnimation">@null</item>
+        <item name="android:taskOpenExitAnimation">@null</item>
+        <item name="android:taskCloseEnterAnimation">@null</item>
+        <item name="android:taskCloseExitAnimation">@null</item>
+        <item name="android:taskToFrontEnterAnimation">@null</item>
+        <item name="android:taskToFrontExitAnimation">@null</item>
+        <item name="android:taskToBackEnterAnimation">@null</item>
+        <item name="android:taskToBackExitAnimation">@null</item>
+    </style>
+
+    <style name="TextViewFontStyle" parent="Widget.AppCompat.TextView">
+        <item name="customFontWeight">regular</item>
+        <item name="android:textSize">@dimen/default_text_size</item>
+    </style>
+
+    <style name="EdittextFontStyle" parent="Widget.AppCompat.EditText">
+        <item name="customFontWeight">regular</item>
+        <item name="android:textSize">@dimen/default_text_size</item>
+    </style>
+
+    <style name="ButtonFontStyle" parent="Widget.AppCompat.Button">
+        <item name="customFontWeight">regular</item>
+        <item name="android:textSize">@dimen/default_button_text_size</item>
+    </style>
+
+
+    <style name="AppTheme.SystemBar" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorSecondary">@color/primary</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:navigationBarColor">@color/Transparent</item>
+    </style>
+
+    <style name="AppTheme" parent="Base.AppTheme" />
+
+    <style name="AppTheme.DarkActionBar" parent="Theme.MaterialComponents.Light.DarkActionBar" />
+
+    <style name="AppTheme.Color" parent="Base.AppTheme">
+        <item name="colorSecondary">@color/primary</item>
+        <item name="colorSecondaryVariant">@color/primary</item>
+        <item name="colorOnSecondary">#1C3957</item>
+    </style>
+
+    <style name="AppTheme.Color.Accent" parent="Base.AppTheme">
+        <item name="colorSecondary">@color/accent</item>
+        <item name="colorSecondaryVariant">@color/accent</item>
+        <item name="colorOnSecondary">#1C3957</item>
+    </style>
+
+    <style name="AppTheme.Primary.Accent" parent="Base.AppTheme">
+        <item name="colorPrimary">@color/accent</item>
+        <item name="colorPrimaryDark">@color/accent</item>
+    </style>
+    
+    <style name="fab_3_rounded">
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

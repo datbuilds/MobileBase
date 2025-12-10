@@ -38,7 +38,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
             prepareBGLogin(bgLogin)
         } else {
             val drawable =
-                ContextCompat.getDrawable(this@SplashActivity, R.drawable.img_bg_login_res)
+                ContextCompat.getDrawable(this@SplashActivity, R.drawable.ic_logo_vn)
             if (drawable is BitmapDrawable) drawable.bitmap else drawable?.toBitmap()
         }
 
@@ -65,14 +65,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
     }
 
     private fun errorDialog() {
-        showDialogError(
-            title = "Lỗi kết nối",
-            message = "Kết nối mạng an toàn không khả dụng. Vui lòng kiểm tra lại.",
-            tvAction = "Đóng ứng dụng",
-            isCancelable = false
-        ) {
-            finishAffinity()
-        }
     }
 
     override fun onResume() {

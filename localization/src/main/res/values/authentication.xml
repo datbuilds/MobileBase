@@ -64,7 +64,7 @@
     <string name="input_password_title"><![CDATA[Nhập mật khẩu <br/>%s]]></string>
     <string name="shb_login">Tên đăng nhập</string>
     <string name="shb_login_hint">Nhập tên đăng nhập</string>
-    <string name="shb_password">Mật khẩu</string>
+    <string name="shb_password">Password</string>
     <string name="shb_password_login_hint">Nhập mật khẩu</string>
     <string name="shb_password_hint">Nhập mật khẩu lần đầu</string>
     <string name="shb_current_password">Mật khẩu hiện tại</string>
@@ -76,8 +76,6 @@
     <string name="shb_support">Trợ giúp</string>
     <string name="shb_smart_otp">Lấy mã OTP</string>
     <string name="shb_retry_login">Đăng nhập lại</string>
-    <string name="shb_action_login">Đăng nhập</string>
-    <string name="shb_action_logout">Đăng xuất</string>
     <string name="shb_action_smart_OTP">Smart OTP</string>
 
     <!-- active biometric -->
@@ -141,4 +139,7 @@
     <string name="error_current_pass_first_time">Quý khách vui lòng nhập mật khẩu nhận qua SMS/Email</string>
     <string name="error_new_pass_empty">Quý khách vui lòng nhập mật khẩu mới</string>
 
+    //login
+    <string name="shb_action_login">Login</string>
+    <string name="shb_action_logout">Logout</string>
 </resources>

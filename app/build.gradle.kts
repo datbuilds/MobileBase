@@ -6,6 +6,7 @@ plugins {
     id(Plugins.ANDROID_KOTLIN)
     id(Plugins.ANDROID_MAVEN_PUBLISH)
     kotlin(Plugins.KOTLIN_KAPT)
+//    alias(libs.plugins.kotlin.android)
 }
 
 //apply(from = "autodimension.gradle")
@@ -22,27 +23,27 @@ android {
     productFlavors {
         createApplicationFlavor(
             pro = {
-                resValue("string", "app_name", "SHB SAHA LAOS")
+                resValue("string", "app_name", "SHB SAHA Laos")
                 buildConfigField(
                     "String",
                     "BASE_URL",
-                    "\"https://app.shb.com.vn/api/v1/\""
+                    "\"https://ibanking.shb.la/external/shb-mobile-lao/1.0.0/mblao/\""
                 )
             },
             uat = {
-                resValue("string", "app_name", "SHB SAHA LAOS UAT")
+                resValue("string", "app_name", " UAT SHB SAHA Laos")
                 buildConfigField(
                     "String",
                     "BASE_URL",
-                    "\"https://uat-app.shb.com.vn/api/v1/\""
+                    "\"https://t-apigw-la.shb.com.vn/external/shb-mobile-lao/1.0.0/mblao/\""
                 )
             },
             dev = {
-                resValue("string", "app_name", "SHB SAHA LAOS DEV")
+                resValue("string", "app_name", "DEV SHB SAHA Laos")
                 buildConfigField(
                     "String",
                     "BASE_URL",
-                    "\"https://dev-app.shb.com.vn/api/v1/\""
+                    "\"https://api-gw-ext-dev.shb.com.vn/external/shb-mobile-lao/1.0.0/mblao/\""
                 )
             }
         )
@@ -79,10 +80,10 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "$buildDir/libs", "include" to "*.jar")))
 
     //Import module
-    implementation(projects.ui)
     implementation(projects.localization)
-    implementation(projects.shbcore)
+    implementation(projects.core)
     implementation(projects.library.choosePhotoHelper)
+    implementation(projects.library.imagecrouse)
 
     //exoPlayer
     implementation(libs.media3Exoplayer)
@@ -128,6 +129,8 @@ dependencies {
     //Room
     implementation(libs.roomKtx)
     implementation(libs.roomRuntime)
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
     kapt(libs.roomCompiler)
 
     //Paging

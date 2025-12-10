@@ -1,10 +1,12 @@
 package vn.shb.lao.utils.extensions
 
 import android.os.CountDownTimer
+import android.util.Log
 
 class CustomCountdownTimer(
     private val totalTimeMillis: Long,
     private val intervalMillis: Long,
+    private val onTickAction: ((remainingTimeMillis: Long) -> Unit)? = null,
     private val onFinishAction: () -> Unit
 ) {
     private var timer: CountDownTimer? = null
@@ -17,7 +19,7 @@ class CustomCountdownTimer(
             timer = object : CountDownTimer(remainingTimeMillis, intervalMillis) {
                 override fun onTick(millisUntilFinished: Long) {
                     remainingTimeMillis = millisUntilFinished
-                    // Thực hiện hành động sau mỗi tick (nếu cần)
+                    onTickAction?.invoke(millisUntilFinished)
                 }
 
                 override fun onFinish() {

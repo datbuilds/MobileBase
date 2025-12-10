@@ -38,11 +38,11 @@ object DialogUtil {
         dismiss()
 
         val inflater = LayoutInflater.from(context)
-        val view = inflater.inflate(vn.shb.lao.ui.R.layout.notice_dialog, null)
-        val titleView: TextView = view.findViewById(vn.shb.lao.ui.R.id.textView_title)
-        val messageView: TextView = view.findViewById(vn.shb.lao.ui.R.id.textView_message)
-        val negativeButton: TextView = view.findViewById(vn.shb.lao.ui.R.id.button_negative)
-        val positionButton: TextView = view.findViewById(vn.shb.lao.ui.R.id.button_positive)
+        val view = inflater.inflate(R.layout.notice_dialog, null)
+        val titleView: TextView = view.findViewById(R.id.textView_title)
+        val messageView: TextView = view.findViewById(R.id.textView_message)
+        val negativeButton: TextView = view.findViewById(R.id.button_negative)
+        val positionButton: TextView = view.findViewById(R.id.button_positive)
 
         val builder = AlertDialog.Builder(context, R.style.dialog_transparent_width)
         builder.setView(view)
@@ -96,16 +96,16 @@ object DialogUtil {
     ) {
         dismiss()
         val inflater = LayoutInflater.from(context)
-        val view = inflater.inflate(vn.shb.lao.ui.R.layout.notice_custom, null)
-        val titleView: TextView = view.findViewById(vn.shb.lao.ui.R.id.textView_title)
-        val messageView: TextView = view.findViewById(vn.shb.lao.ui.R.id.textView_message)
+        val view = inflater.inflate(R.layout.notice_custom, null)
+        val titleView: TextView = view.findViewById(R.id.textView_title)
+        val messageView: TextView = view.findViewById(R.id.textView_message)
         val negativeButton: TextView =
-            view.findViewById(vn.shb.lao.ui.R.id.button_negative_custom)
+            view.findViewById(R.id.button_negative_custom)
         val positionButton: TextView =
-            view.findViewById(vn.shb.lao.ui.R.id.button_positive_custom)
+            view.findViewById(R.id.button_positive_custom)
 
         val builder =
-            AlertDialog.Builder(context, vn.shb.lao.ui.R.style.dialog_transparent_width)
+            AlertDialog.Builder(context, R.style.dialog_transparent_width)
         builder.setView(view)
 
         if (title?.isEmpty() == true) {

@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:padding="8dp">
 
-    <TextView
+   <vn.shb.lao.base.view.MyTextView
         android:id="@+id/textViewError"
         style="@style/TextAppearance.AppCompat.Medium"
         android:layout_width="0dp"

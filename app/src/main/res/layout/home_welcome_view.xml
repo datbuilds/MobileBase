@@ -32,20 +32,20 @@
         app:layout_constraintStart_toEndOf="@id/ivAvatar"
         app:layout_constraintTop_toTopOf="@id/ivAvatar">
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvWelcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/regular"
+            app:customFontWeight="regular"
             android:textColor="#656565"
             android:textSize="@dimen/textSize13"
             tools:text="Good morning," />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/bold"
+            app:customFontWeight="bold"
             android:textAllCaps="false"
             android:layout_marginTop="@dimen/margin_2dp"
             android:textColor="#2A2A2A"

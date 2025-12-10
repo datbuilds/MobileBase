@@ -18,18 +18,146 @@
     <string name="amcalendar_saturday_short" translatable="false">T7</string>
     <string name="amcalendar_sunday_short" translatable="false">CN</string>
 
-    <string-array name="amcalendar_months">
-        <item>Tháng 1</item>
-        <item>Tháng 2</item>
-        <item>Tháng 3</item>
-        <item>Tháng 4</item>
-        <item>Tháng 5</item>
-        <item>Tháng 6</item>
-        <item>Tháng 7</item>
-        <item>Tháng 8</item>
-        <item>Tháng 9</item>
-        <item>Tháng 10</item>
-        <item>Tháng 11</item>
-        <item>Tháng 12</item>
-    </string-array>
+    <string name="personalInternetBanking">Personal Internet Banking</string>
+    <string name="enterYourDetailToSignIn">Enter your details to sign in</string>
+    <string name="userName">User name</string>
+    <string name="enterYourUserName">Enter Your User Name</string>
+    <string name="password">Password</string>
+    <string name="enterPassword">Enter Password</string>
+    <string name="forgotPassword">Forgot Password?</string>
+    <string name="login">Login</string>
+    <string name="goodMorning">Good morning</string>
+    <string name="goodAfternoon">Good afternoon</string>
+    <string name="goodnight">Goodnight</string>
+    <string name="welcome">Welcome</string>
+    <string name="notification">Notification</string>
+    <string name="incorrectUsernameOrPassword">Incorrect username or password. Please try again.</string>
+    <string name="exceededLoginAttempts">You have exceeded 5 failed login attempts. Please try again in 15 minutes.</string>
+    <string name="processingError">Processing error. Please try again later.</string>
+    <string name="passwordResetInstructions">Password Reset Instructions</string>
+    <string name="pleaseBringIdToResetPassword">Please bring your ID card or passport to any SHB transaction point to reset your password.</string>
+    <string name="shbBranch1">1. SAI GON - HA NOI BANK LAO SOLE CO., LIMITED</string>
+    <string name="shbBranch1Address">Unit.1, Lane Xang Avenue, Vientiane Captital, Laos P.D.R</string>
+    <string name="shbBranch2">2. SAIGON - HANOI BANK LAO LIMITED, CHAMPASAK BRANCH</string>
+    <string name="shbBranch2Address">336, 337, 338 Pakse New Market, Phonekung, Pakse, Champasack, Laos P.D.R</string>
+    <string name="shbBranch3">SAI GON - HA NOI BANK LAO SOLE CO., LIMITED, SAVANNAKHET BRANCH</string>
+    <string name="shbBranch3Address">Unit 25, Lattanalangsy Neua Village, Kaisone Phomvihan City, Savannakhet Province, Laos</string>
+    <string name="welcomeToShb">Welcome to SHB</string>
+    <string name="currentAccount">CURRENT ACCOUNT</string>
+    <string name="transfer">Transfer</string>
+    <string name="transferCAP">TRANSFER</string>
+    <string name="accounts">Accounts</string>
+    <string name="logoutConfirm">Are you sure you want to log out?</string>
+    <string name="cancel">Cancel</string>
+    <string name="logout">Logout</string>
+    <string name="sessionExpired">Your session has expired. Please log in again.</string>
+    <string name="close">Close</string>
+    <string name="selectAccount">Select Account</string>
+    <string name="loanAccount">Loan Account</string>
+    <string name="customerId">Customer ID</string>
+    <string name="customerName">Customer Name</string>
+    <string name="defaultCasaAccount">Default Casa Account</string>
+    <string name="email">Email</string>
+    <string name="shbOnline">SHB Online</string>
+    <string name="userNameLogin">User Name</string>
+    <string name="demandDeposits">Demand Deposits</string>
+    <string name="chooseProfilePicture">Choose profile picture</string>
+    <string name="takePhoto">Take a photo</string>
+    <string name="selectFromPhotoLibrary">Select from photo library</string>
+    <string name="profilePictureUpdated">Profile picture updated successfully</string>
+    <string name="accountDetails">Account details</string>
+    <string name="availableBalance">Available balance</string>
+    <string name="accountNumber">Account number</string>
+    <string name="branch">Branch</string>
+    <string name="transactionHistory">Transaction history</string>
+    <string name="viewAll">View all</string>
+    <string name="transactionAmount">Transaction Amount</string>
+    <string name="fromAccount">From Account</string>
+    <string name="remarks">Remarks</string>
+    <string name="transactionDate">Transaction Date</string>
+    <string name="referenceNumber">Reference Number</string>
+    <string name="moneyTransfer">Money transfer</string>
+    <string name="intrabankTransfer">Intrabank transfer</string>
+    <string name="ownAccountTransfer">Own account transfer</string>
+    <string name="balance">Balance</string>
+    <string name="toAccount">To Account</string>
+    <string name="amount">Amount</string>
+    <string name="enterAccountNumber">Enter Account Number</string>
+    <string name="enterAmount">Enter Amount</string>
+    <string name="insufficientBalance">Insufficient account balance. Please try again.</string>
+    <string name="fee">Fee</string>
+    <string name="totalAmount">Total Amount</string>
+    <string name="transactionFailed">Transaction failed. Please try again.</string>
+    <string name="tryAgain">Try Again</string>
+    <string name="transactionExceedLimit">Transaction failed due to exceeding the limit</string>
+    <string name="paymentSuccess">Payment Success!</string>
+    <string name="createNewTransaction">Create New Transaction</string>
+    <string name="selectBeneficiary">Select beneficiary</string>
+    <string name="confirmationCode">Confirmation Code</string>
+    <string name="enterConfirmationCode">Please enter confirmaion code at C5 possition on eSecure Card</string>
+    <string name="confirm">Comfirm</string>
+    <string name="saveRecipient">Save recipient</string>
+    <string name="save">Save</string>
+    <string name="setNicknameQuestion">Would you like to set a nickname for this recipient?</string>
+    <string name="enterNickname">Enter nickname</string>
+    <string name="setNickname">Set nickname</string>
+    <string name="complete">Complete</string>
+    <string name="nicknameSetSuccess">Successfully set nickname</string>
+    <string name="profilePictureFailed">Failed to update profile picture</string>
+    <string name="invalidBeneficiaryAccount">Invalid beneficiary account</string>
+    <string name="invalidSelectedDate">Invalid selected date</string>
+    <string name="invalidFormat">Invalid selected date</string>
+    <string name="pleaseEnterUsername">Please enter your username</string>
+    <string name="pleaseEnterPassword">Please enter your password</string>
+    <string name="pleaseTryAgainIn">Please try again in</string>
+    <string name="currentBalance">Current balance</string>
+    <string name="show">Show</string>
+    <string name="myProfile">My Profile</string>
+    <string name="tel">Tel:</string>
+    <string name="hide">Hide</string>
+    <string name="account_info_format" translatable="false">%s - %s - %s</string>
+    <string name="english">English</string>
+    <string name="vietnamese">Vietnamese</string>
+    <string name="lao">Lao</string>
+    <string name="add">Add:</string>
+    <string name="done">Done</string>
+    <string name="zero" translatable="false">0</string>
+    <string name="invalidRemarks">Invalid remarks</string>
+    <string name="pleaseEnterConfirmCode">Please enter confirmation code at %s possition on eSecure Card</string>
+    <string name="transactionFailedDueToExceeding">Transaction failed due to exceeding the limit</string>
+    <string name="authenticationFailed">Authentication failed. Please try again.</string>
+    <string name="transactionFail">Transaction Fail!</string>
+    <string name="anErrorHasOccurred">An error has occurred, the transaction was not completed. Please try again!</string>
+    <string name="enterRecipientName">Enter recipient name</string>
+    <string name="pleaseEnterTheAmount">Please enter the amount</string>
+    <string name="flexibleSaving">FLEXIBLE SAVING</string>
+    <string name="staffLoans">SHB STAFF LOANS</string>
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="from">From</string>
+    <string name="toDate">To Date</string>
+    <string name="noTransactionHistory">No transaction history</string>
+    <string name="noAccountAvailable">No accounts available</string>
+    <string name="confirmation">Confirmation</string>
+    <string name="accountName">Account Name</string>
+    <string name="enterCode">Enter code</string>
+    <string name="remainingTime">Remaining time</string>
+    <string name="second">second</string>
+    <string name="errorCode">Errorcode</string>
+    <string name="to">To</string>
+    <string name="SHBAccount">SHB Account</string>
+    <string name="transferAccountAndReceivingAccountNotSame">Transfer account and receiving account are not the same currency</string>
+    <string name="pleaseEnterTheAccountNumber">Please enter the Account Number</string>
+    <string name="pleaseEnterTheRemarks">Please enter the remarks</string>
+    <string name="enterRemarks">Enter remarks</string>
+    <string name="transactionSuccess">Transaction Success!</string>
+    <string name="beneficiary">Beneficiary</string>
+    <string name="addNew">Add new</string>
+    <string name="doYouWantToDeleteFromBeneficiary">Do you want to delete %s from beneficiary list?</string>
+    <string name="beneficiaryDeletedSuccessfully">Beneficiary deleted successfully</string>
+    <string name="editBeneficiary">Edit beneficiary</string>
+    <string name="bank">Bank</string>
+    <string name="defaultRemarks">Default Remarks</string>
+    <string name="minus">minutes</string>
+
 </resources>

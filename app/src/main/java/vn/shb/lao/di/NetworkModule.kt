@@ -10,8 +10,12 @@ import vn.shb.core.core.RETROFIT_NORMAL
 import vn.shb.core.core.VERSION_NAME
 import vn.shb.core.core.domain.source.api.ApiAuth
 import vn.shb.core.core.domain.source.api.ApiSplash
+import vn.shb.core.core.domain.source.api.ApiTransfer
+import vn.shb.core.core.domain.source.api.ApiUser
 import vn.shb.core.core.domain.source.service.ServiceAuth
 import vn.shb.core.core.domain.source.service.ServiceSplash
+import vn.shb.core.core.domain.source.service.ServiceTransfer
+import vn.shb.core.core.domain.source.service.ServiceUser
 import vn.shb.core.core.retrofit.HeaderAuthenticationInterceptor
 import vn.shb.core.core.retrofit.HeaderInterceptor
 import vn.shb.core.core.retrofit.loggingInterceptor
@@ -88,6 +92,12 @@ fun createNetworkModule(
 
         factory { get<Retrofit>(named(RETROFIT_NORMAL)).create(ApiAuth::class.java) }
         factory { ServiceAuth(get()) }
+
+        factory { get<Retrofit>().create(ApiUser::class.java) }
+        factory { get<Retrofit>().create(ApiTransfer::class.java) }
+
+        factory { ServiceUser(get()) }
+        factory { ServiceTransfer(get()) }
     }
     // endregion
 )

@@ -17,6 +17,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.collectLatest
+import vn.shb.lao.R
 import vn.shb.lao.utils.extensions.getActionBarHeight
 import vn.shb.lao.utils.extensions.getNavigationBarHeight
 import vn.shb.lao.utils.extensions.getScreenHeight
@@ -59,7 +60,7 @@ abstract class BaseSpaceTopDialog<T : ViewBinding>(private val inflateMethod: (L
         val bottomSheetDialog =
             BottomSheetDialog(
                 requireContext(),
-                vn.shb.lao.ui.R.style.BottomDialog_Rounded_Keyboard
+                R.style.BottomDialog_Rounded_Keyboard
             )
         bottomSheetDialog.setOnShowListener {
             1

@@ -5,20 +5,30 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.StrictMode
 import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowInsetsController
+import android.view.WindowManager
 import android.view.accessibility.AccessibilityManager
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import androidx.media3.common.BuildConfig
 import androidx.viewbinding.ViewBinding
 import org.koin.android.ext.android.inject
 import vn.shb.core.core.domain.usecases.login.UseCaseRefreshToken
 import vn.shb.core.core.security.detectRoot.RootUtils
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
-import vn.shb.lao.BuildConfig
 import vn.shb.lao.R
 import vn.shb.lao.SHBApplication
 import vn.shb.lao.activity.dashboard.DashboardActivity
@@ -27,8 +37,10 @@ import vn.shb.lao.base.dialog.DialogSessionExpire
 import vn.shb.lao.base.dialog.DialogWarningAccessibilityPermission
 import vn.shb.lao.base.dialog.DialogWarningDeviceRoot
 import vn.shb.lao.screens.splash.ui.SplashActivity
+import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.returnActivity
 import vn.shb.lao.utils.extensions.toast
+import vn.shb.lao.utils.refreshTK.RefreshTokenManager
 
 abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflater) -> T) :
     AppCompatActivity() {
@@ -75,11 +87,25 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
         get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(vn.shb.lao.ui.R.style.AppTheme)
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
+        // Làm mờ / ẩn app trong Recent Apps
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_SECURE,
+            WindowManager.LayoutParams.FLAG_SECURE
+        )
         _binding = inflate(layoutInflater)
         setContentView(binding.root)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            window.insetsController?.apply {
+                    systemBarsBehavior = WindowInsetsController.BEHAVIOR_DEFAULT
+            }
+        }
 
+        // Nếu nền cam sáng, đặt icon tối (đen)
+//        window.statusBarColor = Color.TRANSPARENT
+//        WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = true // nếu background sáng
+        WindowCompat.setDecorFitsSystemWindows(window, true)
         handleSavedState(savedInstanceState)
         initView()
         initListener()
@@ -89,16 +115,28 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
         checkSecurityApp()
 
 //        // Chỉ start RefreshTokenManager ở những activity cần thiết
-//        if (shouldStartRefreshTokenManager()) {
-//            RefreshTokenManager.start(
-//                activity = this,
-//                useCase = useCaseRefreshToken,
-//                storage = storage
-//            )
-//        }
+        if (shouldStartRefreshTokenManager()) {
+            RefreshTokenManager.start(
+                activity = this,
+                useCase = useCaseRefreshToken,
+                storage = storage
+            )
+        }
 
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         registerScreenReceiver()
+
+        // Chặn toàn bộ overlay trên Android 12+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            window.setHideOverlayWindows(true)
+        }
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if (ev?.flags?.and(MotionEvent.FLAG_WINDOW_IS_PARTIALLY_OBSCURED) != 0) {
+            return false
+        }
+        return super.dispatchTouchEvent(ev)
     }
 
     override fun onResume() {
@@ -106,9 +144,9 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
         checkSecurityApp()
         startUserInteractionTimer()
 
-//        if (shouldStartRefreshTokenManager()) {
-//            RefreshTokenManager.updateActivity(this)
-//        }
+        if (shouldStartRefreshTokenManager()) {
+            RefreshTokenManager.updateActivity(this)
+        }
     }
 
     override fun onPause() {
@@ -146,20 +184,15 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
     }
 
     open fun showDialogSessionExpire() {
-        val dialog = DialogSessionExpire.Build(onLogOut = { logout() }).build()
-
-        dialog.isCancelable = false
-        if (isDialogShowing(DialogSessionExpire.TAG)) {
-            return
-        }
-        dialog.show(supportFragmentManager, DialogSessionExpire.TAG)
+        logout()
+        DialogSessionExpire().show(context = this)
     }
 
     override fun onDestroy() {
         stopInactivityTimer()
         onBackPressedCallback.remove()
         doubleBackHandler.removeCallbacks(doubleBackRunnable)
-//        RefreshTokenManager.updateActivity(null) // Clear activity reference
+        RefreshTokenManager.updateActivity(null) // Clear activity reference
         unregisterReceiver(screenReceiver)
         super.onDestroy()
     }
@@ -177,7 +210,7 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
     open fun handleSavedState(savedInstanceState: Bundle?) {}
     open fun sessionExpired() {}
 
-    private fun logout() {
+    fun logout() {
         storage.resetToken()
         finishAffinity()
         returnActivity(LoginActivity.intent(this))
@@ -238,44 +271,6 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
         return supportFragmentManager.findFragmentByTag(tag) != null
     }
 
-    fun showDialogError(
-        errCode: String = "",
-        title: String = getString(vn.shb.lao.localization.R.string.title_noti),
-        message: String,
-        tvAction: String = getString(vn.shb.lao.localization.R.string.shb_action_close),
-        icon: Int = R.drawable.ic_warning,
-        isCancelable: Boolean = false,
-        onClose: (() -> Unit?)? = null
-    ) {
-        val (titleValue, messageValue, action) = Triple(title, message, tvAction)
-
-        val dialogError =
-            BaseErrorDialog.Build(
-                title = titleValue,
-                message = messageValue,
-                tvAction = action,
-                icon = icon,
-                onClose = onClose,
-                allowDismiss = isCancelable
-            )
-                .build()
-
-        dialogError.isCancelable = isCancelable
-
-        val prev = supportFragmentManager.findFragmentByTag(BaseErrorDialog.TAG)
-        if (prev != null) {
-            supportFragmentManager.beginTransaction().remove(prev).commit()
-        }
-
-        if (!isFinishing && !isDestroyed) {
-            try {
-                dialogError.show(supportFragmentManager, BaseErrorDialog.TAG)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-    }
-
     override fun attachBaseContext(newBase: Context?) {
         val context =
             newBase?.let { context ->
@@ -305,7 +300,7 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
         registerReceiver(screenReceiver, filter)
     }
 
-    private var mTime = 15 * 60 * 1000L
+    private var mTime = Const.TIME_NO_ACTION * 60 * 1000L
     private var lastInteractionTime: Long = 0
     private val screenReceiver =
         object : BroadcastReceiver() {

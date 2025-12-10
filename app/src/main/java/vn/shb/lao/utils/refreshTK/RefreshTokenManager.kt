@@ -15,8 +15,8 @@ import vn.shb.core.core.domain.usecases.login.UseCaseRefreshToken
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import vn.shb.lao.R
 import vn.shb.lao.activity.login.LoginActivity
-import vn.shb.lao.base.BaseErrorDialog
 import vn.shb.lao.utils.extensions.returnActivity
+import vn.shb.lao.utils.view.dialog.BottomSheetDialogHelper
 import java.util.concurrent.TimeUnit
 
 object RefreshTokenManager {
@@ -33,7 +33,7 @@ object RefreshTokenManager {
     fun start(
         activity: FragmentActivity,
         useCase: UseCaseRefreshToken,
-        storage: AndroidSecureStorage,
+        storage: AndroidSecureStorage
     ) {
         stop()
 
@@ -51,7 +51,11 @@ object RefreshTokenManager {
                     val s = currentStorage
                     val u = currentUseCase
                     if (s != null && u != null) {
-                        performTokenRefresh(s, u)
+                        performTokenRefresh(s, u) {
+                            activity.runOnUiThread {
+                                updateActivity(activity)
+                            }
+                        }
                     }
                 }
                 handler?.postDelayed(this, refreshIntervalMillis)
@@ -62,7 +66,8 @@ object RefreshTokenManager {
 
     private suspend fun performTokenRefresh(
         storage: AndroidSecureStorage,
-        useCase: UseCaseRefreshToken
+        useCase: UseCaseRefreshToken,
+        onFail: (() -> Unit)? = null
     ) {
         try {
             println("RFManager -> Starting token refresh...")
@@ -76,12 +81,11 @@ object RefreshTokenManager {
 
             val params = UseCaseRefreshToken.Params(refreshToken = rfToken)
             useCase(params).collectLatest { refreshResult ->
-                refreshResult.onSuccess {
+                refreshResult.onSuccess { response ->
                     synchronized(storage) {
                         storage.apply {
-                            setToken(it.access_token)
-//                          storage.setRfToken(it.refresh_token)
-                            setExpireTime(TimeUnit.SECONDS.toMinutes(it.expireIn()).toInt())
+                            setToken(response.access_token)
+                            setExpireTime(TimeUnit.SECONDS.toMinutes(response.expireIn()).toInt())
                             setTokenInvalid(false)
                         }
                     }
@@ -93,6 +97,7 @@ object RefreshTokenManager {
                 }
                 refreshResult.onFailure {
                     storage.setTokenInvalid(true)
+                    onFail?.invoke()
                     throw Exception("RFManager -> Token refresh failed: ${it.errMessage}")
                 }
             }
@@ -112,68 +117,20 @@ object RefreshTokenManager {
     }
 
     private fun showErrorDialog(activity: FragmentActivity, storage: AndroidSecureStorage) {
-        // Kiểm tra nếu dialog đã đang hiển thị thì không hiển thị lại
-        if (isErrorShowing) {
-            println("RFManager -> Error dialog already showing, skipping...")
-            return
-        }
 
-        if (activity.isFinishing || activity.isDestroyed) {
-            println("RFManager -> Activity is finishing/destroyed, cannot show dialog")
-            return
-        }
-
-        val fm = activity.supportFragmentManager
-        if (fm.isStateSaved) {
-            println("RFManager -> State already saved, cannot show dialog safely")
-            return
-        }
-
-        // Kiểm tra xem dialog đã tồn tại chưa
-        val existingDialog = fm.findFragmentByTag(BaseErrorDialog.TAG)
-        if (existingDialog != null) {
-            println("RFManager -> Error dialog already exists, skipping...")
-            return
-        }
-
-        isErrorShowing = true // Set flag trước khi hiển thị dialog
-
-        val dialogError = BaseErrorDialog.Build(
-            activity.getString(vn.shb.lao.localization.R.string.title_noti),
-            activity.getString(vn.shb.lao.localization.R.string.content_warning),
-            activity.getString(vn.shb.lao.localization.R.string.shb_retry_login),
-            R.drawable.ic_bs_notification,
-            onClose = {
-                // Chỉ thực hiện logout khi user click action
+        BottomSheetDialogHelper(activity).message(
+            title = activity.getString(R.string.notification),
+            message = activity.getString(R.string.processingError),
+            textPositive = activity.getString(R.string.close),
+            positiveAction = {
                 isErrorShowing = false
                 stop()
                 synchronized(storage) {
                     storage.resetToken()
                 }
                 clearPref(activity)
-            },
-            onDismiss = {
-                // Reset flag khi dialog bị dismiss mà không phải do user click
-                isErrorShowing = false
-                println("RFManager -> Error dialog dismissed")
-            },
-            allowDismiss = false // Không cho phép dismiss bằng back press hoặc touch
-            // outside
-        ).build()
-
-        dialogError.isCancelable = false
-
-        try {
-            dialogError.show(fm, BaseErrorDialog.TAG)
-            println("RFManager -> Error dialog shown successfully")
-        } catch (e: Exception) {
-            e.printStackTrace()
-            println("RFManager -> Error showing dialog: ${e.message}")
-            isErrorShowing = false // Reset flag nếu có lỗi
-            synchronized(storage) {
-                storage.resetToken()
             }
-        }
+        )
     }
 
     fun updateActivity(activity: FragmentActivity?) {

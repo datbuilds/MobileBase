@@ -71,7 +71,7 @@ class ToolTipDialog(
         logE(
             "StatusBarHeight: $StatusBarHeight  ScreenUtils.getScreenHeight(context) - windowHeight: ${
                 ScreenUtils.getScreenHeight(
-                    context
+                    ownerActivity!!
                 ) - windowHeight
             }"
         )

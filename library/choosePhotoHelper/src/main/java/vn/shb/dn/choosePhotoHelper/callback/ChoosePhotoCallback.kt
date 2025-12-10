@@ -5,4 +5,6 @@ package vn.shb.dn.choosePhotoHelper.callback
  */
 fun interface ChoosePhotoCallback<T> {
     fun onChoose(photo: T?)
+
+    fun onError() {}
 }

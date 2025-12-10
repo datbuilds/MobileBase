@@ -37,21 +37,6 @@ fun TextInputLayout.clearEditTextColorFilter() {
     editText?.clearFocus()
 }
 
-fun TextInputLayout.validateReason(): Boolean {
-    val inputText = this.editText?.text?.trim().toString()
-    return when {
-        inputText.isEmpty() -> {
-            setErrorAndBackground("Quý khách vui lòng nhập lý do từ chối")
-            false
-        }
-
-        else -> {
-            this.error = ""
-            true
-        }
-    }
-}
-
 fun TextInputLayout.validateLogin(isUserName: Boolean = false): Boolean {
     val inputText = this.editText?.text?.toString()
     return when {
@@ -99,6 +84,16 @@ fun TextInputLayout.isSamePass(retryNewPass: String, newPass: String): Boolean {
     }
 
     return isSamePass
+}
+
+fun TextInputLayout.isValidInputLogin(): Boolean {
+    val inputText = this.editText?.text.toString()
+    if (inputText.isEmpty()){
+//        setErrorBackground()
+        return false
+    } else {
+        return true
+    }
 }
 
 fun TextInputLayout.isValidPassword(): Boolean {
@@ -188,14 +183,18 @@ fun TextInputLayout.addPasswordValidator(
     })
 }
 
+fun TextInputLayout.setErrorBackground() {
+    setBackgroundResource(R.drawable.bg_edt_error)
+    editText?.setText("")
+}
+
 fun TextInputLayout.setErrorAndBackground(errorMessage: String) {
-    error = errorMessage
-    editText?.setBackgroundResource(vn.shb.lao.ui.R.drawable.bg_edt_error)
+    editText?.setBackgroundResource(R.drawable.bg_edt_error)
 }
 
 fun TextInputLayout.setErrorAndBackgroundDefault() {
     error = null
-    editText?.setBackgroundResource(vn.shb.lao.ui.R.drawable.selector_edt)
+    setBackgroundResource(R.drawable.selector_edt)
 }
 
 private fun TextInputLayout.clearErrorAndBackground() {

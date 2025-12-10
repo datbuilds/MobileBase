@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBgAccount"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:paddingTop="@dimen/paddingTopLayout">
+
+    <vn.shb.lao.base.view.MyTextView
+        android:id="@+id/tvAccountDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/margin_20dp"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:paddingVertical="@dimen/margin_8dp"
+        android:paddingStart="@dimen/margin_4dp"
+        android:paddingEnd="@dimen/margin_10dp"
+        android:text="@string/accountDetails"
+        android:textColor="@color/neutral10"
+        android:textSize="@dimen/textSize20"
+        app:customFontWeight="medium"
+        app:drawableStartCompat="@drawable/ic_arrow_back" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:background="@drawable/bg_child_view_account_details"
+        android:paddingHorizontal="@dimen/margin_16dp"
+        android:paddingVertical="@dimen/margin_20dp">
+
+        <vn.shb.lao.base.view.MyTextView
+            android:id="@+id/tvCurrentBalance"
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:text="@string/currentBalance"
+            android:textColor="@color/neutral8"
+            android:textSize="@dimen/textSize14"
+            app:customFontWeight="medium"
+            app:layout_constraintEnd_toStartOf="@+id/ivExpandDown"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivExpandDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_8dp"
+            android:tint="@color/neutral8"
+            app:layout_constraintBottom_toBottomOf="@+id/tvValueBalance"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvCurrentBalance"
+            app:srcCompat="@drawable/ic_arrow_down" />
+
+        <vn.shb.lao.base.view.MyTextView
+            android:id="@+id/tvValueBalance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_2dp"
+            android:textColor="@color/neutral8"
+            android:textSize="@dimen/textSize14"
+            app:customFontWeight="regular"
+            app:layout_constraintEnd_toStartOf="@+id/ivExpandDown"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCurrentBalance"
+            tools:text="1,000,000.00 LAK" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llAccountNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/tvValueBalance">
+
+            <vn.shb.lao.base.view.MyTextView
+                android:id="@+id/tvAccountNumber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:includeFontPadding="false"
+                android:text="@string/accountNumber"
+                android:textColor="@color/neutral8"
+                android:textSize="@dimen/textSize14"
+                app:customFontWeight="medium" />
+
+            <vn.shb.lao.base.view.MyTextView
+                android:id="@+id/tvNumberAccount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="end"
+                android:textColor="@color/neutral10"
+                android:textSize="@dimen/textSize14"
+                app:customFontWeight="medium"
+                tools:text="1001747332" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llBranch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/llAccountNumber">
+
+            <vn.shb.lao.base.view.MyTextView
+                android:id="@+id/tvBranch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:includeFontPadding="false"
+                android:text="@string/branch"
+                android:textColor="@color/neutral8"
+                android:textSize="@dimen/textSize14"
+                app:customFontWeight="medium" />
+
+            <vn.shb.lao.base.view.MyTextView
+                android:id="@+id/tvNameBranch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="end"
+                android:textColor="@color/neutral10"
+                android:textSize="@dimen/textSize14"
+                app:customFontWeight="medium"
+                tools:text="SHB LAO-HO" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/flTransfer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:background="@drawable/bg_child_view_account_details">
+
+        <vn.shb.lao.base.view.MyTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableTop="@drawable/ic_transfer_2"
+            android:drawablePadding="@dimen/margin_8dp"
+            android:padding="@dimen/margin_16dp"
+            android:text="@string/transfer"
+            android:textColor="@color/neutral10"
+            android:textSize="@dimen/textSize14"
+            app:customFontWeight="medium" />
+    </FrameLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:layout_marginBottom="@dimen/paddingBottomLayout"
+        android:background="@drawable/bg_child_view_account_details"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/margin_16dp"
+        android:paddingVertical="@dimen/margin_20dp">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llTransactionHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <vn.shb.lao.base.view.MyTextView
+                android:id="@+id/tvTransactionHistory"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:includeFontPadding="false"
+                android:text="@string/transactionHistory"
+                android:textColor="@color/neutral10"
+                android:textSize="@dimen/textSize16"
+                app:customFontWeight="medium" />
+
+            <vn.shb.lao.base.view.MyTextView
+                android:id="@+id/tvViewAll"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="end"
+                android:paddingVertical="@dimen/margin_8dp"
+                android:text="@string/viewAll"
+                android:textColor="@color/primary100"
+                android:textSize="@dimen/textSize14"
+                app:customFontWeight="medium" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorLineGray" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvTransaction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12dp"
+            android:visibility="visible"
+            tools:visibility="visible"
+            tools:listitem="@layout/item_transaction"
+            tools:itemCount="33" />
+
+        <vn.shb.lao.base.view.MyTextView
+            android:id="@+id/tvNoTransaction"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/noTransactionHistory"
+            android:textColor="@color/neutral7"
+            android:gravity="center"
+            android:paddingVertical="@dimen/margin_40dp"
+            android:visibility="gone"
+            tools:visibility="gone"
+            android:textSize="@dimen/textSize14"
+            app:customFontWeight="medium" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

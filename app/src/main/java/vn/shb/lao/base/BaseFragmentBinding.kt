@@ -5,36 +5,56 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER
+import androidx.annotation.ColorRes
 import androidx.annotation.IdRes
 import androidx.core.app.ActivityCompat.finishAffinity
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.transition.platform.MaterialFadeThrough
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import vn.shb.core.core.delivery.Reason
+import vn.shb.core.core.retrofit.SafeExecute.Companion.AUTH_001
+import vn.shb.core.core.retrofit.SafeExecute.Companion.AUTH_002
+import vn.shb.core.core.retrofit.SafeExecute.Companion.AUTH_006
+import vn.shb.core.core.retrofit.SafeExecute.Companion.HTTP_NOT_FOUND
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
+import vn.shb.data.entities.login.UserConverters
+import vn.shb.data.entities.login.UserLog
 import vn.shb.lao.R
 import vn.shb.lao.activity.login.LoginActivity
-import vn.shb.lao.utils.extensions.CustomToastShowOnTop
+import vn.shb.lao.screens.home.HomeViewModel
+import vn.shb.lao.screens.login.ui.LoginFragment
+import vn.shb.lao.utils.ApiConst
+import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.lao.utils.extensions.navigation.safeNavigate
 import vn.shb.lao.utils.extensions.returnActivity
 import vn.shb.lao.utils.refreshTK.RefreshTokenManager
+import vn.shb.lao.utils.view.dialog.BottomSheetDialogHelper
 
 abstract class BaseFragmentBinding<T : ViewBinding>(
-        private val inflateMethod: (LayoutInflater, ViewGroup?, Boolean) -> T
+    private val inflateMethod: (LayoutInflater, ViewGroup?, Boolean) -> T
 ) : Fragment() {
 
-    private val storage: AndroidSecureStorage by inject()
+    protected val storage: AndroidSecureStorage by inject()
+
+    protected val homeViewModel: HomeViewModel by sharedViewModel()
 
     companion object {
         private const val DELAY_MILLIS = 500L
@@ -46,15 +66,19 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
     val binding: T
         get() = _binding!!
 
+    private val listErrorLogout = listOf(AUTH_006, AUTH_001, AUTH_002)
+
+    open fun isPaddingBottom() = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setBaseTransitions()
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = inflateMethod(inflater, container, false)
         return binding.root
@@ -65,7 +89,34 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         handleSavedState(savedInstanceState)
         initView(view)
         initListener()
-        activity?.lifecycle?.addObserver(ActivityLifeCycleObserver { initObserve() })
+        activity?.lifecycle?.addObserver(ActivityLifeCycleObserver {
+            initObserve()
+            observerStateError()
+        })
+//        insertPaddingView()
+    }
+
+    private fun insertPaddingView() {
+        if (!isPaddingBottom()) {
+            ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+                val statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars())
+                v.updatePadding(
+                    top = statusBarHeight.top,
+                    bottom = statusBarHeight.bottom + 60
+                )
+                insets
+            }
+        } else {
+            ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
+                val statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.statusBars())
+                val navBarInsets = insets.getInsets(WindowInsetsCompat.Type.navigationBars())
+                view.updatePadding(
+                    top = statusBarInsets.top,
+                    bottom = navBarInsets.bottom + 20
+                )
+                insets
+            }
+        }
     }
 
     override fun onResume() {
@@ -133,12 +184,20 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
     }
 
     fun safeNavigate(
-            @IdRes currentDestinationId: Int,
-            @IdRes actionId: Int,
-            bundle: Bundle? = null,
-            options: NavOptions? = null
+        @IdRes currentDestinationId: Int,
+        @IdRes actionId: Int,
+        bundle: Bundle? = null,
+        options: NavOptions? = null
     ) {
         findNavController().safeNavigate(currentDestinationId, actionId, bundle, options)
+    }
+
+    fun backPress() {
+        findNavController().popBackStack()
+    }
+
+    fun popBackTo(@IdRes id: Int) {
+        findNavController().popBackStack(id, false)
     }
 
     fun safeNavigate(deepLink: Uri) {
@@ -149,9 +208,14 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         }
     }
 
-    open fun setNavigationBarColor(color: Int) {
-        requireActivity().window.navigationBarColor = color
-    }
+    fun getCurrentUser() = UserConverters.stringToUserInfo(storage.getUserLog())
+    fun setCurrentUser(user: UserLog) = storage.setUserLog(UserConverters.userInfoToString(user))
+
+    fun getPathAvatarUser(key: String? = getCurrentUser()?.customerId) =
+        key?.let { storage.getPathAvatarUser(it) }
+
+    fun setPathAvatarUser(path: String, key: String? = getCurrentUser()?.customerId) =
+        key?.let { storage.setPathAvatarUser(it, path) }
 
     open fun enableFullScreen() {
         val window = requireActivity().window
@@ -179,73 +243,56 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
     }
 
     open fun showDialogError(
-            errCode: String = "",
-            title: String = getString(vn.shb.lao.localization.R.string.title_noti),
-            message: String = "",
-            tvAction: String = getString(vn.shb.lao.localization.R.string.ui_common_close),
-            icon: Int = R.drawable.ic_bs_notification,
-            isCancelable: Boolean = true,
-            onAction: (() -> Unit)? = null
+        reason: Reason,
+        onAction: (() -> Unit)? = null
     ) {
-        val des =
-                if (message == "closed") {
-                    "Có lỗi trong quá trình kết nối hệ thống. Vui lòng thực hiện lại sau"
-                } else {
-                    message
-                }
-
-        val dialogError =
-                BaseErrorDialog.Build(
-                                title = title,
-                                message = des,
-                                tvAction = tvAction,
-                                icon = icon,
-                                onClose = {
-                                    if (errCode == "999") {
-                                        logout()
-                                    } else {
-                                        if (onAction != null) {
-                                            onAction()
-                                        }
-                                    }
-                                },
-                                allowDismiss = isCancelable
-                        )
-                        .build()
-
-        dialogError.isCancelable = false
-
-        if (isDialogShowing(BaseErrorDialog.TAG)) {
+        if (reason.errorCode == ApiConst.FUN_017) {
+            BottomSheetDialogHelper(requireContext()).messageErrorCode(reason)
             return
-        } else {
-            dialogError.show(childFragmentManager, BaseErrorDialog.TAG)
+        }
+        var message = reason.errMessage
+        if (reason.errorCode == HTTP_NOT_FOUND) {
+            message = getString(R.string.processingError)
+        }
+        BottomSheetDialogHelper(requireContext()).message(
+            title = getString(R.string.notification),
+            message = message,
+            textPositive = getString(R.string.close),
+            positiveAction = {
+                onAction?.invoke()
+            }
+        )
+    }
+
+    protected fun handleErrorHome(error: Reason?, onAction: (() -> Unit)? = null) {
+        if (error != null) {
+            if (listErrorLogout.contains(error.errorCode)) {
+                logout(error)
+            } else {
+                showDialogError(error, onAction)
+            }
         }
     }
 
-    private fun logout() {
+    private fun observerStateError() {
+        launchRepeatOnLifecycle {
+            launch {
+                homeViewModel.stateError.collect { error ->
+                    handleErrorHome(error)
+//                    homeViewModel.stateError(null)
+                }
+            }
+        }
+    }
+
+
+    fun getColor(@ColorRes colorId: Int) = ContextCompat.getColor(requireContext(), colorId)
+
+    fun logout(error: Reason) {
         storage.resetUser()
         RefreshTokenManager.stop()
         finishAffinity(requireActivity())
-        returnActivity(LoginActivity.intent(requireActivity()))
-    }
-
-    open fun showNotificationOnTop(
-            view: View,
-            icon: Int = R.drawable.ic_close,
-            message: String,
-            background: Int = R.drawable.bg_custom_success,
-            duration: Long = 5000L
-    ) {
-        val toast =
-                CustomToastShowOnTop(
-                        requireContext(),
-                        view,
-                        icon = icon,
-                        message = message,
-                        background = background,
-                        duration = duration
-                )
-        toast.show()
+        returnActivity(LoginActivity.intent(requireActivity(), error))
     }
 
     // Removing the binding reference when not needed is recommended as it avoids memory leak

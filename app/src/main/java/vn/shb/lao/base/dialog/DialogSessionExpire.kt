@@ -1,36 +1,23 @@
 package vn.shb.lao.base.dialog
 
-import android.view.View
-import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.lao.base.BaseBottomDialogBinding
-import vn.shb.lao.databinding.DialogSessionExpireBinding
+import android.content.Context
+import vn.shb.lao.R
+import vn.shb.lao.utils.view.dialog.BottomSheetDialogHelper
 
-class DialogSessionExpire(private val build: Build) :
-    BaseBottomDialogBinding<DialogSessionExpireBinding>(DialogSessionExpireBinding::inflate) {
-
-    override fun initView(view: View) {}
-
-    override fun initListener() {
-        with(binding) {
-            ivClose.setOnSingleClickListener {
-                dismissAllowingStateLoss()
-            }
-            btnLogin.setOnSingleClickListener {
-                build.onLogOut()
-                dismissAllowingStateLoss()
-            }
+class DialogSessionExpire {
+    fun show(
+        context: Context,
+        onClickLogout: (() -> Unit)? = null
+    ) {
+        with(context) {
+            BottomSheetDialogHelper(context).message(
+                getString(R.string.notification),
+                getString(R.string.sessionExpired),
+                getString(R.string.close),
+                positiveAction = {
+                    onClickLogout?.invoke()
+                }
+            )
         }
-    }
-
-    override fun initObserve() {
-
-    }
-
-    class Build(val onLogOut: () -> Unit) {
-        fun build() = DialogSessionExpire(this)
-    }
-
-    companion object {
-        const val TAG = "DialogSessionExpire"
     }
 }

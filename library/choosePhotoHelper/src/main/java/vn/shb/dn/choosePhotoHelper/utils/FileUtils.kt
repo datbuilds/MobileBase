@@ -33,15 +33,11 @@ import java.io.OutputStream
  * @return uri of the input file.
  */
 fun File.grantedUri(context: Context): Uri {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        FileProvider.getUriForFile(
-            context,
-            "${context.applicationContext.packageName}.provider",
-            this
-        )
-    } else {
-        Uri.fromFile(this)
-    }
+    return FileProvider.getUriForFile(
+        context,
+        "${context.packageName}.provider",
+        this
+    )
 }
 
 /**

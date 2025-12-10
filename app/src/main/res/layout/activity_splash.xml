@@ -16,8 +16,7 @@
         app:layout_constraintDimensionRatio="750:1624"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:background="@drawable/img_bg_login_res" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ProgressBar
         android:id="@+id/state_loading_progressBar"

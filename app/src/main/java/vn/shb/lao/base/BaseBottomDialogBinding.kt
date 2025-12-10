@@ -37,7 +37,7 @@ abstract class BaseBottomDialogBinding<T : ViewBinding>(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, vn.shb.lao.ui.R.style.BottomDialog_Rounded)
+        setStyle(STYLE_NORMAL, R.style.BottomDialog_Rounded)
     }
 
     override fun onStart() {

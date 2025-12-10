@@ -46,24 +46,24 @@
             android:layout_marginStart="@dimen/margin_10dp"
             android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <vn.shb.lao.base.view.MyTextView
                 android:id="@+id/tvUserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_2dp"
-                android:fontFamily="@font/bold"
+                app:customFontWeight="bold"
                 android:textAllCaps="false"
                 android:textColor="#2A2A2A"
                 android:textSize="@dimen/textSize18"
                 app:textAllCaps="true"
                 tools:text="Daz" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <vn.shb.lao.base.view.MyTextView
                 android:id="@+id/tvTitleUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_5dp"
-                android:fontFamily="@font/regular"
+                app:customFontWeight="regular"
                 android:text="Chuyên viên thiết kế trải nghiệm khách hàng"
                 android:textColor="#667680"
                 android:textSize="@dimen/textSize12" />
@@ -84,13 +84,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/viewAvatar">
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <vn.shb.lao.base.view.MyTextView
             android:layout_width="wrap_content"
             android:layout_height="@dimen/margin_60dp"
             android:layout_weight="1"
             android:drawableStart="@drawable/ic_setting_fingerprint"
             android:drawablePadding="@dimen/margin_8dp"
-            android:fontFamily="@font/medium"
+            app:customFontWeight="medium"
             android:gravity="center_vertical"
             android:paddingHorizontal="@dimen/margin_16dp"
             android:text="Đăng nhập với Face ID/vân tay"
@@ -126,12 +126,12 @@
         app:strokeColor="@color/red_600" />
 
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvVersion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_40dp"
-        android:fontFamily="@font/regular"
+        app:customFontWeight="regular"
         tools:text="Phiên bản 1.0"
         android:textColor="@color/gray_1000"
         android:textSize="@dimen/textSize14"

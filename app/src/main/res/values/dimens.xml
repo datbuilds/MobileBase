@@ -130,4 +130,20 @@
 
     <dimen name="room_indicator_size">56dp</dimen>
     <dimen name="room_indicator_space">6dp</dimen>
+    <dimen name="margin_root">20dp</dimen>
+    <dimen name="edge_icon_account">21dp</dimen>
+    <dimen name="widthLogoLanguage">20dp</dimen>
+    <dimen name="textSizeTitleAlert">18sp</dimen>
+    <dimen name="textSizeContentAlert">16sp</dimen>
+    <dimen name="textSizeButtonAlert">16sp</dimen>
+    <dimen name="widthStrokeButton">1dp</dimen>
+    <dimen name="widthAvatarProfile">80dp</dimen>
+
+    //radius
+    <dimen name="radius_button_alert">8dp</dimen>
+    <dimen name="pageMargin">8dp</dimen>
+    <dimen name="pageOffset">16dp</dimen>
+    <dimen name="widthImageDialog">120dp</dimen>
+    <dimen name="paddingTopLayout">8dp</dimen>
+    <dimen name="paddingBottomLayout">16dp</dimen>
 </resources>
