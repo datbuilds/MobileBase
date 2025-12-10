@@ -31,6 +31,7 @@ import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionTransfer
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionTransferConfirm
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransferAccount
 import vn.shb.core.core.domain.usecases.transfer.UseCaseValidateTransaction
+import vn.shb.core.core.domain.usecases.wso2.UseCaseGetTokenWso2
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import vn.shb.data.entities.AccountBase
 import vn.shb.data.entities.home.AccountDetails
@@ -64,6 +65,7 @@ class HomeViewModel(
     private val useCaseAccountByNumber: UseCaseAccountByNumber,
     private val useCaseTransactionDetail: UseCaseTransactionDetail,
     private val useCaseValidateTransaction: UseCaseValidateTransaction,
+    private val useCaseGetTokenWso2: UseCaseGetTokenWso2,
 ) : BaseViewModel() {
     private val _stateUserInfo = MutableStateFlow(UserInfo())
     val stateUserInfo = _stateUserInfo.asStateFlow()
@@ -494,6 +496,14 @@ class HomeViewModel(
                         }
                     }
                 )
+            }
+        }
+    }
+
+    fun getTokenWso2(){
+        viewModelScope.launch {
+            useCaseGetTokenWso2.invoke(UseCaseGetTokenWso2.Params()).collect { result ->
+
             }
         }
     }
