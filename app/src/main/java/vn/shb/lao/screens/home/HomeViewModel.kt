@@ -65,7 +65,6 @@ class HomeViewModel(
     private val useCaseAccountByNumber: UseCaseAccountByNumber,
     private val useCaseTransactionDetail: UseCaseTransactionDetail,
     private val useCaseValidateTransaction: UseCaseValidateTransaction,
-    private val useCaseGetTokenWso2: UseCaseGetTokenWso2,
 ) : BaseViewModel() {
     private val _stateUserInfo = MutableStateFlow(UserInfo())
     val stateUserInfo = _stateUserInfo.asStateFlow()
@@ -501,14 +500,6 @@ class HomeViewModel(
                         }
                     }
                 )
-            }
-        }
-    }
-
-    fun getTokenWso2(){
-        viewModelScope.launch {
-            useCaseGetTokenWso2.invoke(UseCaseGetTokenWso2.Params()).collect { result ->
-
             }
         }
     }

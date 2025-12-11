@@ -19,6 +19,11 @@ class AndroidSecureStorage(private val context: Context, private val deviceManag
         private const val AUTH_TOKEN = "AUTH_TOKEN"
         private const val REFRESH_TOKEN = "REFRESH_TOKEN"
         private const val REFRESH_TOKEN_FAIL = "REFRESH_TOKEN_FAIL"
+        private const val AUTH_TOKEN_WSO2 = "AUTH_TOKEN_WSO2"
+
+        private const val REFRESH_TOKEN_WSO2 = "REFRESH_TOKEN_WSO2"
+        private const val EXPIRE_TIME_WSO2 = "EXPIRE_TIME_WSO2"
+        private const val REFRESH_TOKEN_FAIL_WSO2 = "REFRESH_TOKEN_FAIL_WSO2"
     }
 
     private val masterKey = MasterKey.Builder(context)
@@ -101,6 +106,17 @@ class AndroidSecureStorage(private val context: Context, private val deviceManag
     fun setRfToken(rfToken: String) = putPreference(REFRESH_TOKEN, rfToken)
     fun getRfToken() = getPreference(REFRESH_TOKEN, "")
 
+    fun setExpireTimeWso2(data: Int) = putPreference(EXPIRE_TIME_WSO2, data)
+    fun getExpireTimeWso2() = getPreference(EXPIRE_TIME_WSO2, 5)
+
+    fun setTokenWso2(token: String) = putPreference(AUTH_TOKEN_WSO2, token)
+    fun getTokenWso2() = getPreference(AUTH_TOKEN_WSO2, "")
+    fun setRfTokenWso2(rfToken: String) = putPreference(REFRESH_TOKEN_WSO2, rfToken)
+    fun getRfTokenWso2() = getPreference(REFRESH_TOKEN_WSO2, "")
+
+    fun setTokenInvalidWso2(isFail: Boolean) = putPreference(REFRESH_TOKEN_FAIL_WSO2, isFail)
+    fun isTokenInvalidWso2() = getPreference(REFRESH_TOKEN_FAIL_WSO2, false)
+
     /**
      * -------------------end token----
      */
@@ -129,15 +145,17 @@ class AndroidSecureStorage(private val context: Context, private val deviceManag
         removeKey(AUTH_TOKEN)
         removeKey(REFRESH_TOKEN)
         setTokenInvalid(false)
+        removeKey(AUTH_TOKEN_WSO2)
+        removeKey(REFRESH_TOKEN_WSO2)
+        setTokenInvalidWso2(false)
     }
 
     fun resetUser() {
 //        removeKey(USER_INFO) // Lỗi 999 - User đăng nhập trên thiết bị khác
         removeKey(AUTH_TOKEN)
         removeKey(REFRESH_TOKEN)
+        removeKey(AUTH_TOKEN_WSO2)
+        removeKey(REFRESH_TOKEN_WSO2)
     }
 
-    fun clearPref() {
-        preferences.edit().clear().apply()
-    }
 }

@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id(Plugins.SHB_APP)
     id(Plugins.ANDROID_APPLICATION)
@@ -6,13 +8,14 @@ plugins {
     id(Plugins.ANDROID_KOTLIN)
     id(Plugins.ANDROID_MAVEN_PUBLISH)
     kotlin(Plugins.KOTLIN_KAPT)
-//    alias(libs.plugins.kotlin.android)
 }
 
-//apply(from = "autodimension.gradle")
+val localProperties = Properties()
+localProperties.load(rootProject.file("local.properties").inputStream())
+
 
 android {
-    namespace  = "vn.shb.lao"
+    namespace = "vn.shb.lao"
     compileSdk = 35
 
     buildFeatures {
@@ -34,9 +37,21 @@ android {
                     "WSO_URL",
                     "\"https://api-gw-ext-dev.shb.com.vn/\""
                 )
+                buildConfigField(
+                    "String",
+                    "AUTHORIZATION",
+                    "\"${localProperties.getProperty("config")}\""
+                )
+
+                // ===== NEW KEYS =====
+                buildConfigField("String", "GRANT_TYPE", "\"${localProperties.getProperty("grant_type")}\"")
+                buildConfigField("String", "USERNAME", "\"${localProperties.getProperty("username")}\"")
+                buildConfigField("String", "PASSWORD", "\"${localProperties.getProperty("password")}\"")
             },
+
             uat = {
-                resValue("string", "app_name", " UAT SHB SAHA Laos")
+                resValue("string", "app_name", "UAT SHB SAHA Laos")
+
                 buildConfigField(
                     "String",
                     "BASE_URL",
@@ -47,9 +62,21 @@ android {
                     "WSO_URL",
                     "\"https://api-gw-ext-dev.shb.com.vn/\""
                 )
+                buildConfigField(
+                    "String",
+                    "AUTHORIZATION",
+                    "\"${localProperties.getProperty("config")}\""
+                )
+
+                // ===== NEW KEYS =====
+                buildConfigField("String", "GRANT_TYPE", "\"${localProperties.getProperty("grant_type")}\"")
+                buildConfigField("String", "USERNAME", "\"${localProperties.getProperty("username")}\"")
+                buildConfigField("String", "PASSWORD", "\"${localProperties.getProperty("password")}\"")
             },
+
             dev = {
                 resValue("string", "app_name", "DEV SHB SAHA Laos")
+
                 buildConfigField(
                     "String",
                     "BASE_URL",
@@ -60,24 +87,19 @@ android {
                     "WSO_URL",
                     "\"https://api-gw-ext-dev.shb.com.vn/\""
                 )
+                buildConfigField(
+                    "String",
+                    "AUTHORIZATION",
+                    "\"${localProperties.getProperty("config")}\""
+                )
+
+                // ===== NEW KEYS =====
+                buildConfigField("String", "GRANT_TYPE", "\"${localProperties.getProperty("grant_type")}\"")
+                buildConfigField("String", "USERNAME", "\"${localProperties.getProperty("username")}\"")
+                buildConfigField("String", "PASSWORD", "\"${localProperties.getProperty("password")}\"")
             }
         )
     }
-
-//    aaptOptions {
-//        noCompress("bic")
-//    }
-//
-//    packagingOptions {
-//        pickFirst("lib/arm64-v8a/libc++_shared.so")
-//        pickFirst("lib/x86_64/libc++_shared.so")
-//        pickFirst("lib/armeabi-v7a/libc++_shared.so")
-//        pickFirst("lib/x86/libc++_shared.so")
-//
-//        resources {
-//            exclude("META-INF/LGPL2.1")
-//        }
-//    }
 
 
     buildFeatures {

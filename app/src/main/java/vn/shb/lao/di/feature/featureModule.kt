@@ -8,11 +8,11 @@ import vn.shb.lao.screens.splash.ui.SplashViewModel
 
 val featureModule = module {
     viewModel { SplashViewModel(get()) }
-    viewModel { LoginViewModel(get(), get(), get()) }
+    viewModel { LoginViewModel(get(), get(), get(), get()) }
     viewModel {
         HomeViewModel(
             get(), get(), get(), get(), get(),get(),
-            get(), get(), get(), get(), get()
+            get(),  get(), get(), get()
         )
     }
 }

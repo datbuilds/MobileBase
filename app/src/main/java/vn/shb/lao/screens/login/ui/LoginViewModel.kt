@@ -7,15 +7,21 @@ import android.view.LayoutInflater
 import androidx.core.net.toUri
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import vn.shb.core.core.delivery.onFailure
+import vn.shb.core.core.delivery.onLoading
 import vn.shb.core.core.delivery.onResultHandle
+import vn.shb.core.core.delivery.onSuccess
 import vn.shb.core.core.delivery.reason.AppReason
 import vn.shb.core.core.domain.usecases.None
 import vn.shb.core.core.domain.usecases.login.UseCaseLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseLogout
+import vn.shb.core.core.domain.usecases.wso2.UseCaseGetTokenWso2
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
+import vn.shb.lao.BuildConfig
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseViewModel
 import vn.shb.lao.databinding.LayoutBranchListBinding
@@ -24,11 +30,13 @@ import vn.shb.lao.screens.login.model.Branch
 import vn.shb.lao.screens.login.state.LoginUiState
 import vn.shb.lao.screens.login.state.LogoutUiState
 import vn.shb.lao.utils.view.dialog.BottomSheetDialogHelper
+import java.util.concurrent.TimeUnit
 
 class LoginViewModel(
     private val storage: AndroidSecureStorage,
     private val useCaseLogin: UseCaseLogin,
-    private val useCaseLogout: UseCaseLogout
+    private val useCaseLogout: UseCaseLogout,
+    private val useCaseGetTokenWso2: UseCaseGetTokenWso2,
 ) : BaseViewModel() {
 
     private val _state = MutableStateFlow<LoginUiState>(LoginUiState.Idle)
@@ -65,13 +73,35 @@ class LoginViewModel(
         }
     }
 
-    fun clearLoginState() {
-        _state.value = LoginUiState.Idle
+    fun getTokenWso2(param: UseCaseLogin.Params) {
+        viewModelScope.launch {
+            val paramsWso2 = UseCaseGetTokenWso2.InputParams(
+                BuildConfig.AUTHORIZATION, UseCaseGetTokenWso2.Params(
+                    grant_type = BuildConfig.GRANT_TYPE,
+                    username = BuildConfig.USERNAME,
+                    password = BuildConfig.PASSWORD
+                )
+            )
+            useCaseGetTokenWso2(paramsWso2).collect { result ->
+                result.onSuccess { trans ->
+                    storage.setTokenWso2(trans.access_token)
+                    storage.setRfTokenWso2(trans.refresh_token)
+                    storage.setExpireTimeWso2(TimeUnit.SECONDS.toMinutes(trans.expireIn()).toInt())
+                    delay(300)
+                    login(param)
+                }
+                result.onFailure { error ->
+                    _state.value = LoginUiState.Error(error)
+                }
+                result.onLoading {
+                    _state.value = LoginUiState.Loading
+                }
+            }
+        }
     }
 
-    //endregion
-    override fun onCleared() {
-        super.onCleared()
+    fun clearLoginState() {
+        _state.value = LoginUiState.Idle
     }
 
     fun showDialogForgotPassword(context: Context) {
@@ -94,7 +124,9 @@ class LoginViewModel(
                 }
             }
             BottomSheetDialogHelper(context).message(
-                title = getString(R.string.passwordResetInstructions), supView = bindingSup.root, isClose = true
+                title = getString(R.string.passwordResetInstructions),
+                supView = bindingSup.root,
+                isClose = true
             )
         }
     }
@@ -119,7 +151,7 @@ class LoginViewModel(
         context.startActivity(fallbackIntent)
     }
 
-    private fun getListAddress(context: Context) : List<Branch> {
+    private fun getListAddress(context: Context): List<Branch> {
         return listOf(
             Branch(
                 context.getString(R.string.shbBranch1),

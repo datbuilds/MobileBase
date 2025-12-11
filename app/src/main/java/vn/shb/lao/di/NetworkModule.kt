@@ -6,6 +6,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import vn.shb.core.core.OKHTTP_NORMAL
+import vn.shb.core.core.OKHTTP_WSO2
 import vn.shb.core.core.RETROFIT_NORMAL
 import vn.shb.core.core.RETROFIT_WSO2
 import vn.shb.core.core.VERSION_NAME
@@ -33,16 +34,6 @@ fun createNetworkModule(
 ) = arrayOf(
     // region retrofit base module
     module {
-        //        single {
-        //            NetworkFlipperPlugin()
-        //        }
-        //        factory {
-        //            FlipperOkhttpInterceptor(
-        //                get(), // <-- NetworkFlipperPlugin above
-        //                2048L,
-        //                true,
-        //            )
-        //        }
 
         single<Interceptor>(qualifier = named(OKHTTP_NORMAL)) {
             HeaderInterceptor(
@@ -85,11 +76,18 @@ fun createNetworkModule(
             retrofit(baseUrl, get(named(OKHTTP_NORMAL)))
         }
 
-        single(named(RETROFIT_NORMAL)) {
-            retrofit(BuildConfig.WSO_URL, get(named(RETROFIT_WSO2)))
+        single(named(OKHTTP_WSO2)) {
+            okHttpClient(
+                androidContext(),
+                get(),       // interceptor
+                get()        // logging interceptor
+            )
+        }
+
+        single(named(RETROFIT_WSO2)) {
+            retrofit(BuildConfig.WSO_URL, get(named(OKHTTP_WSO2)))
         }
     },
-    // endregion
 
     // region api service module
     module {
@@ -100,11 +98,12 @@ fun createNetworkModule(
         factory { ServiceAuth(get()) }
 
         factory { get<Retrofit>().create(ApiUser::class.java) }
-        factory { get<Retrofit>().create(ApiTransfer::class.java) }
-        factory { get<Retrofit>(named(RETROFIT_WSO2)).create(ApiWSO2::class.java) }
-
         factory { ServiceUser(get()) }
+
+        factory { get<Retrofit>().create(ApiTransfer::class.java) }
         factory { ServiceTransfer(get()) }
+
+        factory { get<Retrofit>(named(RETROFIT_WSO2)).create(ApiWSO2::class.java) }
         factory { ServiceWso2(get()) }
     }
     // endregion

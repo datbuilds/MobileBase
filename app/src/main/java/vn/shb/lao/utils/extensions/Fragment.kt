@@ -27,6 +27,10 @@ fun Fragment.showProgressDialog() {
     ProgressDialogUtil.show(requireContext())
 }
 
+fun Fragment.checkShowProgressDialog(){
+    ProgressDialogUtil.checkShow(requireContext())
+}
+
 @SuppressLint("SuspiciousIndentation")
 fun Fragment.hideProgressDialog() {
     if (activity?.isDestroyed != true && activity?.isFinishing == true) return

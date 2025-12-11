@@ -6,18 +6,17 @@ import vn.shb.core.core.domain.usecases.BaseUseCase
 import vn.shb.core.core.domain.usecases.UseCaseParameters
 import vn.shb.data.entities.wso2.WsoData
 
-class UseCaseGetTokenWso2(
+class UseCaseRefreshTokenWso2(
     private val repository: RepositoryWSO
-) : BaseUseCase<WsoData, UseCaseGetTokenWso2.InputParams>() {
+) : BaseUseCase<WsoData, UseCaseRefreshTokenWso2.InputParams>() {
 
     override suspend fun FlowCollector<ResultSHB<WsoData>>.run(params: InputParams) {
-        emit(repository.getToken(params.token, params.params))
+        emit(repository.refreshToken(params.token, params.params))
     }
 
     data class Params(
         val grant_type: String,
-        val username: String,
-        val password: String,
+        val refresh_token: String,
     )
 
     data class InputParams(

@@ -12,7 +12,8 @@ class HeaderInterceptor(
         chain.appRequestBuilder(
             versionName = versionName,
             token = storage.getToken(),
-            deviceId = storage.getDeviceId()
+            deviceId = storage.getDeviceId(),
+            tokenWso2 = storage.getTokenWso2()
         )
     )
 }

@@ -27,6 +27,7 @@ import androidx.media3.common.BuildConfig
 import androidx.viewbinding.ViewBinding
 import org.koin.android.ext.android.inject
 import vn.shb.core.core.domain.usecases.login.UseCaseRefreshToken
+import vn.shb.core.core.domain.usecases.wso2.UseCaseRefreshTokenWso2
 import vn.shb.core.core.security.detectRoot.RootUtils
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import vn.shb.lao.R
@@ -41,12 +42,14 @@ import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.returnActivity
 import vn.shb.lao.utils.extensions.toast
 import vn.shb.lao.utils.refreshTK.RefreshTokenManager
+import vn.shb.lao.utils.refreshTK.RefreshTokenWso2Manager
 
 abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflater) -> T) :
     AppCompatActivity() {
 
     private lateinit var accessibilityManager: AccessibilityManager
     private val useCaseRefreshToken: UseCaseRefreshToken by inject()
+    private val useCaseRefreshTokenWso2: UseCaseRefreshTokenWso2 by inject()
     private val storage: AndroidSecureStorage by inject()
 
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
@@ -121,6 +124,11 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
                 useCase = useCaseRefreshToken,
                 storage = storage
             )
+            RefreshTokenWso2Manager.start(
+                activity = this,
+                useCase = useCaseRefreshTokenWso2,
+                storage = storage
+            )
         }
 
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
@@ -146,6 +154,7 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
 
         if (shouldStartRefreshTokenManager()) {
             RefreshTokenManager.updateActivity(this)
+            RefreshTokenWso2Manager.updateActivity(this)
         }
     }
 
@@ -193,6 +202,7 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
         onBackPressedCallback.remove()
         doubleBackHandler.removeCallbacks(doubleBackRunnable)
         RefreshTokenManager.updateActivity(null) // Clear activity reference
+        RefreshTokenWso2Manager.updateActivity(null) // Clear activity reference
         unregisterReceiver(screenReceiver)
         super.onDestroy()
     }

@@ -7,7 +7,8 @@ import java.util.Locale
 fun Interceptor.Chain.appRequestBuilder(
     versionName: String,
     token: String? = null,
-    deviceId: String? = null
+    deviceId: String? = null,
+    tokenWso2: String? = null
 ) = run {
     val deviceVersion = android.os.Build.VERSION.RELEASE
     val deviceModel = android.os.Build.MODEL
@@ -28,6 +29,9 @@ fun Interceptor.Chain.appRequestBuilder(
 
             if (token?.isNotEmpty() == true) {
                 addHeader("Authorization", "Bearer $token")
+            }
+            if (!tokenWso2.isNullOrEmpty()) {
+                addHeader("WSO2-Token", "Bearer $tokenWso2")
             }
 
             method(original.method, original.body)

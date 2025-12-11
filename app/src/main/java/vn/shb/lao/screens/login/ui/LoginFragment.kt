@@ -27,6 +27,7 @@ import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentLoginBinding
 import vn.shb.lao.screens.login.state.LoginUiState
 import vn.shb.lao.screens.login.ui.widget.showLanguagePopup
+import vn.shb.lao.utils.extensions.checkShowProgressDialog
 import vn.shb.lao.utils.extensions.clearEditTextColorFilter
 import vn.shb.lao.utils.extensions.clearText
 import vn.shb.lao.utils.extensions.getTextWelcomeUser
@@ -37,7 +38,6 @@ import vn.shb.lao.utils.extensions.isValidInputLogin
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.lao.utils.extensions.nextActivity
 import vn.shb.lao.utils.extensions.setCustomSpannable
-import vn.shb.lao.utils.extensions.showProgressDialog
 import vn.shb.lao.utils.extensions.textValue
 import vn.shb.lao.utils.extensions.visible
 import vn.shb.lao.utils.view.dialog.BottomSheetDialogHelper
@@ -196,7 +196,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
     private fun postLogin(us: String, psW: String) {
         val params = UseCaseLogin.Params(us, psW)
-        loginViewModel.login(params)
+        loginViewModel.getTokenWso2(params)
     }
 
     private fun getPassword(): Pair<String, String> {
@@ -217,7 +217,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                     when (uiState) {
                         LoginUiState.Idle -> {}
                         LoginUiState.Loading -> {
-                            showProgressDialog()
+                            checkShowProgressDialog()
                         }
 
                         is LoginUiState.Error -> {

@@ -46,6 +46,7 @@ import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.lao.utils.extensions.navigation.safeNavigate
 import vn.shb.lao.utils.extensions.returnActivity
 import vn.shb.lao.utils.refreshTK.RefreshTokenManager
+import vn.shb.lao.utils.refreshTK.RefreshTokenWso2Manager
 import vn.shb.lao.utils.view.dialog.BottomSheetDialogHelper
 
 abstract class BaseFragmentBinding<T : ViewBinding>(
@@ -237,6 +238,7 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
     fun logout(error: Reason) {
         storage.resetUser()
         RefreshTokenManager.stop()
+        RefreshTokenWso2Manager.stop()
         finishAffinity(requireActivity())
         returnActivity(LoginActivity.intent(requireActivity(), error))
     }

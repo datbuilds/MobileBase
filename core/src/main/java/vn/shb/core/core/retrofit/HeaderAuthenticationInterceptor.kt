@@ -19,7 +19,8 @@ class HeaderAuthenticationInterceptor(
             chain.appRequestBuilder(
                 versionName = versionName,
                 token = storage.getToken(),
-                deviceId = storage.getDeviceId()
+                deviceId = storage.getDeviceId(),
+                tokenWso2 = storage.getTokenWso2()
             )
 
         val response = chain.proceed(request)
@@ -38,7 +39,8 @@ class HeaderAuthenticationInterceptor(
                         request = chain.appRequestBuilder(
                             versionName = versionName,
                             token = newToken,
-                            deviceId = storage.getDeviceId()
+                            deviceId = storage.getDeviceId(),
+                            tokenWso2 = storage.getTokenWso2()
                         )
                         return chain.proceed(request)
                     } else {

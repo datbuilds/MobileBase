@@ -14,12 +14,14 @@ import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionTransferConfi
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransferAccount
 import vn.shb.core.core.domain.usecases.transfer.UseCaseValidateTransaction
 import vn.shb.core.core.domain.usecases.wso2.UseCaseGetTokenWso2
+import vn.shb.core.core.domain.usecases.wso2.UseCaseRefreshTokenWso2
 
 val domainModule = module {
     // refreshToken
     factory { UseCaseLogin(get()) }
 
     factory { UseCaseRefreshToken(get()) }
+    factory { UseCaseRefreshTokenWso2(get()) }
 
     factory { UseCaseLogout(get()) }
     factory { UseCaseUserInfo(get()) }

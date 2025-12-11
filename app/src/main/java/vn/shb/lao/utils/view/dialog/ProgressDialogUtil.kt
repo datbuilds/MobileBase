@@ -11,6 +11,13 @@ import vn.shb.lao.R
 object ProgressDialogUtil {
     private var alertDialog: AlertDialog? = null
 
+    fun checkShow(context: Context){
+        if ((alertDialog?.context as? Activity)?.isDestroyed == true) return
+        if (alertDialog?.isShowing != true) {
+            show(context)
+        }
+    }
+
     fun show(
         context: Context,
         isCancelable: Boolean = false,
