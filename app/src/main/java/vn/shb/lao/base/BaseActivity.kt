@@ -92,10 +92,10 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         // Làm mờ / ẩn app trong Recent Apps
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_SECURE,
-            WindowManager.LayoutParams.FLAG_SECURE
-        )
+//        window.setFlags(
+//            WindowManager.LayoutParams.FLAG_SECURE,
+//            WindowManager.LayoutParams.FLAG_SECURE
+//        )
         _binding = inflate(layoutInflater)
         setContentView(binding.root)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
