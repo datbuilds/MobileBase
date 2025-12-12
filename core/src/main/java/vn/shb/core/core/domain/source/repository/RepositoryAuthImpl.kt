@@ -129,7 +129,7 @@ class RepositoryAuthImpl(
             setUserLog(user.toUserString())
             setToken(user.access_token)
             setRfToken(user.refresh_token)
-            setExpireTime(TimeUnit.SECONDS.toMinutes(user.expireIn()).toInt())
+            updateExpireTime(TimeUnit.SECONDS.toMinutes(user.expireIn()).toInt())
             firstOpened(isFirst = true)
         }
     }

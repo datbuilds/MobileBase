@@ -31,7 +31,6 @@ import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.lao.utils.extensions.returnActivity
 import vn.shb.lao.utils.extensions.showProgressDialog
 import vn.shb.lao.utils.refreshTK.RefreshTokenManager
-import vn.shb.lao.utils.refreshTK.RefreshTokenWso2Manager
 import vn.shb.lao.utils.view.dialog.BottomSheetDialogHelper
 
 class ProfileFragment :
@@ -147,7 +146,6 @@ class ProfileFragment :
                     if (state is LogoutUiState.Success) {
                         lifecycleScope.launch {
                             RefreshTokenManager.stop()
-                            RefreshTokenWso2Manager.stop()
                             delay(260)
                             storage.resetToken()
                             requireActivity().apply {

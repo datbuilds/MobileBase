@@ -22,6 +22,7 @@ import vn.shb.core.core.domain.source.service.ServiceUser
 import vn.shb.core.core.domain.source.service.ServiceWso2
 import vn.shb.core.core.retrofit.HeaderAuthenticationInterceptor
 import vn.shb.core.core.retrofit.HeaderInterceptor
+import vn.shb.core.core.retrofit.Wso2Interceptor
 import vn.shb.core.core.retrofit.loggingInterceptor
 import vn.shb.core.core.retrofit.okHttpClient
 import vn.shb.core.core.retrofit.okHttpClientAuthentication
@@ -42,11 +43,16 @@ fun createNetworkModule(
             )
         }
 
+        single<Interceptor>(qualifier = named(OKHTTP_WSO2)) {
+            Wso2Interceptor(
+                versionName = get(qualifier = named(VERSION_NAME)),
+                storage = get(),
+            )
+        }
         single<Interceptor> {
             HeaderAuthenticationInterceptor(
                 versionName = get(qualifier = named(VERSION_NAME)),
                 storage = get(),
-                apiAuth = get(),
             )
         }
 
@@ -76,11 +82,19 @@ fun createNetworkModule(
             retrofit(baseUrl, get(named(OKHTTP_NORMAL)))
         }
 
+//        single(named(OKHTTP_WSO2)) {
+//            okHttpClient(
+//                androidContext(),
+//                get(),       // interceptor
+//                get()        // logging interceptor
+//            )
+//        }
+
         single(named(OKHTTP_WSO2)) {
             okHttpClient(
                 androidContext(),
-                get(),       // interceptor
-                get()        // logging interceptor
+                get(qualifier = named(OKHTTP_WSO2)),   // interceptor đúng!
+                get()                                  // logging interceptor
             )
         }
 

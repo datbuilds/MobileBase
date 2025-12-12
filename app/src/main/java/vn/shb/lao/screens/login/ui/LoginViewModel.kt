@@ -86,7 +86,7 @@ class LoginViewModel(
                 result.onSuccess { trans ->
                     storage.setTokenWso2(trans.access_token)
                     storage.setRfTokenWso2(trans.refresh_token)
-                    storage.setExpireTimeWso2(TimeUnit.SECONDS.toMinutes(trans.expireIn()).toInt())
+                    storage.updateExpireTime(TimeUnit.SECONDS.toMinutes(trans.expireIn()).toInt())
                     delay(300)
                     login(param)
                 }

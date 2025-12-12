@@ -8,7 +8,8 @@ fun Interceptor.Chain.appRequestBuilder(
     versionName: String,
     token: String? = null,
     deviceId: String? = null,
-    tokenWso2: String? = null
+    tokenWso2: String? = null,
+    isAddWso2: Boolean = true
 ) = run {
     val deviceVersion = android.os.Build.VERSION.RELEASE
     val deviceModel = android.os.Build.MODEL
@@ -27,10 +28,10 @@ fun Interceptor.Chain.appRequestBuilder(
             val agent = "SHB SAHA Laos App/$info"
             addHeader("User-Agent", "Mozilla/5.0 ($agent)")
 
-            if (token?.isNotEmpty() == true) {
+            if (token?.isNotEmpty() == true && isAddWso2) {
                 addHeader("Authorization", "Bearer $token")
             }
-            if (!tokenWso2.isNullOrEmpty()) {
+            if (!tokenWso2.isNullOrEmpty() && isAddWso2) {
                 addHeader("WSO2-Token", "Bearer $tokenWso2")
             }
 

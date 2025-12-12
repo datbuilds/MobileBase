@@ -42,7 +42,6 @@ import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.returnActivity
 import vn.shb.lao.utils.extensions.toast
 import vn.shb.lao.utils.refreshTK.RefreshTokenManager
-import vn.shb.lao.utils.refreshTK.RefreshTokenWso2Manager
 
 abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflater) -> T) :
     AppCompatActivity() {
@@ -122,11 +121,7 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
             RefreshTokenManager.start(
                 activity = this,
                 useCase = useCaseRefreshToken,
-                storage = storage
-            )
-            RefreshTokenWso2Manager.start(
-                activity = this,
-                useCase = useCaseRefreshTokenWso2,
+                useCaseRefreshTokenWso2,
                 storage = storage
             )
         }
@@ -154,7 +149,6 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
 
         if (shouldStartRefreshTokenManager()) {
             RefreshTokenManager.updateActivity(this)
-            RefreshTokenWso2Manager.updateActivity(this)
         }
     }
 
@@ -202,7 +196,6 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
         onBackPressedCallback.remove()
         doubleBackHandler.removeCallbacks(doubleBackRunnable)
         RefreshTokenManager.updateActivity(null) // Clear activity reference
-        RefreshTokenWso2Manager.updateActivity(null) // Clear activity reference
         unregisterReceiver(screenReceiver)
         super.onDestroy()
     }

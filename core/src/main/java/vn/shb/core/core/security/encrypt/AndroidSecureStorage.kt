@@ -91,6 +91,12 @@ class AndroidSecureStorage(private val context: Context, private val deviceManag
     fun setExpireTime(data: Int) = putPreference(EXPIRE_TIME, data)
     fun getExpireTime() = getPreference(EXPIRE_TIME, 5)
 
+    fun updateExpireTime(data: Int){
+        if (data <= getExpireTime()){
+            setExpireTime(data)
+        }
+    }
+
     /**
      * Background Login
      */

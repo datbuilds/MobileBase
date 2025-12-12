@@ -10,7 +10,6 @@ import java.net.HttpURLConnection.HTTP_UNAUTHORIZED
 class HeaderAuthenticationInterceptor(
     private val versionName: String,
     private val storage: AndroidSecureStorage,
-    private val apiAuth: ApiAuth? = null
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {

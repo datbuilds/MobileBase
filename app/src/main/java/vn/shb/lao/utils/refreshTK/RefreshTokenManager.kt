@@ -12,7 +12,9 @@ import kotlinx.coroutines.launch
 import vn.shb.core.core.delivery.onFailure
 import vn.shb.core.core.delivery.onSuccess
 import vn.shb.core.core.domain.usecases.login.UseCaseRefreshToken
+import vn.shb.core.core.domain.usecases.wso2.UseCaseRefreshTokenWso2
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
+import vn.shb.lao.BuildConfig
 import vn.shb.lao.R
 import vn.shb.lao.activity.login.LoginActivity
 import vn.shb.lao.utils.extensions.returnActivity
@@ -29,16 +31,19 @@ object RefreshTokenManager {
     @SuppressLint("StaticFieldLeak")
     private var currentStorage: AndroidSecureStorage? = null
     private var currentUseCase: UseCaseRefreshToken? = null
+    private var currentUseCaseWso2: UseCaseRefreshTokenWso2? = null
 
     fun start(
         activity: FragmentActivity,
         useCase: UseCaseRefreshToken,
+        useCaseWso2: UseCaseRefreshTokenWso2,
         storage: AndroidSecureStorage
     ) {
         stop()
 
         currentStorage = storage
         currentUseCase = useCase
+        currentUseCaseWso2 = useCaseWso2
         updateActivity(activity)
 
         val refreshIntervalMillis = (storage.getExpireTime()).minus(1) * 60 * 1000L
@@ -50,9 +55,9 @@ object RefreshTokenManager {
             override fun run() {
                 applicationScope.launch {
                     val s = currentStorage
-                    val u = currentUseCase
+                    val u = currentUseCaseWso2
                     if (s != null && u != null) {
-                        performTokenRefresh(s, u) {
+                        performTokenRefreshWso2(s, activity,  u) {
                             activity.runOnUiThread {
                                 updateActivity(activity)
                             }
@@ -63,6 +68,67 @@ object RefreshTokenManager {
             }
         }
         handler?.postDelayed(refreshRunnable!!, refreshIntervalMillis)
+    }
+
+    private suspend fun performTokenRefreshWso2(
+        storage: AndroidSecureStorage,
+        activity: FragmentActivity,
+        useCaseWso2: UseCaseRefreshTokenWso2,
+        onFail: (() -> Unit)? = null
+    ) {
+        try {
+            println("RFManager -> Starting token refresh...")
+            // Get secure refresh token
+            val rfToken = storage.getRfTokenWso2()
+            if (rfToken.isEmpty()) {
+                println("RFManager -> No secure refresh token available")
+                storage.setTokenInvalidWso2(true)
+                return
+            }
+
+            val paramsWso2 = UseCaseRefreshTokenWso2.InputParams(
+                BuildConfig.AUTHORIZATION, UseCaseRefreshTokenWso2.Params(
+                    grant_type = "refresh_token",
+                    refresh_token = rfToken
+                )
+            )
+            useCaseWso2(paramsWso2).collectLatest { refreshResult ->
+                refreshResult.onSuccess { response ->
+                    synchronized(storage) {
+                        storage.apply {
+                            setTokenWso2(response.access_token)
+                            updateExpireTime(TimeUnit.SECONDS.toMinutes(response.expireIn()).toInt())
+                            setTokenInvalidWso2(false)
+                            setRfTokenWso2(response.refresh_token)
+                            applicationScope.launch {
+                                val s = currentStorage
+                                val u = currentUseCase
+                                if (s != null && u != null) {
+                                    performTokenRefresh(s, u) {
+                                        activity.runOnUiThread {
+                                            updateActivity(activity)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    isErrorShowing = false // Reset flag khi refresh thành công
+
+                    scheduleNextRefresh()
+
+                    println("RFManager -> Token refreshed successfully")
+                }
+                refreshResult.onFailure {
+                    storage.setTokenInvalidWso2(true)
+                    onFail?.invoke()
+                    throw Exception("RFManager -> Token refresh failed: ${it.errMessage}")
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            println("RFManager -> Exception during token refresh: ${e.message}")
+        }
     }
 
     private suspend fun performTokenRefresh(
@@ -86,7 +152,7 @@ object RefreshTokenManager {
                     synchronized(storage) {
                         storage.apply {
                             setToken(response.access_token)
-                            setExpireTime(TimeUnit.SECONDS.toMinutes(response.expireIn()).toInt())
+                            updateExpireTime(TimeUnit.SECONDS.toMinutes(response.expireIn()).toInt())
                             setTokenInvalid(false)
                             setRfToken(response.refresh_token)
                         }
