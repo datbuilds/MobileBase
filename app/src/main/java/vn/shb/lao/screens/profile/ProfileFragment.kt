@@ -1,16 +1,13 @@
 package vn.shb.lao.screens.profile
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.data.entities.AccountBase
 import vn.shb.data.entities.home.UserInfo
 import vn.shb.dn.choosePhotoHelper.ChoosePhotoHelper
 import vn.shb.dn.choosePhotoHelper.callback.ChoosePhotoCallback
@@ -20,7 +17,6 @@ import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.base.view.MyTextView
 import vn.shb.lao.databinding.FragmentProfileBinding
 import vn.shb.lao.databinding.ItemProfileInfoBinding
-
 import vn.shb.lao.screens.home.getTypeAccount
 import vn.shb.lao.screens.home.widget.OnClickDetail
 import vn.shb.lao.screens.login.state.LogoutUiState
@@ -66,33 +62,33 @@ class ProfileFragment :
 
     override fun initView(view: View) {
         val user = homeViewModel.getCurrentUserInfo()
-        val account = homeViewModel.selectedAccount
-        if (user != null && account != null) {
-            bindViewDetail(user, account)
+        if (user != null) {
+            bindViewDetail(user)
         } else {
             homeViewModel.getUserInfo()
-            Log.i("2332323", "get API")
         }
     }
 
-    private fun bindViewDetail(user: UserInfo, account: AccountBase) {
+    private fun getNameAccountDefault(defaultAccount: String?): String {
+        if (defaultAccount.isNullOrEmpty()) return ""
+        val listAccount = homeViewModel.getListAccount()
+        val ac = listAccount.firstOrNull { it.accountNumber == defaultAccount }
+        return if (ac != null) {
+            getTypeAccount(requireContext(), ac).plus(Const.SEPARATOR_DASH)
+                .plus(ac.accountNumber)
+        } else {
+            ""
+        }
+    }
+
+    private fun bindViewDetail(user: UserInfo) {
 
         with(binding) {
             flAvatarUser.setUserName(getPathAvatarUser(), user.customerName)
             tvNameUser.text = user.customerName
-
             iclInfo1.bind(getString(R.string.customerId), user.customerId)
             iclInfo2.bind(getString(R.string.customerName), user.customerName)
-            val defaultAccount =
-                homeViewModel.selectedAccount?.let {
-                    getTypeAccount(
-                        requireContext(),
-                        it
-                    )
-                }.plus(
-                    Const.SEPARATOR_DASH
-                )
-                    .plus(account.accountNumber)
+            val defaultAccount = getNameAccountDefault(user.defaultAcct)
             iclInfo3.bind(getString(R.string.defaultCasaAccount), defaultAccount)
             iclInfo4.bind(getString(R.string.email), user.email)
             iclInfo5.bind(getString(R.string.shbOnline), user.authMethodName)
@@ -165,17 +161,14 @@ class ProfileFragment :
             }
             launch {
                 homeViewModel.stateUserInfo.collect { userInfo ->
-                    val userLog = getCurrentUser()
-                    userLog?.let {
-                        homeViewModel.selectedAccount?.let { bindViewDetail(userInfo, it) }
-                    }
+                    getCurrentUser()?.let { bindViewDetail(userInfo) }
                 }
             }
-            launch {
-                homeViewModel.stateSelectedAccount.collect { accountInfo ->
-                    homeViewModel.getCurrentUserInfo()?.let { bindViewDetail(it, accountInfo) }
-                }
-            }
+//            launch {
+//                homeViewModel.stateSelectedAccount.collect { accountInfo ->
+//                    homeViewModel.getCurrentUserInfo()?.let { bindViewDetail(it, accountInfo) }
+//                }
+//            }
         }
     }
 

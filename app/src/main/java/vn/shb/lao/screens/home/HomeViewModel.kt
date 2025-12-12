@@ -293,8 +293,8 @@ class HomeViewModel(
             ).parse(it.transactionDate)
         }
 
-        val today = Calendar.getInstance()
-        val yesterday = Calendar.getInstance().apply { add(Calendar.DAY_OF_YEAR, -1) }
+//        val today = Calendar.getInstance()
+//        val yesterday = Calendar.getInstance().apply { add(Calendar.DAY_OF_YEAR, -1) }
 
         var lastHeader: String? = null
 
@@ -306,11 +306,12 @@ class HomeViewModel(
             val cal = Calendar.getInstance().apply { time = date ?: Date() }
 
             // Xác định tiêu đề header
-            val header = when {
-                isSameDay(cal, today) -> context.getString(R.string.today)
-                isSameDay(cal, yesterday) -> context.getString(R.string.yesterday)
-                else -> tx.transactionDate
-            }
+            val header = tx.transactionDate
+//                when {
+//                isSameDay(cal, today) -> context.getString(R.string.today)
+//                isSameDay(cal, yesterday) -> context.getString(R.string.yesterday)
+//                else -> tx.transactionDate
+//            }
 
             // Nếu header khác so với item trước → thêm header vào list
             if (header != lastHeader) {
