@@ -4,7 +4,9 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatDelegate
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
@@ -17,10 +19,9 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 import timber.log.Timber
-import vn.shb.core.core.delivery.Reason
-import vn.shb.core.core.delivery.ReasonDescription.LAO
-import vn.shb.lao.base.view.FontManager
+import vn.shb.lao.databinding.ViewPrivacyOverlayBinding
 import vn.shb.lao.di.appComponent
+import vn.shb.lao.utils.extensions.common.Const.OVERLAY_TAG
 import vn.shb.lao.utils.widgets.LocaleHelper
 
 class SHBApplication : Application(), LifecycleEventObserver {
@@ -59,20 +60,50 @@ class SHBApplication : Application(), LifecycleEventObserver {
                     activity: Activity,
                     savedInstanceState: Bundle?
                 ) {
-                    currentActivity = activity
+                    val binding = ViewPrivacyOverlayBinding.inflate(LayoutInflater.from(activity))
+                    val decor = activity.window.decorView as ViewGroup
+
+                    // Cho overlay luôn nằm trên cùng
+                    binding.root.apply {
+                        visibility = View.GONE
+                        bringToFront()
+                    }
+
+                    decor.addView(
+                        binding.root,
+                        ViewGroup.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.MATCH_PARENT
+                        )
+                    )
+
+                    decor.setTag(OVERLAY_TAG, binding)
                 }
 
                 override fun onActivityStarted(activity: Activity) {}
 
                 override fun onActivityResumed(activity: Activity) {
-                    currentActivity = activity
-                    isAppInBackground = false
+                    val binding =
+                        activity.window.decorView.getTag(OVERLAY_TAG) as? ViewPrivacyOverlayBinding
+                    binding?.root?.visibility = View.GONE
                 }
 
-                override fun onActivityPaused(activity: Activity) {}
+                override fun onActivityPaused(activity: Activity) {
+                    val binding =
+                        activity.window.decorView.getTag(OVERLAY_TAG) as? ViewPrivacyOverlayBinding
+                    binding?.root?.post {
+                        binding.root.visibility = View.VISIBLE
+                        binding.root.bringToFront()
+                    }
+                }
 
                 override fun onActivityStopped(activity: Activity) {
-                    isAppInBackground = true
+                    val binding =
+                        activity.window.decorView.getTag(OVERLAY_TAG) as? ViewPrivacyOverlayBinding
+                    binding?.root?.post {
+                        binding.root.visibility = View.VISIBLE
+                        binding.root.bringToFront()
+                    }
                 }
 
                 override fun onActivitySaveInstanceState(
@@ -89,7 +120,7 @@ class SHBApplication : Application(), LifecycleEventObserver {
             }
         )
 
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
+//        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
     }
 
     private fun initFlipper() {

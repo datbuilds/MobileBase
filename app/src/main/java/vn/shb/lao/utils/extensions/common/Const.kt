@@ -3,8 +3,8 @@ package vn.shb.lao.utils.extensions.common
 object Const {
     const val EMPTY = ""
     const val ZERO = "0"
-    const val  SEPARATOR_DASH = " - "
-    const val  SEPARATOR_SPACE = " "
+    const val SEPARATOR_DASH = " - "
+    const val SEPARATOR_SPACE = " "
 
     const val TIME_NO_ACTION = 5
 
@@ -16,4 +16,6 @@ object Const {
 
     const val CONG = "+"
     const val TRU = "-"
+     const val OVERLAY_TAG: Int = 0xABCD0001.toInt()
+
 }
