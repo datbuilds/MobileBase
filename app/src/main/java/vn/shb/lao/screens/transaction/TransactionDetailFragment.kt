@@ -44,15 +44,25 @@ class TransactionDetailFragment :
             tvTransactionAmount.setTextColor(getColor(R.color.colorSuccess))
             tvValueBalance.text = prefixAmount.plus(trans.amount.getBalance())
             tvCurrentCode.text = trans.currency
-            val fromAccount = trans.ordAccType.plus(Const.SEPARATOR_DASH).plus(trans.ordAccount)
-            iclFromAccount.bindView(
-                getString(R.string.fromAccount),
-                fromAccount
-            )
-            iclToAccount.bindView(
-                getString(R.string.toAccount),
-                trans.benAccType.plus(Const.SEPARATOR_DASH).plus(trans.benAccount)
-            )
+            if (!trans.ordAccount.isEmpty()) {
+                iclFromAccount.bindView(
+                    getString(R.string.fromAccount),
+                    trans.ordAccType.plus(Const.SEPARATOR_DASH).plus(trans.ordAccount)
+                )
+                iclFromAccount.root.visible()
+            } else {
+                iclFromAccount.root.gone()
+            }
+            if (trans.benAccount.isEmpty()) {
+                iclToAccount.bindView(
+                    getString(R.string.toAccount),
+                    trans.benAccType.plus(Const.SEPARATOR_DASH).plus(trans.benAccount)
+                )
+                iclToAccount.root.visible()
+            } else {
+                iclToAccount.root.gone()
+            }
+
             iclRemarks.bindView(
                 getString(R.string.remarks),
                 trans.remarks
