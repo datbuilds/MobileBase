@@ -75,28 +75,35 @@ class LoginViewModel(
 
     fun getTokenWso2(param: UseCaseLogin.Params) {
         viewModelScope.launch {
-            val paramsWso2 = UseCaseGetTokenWso2.InputParams(
-                BuildConfig.AUTHORIZATION, UseCaseGetTokenWso2.Params(
-                    grant_type = BuildConfig.GRANT_TYPE,
-                    username = BuildConfig.USERNAME,
-                    password = BuildConfig.PASSWORD
+            if (BuildConfig.FLAVOR == "pro") {
+                login(param)
+            } else {
+                val paramsWso2 = UseCaseGetTokenWso2.InputParams(
+                    BuildConfig.AUTHORIZATION, UseCaseGetTokenWso2.Params(
+                        grant_type = BuildConfig.GRANT_TYPE,
+                        username = BuildConfig.USERNAME,
+                        password = BuildConfig.PASSWORD
+                    )
                 )
-            )
-            useCaseGetTokenWso2(paramsWso2).collect { result ->
-                result.onSuccess { trans ->
-                    storage.setTokenWso2(trans.access_token)
-                    storage.setRfTokenWso2(trans.refresh_token)
-                    storage.updateExpireTime(TimeUnit.SECONDS.toMinutes(trans.expireIn()).toInt())
-                    delay(300)
-                    login(param)
-                }
-                result.onFailure { error ->
-                    _state.value = LoginUiState.Error(error)
-                }
-                result.onLoading {
-                    _state.value = LoginUiState.Loading
+                useCaseGetTokenWso2(paramsWso2).collect { result ->
+                    result.onSuccess { trans ->
+                        storage.setTokenWso2(trans.access_token)
+                        storage.setRfTokenWso2(trans.refresh_token)
+                        storage.updateExpireTime(
+                            TimeUnit.SECONDS.toMinutes(trans.expireIn()).toInt()
+                        )
+                        delay(300)
+                        login(param)
+                    }
+                    result.onFailure { error ->
+                        _state.value = LoginUiState.Error(error)
+                    }
+                    result.onLoading {
+                        _state.value = LoginUiState.Loading
+                    }
                 }
             }
+
         }
     }
 

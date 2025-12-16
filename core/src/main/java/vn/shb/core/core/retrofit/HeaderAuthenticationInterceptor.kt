@@ -2,6 +2,7 @@ package vn.shb.core.core.retrofit
 
 import okhttp3.Interceptor
 import okhttp3.Response
+import org.koin.android.BuildConfig
 import vn.shb.core.core.domain.source.api.ApiAuth
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import java.net.HttpURLConnection.HTTP_FORBIDDEN
@@ -10,6 +11,7 @@ import java.net.HttpURLConnection.HTTP_UNAUTHORIZED
 class HeaderAuthenticationInterceptor(
     private val versionName: String,
     private val storage: AndroidSecureStorage,
+    private val isProduction : Boolean
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -19,7 +21,8 @@ class HeaderAuthenticationInterceptor(
                 versionName = versionName,
                 token = storage.getToken(),
                 deviceId = storage.getDeviceId(),
-                tokenWso2 = storage.getTokenWso2()
+                tokenWso2 = storage.getTokenWso2(),
+                !isProduction
             )
 
         val response = chain.proceed(request)
@@ -39,7 +42,8 @@ class HeaderAuthenticationInterceptor(
                             versionName = versionName,
                             token = newToken,
                             deviceId = storage.getDeviceId(),
-                            tokenWso2 = storage.getTokenWso2()
+                            tokenWso2 = storage.getTokenWso2(),
+                            !isProduction
                         )
                         return chain.proceed(request)
                     } else {

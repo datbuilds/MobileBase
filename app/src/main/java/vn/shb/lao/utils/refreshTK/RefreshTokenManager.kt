@@ -57,10 +57,20 @@ object RefreshTokenManager {
                 applicationScope.launch {
                     val s = currentStorage
                     val u = currentUseCaseWso2
-                    if (s != null && u != null) {
-                        performTokenRefreshWso2(s, activity,  u) {
-                            activity.runOnUiThread {
-                                updateActivity(activity)
+                    if (BuildConfig.FLAVOR == "pro") {
+                        if (s != null && currentUseCase != null) {
+                            performTokenRefresh(s, currentUseCase!!) {
+                                activity.runOnUiThread {
+                                    updateActivity(activity)
+                                }
+                            }
+                        }
+                    } else {
+                        if (s != null && u != null) {
+                            performTokenRefreshWso2(s, activity, u) {
+                                activity.runOnUiThread {
+                                    updateActivity(activity)
+                                }
                             }
                         }
                     }
@@ -69,15 +79,6 @@ object RefreshTokenManager {
             }
         }
         handler?.postDelayed(refreshRunnable!!, refreshIntervalMillis)
-    }
-
-    fun createBasicAuth(consumerKey: String, consumerSecret: String): String {
-        val raw = "$consumerKey:$consumerSecret"
-        val encoded = Base64.encodeToString(
-            raw.toByteArray(Charsets.UTF_8),
-            Base64.NO_WRAP
-        )
-        return "Basic $encoded"
     }
 
     private suspend fun performTokenRefreshWso2(
@@ -107,7 +108,9 @@ object RefreshTokenManager {
                     synchronized(storage) {
                         storage.apply {
                             setTokenWso2(response.access_token)
-                            updateExpireTime(TimeUnit.SECONDS.toMinutes(response.expireIn()).toInt())
+                            updateExpireTime(
+                                TimeUnit.SECONDS.toMinutes(response.expireIn()).toInt()
+                            )
                             setTokenInvalidWso2(false)
                             setRfTokenWso2(response.refresh_token)
                             applicationScope.launch {
@@ -162,7 +165,9 @@ object RefreshTokenManager {
                     synchronized(storage) {
                         storage.apply {
                             setToken(response.access_token)
-                            updateExpireTime(TimeUnit.SECONDS.toMinutes(response.expireIn()).toInt())
+                            updateExpireTime(
+                                TimeUnit.SECONDS.toMinutes(response.expireIn()).toInt()
+                            )
                             setTokenInvalid(false)
                             setRfToken(response.refresh_token)
                         }

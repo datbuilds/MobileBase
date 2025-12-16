@@ -40,19 +40,21 @@ fun createNetworkModule(
             HeaderInterceptor(
                 versionName = get(qualifier = named(VERSION_NAME)),
                 storage = get(),
+                BuildConfig.FLAVOR == "pro"
             )
         }
 
         single<Interceptor>(qualifier = named(OKHTTP_WSO2)) {
             Wso2Interceptor(
                 versionName = get(qualifier = named(VERSION_NAME)),
-                storage = get(),
+                storage = get()
             )
         }
         single<Interceptor> {
             HeaderAuthenticationInterceptor(
                 versionName = get(qualifier = named(VERSION_NAME)),
                 storage = get(),
+                BuildConfig.FLAVOR == "pro"
             )
         }
 
@@ -81,14 +83,6 @@ fun createNetworkModule(
         single(named(RETROFIT_NORMAL)) {
             retrofit(baseUrl, get(named(OKHTTP_NORMAL)))
         }
-
-//        single(named(OKHTTP_WSO2)) {
-//            okHttpClient(
-//                androidContext(),
-//                get(),       // interceptor
-//                get()        // logging interceptor
-//            )
-//        }
 
         single(named(OKHTTP_WSO2)) {
             okHttpClient(

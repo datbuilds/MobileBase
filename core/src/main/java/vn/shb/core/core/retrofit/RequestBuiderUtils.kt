@@ -2,6 +2,7 @@ package vn.shb.core.core.retrofit
 
 import okhttp3.Interceptor
 import okhttp3.Request
+import org.koin.android.BuildConfig
 import java.util.Locale
 
 fun Interceptor.Chain.appRequestBuilder(
@@ -9,7 +10,7 @@ fun Interceptor.Chain.appRequestBuilder(
     token: String? = null,
     deviceId: String? = null,
     tokenWso2: String? = null,
-    isAddWso2: Boolean = true
+    isAddWso2: Boolean
 ) = run {
     val deviceVersion = android.os.Build.VERSION.RELEASE
     val deviceModel = android.os.Build.MODEL

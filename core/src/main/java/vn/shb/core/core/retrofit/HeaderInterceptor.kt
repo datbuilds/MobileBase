@@ -6,6 +6,7 @@ import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 class HeaderInterceptor(
     private val versionName: String,
     private val storage: AndroidSecureStorage,
+    private val isProduction: Boolean
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain) = chain.proceed(
@@ -13,7 +14,9 @@ class HeaderInterceptor(
             versionName = versionName,
             token = storage.getToken(),
             deviceId = storage.getDeviceId(),
-            tokenWso2 = storage.getTokenWso2()
+            tokenWso2 = storage.getTokenWso2(),
+            !isProduction
+
         )
     )
 }
