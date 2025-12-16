@@ -92,13 +92,12 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                 launch {
                     stateTransactionTransferConfirm.collectLatest {
                         if (it != null) {
+                            homeViewModel.confirmSuccessData = it
                             safeNavigate(
                                 R.id.confirmationFragment, R.id.paymentTransferFragment,
                                 bundle =
                                     bundleOf(
-                                        ApiConst.KEY_REFERENCE_NUMBER_TRANSACTION to it.refNo,
                                         ApiConst.KEY_ACCOUNT_NO_TRANSACTION to confirmModel!!.fromAccount.accountNumber,
-                                        ApiConst.KEY_STATUS_CONFIRM_TRANSACTION to it.status,
                                         ApiConst.KEY_TYPE_TRANSFER_INTRABANK to isIntrabank
                                     )
                             )

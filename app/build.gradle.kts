@@ -4,7 +4,6 @@ plugins {
     id(Plugins.SHB_APP)
     id(Plugins.ANDROID_APPLICATION)
     id(Plugins.ANDROID_NAVIGATION)
-//    id(Plugins.ANDROID_GOOGLE_SERVICES)
     id(Plugins.ANDROID_KOTLIN)
     id(Plugins.ANDROID_MAVEN_PUBLISH)
     kotlin(Plugins.KOTLIN_KAPT)
@@ -60,19 +59,31 @@ android {
                 buildConfigField(
                     "String",
                     "WSO_URL",
-                    "\"https://api-gw-ext-dev.shb.com.vn/\""
+                    "\"https://t-apigw-la.shb.com.vn/\""
                 )
                 buildConfigField(
                     "String",
                     "AUTHORIZATION",
-                    "\"${localProperties.getProperty("config")}\""
+                    "\"${localProperties.getProperty("uat_config")}\""
                 )
 
-                // ===== NEW KEYS =====
-                buildConfigField("String", "GRANT_TYPE", "\"${localProperties.getProperty("grant_type")}\"")
-                buildConfigField("String", "USERNAME", "\"${localProperties.getProperty("username")}\"")
-                buildConfigField("String", "PASSWORD", "\"${localProperties.getProperty("password")}\"")
-            },
+                buildConfigField(
+                    "String",
+                    "GRANT_TYPE",
+                    "\"${localProperties.getProperty("uat_grant_type")}\""
+                )
+                buildConfigField(
+                    "String",
+                    "USERNAME",
+                    "\"${localProperties.getProperty("uat_username")}\""
+                )
+                buildConfigField(
+                    "String",
+                    "PASSWORD",
+                    "\"${localProperties.getProperty("uat_password")}\""
+                )
+            }
+            ,
 
             dev = {
                 resValue("string", "app_name", "DEV SHB SAHA Laos")

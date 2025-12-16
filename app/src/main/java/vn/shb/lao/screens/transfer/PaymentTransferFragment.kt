@@ -21,16 +21,8 @@ import vn.shb.lao.utils.extensions.visible
 class PaymentTransferFragment :
     BaseFragmentBinding<FragmentTransactionDetailBinding>(FragmentTransactionDetailBinding::inflate) {
 
-    private val newReferenceNumber by lazy {
-        arguments?.getString(ApiConst.KEY_REFERENCE_NUMBER_TRANSACTION)
-    }
-
     private val accountNo by lazy {
         arguments?.getString(ApiConst.KEY_ACCOUNT_NO_TRANSACTION)
-    }
-
-    private val statusPayment by lazy {
-        arguments?.getString(ApiConst.KEY_STATUS_CONFIRM_TRANSACTION) == ApiConst.SUCCESS
     }
 
     private val isIntrabank by lazy {
@@ -43,14 +35,15 @@ class PaymentTransferFragment :
 
     override fun initView(view: View) {
         bindViewPayment()
-        if (newReferenceNumber != null && accountNo != null && statusPayment && !isConfirmError) {
+        val confirmSuccess = homeViewModel.confirmSuccessData
+        if (confirmSuccess?.refNo != null && accountNo != null && confirmSuccess.status == ApiConst.SUCCESS && !isConfirmError) {
             homeViewModel.getTransactionDetail(
                 UseCaseTransactionDetail.Params(
-                    newReferenceNumber!!, accountNo!!,
+                    confirmSuccess.refNo, accountNo!!,
                     ApiConst.D_TRANSFER_MONEY,
-                            mdCode = "trans.moduleCode",
-                    transCode = "trans.transactionCode",
-                    transDate = "trans.transactionDate"
+                    mdCode = confirmSuccess.moduleCode,
+                    transCode = confirmSuccess.transactionCode,
+                    transDate = confirmSuccess.transactionDate
                 )
             )
         } else {

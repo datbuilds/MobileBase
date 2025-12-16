@@ -3,6 +3,7 @@ package vn.shb.lao.utils.refreshTK
 import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Looper
+import android.util.Base64
 import androidx.fragment.app.FragmentActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -68,6 +69,15 @@ object RefreshTokenManager {
             }
         }
         handler?.postDelayed(refreshRunnable!!, refreshIntervalMillis)
+    }
+
+    fun createBasicAuth(consumerKey: String, consumerSecret: String): String {
+        val raw = "$consumerKey:$consumerSecret"
+        val encoded = Base64.encodeToString(
+            raw.toByteArray(Charsets.UTF_8),
+            Base64.NO_WRAP
+        )
+        return "Basic $encoded"
     }
 
     private suspend fun performTokenRefreshWso2(

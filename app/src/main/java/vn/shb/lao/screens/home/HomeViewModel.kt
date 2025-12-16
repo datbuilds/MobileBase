@@ -103,6 +103,9 @@ class HomeViewModel(
     private val _stateTransactionTransfer = Channel<TransactionTransfer?>(Channel.BUFFERED)
     val stateTransactionTransfer = _stateTransactionTransfer.receiveAsFlow()
 
+
+     var confirmSuccessData: TransactionTransferConfirm? = null
+
     private var transactionTransferRealtime: TransactionTransfer? = null
 
     private val _stateTransactionTransferConfirm = MutableSharedFlow<TransactionTransferConfirm?>()
@@ -170,8 +173,7 @@ class HomeViewModel(
     }
 
     private fun getCurrentAccount(
-        userInfo: UserInfo,
-        listAccount: List<AccountInfo> = this.listAccount
+        userInfo: UserInfo, listAccount: List<AccountInfo> = this.listAccount
     ) {
         if (selectedAccount != null) {
             selectedAccount =
@@ -198,9 +200,7 @@ class HomeViewModel(
 
     fun getListBanner(): List<Int> {
         return listOf(
-            R.drawable.banner_1,
-            R.drawable.banner_2,
-            R.drawable.banner_3
+            R.drawable.banner_1, R.drawable.banner_2, R.drawable.banner_3
         )
     }
 
@@ -227,15 +227,13 @@ class HomeViewModel(
     fun getTake5Transaction(context: Context) {
         viewModelScope.launch {
             val params = UseCaseTransaction.Params(
-                accountNumber = selectedAccount?.accountNumber ?: "",
-                queryType = LAST5
+                accountNumber = selectedAccount?.accountNumber ?: "", queryType = LAST5
             )
             useCaseTransaction.invoke(params).collect { result ->
                 result.onSuccess { transactionData ->
                     _stateTransactions5First.send(
                         mapTransactionsToItems(
-                            context,
-                            transactionData.array ?: listOf()
+                            context, transactionData.array ?: listOf()
                         )
                     )
                 }
@@ -281,16 +279,14 @@ class HomeViewModel(
     }
 
     fun mapTransactionsToItems(
-        context: Context,
-        transactions: List<TransactionItem.Transaction>
+        context: Context, transactions: List<TransactionItem.Transaction>
     ): List<TransactionItem> {
         val result = mutableListOf<TransactionItem>()
 
         // Sort theo ngày giảm dần (mới nhất trước)
         val sortedList = transactions.sortedByDescending {
             SimpleDateFormat(
-                Const.FORMAT_TRANSACTION_DATE,
-                Locale.getDefault()
+                Const.FORMAT_TRANSACTION_DATE, Locale.getDefault()
             ).parse(it.transactionDate)
         }
 
@@ -301,8 +297,7 @@ class HomeViewModel(
 
         sortedList.forEach { tx ->
             val date = SimpleDateFormat(
-                Const.FORMAT_TRANSACTION_DATE,
-                Locale.getDefault()
+                Const.FORMAT_TRANSACTION_DATE, Locale.getDefault()
             ).parse(tx.transactionDate)
             val cal = Calendar.getInstance().apply { time = date ?: Date() }
 
@@ -328,8 +323,9 @@ class HomeViewModel(
     }
 
     private fun isSameDay(cal1: Calendar, cal2: Calendar): Boolean {
-        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
-                cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR)
+        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) && cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(
+            Calendar.DAY_OF_YEAR
+        )
     }
 
     //transfer money
@@ -393,19 +389,16 @@ class HomeViewModel(
                 beneficiary = AccountInfoRequest(accountNo = toAccount)
             )
             useCaseTransactionTransfer.invoke(params).collect { result ->
-                result.onResultHandle(
-                    { transactionTransferData ->
-                        viewModelScope.launch {
-                            _stateTransactionTransfer.send(transactionTransferData)
-                            transactionTransferRealtime = transactionTransferData
-                        }
-                    },
-                    { reason ->
-                        viewModelScope.launch {
-                            stateError(reason)
-                        }
+                result.onResultHandle({ transactionTransferData ->
+                    viewModelScope.launch {
+                        _stateTransactionTransfer.send(transactionTransferData)
+                        transactionTransferRealtime = transactionTransferData
                     }
-                )
+                }, { reason ->
+                    viewModelScope.launch {
+                        stateError(reason)
+                    }
+                })
             }
         }
     }
@@ -419,21 +412,19 @@ class HomeViewModel(
                 otp = otp
             )
             useCaseTransactionTransferConfirm.invoke(params).collect { result ->
-                result.onResultHandle(
-                    { transactionTransferConfirmData ->
-                        viewModelScope.launch {
-                            _stateTransactionTransferConfirm.emit(transactionTransferConfirmData)
-                        }
-                    }, { reason ->
-                        viewModelScope.launch {
-                            if (listErrorCodeConfirmContinue.contains(reason.errorCode)) {
-                                stateError(reason)
-                            } else {
-                                _stateTransferConfirmError.send(reason)
-                            }
+                result.onResultHandle({ transactionTransferConfirmData ->
+                    viewModelScope.launch {
+                        _stateTransactionTransferConfirm.emit(transactionTransferConfirmData)
+                    }
+                }, { reason ->
+                    viewModelScope.launch {
+                        if (listErrorCodeConfirmContinue.contains(reason.errorCode)) {
+                            stateError(reason)
+                        } else {
+                            _stateTransferConfirmError.send(reason)
                         }
                     }
-                )
+                })
             }
         }
     }
@@ -442,16 +433,13 @@ class HomeViewModel(
         viewModelScope.launch {
             useCaseAccountByNumber.invoke(UseCaseAccountByNumber.Params(accountNumber))
                 .collectLatest { result ->
-                    result.onResultHandle(
-                        failureBlock = { error ->
-                            handleErrorFillAccountNumber(error)
-                        },
-                        successBlock = { accountUserName ->
-                            viewModelScope.launch {
-                                _stateAccountByNumber.emit(accountUserName)
-                            }
+                    result.onResultHandle(failureBlock = { error ->
+                        handleErrorFillAccountNumber(error)
+                    }, successBlock = { accountUserName ->
+                        viewModelScope.launch {
+                            _stateAccountByNumber.emit(accountUserName)
                         }
-                    )
+                    })
                 }
         }
     }
@@ -487,20 +475,17 @@ class HomeViewModel(
     fun validateTransaction(params: UseCaseValidateTransaction.Params, callFinish: () -> Unit) {
         viewModelScope.launch {
             useCaseValidateTransaction.invoke(params).collect { resultSHB ->
-                resultSHB.onResultHandle(
-                    successBlock = {
-                        viewModelScope.launch {
-                            _stateValidateTransaction.emit("")
-                            callFinish.invoke()
-                        }
-                    },
-                    failureBlock = { reason ->
-                        viewModelScope.launch {
-                            stateError(reason)
-                            callFinish.invoke()
-                        }
+                resultSHB.onResultHandle(successBlock = {
+                    viewModelScope.launch {
+                        _stateValidateTransaction.emit("")
+                        callFinish.invoke()
                     }
-                )
+                }, failureBlock = { reason ->
+                    viewModelScope.launch {
+                        stateError(reason)
+                        callFinish.invoke()
+                    }
+                })
             }
         }
     }
