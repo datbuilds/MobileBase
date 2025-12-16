@@ -47,7 +47,10 @@ class PaymentTransferFragment :
             homeViewModel.getTransactionDetail(
                 UseCaseTransactionDetail.Params(
                     newReferenceNumber!!, accountNo!!,
-                    ApiConst.D_TRANSFER_MONEY
+                    ApiConst.D_TRANSFER_MONEY,
+                            mdCode = "trans.moduleCode",
+                    transCode = "trans.transactionCode",
+                    transDate = "trans.transactionDate"
                 )
             )
         } else {

@@ -29,8 +29,12 @@ class TransactionDetailFragment :
         val trans = homeViewModel.currentTransaction ?: return
         homeViewModel.getTransactionDetail(
             UseCaseTransactionDetail.Params(
-                trans.referenceNumber, homeViewModel.selectedAccount?.accountNumber ?: "",
-                if (trans.debitAmount > 0) ApiConst.D_TRANSFER_MONEY else ApiConst.C_RECEIVE_MONEY
+                trans.referenceNumber,
+                homeViewModel.selectedAccount?.accountNumber ?: "",
+                if (trans.debitAmount > 0) ApiConst.D_TRANSFER_MONEY else ApiConst.C_RECEIVE_MONEY,
+                mdCode = trans.moduleCode,
+                transCode = trans.transactionCode,
+                transDate = trans.transactionDate
             )
         )
         prefixAmount = if (trans.debitAmount > 0) Const.TRU else Const.CONG
