@@ -28,7 +28,10 @@ data class TransactionTransfer(
 data class TransactionTransferConfirm(
     @SerializedName("transactionId") val transactionId: Int = 0,
     @SerializedName("refNo") val refNo: String = "",
-    @SerializedName("status") val status: String = ""
+    @SerializedName("status") val status: String = "",
+    @SerializedName("moduleCode") val moduleCode: String = "",
+    @SerializedName("transactionCode") val transactionCode: String = "",
+    @SerializedName("transactionDate") val transactionDate: String = ""
 ) : Serializable
 
 data class AccountUserNameModel(
