@@ -37,7 +37,10 @@ class ServiceTransfer(private val api: ApiTransfer) : SafeExecute() {
         api.getTransactionDetail(
             params.refNo,
             params.acctNo,
-            params.drCrFlg
+            params.drCrFlg,
+            params.mdCode,
+            params.transCode,
+            params.transDate
         )
     }
 

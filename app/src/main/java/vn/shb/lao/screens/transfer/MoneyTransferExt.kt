@@ -32,16 +32,22 @@ fun String.cleanVietnameseText(): String {
     // 1️⃣ Chuẩn hóa Unicode để tách dấu
     var normalized = Normalizer.normalize(this, Normalizer.Form.NFD)
 
-    // 2️⃣ Xóa các dấu tổ hợp (ví dụ: ắ → a)
-    normalized = normalized.replace("\\p{InCombiningDiacriticalMarks}+".toRegex(), "")
+    // 2️⃣ Xóa dấu tổ hợp (ắ → a)
+    normalized = normalized.replace(
+        "\\p{InCombiningDiacriticalMarks}+".toRegex(),
+        ""
+    )
 
-    // 3️⃣ Chuyển Đ/đ về D/d
+    // 3️⃣ Chuyển Đ/đ → D/d
     normalized = normalized.replace("Đ", "D").replace("đ", "d")
 
-    // 4️⃣ Xóa ký tự đặc biệt, giữ nguyên: chữ (mọi ngôn ngữ), số, khoảng trắng
-    normalized = normalized.replace("[^\\p{L}\\p{Nd} ]+".toRegex(), "")
+    // 4️⃣ CHỈ giữ: a-z, A-Z, 0-9, khoảng trắng
+    // ❌ Loại bỏ Lào, Thái, Khmer, Trung, Nhật, Hàn, emoji...
+    normalized = normalized.replace(
+        "[^a-zA-Z0-9 ]+".toRegex(),
+        ""
+    )
 
-    // 5️⃣ Trả về kết quả (giữ nguyên khoảng trắng)
     return normalized
 }
 

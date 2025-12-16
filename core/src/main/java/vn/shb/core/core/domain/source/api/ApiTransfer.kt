@@ -45,6 +45,9 @@ interface ApiTransfer {
         @Query("refNo") refNo: String = "",
         @Query("acctNo") acctNo: String = "",
         @Query("drCrFlg") drCrFlg: String = "D",
+        @Query("mdCode") mdCode: String = "",
+        @Query("transCode") transCode: String = "",
+        @Query("transDate") transDate: String = "",
     ): Response<TransactionDetailResponse>
 
 

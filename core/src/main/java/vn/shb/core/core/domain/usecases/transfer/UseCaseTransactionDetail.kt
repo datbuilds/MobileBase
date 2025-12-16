@@ -19,5 +19,8 @@ class UseCaseTransactionDetail(private val repoTransfer: RepositoryTransfer) :
         val refNo: String,
         val acctNo: String,
         val drCrFlg: String,
+        val mdCode: String,
+        val transCode: String,
+        val transDate: String,
     ) : UseCaseParameters
 }
