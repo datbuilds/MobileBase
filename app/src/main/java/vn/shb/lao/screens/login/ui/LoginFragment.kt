@@ -14,22 +14,27 @@ import androidx.core.widget.addTextChangedListener
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import vn.shb.core.core.delivery.Reason
 import vn.shb.core.core.delivery.reason.LoginFailReason
 import vn.shb.core.core.domain.usecases.login.StateLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseRefreshToken
+import vn.shb.core.core.retrofit.SafeExecute.Companion.HTTP_NOT_FOUND
 import vn.shb.core.core.security.encrypt.EncryptManager
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.login.UserLog
+import vn.shb.lao.BuildConfig
 import vn.shb.lao.R
 import vn.shb.lao.activity.dashboard.DashboardActivity
 import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentLoginBinding
 import vn.shb.lao.screens.login.state.LoginUiState
 import vn.shb.lao.screens.login.ui.widget.showLanguagePopup
+import vn.shb.lao.utils.ApiConst
 import vn.shb.lao.utils.extensions.checkShowProgressDialog
 import vn.shb.lao.utils.extensions.clearEditTextColorFilter
 import vn.shb.lao.utils.extensions.clearText
+import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.getTextWelcomeUser
 import vn.shb.lao.utils.extensions.gone
 import vn.shb.lao.utils.extensions.hideProgressDialog
@@ -60,6 +65,8 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
     override fun initView(view: View) {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+
+        binding.tvHotline.text = getString(R.string.version).plus(Const.SEPARATOR_SPACE).plus(BuildConfig.VERSION_NAME)
     }
 
     private fun mapUILogin() {
@@ -239,7 +246,28 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                     loginViewModel.clearLoginState()
                 }
             }
+
+            launch {
+                loginViewModel.stateErrorWso2.collect {
+                    showDialogErrorWso2(it)
+                }
+            }
         }
+    }
+
+    fun showDialogErrorWso2(
+        reason: Reason,
+        onAction: (() -> Unit)? = null
+    ) {
+        val messageError = "${reason.errorCode}: ${reason.errMessage}"
+        BottomSheetDialogHelper(requireContext()).message(
+            title = getString(R.string.notification),
+            message = messageError,
+            textPositive = getString(R.string.close),
+            positiveAction = {
+                onAction?.invoke()
+            }
+        )
     }
 
     private fun showDialogErrorLockUser(reason: LoginFailReason) {

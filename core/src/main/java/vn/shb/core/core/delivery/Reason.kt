@@ -1,6 +1,7 @@
 package vn.shb.core.core.delivery
 
 import vn.shb.core.core.retrofit.SafeExecute
+import vn.shb.core.core.retrofit.SafeExecute.Companion.HTTP_NOT_FOUND
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -44,6 +45,7 @@ const val ERROR_CODE_DEFAULT = "Lỗi không xác định"
 
 class GenericError(
     override val errMessage: String = ERROR_CODE_DEFAULT,
+    override val errorCode: String = HTTP_NOT_FOUND
 ) : Reason()
 
 sealed class NetworkError(

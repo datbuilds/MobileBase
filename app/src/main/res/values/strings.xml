@@ -159,5 +159,6 @@
     <string name="bank">Bank</string>
     <string name="defaultRemarks">Default Remarks</string>
     <string name="minus">minutes</string>
+    <string name="version">Version</string>
 
 </resources>

@@ -48,7 +48,7 @@ class TransactionDetailFragment :
             tvTransactionAmount.setTextColor(getColor(R.color.colorSuccess))
             tvValueBalance.text = prefixAmount.plus(trans.amount.getBalance())
             tvCurrentCode.text = trans.currency
-            if (!trans.ordAccount.isEmpty()) {
+            if (!trans.ordAccount.isNullOrEmpty()) {
                 iclFromAccount.bindView(
                     getString(R.string.fromAccount),
                     trans.ordAccType.plus(Const.SEPARATOR_DASH).plus(trans.ordAccount)
@@ -57,7 +57,7 @@ class TransactionDetailFragment :
             } else {
                 iclFromAccount.root.gone()
             }
-            if (!trans.benAccount.isEmpty()) {
+            if (!trans.benAccount.isNullOrEmpty()) {
                 iclToAccount.bindView(
                     getString(R.string.toAccount),
                     trans.benAccType.plus(Const.SEPARATOR_DASH).plus(trans.benAccount)

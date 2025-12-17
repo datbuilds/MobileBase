@@ -55,12 +55,6 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
     protected val storage: AndroidSecureStorage by inject()
 
     protected val homeViewModel: HomeViewModel by sharedViewModel()
-
-    companion object {
-        private const val DELAY_MILLIS = 500L
-        private var previousClickTimeMillis = 0L
-    }
-
     private var _binding: T? = null
 
     val binding: T

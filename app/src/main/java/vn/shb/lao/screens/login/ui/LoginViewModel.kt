@@ -7,10 +7,14 @@ import android.view.LayoutInflater
 import androidx.core.net.toUri
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import vn.shb.core.core.delivery.GenericError
+import vn.shb.core.core.delivery.Reason
 import vn.shb.core.core.delivery.onFailure
 import vn.shb.core.core.delivery.onLoading
 import vn.shb.core.core.delivery.onResultHandle
@@ -41,6 +45,8 @@ class LoginViewModel(
 
     private val _state = MutableStateFlow<LoginUiState>(LoginUiState.Idle)
     val stateLogin = _state.asStateFlow()
+    private val _stateErrorWso2 = Channel<Reason>(Channel.BUFFERED)
+    val stateErrorWso2 = _stateErrorWso2.receiveAsFlow()
 
     private val _stateLogout = MutableStateFlow<LogoutUiState>(LogoutUiState.Idle)
     val stateLogout = _stateLogout.asStateFlow()
@@ -96,7 +102,7 @@ class LoginViewModel(
                         login(param)
                     }
                     result.onFailure { error ->
-                        _state.value = LoginUiState.Error(error)
+                        handleErrorTokenWso2(error)
                     }
                     result.onLoading {
                         _state.value = LoginUiState.Loading
@@ -104,6 +110,12 @@ class LoginViewModel(
                 }
             }
 
+        }
+    }
+
+    private fun handleErrorTokenWso2(error: Reason) {
+        viewModelScope.launch {
+            _stateErrorWso2.send(error)
         }
     }
 

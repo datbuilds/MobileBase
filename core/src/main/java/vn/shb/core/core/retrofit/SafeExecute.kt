@@ -52,9 +52,7 @@ abstract class SafeExecute() {
                 return ResultSHB.Success(response.body()!!)
             }
         } else {
-            val responseCode = response.code()
-            val responseMessage = response.message()
-            return ResultSHB.Failure(handleHttpError(responseCode, responseMessage, response))
+            return ResultSHB.Failure(GenericError())
         }
         return ResultSHB.Failure(GenericError())
     }
