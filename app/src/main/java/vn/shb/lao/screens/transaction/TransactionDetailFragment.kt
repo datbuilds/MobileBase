@@ -57,7 +57,7 @@ class TransactionDetailFragment :
             } else {
                 iclFromAccount.root.gone()
             }
-            if (trans.benAccount.isEmpty()) {
+            if (!trans.benAccount.isEmpty()) {
                 iclToAccount.bindView(
                     getString(R.string.toAccount),
                     trans.benAccType.plus(Const.SEPARATOR_DASH).plus(trans.benAccount)

@@ -29,7 +29,7 @@ fun Interceptor.Chain.appRequestBuilder(
             val agent = "SHB SAHA Laos App/$info"
             addHeader("User-Agent", "Mozilla/5.0 ($agent)")
 
-            if (token?.isNotEmpty() == true && isAddWso2) {
+            if (token?.isNotEmpty() == true) {
                 addHeader("Authorization", "Bearer $token")
             }
             if (!tokenWso2.isNullOrEmpty() && isAddWso2) {
