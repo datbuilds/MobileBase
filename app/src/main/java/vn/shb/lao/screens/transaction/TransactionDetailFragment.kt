@@ -107,6 +107,12 @@ class TransactionDetailFragment :
                 }
                 launch {
                     stateDetailError.collectLatest {
+                        if (it.errorCode == "FUN-020"){
+                            homeViewModel.currentTransaction?.let { 
+                                setupView(mapToTransactionDetail(it))
+                            }
+                            return@collectLatest
+                        }
                         binding.ivStatus.gone()
                         binding.tvTransactionAmount.gone()
                         handleErrorHome(it) {
@@ -116,6 +122,21 @@ class TransactionDetailFragment :
                 }
             }
         }
+    }
+
+    private fun mapToTransactionDetail(item: vn.shb.data.entities.home.TransactionItem.Transaction): TransactionDetail {
+        return TransactionDetail(
+            refNo = item.referenceNumber,
+            transDate = item.transactionDate,
+            amount = if (item.creditAmount > 0) item.creditAmount else item.debitAmount,
+            remarks = item.transactionDescription,
+            currency = item.currencyCode,
+            ordAccount = null,
+            benAccount = null,
+            ordAccType = "",
+            benAccType = "",
+            accountName = ""
+        )
     }
 
     private fun ChildViewTransactionInfoBinding.bindView(
