@@ -117,13 +117,26 @@ class PaymentTransferFragment :
     }
 
     override fun initListener() {
-        binding.ivClose.setOnSingleClickListener {
-            popBackTo(R.id.homeFragment)
+
+        with(binding) {
+            ivClose.setOnSingleClickListener {
+                popBackTo(R.id.homeFragment)
+            }
+
+            tvCreateNewTransaction.setOnSingleClickListener {
+                popBackTo(R.id.moneyTransferFragment)
+            }
+
+            tvShare.setOnSingleClickListener {
+                cutImageTransferDetails()
+            }
         }
 
-        binding.tvCreateNewTransaction.setOnSingleClickListener {
-            popBackTo(R.id.moneyTransferFragment)
-        }
+
+    }
+
+    private fun cutImageTransferDetails() {
+
     }
 
     override fun initObserve() {

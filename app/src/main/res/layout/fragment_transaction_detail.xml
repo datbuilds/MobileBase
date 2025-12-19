@@ -10,8 +10,8 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/paddingTopLayout"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/paddingTopLayout">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivLogo"
@@ -82,13 +82,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_10dp"
         android:gravity="center"
-        android:visibility="gone"
         android:text="@string/anErrorHasOccurred"
         android:textColor="@color/color_error_text_login"
         android:textSize="@dimen/textSize14"
-        android:layout_marginTop="@dimen/margin_10dp"
-        app:customFontWeight="medium"/>
+        android:visibility="gone"
+        app:customFontWeight="medium" />
 
     <include
         android:id="@+id/iclFromAccount"
@@ -132,26 +132,48 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_10dp" />
 
-    <FrameLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
         <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvCreateNewTransaction"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginTop="@dimen/margin_16dp"
-            android:background="@drawable/bg_account_info_transfer"
-            android:gravity="center"
             android:layout_marginBottom="@dimen/margin_24dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_new_transaction"
+            android:gravity="center"
             android:paddingVertical="@dimen/margin_10dp"
             android:text="@string/createNewTransaction"
+            android:textColor="@color/primary100"
+            android:textSize="@dimen/textSize14"
+            android:visibility="gone"
+            app:customFontWeight="semi_bold"
+            android:layout_marginEnd="@dimen/margin_5dp"
+            tools:visibility="visible" />
+
+        <vn.shb.lao.base.view.MyTextView
+            android:id="@+id/tvShare"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:layout_marginBottom="@dimen/margin_24dp"
+            android:layout_marginStart="@dimen/margin_5dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_account_info_transfer"
+            android:gravity="center"
+            android:paddingVertical="@dimen/margin_10dp"
+            android:text="@string/share"
             android:textColor="@color/neutral1"
             android:textSize="@dimen/textSize14"
             android:visibility="gone"
             app:customFontWeight="semi_bold"
             tools:visibility="visible" />
-    </FrameLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -91,7 +91,7 @@
     <string name="tryAgain">Try Again</string>
     <string name="transactionExceedLimit">Transaction failed due to exceeding the limit</string>
     <string name="paymentSuccess">Payment Success!</string>
-    <string name="createNewTransaction">Create New Transaction</string>
+    <string name="createNewTransaction">New Transaction</string>
     <string name="selectBeneficiary">Select beneficiary</string>
     <string name="confirmationCode">Confirmation Code</string>
     <string name="enterConfirmationCode">Please enter confirmaion code at C5 possition on eSecure Card</string>
@@ -160,5 +160,6 @@
     <string name="defaultRemarks">Default Remarks</string>
     <string name="minus">minutes</string>
     <string name="version">Version</string>
+    <string name="share">Share</string>
 
 </resources>
