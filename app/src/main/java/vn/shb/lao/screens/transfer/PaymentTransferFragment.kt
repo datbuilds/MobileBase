@@ -1,6 +1,7 @@
 package vn.shb.lao.screens.transfer
 
 import android.view.View
+import androidx.core.content.ContextCompat
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionDetail
@@ -17,6 +18,11 @@ import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.gone
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.lao.utils.extensions.visible
+import vn.shb.lao.utils.extensions.invisible
+import vn.shb.lao.utils.extensions.toBitmap
+import vn.shb.lao.utils.extensions.cacheBitmap
+import vn.shb.lao.utils.extensions.shareImage
+import vn.shb.lao.utils.extensions.CACHE_IMAGE_FILE_NAME
 
 class PaymentTransferFragment :
     BaseFragmentBinding<FragmentTransactionDetailBinding>(FragmentTransactionDetailBinding::inflate) {
@@ -67,6 +73,7 @@ class PaymentTransferFragment :
                 tvCurrentCode.text = cf.fromAccount.currencyCode
             }
             tvAnErrorHasOccurred.visible()
+            bindButtonNewTransaction(R.drawable.bg_account_info_transfer, R.color.white)
         }
     }
 
@@ -83,6 +90,9 @@ class PaymentTransferFragment :
             tvTransactionAmount.setTextColor(getColor(R.color.colorSuccess))
             tvValueBalance.text = trans.amount.getBalance()
             tvCurrentCode.text = trans.currency
+            tvShare.visible()
+
+            bindButtonNewTransaction(R.drawable.bg_new_transaction, R.color.primary100)
             val fromAccount = trans.ordAccType.plus(Const.SEPARATOR_DASH).plus(trans.ordAccount)
             iclFromAccount.bindView(
                 getString(R.string.fromAccount),
@@ -131,12 +141,30 @@ class PaymentTransferFragment :
                 cutImageTransferDetails()
             }
         }
-
-
     }
 
     private fun cutImageTransferDetails() {
+        with(binding) {
+            val oldVisibilityClose = ivClose.visibility
+            val oldVisibilityCreate = tvCreateNewTransaction.visibility
+            val oldVisibilityShare = tvShare.visibility
 
+            ivClose.invisible()
+            tvCreateNewTransaction.invisible()
+            tvShare.invisible()
+
+            val bitmap = root.toBitmap()
+
+            ivClose.visibility = oldVisibilityClose
+            tvCreateNewTransaction.visibility = oldVisibilityCreate
+            tvShare.visibility = oldVisibilityShare
+
+            requireContext().cacheBitmap(bitmap, CACHE_IMAGE_FILE_NAME) {
+                if (it) {
+                    requireContext().shareImage(CACHE_IMAGE_FILE_NAME)
+                }
+            }
+        }
     }
 
     override fun initObserve() {
@@ -156,6 +184,14 @@ class PaymentTransferFragment :
                 }
             }
         }
+    }
+
+    private fun bindButtonNewTransaction(
+        idBg : Int,
+        color : Int
+    ) {
+        binding.tvCreateNewTransaction.setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), idBg))
+        binding.tvCreateNewTransaction.setTextColor(getColor(color))
     }
 
     private fun ChildViewTransactionInfoBinding.bindView(

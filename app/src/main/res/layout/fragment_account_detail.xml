@@ -134,6 +134,36 @@
                 tools:text="SHB LAO-HO" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llDefaultCasa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/llBranch">
+
+            <vn.shb.lao.base.view.MyTextView
+                android:id="@+id/tvDefaultCasaAccount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:includeFontPadding="false"
+                android:text="@string/defaultCasaAccount"
+                android:textColor="@color/neutral8"
+                android:textSize="@dimen/textSize14"
+                app:customFontWeight="medium" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/swDefaultCasa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_weight="0"
+                android:thumb="@drawable/selector_switch_thumb"
+                app:track="@drawable/selector_switch_track" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
@@ -208,23 +238,23 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_12dp"
             android:visibility="visible"
-            tools:visibility="visible"
+            tools:itemCount="33"
             tools:listitem="@layout/item_transaction"
-            tools:itemCount="33" />
+            tools:visibility="visible" />
 
         <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvNoTransaction"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/noTransactionHistory"
-            android:textColor="@color/neutral7"
             android:gravity="center"
             android:paddingVertical="@dimen/margin_40dp"
-            android:visibility="gone"
-            tools:visibility="gone"
+            android:text="@string/noTransactionHistory"
+            android:textColor="@color/neutral7"
             android:textSize="@dimen/textSize14"
-            app:customFontWeight="medium" />
+            android:visibility="gone"
+            app:customFontWeight="medium"
+            tools:visibility="gone" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
