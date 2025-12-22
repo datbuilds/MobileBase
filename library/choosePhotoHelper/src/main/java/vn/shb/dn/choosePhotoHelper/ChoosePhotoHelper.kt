@@ -16,6 +16,7 @@ import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -57,10 +58,9 @@ class ChoosePhotoHelper private constructor(
     }
 
     // Launcher cho gallery
-    private val pickPhotoLauncher = registerForIntentResult { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val uri = result.data?.data
-            filePath = uri?.let { pathFromUri(context, it) }
+    private val pickPhotoLauncher = registerForPickVisualMediaResult { uri ->
+        if (uri != null) {
+            filePath = pathFromUri(context, uri)
             deliverResult(filePath)
         }
     }
@@ -75,16 +75,7 @@ class ChoosePhotoHelper private constructor(
                 else -> {}
             }
         } else {
-            // Nếu user chọn "Deny", kiểm tra có quyền nào bị "Don't ask again" không
-//            val shouldShowRationale = grants.keys.any { perm ->
-//                fragment?.shouldShowRequestPermissionRationale(perm)
-//                    ?: (activity as? ComponentActivity)?.shouldShowRequestPermissionRationale(perm)
-//                    ?: false
-//            }
-
-//            if (shouldShowRationale) {
-                showRationalePopup()
-//            }
+            showRationalePopup()
         }
     }
 
@@ -98,6 +89,17 @@ class ChoosePhotoHelper private constructor(
         callback: (ActivityResult) -> Unit
     ): ActivityResultLauncher<Intent> {
         val contract = ActivityResultContracts.StartActivityForResult()
+        return when {
+            fragment != null -> fragment.registerForActivityResult(contract, callback)
+            activity is ComponentActivity -> activity.registerForActivityResult(contract, callback)
+            else -> throw IllegalStateException("Must be used with Fragment or ComponentActivity")
+        }
+    }
+
+    private fun registerForPickVisualMediaResult(
+        callback: (Uri?) -> Unit
+    ): ActivityResultLauncher<PickVisualMediaRequest> {
+        val contract = ActivityResultContracts.PickVisualMedia()
         return when {
             fragment != null -> fragment.registerForActivityResult(contract, callback)
             activity is ComponentActivity -> activity.registerForActivityResult(contract, callback)
@@ -126,11 +128,7 @@ class ChoosePhotoHelper private constructor(
 
     fun chooseFromGallery() {
         pendingAction = ActionProfile.GALLERY
-        if (hasPermissions(context, *PICK_PHOTO_PERMISSIONS)) {
-            startGalleryInternal()
-        } else {
-            permissionLauncher.launch(PICK_PHOTO_PERMISSIONS)
-        }
+        startGalleryInternal()
     }
 
     // Xử lý camera/gallery
@@ -152,11 +150,7 @@ class ChoosePhotoHelper private constructor(
     }
 
     private fun startGalleryInternal() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-            type = "image/*"
-            addCategory(Intent.CATEGORY_OPENABLE)
-        }
-        pickPhotoLauncher.launch(Intent.createChooser(intent, "Choose a Photo"))
+        pickPhotoLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
 
     // Trả kết quả
@@ -350,15 +344,6 @@ class ChoosePhotoHelper private constructor(
         ) else arrayOf(
             Manifest.permission.CAMERA
         )
-
-        private const val REQUEST_CODE_PICK_PHOTO_PERMISSION = 104
-        private val PICK_PHOTO_PERMISSIONS: Array<String> =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arrayOf(Manifest.permission.READ_MEDIA_IMAGES)
-            } else {
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-            }
-
 
         private const val FILE_PATH = "filePath"
         private const val CAMERA_FILE_PATH = "cameraFilePath"
