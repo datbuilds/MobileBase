@@ -19,8 +19,8 @@ import vn.shb.core.core.domain.source.response.AccountUserNameModel
 import vn.shb.core.core.domain.source.response.TransactionTransfer
 import vn.shb.core.core.domain.source.response.TransactionTransferConfirm
 import vn.shb.core.core.domain.usecases.None
-import vn.shb.core.core.domain.usecases.home.RepositoryUser
 import vn.shb.core.core.domain.usecases.home.UseCaseAccountDetails
+import vn.shb.core.core.domain.usecases.home.UseCaseSetDefaultAccount
 import vn.shb.core.core.domain.usecases.home.UseCaseTransaction
 import vn.shb.core.core.domain.usecases.home.UseCaseUserInfo
 import vn.shb.core.core.domain.usecases.transfer.AccountInfoRequest
@@ -66,7 +66,7 @@ class HomeViewModel(
     private val useCaseAccountByNumber: UseCaseAccountByNumber,
     private val useCaseTransactionDetail: UseCaseTransactionDetail,
     private val useCaseValidateTransaction: UseCaseValidateTransaction,
-    private val repositoryUser: RepositoryUser
+    private val useCaseSetDefaultAccount: UseCaseSetDefaultAccount,
 ) : BaseViewModel() {
     private val _stateUserInfo = MutableStateFlow(UserInfo())
     val stateUserInfo = _stateUserInfo.asStateFlow()
@@ -547,27 +547,28 @@ class HomeViewModel(
 
     fun setDefaultAccount(accountNo: String) {
         viewModelScope.launch {
-            stateLoading(true)
-            val result = repositoryUser.setDefaultAccount(accountNo)
-            result.onResultHandle(
-                successBlock = {
-                    // Refresh user info to update default account
-                    getUserInfo(true)
-                    viewModelScope.launch {
-                        stateLoading(false)
+            val params = vn.shb.core.core.domain.usecases.home.UseCaseSetDefaultAccount.Params(accountNo)
+            useCaseSetDefaultAccount.invoke(params).collect { result ->
+                result.onResultHandle(
+                    successBlock = {
+                        // Refresh user info to update default account
+                        getUserInfo(true)
+                        viewModelScope.launch {
+                            stateLoading(false)
+                        }
+                    },
+                    failureBlock = { error ->
+                        viewModelScope.launch {
+                            stateLoading(false)
+                            stateError(error)
+                            _stateUpdateDefaultAccount.send(false)
+                        }
+                    },
+                    loadingBlock = {
+                        viewModelScope.launch { stateLoading(true) }
                     }
-                },
-                failureBlock = { error ->
-                    viewModelScope.launch {
-                        stateLoading(false)
-                        stateError(error)
-                        _stateUpdateDefaultAccount.send(false)
-                    }
-                },
-                loadingBlock = {
-                    viewModelScope.launch { stateLoading(true) }
-                }
-            )
+                )
+            }
         }
     }
 }
