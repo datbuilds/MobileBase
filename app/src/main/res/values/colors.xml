@@ -139,4 +139,5 @@
     <color name="color_bg_dialog">#20FFFFFF</color>
     <color name="colorShadow">#91CECBCB</color>
     <color name="bg_beneficiary">#FAF6ED</color>
+    <color name="neutral50">#F7F7F7</color>
 </resources>

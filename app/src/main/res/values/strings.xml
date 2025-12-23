@@ -161,5 +161,8 @@
     <string name="minus">minutes</string>
     <string name="version">Version</string>
     <string name="share">Share</string>
+    <string name="changePassword">Change password</string>
+    <string name="currentPassword">Current password</string>
+    <string name="enterCurrentPassword">Enter current password</string>
 
 </resources>

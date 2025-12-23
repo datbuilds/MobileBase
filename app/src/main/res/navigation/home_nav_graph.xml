@@ -40,7 +40,21 @@
         android:id="@+id/profileFragment"
         android:name="vn.shb.lao.screens.profile.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="vn.shb.lao.screens.profile.ChangePasswordFragment"
+        android:label="ChangePasswordFragment"
+        tools:layout="@layout/fragment_change_password" />
 
     <fragment
         android:id="@+id/accountDetailFragment"
@@ -106,5 +120,5 @@
     <fragment
         android:id="@+id/editBeneficiaryFragment"
         android:name="vn.shb.lao.screens.beneficiary.EditBeneficiaryFragment"
-        android:label="@string/editBeneficiary"/>
+        android:label="@string/editBeneficiary" />
 </navigation>

@@ -68,6 +68,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="changePasswordFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="confirmationFragment">
                     <value>
                       <LayoutPositions>
@@ -155,6 +167,15 @@
                             <option name="x" value="-151" />
                             <option name="y" value="311" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_profileFragment_to_changePasswordFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>

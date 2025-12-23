@@ -107,6 +107,9 @@ class ProfileFragment :
             tvMyProfile.setOnSingleClickListener {
                 safeNavigate(R.id.profileFragment, R.id.homeFragment)
             }
+            tvChangePassword.setOnSingleClickListener {
+                safeNavigate(R.id.profileFragment, R.id.action_profileFragment_to_changePasswordFragment)
+            }
             btnLogout.setOnSingleClickListener {
                 BottomSheetDialogHelper(requireContext()).message(
                     getString(R.string.notification),
