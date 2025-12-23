@@ -15,6 +15,5 @@ class UseCaseAccountDetails(private val repository: RepositoryUser) :
         emit(repository.getAccountDetails(params))
     }
 
-
     data class Params(val accountNumber: String) : UseCaseParameters
 }

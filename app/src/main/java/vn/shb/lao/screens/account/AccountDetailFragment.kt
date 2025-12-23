@@ -28,7 +28,7 @@ class AccountDetailFragment :
 
     override fun onResume() {
         super.onResume()
-         homeViewModel.getTake5Transaction(requireContext())
+        homeViewModel.getTake5Transaction(requireContext())
         homeViewModel.getAccountDetails()
     }
 
@@ -41,19 +41,6 @@ class AccountDetailFragment :
             layoutManager = LinearLayoutManager(requireContext())
             adapter = this@AccountDetailFragment.adapter
         }
-    }
-
-    private fun bindViewDetail(accountDetails: AccountDetails) {
-        val account = homeViewModel.selectedAccount
-        account?.let {
-            binding.apply {
-                tvValueBalance.text =
-                    "${accountDetails.getAvailableBalance()} ${accountDetails.currencyCode}"
-                tvNumberAccount.text = accountDetails.accountNumber
-                tvNameBranch.text = accountDetails.positionDescription
-            }
-        }
-
     }
 
     override fun initListener() {
@@ -79,6 +66,33 @@ class AccountDetailFragment :
                     homeViewModel.getTake5Transaction(requireContext())
                 }.build().show(childFragmentManager, DialogSelectAccount.TAG)
             }
+            swDefaultCasa.setOnCheckedChangeListener { _, isChecked ->
+                val currentAccount = homeViewModel.selectedAccount
+                if (isChecked) {
+                    homeViewModel.setDefaultAccount(currentAccount?.accountNumber!!)
+                }
+            }
+        }
+    }
+
+    private fun bindViewDetail(accountDetails: AccountDetails) {
+        val account = homeViewModel.selectedAccount
+        val defaultAccount = homeViewModel.stateUserInfo.value.defaultAcct
+        account?.let {
+            binding.apply {
+                tvValueBalance.text =
+                    "${accountDetails.getAvailableBalance()} ${accountDetails.currencyCode}"
+                tvNumberAccount.text = accountDetails.accountNumber
+                tvNameBranch.text = accountDetails.positionDescription
+
+                // Update switch state without triggering listener loop if possible, 
+                // or ensure listener handles redundant calls.
+                // Or temporarily nullify listener? No, just checking state match is enough.
+                val isDefault = it.accountNumber == defaultAccount
+                swDefaultCasa.isChecked = isDefault
+                swDefaultCasa.isEnabled = !isDefault
+
+            }
         }
     }
 
@@ -97,6 +111,19 @@ class AccountDetailFragment :
                     }
                 }
 
+                launch {
+                    stateFetchUser.collect {
+                        homeViewModel.getAccountDetails()
+                    }
+                }
+
+                launch {
+                    stateUpdateDefaultAccount.collect {
+                        if (!it) {
+                            binding.swDefaultCasa.isChecked = false
+                        }
+                    }
+                }
             }
         }
     }

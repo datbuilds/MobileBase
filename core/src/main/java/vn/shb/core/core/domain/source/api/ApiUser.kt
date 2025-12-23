@@ -7,6 +7,10 @@ import vn.shb.core.core.domain.source.response.AccountDetailsResponse
 import vn.shb.core.core.domain.source.response.AccountsInfoResponse
 import vn.shb.core.core.domain.source.response.TransactionResponse
 import vn.shb.core.core.domain.source.response.UserInfoResponse
+import retrofit2.http.Body
+import retrofit2.http.PUT
+import vn.shb.core.core.domain.source.request.DefaultAccountRequest
+import vn.shb.core.core.domain.source.response.DefaultAccountResponse
 
 interface ApiUser {
     @GET(ENDPOINT.USER_INFO)
@@ -25,4 +29,7 @@ interface ApiUser {
         @Query("fromDate") fromDate: String? = null,
         @Query("toDate") toDate: String? = null
     ): Call<TransactionResponse>
+
+    @PUT(ENDPOINT.ACCOUNTS_DEFAULT)
+    fun setDefaultAccount(@Body request: DefaultAccountRequest): Call<DefaultAccountResponse>
 }

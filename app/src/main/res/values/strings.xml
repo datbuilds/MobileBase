@@ -161,5 +161,6 @@
     <string name="minus">minutes</string>
     <string name="version">Version</string>
     <string name="share">Share</string>
+    <string name="systemUptateTransactionStatus">Sorry, the system is currently unable to update the transaction status. Please check your account statement or visit the nearest branch to verify the transaction result.</string>
 
 </resources>

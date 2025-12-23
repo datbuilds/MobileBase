@@ -4,6 +4,8 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import vn.shb.core.core.delivery.Reason
+import vn.shb.core.core.delivery.reason.AppReason
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionDetail
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.getBalance
@@ -65,6 +67,8 @@ class PaymentTransferFragment :
 
     private fun bindViewFailed() {
         with(binding) {
+            ivStatus.visible()
+            tvTransactionAmount.visible()
             ivStatus.setImageResource(R.drawable.ic_fail)
             tvTransactionAmount.text = getString(R.string.transactionFail)
             tvTransactionAmount.setTextColor(getColor(R.color.color_error_text_login))
@@ -86,6 +90,8 @@ class PaymentTransferFragment :
 
     private fun setupView(trans: TransactionDetail) {
         with(binding) {
+            ivStatus.visible()
+            tvTransactionAmount.visible()
             tvTransactionAmount.text = getString(R.string.transactionSuccess)
             tvTransactionAmount.setTextColor(getColor(R.color.colorSuccess))
             tvValueBalance.text = trans.amount.getBalance()
@@ -179,7 +185,12 @@ class PaymentTransferFragment :
 
                 launch {
                     stateDetailError.collectLatest {
-                        bindViewFailed()
+                        handleErrorHome(
+                            AppReason(
+                                message = getString(R.string.systemUptateTransactionStatus),
+                                code = getString(R.string.errorCode)
+                            )
+                        )
                     }
                 }
             }
@@ -187,10 +198,15 @@ class PaymentTransferFragment :
     }
 
     private fun bindButtonNewTransaction(
-        idBg : Int,
-        color : Int
+        idBg: Int,
+        color: Int
     ) {
-        binding.tvCreateNewTransaction.setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), idBg))
+        binding.tvCreateNewTransaction.setBackgroundDrawable(
+            ContextCompat.getDrawable(
+                requireContext(),
+                idBg
+            )
+        )
         binding.tvCreateNewTransaction.setTextColor(getColor(color))
     }
 
