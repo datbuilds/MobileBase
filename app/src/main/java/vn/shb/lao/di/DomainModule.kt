@@ -36,4 +36,5 @@ val domainModule = module {
     factory { UseCaseTransactionDetail(get()) }
     factory { UseCaseValidateTransaction(get()) }
     factory { UseCaseGetTokenWso2(get()) }
+    factory { vn.shb.core.core.domain.usecases.profile.UseCaseChangePassword(get()) }
 }

@@ -3,6 +3,7 @@ package vn.shb.core.core.domain.source.repository
 import vn.shb.core.core.delivery.ResultSHB
 import vn.shb.core.core.delivery.BaseResponse
 import vn.shb.core.core.delivery.reason.AppReason
+import vn.shb.core.core.domain.source.request.ChangePasswordRequest
 import vn.shb.core.core.domain.source.response.AccountData
 import vn.shb.core.core.domain.source.response.AccountDetailsData
 import vn.shb.core.core.domain.source.response.AccountDetailsResponse
@@ -176,6 +177,41 @@ class RepositoryUserImpl(
                 val contentResult = result.successData
                 if (contentResult.isSuccess()) {
                     ResultSHB.Success(true)
+                } else {
+                    ResultSHB.Failure(
+                        AppReason(
+                            message = contentResult.errorMessage,
+                            code = contentResult.errorCode
+                        )
+                    )
+                }
+            }
+
+            is ResultSHB.Failure -> {
+                ResultSHB.Failure(
+                    AppReason(
+                        message = result.reason.errMessage,
+                        code = result.reason.errorCode
+                    )
+                )
+            }
+
+            else -> {
+                ResultSHB.Loading
+            }
+        }
+    }
+
+    override suspend fun changePassword(request: ChangePasswordRequest): ResultSHB<vn.shb.core.core.domain.source.response.ChangePasswordResponse> {
+        return resultChangePassword(result = serviceUser.changePassword(request))
+    }
+
+    private fun resultChangePassword(result: ResultSHB<vn.shb.core.core.domain.source.response.ChangePasswordResponse>): ResultSHB<vn.shb.core.core.domain.source.response.ChangePasswordResponse> {
+        return when (result) {
+            is ResultSHB.Success -> {
+                val contentResult = result.successData
+                if (contentResult.isSuccess()) {
+                    ResultSHB.Success(contentResult)
                 } else {
                     ResultSHB.Failure(
                         AppReason(

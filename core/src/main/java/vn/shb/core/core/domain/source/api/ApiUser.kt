@@ -9,6 +9,8 @@ import vn.shb.core.core.domain.source.response.TransactionResponse
 import vn.shb.core.core.domain.source.response.UserInfoResponse
 import retrofit2.http.Body
 import retrofit2.http.PUT
+import vn.shb.core.core.delivery.BaseResponse
+import vn.shb.core.core.domain.source.request.ChangePasswordRequest
 import vn.shb.core.core.domain.source.request.DefaultAccountRequest
 import vn.shb.core.core.domain.source.response.DefaultAccountResponse
 
@@ -32,4 +34,7 @@ interface ApiUser {
 
     @PUT(ENDPOINT.ACCOUNTS_DEFAULT)
     fun setDefaultAccount(@Body request: DefaultAccountRequest): Call<DefaultAccountResponse>
+
+    @PUT(ENDPOINT.PASSWORDS)
+    fun changePassword(@Body request: ChangePasswordRequest): Call<vn.shb.core.core.domain.source.response.ChangePasswordResponse>
 }

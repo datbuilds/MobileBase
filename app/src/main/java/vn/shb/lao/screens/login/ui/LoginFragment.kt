@@ -53,7 +53,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
     private val encryptFactory: EncryptManager by inject()
     private val loginViewModel: LoginViewModel by inject()
-    private val useCaseRefreshToken: UseCaseRefreshToken by inject()
 
     private var currentUser: UserLog? = null
     var currentUserName = ""

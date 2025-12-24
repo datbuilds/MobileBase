@@ -1,124 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/home_nav_graph"
-    app:startDestination="@id/homeFragment">
+    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/home_nav_graph" app:startDestination="@id/homeFragment">
 
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="vn.shb.lao.screens.home.HomeFragment"
-        android:label="HomeFragment"
-        tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/action_homeFragment_to_profileFragment"
-            app:destination="@id/profileFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+    <fragment android:id="@+id/homeFragment" android:name="vn.shb.lao.screens.home.HomeFragment" android:label="HomeFragment" tools:layout="@layout/fragment_home">
+        <action android:id="@+id/action_homeFragment_to_profileFragment" app:destination="@id/profileFragment" app:enterAnim="@anim/slide_in_right" app:exitAnim="@anim/slide_out_left" app:popEnterAnim="@anim/slide_in_left" app:popExitAnim="@anim/slide_out_right" />
 
-        <action
-            android:id="@+id/action_homeFragment_to_accountDetailFragment"
-            app:destination="@id/accountDetailFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+        <action android:id="@+id/action_homeFragment_to_accountDetailFragment" app:destination="@id/accountDetailFragment" app:enterAnim="@anim/slide_in_right" app:exitAnim="@anim/slide_out_left" app:popEnterAnim="@anim/slide_in_left" app:popExitAnim="@anim/slide_out_right" />
 
-        <action
-            android:id="@+id/action_homeFragment_to_beneficiaryFragment"
-            app:destination="@id/beneficiaryFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+        <action android:id="@+id/action_homeFragment_to_beneficiaryFragment" app:destination="@id/beneficiaryFragment" app:enterAnim="@anim/slide_in_right" app:exitAnim="@anim/slide_out_left" app:popEnterAnim="@anim/slide_in_left" app:popExitAnim="@anim/slide_out_right" />
 
     </fragment>
 
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="vn.shb.lao.screens.profile.ProfileFragment"
-        android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile">
-        <action
-            android:id="@+id/action_profileFragment_to_changePasswordFragment"
-            app:destination="@id/changePasswordFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+    <fragment android:id="@+id/profileFragment" android:name="vn.shb.lao.screens.profile.ProfileFragment" android:label="ProfileFragment" tools:layout="@layout/fragment_profile">
+        <action android:id="@+id/action_profileFragment_to_changePasswordFragment" app:destination="@id/changePasswordFragment" app:enterAnim="@anim/slide_in_right" app:exitAnim="@anim/slide_out_left" app:popEnterAnim="@anim/slide_in_left" app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
-    <fragment
-        android:id="@+id/changePasswordFragment"
-        android:name="vn.shb.lao.screens.profile.ChangePasswordFragment"
-        android:label="ChangePasswordFragment"
-        tools:layout="@layout/fragment_change_password" />
-
-    <fragment
-        android:id="@+id/accountDetailFragment"
-        android:name="vn.shb.lao.screens.account.AccountDetailFragment"
-        android:label="AccountDetailFragment"
-        tools:layout="@layout/fragment_account_detail">
-        <action
-            android:id="@+id/backToHomeFragment"
-            app:destination="@id/homeFragment"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left" />
-
-        <action
-            android:id="@+id/action_to_transaction_history"
-            app:destination="@id/transactionHistory"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+    <fragment android:id="@+id/changePasswordFragment" android:name="vn.shb.lao.screens.profile.ChangePasswordFragment" android:label="ChangePasswordFragment" tools:layout="@layout/fragment_change_password">
+        <action android:id="@+id/action_changePasswordFragment_to_changePasswordSuccessFragment" app:destination="@id/changePasswordSuccessFragment" app:enterAnim="@anim/slide_in_right" app:exitAnim="@anim/slide_out_left" app:popEnterAnim="@anim/slide_in_left" app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
-    <fragment
-        android:id="@+id/transactionHistory"
-        android:name="vn.shb.lao.screens.transaction.TransactionHistoryFragment"
-        android:label="@string/transactionHistory">
-        <action
-            android:id="@+id/backToAccountDetails"
-            app:destination="@id/accountDetailFragment"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left" />
+    <fragment android:id="@+id/changePasswordSuccessFragment" android:name="vn.shb.lao.screens.profile.ChangePasswordSuccessFragment" android:label="ChangePasswordSuccessFragment" tools:layout="@layout/fragment_change_password_success" />
+
+    <fragment android:id="@+id/accountDetailFragment" android:name="vn.shb.lao.screens.account.AccountDetailFragment" android:label="AccountDetailFragment" tools:layout="@layout/fragment_account_detail">
+        <action android:id="@+id/backToHomeFragment" app:destination="@id/homeFragment" app:enterAnim="@anim/slide_in_left" app:exitAnim="@anim/slide_out_right" app:popEnterAnim="@anim/slide_in_right" app:popExitAnim="@anim/slide_out_left" />
+
+        <action android:id="@+id/action_to_transaction_history" app:destination="@id/transactionHistory" app:enterAnim="@anim/slide_in_right" app:exitAnim="@anim/slide_out_left" app:popEnterAnim="@anim/slide_in_left" app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
-    <fragment
-        android:id="@+id/transactionDetailFragment"
-        android:name="vn.shb.lao.screens.transaction.TransactionDetailFragment"
-        android:label="TransactionDetailFragment" />
+    <fragment android:id="@+id/transactionHistory" android:name="vn.shb.lao.screens.transaction.TransactionHistoryFragment" android:label="@string/transactionHistory">
+        <action android:id="@+id/backToAccountDetails" app:destination="@id/accountDetailFragment" app:enterAnim="@anim/slide_in_left" app:exitAnim="@anim/slide_out_right" app:popEnterAnim="@anim/slide_in_right" app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
 
-    <fragment
-        android:id="@+id/moneyTransferFragment"
-        android:name="vn.shb.lao.screens.transfer.MoneyTransferFragment"
-        android:label="MoneyTransferFragment" />
-    <fragment
-        android:id="@+id/confirmationFragment"
-        android:name="vn.shb.lao.screens.transfer.ConfirmationFragment"
-        android:label="ConfirmationFragment" />
+    <fragment android:id="@+id/transactionDetailFragment" android:name="vn.shb.lao.screens.transaction.TransactionDetailFragment" android:label="TransactionDetailFragment" />
 
-    <fragment
-        android:id="@+id/paymentTransferFragment"
-        android:name="vn.shb.lao.screens.transfer.PaymentTransferFragment"
-        android:label="PaymentTransferFragment" />
+    <fragment android:id="@+id/moneyTransferFragment" android:name="vn.shb.lao.screens.transfer.MoneyTransferFragment" android:label="MoneyTransferFragment" />
+    <fragment android:id="@+id/confirmationFragment" android:name="vn.shb.lao.screens.transfer.ConfirmationFragment" android:label="ConfirmationFragment" />
+
+    <fragment android:id="@+id/paymentTransferFragment" android:name="vn.shb.lao.screens.transfer.PaymentTransferFragment" android:label="PaymentTransferFragment" />
 
     <!--phase2-->
 
-    <fragment
-        android:id="@+id/beneficiaryFragment"
-        android:name="vn.shb.lao.screens.beneficiary.BeneficiaryFragment"
-        android:label="@string/beneficiary" />
+    <fragment android:id="@+id/beneficiaryFragment" android:name="vn.shb.lao.screens.beneficiary.BeneficiaryFragment" android:label="@string/beneficiary" />
 
-    <fragment
-        android:id="@+id/editBeneficiaryFragment"
-        android:name="vn.shb.lao.screens.beneficiary.EditBeneficiaryFragment"
-        android:label="@string/editBeneficiary" />
+    <fragment android:id="@+id/editBeneficiaryFragment" android:name="vn.shb.lao.screens.beneficiary.EditBeneficiaryFragment" android:label="@string/editBeneficiary" />
 </navigation>

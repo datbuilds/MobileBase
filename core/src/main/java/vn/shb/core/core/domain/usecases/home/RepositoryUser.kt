@@ -1,6 +1,8 @@
 package vn.shb.core.core.domain.usecases.home
 
+import vn.shb.core.core.delivery.BaseResponse
 import vn.shb.core.core.delivery.ResultSHB
+import vn.shb.core.core.domain.source.request.ChangePasswordRequest
 import vn.shb.core.core.domain.source.response.AccountData
 import vn.shb.core.core.domain.source.response.AccountDetailsData
 import vn.shb.core.core.domain.source.response.TransactionData
@@ -16,4 +18,6 @@ interface RepositoryUser {
     suspend fun getTransactions(params: UseCaseTransaction.Params): ResultSHB<TransactionData>
 
     suspend fun setDefaultAccount(accountNo: String): ResultSHB<Boolean>
+
+    suspend fun changePassword(request: ChangePasswordRequest): ResultSHB<vn.shb.core.core.domain.source.response.ChangePasswordResponse>
 }

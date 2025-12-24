@@ -3,6 +3,7 @@ package vn.shb.core.core.domain.source.service
 import retrofit2.awaitResponse
 import vn.shb.core.core.domain.source.api.ApiUser
 import vn.shb.core.core.domain.source.request.DefaultAccountRequest
+import vn.shb.core.core.domain.source.response.DefaultAccountResponse
 import vn.shb.core.core.domain.usecases.home.UseCaseAccountDetails
 import vn.shb.core.core.domain.usecases.home.UseCaseTransaction
 import vn.shb.core.core.retrofit.SafeExecute
@@ -28,7 +29,11 @@ class ServiceUser(private val api: ApiUser) : SafeExecute() {
         ).awaitResponse()
     }
 
-    suspend fun setDefaultAccount(accountNo: String): vn.shb.core.core.delivery.ResultSHB<vn.shb.core.core.domain.source.response.DefaultAccountResponse> = execute {
+    suspend fun setDefaultAccount(accountNo: String): vn.shb.core.core.delivery.ResultSHB<DefaultAccountResponse> = execute {
         api.setDefaultAccount(DefaultAccountRequest(accountNo)).awaitResponse()
+    }
+
+    suspend fun changePassword(request: vn.shb.core.core.domain.source.request.ChangePasswordRequest): vn.shb.core.core.delivery.ResultSHB<vn.shb.core.core.domain.source.response.ChangePasswordResponse> = execute {
+        api.changePassword(request).awaitResponse()
     }
 }
