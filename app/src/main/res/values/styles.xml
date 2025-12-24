@@ -209,6 +209,17 @@
     </style>
 
 
+    <style name="MaterialDialog.ButtonChangePassword" parent="android:Widget.TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:paddingVertical">@dimen/margin_12dp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="customFontWeight">semi_bold</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/textSize18</item>
+        <item name="android:background">@drawable/bg_bt_share</item>
+    </style>
+
+
     <style name="MaterialDialog.ButtonLogout" parent="android:Widget.TextView">
         <item name="android:gravity">center</item>
         <item name="android:paddingVertical">@dimen/margin_12dp</item>

@@ -19,6 +19,7 @@ class ChangePasswordFragment :
     override fun initView(view: View) {
         // Initial state
         checkConfirmButton()
+        highlightSpecialChars(binding.tvRuleSpecial)
     }
 
     override fun initListener() {
@@ -97,7 +98,7 @@ class ChangePasswordFragment :
         val hasDigit = password.any { it.isDigit() }
         val specialChars = ".~!@#$%^*()_+=|{};<>,/?"
         val hasSpecial = password.any { specialChars.contains(it) }
-        isValidSpecial = hasDigit && hasSpecial
+        isValidSpecial = hasDigit || hasSpecial
         updateValidationStatus(binding.tvRuleSpecial, isValidSpecial)
 
         // 4. No username or real name
@@ -116,19 +117,46 @@ class ChangePasswordFragment :
     }
 
     private fun updateValidationStatus(textView: MyTextView, isValid: Boolean) {
-        val color = if (isValid) R.color.green_500 else R.color.red_600 // Assuming colors exist
+        val iconColor = if (isValid) R.color.green_500 else R.color.red_600
         val icon = if (isValid) R.drawable.ic_success else R.drawable.ic_error
+        val textColor = if (isValid) R.color.green_500 else R.color.neutral6
 
-        textView.setTextColor(getColor(color))
+        textView.setTextColor(getColor(textColor))
         textView.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0)
-        // Tint compound drawable if needed, but setCompoundDrawablesWithIntrinsicBounds usually doesn't tint automatically unless we use setCompoundDrawableTintList
-        // The xml used app:drawableTint, programmatically we might need to set tint.
-        // Let's rely on setCompoundDrawablesWithIntrinsicBounds and ensure icons are colored or handle tint.
-        // Given XML has app:drawableTint, let's try to set tint programmatically.
         androidx.core.widget.TextViewCompat.setCompoundDrawableTintList(
             textView,
-            android.content.res.ColorStateList.valueOf(getColor(color))
+            android.content.res.ColorStateList.valueOf(getColor(iconColor))
         )
+    }
+
+    private fun highlightSpecialChars(textView: MyTextView) {
+        val text = textView.text.toString()
+        val specialChars = ".~!@#$%^*()_+=|{};<>,/?-"
+        val start = text.indexOf(specialChars.substring(0, 5)) // Match start of special chars
+        if (start != -1) {
+            val spannable = android.text.SpannableString(text)
+            // Find the exact range of special chars at the end
+            // Assuming it's at the end or we just search for the known block
+            // The string in strings.xml is "... .~!@#$%^*()_+=|{};<>,/?"
+            // But we added "-" in the variable above? The user image shows it might end with - or ?
+            // Let's rely on finding the longest match or just the substring
+            val matchStr = text.substring(start) 
+            // Better: find strictly the special chars
+            // ".~!@#$%^*()_+=|{};<>,/?" -> The full set
+            // In strings.xml: ".~!@#$%^*()_+=|{};&lt;&gt;,/?"
+            
+            // Let's search for the substring starting with "." and ending with string end or common checks
+            // Or just hardcode the logic to find the special chars block
+            
+            val end = text.length
+            spannable.setSpan(
+                android.text.style.ForegroundColorSpan(getColor(R.color.blueSpecial)),
+                start,
+                end,
+                android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            textView.text = spannable
+        }
     }
 
     private fun checkConfirmButton() {
@@ -137,14 +165,17 @@ class ChangePasswordFragment :
             val newPass = edtNewPassword.text.toString()
             val reEnterPass = edtReEnterPassword.text.toString()
 
-            val isMatch = newPass == reEnterPass && newPass.isNotEmpty()
+            val isMatch = newPass == reEnterPass
             val isAllValid = isValidLength && isValidCase && isValidSpecial && isValidUsername
             val isCurrentNotEmpty = currentPass.isNotEmpty()
+            
+            // Show match error if mismatch and re-enter is not empty
+            tvErrorReEnterPassword.visibility = if (!isMatch && reEnterPass.isNotEmpty()) View.VISIBLE else View.GONE
 
-            val enable = isAllValid && isMatch && isCurrentNotEmpty
+            val enable = isAllValid && isMatch && isCurrentNotEmpty && newPass.isNotEmpty()
 
             btnConfirm.isEnabled = enable
-            // Style update if needed for disabled state, usually handled by selector/button style
+            btnConfirm.alpha = if (enable) 1f else 0.5f
         }
     }
 }

@@ -165,4 +165,14 @@
     <string name="currentPassword">Current password</string>
     <string name="enterCurrentPassword">Enter current password</string>
 
+    <string name="new_password">New password</string>
+    <string name="enter_new_password">Enter new password</string>
+    <string name="password_rule_length">6-50 characters long</string>
+    <string name="password_rule_case">Requires at least 1 lowercase and 1 uppercase character</string>
+    <string name="password_rule_special">Requires at least 1 numeric character, 1 special character .~!@#$%^*()_+=|{};&lt;&gt;,/?</string>
+    <string name="password_rule_username">Does not contain the username or the user\'s real name</string>
+    <string name="re_enter_new_password">Re-enter new password</string>
+    <string name="hint_re_enter_new_password">Re-enter new password</string>
+    <string name="error_current_password_incorrect">The current password is incorrect, please try again</string>
+    <string name="error_passwords_do_not_match">Passwords do not match</string>
 </resources>
