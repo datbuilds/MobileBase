@@ -4,6 +4,7 @@ import org.koin.dsl.module
 import vn.shb.core.core.domain.usecases.home.UseCaseAccountDetails
 import vn.shb.core.core.domain.usecases.home.UseCaseTransaction
 import vn.shb.core.core.domain.usecases.home.UseCaseUserInfo
+import vn.shb.core.core.domain.usecases.home.UseCaseSetDefaultAccount
 import vn.shb.core.core.domain.usecases.login.UseCaseLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseLogout
 import vn.shb.core.core.domain.usecases.login.UseCaseRefreshToken
@@ -26,6 +27,7 @@ val domainModule = module {
     factory { UseCaseLogout(get()) }
     factory { UseCaseUserInfo(get()) }
     factory { UseCaseAccountDetails(get()) }
+    factory { UseCaseSetDefaultAccount(get()) }
     factory { UseCaseTransaction(get()) }
     factory { UseCaseTransferAccount(get()) }
     factory { UseCaseAccountByNumber(get()) }

@@ -1,11 +1,13 @@
 package vn.shb.core.core.domain.source.repository
 
 import vn.shb.core.core.delivery.ResultSHB
+import vn.shb.core.core.delivery.BaseResponse
 import vn.shb.core.core.delivery.reason.AppReason
 import vn.shb.core.core.domain.source.response.AccountData
 import vn.shb.core.core.domain.source.response.AccountDetailsData
 import vn.shb.core.core.domain.source.response.AccountDetailsResponse
 import vn.shb.core.core.domain.source.response.AccountsInfoResponse
+import vn.shb.core.core.domain.source.response.DefaultAccountResponse
 import vn.shb.core.core.domain.source.response.TransactionData
 import vn.shb.core.core.domain.source.response.TransactionResponse
 import vn.shb.core.core.domain.source.response.UserInfoResponse
@@ -139,6 +141,41 @@ class RepositoryUserImpl(
                 val contentResult = result.successData
                 if (contentResult.isSuccess()) {
                     ResultSHB.Success(contentResult.data ?: TransactionData())
+                } else {
+                    ResultSHB.Failure(
+                        AppReason(
+                            message = contentResult.errorMessage,
+                            code = contentResult.errorCode
+                        )
+                    )
+                }
+            }
+
+            is ResultSHB.Failure -> {
+                ResultSHB.Failure(
+                    AppReason(
+                        message = result.reason.errMessage,
+                        code = result.reason.errorCode
+                    )
+                )
+            }
+
+            else -> {
+                ResultSHB.Loading
+            }
+        }
+    }
+
+    override suspend fun setDefaultAccount(accountNo: String): ResultSHB<Boolean> {
+        return resultSetDefaultAccount(result = serviceUser.setDefaultAccount(accountNo))
+    }
+
+    private fun resultSetDefaultAccount(result: ResultSHB<DefaultAccountResponse>): ResultSHB<Boolean> {
+        return when (result) {
+            is ResultSHB.Success -> {
+                val contentResult = result.successData
+                if (contentResult.isSuccess()) {
+                    ResultSHB.Success(true)
                 } else {
                     ResultSHB.Failure(
                         AppReason(

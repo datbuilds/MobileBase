@@ -92,13 +92,9 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
         binding.carousel3.setData(listThree)
     }
 
-    private fun getDataUser() {
-        homeViewModel.getUserInfo()
-    }
-
     override fun onResume() {
         super.onResume()
-        getDataUser()
+        homeViewModel.getUserInfo()
     }
 
 

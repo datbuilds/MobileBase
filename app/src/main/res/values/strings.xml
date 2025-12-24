@@ -164,6 +164,7 @@
     <string name="changePassword">Change password</string>
     <string name="currentPassword">Current password</string>
     <string name="enterCurrentPassword">Enter current password</string>
+    <string name="systemUptateTransactionStatus">Sorry, the system is currently unable to update the transaction status. Please check your account statement or visit the nearest branch to verify the transaction result.</string>
 
     <string name="new_password">New password</string>
     <string name="enter_new_password">Enter new password</string>

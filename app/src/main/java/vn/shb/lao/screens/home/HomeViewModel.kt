@@ -20,6 +20,7 @@ import vn.shb.core.core.domain.source.response.TransactionTransfer
 import vn.shb.core.core.domain.source.response.TransactionTransferConfirm
 import vn.shb.core.core.domain.usecases.None
 import vn.shb.core.core.domain.usecases.home.UseCaseAccountDetails
+import vn.shb.core.core.domain.usecases.home.UseCaseSetDefaultAccount
 import vn.shb.core.core.domain.usecases.home.UseCaseTransaction
 import vn.shb.core.core.domain.usecases.home.UseCaseUserInfo
 import vn.shb.core.core.domain.usecases.transfer.AccountInfoRequest
@@ -65,15 +66,20 @@ class HomeViewModel(
     private val useCaseAccountByNumber: UseCaseAccountByNumber,
     private val useCaseTransactionDetail: UseCaseTransactionDetail,
     private val useCaseValidateTransaction: UseCaseValidateTransaction,
+    private val useCaseSetDefaultAccount: UseCaseSetDefaultAccount,
 ) : BaseViewModel() {
     private val _stateUserInfo = MutableStateFlow(UserInfo())
     val stateUserInfo = _stateUserInfo.asStateFlow()
 
+    private val _stateFetchUser = Channel<UserInfo>(Channel.BUFFERED)
+    val stateFetchUser = _stateFetchUser.receiveAsFlow()
+
+
     private val _stateAccounts = Channel<AccountBase>(Channel.BUFFERED)
     val stateSelectedAccount = _stateAccounts.receiveAsFlow()
 
-    private val _stateAccountDetails = MutableStateFlow(AccountDetails())
-    val stateAccountDetails = _stateAccountDetails.asStateFlow()
+    private val _stateAccountDetails = Channel<AccountDetails>(Channel.BUFFERED)
+    val stateAccountDetails = _stateAccountDetails.receiveAsFlow()
 
     private val _stateTransactions5First = Channel<List<TransactionItem>>(Channel.BUFFERED)
     val stateTransactions5First = _stateTransactions5First.receiveAsFlow()
@@ -103,8 +109,7 @@ class HomeViewModel(
     private val _stateTransactionTransfer = Channel<TransactionTransfer?>(Channel.BUFFERED)
     val stateTransactionTransfer = _stateTransactionTransfer.receiveAsFlow()
 
-
-     var confirmSuccessData: TransactionTransferConfirm? = null
+    var confirmSuccessData: TransactionTransferConfirm? = null
 
     private var transactionTransferRealtime: TransactionTransfer? = null
 
@@ -117,9 +122,11 @@ class HomeViewModel(
     private val _stateTransactionDetail = Channel<TransactionDetail?>(Channel.BUFFERED)
     val stateTransactionDetail = _stateTransactionDetail.receiveAsFlow()
 
-
     private val _stateDetailError = Channel<Reason>(Channel.BUFFERED)
     val stateDetailError = _stateDetailError.receiveAsFlow()
+
+    private val _stateUpdateDefaultAccount = Channel<Boolean>(Channel.BUFFERED)
+    val stateUpdateDefaultAccount = _stateUpdateDefaultAccount.receiveAsFlow()
 
     private val _stateAccountByNumber = MutableSharedFlow<AccountUserNameModel?>()
     val stateAccountByNumber = _stateAccountByNumber.asSharedFlow()
@@ -149,7 +156,7 @@ class HomeViewModel(
         _stateLoading.emit(isLoading)
     }
 
-    fun getUserInfo() {
+    fun getUserInfo(isFetchUser : Boolean = false) {
         viewModelScope.launch {
             useCaseUserInfo.invoke(None).collect { result ->
                 result.onSuccess { (userInfo, accountData) ->
@@ -160,6 +167,9 @@ class HomeViewModel(
                         storage.setUserLog(UserConverters.userInfoToString(this))
                     }
                     _stateUserInfo.value = userInfo
+                    if (isFetchUser){
+                        _stateFetchUser.send(userInfo)
+                    }
                     listAccount = accountData.array
                     currentUserInfo = userInfo
                     getCurrentAccount(userInfo, accountData.array)
@@ -211,8 +221,7 @@ class HomeViewModel(
             val params = UseCaseAccountDetails.Params(accountNumber)
             useCaseAccountDetails.invoke(params).collect { result ->
                 result.onSuccess { accountDetailsData ->
-                    _stateAccountDetails.value =
-                        accountDetailsData.array.firstOrNull() ?: AccountDetails()
+                    _stateAccountDetails.send(accountDetailsData.array.firstOrNull() ?: AccountDetails())
                 }
                 result.onFailure { error ->
                     stateError(error)
@@ -495,7 +504,6 @@ class HomeViewModel(
         viewModelScope.launch {
             _stateTransactionTransferConfirm.emit(null)
             transactionTransferRealtime = null
-//            _stateTransactionTransfer.send(null)
         }
     }
 
@@ -537,4 +545,30 @@ class HomeViewModel(
         _stateAllBeneficiary.value = listB
     }
 
+    fun setDefaultAccount(accountNo: String) {
+        viewModelScope.launch {
+            val params = vn.shb.core.core.domain.usecases.home.UseCaseSetDefaultAccount.Params(accountNo)
+            useCaseSetDefaultAccount.invoke(params).collect { result ->
+                result.onResultHandle(
+                    successBlock = {
+                        // Refresh user info to update default account
+                        getUserInfo(true)
+                        viewModelScope.launch {
+                            stateLoading(false)
+                        }
+                    },
+                    failureBlock = { error ->
+                        viewModelScope.launch {
+                            stateLoading(false)
+                            stateError(error)
+                            _stateUpdateDefaultAccount.send(false)
+                        }
+                    },
+                    loadingBlock = {
+                        viewModelScope.launch { stateLoading(true) }
+                    }
+                )
+            }
+        }
+    }
 }

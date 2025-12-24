@@ -14,4 +14,6 @@ interface RepositoryUser {
     suspend fun getAccountDetails(params: UseCaseAccountDetails.Params): ResultSHB<AccountDetailsData>
 
     suspend fun getTransactions(params: UseCaseTransaction.Params): ResultSHB<TransactionData>
+
+    suspend fun setDefaultAccount(accountNo: String): ResultSHB<Boolean>
 }

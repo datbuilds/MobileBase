@@ -11,7 +11,7 @@ val featureModule = module {
     viewModel { LoginViewModel(get(), get(), get(), get()) }
     viewModel {
         HomeViewModel(
-            get(), get(), get(), get(), get(),get(),
+            get(), get(), get(),get(), get(), get(),get(),
             get(),  get(), get(), get()
         )
     }

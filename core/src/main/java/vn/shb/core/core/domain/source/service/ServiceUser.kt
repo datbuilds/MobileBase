@@ -2,6 +2,7 @@ package vn.shb.core.core.domain.source.service
 
 import retrofit2.awaitResponse
 import vn.shb.core.core.domain.source.api.ApiUser
+import vn.shb.core.core.domain.source.request.DefaultAccountRequest
 import vn.shb.core.core.domain.usecases.home.UseCaseAccountDetails
 import vn.shb.core.core.domain.usecases.home.UseCaseTransaction
 import vn.shb.core.core.retrofit.SafeExecute
@@ -25,5 +26,9 @@ class ServiceUser(private val api: ApiUser) : SafeExecute() {
         api.getTransactions(
             params.accountNumber, params.queryType, params.fromDate, params.toDate
         ).awaitResponse()
+    }
+
+    suspend fun setDefaultAccount(accountNo: String): vn.shb.core.core.delivery.ResultSHB<vn.shb.core.core.domain.source.response.DefaultAccountResponse> = execute {
+        api.setDefaultAccount(DefaultAccountRequest(accountNo)).awaitResponse()
     }
 }

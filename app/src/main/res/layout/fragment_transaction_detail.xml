@@ -34,6 +34,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/margin_24dp"
+        android:visibility="gone"
+        tools:visibility="visible"
         app:srcCompat="@drawable/ic_success_transaction" />
 
     <vn.shb.lao.base.view.MyTextView
@@ -43,6 +45,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/margin_12dp"
         android:text="@string/transactionAmount"
+        android:visibility="gone"
+        tools:visibility="visible"
         android:textColor="@color/colorSuccess"
         android:textSize="@dimen/textSize18"
         app:customFontWeight="medium" />

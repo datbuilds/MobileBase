@@ -187,7 +187,7 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         reason: Reason,
         onAction: (() -> Unit)? = null
     ) {
-        if (reason.errorCode == ApiConst.FUN_017) {
+        if (reason.errorCode == ApiConst.FUN_017  || reason.errorCode == getString(R.string.errorCode)) {
             BottomSheetDialogHelper(requireContext()).messageErrorCode(reason)
             return
         }
