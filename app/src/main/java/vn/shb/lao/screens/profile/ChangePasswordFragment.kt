@@ -1,6 +1,7 @@
 package vn.shb.lao.screens.profile
 
 import android.content.res.ColorStateList
+import android.text.InputFilter
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.core.widget.TextViewCompat
@@ -14,7 +15,6 @@ import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.base.view.MyTextView
 import vn.shb.lao.databinding.FragmentChangePasswordBinding
 import vn.shb.lao.utils.ApiConst
-import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.lao.utils.extensions.textValue
 import java.util.Base64
@@ -29,6 +29,7 @@ class ChangePasswordFragment :
     private var isValidCase = false
     private var isValidSpecial = false
     private var isValidUsername = false
+    private var isValidNotSame = false
 
     override fun initView(view: View) {
         // Initial state
@@ -43,12 +44,15 @@ class ChangePasswordFragment :
             }
 
             setupPasswordInput(edtCurrentPassword, tvShowHideCurrent, ivClearCurrent)
-            setupPasswordInput(edtNewPassword, tvShowHideNew, ivClearNew) {
+            setupPasswordInput(edtNewPassword, tvShowHideNew, ivClearNew, true) {
                 validatePassword(it)
             }
-            setupPasswordInput(edtReEnterPassword, tvShowHideReEnter, ivClearReEnter)
+            setupPasswordInput(edtReEnterPassword, tvShowHideReEnter, ivClearReEnter, true)
 
-            edtCurrentPassword.doAfterTextChanged { checkConfirmButton() }
+            edtCurrentPassword.doAfterTextChanged {
+                validatePassword(edtNewPassword.textValue())
+                checkConfirmButton()
+            }
             edtReEnterPassword.doAfterTextChanged { checkConfirmButton() }
 
             btnConfirm.setOnSingleClickListener {
@@ -63,6 +67,16 @@ class ChangePasswordFragment :
         }
     }
 
+    private val passwordFilter = InputFilter { source, start, end, _, _, _ ->
+        for (i in start until end) {
+            val char = source[i]
+            // Block space and non-ASCII (accents)
+            // Allow 33 (!) to 126 (~)
+            if (char.code !in 33..126) return@InputFilter ""
+        }
+        null
+    }
+
     private fun encryptPassword(password: String): Pair<String, String> {
         val pswEncrypt = encryptFactory.encryptRSA(plainText = password)
         val encPsw = Base64.getEncoder().encodeToString(pswEncrypt)
@@ -73,20 +87,36 @@ class ChangePasswordFragment :
         editText: android.widget.EditText,
         tvToggle: MyTextView,
         ivClear: androidx.appcompat.widget.AppCompatImageView,
+        applyFilter: Boolean = false,
         onTextChanged: ((String) -> Unit)? = null
     ) {
         // Initial state
-        editText.transformationMethod = android.text.method.PasswordTransformationMethod.getInstance()
+        editText.transformationMethod =
+            android.text.method.PasswordTransformationMethod.getInstance()
+
+        if (applyFilter) {
+            val currentFilters = editText.filters
+            val newFilters = currentFilters.toMutableList()
+            newFilters.add(passwordFilter)
+            // Ensure maxLength is respected if set in XML (Filters replace XML maxLength if not handled carefully,
+            // but actually separate LengthFilter is added by Android framework.
+            // If we replace the array, we might lose it. But here we append.)
+            // However, InputFilter.LengthFilter is usually automatically added from XML android:maxLength.
+            // Let's preserve existing filters.
+            editText.filters = newFilters.toTypedArray()
+        }
 
         tvToggle.setOnSingleClickListener {
             val selectionStart = editText.selectionStart
             val selectionEnd = editText.selectionEnd
 
             if (editText.transformationMethod is android.text.method.PasswordTransformationMethod) {
-                editText.transformationMethod = android.text.method.HideReturnsTransformationMethod.getInstance()
+                editText.transformationMethod =
+                    android.text.method.HideReturnsTransformationMethod.getInstance()
                 tvToggle.text = getString(R.string.hide)
             } else {
-                editText.transformationMethod = android.text.method.PasswordTransformationMethod.getInstance()
+                editText.transformationMethod =
+                    android.text.method.PasswordTransformationMethod.getInstance()
                 tvToggle.text = getString(R.string.show)
             }
             // Restore cursor position
@@ -117,8 +147,9 @@ class ChangePasswordFragment :
                                 R.id.action_changePasswordFragment_to_changePasswordSuccessFragment
                             )
                         }
+
                         is ChangePasswordState.Error -> {
-                            if (state.reason.errorCode == ApiConst.AUTH_010){
+                            if (state.reason.errorCode == ApiConst.AUTH_010) {
                                 viewOldPasswordError()
                                 return@collect
                             }
@@ -126,6 +157,7 @@ class ChangePasswordFragment :
                             handleErrorHome(state.reason)
                             viewModel.resetState()
                         }
+
                         else -> {
                         }
                     }
@@ -139,6 +171,13 @@ class ChangePasswordFragment :
     }
 
     private fun validatePassword(password: String) {
+        val currentPass = binding.edtCurrentPassword.textValue()
+
+        // 0. Not same as old password
+        val isSame = password.isNotEmpty() && password == currentPass
+        binding.tvErrorSamePassword.isVisible = isSame
+        isValidNotSame = !isSame
+
         // 1. Length 6-50
         isValidLength = password.length in 6..50
         updateValidationStatus(binding.tvRuleLength, isValidLength)
@@ -162,8 +201,10 @@ class ChangePasswordFragment :
         val realName = user?.username ?: ""
 
         // Simple check: password should not contain username or real name (ignoring case)
-        val containsUsername = if (username.isNotEmpty()) password.contains(username, ignoreCase = true) else false
-        val containsRealName = if (realName.isNotEmpty()) password.contains(realName, ignoreCase = true) else false
+        val containsUsername =
+            if (username.isNotEmpty()) password.contains(username, ignoreCase = true) else false
+        val containsRealName =
+            if (realName.isNotEmpty()) password.contains(realName, ignoreCase = true) else false
 
         isValidUsername = !containsUsername && !containsRealName
         updateValidationStatus(binding.tvRuleUsername, isValidUsername)
@@ -207,11 +248,13 @@ class ChangePasswordFragment :
             val reEnterPass = edtReEnterPassword.text.toString()
 
             val isMatch = newPass == reEnterPass
-            val isAllValid = isValidLength && isValidCase && isValidSpecial && isValidUsername
+            val isAllValid =
+                isValidLength && isValidCase && isValidSpecial && isValidUsername && isValidNotSame
             val isCurrentNotEmpty = currentPass.isNotEmpty()
 
             // Show match error if mismatch and re-enter is not empty
-            tvErrorReEnterPassword.visibility = if (!isMatch && reEnterPass.isNotEmpty()) View.VISIBLE else View.GONE
+            tvErrorReEnterPassword.visibility =
+                if (!isMatch && reEnterPass.isNotEmpty()) View.VISIBLE else View.GONE
 
             val enable = isAllValid && isMatch && isCurrentNotEmpty && newPass.isNotEmpty()
 
