@@ -19,6 +19,9 @@ object ApiConst {
     const val FUN_017 = "FUN-017"
     const val FUN_016 = "FUN-016"
 
+    //error old password
+    const val AUTH_010 = "AUTH-010"
+
     //key
     const val KEY_REFERENCE_NUMBER_TRANSACTION = "KEY_REFERENCE_NUMBER_TRANSACTION"
     const val KEY_MODULE_CODE_NUMBER_TRANSACTION = "KEY_REFERENCE_NUMBER_TRANSACTION"

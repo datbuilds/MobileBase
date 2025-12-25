@@ -1,14 +1,20 @@
 package vn.shb.lao.screens.profile
 
+import android.content.res.ColorStateList
 import android.view.View
+import androidx.core.view.isVisible
+import androidx.core.widget.TextViewCompat
 import androidx.core.widget.doAfterTextChanged
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import vn.shb.core.core.security.encrypt.EncryptManager
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.base.view.MyTextView
 import vn.shb.lao.databinding.FragmentChangePasswordBinding
+import vn.shb.lao.utils.ApiConst
+import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.lao.utils.extensions.textValue
 import java.util.Base64
@@ -17,7 +23,7 @@ class ChangePasswordFragment :
     BaseFragmentBinding<FragmentChangePasswordBinding>(FragmentChangePasswordBinding::inflate) {
 
     private val viewModel: ChangePasswordViewModel by inject()
-    private val encryptFactory: vn.shb.core.core.security.encrypt.EncryptManager by inject()
+    private val encryptFactory: EncryptManager by inject()
 
     private var isValidLength = false
     private var isValidCase = false
@@ -105,12 +111,18 @@ class ChangePasswordFragment :
                     when (state) {
                         is ChangePasswordState.Success -> {
                             viewModel.resetState()
+                            viewOldPasswordError(false)
                             safeNavigate(
                                 R.id.changePasswordFragment,
                                 R.id.action_changePasswordFragment_to_changePasswordSuccessFragment
                             )
                         }
                         is ChangePasswordState.Error -> {
+                            if (state.reason.errorCode == ApiConst.AUTH_010){
+                                viewOldPasswordError()
+                                return@collect
+                            }
+                            viewOldPasswordError(false)
                             handleErrorHome(state.reason)
                             viewModel.resetState()
                         }
@@ -120,6 +132,10 @@ class ChangePasswordFragment :
                 }
             }
         }
+    }
+
+    private fun viewOldPasswordError(isView: Boolean = true) {
+        binding.tvErrorCurrentPassword.isVisible = isView
     }
 
     private fun validatePassword(password: String) {
@@ -137,7 +153,7 @@ class ChangePasswordFragment :
         val hasDigit = password.any { it.isDigit() }
         val specialChars = ".~!@#$%^*()_+=|{};<>,/?"
         val hasSpecial = password.any { specialChars.contains(it) }
-        isValidSpecial = hasDigit || hasSpecial
+        isValidSpecial = hasDigit && hasSpecial
         updateValidationStatus(binding.tvRuleSpecial, isValidSpecial)
 
         // 4. No username or real name
@@ -162,9 +178,8 @@ class ChangePasswordFragment :
 
         textView.setTextColor(getColor(textColor))
         textView.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0)
-        androidx.core.widget.TextViewCompat.setCompoundDrawableTintList(
-            textView,
-            android.content.res.ColorStateList.valueOf(getColor(iconColor))
+        TextViewCompat.setCompoundDrawableTintList(
+            textView, ColorStateList.valueOf(getColor(iconColor))
         )
     }
 
