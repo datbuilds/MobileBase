@@ -18,7 +18,6 @@ import vn.shb.core.core.delivery.Reason
 import vn.shb.core.core.delivery.reason.LoginFailReason
 import vn.shb.core.core.domain.usecases.login.StateLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseLogin
-import vn.shb.core.core.domain.usecases.login.UseCaseRefreshToken
 import vn.shb.core.core.security.encrypt.EncryptManager
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.login.UserLog
@@ -51,7 +50,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
     private val encryptFactory: EncryptManager by inject()
     private val loginViewModel: LoginViewModel by inject()
-    private val useCaseRefreshToken: UseCaseRefreshToken by inject()
 
     private var currentUser: UserLog? = null
     var currentUserName = ""
