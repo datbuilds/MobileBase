@@ -19,7 +19,6 @@ import vn.shb.core.core.delivery.reason.LoginFailReason
 import vn.shb.core.core.domain.usecases.login.StateLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseRefreshToken
-import vn.shb.core.core.retrofit.SafeExecute.Companion.HTTP_NOT_FOUND
 import vn.shb.core.core.security.encrypt.EncryptManager
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.login.UserLog
@@ -30,7 +29,6 @@ import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentLoginBinding
 import vn.shb.lao.screens.login.state.LoginUiState
 import vn.shb.lao.screens.login.ui.widget.showLanguagePopup
-import vn.shb.lao.utils.ApiConst
 import vn.shb.lao.utils.extensions.checkShowProgressDialog
 import vn.shb.lao.utils.extensions.clearEditTextColorFilter
 import vn.shb.lao.utils.extensions.clearText
@@ -66,7 +64,8 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     override fun initView(view: View) {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
-        binding.tvHotline.text = getString(R.string.version).plus(Const.SEPARATOR_SPACE).plus(BuildConfig.VERSION_NAME)
+        binding.tvHotline.text =
+            getString(R.string.version).plus(Const.SEPARATOR_SPACE).plus(BuildConfig.VERSION_NAME)
     }
 
     private fun mapUILogin() {
@@ -147,6 +146,12 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             llLanguage.setOnSingleClickListener {
                 showLanguagePopup(binding.llLanguage)
             }
+
+            if (BuildConfig.FLAVOR == "dev") {
+                ivLogoSHB.setOnSingleClickListener {
+                    resetInputLogin()
+                }
+            }
         }
     }
 
@@ -195,7 +200,10 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
     private fun login() {
         hideSoftKeyboard(0)
-        val accountLogin = currentUser?.userLogin
+        val accountLogin = if (BuildConfig.FLAVOR == "dev") {
+            val text = binding.edtInputUsername.text?.trim().toString()
+            if (!text.isNullOrEmpty()) text else currentUser?.userLogin ?: ""
+        } else currentUser?.userLogin
             ?: binding.edtInputUsername.text?.trim().toString()
         val (_, encPsw) = getPassword()
         postLogin(accountLogin, encPsw)

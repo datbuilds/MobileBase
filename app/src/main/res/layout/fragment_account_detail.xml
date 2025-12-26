@@ -160,6 +160,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_weight="0"
+                android:visibility="invisible"
                 android:thumb="@drawable/selector_switch_thumb"
                 app:track="@drawable/selector_switch_track" />
         </androidx.appcompat.widget.LinearLayoutCompat>
