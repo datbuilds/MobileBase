@@ -2,7 +2,9 @@ package vn.shb.lao.screens.account
 
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.getSharedViewModel
@@ -17,6 +19,7 @@ import vn.shb.lao.screens.account.helper.TransactionAdapter
 import vn.shb.lao.screens.home.DialogSelectAccount
 
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
+import vn.shb.lao.utils.extensions.visible
 
 class AccountDetailFragment :
     BaseFragmentBinding<FragmentAccountDetailBinding>(FragmentAccountDetailBinding::inflate) {
@@ -67,6 +70,7 @@ class AccountDetailFragment :
                 }.build().show(childFragmentManager, DialogSelectAccount.TAG)
             }
             swDefaultCasa.setOnCheckedChangeListener { _, isChecked ->
+                swDefaultCasa.alpha = if (isChecked) 0.5f else 1f
                 val currentAccount = homeViewModel.selectedAccount
                 if (isChecked) {
                     homeViewModel.setDefaultAccount(currentAccount?.accountNumber!!)
@@ -89,9 +93,13 @@ class AccountDetailFragment :
                 // or ensure listener handles redundant calls.
                 // Or temporarily nullify listener? No, just checking state match is enough.
                 val isDefault = it.accountNumber == defaultAccount
-                swDefaultCasa.isChecked = isDefault
                 swDefaultCasa.isEnabled = !isDefault
-
+                lifecycleScope.launch {
+                    swDefaultCasa.isChecked = isDefault
+                    swDefaultCasa.alpha = if (isDefault) 0.5f else 1f
+                    delay(300)
+                    swDefaultCasa.visible()
+                }
             }
         }
     }
@@ -121,6 +129,7 @@ class AccountDetailFragment :
                     stateUpdateDefaultAccount.collect {
                         if (!it) {
                             binding.swDefaultCasa.isChecked = false
+                            binding.swDefaultCasa.alpha = 1f
                         }
                     }
                 }
