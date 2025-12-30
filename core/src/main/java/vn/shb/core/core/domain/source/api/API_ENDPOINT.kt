@@ -12,6 +12,7 @@ object ENDPOINT {
     const val ACCOUNT_DETAILS = "account-service/api/v1/accounts/details"
     const val ACCOUNTS_DEFAULT = "account-service/api/v1/accounts/default"
     const val BENEFICIARIES = "account-service/api/v1/beneficiaries"
+    const val BANKS = "mblao/account-service/api/v1/banks"
     const val TRANSACTION = "fundtransfer-service/api/v1/transactions"
 
     const val TRANSFER_ACCOUNT = "account-service/api/v1/accounts/transfer-accounts"

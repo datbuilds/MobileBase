@@ -79,7 +79,7 @@ class TransactionDetailFragment :
                 getString(R.string.referenceNumber),
                 trans.refNo
             )
-            if (!trans.accountName.isBlank()) {
+            if (!trans.accountName.isNullOrBlank()) {
                 iclAccountName.root.visible()
                 iclAccountName.bindView(
                     getString(R.string.accountName),

@@ -19,5 +19,5 @@ val featureModule = module {
         )
     }
     viewModel { ChangePasswordViewModel(get()) }
-    viewModel { BeneficiaryViewModel(get()) }
+    viewModel { BeneficiaryViewModel(get(), get()) }
 }

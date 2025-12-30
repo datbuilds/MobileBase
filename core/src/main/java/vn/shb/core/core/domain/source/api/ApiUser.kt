@@ -19,6 +19,9 @@ interface ApiUser {
     @GET(ENDPOINT.BENEFICIARIES)
     fun getBeneficiaries(): Call<BeneficiaryResponse>
 
+    @GET(ENDPOINT.BANKS)
+    fun getBanks(): Call<vn.shb.core.core.domain.source.response.BankResponse>
+
     @GET(ENDPOINT.USER_INFO)
     fun getUserInfo(): Call<UserInfoResponse>
 

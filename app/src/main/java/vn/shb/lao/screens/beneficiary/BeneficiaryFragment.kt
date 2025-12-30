@@ -28,6 +28,7 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
     override fun initView(view: View) {
         setUpRecyclerview()
         viewModel.getAllBeneficiary()
+        viewModel.getBanks()
     }
 
     private fun setUpRecyclerview() {
@@ -85,6 +86,11 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
                 launch {
                     stateAllBeneficiary.collectLatest {
                         adapter.submitList(it)
+                    }
+                }
+                launch {
+                    stateBanks.collectLatest {
+                        // Handle banks list
                     }
                 }
             }

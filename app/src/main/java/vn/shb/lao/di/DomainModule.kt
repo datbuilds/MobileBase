@@ -17,6 +17,7 @@ import vn.shb.core.core.domain.usecases.transfer.UseCaseValidateTransaction
 import vn.shb.core.core.domain.usecases.wso2.UseCaseGetTokenWso2
 import vn.shb.core.core.domain.usecases.wso2.UseCaseRefreshTokenWso2
 import vn.shb.core.core.domain.usecases.beneficiary.GetBeneficiariesUseCase
+import vn.shb.core.core.domain.usecases.beneficiary.GetBanksUseCase
 
 val domainModule = module {
     // refreshToken
@@ -37,6 +38,7 @@ val domainModule = module {
     factory { UseCaseTransactionDetail(get()) }
     factory { UseCaseValidateTransaction(get()) }
     factory { GetBeneficiariesUseCase(get()) }
+    factory { GetBanksUseCase(get()) }
     factory { UseCaseGetTokenWso2(get()) }
     factory { vn.shb.core.core.domain.usecases.profile.UseCaseChangePassword(get()) }
 }
