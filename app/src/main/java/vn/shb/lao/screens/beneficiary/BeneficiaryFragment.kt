@@ -62,7 +62,7 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
 
     override fun initListener() {
         with(binding) {
-            tvMoneyTransferTitle.setOnSingleClickListener {
+            tvBeneficiaryList.setOnSingleClickListener {
                 backPress()
             }
 
