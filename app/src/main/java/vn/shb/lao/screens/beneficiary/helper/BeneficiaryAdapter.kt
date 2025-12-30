@@ -6,11 +6,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.data.entities.home.beneficiary.BeneficiaryUser
+import vn.shb.data.entities.beneficiary.Beneficiary
 import vn.shb.lao.databinding.ItemBeneficiaryBinding
 
 class BeneficiaryAdapter :
-    ListAdapter<BeneficiaryUser, BeneficiaryAdapter.BeneficiaryVH>(BankAccountDiffCallback()) {
+    ListAdapter<Beneficiary, BeneficiaryAdapter.BeneficiaryVH>(BankAccountDiffCallback()) {
 
     private var actionEditBeneficiary: ActionEditBeneficiary? = null
 
@@ -37,11 +37,11 @@ class BeneficiaryAdapter :
 
     inner class BeneficiaryVH(private val binding: ItemBeneficiaryBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bindItem(item: BeneficiaryUser) {
+        fun bindItem(item: Beneficiary) {
             with(binding) {
-                tvNameUser.text = item.nameUser
-                tvNumber.text = item.accountNumber
-                tvBank.text = item.nameAddressBank
+                tvNameUser.text = item.accountName ?: ""
+                tvNumber.text = item.accountNumber ?: ""
+                tvBank.text = item.bankName ?: ""
 
                 ivEdit.setOnSingleClickListener {
                     actionEditBeneficiary?.edit(item)
@@ -58,9 +58,9 @@ class BeneficiaryAdapter :
         actionEditBeneficiary = action
     }
 
-    private var originalList = listOf<BeneficiaryUser>()
+    private var originalList = listOf<Beneficiary>()
 
-    override fun submitList(list: List<BeneficiaryUser>?) {
+    override fun submitList(list: List<Beneficiary>?) {
         super.submitList(list)
         if (originalList.isEmpty()) {
             originalList = list ?: emptyList()
@@ -75,26 +75,26 @@ class BeneficiaryAdapter :
 
         val query = keyword.lowercase().trim()
         val filtered = originalList.filter {
-            it.nameUser.lowercase().contains(query)
-                    || it.accountNumber.contains(query)
-                    || it.nameAddressBank.lowercase().contains(query)
+            (it.accountName ?: "").lowercase().contains(query)
+                    || (it.accountNumber ?: "").contains(query)
+                    || (it.bankName ?: "").lowercase().contains(query)
         }
 
         submitList(filtered)
     }
 
     companion object {
-        class BankAccountDiffCallback : DiffUtil.ItemCallback<BeneficiaryUser>() {
+        class BankAccountDiffCallback : DiffUtil.ItemCallback<Beneficiary>() {
             override fun areItemsTheSame(
-                oldItem: BeneficiaryUser,
-                newItem: BeneficiaryUser
+                oldItem: Beneficiary,
+                newItem: Beneficiary
             ): Boolean {
                 return oldItem.accountNumber == newItem.accountNumber
             }
 
             override fun areContentsTheSame(
-                oldItem: BeneficiaryUser,
-                newItem: BeneficiaryUser
+                oldItem: Beneficiary,
+                newItem: Beneficiary
             ): Boolean {
                 return oldItem == newItem
             }

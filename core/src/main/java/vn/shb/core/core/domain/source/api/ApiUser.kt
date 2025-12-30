@@ -13,8 +13,12 @@ import vn.shb.core.core.delivery.BaseResponse
 import vn.shb.core.core.domain.source.request.ChangePasswordRequest
 import vn.shb.core.core.domain.source.request.DefaultAccountRequest
 import vn.shb.core.core.domain.source.response.DefaultAccountResponse
+import vn.shb.core.core.domain.source.response.BeneficiaryResponse
 
 interface ApiUser {
+    @GET(ENDPOINT.BENEFICIARIES)
+    fun getBeneficiaries(): Call<BeneficiaryResponse>
+
     @GET(ENDPOINT.USER_INFO)
     fun getUserInfo(): Call<UserInfoResponse>
 

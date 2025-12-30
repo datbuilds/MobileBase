@@ -13,6 +13,8 @@ import vn.shb.core.core.domain.usecases.login.RepositoryAuth
 import vn.shb.core.core.domain.usecases.splash.RepositorySplash
 import vn.shb.core.core.domain.usecases.transfer.RepositoryTransfer
 import vn.shb.core.core.domain.usecases.wso2.RepositoryWSO
+import vn.shb.core.core.domain.usecases.beneficiary.RepositoryBeneficiary
+import vn.shb.core.core.domain.source.repository.RepositoryBeneficiaryImpl
 
 val repositoryModule = module {
     factory<RepositorySplash> {
@@ -24,5 +26,6 @@ val repositoryModule = module {
     factory<RepositoryAuth> { RepositoryAuthImpl(get(), get()) }
     factory<RepositoryUser> { RepositoryUserImpl(get(), get()) }
     factory<RepositoryTransfer> { RepositoryTransferImpl(get(), get()) }
+    factory<RepositoryBeneficiary> { RepositoryBeneficiaryImpl(get()) }
     factory<RepositoryWSO> { RepositoryTokenWsoImpl(get()) }
 }

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.data.entities.home.beneficiary.BeneficiaryUser
+import vn.shb.data.entities.beneficiary.Beneficiary
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentBeneficiaryBinding
@@ -16,15 +16,18 @@ import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.lao.utils.extensions.visible
 import vn.shb.lao.utils.view.dialog.BottomSheetDialogHelper
 
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
 class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
     FragmentBeneficiaryBinding::inflate
 ) {
 
     private val adapter by lazy { BeneficiaryAdapter() }
+    private val viewModel: BeneficiaryViewModel by viewModel()
 
     override fun initView(view: View) {
         setUpRecyclerview()
-        homeViewModel.getAllBeneficiary()
+        viewModel.getAllBeneficiary()
     }
 
     private fun setUpRecyclerview() {
@@ -36,17 +39,17 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
 
         adapter.setListenAction(
             object : ActionEditBeneficiary {
-                override fun edit(item: BeneficiaryUser) {
+                override fun edit(item: Beneficiary) {
                     navToEditBeneficiary()
                     safeNavigate(R.id.beneficiaryFragment, R.id.editBeneficiaryFragment)
                 }
 
-                override fun delete(item: BeneficiaryUser) {
+                override fun delete(item: Beneficiary) {
                     BottomSheetDialogHelper(requireContext()).message(
                         title = getString(R.string.confirmation),
                         message = getString(
                             R.string.doYouWantToDeleteFromBeneficiary,
-                            item.nameUser
+                            item.accountName ?: ""
                         ),
                         textNegative = getString(R.string.cancel),
                         textPositive = getString(R.string.confirm),
@@ -77,7 +80,7 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
     }
 
     override fun initObserve() {
-        with(homeViewModel) {
+        with(viewModel) {
             launchRepeatOnLifecycle {
                 launch {
                     stateAllBeneficiary.collectLatest {

@@ -7,6 +7,8 @@ import vn.shb.lao.screens.login.ui.LoginViewModel
 import vn.shb.lao.screens.profile.ChangePasswordViewModel
 import vn.shb.lao.screens.splash.ui.SplashViewModel
 
+import vn.shb.lao.screens.beneficiary.BeneficiaryViewModel
+
 val featureModule = module {
     viewModel { SplashViewModel(get()) }
     viewModel { LoginViewModel(get(), get(), get(), get()) }
@@ -17,4 +19,5 @@ val featureModule = module {
         )
     }
     viewModel { ChangePasswordViewModel(get()) }
+    viewModel { BeneficiaryViewModel(get()) }
 }

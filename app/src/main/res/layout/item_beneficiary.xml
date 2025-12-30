@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="12dp">
+        android:layout_marginVertical="@dimen/margin_14dp"
+        android:paddingHorizontal="12dp">
 
         <FrameLayout
             android:layout_width="@dimen/margin_48dp"
@@ -53,7 +54,7 @@
                 android:id="@+id/tvNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="6dp"
                 android:textColor="@color/neutral10"
                 android:textSize="@dimen/textSize16"
                 card_view:customFontWeight="medium"
@@ -63,7 +64,7 @@
                 android:id="@+id/tvBank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="6dp"
                 android:textColor="@color/neutral10"
                 android:textSize="@dimen/textSize12"
                 card_view:customFontWeight="medium"
