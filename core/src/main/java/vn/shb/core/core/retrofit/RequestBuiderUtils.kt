@@ -1,5 +1,6 @@
 package vn.shb.core.core.retrofit
 
+import android.util.Log
 import okhttp3.Interceptor
 import okhttp3.Request
 import org.koin.android.BuildConfig
