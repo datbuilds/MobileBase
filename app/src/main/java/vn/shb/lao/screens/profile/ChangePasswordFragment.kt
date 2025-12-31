@@ -35,6 +35,7 @@ class ChangePasswordFragment :
         // Initial state
         checkConfirmButton()
         highlightSpecialChars(binding.tvRuleSpecial)
+        binding.llValidation.visibility = View.GONE
     }
 
     override fun initListener() {
@@ -43,9 +44,10 @@ class ChangePasswordFragment :
                 backPress()
             }
 
-            setupPasswordInput(edtCurrentPassword, tvShowHideCurrent, ivClearCurrent)
+            setupPasswordInput(edtCurrentPassword, tvShowHideCurrent, ivClearCurrent, true)
             setupPasswordInput(edtNewPassword, tvShowHideNew, ivClearNew, true) {
                 validatePassword(it)
+                checkConditionPassVisibility()
             }
             setupPasswordInput(edtReEnterPassword, tvShowHideReEnter, ivClearReEnter, true)
 
@@ -53,7 +55,9 @@ class ChangePasswordFragment :
                 validatePassword(edtNewPassword.textValue())
                 checkConfirmButton()
             }
-            edtReEnterPassword.doAfterTextChanged { checkConfirmButton() }
+            edtReEnterPassword.doAfterTextChanged {
+                checkConfirmButton()
+            }
 
             btnConfirm.setOnSingleClickListener {
                 val currentPass = edtCurrentPassword.textValue()
@@ -93,6 +97,7 @@ class ChangePasswordFragment :
         // Initial state
         editText.transformationMethod =
             android.text.method.PasswordTransformationMethod.getInstance()
+        tvToggle.visibility = View.GONE // Initially hide Show button
 
         if (applyFilter) {
             val currentFilters = editText.filters
@@ -104,6 +109,10 @@ class ChangePasswordFragment :
             // However, InputFilter.LengthFilter is usually automatically added from XML android:maxLength.
             // Let's preserve existing filters.
             editText.filters = newFilters.toTypedArray()
+        }
+
+        editText.setOnFocusChangeListener { _, hasFocus ->
+            tvToggle.visibility = if (hasFocus) View.VISIBLE else View.GONE
         }
 
         tvToggle.setOnSingleClickListener {
@@ -197,8 +206,8 @@ class ChangePasswordFragment :
 
         // 4. No username or real name
         val user = getCurrentUser()
-        val username = user?.username ?: ""
-        val realName = user?.username ?: ""
+        val username = user?.customerId?.trim() ?: ""
+        val realName = user?.username?.trim() ?: ""
 
         // Simple check: password should not contain username or real name (ignoring case)
         val containsUsername =
@@ -227,7 +236,7 @@ class ChangePasswordFragment :
     private fun highlightSpecialChars(textView: MyTextView) {
         val text = textView.text.toString()
         val specialChars = ".~!@#$%^*()_+=|{};<>,/?-"
-        val start = text.indexOf(specialChars.substring(0, 5)) // Match start of special chars
+        val start = text.indexOf(specialChars.take(5)) // Match start of special chars
         if (start != -1) {
             val spannable = android.text.SpannableString(text)
             val end = text.length
@@ -238,6 +247,17 @@ class ChangePasswordFragment :
                 android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
             textView.text = spannable
+        }
+    }
+
+    private fun checkConditionPassVisibility() {
+        with(binding) {
+            val isNewPassInput = edtNewPassword.textValue().isNotEmpty()
+            if (isNewPassInput && llValidation.visibility != View.VISIBLE) {
+                llValidation.visibility = View.VISIBLE
+            } else if (!isNewPassInput && llValidation.isVisible) {
+                llValidation.visibility = View.GONE
+            }
         }
     }
 

@@ -143,7 +143,7 @@
     <string name="enterCode">Enter code</string>
     <string name="remainingTime">Remaining time</string>
     <string name="second">second</string>
-    <string name="errorCode">Errorcode</string>
+    <string name="errorCode" translatable="false">Errorcode</string>
     <string name="to">To</string>
     <string name="SHBAccount">SHB Account</string>
     <string name="transferAccountAndReceivingAccountNotSame">Transfer account and receiving account are not the same currency</string>
@@ -164,7 +164,6 @@
     <string name="changePassword">Change password</string>
     <string name="currentPassword">Current password</string>
     <string name="enterCurrentPassword">Enter current password</string>
-    <string name="systemUptateTransactionStatus">Sorry, the system is currently unable to update the transaction status. Please check your account statement or visit the nearest branch to verify the transaction result.</string>
 
     <string name="new_password">New password</string>
     <string name="enter_new_password">Enter new password</string>
@@ -174,10 +173,10 @@
     <string name="password_rule_username">Does not contain the username or the user\'s real name</string>
     <string name="re_enter_new_password">Re-enter new password</string>
     <string name="hint_re_enter_new_password">Re-enter new password</string>
-    <string name="error_current_password_incorrect">The current password is incorrect, please try again</string>
-    <string name="error_passwords_do_not_match">Passwords do not match</string>
     <string name="change_password_success">Change password successfully</string>
     <string name="change_password_success_message">Please log in again to continue using the application</string>
-    <string name="login_action">Log in</string>
+    <string name="error_current_password_incorrect">The current password is incorrect, please try again</string>
+    <string name="error_passwords_do_not_match">Passwords do not match</string>
     <string name="error_new_and_old_password_same">The new password must not be the same as the old password</string>
+    <string name="systemUptateTransactionStatus">Sorry, the system is currently unable to update the transaction status. Please check your account statement or visit the nearest branch to verify the transaction result.</string>
 </resources>

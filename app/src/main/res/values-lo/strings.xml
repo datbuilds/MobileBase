@@ -131,4 +131,18 @@
     <string name="transactionSuccess">ສຳເລັດການຊຳລະ !</string>
     <string name="errorCode">ລະ​ຫັດ​ບໍ່​ຖືກ​ຕ້ອງ</string>
     <string name="minus">ນາທີ</string>
+    <string name="share">ແບ່ງ​ປັນ</string>
+    <string name="changePassword">ປ່ຽນ​ລະ​ຫັດ​ຜ່ານ</string>
+    <string name="currentPassword">ລະ​ຫັດ​ປະ​ຈຸ​ບັນ</string>
+    <string name="enterCurrentPassword">ປ້ອນ​ລະ​ຫັດ​ຜ່າ​ນ​ປະ​ຈ​ຸ​ບັນ</string>
+    <string name="new_password">ລະ​ຫັດ​ຜ່ານ​ໃໝ່</string>
+    <string name="enter_new_password">ປ້ອນ​ລະ​ຫັດ​ຜ່ານ​ໃໝ່</string>
+    <string name="password_rule_length">ຄວາມ​ຍາວ 6-50 ຕົວ​ອັກ​ສອນ</string>
+    <string name="password_rule_case">ຢ່າງ​ໜ້ອຍ​ຕ້ອງ​ປະ​ກອບ​ມີ​ ຕົວ​ພິມ​ໃຫຍ່ 1 ຕົວ ແລະ ຕົວ​ພິມ​ນ້ອຍ 1 ຕົວ</string>
+    <string name="password_rule_special">ຢ່າງໜ້ອຍ ​ຕ້ອງປະ​ກອບ​ມີ ຕົວ​ເລກ 1 ຕົວ, ຕົວອັກສອນພິເສດ 1 ຕົວ .~!@#$%^*()_+=|{};&lt;&gt;,/?</string>
+    <string name="password_rule_username">ບໍ່​ໃຫ້​ປະ​ກອບມີ​ ຊື່​ user ຫຼື ຊື່​ແທ້​ຂອງ​ຜູ້​ໃຊ້</string>
+    <string name="re_enter_new_password">ປ້ອນ​ລະ​ຫັດ​ຜ່ານ​ໃໝ່​ອີກ​ຄັ້ງ</string>
+    <string name="hint_re_enter_new_password">ປ້ອນ​ລະ​ຫັດ​ຜ່ານ​ໃໝ່​ອີກ​ຄັ້ງ</string>
+    <string name="change_password_success">​ປ່ຽນ​ລະ​ຫັດ​ຜ່ານ​ສຳ​ເລັດ</string>
+    <string name="change_password_success_message">ກະລຸນາເຂົ້າສູ່ລະບົບອີກຄັ້ງເພື່ອສືບຕໍ່ນຳໃຊ້ແອັບພລິເຄຊັນ</string>
 </resources>
