@@ -4,8 +4,8 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class Bank(
-    @SerializedName("bankCode") val bankCode: String? = null,
-    @SerializedName("bankName") val bankName: String? = null,
+    @SerializedName("code") val bankCode: String? = null,
+    @SerializedName("fullName") val bankName: String? = null,
     @SerializedName("shortName") val shortName: String? = null,
     @SerializedName("logo") val logo: String? = null
 ) : Serializable
