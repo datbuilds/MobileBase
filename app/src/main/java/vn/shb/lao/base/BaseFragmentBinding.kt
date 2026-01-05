@@ -1,25 +1,18 @@
 package vn.shb.lao.base
 
-import android.annotation.SuppressLint
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.transition.TransitionManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.view.WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER
 import androidx.annotation.ColorRes
 import androidx.annotation.IdRes
 import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
-import androidx.core.view.WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
@@ -36,11 +29,9 @@ import vn.shb.core.core.retrofit.SafeExecute.Companion.AUTH_006
 import vn.shb.core.core.retrofit.SafeExecute.Companion.HTTP_NOT_FOUND
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import vn.shb.data.entities.login.UserConverters
-import vn.shb.data.entities.login.UserLog
 import vn.shb.lao.R
 import vn.shb.lao.activity.login.LoginActivity
 import vn.shb.lao.screens.home.HomeViewModel
-import vn.shb.lao.screens.login.ui.LoginFragment
 import vn.shb.lao.utils.ApiConst
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.lao.utils.extensions.navigation.safeNavigate
@@ -187,7 +178,7 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         reason: Reason,
         onAction: (() -> Unit)? = null
     ) {
-        if (reason.errorCode == ApiConst.FUN_017  || reason.errorCode == getString(R.string.errorCode)) {
+        if (reason.errorCode == ApiConst.FUN_017 || reason.errorCode == getString(R.string.errorCode)) {
             BottomSheetDialogHelper(requireContext()).messageErrorCode(reason)
             return
         }

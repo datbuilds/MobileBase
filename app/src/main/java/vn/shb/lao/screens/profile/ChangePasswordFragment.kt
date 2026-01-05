@@ -224,9 +224,7 @@ class ChangePasswordFragment :
     private fun updateValidationStatus(textView: MyTextView, isValid: Boolean) {
         val iconColor = if (isValid) R.color.green_500 else R.color.red_600
         val icon = if (isValid) R.drawable.ic_success else R.drawable.ic_error
-        val textColor = if (isValid) R.color.green_500 else R.color.neutral6
 
-        textView.setTextColor(getColor(textColor))
         textView.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0)
         TextViewCompat.setCompoundDrawableTintList(
             textView, ColorStateList.valueOf(getColor(iconColor))
