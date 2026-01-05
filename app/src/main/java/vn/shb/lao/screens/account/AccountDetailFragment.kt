@@ -93,7 +93,8 @@ class AccountDetailFragment :
                 // or ensure listener handles redundant calls.
                 // Or temporarily nullify listener? No, just checking state match is enough.
                 val isDefault = it.accountNumber == defaultAccount
-                swDefaultCasa.isEnabled = !isDefault
+                val isCurrencyValid = accountDetails.currencyCode == "LAK" || accountDetails.currencyCode == "USD"
+                swDefaultCasa.isEnabled = !isDefault && isCurrencyValid
                 lifecycleScope.launch {
                     swDefaultCasa.isChecked = isDefault
                     swDefaultCasa.alpha = if (isDefault) 0.5f else 1f

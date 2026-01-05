@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Looper
 import android.util.Base64
+import android.util.Log
 import androidx.fragment.app.FragmentActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -47,7 +48,7 @@ object RefreshTokenManager {
         currentUseCaseWso2 = useCaseWso2
         updateActivity(activity)
 
-        val refreshIntervalMillis = (storage.getExpireTime()).minus(1) * 60 * 1000L
+        val refreshIntervalMillis = 3 * 60 * 1000L
         println("RFManager333 -> Expire ${storage.getExpireTime()}")
         println("RFManager333 -> Token will be refreshed every ${refreshIntervalMillis / 1000} seconds")
 
@@ -221,12 +222,12 @@ object RefreshTokenManager {
         println("RFManager -> activity updated: ${activity?.javaClass?.simpleName}")
 
         val storage = currentStorage
-        if (storage != null && storage.isTokenInvalid() && activity != null && !isErrorShowing) {
+        if (storage != null && storage.isTokenInvalid() && storage.isTokenInvalidWso2() && activity != null && !isErrorShowing) {
             println("RFManager -> Token is invalid, showing error dialog")
             showErrorDialog(activity, storage)
         } else {
             println(
-                "RFManager -> Skipping error dialog: " + "storage=${storage != null}, " + "tokenInvalid=${storage?.isTokenInvalid()}, " + "activity=${activity != null}, " + "dialogShowing=$isErrorShowing"
+                "RFManager -> Skipping error dialog: " + "storage=${storage != null}, " + "tokenInvalid=${storage?.isTokenInvalid()}, "  + "tokenInvalidWso2=${storage?.isTokenInvalidWso2()}, "+ "activity=${activity != null}, " + "dialogShowing=$isErrorShowing"
             )
         }
     }

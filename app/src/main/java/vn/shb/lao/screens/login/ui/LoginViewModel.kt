@@ -3,6 +3,7 @@ package vn.shb.lao.screens.login.ui
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.core.net.toUri
 import androidx.lifecycle.viewModelScope
