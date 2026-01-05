@@ -2,7 +2,10 @@ package vn.shb.lao.screens.beneficiary
 
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import vn.shb.core.core.delivery.onFailure
 import vn.shb.core.core.delivery.onSuccess
@@ -21,20 +24,34 @@ class BeneficiaryViewModel(
     private val useCaseDeleteBeneficiary: DeleteBeneficiaryUseCase
 ) : BaseViewModel() {
 
-    private val _stateAllBeneficiary = MutableStateFlow<List<Beneficiary>>(emptyList())
-    val stateAllBeneficiary = _stateAllBeneficiary.asStateFlow()
+    private val _localBeneficiaries = MutableStateFlow<List<Beneficiary>>(emptyList())
 
     private val _stateBanks = MutableStateFlow<List<Bank>>(emptyList())
     val stateBanks = _stateBanks.asStateFlow()
+
+    val stateAllBeneficiary = combine(_localBeneficiaries, _stateBanks) { beneficiaries, banks ->
+        if (banks.isEmpty() || beneficiaries.isEmpty()) {
+            beneficiaries
+        } else {
+            beneficiaries.map { beneficiary ->
+                val bank = banks.find { it.bankCode == beneficiary.bankCode }
+                if (bank != null) {
+                    beneficiary.copy(bankName = bank.bankName)
+                } else {
+                    beneficiary
+                }
+            }
+        }
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     fun getAllBeneficiary() {
         viewModelScope.launch {
             useCaseGetBeneficiaries.invoke(None).collect { result ->
                 result.onSuccess { list ->
-                    _stateAllBeneficiary.value = list
+                    _localBeneficiaries.value = list
                 }
                 result.onFailure {
-                    _stateAllBeneficiary.value = arrayListOf()
+                    _localBeneficiaries.value = arrayListOf()
                 }
             }
         }

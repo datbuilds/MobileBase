@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.beneficiary.Beneficiary
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentEditBeneficiaryBinding
@@ -19,9 +20,22 @@ class EditBeneficiaryFragment : BaseFragmentBinding<FragmentEditBeneficiaryBindi
     }
 
     private val isEdit by lazy { arguments?.getInt(ApiConst.KEY_TO_EDIT_BENEFICIARY) == EDIT }
+    private val beneficiary by lazy {
+        arguments?.getParcelable(ApiConst.KEY_BENEFICIARY_DATA) as? Beneficiary
+    }
 
     override fun initView(view: View) {
         initTitle()
+        if (isEdit) {
+            beneficiary?.let { data ->
+                with(binding) {
+                    iclAccountNumber.edtValue.setText(data.accountNumber)
+                    iclAccountName.edtValue.setText(data.accountName)
+                    iclDefaultRemarks.edtValue.setText(data.defaultTransactionDescription)
+                    iclBank.edtValue.setText(data.bankName ?: data.bankCode)
+                }
+            }
+        }
     }
 
     override fun initListener() {

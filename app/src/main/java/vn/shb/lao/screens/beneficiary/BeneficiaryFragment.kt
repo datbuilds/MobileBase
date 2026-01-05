@@ -44,7 +44,10 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
                 override fun edit(item: Beneficiary) {
                     navToEditBeneficiary()
                     safeNavigate(R.id.beneficiaryFragment, R.id.editBeneficiaryFragment
-                    , bundleOf(ApiConst.KEY_TO_EDIT_BENEFICIARY to EditBeneficiaryFragment.EDIT))
+                    , bundleOf(
+                        ApiConst.KEY_TO_EDIT_BENEFICIARY to EditBeneficiaryFragment.EDIT,
+                        ApiConst.KEY_BENEFICIARY_DATA to item
+                    ))
                 }
 
                 override fun delete(item: Beneficiary) {

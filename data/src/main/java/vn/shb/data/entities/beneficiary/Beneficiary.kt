@@ -1,8 +1,10 @@
 package vn.shb.data.entities.beneficiary
 
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
+import kotlinx.parcelize.Parcelize
+import android.os.Parcelable
 
+@Parcelize
 data class Beneficiary(
     @SerializedName("id") val id: Int? = null,
     @SerializedName("customerId") val customerId: String? = null,
@@ -20,4 +22,4 @@ data class Beneficiary(
     @SerializedName("lastChange") val lastChange: String? = null,
     @SerializedName("payCodeLbl") val payCodeLbl: String? = null,
     @SerializedName("payCodeLblEn") val payCodeLblEn: String? = null
-) : Serializable
+) : Parcelable

@@ -2,6 +2,7 @@ plugins {
     id(Plugins.SHB_APP)
     id(Plugins.ANDROID_KOTLIN)
     id(Plugins.ANDROID_LIBRARY)
+    id("kotlin-parcelize")
     kotlin(Plugins.KOTLIN_KAPT)
 }
 
