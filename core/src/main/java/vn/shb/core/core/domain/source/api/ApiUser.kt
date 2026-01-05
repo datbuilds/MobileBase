@@ -2,7 +2,10 @@ package vn.shb.core.core.domain.source.api
 
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.DELETE
+import retrofit2.http.Path
 import retrofit2.http.Query
+import vn.shb.core.core.delivery.ActionDone
 import vn.shb.core.core.domain.source.response.AccountDetailsResponse
 import vn.shb.core.core.domain.source.response.AccountsInfoResponse
 import vn.shb.core.core.domain.source.response.TransactionResponse
@@ -18,6 +21,10 @@ import vn.shb.core.core.domain.source.response.BeneficiaryResponse
 interface ApiUser {
     @GET(ENDPOINT.BENEFICIARIES)
     fun getBeneficiaries(): Call<BeneficiaryResponse>
+
+    @DELETE(ENDPOINT.BENEFICIARIES + "/{id}")
+    fun deleteBeneficiary(@Path("id") id: String): Call<vn.shb.core.core.delivery.EmptyResponse>
+
 
     @GET(ENDPOINT.BANKS)
     fun getBanks(): Call<vn.shb.core.core.domain.source.response.BankResponse>

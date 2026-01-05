@@ -13,4 +13,8 @@ class ServiceBeneficiary(private val api: ApiUser) : SafeExecute() {
     }
 
     suspend fun getBanks() = execute { api.getBanks().awaitResponse() }
+
+    suspend fun deleteBeneficiary(id: String): ResultSHB<vn.shb.core.core.delivery.EmptyResponse> = execute {
+        api.deleteBeneficiary(id).awaitResponse()
+    }
 }

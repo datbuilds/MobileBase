@@ -1,10 +1,12 @@
 package vn.shb.lao.screens.beneficiary
 
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.beneficiary.Beneficiary
 import vn.shb.lao.R
@@ -12,11 +14,10 @@ import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentBeneficiaryBinding
 import vn.shb.lao.screens.beneficiary.helper.ActionEditBeneficiary
 import vn.shb.lao.screens.beneficiary.helper.BeneficiaryAdapter
+import vn.shb.lao.utils.ApiConst
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.lao.utils.extensions.visible
 import vn.shb.lao.utils.view.dialog.BottomSheetDialogHelper
-
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
     FragmentBeneficiaryBinding::inflate
@@ -42,7 +43,8 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
             object : ActionEditBeneficiary {
                 override fun edit(item: Beneficiary) {
                     navToEditBeneficiary()
-                    safeNavigate(R.id.beneficiaryFragment, R.id.editBeneficiaryFragment)
+                    safeNavigate(R.id.beneficiaryFragment, R.id.editBeneficiaryFragment
+                    , bundleOf(ApiConst.KEY_TO_EDIT_BENEFICIARY to EditBeneficiaryFragment.EDIT))
                 }
 
                 override fun delete(item: Beneficiary) {
@@ -55,7 +57,7 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
                         textNegative = getString(R.string.cancel),
                         textPositive = getString(R.string.confirm),
                         positiveAction = {
-                            showToastSuccess(getString(R.string.beneficiaryDeletedSuccessfully))
+                            viewModel.deleteBeneficiary(item)
                         }
                     )
                 }
@@ -93,12 +95,23 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
                         // Handle banks list
                     }
                 }
+                launch {
+                    stateDelete.collectLatest {
+                        if (it == true) {
+                            showToastSuccess(getString(R.string.beneficiaryDeletedSuccessfully))
+                        }
+                    }
+                }
             }
         }
     }
 
-    private fun navToEditBeneficiary(){
-        safeNavigate(R.id.beneficiaryFragment, R.id.editBeneficiaryFragment)
+    private fun navToEditBeneficiary() {
+        safeNavigate(
+            R.id.beneficiaryFragment,
+            R.id.editBeneficiaryFragment,
+            bundleOf(ApiConst.KEY_TO_EDIT_BENEFICIARY to EditBeneficiaryFragment.ADD_NEW)
+        )
     }
 
     fun showToastSuccess(text: String, isSuccess: Boolean = true) {

@@ -9,10 +9,16 @@ import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentEditBeneficiaryBinding
+import vn.shb.lao.utils.ApiConst
 
 class EditBeneficiaryFragment : BaseFragmentBinding<FragmentEditBeneficiaryBinding>(FragmentEditBeneficiaryBinding::inflate) {
 
+    companion object {
+        const val ADD_NEW = 0
+        const val EDIT = 1
+    }
 
+    private val isEdit by lazy { arguments?.getInt(ApiConst.KEY_TO_EDIT_BENEFICIARY) == EDIT }
 
     override fun initView(view: View) {
         initTitle()
@@ -37,6 +43,7 @@ class EditBeneficiaryFragment : BaseFragmentBinding<FragmentEditBeneficiaryBindi
         }
     }
     private fun initTitle() {
+
         with(binding){
             iclAccountNumber.tvTitle.text = getString(R.string.accountNumber)
             iclBank.tvTitle.text = getString(R.string.bank)

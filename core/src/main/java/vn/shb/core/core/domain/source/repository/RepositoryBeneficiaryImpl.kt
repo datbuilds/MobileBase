@@ -1,7 +1,9 @@
 package vn.shb.core.core.domain.source.repository
 
+import vn.shb.core.core.delivery.ActionDone
 import vn.shb.core.core.delivery.ResultSHB
 import vn.shb.core.core.delivery.reason.AppReason
+import vn.shb.core.core.delivery.toResultDataAction
 import vn.shb.core.core.domain.source.response.BeneficiaryResponse
 import vn.shb.core.core.domain.source.service.ServiceBeneficiary
 import vn.shb.core.core.domain.usecases.beneficiary.RepositoryBeneficiary
@@ -20,6 +22,10 @@ class RepositoryBeneficiaryImpl(
 
     override suspend fun getBanks(): ResultSHB<List<Bank>> {
         return resultGetBanks(service.getBanks())
+    }
+
+    override suspend fun deleteBeneficiary(id: String): ResultSHB<ActionDone> {
+        return service.deleteBeneficiary(id).toResultDataAction()
     }
 
     private fun resultGetBanks(result: ResultSHB<BankResponse>): ResultSHB<List<Bank>> {

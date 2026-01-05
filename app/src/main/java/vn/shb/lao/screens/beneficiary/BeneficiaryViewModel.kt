@@ -11,12 +11,14 @@ import vn.shb.core.core.domain.usecases.beneficiary.GetBeneficiariesUseCase
 import vn.shb.data.entities.beneficiary.Beneficiary
 import vn.shb.lao.base.BaseViewModel
 
+import vn.shb.core.core.domain.usecases.beneficiary.DeleteBeneficiaryUseCase
 import vn.shb.core.core.domain.usecases.beneficiary.GetBanksUseCase
 import vn.shb.data.entities.beneficiary.Bank
 
 class BeneficiaryViewModel(
     private val useCaseGetBeneficiaries: GetBeneficiariesUseCase,
-    private val useCaseGetBanks: GetBanksUseCase
+    private val useCaseGetBanks: GetBanksUseCase,
+    private val useCaseDeleteBeneficiary: DeleteBeneficiaryUseCase
 ) : BaseViewModel() {
 
     private val _stateAllBeneficiary = MutableStateFlow<List<Beneficiary>>(emptyList())
@@ -46,6 +48,27 @@ class BeneficiaryViewModel(
                 }
                 result.onFailure {
                     // Handle failure
+                }
+            }
+        }
+    }
+
+    private val _stateDelete = MutableStateFlow<Boolean?>(null)
+    val stateDelete = _stateDelete.asStateFlow()
+
+    fun deleteBeneficiary(beneficiary: Beneficiary) {
+        viewModelScope.launch {
+//            showLoading(true)
+            useCaseDeleteBeneficiary.invoke(DeleteBeneficiaryUseCase.Params(beneficiary.id.toString())).collect { result ->
+//                showLoading(false)
+                result.onSuccess {
+                    _stateDelete.value = true
+                    // Refresh list or remove item locally
+                    getAllBeneficiary()
+                }
+                result.onFailure {
+                    _stateDelete.value = false
+                    // Handle failure if needed, baseViewModel might handle error toast if configured, but here we just update state
                 }
             }
         }
