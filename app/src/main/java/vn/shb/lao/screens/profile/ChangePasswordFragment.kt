@@ -199,7 +199,7 @@ class ChangePasswordFragment :
 
         // 3. Numeric and Special
         val hasDigit = password.any { it.isDigit() }
-        val specialChars = ".~!@#$%^*()_+=|{};<>,/?"
+        val specialChars = ".~!@#\$%^&*()_+={}|:;<>,/?-\""
         val hasSpecial = password.any { specialChars.contains(it) }
         isValidSpecial = hasDigit && hasSpecial
         updateValidationStatus(binding.tvRuleSpecial, isValidSpecial)
