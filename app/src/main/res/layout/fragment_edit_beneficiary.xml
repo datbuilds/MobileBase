@@ -37,28 +37,28 @@
 
         <include
             android:id="@+id/iclBank"
-            layout="@layout/item_transfer_type"
+            layout="@layout/item_edit_beneficiary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_20dp" />
 
         <include
             android:id="@+id/iclAccountNumber"
-            layout="@layout/item_transfer_type"
+            layout="@layout/item_edit_beneficiary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_20dp" />
 
         <include
             android:id="@+id/iclAccountName"
-            layout="@layout/item_transfer_type"
+            layout="@layout/item_edit_beneficiary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_20dp" />
 
         <include
             android:id="@+id/iclDefaultRemarks"
-            layout="@layout/item_transfer_type"
+            layout="@layout/item_edit_beneficiary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_20dp" />

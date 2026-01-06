@@ -31,7 +31,7 @@ class EditBeneficiaryFragment : BaseFragmentBinding<FragmentEditBeneficiaryBindi
                 with(binding) {
                     iclAccountNumber.edtValue.setText(data.accountNumber)
                     iclAccountName.edtValue.setText(data.accountName)
-                    iclDefaultRemarks.edtValue.setText(data.defaultTransactionDescription)
+                    iclDefaultRemarks.edtValue.setText(data.remark)
                     iclBank.edtValue.setText(data.bankName ?: data.bankCode)
                 }
             }
@@ -62,7 +62,7 @@ class EditBeneficiaryFragment : BaseFragmentBinding<FragmentEditBeneficiaryBindi
             iclAccountNumber.tvTitle.text = getString(R.string.accountNumber)
             iclBank.tvTitle.text = getString(R.string.bank)
             iclAccountName.tvTitle.text = getString(R.string.accountName)
-            iclDefaultRemarks.tvTitle.text = getString(R.string.defaultRemarks)
+            iclDefaultRemarks.tvTitle.text = getString(R.string.remarks)
         }
     }
 

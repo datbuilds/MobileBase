@@ -42,7 +42,6 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
         adapter.setListenAction(
             object : ActionEditBeneficiary {
                 override fun edit(item: Beneficiary) {
-                    navToEditBeneficiary()
                     safeNavigate(R.id.beneficiaryFragment, R.id.editBeneficiaryFragment
                     , bundleOf(
                         ApiConst.KEY_TO_EDIT_BENEFICIARY to EditBeneficiaryFragment.EDIT,
