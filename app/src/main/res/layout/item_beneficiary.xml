@@ -26,6 +26,7 @@
             android:background="@drawable/bg_logo_app">
 
             <ImageView
+                android:id="@+id/ivLogoBank"
                 android:layout_width="@dimen/margin_28dp"
                 android:layout_height="@dimen/margin_28dp"
                 android:layout_gravity="center"

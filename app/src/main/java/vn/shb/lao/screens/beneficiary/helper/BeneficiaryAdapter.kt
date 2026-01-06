@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.beneficiary.Beneficiary
 import vn.shb.lao.databinding.ItemBeneficiaryBinding
+import vn.shb.lao.utils.BankType
 
 class BeneficiaryAdapter :
     ListAdapter<Beneficiary, BeneficiaryAdapter.BeneficiaryVH>(BankAccountDiffCallback()) {
@@ -42,6 +43,7 @@ class BeneficiaryAdapter :
                 tvNameUser.text = item.accountName ?: ""
                 tvNumber.text = item.accountNumber ?: ""
                 tvBank.text = item.bankName ?: ""
+                ivLogoBank.setImageResource(BankType.getIconByCode(item.bankCode))
 
                 ivEdit.setOnSingleClickListener {
                     actionEditBeneficiary?.edit(item)
