@@ -138,7 +138,7 @@
     <string name="enter_new_password">Nhập mật khẩu mới</string>
     <string name="password_rule_length">Có độ dài từ 6-50 ký tự</string>
     <string name="password_rule_case">Gồm ít nhất 1 ký tự viết thường, 1 ký tự viết hoa</string>
-    <string name="password_rule_special">Gồm ít nhất 1 ký tự số, 1 ký tự đặc biệt .~!@#$%^*()_+=|{};&lt;&gt;,/?</string>
+    <string name="password_rule_special">Gồm ít nhất 1 ký tự số, 1 ký tự đặc biệt .~!@#$\%^&amp;*()_+={}|:;&lt;&gt;,/?-</string>
     <string name="password_rule_username">Không chứa tên đăng nhập hoặc tên người dùng</string>
     <string name="re_enter_new_password">Nhập lại mật khẩu mới</string>
     <string name="hint_re_enter_new_password">Nhập lại mật khẩu mới</string>
