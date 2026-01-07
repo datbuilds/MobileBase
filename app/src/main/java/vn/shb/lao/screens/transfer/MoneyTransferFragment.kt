@@ -24,11 +24,16 @@ import vn.shb.lao.utils.extensions.DateTimeHelper.Companion.getDateFromCurrentDa
 import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.gone
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import vn.shb.lao.screens.beneficiary.BeneficiaryViewModel
+import vn.shb.data.entities.beneficiary.Beneficiary
 import vn.shb.lao.utils.extensions.visible
 
 class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     FragmentMoneyTransferBinding::inflate
 ) {
+    private val beneficiaryViewModel: BeneficiaryViewModel by viewModel()
+    private var listBeneficiary: List<Beneficiary> = listOf()
     var currentTypeTransfer: String = INTRABANK
 
     private var fromAccount: AccountBase? = null
@@ -56,6 +61,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         bindView()
         updateViewTypeTransfer()
         resetStateTransfer()
+        beneficiaryViewModel.getAllBeneficiary()
+        beneficiaryViewModel.getBanks()
     }
 
     override fun onResume() {
@@ -101,6 +108,13 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                             R.id.moneyTransferFragment, R.id.confirmationFragment,
                             bundleOf(ApiConst.KEY_TYPE_TRANSFER_INTRABANK to isIntrabank())
                         )
+                    }
+                }
+            }
+            with(beneficiaryViewModel) {
+                launch {
+                    stateAllBeneficiary.collect { list ->
+                        listBeneficiary = list
                     }
                 }
             }
@@ -196,8 +210,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     }
 
     private fun showListBeneficiary() {
-        DialogSelectBeneficiary.Build(listOf()) { selectedAccount ->
-            bindViewReceiverAccount(selectedAccount)
+        DialogSelectBeneficiary.Build(listBeneficiary) { selectedAccount ->
+            homeViewModel.getAccountByNumber(selectedAccount.accountNumber ?: "")
         }.build().show(childFragmentManager, DialogSelectAccount.TAG)
     }
 
