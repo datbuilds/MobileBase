@@ -2,6 +2,7 @@ package vn.shb.lao.screens.transfer
 
 import android.view.View
 import androidx.core.content.ContextCompat
+import vn.shb.lao.screens.transaction.DialogSetNickname
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import vn.shb.core.core.delivery.Reason
@@ -26,8 +27,13 @@ import vn.shb.lao.utils.extensions.cacheBitmap
 import vn.shb.lao.utils.extensions.shareImage
 import vn.shb.lao.utils.extensions.CACHE_IMAGE_FILE_NAME
 
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import vn.shb.lao.screens.beneficiary.BeneficiaryViewModel
+
 class PaymentTransferFragment :
     BaseFragmentBinding<FragmentTransactionDetailBinding>(FragmentTransactionDetailBinding::inflate) {
+
+    private val beneficiaryViewModel: BeneficiaryViewModel by viewModel()
 
     private val accountNo by lazy {
         arguments?.getString(ApiConst.KEY_ACCOUNT_NO_TRANSACTION)
@@ -129,6 +135,11 @@ class PaymentTransferFragment :
             } else {
                 iclAccountName.root.gone()
             }
+            
+            // Show save recipient logic
+             if (trans.benAccount?.isNotEmpty() == true) {
+                 (rlSaveRecipient as View).visible()
+             }
         }
     }
 
@@ -145,6 +156,21 @@ class PaymentTransferFragment :
 
             tvShare.setOnSingleClickListener {
                 cutImageTransferDetails()
+            }
+            
+            (rlSaveRecipient as View).setOnSingleClickListener {
+                 DialogSetNickname { nickname ->
+                     if (accountNo != null) {
+                         val accountName = homeViewModel.confirmModel?.toAccount?.customerName ?: ""
+                         val request = vn.shb.core.core.domain.source.request.BeneficiaryRequest(
+                             accountNumber = accountNo!!,
+                             accountName = accountName,
+                             remark = nickname,
+                             bankCode = null
+                         )
+                         beneficiaryViewModel.createBeneficiary(request)
+                     }
+                 }.show(childFragmentManager, DialogSetNickname.TAG)
             }
         }
     }
@@ -194,6 +220,27 @@ class PaymentTransferFragment :
                     }
                 }
             }
+        }
+
+        
+        with(beneficiaryViewModel) {
+             launchRepeatOnLifecycle {
+                 launch {
+                     stateAction.collectLatest { success ->
+                         if (success == true) {
+                             vn.shb.lao.utils.view.dialog.BottomSheetDialogHelper(requireContext()).message(
+                                 title = getString(R.string.notification),
+                                 message = getString(R.string.newBeneficiaryAddedSuccessfully),
+                                 textPositive = getString(R.string.close)
+                             )
+                             (binding.rlSaveRecipient as View).gone()
+                             beneficiaryViewModel.resetActionState()
+                         } else if (success == false) {
+                              beneficiaryViewModel.resetActionState() 
+                         }
+                     }
+                 }
+             }
         }
     }
 

@@ -195,4 +195,10 @@
     <string name="error_enter_account_number">Please enter the account number</string>
     <string name="error_enter_account_name">Please enter the account name</string>
     <string name="error_enter_remark">Please enter a remark</string>
+    <string name="save_recipient">Save recipient</string>
+    <string name="set_nickname">Set nickname</string>
+    <string name="ask_set_nickname">Would you like to set a nickname for this recipient?</string>
+    <string name="enter_nickname">Enter nickname</string>
+    <string name="error_enter_nickname">Please enter the name</string>
+    <string name="error_invalid_nickname">The name is invalid</string>
 </resources>
