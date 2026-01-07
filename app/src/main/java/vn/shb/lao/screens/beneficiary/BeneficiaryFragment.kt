@@ -18,6 +18,8 @@ import vn.shb.lao.utils.ApiConst
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.lao.utils.extensions.visible
 import vn.shb.lao.utils.view.dialog.BottomSheetDialogHelper
+import androidx.fragment.app.setFragmentResultListener
+import vn.shb.lao.utils.extensions.setLatinAlphanumericFilter
 
 class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
     FragmentBeneficiaryBinding::inflate
@@ -77,9 +79,22 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
             tvAddNew.setOnSingleClickListener {
                 navToEditBeneficiary()
             }
-
+            
+            edtSearchBeneficiary.setLatinAlphanumericFilter(50)
             edtSearchBeneficiary.addTextChangedListener { text ->
                 adapter.filter(text.toString())
+            }
+
+            ivClose.setOnSingleClickListener {
+                llToastStatus.animate().cancel()
+                llToastStatus.visibility = View.GONE
+            }
+
+            setFragmentResultListener(ApiConst.KEY_RESULT_BENEFICIARY) { requestKey, bundle ->
+                val message = bundle.getString(ApiConst.KEY_MESSAGE)
+                if (!message.isNullOrEmpty()) {
+                    showToastSuccess(message)
+                }
             }
         }
     }

@@ -14,6 +14,9 @@ import vn.shb.core.core.domain.usecases.beneficiary.GetBeneficiariesUseCase
 import vn.shb.data.entities.beneficiary.Beneficiary
 import vn.shb.lao.base.BaseViewModel
 
+import vn.shb.core.core.domain.usecases.beneficiary.CreateBeneficiaryUseCase
+import vn.shb.core.core.domain.usecases.beneficiary.UpdateBeneficiaryUseCase
+import vn.shb.core.core.domain.source.request.BeneficiaryRequest
 import vn.shb.core.core.domain.usecases.beneficiary.DeleteBeneficiaryUseCase
 import vn.shb.core.core.domain.usecases.beneficiary.GetBanksUseCase
 import vn.shb.data.entities.beneficiary.Bank
@@ -21,7 +24,9 @@ import vn.shb.data.entities.beneficiary.Bank
 class BeneficiaryViewModel(
     private val useCaseGetBeneficiaries: GetBeneficiariesUseCase,
     private val useCaseGetBanks: GetBanksUseCase,
-    private val useCaseDeleteBeneficiary: DeleteBeneficiaryUseCase
+    private val useCaseDeleteBeneficiary: DeleteBeneficiaryUseCase,
+    private val useCaseCreateBeneficiary: CreateBeneficiaryUseCase,
+    private val useCaseUpdateBeneficiary: UpdateBeneficiaryUseCase
 ) : BaseViewModel() {
 
     private val _localBeneficiaries = MutableStateFlow<List<Beneficiary>>(emptyList())
@@ -86,6 +91,47 @@ class BeneficiaryViewModel(
                 result.onFailure {
                     _stateDelete.value = false
                     // Handle failure if needed, baseViewModel might handle error toast if configured, but here we just update state
+                }
+            }
+        }
+    }
+
+    private val _stateAction = MutableStateFlow<Boolean?>(null)
+    val stateAction = _stateAction.asStateFlow()
+    
+    fun resetActionState() {
+        _stateAction.value = null
+    }
+
+    fun createBeneficiary(request: BeneficiaryRequest) {
+        viewModelScope.launch {
+//            showLoading(true)
+            useCaseCreateBeneficiary.invoke(request).collect { result ->
+//                showLoading(false)
+                result.onSuccess {
+                    _stateAction.value = true
+                    getAllBeneficiary()
+                }
+                result.onFailure {
+                    _stateAction.value = false
+//                    handleError(it)
+                }
+            }
+        }
+    }
+
+    fun updateBeneficiary(id: String, request: BeneficiaryRequest) {
+        viewModelScope.launch {
+//            showLoading(true)
+            useCaseUpdateBeneficiary.invoke(UpdateBeneficiaryUseCase.Params(id, request)).collect { result ->
+//                showLoading(false)
+                result.onSuccess {
+                    _stateAction.value = true
+                    getAllBeneficiary()
+                }
+                result.onFailure {
+                    _stateAction.value = false
+//                    handleError(it)
                 }
             }
         }

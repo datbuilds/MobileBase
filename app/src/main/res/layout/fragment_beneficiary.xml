@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="@dimen/margin_16dp"
+            android:layout_marginTop="@dimen/margin_20dp"
             android:background="@drawable/bg_search_beneficiary_w"
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/margin_12dp"
@@ -83,6 +83,7 @@
         android:orientation="horizontal"
         android:paddingHorizontal="@dimen/margin_8dp"
         android:visibility="gone"
+        tools:visibility="gone"
         android:paddingVertical="@dimen/margin_8dp"
         app:layout_constraintTop_toTopOf="@+id/llBody">
 

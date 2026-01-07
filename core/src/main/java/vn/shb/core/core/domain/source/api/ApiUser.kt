@@ -22,6 +22,12 @@ interface ApiUser {
     @GET(ENDPOINT.BENEFICIARIES)
     fun getBeneficiaries(): Call<BeneficiaryResponse>
 
+    @retrofit2.http.POST(ENDPOINT.BENEFICIARIES)
+    fun createBeneficiary(@Body request: vn.shb.core.core.domain.source.request.BeneficiaryRequest): Call<vn.shb.core.core.domain.source.response.BeneficiaryResponse>
+
+    @PUT(ENDPOINT.BENEFICIARIES + "/{id}")
+    fun updateBeneficiary(@Path("id") id: String, @Body request: vn.shb.core.core.domain.source.request.BeneficiaryRequest): Call<vn.shb.core.core.domain.source.response.BeneficiaryResponse>
+
     @DELETE(ENDPOINT.BENEFICIARIES + "/{id}")
     fun deleteBeneficiary(@Path("id") id: String): Call<vn.shb.core.core.delivery.EmptyResponse>
 

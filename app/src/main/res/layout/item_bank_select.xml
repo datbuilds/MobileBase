@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/margin_16dp"
+    tools:background="@drawable/bg_selected_account">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="@dimen/margin_30dp"
+        android:layout_height="@dimen/margin_30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/ic_bank_bcel" />
+
+    <vn.shb.lao.base.view.MyTextView
+        android:id="@+id/tvBankCode"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_12dp"
+        android:layout_marginEnd="@dimen/margin_8dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/neutral10"
+        android:textSize="@dimen/textSize14"
+        app:customFontWeight="semi_bold"
+        app:layout_constraintEnd_toStartOf="@+id/ivCheck"
+        app:layout_constraintStart_toEndOf="@+id/ivLogo"
+        app:layout_constraintBottom_toTopOf="@+id/tvBankName"
+        app:layout_constraintTop_toTopOf="@+id/ivLogo"
+        tools:text="BCEL" />
+
+    <vn.shb.lao.base.view.MyTextView
+        android:id="@+id/tvBankName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_12dp"
+        android:layout_marginEnd="@dimen/margin_8dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/neutral10"
+        android:textSize="@dimen/textSize12"
+        android:includeFontPadding="true"
+        android:layout_marginTop="2dp"
+        app:customFontWeight="regular"
+        app:layout_constraintEnd_toStartOf="@+id/ivCheck"
+        app:layout_constraintStart_toEndOf="@+id/ivLogo"
+        app:layout_constraintTop_toBottomOf="@+id/tvBankCode"
+        tools:text="BANQUE POUR LE COMMERCE EXTERIEUR LAO PUBLIC" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_select_account_v"
+        tools:visibility="visible" />
+
+    <View
+        android:id="@+id/viewDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_12dp"
+        android:background="#E8E8E8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/ivLogo"
+        app:layout_constraintTop_toBottomOf="@+id/tvBankName" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

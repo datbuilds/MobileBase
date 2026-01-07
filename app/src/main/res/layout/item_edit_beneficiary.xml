@@ -27,10 +27,11 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivLogo"
-            android:layout_width="@dimen/margin_30dp"
-            android:layout_height="@dimen/margin_30dp"
+            android:layout_width="@dimen/margin_32dp"
+            android:layout_height="@dimen/margin_32dp"
             android:layout_gravity="center"
             android:visibility="gone"
+            android:layout_marginVertical="@dimen/margin_8dp"
             tools:visibility="visible"
             tools:srcCompat="@drawable/ic_bank_acle" />
 
@@ -42,7 +43,7 @@
             android:imeOptions="actionDone"
             android:includeFontPadding="false"
             android:layout_marginStart="@dimen/margin_8dp"
-            android:paddingVertical="@dimen/margin_12dp"
+            android:paddingVertical="@dimen/margin_13dp"
             android:textColor="@color/neutral10"
             android:textColorHint="@color/neutral6"
             android:textSize="@dimen/textSize14"
@@ -52,31 +53,14 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivExpandDown"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="end|center_vertical"
-            android:padding="@dimen/margin_4dp"
+            tools:visibility="visible"
+            android:paddingHorizontal="@dimen/margin_8dp"
             android:visibility="gone"
             android:tint="@color/neutral10"
             app:srcCompat="@drawable/ic_arrow_down" />
 
-        <View
-            android:id="@+id/viewLine"
-            android:layout_width="1dp"
-            android:visibility="gone"
-            android:layout_height="match_parent"
-            android:layout_marginVertical="@dimen/margin_12dp"
-            android:background="@color/colorLineGray" />
-
-        <vn.shb.lao.base.view.MyTextView
-            android:id="@+id/tvCurrentCode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_12dp"
-            android:textColor="@color/neutral8"
-            android:textSize="@dimen/textSize14"
-            android:visibility="gone"
-            app:customFontWeight="medium"
-            tools:text="LAK" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <vn.shb.lao.base.view.MyTextView

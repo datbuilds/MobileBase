@@ -187,4 +187,8 @@
     <string name="beneficiaryList">Beneficiary list</string>
     <string name="enterRecipientNameOrAccountNumber">Enter recipient name or account number</string>
     <string name="systemUptateTransactionStatus">Sorry, the system is currently unable to update the transaction status. Please check your account statement or visit the nearest branch to verify the transaction result.</string>
+    <string name="enterBankName">Enter bank name</string>
+    <string name="newBeneficiaryAddedSuccessfully">New beneficiary added successfully</string>
+    <string name="beneficiaryUpdatedSuccessfully">Beneficiary updated successfully</string>
+    <string name="addNewBeneficiary">Add new beneficiary</string>
 </resources>

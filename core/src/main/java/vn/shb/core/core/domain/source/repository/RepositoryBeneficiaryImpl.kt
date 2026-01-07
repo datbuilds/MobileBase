@@ -28,6 +28,14 @@ class RepositoryBeneficiaryImpl(
         return service.deleteBeneficiary(id).toResultDataAction()
     }
 
+    override suspend fun createBeneficiary(request: vn.shb.core.core.domain.source.request.BeneficiaryRequest): ResultSHB<BeneficiaryResponse> {
+        return service.createBeneficiary(request)
+    }
+
+    override suspend fun updateBeneficiary(id: String, request: vn.shb.core.core.domain.source.request.BeneficiaryRequest): ResultSHB<BeneficiaryResponse> {
+        return service.updateBeneficiary(id, request)
+    }
+
     private fun resultGetBanks(result: ResultSHB<BankResponse>): ResultSHB<List<Bank>> {
         return when (result) {
             is ResultSHB.Success -> {
