@@ -55,11 +55,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
             android:padding="@dimen/margin_4dp"
+            android:visibility="gone"
+            android:tint="@color/neutral10"
             app:srcCompat="@drawable/ic_arrow_down" />
 
         <View
             android:id="@+id/viewLine"
             android:layout_width="1dp"
+            android:visibility="gone"
             android:layout_height="match_parent"
             android:layout_marginVertical="@dimen/margin_12dp"
             android:background="@color/colorLineGray" />
@@ -71,6 +74,7 @@
             android:layout_marginStart="@dimen/margin_12dp"
             android:textColor="@color/neutral8"
             android:textSize="@dimen/textSize14"
+            android:visibility="gone"
             app:customFontWeight="medium"
             tools:text="LAK" />
     </androidx.appcompat.widget.LinearLayoutCompat>
