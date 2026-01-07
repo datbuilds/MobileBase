@@ -191,4 +191,8 @@
     <string name="newBeneficiaryAddedSuccessfully">New beneficiary added successfully</string>
     <string name="beneficiaryUpdatedSuccessfully">Beneficiary updated successfully</string>
     <string name="addNewBeneficiary">Add new beneficiary</string>
+    <string name="error_select_bank">Please select the bank</string>
+    <string name="error_enter_account_number">Please enter the account number</string>
+    <string name="error_enter_account_name">Please enter the account name</string>
+    <string name="error_enter_remark">Please enter a remark</string>
 </resources>

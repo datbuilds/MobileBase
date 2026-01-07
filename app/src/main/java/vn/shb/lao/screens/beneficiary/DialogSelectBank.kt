@@ -20,6 +20,7 @@ class DialogSelectBank(private val listBank: List<Bank>) :
     BaseBottomDialogBinding<DialogSelectBankBinding>(DialogSelectBankBinding::inflate) {
 
     private var onAction: ((Bank) -> Unit)? = null
+    private var onDismiss: (() -> Unit)? = null
     private var selectedBank: Bank? = null
     private var adapter: SelectBankAdapter? = null
     private var filteredList = listBank
@@ -31,17 +32,24 @@ class DialogSelectBank(private val listBank: List<Bank>) :
     class Build(
         val list: List<Bank>,
         val currentBank: Bank? = null,
-        val action: (Bank) -> Unit
+        val action: (Bank) -> Unit,
+        val actionDismiss: (() -> Unit)? = null
     ) {
         fun build() = DialogSelectBank(list).apply {
             selectedBank = currentBank
             onAction = action
+            this.onDismiss = actionDismiss
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.BottomDialog_Rounded)
+    }
+
+    override fun onDismiss(dialog: android.content.DialogInterface) {
+        super.onDismiss(dialog)
+        onDismiss?.invoke()
     }
 
     override fun onStart() {
