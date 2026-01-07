@@ -18,6 +18,7 @@ class UseCaseGetTokenWso2(
         val grant_type: String,
         val username: String,
         val password: String,
+        val scope: String,
     )
 
     data class InputParams(

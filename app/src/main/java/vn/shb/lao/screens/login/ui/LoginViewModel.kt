@@ -89,7 +89,8 @@ class LoginViewModel(
                     BuildConfig.AUTHORIZATION, UseCaseGetTokenWso2.Params(
                         grant_type = BuildConfig.GRANT_TYPE,
                         username = BuildConfig.USERNAME,
-                        password = BuildConfig.PASSWORD
+                        password = BuildConfig.PASSWORD,
+                        scope = BuildConfig.SCOPE,
                     )
                 )
                 useCaseGetTokenWso2(paramsWso2).collect { result ->

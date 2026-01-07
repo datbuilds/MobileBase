@@ -82,6 +82,11 @@ android {
                     "PASSWORD",
                     "\"${localProperties.getProperty("uat_password")}\""
                 )
+                buildConfigField(
+                    "String",
+                    "SCOPE",
+                    "\"${localProperties.getProperty("uat_scope")}\""
+                )
             }
             ,
 
@@ -108,6 +113,7 @@ android {
                 buildConfigField("String", "GRANT_TYPE", "\"${localProperties.getProperty("grant_type")}\"")
                 buildConfigField("String", "USERNAME", "\"${localProperties.getProperty("username")}\"")
                 buildConfigField("String", "PASSWORD", "\"${localProperties.getProperty("password")}\"")
+                buildConfigField("String", "SCOPE", "\"${localProperties.getProperty("scope")}\"")
             }
         )
     }
