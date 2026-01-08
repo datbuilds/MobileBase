@@ -20,7 +20,8 @@ enum class BankType(val code: String, val iconRes: Int) {
     SACOM("SACOM", R.drawable.ic_bank_sacom),
     STB("STB", R.drawable.ic_bank_stb),
     VMB("VMB", R.drawable.ic_bank_mb),
-    VTB("VTB", R.drawable.ic_bank_vtb);
+    VTB("VTB", R.drawable.ic_bank_vtb),
+    SHB("SHB", R.mipmap.ic_launcher);
 
     companion object {
         fun getIconByCode(code: String?): Int {

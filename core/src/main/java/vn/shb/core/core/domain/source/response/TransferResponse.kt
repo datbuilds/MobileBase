@@ -39,6 +39,7 @@ data class AccountUserNameModel(
     @SerializedName("currency") val currency : String = "",
     @SerializedName("productCode") val productCode : String = "",
     @SerializedName("productDescription") val productDescription : String = "",
+    var accountNumber : String = "",
 )
 
 

@@ -32,7 +32,6 @@ import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionTransfer
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionTransferConfirm
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransferAccount
 import vn.shb.core.core.domain.usecases.transfer.UseCaseValidateTransaction
-import vn.shb.core.core.domain.usecases.wso2.UseCaseGetTokenWso2
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import vn.shb.data.entities.AccountBase
 import vn.shb.data.entities.home.AccountDetails
@@ -40,7 +39,6 @@ import vn.shb.data.entities.home.AccountInfo
 import vn.shb.data.entities.home.TransactionDetail
 import vn.shb.data.entities.home.TransactionItem
 import vn.shb.data.entities.home.UserInfo
-import vn.shb.data.entities.beneficiary.Beneficiary
 import vn.shb.data.entities.login.UserConverters
 import vn.shb.data.entities.transfer.ConfirmationModel
 import vn.shb.data.entities.transfer.TransferAccount
@@ -153,7 +151,7 @@ class HomeViewModel(
         _stateLoading.emit(isLoading)
     }
 
-    fun getUserInfo(isFetchUser : Boolean = false) {
+    fun getUserInfo(isFetchUser: Boolean = false) {
         viewModelScope.launch {
             useCaseUserInfo.invoke(None).collect { result ->
                 result.onSuccess { (userInfo, accountData) ->
@@ -164,7 +162,7 @@ class HomeViewModel(
                         storage.setUserLog(UserConverters.userInfoToString(this))
                     }
                     _stateUserInfo.value = userInfo
-                    if (isFetchUser){
+                    if (isFetchUser) {
                         _stateFetchUser.send(userInfo)
                     }
                     listAccount = accountData.array
@@ -218,7 +216,9 @@ class HomeViewModel(
             val params = UseCaseAccountDetails.Params(accountNumber)
             useCaseAccountDetails.invoke(params).collect { result ->
                 result.onSuccess { accountDetailsData ->
-                    _stateAccountDetails.send(accountDetailsData.array.firstOrNull() ?: AccountDetails())
+                    _stateAccountDetails.send(
+                        accountDetailsData.array.firstOrNull() ?: AccountDetails()
+                    )
                 }
                 result.onFailure { error ->
                     stateError(error)
@@ -443,7 +443,9 @@ class HomeViewModel(
                         handleErrorFillAccountNumber(error)
                     }, successBlock = { accountUserName ->
                         viewModelScope.launch {
-                            _stateAccountByNumber.emit(accountUserName)
+                            _stateAccountByNumber.emit(accountUserName.apply {
+                                this.accountNumber = accountNumber
+                            })
                         }
                     })
                 }
@@ -528,10 +530,10 @@ class HomeViewModel(
     }
 
 
-
     fun setDefaultAccount(accountNo: String) {
         viewModelScope.launch {
-            val params = vn.shb.core.core.domain.usecases.home.UseCaseSetDefaultAccount.Params(accountNo)
+            val params =
+                vn.shb.core.core.domain.usecases.home.UseCaseSetDefaultAccount.Params(accountNo)
             useCaseSetDefaultAccount.invoke(params).collect { result ->
                 result.onResultHandle(
                     successBlock = {

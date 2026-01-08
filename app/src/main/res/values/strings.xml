@@ -201,4 +201,5 @@
     <string name="enter_nickname">Enter nickname</string>
     <string name="error_enter_nickname">Please enter the name</string>
     <string name="error_invalid_nickname">The name is invalid</string>
+    <string name="successfullySetNickname">Successfully set nickname</string>
 </resources>

@@ -1,12 +1,15 @@
 package vn.shb.lao.screens.beneficiary
 
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import vn.shb.core.core.delivery.Reason
 import vn.shb.core.core.delivery.onFailure
 import vn.shb.core.core.delivery.onSuccess
 import vn.shb.core.core.domain.usecases.None
@@ -33,6 +36,15 @@ class BeneficiaryViewModel(
 
     private val _stateBanks = MutableStateFlow<List<Bank>>(emptyList())
     val stateBanks = _stateBanks.asStateFlow()
+
+    private val _stateDelete = MutableStateFlow<Boolean?>(null)
+    val stateDelete = _stateDelete.asStateFlow()
+
+    private val _stateAction = MutableStateFlow<Boolean?>(null)
+    val stateAction = _stateAction.asStateFlow()
+
+    private val _stateError = Channel<Reason>(Channel.BUFFERED)
+    val stateError = _stateError.receiveAsFlow()
 
     val stateAllBeneficiary = combine(_localBeneficiaries, _stateBanks) { beneficiaries, banks ->
         if (banks.isEmpty() || beneficiaries.isEmpty()) {
@@ -75,9 +87,6 @@ class BeneficiaryViewModel(
         }
     }
 
-    private val _stateDelete = MutableStateFlow<Boolean?>(null)
-    val stateDelete = _stateDelete.asStateFlow()
-
     fun deleteBeneficiary(beneficiary: Beneficiary) {
         viewModelScope.launch {
 //            showLoading(true)
@@ -95,26 +104,24 @@ class BeneficiaryViewModel(
             }
         }
     }
-
-    private val _stateAction = MutableStateFlow<Boolean?>(null)
-    val stateAction = _stateAction.asStateFlow()
     
     fun resetActionState() {
         _stateAction.value = null
     }
 
-    fun createBeneficiary(request: BeneficiaryRequest) {
+    fun createBeneficiary(request: BeneficiaryRequest, isRefresh: Boolean = true) {
         viewModelScope.launch {
 //            showLoading(true)
             useCaseCreateBeneficiary.invoke(request).collect { result ->
 //                showLoading(false)
                 result.onSuccess {
                     _stateAction.value = true
-                    getAllBeneficiary()
+                    if (isRefresh){
+                        getAllBeneficiary()
+                    }
                 }
                 result.onFailure {
-                    _stateAction.value = false
-//                    handleError(it)
+                    _stateError.send(it)
                 }
             }
         }

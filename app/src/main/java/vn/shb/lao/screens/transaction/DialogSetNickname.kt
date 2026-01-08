@@ -1,38 +1,42 @@
 package vn.shb.lao.screens.transaction
 
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
+import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseBottomDialogBinding
 import vn.shb.lao.databinding.DialogSetNicknameBinding
 import vn.shb.lao.utils.extensions.setLatinAlphanumericFilter
-import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.lao.utils.extensions.visible
-import vn.shb.lao.utils.extensions.gone
 
 class DialogSetNickname(
-    private val includeNickname : (String) -> Unit
+    private val defaultNickname: String = "",
+    private val includeNickname: (String) -> Unit
 ) : BaseBottomDialogBinding<DialogSetNicknameBinding>(DialogSetNicknameBinding::inflate) {
 
     override fun initView(view: View) {
+        if (defaultNickname.isNotEmpty()) {
+            binding.edtNickname.setText(defaultNickname)
+        }
+
         // Validation logic
         binding.edtNickname.doAfterTextChanged {
             val text = it.toString().trim()
-            if (text.isNotEmpty()) {
-                binding.tvError.gone()
-                binding.btnConfirm.isEnabled = true
-                binding.btnConfirm.setBackgroundResource(R.drawable.bg_button_enable)
-            } else {
-                binding.btnConfirm.isEnabled = false
-                binding.btnConfirm.setBackgroundResource(R.drawable.bg_button_disable)
-            }
+            binding.tvError.isVisible = text.isBlank()
+            setEnableButton(text.isNotEmpty())
         }
-        
-        // Initial state disable
-        binding.btnConfirm.isEnabled = false
-        
+
+        // Initial state disable if empty, enable if defaultNickname is set
+        setEnableButton(defaultNickname.isNotEmpty())
+
         // Input Filter
         binding.edtNickname.setLatinAlphanumericFilter(50)
+    }
+
+    private fun setEnableButton(enable: Boolean) {
+        binding.btnConfirm.isEnabled = enable
+        binding.btnConfirm.setBackgroundResource(if (enable) R.drawable.bg_button_enable else R.drawable.bg_button_disable)
     }
 
     override fun initListener() {

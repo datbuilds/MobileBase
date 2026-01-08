@@ -6,16 +6,19 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import vn.shb.core.core.domain.source.response.AccountUserNameModel
 import vn.shb.core.core.domain.usecases.transfer.UseCaseValidateTransaction
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.AccountBase
+import vn.shb.data.entities.beneficiary.Beneficiary
 import vn.shb.data.entities.home.AccountInfo
 import vn.shb.data.entities.transfer.ConfirmationModel
 import vn.shb.data.entities.transfer.TransferAccount
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentMoneyTransferBinding
+import vn.shb.lao.screens.beneficiary.BeneficiaryViewModel
 import vn.shb.lao.screens.home.DialogSelectAccount
 import vn.shb.lao.screens.home.DialogSelectBeneficiary
 import vn.shb.lao.screens.home.getTypeAccount
@@ -24,9 +27,6 @@ import vn.shb.lao.utils.extensions.DateTimeHelper.Companion.getDateFromCurrentDa
 import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.gone
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import vn.shb.lao.screens.beneficiary.BeneficiaryViewModel
-import vn.shb.data.entities.beneficiary.Beneficiary
 import vn.shb.lao.utils.extensions.visible
 
 class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
@@ -114,7 +114,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             with(beneficiaryViewModel) {
                 launch {
                     stateAllBeneficiary.collect { list ->
-                        listBeneficiary = list
+                        listBeneficiary = list.filter { it.bankCode == "SHB" }
                     }
                 }
             }
@@ -156,20 +156,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             }
 
             finishTyping(iclToAccount.edtValue, isIntrabank()) {
-                val textAccountNo = iclToAccount.edtValue.text.toString()
-                when {
-                    textAccountNo.isEmpty() -> {
-                        errorAccountNumber(getString(R.string.pleaseEnterTheAccountNumber))
-                    }
-
-                    textAccountNo == fromAccount?.accountNumber -> {
-                        errorAccountNumber(getString(R.string.invalidBeneficiaryAccount))
-                    }
-
-                    else -> {
-                        homeViewModel.getAccountByNumber(iclToAccount.edtValue.text.toString())
-                    }
-                }
+                validateToAccount()
             }
 
             iclToAccount.ivExpandDown.setOnSingleClickListener {
@@ -203,6 +190,25 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         }
     }
 
+    fun validateToAccount(account: String? = null) {
+        with(binding) {
+            val textAccountNo = account ?: iclToAccount.edtValue.text.toString()
+            when {
+                textAccountNo.isEmpty() -> {
+                    errorAccountNumber(getString(R.string.pleaseEnterTheAccountNumber))
+                }
+
+                textAccountNo == fromAccount?.accountNumber -> {
+                    errorAccountNumber(getString(R.string.invalidBeneficiaryAccount))
+                }
+
+                else -> {
+                    homeViewModel.getAccountByNumber(iclToAccount.edtValue.text.toString())
+                }
+            }
+        }
+    }
+
     private fun checkAmountValidate() {
         val text = binding.iclAmount.edtValue.text.toString().trim()
         checkBalanceInvalid(text)
@@ -211,6 +217,12 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 
     private fun showListBeneficiary() {
         DialogSelectBeneficiary.Build(listBeneficiary) { selectedAccount ->
+            with(binding.iclToAccount.edtValue) {
+                if (this.text.toString() != selectedAccount.accountNumber) {
+                    this.setText(selectedAccount.accountNumber)
+                    validateToAccount(selectedAccount.accountNumber)
+                }
+            }
             homeViewModel.getAccountByNumber(selectedAccount.accountNumber ?: "")
         }.build().show(childFragmentManager, DialogSelectAccount.TAG)
     }
@@ -434,7 +446,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                     isLongClickable = isIntrabank()
                 }
 
-                edtValue.filters = arrayOf(InputFilter.LengthFilter(if (isIntrabank()) 10 else 1000000))
+                edtValue.filters =
+                    arrayOf(InputFilter.LengthFilter(if (isIntrabank()) 10 else 1000000))
             }
             iclAmount.edtValue.setText(Const.EMPTY)
             iclFee.root.gone()

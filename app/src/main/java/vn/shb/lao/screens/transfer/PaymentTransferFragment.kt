@@ -2,11 +2,11 @@ package vn.shb.lao.screens.transfer
 
 import android.view.View
 import androidx.core.content.ContextCompat
-import vn.shb.lao.screens.transaction.DialogSetNickname
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import vn.shb.core.core.delivery.Reason
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import vn.shb.core.core.delivery.reason.AppReason
+import vn.shb.core.core.domain.source.request.BeneficiaryRequest
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionDetail
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.getBalance
@@ -15,20 +15,19 @@ import vn.shb.lao.R
 import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.ChildViewTransactionInfoBinding
 import vn.shb.lao.databinding.FragmentTransactionDetailBinding
+import vn.shb.lao.screens.beneficiary.BeneficiaryViewModel
+import vn.shb.lao.screens.transaction.DialogSetNickname
 import vn.shb.lao.utils.ApiConst
+import vn.shb.lao.utils.extensions.CACHE_IMAGE_FILE_NAME
 import vn.shb.lao.utils.extensions.DateTimeHelper
+import vn.shb.lao.utils.extensions.cacheBitmap
 import vn.shb.lao.utils.extensions.common.Const
 import vn.shb.lao.utils.extensions.gone
-import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
-import vn.shb.lao.utils.extensions.visible
 import vn.shb.lao.utils.extensions.invisible
-import vn.shb.lao.utils.extensions.toBitmap
-import vn.shb.lao.utils.extensions.cacheBitmap
+import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.lao.utils.extensions.shareImage
-import vn.shb.lao.utils.extensions.CACHE_IMAGE_FILE_NAME
-
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import vn.shb.lao.screens.beneficiary.BeneficiaryViewModel
+import vn.shb.lao.utils.extensions.toBitmap
+import vn.shb.lao.utils.extensions.visible
 
 class PaymentTransferFragment :
     BaseFragmentBinding<FragmentTransactionDetailBinding>(FragmentTransactionDetailBinding::inflate) {
@@ -135,11 +134,11 @@ class PaymentTransferFragment :
             } else {
                 iclAccountName.root.gone()
             }
-            
+
             // Show save recipient logic
-             if (trans.benAccount?.isNotEmpty() == true) {
-                 (rlSaveRecipient as View).visible()
-             }
+            if (trans.benAccount?.isNotEmpty() == true) {
+                (rlSaveRecipient as View).visible()
+            }
         }
     }
 
@@ -150,6 +149,11 @@ class PaymentTransferFragment :
                 popBackTo(R.id.homeFragment)
             }
 
+            ivCloseToast.setOnSingleClickListener {
+                llToastStatus.animate().cancel()
+                llToastStatus.visibility = View.GONE
+            }
+
             tvCreateNewTransaction.setOnSingleClickListener {
                 popBackTo(R.id.moneyTransferFragment)
             }
@@ -157,20 +161,21 @@ class PaymentTransferFragment :
             tvShare.setOnSingleClickListener {
                 cutImageTransferDetails()
             }
-            
-            (rlSaveRecipient as View).setOnSingleClickListener {
-                 DialogSetNickname { nickname ->
-                     if (accountNo != null) {
-                         val accountName = homeViewModel.confirmModel?.toAccount?.customerName ?: ""
-                         val request = vn.shb.core.core.domain.source.request.BeneficiaryRequest(
-                             accountNumber = accountNo!!,
-                             accountName = accountName,
-                             remark = nickname,
-                             bankCode = null
-                         )
-                         beneficiaryViewModel.createBeneficiary(request)
-                     }
-                 }.show(childFragmentManager, DialogSetNickname.TAG)
+
+            rlSaveRecipient.setOnSingleClickListener {
+                val toAccount = homeViewModel.confirmModel?.toAccount
+                DialogSetNickname(toAccount?.customerName ?: "") { nickname ->
+                    if (accountNo != null) {
+                        val request = BeneficiaryRequest(
+                            accountNumber = toAccount?.accountNumber ?: "",
+                            accountName = nickname,
+                            remark = nickname.plus(Const.SEPARATOR_SPACE).plus(getString(R.string.transferCAP)),
+                            bankCode = "SHB"
+                        )
+                        beneficiaryViewModel.createBeneficiary(request, false)
+                        binding.rlSaveRecipient.gone()
+                    }
+                }.show(childFragmentManager, DialogSetNickname.TAG)
             }
         }
     }
@@ -222,25 +227,56 @@ class PaymentTransferFragment :
             }
         }
 
-        
+
         with(beneficiaryViewModel) {
-             launchRepeatOnLifecycle {
-                 launch {
-                     stateAction.collectLatest { success ->
-                         if (success == true) {
-                             vn.shb.lao.utils.view.dialog.BottomSheetDialogHelper(requireContext()).message(
-                                 title = getString(R.string.notification),
-                                 message = getString(R.string.newBeneficiaryAddedSuccessfully),
-                                 textPositive = getString(R.string.close)
-                             )
-                             (binding.rlSaveRecipient as View).gone()
-                             beneficiaryViewModel.resetActionState()
-                         } else if (success == false) {
-                              beneficiaryViewModel.resetActionState() 
-                         }
-                     }
-                 }
-             }
+            launchRepeatOnLifecycle {
+                launch {
+                    stateAction.collectLatest { success ->
+                        if (success == true) {
+                            showToastSuccess(getString(R.string.successfullySetNickname), true)
+                            beneficiaryViewModel.resetActionState()
+                        } else if (success == false) {
+                            beneficiaryViewModel.resetActionState()
+                        }
+                    }
+                }
+
+                stateError.collect {
+                    handleErrorHome(it)
+                }
+            }
+        }
+    }
+
+    fun showToastSuccess(text: String, isSuccess: Boolean = true) {
+        with(binding) {
+            launchRepeatOnLifecycle {
+                tvToastMessage.text = text
+                llToastStatus.setBackgroundResource(if (isSuccess) R.drawable.bg_toast_change_avatar_ss else R.drawable.bg_toast_change_avatar_error)
+                tvToastMessage.setCompoundDrawablesWithIntrinsicBounds(
+                    if (isSuccess) R.drawable.ic_success else R.drawable.ic_error,
+                    0,
+                    0,
+                    0
+                )
+                llToastStatus.visible()
+                llToastStatus.animate()
+                    .alpha(1f)
+                    .setDuration(200)
+                    .withEndAction {
+                        llToastStatus.postDelayed({
+                            llToastStatus.animate()
+                                .alpha(0f)
+                                .setDuration(300)
+                                .withEndAction {
+                                    llToastStatus.visibility = View.GONE
+                                    llToastStatus.alpha = 1f
+                                }
+                                .start()
+                        }, 3000)
+                    }
+                    .start()
+            }
         }
     }
 

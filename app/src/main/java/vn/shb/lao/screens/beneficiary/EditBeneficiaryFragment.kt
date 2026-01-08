@@ -5,6 +5,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.setFragmentResult
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import vn.shb.core.core.domain.source.request.BeneficiaryRequest
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.beneficiary.Bank
 import vn.shb.data.entities.beneficiary.Beneficiary
@@ -160,7 +161,7 @@ class EditBeneficiaryFragment :
                 if (isEdit) {
                     // Update
                     beneficiary?.let { data ->
-                        val request = vn.shb.core.core.domain.source.request.BeneficiaryRequest(
+                        val request = BeneficiaryRequest(
                             accountNumber = accountNumber,
                             accountName = accountName,
                             remark = remark,
@@ -174,7 +175,7 @@ class EditBeneficiaryFragment :
                         selectedBank?.bankCode // selectedBank might be null if pre-filled manually? No, add mode relies on selection.
                     // Wait, if I type in iclBank? It's disabled. 
 
-                    val request = vn.shb.core.core.domain.source.request.BeneficiaryRequest(
+                    val request = BeneficiaryRequest(
                         accountNumber = accountNumber,
                         accountName = accountName,
                         remark = remark,
