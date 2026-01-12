@@ -82,7 +82,9 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
                 navToEditBeneficiary()
             }
             
-            edtSearchBeneficiary.setLatinAlphanumericFilter(50)
+            edtSearchBeneficiary.filters = arrayOf(
+                android.text.InputFilter.LengthFilter(50)
+            )
             edtSearchBeneficiary.addTextChangedListener { text ->
                 adapter.filter(text.toString())
             }
