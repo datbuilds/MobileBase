@@ -40,7 +40,7 @@ fun createNetworkModule(
             HeaderInterceptor(
                 versionName = get(qualifier = named(VERSION_NAME)),
                 storage = get(),
-                BuildConfig.FLAVOR == "pro"
+                false
             )
         }
 
@@ -54,7 +54,7 @@ fun createNetworkModule(
             HeaderAuthenticationInterceptor(
                 versionName = get(qualifier = named(VERSION_NAME)),
                 storage = get(),
-                BuildConfig.FLAVOR == "pro"
+                false
             )
         }
 
