@@ -2,6 +2,7 @@ package vn.shb.lao.screens.transfer
 
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -136,7 +137,7 @@ class PaymentTransferFragment :
             }
 
             // Show save recipient logic
-            if (trans.benAccount?.isNotEmpty() == true) {
+            if (trans.benAccount?.isNotEmpty() == true && isIntrabank) {
                 (rlSaveRecipient as View).visible()
             }
         }
@@ -241,7 +242,7 @@ class PaymentTransferFragment :
                     }
                 }
 
-                stateError.collect {
+                stateError.collectLatest {
                     handleErrorHome(it)
                 }
             }

@@ -19,6 +19,8 @@ import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.lao.utils.extensions.visible
 import vn.shb.lao.utils.view.dialog.BottomSheetDialogHelper
 import androidx.fragment.app.setFragmentResultListener
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.delay
 import vn.shb.lao.utils.extensions.setLatinAlphanumericFilter
 
 class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
@@ -105,6 +107,10 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
                 launch {
                     stateAllBeneficiary.collectLatest {
                         adapter.submitList(it)
+                        lifecycleScope.launch {
+                            delay(200)
+                            binding.rcvBeneficiary.smoothScrollToPosition(0)
+                        }
                     }
                 }
                 launch {

@@ -204,4 +204,5 @@
     <string name="successfullySetNickname">Successfully set nickname</string>
     <string name="noLabel">No</string>
     <string name="yesLabel">Yes</string>
+    <string name="theNameIsInvaid">The name is invalid</string>
 </resources>

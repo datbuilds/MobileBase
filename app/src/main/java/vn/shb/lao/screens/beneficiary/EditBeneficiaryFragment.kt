@@ -3,6 +3,7 @@ package vn.shb.lao.screens.beneficiary
 import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.setFragmentResult
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import vn.shb.core.core.domain.source.request.BeneficiaryRequest
@@ -315,7 +316,12 @@ class EditBeneficiaryFragment :
                         backPress()
                     }
                 }
+            }
 
+            launch {
+                viewModel.stateError.collectLatest {
+                    handleErrorHome(it)
+                }
             }
         }
     }
