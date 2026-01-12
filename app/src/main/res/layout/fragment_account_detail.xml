@@ -160,10 +160,23 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_weight="0"
-                android:visibility="invisible"
                 android:thumb="@drawable/selector_switch_thumb"
+                android:visibility="invisible"
                 app:track="@drawable/selector_switch_track" />
         </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <vn.shb.lao.base.view.MyTextView
+            android:id="@+id/tvNoteAccountDefault"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_note_default_account"
+            android:padding="@dimen/margin_8dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:text="@string/noteDefaultAccount"
+            android:textColor="@color/neutral300"
+            app:customFontWeight="medium"
+            app:layout_constraintTop_toBottomOf="@+id/llDefaultCasa" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

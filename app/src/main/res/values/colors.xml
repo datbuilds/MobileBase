@@ -143,4 +143,6 @@
 
     //change pass
     <color name="blueSpecial">#009EE0</color>
+    <color name="green5">#73D13D</color>
+    <color name="neutral300">#A6A6A6</color>
 </resources>

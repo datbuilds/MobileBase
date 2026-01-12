@@ -179,4 +179,5 @@
     <string name="error_passwords_do_not_match">Passwords do not match</string>
     <string name="error_new_and_old_password_same">The new password must not be the same as the old password</string>
     <string name="systemUptateTransactionStatus">Sorry, the system is currently unable to update the transaction status. Please check your account statement or visit the nearest branch to verify the transaction result.</string>
+    <string name="noteDefaultAccount">Tài khoản mặc định sẽ hiển thị khi bạn đăng nhập lại</string>
 </resources>

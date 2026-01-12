@@ -95,9 +95,11 @@ class AccountDetailFragment :
                 val isDefault = it.accountNumber == defaultAccount
                 val isCurrencyValid = accountDetails.currencyCode == "LAK" || accountDetails.currencyCode == "USD"
                 swDefaultCasa.isEnabled = !isDefault && isCurrencyValid
+                val alphaSw = if(!isCurrencyValid) 0.5f else 1f
+                tvNoteAccountDefault.isVisible = isDefault
                 lifecycleScope.launch {
                     swDefaultCasa.isChecked = isDefault
-                    swDefaultCasa.alpha = if (isDefault) 0.5f else 1f
+                    swDefaultCasa.alpha = if (isDefault) 0.5f else alphaSw
                     delay(300)
                     swDefaultCasa.visible()
                 }

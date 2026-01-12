@@ -141,13 +141,13 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
             }
 
             tvCurrentAccount.setOnSingleClickListener {
-                DialogSelectAccount.Build(
-                    homeViewModel.getListAccount(),
-                    homeViewModel.selectedAccount
-                ) { ac ->
-                    homeViewModel.selectedAccount = ac
-                    bindViewAccount(ac)
-                }.build().show(childFragmentManager, DialogSelectAccount.TAG)
+//                DialogSelectAccount.Build(
+//                    homeViewModel.getListAccount(),
+//                    homeViewModel.selectedAccount
+//                ) { ac ->
+//                    homeViewModel.selectedAccount = ac
+//                    bindViewAccount(ac)
+//                }.build().show(childFragmentManager, DialogSelectAccount.TAG)
             }
 
             ivEyeSeeValue.setOnSingleClickListener {
