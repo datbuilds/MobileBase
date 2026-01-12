@@ -58,8 +58,8 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
                             R.string.doYouWantToDeleteFromBeneficiary,
                             item.accountName ?: ""
                         ),
-                        textNegative = getString(R.string.cancel),
-                        textPositive = getString(R.string.confirm),
+                        textNegative = getString(R.string.noLabel),
+                        textPositive = getString(R.string.yesLabel),
                         positiveAction = {
                             viewModel.deleteBeneficiary(item)
                         }

@@ -67,7 +67,7 @@
     <string name="profilePictureUpdated">Profile picture updated successfully</string>
     <string name="accountDetails">Account details</string>
     <string name="availableBalance">Available balance</string>
-    <string name="accountNumber">Account number</string>
+    <string name="accountNumber">Account Number</string>
     <string name="branch">Branch</string>
     <string name="transactionHistory">Transaction history</string>
     <string name="viewAll">View all</string>
@@ -202,4 +202,6 @@
     <string name="error_enter_nickname">Please enter the name</string>
     <string name="error_invalid_nickname">The name is invalid</string>
     <string name="successfullySetNickname">Successfully set nickname</string>
+    <string name="noLabel">No</string>
+    <string name="yesLabel">Yes</string>
 </resources>
