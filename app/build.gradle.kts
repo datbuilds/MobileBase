@@ -34,7 +34,7 @@ android {
                 buildConfigField(
                     "String",
                     "WSO_URL",
-                    "\"https://t-apigw-la.shb.com.vn/\""
+                    "\"https://ibanking.shb.la/\""
                 )
                 buildConfigField(
                     "String",
