@@ -21,6 +21,14 @@ enum class BankType(val code: String, val iconRes: Int) {
     STB("STB", R.drawable.ic_bank_stb),
     VMB("VMB", R.drawable.ic_bank_mb),
     VTB("VTB", R.drawable.ic_bank_vtb),
+    // New banks
+    LCNB("LCNB", R.drawable.ic_bank_lcnb),
+    UMONEY_MB("Umoney.MB", R.drawable.ic_bank_mb),
+    MMONEY_JDB("Mmoney.JDB", R.drawable.ic_bank_jdb),
+    VCBLAO("VCBLAO", R.drawable.ic_bank_vcb_lao),
+    LBB("LBB", R.drawable.ic_bank_lbb),
+    PBLL("PBLL", R.drawable.ic_bank_pbll),
+    SHB("SHB", R.drawable.ic_bank_shb);
 
     companion object {
         fun getIconByCode(code: String?): Int {

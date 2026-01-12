@@ -113,7 +113,7 @@ class EditBeneficiaryFragment :
                         currentBank = selectedBank,
                         action = { bank ->
                             selectedBank = bank
-                            iclBank.edtValue.setText(bank.bankName ?: bank.bankCode)
+                            iclBank.edtValue.setText(bank.shortName ?: bank.bankCode)
                             iclBank.ivLogo.visibility = View.VISIBLE
                             iclBank.ivLogo.setImageResource(BankType.getIconByCode(bank.bankCode))
 
