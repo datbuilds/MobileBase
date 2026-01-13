@@ -357,7 +357,7 @@ class HomeViewModel(
     }
 
     fun listenChangeFromAccount(account: AccountBase) {
-        selectedAccount = account
+//        selectedAccount = account
         listReceiverActive = listReceiverAccount.filter { it.currencyCode == account.currencyCode }
         _stateReceiverAccount.value = listReceiverActive
     }
@@ -547,7 +547,7 @@ class HomeViewModel(
 
     fun setDefaultAccount(accountNo: String) {
         viewModelScope.launch {
-            val params = vn.shb.core.core.domain.usecases.home.UseCaseSetDefaultAccount.Params(accountNo)
+            val params = UseCaseSetDefaultAccount.Params(accountNo)
             useCaseSetDefaultAccount.invoke(params).collect { result ->
                 result.onResultHandle(
                     successBlock = {

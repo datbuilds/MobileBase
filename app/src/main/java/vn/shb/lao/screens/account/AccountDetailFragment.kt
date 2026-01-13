@@ -70,10 +70,12 @@ class AccountDetailFragment :
                 }.build().show(childFragmentManager, DialogSelectAccount.TAG)
             }
             swDefaultCasa.setOnCheckedChangeListener { _, isChecked ->
-                swDefaultCasa.alpha = if (isChecked) 0.5f else 1f
-                val currentAccount = homeViewModel.selectedAccount
-                if (isChecked) {
-                    homeViewModel.setDefaultAccount(currentAccount?.accountNumber!!)
+                if (swDefaultCasa.isPressed) {
+                    swDefaultCasa.alpha = if (isChecked) 0.5f else 1f
+                    val currentAccount = homeViewModel.selectedAccount
+                    if (isChecked) {
+                        homeViewModel.setDefaultAccount(currentAccount?.accountNumber!!)
+                    }
                 }
             }
         }
