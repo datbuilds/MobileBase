@@ -94,6 +94,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
 
     override fun onResume() {
         super.onResume()
+        homeViewModel.selectedAccount = null
         homeViewModel.getUserInfo()
     }
 

@@ -48,6 +48,7 @@ import vn.shb.lao.utils.ApiConst
 import vn.shb.lao.utils.ApiConst.FR_2_TO_DATE
 import vn.shb.lao.utils.ApiConst.LAST5
 import vn.shb.lao.utils.extensions.common.Const
+import vn.shb.lao.utils.extensions.common.Const.CURRENT_ACCOUNT
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -190,7 +191,9 @@ class HomeViewModel(
         }
         selectedAccount = listAccount.find { it.accountNumber == userInfo.defaultAcct }
         if (selectedAccount == null && listAccount.isNotEmpty()) {
-            selectedAccount = listAccount[0]
+            selectedAccount = listAccount.filter { it.currencyCode == "LAK" }
+                .maxByOrNull { it.availableBalance }
+                ?: listAccount.firstOrNull { it.accountType === CURRENT_ACCOUNT } ?: listAccount[0]
         }
         if (selectedAccount != null) {
             viewModelScope.launch {
