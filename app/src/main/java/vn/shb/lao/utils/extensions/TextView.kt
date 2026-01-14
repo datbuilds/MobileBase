@@ -307,3 +307,18 @@ fun TextView.setCustomSpannable(
 enum class IconState {
     NORMAL, SUCCESS, FAILURE
 }
+
+fun TextView.setLatinAlphanumericFilter(maxLength: Int) {
+    val latinNumberFilter = android.text.InputFilter { source, start, end, dest, dstart, dend ->
+        for (i in start until end) {
+            if (!source[i].toString().matches(Regex("[a-zA-Z0-9 ]"))) {
+                return@InputFilter ""
+            }
+        }
+        null
+    }
+    filters = arrayOf(
+        android.text.InputFilter.LengthFilter(maxLength),
+        latinNumberFilter
+    )
+}

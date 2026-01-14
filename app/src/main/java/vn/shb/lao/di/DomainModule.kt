@@ -1,6 +1,8 @@
 package vn.shb.lao.di
 
 import org.koin.dsl.module
+import vn.shb.core.core.domain.usecases.beneficiary.CreateBeneficiaryUseCase
+import vn.shb.core.core.domain.usecases.beneficiary.DeleteBeneficiaryUseCase
 import vn.shb.core.core.domain.usecases.home.UseCaseAccountDetails
 import vn.shb.core.core.domain.usecases.home.UseCaseTransaction
 import vn.shb.core.core.domain.usecases.home.UseCaseUserInfo
@@ -16,6 +18,10 @@ import vn.shb.core.core.domain.usecases.transfer.UseCaseTransferAccount
 import vn.shb.core.core.domain.usecases.transfer.UseCaseValidateTransaction
 import vn.shb.core.core.domain.usecases.wso2.UseCaseGetTokenWso2
 import vn.shb.core.core.domain.usecases.wso2.UseCaseRefreshTokenWso2
+import vn.shb.core.core.domain.usecases.beneficiary.GetBeneficiariesUseCase
+import vn.shb.core.core.domain.usecases.beneficiary.GetBanksUseCase
+import vn.shb.core.core.domain.usecases.beneficiary.UpdateBeneficiaryUseCase
+import vn.shb.core.core.domain.usecases.profile.UseCaseChangePassword
 
 val domainModule = module {
     // refreshToken
@@ -35,6 +41,11 @@ val domainModule = module {
     factory { UseCaseTransactionTransferConfirm(get()) }
     factory { UseCaseTransactionDetail(get()) }
     factory { UseCaseValidateTransaction(get()) }
+    factory { GetBeneficiariesUseCase(get()) }
+    factory { GetBanksUseCase(get()) }
+    factory { DeleteBeneficiaryUseCase(get()) }
+    factory { CreateBeneficiaryUseCase(get()) }
+    factory { UpdateBeneficiaryUseCase(get()) }
     factory { UseCaseGetTokenWso2(get()) }
-    factory { vn.shb.core.core.domain.usecases.profile.UseCaseChangePassword(get()) }
+    factory { UseCaseChangePassword(get()) }
 }

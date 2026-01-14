@@ -8,35 +8,30 @@
     android:orientation="vertical"
     android:paddingBottom="@dimen/paddingBottomLayout">
 
-    <FrameLayout
-        android:layout_width="match_parent"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivClose"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_20dp">
+        android:layout_gravity="end|center_vertical"
+        android:layout_marginEnd="@dimen/margin_10dp"
+        android:padding="@dimen/margin_8dp"
+        android:layout_marginTop="@dimen/margin_8dp"
+        app:srcCompat="@drawable/ic_close" />
 
-        <vn.shb.lao.base.view.MyTextView
-            android:id="@+id/tvSelectBeneficiary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/margin_16dp"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:text="@string/selectBeneficiary"
-            android:textColor="@color/neutral10"
-            android:textSize="@dimen/textSize20"
-            app:customFontWeight="semi_bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivClose"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|center_vertical"
-            android:layout_marginEnd="@dimen/margin_10dp"
-            android:padding="@dimen/margin_8dp"
-            app:srcCompat="@drawable/ic_close" />
-    </FrameLayout>
+    <vn.shb.lao.base.view.MyTextView
+        android:id="@+id/tvSelectBeneficiary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/margin_16dp"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="@string/selectBeneficiary"
+        android:textColor="@color/neutral10"
+        android:textSize="@dimen/textSize20"
+        app:customFontWeight="semi_bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -44,6 +39,7 @@
         android:layout_marginHorizontal="@dimen/margin_16dp"
         android:background="@drawable/bg_search_beneficiary"
         android:orientation="horizontal"
+        android:layout_marginTop="@dimen/margin_16dp"
         android:paddingHorizontal="@dimen/margin_12dp"
         android:paddingVertical="@dimen/margin_14dp">
 
@@ -74,7 +70,7 @@
         app:layout_constraintHeight_max="350dp"
         app:layout_constraintTop_toBottomOf="@+id/tvSelectAccount"
         tools:itemCount="7"
-        tools:listitem="@layout/item_account_select" />
+        tools:listitem="@layout/item_beneficiary_select" />
 
     <vn.shb.lao.base.view.MyTextView
         android:id="@+id/tvDone"

@@ -67,7 +67,7 @@
     <string name="profilePictureUpdated">Profile picture updated successfully</string>
     <string name="accountDetails">Account details</string>
     <string name="availableBalance">Available balance</string>
-    <string name="accountNumber">Account number</string>
+    <string name="accountNumber">Account Number</string>
     <string name="branch">Branch</string>
     <string name="transactionHistory">Transaction history</string>
     <string name="viewAll">View all</string>
@@ -170,6 +170,11 @@
     <string name="password_rule_length">6-50 characters long</string>
     <string name="password_rule_case">Requires at least 1 lowercase and 1 uppercase character</string>
     <string name="password_rule_special">Requires at least 1 numeric character, 1 special character .~!@#$\%^&amp;*()_+={}|:;&lt;&gt;,/?-</string>
+    <string name="remark_default_value">%s transfer</string>
+    <string name="hint_select_bank">Select Bank</string>
+    <string name="hint_enter_account_number">Enter Account Number</string>
+    <string name="hint_enter_account_name">Enter Account Name</string>
+    <string name="hint_enter_remarks">Enter Remarks</string>
     <string name="password_rule_username">Does not contain the username or the user\'s real name</string>
     <string name="re_enter_new_password">Re-enter new password</string>
     <string name="hint_re_enter_new_password">Re-enter new password</string>
@@ -178,6 +183,29 @@
     <string name="error_current_password_incorrect">The current password is incorrect, please try again</string>
     <string name="error_passwords_do_not_match">Passwords do not match</string>
     <string name="error_new_and_old_password_same">The new password must not be the same as the old password</string>
+
+    <string name="beneficiaryList">Beneficiary list</string>
+    <string name="enterRecipientNameOrAccountNumber">Enter recipient name or account number</string>
     <string name="systemUptateTransactionStatus">Sorry, the system is currently unable to update the transaction status. Please check your account statement or visit the nearest branch to verify the transaction result.</string>
     <string name="noteDefaultAccount">Tài khoản mặc định sẽ hiển thị khi bạn đăng nhập lại</string>
+    <string name="enterBankName">Enter bank name</string>
+    <string name="newBeneficiaryAddedSuccessfully">New beneficiary added successfully</string>
+    <string name="beneficiaryUpdatedSuccessfully">Beneficiary updated successfully</string>
+    <string name="addNewBeneficiary">Add new beneficiary</string>
+    <string name="error_select_bank">Please select the bank</string>
+    <string name="error_enter_account_number">Please enter the account number</string>
+    <string name="error_enter_account_name">Please enter the account name</string>
+    <string name="error_enter_remark">Please enter a remark</string>
+    <string name="save_recipient">Save recipient</string>
+    <string name="set_nickname">Set nickname</string>
+    <string name="ask_set_nickname">Would you like to set a nickname for this recipient?</string>
+    <string name="enter_nickname">Enter nickname</string>
+    <string name="error_enter_nickname">Please enter the name</string>
+    <string name="error_invalid_nickname">The name is invalid</string>
+    <string name="successfullySetNickname">Successfully set nickname</string>
+    <string name="noLabel">No</string>
+    <string name="yesLabel">Yes</string>
+    <string name="theNameIsInvaid">The name is invalid</string>
+    <string name="theBeneficiaryUpdateFail">The beneficiary updated fail</string>
+    <string name="theBeneficiaryAlreadyExists">The beneficiary already exists</string>
 </resources>

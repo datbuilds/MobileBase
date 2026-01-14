@@ -1,30 +1,39 @@
 package vn.shb.lao.screens.beneficiary
 
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.data.entities.home.beneficiary.BeneficiaryUser
+import vn.shb.data.entities.beneficiary.Beneficiary
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseFragmentBinding
 import vn.shb.lao.databinding.FragmentBeneficiaryBinding
 import vn.shb.lao.screens.beneficiary.helper.ActionEditBeneficiary
 import vn.shb.lao.screens.beneficiary.helper.BeneficiaryAdapter
+import vn.shb.lao.utils.ApiConst
 import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.lao.utils.extensions.visible
 import vn.shb.lao.utils.view.dialog.BottomSheetDialogHelper
+import androidx.fragment.app.setFragmentResultListener
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.delay
+import vn.shb.lao.utils.extensions.setLatinAlphanumericFilter
 
 class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
     FragmentBeneficiaryBinding::inflate
 ) {
 
     private val adapter by lazy { BeneficiaryAdapter() }
+    private val viewModel: BeneficiaryViewModel by viewModel()
 
     override fun initView(view: View) {
         setUpRecyclerview()
-        homeViewModel.getAllBeneficiary()
+        viewModel.getAllBeneficiary()
+        viewModel.getBanks()
     }
 
     private fun setUpRecyclerview() {
@@ -36,22 +45,25 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
 
         adapter.setListenAction(
             object : ActionEditBeneficiary {
-                override fun edit(item: BeneficiaryUser) {
-                    navToEditBeneficiary()
-                    safeNavigate(R.id.beneficiaryFragment, R.id.editBeneficiaryFragment)
+                override fun edit(item: Beneficiary) {
+                    safeNavigate(R.id.beneficiaryFragment, R.id.editBeneficiaryFragment
+                    , bundleOf(
+                        ApiConst.KEY_TO_EDIT_BENEFICIARY to EditBeneficiaryFragment.EDIT,
+                        ApiConst.KEY_BENEFICIARY_DATA to item
+                    ))
                 }
 
-                override fun delete(item: BeneficiaryUser) {
+                override fun delete(item: Beneficiary) {
                     BottomSheetDialogHelper(requireContext()).message(
                         title = getString(R.string.confirmation),
                         message = getString(
                             R.string.doYouWantToDeleteFromBeneficiary,
-                            item.nameUser
+                            item.accountName ?: ""
                         ),
-                        textNegative = getString(R.string.cancel),
-                        textPositive = getString(R.string.confirm),
+                        textNegative = getString(R.string.noLabel),
+                        textPositive = getString(R.string.yesLabel),
                         positiveAction = {
-                            showToastSuccess(getString(R.string.beneficiaryDeletedSuccessfully))
+                            viewModel.deleteBeneficiary(item)
                         }
                     )
                 }
@@ -62,7 +74,7 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
 
     override fun initListener() {
         with(binding) {
-            tvMoneyTransferTitle.setOnSingleClickListener {
+            tvBeneficiaryList.setOnSingleClickListener {
                 backPress()
             }
 
@@ -70,26 +82,61 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
                 navToEditBeneficiary()
             }
 
+            edtSearchBeneficiary.setLatinAlphanumericFilter(50)
+
             edtSearchBeneficiary.addTextChangedListener { text ->
                 adapter.filter(text.toString())
+            }
+
+            ivClose.setOnSingleClickListener {
+                llToastStatus.animate().cancel()
+                llToastStatus.visibility = View.GONE
+            }
+
+            setFragmentResultListener(ApiConst.KEY_RESULT_BENEFICIARY) { requestKey, bundle ->
+                val message = bundle.getString(ApiConst.KEY_MESSAGE)
+                val isError = bundle.getBoolean(ApiConst.KEY_CONFIRM_ERROR)
+                if (!message.isNullOrEmpty()) {
+                    showToastSuccess(message, !isError)
+                }
             }
         }
     }
 
     override fun initObserve() {
-        with(homeViewModel) {
+        with(viewModel) {
             launchRepeatOnLifecycle {
                 launch {
                     stateAllBeneficiary.collectLatest {
                         adapter.submitList(it)
+                        lifecycleScope.launch {
+                            delay(200)
+                            binding.rcvBeneficiary.smoothScrollToPosition(0)
+                        }
+                    }
+                }
+                launch {
+                    stateBanks.collectLatest {
+                        // Handle banks list
+                    }
+                }
+                launch {
+                    stateDelete.collectLatest {
+                        if (it == true) {
+                            showToastSuccess(getString(R.string.beneficiaryDeletedSuccessfully))
+                        }
                     }
                 }
             }
         }
     }
 
-    private fun navToEditBeneficiary(){
-        safeNavigate(R.id.beneficiaryFragment, R.id.editBeneficiaryFragment)
+    private fun navToEditBeneficiary() {
+        safeNavigate(
+            R.id.beneficiaryFragment,
+            R.id.editBeneficiaryFragment,
+            bundleOf(ApiConst.KEY_TO_EDIT_BENEFICIARY to EditBeneficiaryFragment.ADD_NEW)
+        )
     }
 
     fun showToastSuccess(text: String, isSuccess: Boolean = true) {

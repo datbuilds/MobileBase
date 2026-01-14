@@ -19,6 +19,7 @@ import vn.shb.core.core.domain.source.service.ServiceAuth
 import vn.shb.core.core.domain.source.service.ServiceSplash
 import vn.shb.core.core.domain.source.service.ServiceTransfer
 import vn.shb.core.core.domain.source.service.ServiceUser
+import vn.shb.core.core.domain.source.service.ServiceBeneficiary
 import vn.shb.core.core.domain.source.service.ServiceWso2
 import vn.shb.core.core.retrofit.HeaderAuthenticationInterceptor
 import vn.shb.core.core.retrofit.HeaderInterceptor
@@ -107,6 +108,7 @@ fun createNetworkModule(
 
         factory { get<Retrofit>().create(ApiUser::class.java) }
         factory { ServiceUser(get()) }
+        factory { ServiceBeneficiary(get()) }
 
         factory { get<Retrofit>().create(ApiTransfer::class.java) }
         factory { ServiceTransfer(get()) }

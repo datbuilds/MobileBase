@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:paddingStart="@dimen/margin_16dp">
+
+    <FrameLayout
+        android:id="@+id/flLogoBank"
+        android:layout_width="@dimen/margin_48dp"
+        android:layout_height="@dimen/margin_48dp"
+        android:background="@drawable/bg_logo_app"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivBankLogo"
+            android:layout_width="@dimen/margin_28dp"
+            android:layout_height="@dimen/margin_28dp"
+            android:layout_gravity="center"
+            tools:srcCompat="@drawable/ic_bank_bcel" />
+    </FrameLayout>
+
+    <vn.shb.lao.base.view.MyTextView
+        android:id="@+id/tvAccountName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_12dp"
+        android:layout_marginEnd="@dimen/margin_16dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textAllCaps="true"
+        android:textColor="@color/neutral10"
+        android:textSize="@dimen/textSize14"
+        app:customFontWeight="regular"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/flLogoBank"
+        app:layout_constraintBottom_toTopOf="@+id/tvAccountNumber"
+        tools:text="MS VATHANA SISANE" />
+
+    <vn.shb.lao.base.view.MyTextView
+        android:id="@+id/tvAccountNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_4dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/neutral10"
+        android:textSize="@dimen/textSize16"
+        app:customFontWeight="semi_bold"
+        app:layout_constraintEnd_toEndOf="@+id/tvAccountName"
+        app:layout_constraintStart_toStartOf="@+id/tvAccountName"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="1001740559" />
+
+    <vn.shb.lao.base.view.MyTextView
+        android:id="@+id/tvBankName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_4dp"
+        android:textColor="@color/neutral10"
+        android:textSize="@dimen/textSize12"
+        app:customFontWeight="medium"
+        app:layout_constraintEnd_toEndOf="@+id/tvAccountName"
+        app:layout_constraintStart_toStartOf="@+id/tvAccountName"
+        app:layout_constraintTop_toBottomOf="@+id/tvAccountNumber"
+        tools:text="Saigon – Hanoi Commercial Joint Stock Bank" />
+
+    <View
+        android:id="@+id/viewDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:background="#EAEAEA"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvBankName" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

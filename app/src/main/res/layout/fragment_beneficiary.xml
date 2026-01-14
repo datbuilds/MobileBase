@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <vn.shb.lao.base.view.MyTextView
-            android:id="@+id/tvMoneyTransferTitle"
+            android:id="@+id/tvBeneficiaryList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
@@ -29,7 +29,7 @@
             android:paddingVertical="@dimen/margin_8dp"
             android:paddingStart="@dimen/margin_4dp"
             android:paddingEnd="@dimen/margin_10dp"
-            android:text="@string/moneyTransfer"
+            android:text="@string/beneficiaryList"
             android:textColor="@color/neutral10"
             android:textSize="@dimen/textSize20"
             app:customFontWeight="medium"
@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="@dimen/margin_16dp"
+            android:layout_marginTop="@dimen/margin_20dp"
             android:background="@drawable/bg_search_beneficiary_w"
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/margin_12dp"
@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_12dp"
-                android:hint="@string/enterRecipientName"
+                android:hint="@string/enterRecipientNameOrAccountNumber"
                 android:includeFontPadding="false"
                 android:textColor="@color/black"
                 android:textColorHint="@color/neutral6"
@@ -83,6 +83,7 @@
         android:orientation="horizontal"
         android:paddingHorizontal="@dimen/margin_8dp"
         android:visibility="gone"
+        tools:visibility="gone"
         android:paddingVertical="@dimen/margin_8dp"
         app:layout_constraintTop_toTopOf="@+id/llBody">
 
@@ -116,7 +117,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@color/white"
-        android:elevation="6dp"
+        android:elevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <vn.shb.lao.base.view.MyTextView

@@ -10,34 +10,28 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.data.entities.AccountBase
-import vn.shb.data.entities.home.AccountInfo
+import vn.shb.data.entities.beneficiary.Beneficiary
 import vn.shb.lao.R
 import vn.shb.lao.base.BaseBottomDialogBinding
-import vn.shb.lao.databinding.DialogSelectAccountBinding
 import vn.shb.lao.databinding.DialogSelectBeneficiaryBinding
-import vn.shb.lao.screens.home.helper.SelectAccountAdapter
-import vn.shb.lao.utils.extensions.common.Const
-import vn.shb.lao.utils.extensions.launchRepeatOnLifecycle
+import vn.shb.lao.screens.home.helper.SelectBeneficiaryAdapter
 
-class DialogSelectBeneficiary(private val listAccount: List<AccountBase>) :
+class DialogSelectBeneficiary(private val listBeneficiary: List<Beneficiary>) :
     BaseBottomDialogBinding<DialogSelectBeneficiaryBinding>(DialogSelectBeneficiaryBinding::inflate) {
 
-    private var onAction: ((AccountBase) -> Unit)? = null
-
-    private var selectAccount: AccountBase? = null
+    private var onAction: ((Beneficiary) -> Unit)? = null
+    private var filteredList = listBeneficiary
+    private var adapter: SelectBeneficiaryAdapter? = null
 
     companion object {
-        const val TAG = "DialogSelectAccount"
+        const val TAG = "DialogSelectBeneficiary"
     }
 
     class Build(
-        val list: List<AccountBase>,
-        val selectedAccount: AccountBase? = null,
-        val action: (AccountBase) -> Unit
+        val list: List<Beneficiary>,
+        val action: (Beneficiary) -> Unit
     ) {
         fun build() = DialogSelectBeneficiary(list).apply {
-            selectAccount = selectedAccount
             onAction = action
         }
     }
@@ -53,6 +47,16 @@ class DialogSelectBeneficiary(private val listAccount: List<AccountBase>) :
         val bottomSheet =
             dialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
         bottomSheet?.let {
+            val displayMetrics = context?.resources?.displayMetrics
+            val height = displayMetrics?.heightPixels
+            val maxHeight = (height?.times(0.7))?.toInt()
+
+            val layoutParams = it.layoutParams
+            if (maxHeight != null) {
+                layoutParams.height = maxHeight
+            }
+            it.layoutParams = layoutParams
+
             val behavior = BottomSheetBehavior.from(it).apply {
                 state = BottomSheetBehavior.STATE_EXPANDED
                 skipCollapsed = false
@@ -63,41 +67,49 @@ class DialogSelectBeneficiary(private val listAccount: List<AccountBase>) :
     }
 
     override fun initView(view: View) {
+        filteredList = listBeneficiary
         binding.rcvBeneficiary.apply {
             layoutManager = LinearLayoutManager(context)
-            listAccount.forEach {
-                it.setSelected(it.accountNumber == selectAccount?.accountNumber)
+            adapter = SelectBeneficiaryAdapter(filteredList) { beneficiary ->
+                onAction?.invoke(beneficiary)
+                dismiss()
             }
-            adapter = SelectAccountAdapter(listAccount) { account ->
-                selectAccount = account
-                val statusDone =
-                    if (selectAccount is AccountInfo) selectAccount?.accountType == Const.CURRENT_ACCOUNT else true
-                binding.tvDone.isVisible = statusDone
-            }
+            this@DialogSelectBeneficiary.adapter = adapter as SelectBeneficiaryAdapter
             setHasFixedSize(true)
         }
     }
 
     override fun initListener() {
         with(binding) {
-            tvDone.setOnSingleClickListener {
-                lifecycleScope.launch {
-                    selectAccount?.let { ac -> onAction?.invoke(ac) }
-                    delay(300)
-                    dismiss()
-                }
-            }
-
             ivClose.setOnSingleClickListener {
                 dismiss()
             }
+
+            edtSearchBeneficiary.addTextChangedListener(object : android.text.TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+                override fun afterTextChanged(s: android.text.Editable?) {
+                    filter(s.toString())
+                }
+            })
         }
     }
 
-    override fun initObserve() {
-        launchRepeatOnLifecycle {
-            launch {
+    private fun filter(text: String) {
+        val query = text.lowercase(java.util.Locale.getDefault())
+        filteredList = if (query.isEmpty()) {
+            listBeneficiary
+        } else {
+            listBeneficiary.filter { ben ->
+                (ben.accountName?.lowercase(java.util.Locale.getDefault())?.contains(query) == true) ||
+                        (ben.accountNumber?.lowercase(java.util.Locale.getDefault())?.contains(query) == true)
             }
         }
+        adapter?.updateData(filteredList)
+    }
+
+    override fun initObserve() {
     }
 }
