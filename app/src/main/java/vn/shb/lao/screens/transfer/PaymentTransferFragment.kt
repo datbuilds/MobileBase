@@ -243,7 +243,9 @@ class PaymentTransferFragment :
                 }
 
                 stateError.collectLatest {
-                    handleErrorHome(it)
+                    showToastSuccess(getString(R.string.theBeneficiaryAlreadyExists), false)
+                    beneficiaryViewModel.resetActionState()
+//                    handleErrorHome(it)
                 }
             }
         }

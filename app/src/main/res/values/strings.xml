@@ -205,4 +205,6 @@
     <string name="noLabel">No</string>
     <string name="yesLabel">Yes</string>
     <string name="theNameIsInvaid">The name is invalid</string>
+    <string name="theBeneficiaryUpdateFail">The beneficiary updated fail</string>
+    <string name="theBeneficiaryAlreadyExists">The beneficiary already exists</string>
 </resources>

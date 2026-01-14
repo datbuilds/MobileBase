@@ -38,7 +38,7 @@ class DialogSetNickname(
 
     private fun setEnableButton(enable: Boolean) {
         binding.btnConfirm.isEnabled = enable
-        binding.btnConfirm.setBackgroundResource(if (enable) R.drawable.bg_button_enable else R.drawable.bg_button_disable)
+        binding.btnConfirm.alpha = if (enable) 1f else 0.5f
     }
 
     override fun initListener() {

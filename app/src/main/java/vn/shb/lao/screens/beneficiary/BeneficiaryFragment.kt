@@ -81,10 +81,9 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
             tvAddNew.setOnSingleClickListener {
                 navToEditBeneficiary()
             }
-            
-            edtSearchBeneficiary.filters = arrayOf(
-                android.text.InputFilter.LengthFilter(50)
-            )
+
+            edtSearchBeneficiary.setLatinAlphanumericFilter(50)
+
             edtSearchBeneficiary.addTextChangedListener { text ->
                 adapter.filter(text.toString())
             }
@@ -96,8 +95,9 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
 
             setFragmentResultListener(ApiConst.KEY_RESULT_BENEFICIARY) { requestKey, bundle ->
                 val message = bundle.getString(ApiConst.KEY_MESSAGE)
+                val isError = bundle.getBoolean(ApiConst.KEY_CONFIRM_ERROR)
                 if (!message.isNullOrEmpty()) {
-                    showToastSuccess(message)
+                    showToastSuccess(message, !isError)
                 }
             }
         }

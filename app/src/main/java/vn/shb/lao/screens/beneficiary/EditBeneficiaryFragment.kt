@@ -74,8 +74,7 @@ class EditBeneficiaryFragment :
                     data.remark
                 }
                 iclDefaultRemarks.edtValue.setText(defaultRemark)
-
-                iclBank.edtValue.setText(data.bankName ?: data.bankCode)
+                iclBank.edtValue.setText(data.bankName)
 
                 // Edit Mode specific UI
                 iclBank.edtValue.isEnabled = false
@@ -310,6 +309,7 @@ class EditBeneficiaryFragment :
                             ApiConst.KEY_RESULT_BENEFICIARY,
                             android.os.Bundle().apply {
                                 putString(ApiConst.KEY_MESSAGE, message)
+                                putBoolean(ApiConst.KEY_CONFIRM_ERROR, false)
                             }
                         )
                         viewModel.resetActionState()
@@ -320,7 +320,34 @@ class EditBeneficiaryFragment :
 
             launch {
                 viewModel.stateError.collectLatest {
-                    handleErrorHome(it)
+//                    if (it.errorCode == "ACC-007"){
+                        val message =
+                            if (isEdit) getString(R.string.theBeneficiaryUpdateFail) else getString(
+                                R.string.theBeneficiaryAlreadyExists
+                            )
+                        setFragmentResult(
+                            ApiConst.KEY_RESULT_BENEFICIARY,
+                            android.os.Bundle().apply {
+                                putString(ApiConst.KEY_MESSAGE, message)
+                                putBoolean(ApiConst.KEY_CONFIRM_ERROR, true)
+                            }
+                        )
+                        viewModel.resetActionState()
+                        backPress()
+//                        return@collectLatest
+//                    }
+//                    handleErrorHome(it)
+                }
+            }
+
+            launch {
+                viewModel.stateBanks.collectLatest { banks ->
+                    if (isEdit && banks.isNotEmpty()) {
+                        beneficiary?.let { data ->
+                            val bankOfBeneficiary = banks.find { it.bankCode == data.bankCode }
+                            binding.iclBank.edtValue.setText(bankOfBeneficiary?.shortName ?: data.bankName)
+                        }
+                    }
                 }
             }
         }

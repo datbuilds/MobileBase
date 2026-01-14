@@ -215,15 +215,18 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         updateStatusTransfer()
     }
 
+    private var beneficiarySelected: Beneficiary? = null
+
     private fun showListBeneficiary() {
         DialogSelectBeneficiary.Build(listBeneficiary) { selectedAccount ->
             with(binding.iclToAccount.edtValue) {
                 if (this.text.toString() != selectedAccount.accountNumber) {
+                    beneficiarySelected = selectedAccount
                     this.setText(selectedAccount.accountNumber)
                     validateToAccount(selectedAccount.accountNumber)
                 }
             }
-            homeViewModel.getAccountByNumber(selectedAccount.accountNumber ?: "")
+//            homeViewModel.getAccountByNumber(selectedAccount.accountNumber ?: "")
         }.build().show(childFragmentManager, DialogSelectAccount.TAG)
     }
 
@@ -405,6 +408,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         binding.iclAccountName.apply {
             root.isVisible = true
             edtValue.setText(userInfo.customerName)
+        }
+        if (beneficiarySelected?.accountNumber == userInfo.accountNumber){
+            binding.iclRemarks.edtValue.setText(beneficiarySelected?.remark)
         }
         if (userInfo.currency != fromAccount?.currencyCode) {
             with(binding) {
