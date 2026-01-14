@@ -167,10 +167,11 @@ class PaymentTransferFragment :
                 val toAccount = homeViewModel.confirmModel?.toAccount
                 DialogSetNickname(toAccount?.customerName ?: "") { nickname ->
                     if (accountNo != null) {
+                        val user = homeViewModel.getCurrentUserInfo()
                         val request = BeneficiaryRequest(
                             accountNumber = toAccount?.accountNumber ?: "",
                             accountName = nickname,
-                            remark = nickname.plus(Const.SEPARATOR_SPACE).plus(getString(R.string.transferCAP)),
+                            remark = (user?.customerName ?: "").plus(Const.SEPARATOR_SPACE).plus(getString(R.string.transferCAP)),
                             bankCode = "SHB"
                         )
                         beneficiaryViewModel.createBeneficiary(request, false)
