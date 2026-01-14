@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="24dp"
-    android:background="@drawable/bg_dialog">
+    android:paddingHorizontal="@dimen/margin_24dp">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -15,7 +15,8 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="116dp"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/bg_update" />
 
         <vn.shb.lao.base.view.MyTextView
@@ -23,6 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="@dimen/margin_24dp"
             android:gravity="center"
             android:text="@string/new_version_available"
             android:textColor="@color/black"
@@ -36,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center"
+            android:layout_marginHorizontal="@dimen/margin_24dp"
             android:text="@string/weHaveReleasedNewVersion"
             android:textColor="@color/black"
             android:textSize="14sp"
@@ -43,23 +46,26 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnUpdate"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp"
-            android:background="@drawable/bg_button_enable"
+            android:layout_marginBottom="@dimen/margin_24dp"
+            android:background="@drawable/bg_button_update"
+            android:elevation="@dimen/margin_4dp"
+            android:fontFamily="@font/inter_semi_bold"
+            android:paddingHorizontal="54dp"
             android:text="@string/update"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="16sp"
-            android:layout_marginBottom="@dimen/margin_24dp"
-            android:fontFamily="@font/inter_semi_bold" />
+            android:textSize="16sp" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <ImageView
         android:id="@+id/ivRocket"
-        android:layout_width="@dimen/margin_200dp"
-        android:layout_height="@dimen/margin_200dp"
+        android:layout_width="@dimen/margin_180dp"
+        android:layout_height="@dimen/margin_180dp"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/image_update" />
 </FrameLayout>
