@@ -58,15 +58,15 @@ object RefreshTokenManager {
                 applicationScope.launch {
                     val s = currentStorage
                     val u = currentUseCaseWso2
-                    if (BuildConfig.FLAVOR == "pro") {
-                        if (s != null && currentUseCase != null) {
-                            performTokenRefresh(s, currentUseCase!!) {
-                                activity.runOnUiThread {
-                                    updateActivity(activity)
-                                }
-                            }
-                        }
-                    } else {
+//                    if (BuildConfig.FLAVOR == "pro") {
+//                        if (s != null && currentUseCase != null) {
+//                            performTokenRefresh(s, currentUseCase!!) {
+//                                activity.runOnUiThread {
+//                                    updateActivity(activity)
+//                                }
+//                            }
+//                        }
+//                    } else {
                         if (s != null && u != null) {
                             performTokenRefreshWso2(s, activity, u) {
                                 activity.runOnUiThread {
@@ -74,7 +74,7 @@ object RefreshTokenManager {
                                 }
                             }
                         }
-                    }
+//                    }
                 }
                 handler?.postDelayed(this, refreshIntervalMillis)
             }

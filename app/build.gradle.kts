@@ -34,18 +34,29 @@ android {
                 buildConfigField(
                     "String",
                     "WSO_URL",
-                    "\"https://api-gw-ext-dev.shb.com.vn/\""
+                    "\"https://ibanking.shb.la/\""
                 )
                 buildConfigField(
                     "String",
                     "AUTHORIZATION",
-                    "\"${localProperties.getProperty("config")}\""
+                    "\"${localProperties.getProperty("pro_config")}\""
                 )
 
-                // ===== NEW KEYS =====
-                buildConfigField("String", "GRANT_TYPE", "\"${localProperties.getProperty("grant_type")}\"")
-                buildConfigField("String", "USERNAME", "\"${localProperties.getProperty("username")}\"")
-                buildConfigField("String", "PASSWORD", "\"${localProperties.getProperty("password")}\"")
+                buildConfigField(
+                    "String",
+                    "GRANT_TYPE",
+                    "\"${localProperties.getProperty("uat_grant_type")}\""
+                )
+                buildConfigField(
+                    "String",
+                    "USERNAME",
+                    "\"${localProperties.getProperty("uat_username")}\""
+                )
+                buildConfigField(
+                    "String",
+                    "PASSWORD",
+                    "\"${localProperties.getProperty("uat_password")}\""
+                )
             },
 
             uat = {

@@ -105,9 +105,9 @@ class LoginViewModel(
 
     fun getTokenWso2(param: UseCaseLogin.Params) {
         viewModelScope.launch {
-            if (BuildConfig.FLAVOR == "pro") {
-                login(param)
-            } else {
+//            if (BuildConfig.FLAVOR == "pro") {
+//                login(param)
+//            } else {
                 val paramsWso2 = UseCaseGetTokenWso2.InputParams(
                     BuildConfig.AUTHORIZATION, UseCaseGetTokenWso2.Params(
                         grant_type = BuildConfig.GRANT_TYPE,
@@ -134,8 +134,7 @@ class LoginViewModel(
                     }
                 }
             }
-
-        }
+//        }
     }
 
     private fun handleErrorTokenWso2(error: Reason) {
