@@ -11,7 +11,7 @@ import vn.shb.lao.screens.beneficiary.BeneficiaryViewModel
 
 val featureModule = module {
     viewModel { SplashViewModel(get()) }
-    viewModel { LoginViewModel(get(), get(), get(), get()) }
+    viewModel { LoginViewModel(get(), get(), get(), get(), get()) }
     viewModel {
         HomeViewModel(
             get(), get(), get(),get(), get(), get(),get(),

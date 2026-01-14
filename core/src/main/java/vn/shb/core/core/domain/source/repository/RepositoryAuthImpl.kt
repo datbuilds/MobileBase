@@ -6,6 +6,8 @@ import vn.shb.core.core.delivery.reason.AppReason
 import vn.shb.core.core.delivery.reason.LoginFailReason
 import vn.shb.core.core.domain.source.response.LoginResponse
 import vn.shb.core.core.domain.source.response.LogoutResponse
+import vn.shb.core.core.domain.source.response.SystemVarData
+import vn.shb.core.core.domain.source.response.SystemVarResponse
 import vn.shb.core.core.domain.source.service.ServiceAuth
 import vn.shb.core.core.domain.usecases.login.RepositoryAuth
 import vn.shb.core.core.domain.usecases.login.StateLogin
@@ -146,6 +148,41 @@ class RepositoryAuthImpl(
                     ResultSHB.Success(content ?: UserLog())
                 } else {
                     resultLoginFail(contentResult)
+                }
+            }
+
+            is ResultSHB.Failure -> {
+                ResultSHB.Failure(
+                    AppReason(
+                        message = result.reason.errMessage,
+                        code = result.reason.errorCode
+                    )
+                )
+            }
+
+            else -> {
+                ResultSHB.Loading
+            }
+        }
+    }
+
+    override suspend fun getSystemVars(name: String) =
+        resultSystemVars(serviceAuth.getSystemVars(name))
+
+    private fun resultSystemVars(result: ResultSHB<SystemVarResponse>): ResultSHB<SystemVarData> {
+        return when (result) {
+            is ResultSHB.Success -> {
+                val contentResult = result.successData
+                if (contentResult.isSuccess()) {
+                    val content = contentResult.data
+                    ResultSHB.Success(content ?: SystemVarData(null, null, null, null, null, null))
+                } else {
+                    ResultSHB.Failure(
+                        AppReason(
+                            message = contentResult.errorMessage,
+                            code = contentResult.errorCode
+                        )
+                    )
                 }
             }
 

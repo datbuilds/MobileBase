@@ -19,4 +19,8 @@ class ServiceAuth(private val api: ApiAuth) : SafeExecute() {
     suspend fun logout() = execute {
         api.logout().awaitResponse()
     }
+
+    suspend fun getSystemVars(name: String) = execute {
+        api.getSystemVars(name).awaitResponse()
+    }
 }

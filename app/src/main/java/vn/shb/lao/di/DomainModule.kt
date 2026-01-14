@@ -10,6 +10,7 @@ import vn.shb.core.core.domain.usecases.home.UseCaseSetDefaultAccount
 import vn.shb.core.core.domain.usecases.login.UseCaseLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseLogout
 import vn.shb.core.core.domain.usecases.login.UseCaseRefreshToken
+import vn.shb.core.core.domain.usecases.login.UseCaseGetSystemVars
 import vn.shb.core.core.domain.usecases.transfer.UseCaseAccountByNumber
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionDetail
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionTransfer
@@ -26,6 +27,7 @@ import vn.shb.core.core.domain.usecases.profile.UseCaseChangePassword
 val domainModule = module {
     // refreshToken
     factory { UseCaseLogin(get()) }
+    factory { UseCaseGetSystemVars(get()) }
 
     factory { UseCaseRefreshToken(get()) }
     factory { UseCaseRefreshTokenWso2(get()) }

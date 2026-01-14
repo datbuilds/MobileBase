@@ -3,6 +3,7 @@ package vn.shb.lao.screens.login.ui
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.InputFilter
 import android.text.InputType
@@ -43,6 +44,7 @@ import vn.shb.lao.utils.extensions.setCustomSpannable
 import vn.shb.lao.utils.extensions.textValue
 import vn.shb.lao.utils.extensions.visible
 import vn.shb.lao.utils.view.dialog.BottomSheetDialogHelper
+import vn.shb.lao.utils.view.dialog.ForceUpdateDialog
 import vn.shb.lao.utils.widgets.LocaleHelper
 import java.util.Base64
 
@@ -64,6 +66,8 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
         binding.tvHotline.text =
             getString(R.string.version).plus(Const.SEPARATOR_SPACE).plus(BuildConfig.VERSION_NAME)
+
+        loginViewModel.checkSystemVars()
     }
 
     private fun mapUILogin() {
@@ -258,6 +262,38 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                     showDialogErrorWso2(it)
                 }
             }
+
+            launch {
+                loginViewModel.showForceUpdate.collect {
+                    if (it) {
+                        showDialogForceUpdate()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showDialogForceUpdate() {
+        context?.let { ctx ->
+            ForceUpdateDialog(ctx) {
+                try {
+                    val appPackageName = ctx.packageName
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("market://details?id=$appPackageName")
+                        )
+                    )
+                } catch (e: android.content.ActivityNotFoundException) {
+                    val appPackageName = ctx.packageName
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
+                        )
+                    )
+                }
+            }.show()
         }
     }
 

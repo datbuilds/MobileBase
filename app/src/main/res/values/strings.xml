@@ -208,4 +208,6 @@
     <string name="theNameIsInvaid">The name is invalid</string>
     <string name="theBeneficiaryUpdateFail">The beneficiary updated fail</string>
     <string name="theBeneficiaryAlreadyExists">The beneficiary already exists</string>
+    <string name="new_version_available">A new version is available</string>
+    <string name="weHaveReleasedNewVersion">We have released a new version. Please update to enjoy a better saving experience with SHB SAHA Laos.</string>
 </resources>

@@ -3,7 +3,6 @@ package vn.shb.lao.screens.login.ui
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.core.net.toUri
 import androidx.lifecycle.viewModelScope
@@ -14,7 +13,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import vn.shb.core.core.delivery.GenericError
 import vn.shb.core.core.delivery.Reason
 import vn.shb.core.core.delivery.onFailure
 import vn.shb.core.core.delivery.onLoading
@@ -22,6 +20,7 @@ import vn.shb.core.core.delivery.onResultHandle
 import vn.shb.core.core.delivery.onSuccess
 import vn.shb.core.core.delivery.reason.AppReason
 import vn.shb.core.core.domain.usecases.None
+import vn.shb.core.core.domain.usecases.login.UseCaseGetSystemVars
 import vn.shb.core.core.domain.usecases.login.UseCaseLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseLogout
 import vn.shb.core.core.domain.usecases.wso2.UseCaseGetTokenWso2
@@ -42,6 +41,7 @@ class LoginViewModel(
     private val useCaseLogin: UseCaseLogin,
     private val useCaseLogout: UseCaseLogout,
     private val useCaseGetTokenWso2: UseCaseGetTokenWso2,
+    private val useCaseGetSystemVars: UseCaseGetSystemVars,
 ) : BaseViewModel() {
 
     private val _state = MutableStateFlow<LoginUiState>(LoginUiState.Idle)
@@ -51,6 +51,29 @@ class LoginViewModel(
 
     private val _stateLogout = MutableStateFlow<LogoutUiState>(LogoutUiState.Idle)
     val stateLogout = _stateLogout.asStateFlow()
+
+    private val _showForceUpdate = Channel<Boolean>(Channel.BUFFERED)
+    val showForceUpdate = _showForceUpdate.receiveAsFlow()
+
+    fun checkSystemVars() {
+        viewModelScope.launch {
+            useCaseGetSystemVars(UseCaseGetSystemVars.Params("MBA")).collect {
+                // Handle result if needed, for now just logging or silent failure as per request (user just asked to call it)
+                // If specific logic is needed on success, we can add it here.
+                it.onResultHandle(
+                    loadingBlock = {
+                    },
+                    successBlock = { data ->
+                         if (data?.flag == "TRUE") {
+                             _showForceUpdate.send(true)
+                         }
+                    },
+                    failureBlock = {
+                    }
+                )
+            }
+        }
+    }
 
     fun login(param: UseCaseLogin.Params) {
         viewModelScope.launch {
