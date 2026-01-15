@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,9 +9,11 @@
     android:paddingHorizontal="20dp">
 
     <FrameLayout
+        android:id="@+id/flTop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/paddingTopLayout">
+        android:layout_marginTop="@dimen/paddingTopLayout"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivLogo"
@@ -35,10 +37,10 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/margin_8dp"
-            android:visibility="gone"
-            tools:visibility="visible"
             android:paddingVertical="@dimen/margin_8dp"
-            app:layout_constraintTop_toTopOf="@+id/llBody">
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@+id/llBody"
+            tools:visibility="gone">
 
             <vn.shb.lao.base.view.MyTextView
                 android:id="@+id/tvToastMessage"
@@ -49,10 +51,10 @@
                 android:drawablePadding="@dimen/margin_8dp"
                 android:gravity="center_vertical"
                 android:includeFontPadding="false"
+                android:text="@string/successfullySetNickname"
                 android:textColor="@color/white"
                 android:textSize="@dimen/textSize14"
-                app:customFontWeight="medium"
-                android:text="@string/successfullySetNickname"/>
+                app:customFontWeight="medium" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivCloseToast"
@@ -65,128 +67,144 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
     </FrameLayout>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/margin_24dp"
-        android:visibility="gone"
-        app:srcCompat="@drawable/ic_success_transaction"
-        tools:visibility="visible" />
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/llBottom"
+        app:layout_constraintTop_toBottomOf="@+id/flTop">
 
-    <vn.shb.lao.base.view.MyTextView
-        android:id="@+id/tvTransactionAmount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/margin_12dp"
-        android:text="@string/transactionAmount"
-        android:textColor="@color/colorSuccess"
-        android:textSize="@dimen/textSize18"
-        android:visibility="gone"
-        app:customFontWeight="medium"
-        tools:visibility="visible" />
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/llValueBalance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/margin_8dp"
-        android:gravity="top"
-        android:orientation="horizontal">
-
-        <vn.shb.lao.base.view.MyTextView
-            android:id="@+id/tvValueBalance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="@dimen/textSize28"
-            app:customFontWeight="semi_bold"
-            tools:text="1,000,000" />
-
-        <vn.shb.lao.base.view.MyTextView
-            android:id="@+id/tvCurrentCode"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="top"
-            android:layout_marginStart="@dimen/margin_8dp"
-            android:textColor="@color/neutral7"
-            android:textSize="@dimen/textSize16"
-            app:customFontWeight="regular"
-            tools:text="LAK" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            android:orientation="vertical">
 
-    <vn.shb.lao.base.view.MyTextView
-        android:id="@+id/tvAnErrorHasOccurred"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/margin_10dp"
-        android:gravity="center"
-        android:text="@string/anErrorHasOccurred"
-        android:textColor="@color/color_error_text_login"
-        android:textSize="@dimen/textSize14"
-        android:visibility="gone"
-        app:customFontWeight="medium" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_24dp"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_success_transaction"
+                tools:visibility="visible" />
 
-    <include
-        android:id="@+id/iclFromAccount"
-        layout="@layout/child_view_transaction_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_10dp" />
+            <vn.shb.lao.base.view.MyTextView
+                android:id="@+id/tvTransactionAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_12dp"
+                android:text="@string/transactionAmount"
+                android:textColor="@color/colorSuccess"
+                android:textSize="@dimen/textSize18"
+                android:visibility="gone"
+                app:customFontWeight="medium"
+                tools:visibility="visible" />
 
-    <include
-        android:id="@+id/iclToAccount"
-        layout="@layout/child_view_transaction_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_10dp" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/llValueBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:gravity="top"
+                android:orientation="horizontal">
 
-    <include
-        android:id="@+id/iclAccountName"
-        layout="@layout/child_view_transaction_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_10dp" />
+                <vn.shb.lao.base.view.MyTextView
+                    android:id="@+id/tvValueBalance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textSize28"
+                    app:customFontWeight="semi_bold"
+                    tools:text="1,000,000" />
 
-    <include
-        android:id="@+id/iclRemarks"
-        layout="@layout/child_view_transaction_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_10dp" />
+                <vn.shb.lao.base.view.MyTextView
+                    android:id="@+id/tvCurrentCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="top"
+                    android:layout_marginStart="@dimen/margin_8dp"
+                    android:textColor="@color/neutral7"
+                    android:textSize="@dimen/textSize16"
+                    app:customFontWeight="regular"
+                    tools:text="LAK" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <include
-        android:id="@+id/iclTransactionDate"
-        layout="@layout/child_view_transaction_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_10dp" />
+            <vn.shb.lao.base.view.MyTextView
+                android:id="@+id/tvAnErrorHasOccurred"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:gravity="center"
+                android:text="@string/anErrorHasOccurred"
+                android:textColor="@color/color_error_text_login"
+                android:textSize="@dimen/textSize14"
+                android:visibility="gone"
+                app:customFontWeight="medium" />
 
-    <include
-        android:id="@+id/iclReferenceNumber"
-        layout="@layout/child_view_transaction_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_10dp" />
+            <include
+                android:id="@+id/iclFromAccount"
+                layout="@layout/child_view_transaction_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10dp" />
+
+            <include
+                android:id="@+id/iclToAccount"
+                layout="@layout/child_view_transaction_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10dp" />
+
+            <include
+                android:id="@+id/iclAccountName"
+                layout="@layout/child_view_transaction_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10dp" />
+
+            <include
+                android:id="@+id/iclRemarks"
+                layout="@layout/child_view_transaction_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10dp" />
+
+            <include
+                android:id="@+id/iclTransactionDate"
+                layout="@layout/child_view_transaction_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10dp" />
+
+            <include
+                android:id="@+id/iclReferenceNumber"
+                layout="@layout/child_view_transaction_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10dp" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.core.widget.NestedScrollView>
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llBottom"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="bottom"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <RelativeLayout
             android:id="@+id/rlSaveRecipient"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/margin_16dp"
             android:layout_marginTop="@dimen/margin_24dp"
             android:background="@drawable/bg_save_recipient"
             android:padding="@dimen/margin_12dp"
-            android:layout_marginVertical="@dimen/margin_16dp"
             android:visibility="gone"
             tools:visibility="visible">
 
@@ -233,8 +251,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:layout_weight="1"
                 android:layout_marginEnd="@dimen/margin_6dp"
+                android:layout_weight="1"
                 android:background="@drawable/bg_new_transaction"
                 android:gravity="center"
                 android:paddingVertical="@dimen/margin_10dp"
@@ -250,8 +268,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:layout_weight="1"
                 android:layout_marginStart="@dimen/margin_6dp"
+                android:layout_weight="1"
                 android:background="@drawable/bg_account_info_transfer"
                 android:gravity="center"
                 android:paddingVertical="@dimen/margin_10dp"
@@ -264,4 +282,4 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
-</androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.constraintlayout.widget.ConstraintLayout>

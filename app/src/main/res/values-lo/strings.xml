@@ -145,7 +145,6 @@
     <string name="hint_re_enter_new_password">ປ້ອນ​ລະ​ຫັດ​ຜ່ານ​ໃໝ່​ອີກ​ຄັ້ງ</string>
     <string name="change_password_success">​ປ່ຽນ​ລະ​ຫັດ​ຜ່ານ​ສຳ​ເລັດ</string>
     <string name="change_password_success_message">ກະລຸນາເຂົ້າສູ່ລະບົບອີກຄັ້ງເພື່ອສືບຕໍ່ນຳໃຊ້ແອັບພລິເຄຊັນ</string>
-    <string name="remark_default_value">%s ໂອນ​ເງິນ</string>
     <string name="hint_select_bank">ເລືອກ​ທະ​ນາ​ຄານ</string>
     <string name="beneficiary">ຜູ້​ຮັບ</string>
     <string name="addNew">ເພີ່ມ​ໃໝ່</string>
