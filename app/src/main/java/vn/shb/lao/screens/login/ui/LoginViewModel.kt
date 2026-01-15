@@ -69,6 +69,7 @@ class LoginViewModel(
                         }
                     },
                     failureBlock = {
+                        handleErrorTokenWso2(it)
                     }
                 )
             }
