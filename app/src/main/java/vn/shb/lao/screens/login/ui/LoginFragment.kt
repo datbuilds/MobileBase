@@ -67,7 +67,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         binding.tvHotline.text =
             getString(R.string.version).plus(Const.SEPARATOR_SPACE).plus(BuildConfig.VERSION_NAME)
 
-        loginViewModel.checkSystemVars()
+        loginViewModel.getTokenWso2()
     }
 
     private fun mapUILogin() {
@@ -213,7 +213,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
     private fun postLogin(us: String, psW: String) {
         val params = UseCaseLogin.Params(us, psW)
-        loginViewModel.getTokenWso2(params)
+        loginViewModel.login(params)
     }
 
     private fun getPassword(): Pair<String, String> {
@@ -276,15 +276,15 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     private fun showDialogForceUpdate() {
         context?.let { ctx ->
             ForceUpdateDialog(ctx) {
-                try {
-                    val appPackageName = ctx.packageName
-                    startActivity(
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse("market://details?id=$appPackageName")
-                        )
-                    )
-                } catch (e: android.content.ActivityNotFoundException) {
+//                try {
+//                    val appPackageName = ctx.packageName
+//                    startActivity(
+//                        Intent(
+//                            Intent.ACTION_VIEW,
+//                            Uri.parse("market://details?id=$appPackageName")
+//                        )
+//                    )
+//                } catch (e: android.content.ActivityNotFoundException) {
                     val appPackageName = ctx.packageName
                     startActivity(
                         Intent(
@@ -292,7 +292,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                             Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
                         )
                     )
-                }
+//                }
             }.show()
         }
     }

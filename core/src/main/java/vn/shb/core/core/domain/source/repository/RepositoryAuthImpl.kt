@@ -175,7 +175,7 @@ class RepositoryAuthImpl(
                 val contentResult = result.successData
                 if (contentResult.isSuccess()) {
                     val content = contentResult.data
-                    ResultSHB.Success(content ?: SystemVarData(null, null, null, null, null, null))
+                    ResultSHB.Success(content ?: SystemVarData())
                 } else {
                     ResultSHB.Failure(
                         AppReason(

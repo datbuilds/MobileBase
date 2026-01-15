@@ -20,7 +20,6 @@ class ForceUpdateDialog(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestWindowFeature(Window.FEATURE_NO_TITLE)
         binding = DialogForceUpdateBinding.inflate(LayoutInflater.from(context))
         setContentView(binding.root)
 
