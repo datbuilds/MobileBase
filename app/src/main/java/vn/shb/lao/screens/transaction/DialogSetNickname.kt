@@ -16,21 +16,15 @@ class DialogSetNickname(
 ) : BaseBottomDialogBinding<DialogSetNicknameBinding>(DialogSetNicknameBinding::inflate) {
 
     override fun initView(view: View) {
-//        if (defaultNickname.isNotEmpty()) {
-//            binding.edtNickname.setText(defaultNickname)
-//        }
         setEnableButton(binding.edtNickname.text?.trim()?.isNullOrEmpty() != true)
 
         // Validation logic
         binding.edtNickname.doAfterTextChanged {
             val text = it.toString()
-            binding.tvError.text = if (text.isEmpty()) getString(R.string.error_enter_nickname) else getString(R.string.theNameIsInvaid)
-            binding.tvError.isVisible = text.trim().isBlank()
+//            binding.tvError.text = if (text.isEmpty()) getString(R.string.error_enter_nickname) else getString(R.string.theNameIsInvaid)
+//            binding.tvError.isVisible = text.trim().isBlank()
             setEnableButton(text.trim().isNotEmpty())
         }
-
-        // Initial state disable if empty, enable if defaultNickname is set
-//        setEnableButton(defaultNickname.isNotEmpty())
 
         // Input Filter
         binding.edtNickname.setLatinAlphanumericFilter(50)
@@ -49,8 +43,8 @@ class DialogSetNickname(
         binding.btnConfirm.setOnSingleClickListener {
             val nickname = binding.edtNickname.text.toString().trim()
             if (nickname.isEmpty()) {
-                binding.tvError.text = getString(R.string.error_enter_nickname)
-                binding.tvError.visible()
+//                binding.tvError.text = getString(R.string.error_enter_nickname)
+//                binding.tvError.visible()
                 return@setOnSingleClickListener
             }
             includeNickname(nickname)

@@ -59,7 +59,7 @@ class BeneficiaryViewModel(
                 }
             }
         }
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(7000), emptyList())
 
     fun getAllBeneficiary() {
         viewModelScope.launch {

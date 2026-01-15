@@ -62,11 +62,9 @@ class BeneficiaryAdapter :
 
     private var originalList = listOf<Beneficiary>()
 
-    override fun submitList(list: List<Beneficiary>?) {
+    fun submitListData(list: List<Beneficiary>?) {
         super.submitList(list)
-        if (originalList.isEmpty()) {
-            originalList = list ?: emptyList()
-        }
+        originalList = list ?: emptyList()
     }
 
     fun filter(keyword: String) {
