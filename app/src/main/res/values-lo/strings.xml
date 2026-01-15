@@ -27,7 +27,6 @@
     <string name="welcomeToShb">​ຍິນ​ດີ​ຕ້ອນ​ຮັບ​ສູ່ SHB</string>
     <string name="currentAccount">ບັນ​ຊີ​ກະ​ແສ​ລາຍ​ວັນ</string>
     <string name="transfer">ໂອນ​ເງິນ</string>
-    <string name="transferCAP">ໂອນເງິນ</string>
     <string name="accounts">ບັນ​ຊີ</string>
     <string name="logoutConfirm">ທ່ານຕ້ອງການອອກຈາກລະບົບ​ບໍ່?</string>
     <string name="cancel">ຍົກ​ເລີກ</string>

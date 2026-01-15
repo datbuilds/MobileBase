@@ -108,7 +108,7 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
             launchRepeatOnLifecycle {
                 launch {
                     stateAllBeneficiary.collectLatest {
-                        adapter.submitList(it)
+                        adapter.submitListData(it)
                         lifecycleScope.launch {
                             delay(200)
                             binding.rcvBeneficiary.smoothScrollToPosition(0)

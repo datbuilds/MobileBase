@@ -27,7 +27,6 @@
     <string name="welcomeToShb">Chào mừng đến với SHB</string>
     <string name="currentAccount">Tài khoản thanh toán</string>
     <string name="transfer">Chuyen tien</string>
-    <string name="transferCAP">Chuyen tien</string>
     <string name="accounts">Tài khoản</string>
     <string name="logoutConfirm">Bạn có chắc muốn đăng xuất không?</string>
     <string name="cancel">Hủy</string>
@@ -149,7 +148,7 @@
     <string name="hint_select_bank">Chọn ngân hàng</string>
     <string name="beneficiary">Người thụ hưởng</string>
     <string name="addNew">Thêm mới</string>
-    <string name="doYouWantToDeleteFromBeneficiary">Bạn có muốn xóa %skhỏi danh sách thụ hưởng không?</string>
+    <string name="doYouWantToDeleteFromBeneficiary">Bạn có muốn xóa %s khỏi danh sách thụ hưởng không?</string>
     <string name="beneficiaryDeletedSuccessfully">Xóa người thụ hưởng thành công</string>
     <string name="editBeneficiary">Chỉnh sửa người thụ hưởng</string>
     <string name="hint_enter_account_name">Nhập tên tài khoản</string>
