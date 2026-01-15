@@ -65,7 +65,7 @@ class LoginViewModel(
                     },
                     successBlock = { data ->
                         if (data.isNeedUpdate(BuildConfig.VERSION_NAME)) {
-//                            _showForceUpdate.send(true)
+                            _showForceUpdate.send(true)
                         }
                     },
                     failureBlock = {
