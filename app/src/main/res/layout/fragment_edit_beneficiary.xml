@@ -21,19 +21,19 @@
 
         <vn.shb.lao.base.view.MyTextView
             android:id="@+id/tvEditBeneficiary"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawablePadding="@dimen/margin_20dp"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:includeFontPadding="false"
             android:paddingVertical="@dimen/margin_8dp"
             android:paddingStart="@dimen/margin_4dp"
-            android:paddingEnd="@dimen/margin_10dp"
-            android:text="@string/editBeneficiary"
+            android:paddingEnd="@dimen/margin_50dp"
             android:textColor="@color/neutral10"
             android:textSize="@dimen/textSize20"
             app:customFontWeight="medium"
-            app:drawableStartCompat="@drawable/ic_arrow_back" />
+            app:drawableStartCompat="@drawable/ic_arrow_back"
+            tools:text="co le naof em voi quen di co lex nafo em dua mua thu di" />
 
         <include
             android:id="@+id/iclBank"

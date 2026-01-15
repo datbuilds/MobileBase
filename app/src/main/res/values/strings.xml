@@ -1,22 +1,4 @@
 <resources>
-    <!--    <integer name="viewfinder_border_width">4</integer>-->
-    <!--    <integer name="viewfinder_border_length">60</integer>-->
-
-    <string name="amcalendar_select" translatable="false">Auswählen</string>
-    <string name="amcalendar_please_select_date_range" translatable="false">Bitte Zeitraum wählen</string>
-    <string name="amcalendar_please_select_date" translatable="false">Bitte Datum wählen</string>
-    <string name="amcalendar_template_today" translatable="false">Heute</string>
-    <string name="amcalendar_template_tomorrow" translatable="false">Morgen</string>
-    <string name="amcalendar_template_yesterday" translatable="false">Gestern</string>
-    <string name="amcalendar_template_last_week" translatable="false">Letzte Woche</string>
-    <string name="amcalendar_template_last_month" translatable="false">Letzter Monat</string>
-    <string name="amcalendar_monday_short" translatable="false">T2</string>
-    <string name="amcalendar_tuesday_short" translatable="false">T3</string>
-    <string name="amcalendar_wednesday_short" translatable="false">T4</string>
-    <string name="amcalendar_thursday_short" translatable="false">T5</string>
-    <string name="amcalendar_friday_short" translatable="false">T6</string>
-    <string name="amcalendar_saturday_short" translatable="false">T7</string>
-    <string name="amcalendar_sunday_short" translatable="false">CN</string>
 
     <string name="personalInternetBanking">Personal Internet Banking</string>
     <string name="enterYourDetailToSignIn">Enter your details to sign in</string>
@@ -157,7 +139,6 @@
     <string name="beneficiaryDeletedSuccessfully">Beneficiary deleted successfully</string>
     <string name="editBeneficiary">Edit beneficiary</string>
     <string name="bank">Bank</string>
-    <string name="defaultRemarks">Default Remarks</string>
     <string name="minus">minutes</string>
     <string name="version">Version</string>
     <string name="share">Share</string>
@@ -172,9 +153,7 @@
     <string name="password_rule_special">Requires at least 1 numeric character, 1 special character .~!@#$\%^&amp;*()_+={}|:;&lt;&gt;,/?-</string>
     <string name="remark_default_value">%s transfer</string>
     <string name="hint_select_bank">Select Bank</string>
-    <string name="hint_enter_account_number">Enter Account Number</string>
     <string name="hint_enter_account_name">Enter Account Name</string>
-    <string name="hint_enter_remarks">Enter Remarks</string>
     <string name="password_rule_username">Does not contain the username or the user\'s real name</string>
     <string name="re_enter_new_password">Re-enter new password</string>
     <string name="hint_re_enter_new_password">Re-enter new password</string>
@@ -187,7 +166,7 @@
     <string name="beneficiaryList">Beneficiary list</string>
     <string name="enterRecipientNameOrAccountNumber">Enter recipient name or account number</string>
     <string name="systemUptateTransactionStatus">Sorry, the system is currently unable to update the transaction status. Please check your account statement or visit the nearest branch to verify the transaction result.</string>
-    <string name="noteDefaultAccount">Tài khoản mặc định sẽ hiển thị khi bạn đăng nhập lại</string>
+    <string name="noteDefaultAccount" translatable="false">Tài khoản mặc định sẽ hiển thị khi bạn đăng nhập lại</string>
     <string name="enterBankName">Enter bank name</string>
     <string name="newBeneficiaryAddedSuccessfully">New beneficiary added successfully</string>
     <string name="beneficiaryUpdatedSuccessfully">Beneficiary updated successfully</string>
@@ -206,7 +185,7 @@
     <string name="noLabel">No</string>
     <string name="yesLabel">Yes</string>
     <string name="theNameIsInvaid">The name is invalid</string>
-    <string name="theBeneficiaryUpdateFail">The beneficiary updated fail</string>
+    <string name="theBeneficiaryUpdateFail">Beneficiary updated fail</string>
     <string name="theBeneficiaryAlreadyExists">The beneficiary already exists</string>
     <string name="new_version_available">A new version is available</string>
     <string name="weHaveReleasedNewVersion">We have released a new version. Please update to enjoy a better saving experience with SHB SAHA Laos.</string>

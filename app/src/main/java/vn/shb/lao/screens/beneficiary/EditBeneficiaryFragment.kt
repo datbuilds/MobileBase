@@ -41,9 +41,11 @@ class EditBeneficiaryFragment :
         setupCommonViews()
         viewModel.getBanks() // Ensure banks are loaded
         if (isEdit) {
+            binding.tvConfirmation.text = getString(R.string.confirmation)
             binding.tvEditBeneficiary.text = getString(R.string.editBeneficiary)
             setupEditMode()
         } else {
+            binding.tvConfirmation.text = getString(R.string.addNew)
             binding.tvEditBeneficiary.text = getString(R.string.addNewBeneficiary)
             setupAddMode()
         }
@@ -362,10 +364,10 @@ class EditBeneficiaryFragment :
             iclDefaultRemarks.tvTitle.text = getString(R.string.remarks)
             iclBank.ivLogo.visibility = View.VISIBLE
 
-            iclAccountNumber.edtValue.hint = getString(R.string.hint_enter_account_number)
+            iclAccountNumber.edtValue.hint = getString(R.string.enterAccountNumber)
             iclBank.edtValue.hint = getString(R.string.hint_select_bank)
             iclAccountName.edtValue.hint = getString(R.string.hint_enter_account_name)
-            iclDefaultRemarks.edtValue.hint = getString(R.string.hint_enter_remarks)
+            iclDefaultRemarks.edtValue.hint = getString(R.string.enterRemarks)
 
         }
     }
