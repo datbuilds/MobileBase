@@ -11,6 +11,7 @@ import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.home.UserInfo
 import vn.shb.dn.choosePhotoHelper.ChoosePhotoHelper
 import vn.shb.dn.choosePhotoHelper.callback.ChoosePhotoCallback
+import vn.shb.lao.BuildConfig
 import vn.shb.lao.R
 import vn.shb.lao.activity.login.LoginActivity
 import vn.shb.lao.base.BaseFragmentBinding
@@ -67,6 +68,8 @@ class ProfileFragment :
         } else {
             homeViewModel.getUserInfo()
         }
+        binding.tvHotline.text =
+            getString(R.string.version).plus(Const.SEPARATOR_SPACE).plus(BuildConfig.VERSION_NAME)
     }
 
     private fun getNameAccountDefault(defaultAccount: String?): String {

@@ -55,7 +55,7 @@
             android:elevation="@dimen/margin_4dp"
             android:fontFamily="@font/inter_semi_bold"
             android:paddingHorizontal="54dp"
-            android:text="@string/update"
+            android:text="@string/updateLabel"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="16sp" />

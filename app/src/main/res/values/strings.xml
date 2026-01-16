@@ -140,7 +140,7 @@
     <string name="editBeneficiary">Edit beneficiary</string>
     <string name="bank">Bank</string>
     <string name="minus">minutes</string>
-    <string name="version">Version</string>
+    <string name="version">Ver</string>
     <string name="share">Share</string>
     <string name="changePassword">Change password</string>
     <string name="currentPassword">Current password</string>
@@ -189,4 +189,5 @@
     <string name="theBeneficiaryAlreadyExists">The beneficiary already exists</string>
     <string name="new_version_available">A new version is available</string>
     <string name="weHaveReleasedNewVersion">We have released a new version. Please update to enjoy a better saving experience with SHB SAHA Laos.</string>
+    <string name="updateLabel">Update</string>
 </resources>

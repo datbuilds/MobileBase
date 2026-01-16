@@ -176,4 +176,5 @@
     <string name="theBeneficiaryUpdateFail">Cập nhật người thụ hưởng thất bại</string>
     <string name="new_version_available">Đã có phiên bản mới</string>
     <string name="weHaveReleasedNewVersion">Chúng tôi đã cập nhật phiên bản mới, vui lòng cập nhật để có trải nghiệm tốt  hơn với SHB SAHA Laos.</string>
+    <string name="updateLabel">Cập nhật </string>
 </resources>
