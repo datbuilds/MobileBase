@@ -161,7 +161,7 @@
     <string name="error_select_bank">Vui lòng chọn ngân hàng nhận</string>
     <string name="error_enter_account_number">Vui lòng nhập số tài khoản</string>
     <string name="error_enter_account_name">Vui lòng nhập tên tài khoản</string>
-    <string name="error_enter_remark">Vui lòng nhập ghi chú</string>
+    <string name="error_enter_remark">Vui lòng nhập nội dung</string>
     <string name="save_recipient">Lưu người thụ hưởng</string>
     <string name="set_nickname">Đặt tên gợi nhớ</string>
     <string name="ask_set_nickname">Quý khách có muốn đặt tên gợi nhớ cho người thụ hưởng này không?</string>
