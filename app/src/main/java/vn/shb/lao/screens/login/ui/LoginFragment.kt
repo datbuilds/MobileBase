@@ -316,6 +316,9 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             textPositive = getString(R.string.tryAgain),
             positiveAction = {
                 onAction?.invoke()
+            },
+            onDismiss = {
+                loginViewModel.getTokenWso2()
             }
         )
     }

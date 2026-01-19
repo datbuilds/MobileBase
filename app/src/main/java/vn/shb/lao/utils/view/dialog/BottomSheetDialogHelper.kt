@@ -5,6 +5,7 @@ import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.StyleSpan
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
@@ -69,11 +70,12 @@ class BottomSheetDialogHelper(context: Context) {
         negativeAction: (() -> Unit)? = null,
         isClose: Boolean = false,
         supView: View? = null,
-        isCancelable: Boolean = true
+        isCancelable: Boolean = true,
+        onDismiss: (() -> Unit)? = null
     ) {
         val context = contextRef.get() ?: return
         val bindingView = CustomDialogLayoutBinding.inflate(LayoutInflater.from(context))
-        createDialog(context, bindingView, isCancelable)
+        createDialog(context, bindingView, isCancelable, onDismiss)
 
         bindingView.bindView(
             context = context,
@@ -110,15 +112,31 @@ class BottomSheetDialogHelper(context: Context) {
     private fun createDialog(
         context: Context,
         bindingView: ViewBinding,
-        isCancelable: Boolean = false
+        isCancelable: Boolean = false,
+        onDismiss: (() -> Unit)? = null
     ) {
         dialog = BottomSheetDialog(context, R.style.BottomSheetDialogSlideAnimation)
         dialog?.setContentView(bindingView.root)
         dialog?.window?.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
         dialog?.window?.setDimAmount(0.5f)
         dialog?.setCancelable(isCancelable)
+//        dialog?.setCanceledOnTouchOutside(isCancelable)
         dialog?.setOnDismissListener {
             dialog = null
+        }
+
+        dialog?.setOnKeyListener {_, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
+                // Xử lý khi bấm Back
+                // return true để CHẶN dismiss
+                true
+            } else {
+                false
+            }
+        }
+
+        dialog?.setOnDismissListener {
+            onDismiss?.invoke()
         }
     }
 
