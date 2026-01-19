@@ -35,7 +35,6 @@ class ProfileFragment :
 
     private val viewModel: LoginViewModel by inject()
 
-
     private lateinit var photoHelper: ChoosePhotoHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
