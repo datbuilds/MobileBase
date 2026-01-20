@@ -71,7 +71,7 @@ class EditBeneficiaryFragment :
                 iclAccountName.edtValue.setText(data.accountName)
 
                 val defaultRemark = if (data.remark.isNullOrEmpty()) {
-                    getString(R.string.remark_default_value, data.accountName)
+                    getString(R.string.remark_default_value, homeViewModel.getCurrentUserInfo()?.customerName)
                 } else {
                     data.remark
                 }

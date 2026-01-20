@@ -26,7 +26,7 @@
 <!--    <string name="shbBranch3Address">Số 25, Bản Lattanalangsy Neua, TP Kaisone Phomvihan, Savannakhet, Lào</string>-->
     <string name="welcomeToShb">Chào mừng đến với SHB</string>
     <string name="currentAccount">Tài khoản thanh toán</string>
-    <string name="transfer">Chuyen tien</string>
+    <string name="transfer">Chuyển tiền</string>
     <string name="accounts">Tài khoản</string>
     <string name="logoutConfirm">Bạn có chắc muốn đăng xuất không?</string>
     <string name="cancel">Hủy</string>
@@ -144,7 +144,6 @@
     <string name="hint_re_enter_new_password">Nhập lại mật khẩu mới</string>
     <string name="change_password_success">Đổi mật khẩu thành công</string>
     <string name="change_password_success_message">Vui lòng đăng nhập lại để tiếp tục sử dụng ứng dụng</string>
-    <string name="remark_default_value">%s chuyển tiền</string>
     <string name="hint_select_bank">Chọn ngân hàng</string>
     <string name="beneficiary">Người thụ hưởng</string>
     <string name="addNew">Thêm mới</string>
@@ -162,7 +161,7 @@
     <string name="error_select_bank">Vui lòng chọn ngân hàng nhận</string>
     <string name="error_enter_account_number">Vui lòng nhập số tài khoản</string>
     <string name="error_enter_account_name">Vui lòng nhập tên tài khoản</string>
-    <string name="error_enter_remark">Vui lòng nhập ghi chú</string>
+    <string name="error_enter_remark">Vui lòng nhập nội dung</string>
     <string name="save_recipient">Lưu người thụ hưởng</string>
     <string name="set_nickname">Đặt tên gợi nhớ</string>
     <string name="ask_set_nickname">Quý khách có muốn đặt tên gợi nhớ cho người thụ hưởng này không?</string>

@@ -151,7 +151,7 @@
     <string name="password_rule_length">6-50 characters long</string>
     <string name="password_rule_case">Requires at least 1 lowercase and 1 uppercase character</string>
     <string name="password_rule_special">Requires at least 1 numeric character, 1 special character .~!@#$\%^&amp;*()_+={}|:;&lt;&gt;,/?-</string>
-    <string name="remark_default_value">%s transfer</string>
+    <string name="remark_default_value">%s TRANSFER</string>
     <string name="hint_select_bank">Select Bank</string>
     <string name="hint_enter_account_name">Enter Account Name</string>
     <string name="password_rule_username">Does not contain the username or the user\'s real name</string>
