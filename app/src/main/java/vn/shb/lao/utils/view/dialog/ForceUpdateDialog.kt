@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.appcompat.app.AlertDialog
 import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.lao.BuildConfig
 import vn.shb.lao.databinding.DialogForceUpdateBinding
 
 class ForceUpdateDialog(
@@ -37,6 +38,12 @@ class ForceUpdateDialog(
     private fun initListener() {
         binding.btnUpdate.setOnSingleClickListener {
             onUpdateClick()
+        }
+
+        if (BuildConfig.FLAVOR == "dev"){
+            binding.ivRocket.setOnSingleClickListener {
+                dismiss()
+            }
         }
     }
 }

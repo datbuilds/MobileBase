@@ -258,8 +258,16 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             }
 
             launch {
+                loginViewModel.stateLoading.collect {
+                    if (it) checkShowProgressDialog() else hideProgressDialog()
+                }
+            }
+
+            launch {
                 loginViewModel.stateErrorWso2.collect {
-                    showDialogErrorWso2(it)
+                    showDialogErrorWso2(it){
+                        loginViewModel.getTokenWso2()
+                    }
                 }
             }
 
@@ -304,10 +312,13 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         val messageError = "${reason.errorCode}: ${reason.errMessage}"
         BottomSheetDialogHelper(requireContext()).message(
             title = getString(R.string.notification),
-            message = messageError,
-            textPositive = getString(R.string.close),
+            message = getString(R.string.processingError),
+            textPositive = getString(R.string.tryAgain),
             positiveAction = {
                 onAction?.invoke()
+            },
+            onDismiss = {
+                loginViewModel.getTokenWso2()
             }
         )
     }

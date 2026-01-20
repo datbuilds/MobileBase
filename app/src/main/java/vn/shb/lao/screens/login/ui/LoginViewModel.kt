@@ -55,6 +55,13 @@ class LoginViewModel(
     private val _showForceUpdate = Channel<Boolean>(Channel.BUFFERED)
     val showForceUpdate = _showForceUpdate.receiveAsFlow()
 
+    private val _stateLoading = MutableStateFlow(false)
+    val stateLoading = _stateLoading.asStateFlow()
+
+    suspend fun stateLoading(isLoading: Boolean) {
+        _stateLoading.emit(isLoading)
+    }
+
     fun checkSystemVars() {
         viewModelScope.launch {
             useCaseGetSystemVars(UseCaseGetSystemVars.Params("MBA")).collect {
@@ -62,13 +69,17 @@ class LoginViewModel(
                 // If specific logic is needed on success, we can add it here.
                 it.onResultHandle(
                     loadingBlock = {
+                        stateLoading(true)
                     },
                     successBlock = { data ->
+                        stateLoading(false)
                         if (data.isNeedUpdate(BuildConfig.VERSION_NAME)) {
-//                            _showForceUpdate.send(true)
+                            _showForceUpdate.send(true)
                         }
                     },
                     failureBlock = {
+                        stateLoading(false)
+                        handleErrorTokenWso2(it)
                     }
                 )
             }
@@ -124,9 +135,11 @@ class LoginViewModel(
                     checkSystemVars()
                 }
                 result.onFailure { error ->
+                    stateLoading(false)
                     handleErrorTokenWso2(error)
                 }
                 result.onLoading {
+                    stateLoading(true)
 //                    _state.value = LoginUiState.Loading
                 }
             }
