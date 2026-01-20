@@ -129,7 +129,9 @@
     <string name="pleaseEnterTheRemarks">Vui lòng nhập nội dung</string>
     <string name="enterRemarks">Nhập nội dung</string>
     <string name="transactionSuccess">Giao dịch thành công!</string>
+    <string name="bank">Ngân hàng</string>
     <string name="minus">phút</string>
+    <string name="version">Phiên bản</string>
     <string name="share">Chia sẻ</string>
     <string name="changePassword">Đổi mật khẩu</string>
     <string name="currentPassword">Mật khẩu hiện tại</string>
@@ -151,6 +153,8 @@
     <string name="beneficiaryDeletedSuccessfully">Xóa người thụ hưởng thành công</string>
     <string name="editBeneficiary">Chỉnh sửa người thụ hưởng</string>
     <string name="hint_enter_account_name">Nhập tên tài khoản</string>
+    <string name="error_passwords_do_not_match">Mật khẩu không khớp</string>
+    <string name="error_new_and_old_password_same">Mật khẩu mới không được trùng với mật khẩu cũ</string>
     <string name="beneficiaryList">Danh sách người thụ hưởng</string>
     <string name="enterRecipientNameOrAccountNumber">Nhập tên người nhận hoặc số tài khoản</string>
     <string name="systemUptateTransactionStatus">Xin lỗi hiện tại hệ thống không cập nhật được trạng thái giao dịch. Quý khách vui lòng kiểm tra lại sao kê tài khoản hoặc đến chi nhánh gần nhất để xác định kết quả giao dịch</string>
@@ -173,7 +177,9 @@
     <string name="yesLabel">Có</string>
     <string name="theNameIsInvaid">Tên không hợp lệ</string>
     <string name="theBeneficiaryUpdateFail">Cập nhật người thụ hưởng thất bại</string>
+    <string name="theBeneficiaryAlreadyExists">Người thụ hưởng đã tồn tại</string>
     <string name="new_version_available">Đã có phiên bản mới</string>
     <string name="weHaveReleasedNewVersion">Chúng tôi đã cập nhật phiên bản mới, vui lòng cập nhật để có trải nghiệm tốt  hơn với SHB SAHA Laos.</string>
     <string name="updateLabel">Cập nhật </string>
+    <string name="error_current_password_incorrect">Mật khẩu hiện tại không đúng, vui lòng thử lại</string>
 </resources>

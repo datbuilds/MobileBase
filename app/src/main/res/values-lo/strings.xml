@@ -130,7 +130,9 @@
     <string name="enterRemarks">​ປ້ອນເນື້ອ​ໃນ</string>
     <string name="transactionSuccess">ສຳເລັດການຊຳລະ !</string>
     <string name="errorCode">ລະ​ຫັດ​ບໍ່​ຖືກ​ຕ້ອງ</string>
+    <string name="bank">​ທະ​ນາ​ຄານ</string>
     <string name="minus">ນາທີ</string>
+    <string name="version">ເວີ​ຊັ່ນ</string>
     <string name="share">ແບ່ງ​ປັນ</string>
     <string name="changePassword">ປ່ຽນ​ລະ​ຫັດ​ຜ່ານ</string>
     <string name="currentPassword">ລະ​ຫັດ​ປະ​ຈຸ​ບັນ</string>
@@ -152,6 +154,8 @@
     <string name="beneficiaryDeletedSuccessfully">ລົບ​ຜູ້​ຮັບ​ສຳ​ເລັດ</string>
     <string name="editBeneficiary">​ແກ້​ໄຂ​ຜູ້​ຮັບ</string>
     <string name="hint_enter_account_name">ປ້​ອ​ນ​ຊື່​ບັນ​ຊີ</string>
+    <string name="error_passwords_do_not_match">​ລະ​ຫັດ​ຜ່ານ​ບໍ່​ກົງ​ກັນ</string>
+    <string name="error_new_and_old_password_same">ລະ​ຫັດ​ຜ່ານ​ໃໝ່​ຕ້ອງ​ບໍ່​ຄື​ກັບ​ລະ​ຫັດ​ຜ່ານ​ເກົ່າ</string>
     <string name="beneficiaryList">ລາຍ​ຊື່​ຜູ້​ຮັບ</string>
     <string name="enterRecipientNameOrAccountNumber">​ປ້​ອນ​ຊື່​ຜູ້​ຮັບ ຫຼື ເລກ​ບັນ​ຊີ</string>
     <string name="systemUptateTransactionStatus">ຂໍອະໄພ, ລະບົບບໍ່ສາມາດອັບເດດສະຖານະການເຮັດທຸລະກຳໄດ້ໃນປະຈຸບັນ. ກະລຸນາກວດສອບລາຍງານບັນຊີຂອງທ່ານ ຫຼື ໄປທີ່ສາຂາທີ່ໃກ້ທີ່ສຸດເພື່ອກວດສອບຜົນການເຮັດທຸລະກຳ.</string>
@@ -170,11 +174,13 @@
     <string name="error_enter_nickname">ກະ​ລຸ​ນາ​ປ້ອນ​ຊື່</string>
     <string name="error_invalid_nickname">ຊື່​ບໍ່​ຖືກ​ຕ້ອງ</string>
     <string name="successfullySetNickname">ສຳເລັດການຕິດຕັ້ງຊື່ຫິ້ນ</string>
-    <string name="noLabel">No</string>
-    <string name="yesLabel">Yes</string>
+    <string name="noLabel">ບໍ່</string>
+    <string name="yesLabel">ຕົກ​ລົງ</string>
     <string name="theNameIsInvaid">ຊື່​ບໍ່​ຖືກ​ຕ້ອງ</string>
     <string name="theBeneficiaryUpdateFail">ອັບ​ເດດ​ຜູ້​ຮັບ​ລົ້ມ​ເຫຼວ</string>
+    <string name="theBeneficiaryAlreadyExists">ມີຜູ້​ຮັບ​ຢູ່​ແລ້ວ</string>
     <string name="new_version_available">ເວີຊັ່ນ​ໃໝ່​ພ້ອມ​ໃຫ້​ໃຊ້​ງານ​ແລ້ວ</string>
     <string name="weHaveReleasedNewVersion">ພວກເຮົາໄດ້ອັບ​ເດດ​ເວີ​ຊັ່ນໃໝ່. ກະລຸນາອັບເດດເພື່ອກັບປະສົບການທີ່ດີກວ່າ ກັ​ບ SHB SAHA Laos.</string>
     <string name="updateLabel">ອັບ​ເດດ</string>
+    <string name="error_current_password_incorrect">ລະ​ຫັດ​ຜ່ານ​ປະ​ຈຸ​ບັນ​ບໍ່​ຖືກ​ຕ້ອງ, ກະ​ລຸ​ນາ​ລອງ​ໃໝ່​ອີກ​ຄັ້ງ</string>
 </resources>
