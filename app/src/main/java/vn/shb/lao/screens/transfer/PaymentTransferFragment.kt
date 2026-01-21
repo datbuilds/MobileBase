@@ -244,7 +244,7 @@ class PaymentTransferFragment :
                 }
 
                 stateError.collectLatest {
-                    showToastSuccess(getString(R.string.theBeneficiaryAlreadyExists), false)
+                    showToastSuccess(it.errMessage, false)
                     beneficiaryViewModel.resetActionState()
 //                    handleErrorHome(it)
                 }

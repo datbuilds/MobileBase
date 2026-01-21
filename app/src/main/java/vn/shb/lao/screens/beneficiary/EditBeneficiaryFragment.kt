@@ -323,10 +323,7 @@ class EditBeneficiaryFragment :
             launch {
                 viewModel.stateError.collectLatest {
 //                    if (it.errorCode == "ACC-007"){
-                        val message =
-                            if (isEdit) getString(R.string.theBeneficiaryUpdateFail) else getString(
-                                R.string.theBeneficiaryAlreadyExists
-                            )
+                        val message = it.errMessage
                         setFragmentResult(
                             ApiConst.KEY_RESULT_BENEFICIARY,
                             android.os.Bundle().apply {
