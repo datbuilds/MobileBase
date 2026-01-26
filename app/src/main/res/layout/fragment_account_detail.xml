@@ -9,7 +9,7 @@
     android:paddingHorizontal="20dp"
     android:paddingTop="@dimen/paddingTopLayout">
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvAccountDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
         android:paddingHorizontal="@dimen/margin_16dp"
         android:paddingVertical="@dimen/margin_20dp">
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvCurrentBalance"
             android:layout_width="@dimen/margin_0dp"
             android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
             app:layout_constraintTop_toTopOf="@+id/tvCurrentBalance"
             app:srcCompat="@drawable/ic_arrow_down" />
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvValueBalance"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@+id/tvValueBalance">
 
-            <vn.shb.lao.base.view.MyTextView
+            <vn.shb.cam.base.view.MyTextView
                 android:id="@+id/tvAccountNumber"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
                 android:textSize="@dimen/textSize14"
                 app:customFontWeight="medium" />
 
-            <vn.shb.lao.base.view.MyTextView
+            <vn.shb.cam.base.view.MyTextView
                 android:id="@+id/tvNumberAccount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@+id/llAccountNumber">
 
-            <vn.shb.lao.base.view.MyTextView
+            <vn.shb.cam.base.view.MyTextView
                 android:id="@+id/tvBranch"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -122,7 +122,7 @@
                 android:textSize="@dimen/textSize14"
                 app:customFontWeight="medium" />
 
-            <vn.shb.lao.base.view.MyTextView
+            <vn.shb.cam.base.view.MyTextView
                 android:id="@+id/tvNameBranch"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -143,7 +143,7 @@
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@+id/llBranch">
 
-            <vn.shb.lao.base.view.MyTextView
+            <vn.shb.cam.base.view.MyTextView
                 android:id="@+id/tvDefaultCasaAccount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -165,7 +165,7 @@
                 app:track="@drawable/selector_switch_track" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvNoteAccountDefault"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -187,7 +187,7 @@
         android:layout_marginTop="@dimen/margin_16dp"
         android:background="@drawable/bg_child_view_account_details">
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -217,7 +217,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <vn.shb.lao.base.view.MyTextView
+            <vn.shb.cam.base.view.MyTextView
                 android:id="@+id/tvTransactionHistory"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -228,7 +228,7 @@
                 android:textSize="@dimen/textSize16"
                 app:customFontWeight="medium" />
 
-            <vn.shb.lao.base.view.MyTextView
+            <vn.shb.cam.base.view.MyTextView
                 android:id="@+id/tvViewAll"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -256,7 +256,7 @@
             tools:listitem="@layout/item_transaction"
             tools:visibility="visible" />
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvNoTransaction"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

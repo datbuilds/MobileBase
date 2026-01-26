@@ -18,7 +18,7 @@
         android:layout_marginTop="@dimen/margin_8dp"
         app:srcCompat="@drawable/ic_close" />
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvSelectBeneficiary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_search" />
 
-        <vn.shb.lao.base.view.MyEditText
+        <vn.shb.cam.base.view.MyEditText
             android:id="@+id/edtSearchBeneficiary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
         tools:itemCount="7"
         tools:listitem="@layout/item_beneficiary_select" />
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvDone"
         style="@style/MaterialDialog.PositiveButton"
         android:layout_width="match_parent"

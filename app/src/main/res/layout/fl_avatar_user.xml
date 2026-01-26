@@ -10,7 +10,7 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvImageUser"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

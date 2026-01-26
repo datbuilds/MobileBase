@@ -7,7 +7,7 @@
     android:background="@drawable/bg_login_long"
     android:paddingHorizontal="@dimen/margin_20dp">
 
-    <vn.shb.lao.screens.home.widget.FrameAvatarUser
+    <vn.shb.cam.screens.home.widget.FrameAvatarUser
         android:id="@+id/flAvatarUser"
         android:layout_width="@dimen/margin_48dp"
         android:layout_height="@dimen/margin_48dp"
@@ -26,7 +26,7 @@
         app:layout_constraintStart_toEndOf="@+id/flAvatarUser"
         app:layout_constraintTop_toTopOf="@+id/flAvatarUser">
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvWelcomeSHB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
             app:customFontWeight="regular"
             tools:text="@string/enterYourUserName" />
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvNameUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
         app:layout_constraintStart_toStartOf="@+id/ivBgLayoutMain"
         app:layout_constraintTop_toTopOf="@+id/ivBgLayoutMain">
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvCurrentAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -127,7 +127,7 @@
                 android:tint="#727272"
                 app:srcCompat="@drawable/ic_eye_show" />
 
-            <vn.shb.lao.base.view.MyTextView
+            <vn.shb.cam.base.view.MyTextView
                 android:id="@+id/tvValueBalance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -220,7 +220,7 @@
         android:paddingVertical="@dimen/margin_12dp"
         app:layout_constraintTop_toBottomOf="@+id/llMainAccount">
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvBeneficiary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

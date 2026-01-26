@@ -25,7 +25,7 @@
         android:background="@color/colorBgProcessBar"
         android:layout_height="match_parent">
 
-        <vn.shb.lao.utils.widgets.CustomProgressBar
+        <vn.shb.cam.utils.widgets.CustomProgressBar
             android:layout_width="wrap_content"
             android:layout_gravity="center"
             android:layout_height="wrap_content" />

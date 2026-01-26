@@ -71,13 +71,13 @@
         app:layout_constraintTop_toBottomOf="@+id/ivImageLogin"
         tools:visibility="visible">
 
-        <vn.shb.lao.screens.home.widget.FrameAvatarUser
+        <vn.shb.cam.screens.home.widget.FrameAvatarUser
             android:id="@+id/flAvatarUser"
             android:layout_width="@dimen/margin_42dp"
             android:layout_height="@dimen/margin_42dp"
             tools:background="@color/blue" />
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvHelloUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
             tools:text="name User" />
 
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvNameUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvInternetBanking"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -119,7 +119,7 @@
         app:layout_constraintTop_toBottomOf="@+id/llInfoUser"
         app:layout_goneMarginTop="@dimen/margin_0dp" />
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvEnterYourDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -176,7 +176,7 @@
 
     </LinearLayout>
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvErrorUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -231,7 +231,7 @@
             android:visibility="gone"
             tools:visibility="visible" />
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:id="@+id/btn_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -244,7 +244,7 @@
             app:customFontWeight="regular" />
     </LinearLayout>
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvErrorPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -258,7 +258,7 @@
         app:layout_constraintTop_toBottomOf="@+id/passwordContainer"
         tools:visibility="visible" />
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/btnLogin"
         style="@style/MaterialDialog.ButtonActionMain"
         android:layout_width="match_parent"
@@ -269,7 +269,7 @@
         android:text="@string/login"
         app:layout_constraintTop_toBottomOf="@+id/tvErrorPassword" />
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvForgotPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -284,7 +284,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvHotline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -24,7 +24,7 @@
         android:layout_weight="3"
         android:orientation="vertical">
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
             app:customFontWeight="regular"
             tools:text="@string/shb_action_logout" />
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvSubInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
     </LinearLayout>
 
     <!-- Số tiền -->
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvAmount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

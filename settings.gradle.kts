@@ -9,7 +9,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "SHB_SAHA_LAOS"
+rootProject.name = "SHB_SAHA_CAM"
 
 //libraries module
 include("library:choosePhotoHelper")

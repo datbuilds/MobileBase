@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@drawable/ic_bank_bcel" />
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvBankCode"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
         app:layout_constraintTop_toTopOf="@+id/ivLogo"
         tools:text="BCEL" />
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvBankName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -42,7 +42,7 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <vn.shb.lao.base.view.MyTextView
+            <vn.shb.cam.base.view.MyTextView
                 android:id="@+id/tvNameUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
                 card_view:customFontWeight="regular"
                 tools:text="MS VATHANA SISANE" />
 
-            <vn.shb.lao.base.view.MyTextView
+            <vn.shb.cam.base.view.MyTextView
                 android:id="@+id/tvNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
                 card_view:customFontWeight="medium"
                 tools:text="1001740559" />
 
-            <vn.shb.lao.base.view.MyTextView
+            <vn.shb.cam.base.view.MyTextView
                 android:id="@+id/tvBank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

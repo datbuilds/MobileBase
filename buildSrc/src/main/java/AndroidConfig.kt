@@ -1,6 +1,6 @@
 
 object AndroidConfig {
-    const val APPLICATION_ID = "vn.shb.lao"
+    const val APPLICATION_ID = "vn.shb.cam"
 
     // Prepare the version name.
     // Version name scheme: major.minor.patch

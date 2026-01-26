@@ -60,7 +60,7 @@
 ##   Android-Image-Cropper
 -keep class androidx.appcompat.widget.** { *; }
 
--keep class vn.shb.lao.** { *; }
+-keep class vn.shb.cam.** { *; }
 -keep class vn.shb.** { *; }
 
 
@@ -160,8 +160,8 @@
 -keep class **.R$drawable { *; }
 
 # Đảm bảo IconManager và các resource không bị obfuscate
--keep class vn.shb.lao.utils.IconManager { *; }
--keepclassmembers class vn.shb.lao.utils.IconManager {
+-keep class vn.shb.cam.utils.IconManager { *; }
+-keepclassmembers class vn.shb.cam.utils.IconManager {
     private static final java.util.Map iconResourceMapping;
 }
 
@@ -171,7 +171,7 @@
 }
 
 # Đảm bảo các extension function không bị obfuscate
--keep class vn.shb.lao.utils.extensions.** { *; }
+-keep class vn.shb.cam.utils.extensions.** { *; }
 
 -keep class org.joda.convert.** { *; }
 -dontwarn org.joda.convert.**

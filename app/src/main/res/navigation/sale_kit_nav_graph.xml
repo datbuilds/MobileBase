@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/saleKitFragment"
-        android:name="vn.shb.lao.screens.saleKit.ui.SaleKitFragment"
+        android:name="vn.shb.cam.screens.saleKit.ui.SaleKitFragment"
         android:label="SaleKitFragment"
         tools:layout="@layout/fragment_sk" />
 

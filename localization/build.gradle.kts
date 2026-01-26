@@ -4,6 +4,6 @@ plugins {
 }
 
 android {
-    namespace = "vn.shb.lao.localization"
+    namespace = "vn.shb.cam.localization"
     compileSdk = 35
 }

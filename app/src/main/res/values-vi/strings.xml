@@ -18,12 +18,6 @@
     <string name="processingError">Lỗi xử lý. Vui lòng thử lại sau.</string>
     <string name="passwordResetInstructions">HƯỚNG DẪN ĐẶT LẠI MẬT KHẨU</string>
     <string name="pleaseBringIdToResetPassword">Vui lòng mang căn cước công dân/ Hộ chiếu đến các điểm giao dịch SHB để đặt lại mật khẩu.</string>
-<!--    <string name="shbBranch1">Ngân hàng Sài Gòn - Hà Nội Lào TNHH MTV</string>-->
-<!--    <string name="shbBranch1Address">Số 1, Đại lộ Lane Xang, Thủ đô Viêng Chăn, CHDCND Lào</string>-->
-<!--    <string name="shbBranch2">Ngân hàng Sài Gòn - Hà Nội Lào, Chi nhánh Champasak</string>-->
-<!--    <string name="shbBranch2Address">336-338 Chợ Mới Pakse, Phonkung, Pakse, Champasack, Lào</string>-->
-<!--    <string name="shbBranch3">Ngân hàng Sài Gòn - Hà Nội Lào, Chi nhánh Savannakhet</string>-->
-<!--    <string name="shbBranch3Address">Số 25, Bản Lattanalangsy Neua, TP Kaisone Phomvihan, Savannakhet, Lào</string>-->
     <string name="welcomeToShb">Chào mừng đến với SHB</string>
     <string name="currentAccount">Tài khoản thanh toán</string>
     <string name="transfer">Chuyển tiền</string>

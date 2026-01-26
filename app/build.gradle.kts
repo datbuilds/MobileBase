@@ -14,7 +14,7 @@ localProperties.load(rootProject.file("local.properties").inputStream())
 
 
 android {
-    namespace = "vn.shb.lao"
+    namespace = "vn.shb.cam"
     compileSdk = 35
 
     buildFeatures {

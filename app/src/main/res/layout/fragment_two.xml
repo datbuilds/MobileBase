@@ -7,7 +7,7 @@
     android:background="@color/colorBg"
     android:orientation="vertical">
 
-    <vn.shb.lao.utils.view.actionView.ToolbarView
+    <vn.shb.cam.utils.view.actionView.ToolbarView
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

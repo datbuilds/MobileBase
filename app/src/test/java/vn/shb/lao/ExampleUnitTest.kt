@@ -1,4 +1,4 @@
-package vn.shb.lao
+package vn.shb.cam
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

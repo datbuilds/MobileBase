@@ -1,0 +1,98 @@
+package vn.shb.cam.screens.home
+
+import android.os.Bundle
+import android.view.View
+import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.AccountBase
+import vn.shb.data.entities.home.AccountInfo
+import vn.shb.cam.R
+import vn.shb.cam.base.BaseBottomDialogBinding
+import vn.shb.cam.databinding.DialogSelectAccountBinding
+import vn.shb.cam.screens.home.helper.SelectAccountAdapter
+import vn.shb.cam.utils.extensions.common.Const
+import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
+
+class DialogSelectAccount(private val listAccount: List<AccountBase>) :
+    BaseBottomDialogBinding<DialogSelectAccountBinding>(DialogSelectAccountBinding::inflate) {
+
+    private var onAction: ((AccountBase) -> Unit)? = null
+
+    private var selectAccount: AccountBase? = null
+
+    companion object {
+        const val TAG = "DialogSelectAccount"
+    }
+
+    class Build(
+        val list: List<AccountBase>,
+        val selectedAccount: AccountBase? = null,
+        val action: (AccountBase) -> Unit
+    ) {
+        fun build() = DialogSelectAccount(list).apply {
+            selectAccount = selectedAccount
+            onAction = action
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NORMAL, R.style.BottomDialog_Rounded)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val dialog = dialog as? BottomSheetDialog ?: return
+        val bottomSheet =
+            dialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+        bottomSheet?.let {
+            val behavior = BottomSheetBehavior.from(it).apply {
+                state = BottomSheetBehavior.STATE_EXPANDED
+                skipCollapsed = false
+                isCancelable = true
+            }
+            behavior.isDraggable = true
+        }
+    }
+
+    override fun initView(view: View) {
+        binding.rcvAccount.apply {
+            layoutManager = LinearLayoutManager(context)
+            listAccount.forEach {
+                it.setSelected(it.accountNumber == selectAccount?.accountNumber)
+            }
+            adapter = SelectAccountAdapter(listAccount) { account ->
+                selectAccount = account
+                val statusDone =
+                    if (selectAccount is AccountInfo) selectAccount?.accountType == Const.CURRENT_ACCOUNT else true
+                binding.tvDone.isVisible = statusDone
+            }
+            setHasFixedSize(true)
+        }
+    }
+
+    override fun initListener() {
+        with(binding) {
+            binding.tvDone.setOnSingleClickListener {
+                lifecycleScope.launch {
+                    selectAccount?.let { ac -> onAction?.invoke(ac) }
+                    delay(300)
+                    dismiss()
+                }
+            }
+        }
+    }
+
+    override fun initObserve() {
+        launchRepeatOnLifecycle {
+            launch {
+            }
+        }
+    }
+}

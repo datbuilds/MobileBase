@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorBg">
 
-    <vn.shb.lao.utils.view.actionView.ToolbarView
+    <vn.shb.cam.utils.view.actionView.ToolbarView
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
             android:layout_marginStart="@dimen/margin_10dp"
             android:orientation="vertical">
 
-            <vn.shb.lao.base.view.MyTextView
+            <vn.shb.cam.base.view.MyTextView
                 android:id="@+id/tvUserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
                 app:textAllCaps="true"
                 tools:text="Daz" />
 
-            <vn.shb.lao.base.view.MyTextView
+            <vn.shb.cam.base.view.MyTextView
                 android:id="@+id/tvTitleUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/viewAvatar">
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:layout_width="wrap_content"
             android:layout_height="@dimen/margin_60dp"
             android:layout_weight="1"
@@ -126,7 +126,7 @@
         app:strokeColor="@color/red_600" />
 
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvVersion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

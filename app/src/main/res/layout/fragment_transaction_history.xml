@@ -14,7 +14,7 @@
         android:layout_marginBottom="@dimen/paddingBottomLayout"
         android:orientation="vertical">
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvTransactionHistory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
             android:paddingVertical="@dimen/margin_20dp"
             tools:itemCount="3" />
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvNoTransaction"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -88,7 +88,7 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvStatusUpdateDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

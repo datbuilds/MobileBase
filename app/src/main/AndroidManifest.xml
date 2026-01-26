@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="vn.shb.lao">
+    package="vn.shb.cam">
 
     <uses-feature
         android:name="android.hardware.telephony"
@@ -41,7 +41,7 @@
         android:xlargeScreens="true" />
 
     <application
-        android:name="vn.shb.lao.SHBApplication"
+        android:name="vn.shb.cam.SHBApplication"
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:enableOnBackInvokedCallback="true"
@@ -55,7 +55,7 @@
         tools:replace="android:allowBackup"
         tools:targetApi="tiramisu">
         <activity
-            android:name="vn.shb.lao.screens.splash.ui.SplashActivity"
+            android:name="vn.shb.cam.screens.splash.ui.SplashActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:showOnLockScreen="true"
@@ -65,7 +65,7 @@
             tools:targetApi="o_mr1" />
 
         <activity
-            android:name="vn.shb.lao.activity.login.LoginActivity"
+            android:name="vn.shb.cam.activity.login.LoginActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:showOnLockScreen="true"
@@ -110,7 +110,7 @@
         <!--         [END firebase_service] -->
 
         <activity
-            android:name="vn.shb.lao.activity.dashboard.DashboardActivity"
+            android:name="vn.shb.cam.activity.dashboard.DashboardActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"/>

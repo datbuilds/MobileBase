@@ -19,7 +19,7 @@
         app:layout_constraintBottom_toTopOf="@+id/tvConfirmation"
         app:layout_constraintTop_toTopOf="parent">
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvEditBeneficiary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
         android:visibility="gone"
         app:layout_constraintTop_toTopOf="@+id/llBody">
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvToastMessage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -112,7 +112,7 @@
         app:layout_constraintTop_toTopOf="@+id/llBody"
         app:srcCompat="@drawable/ic_to_home" />
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvConfirmation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -17,7 +17,7 @@
         android:padding="@dimen/margin_6dp"
         app:srcCompat="@drawable/ic_close" />
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_16dp"
@@ -39,7 +39,7 @@
             android:layout_gravity="center_vertical"
             app:srcCompat="@drawable/ic_save_bene" />
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -51,7 +51,7 @@
             app:customFontWeight="regular" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <vn.shb.lao.base.view.MyEditText
+    <vn.shb.cam.base.view.MyEditText
         android:id="@+id/edtNickname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
         android:paddingVertical="@dimen/margin_13dp"
         android:textSize="@dimen/textSize14" />
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvError"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
         android:layout_marginHorizontal="@dimen/margin_16dp"
         app:customFontWeight="regular" />
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/btnConfirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

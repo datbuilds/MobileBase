@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             tools:visibility="visible"
             tools:srcCompat="@drawable/ic_bank_acle" />
 
-        <vn.shb.lao.base.view.MyEditText
+        <vn.shb.cam.base.view.MyEditText
             android:id="@+id/edtValue"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvError"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

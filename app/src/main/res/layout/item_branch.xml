@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_address" />
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvBranchName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_6dp">
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvBranchAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
             android:textSize="@dimen/textSize14"
             app:customFontWeight="medium" />
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvAddressDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_6dp">
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvBranchTel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
             android:textSize="@dimen/textSize14"
             app:customFontWeight="medium" />
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvHotlineDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

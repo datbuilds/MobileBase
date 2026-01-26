@@ -18,7 +18,7 @@
         android:padding="@dimen/margin_8dp"
         app:srcCompat="@drawable/ic_close" />
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvTitleAlert"
         style="@style/MaterialDialog.Title"
         android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
         android:layout_marginTop="@dimen/margin_16dp"
         tools:layout_height="@dimen/margin_100dp" />
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvContentAlert"
         style="@style/MaterialDialog.Message"
         android:layout_width="match_parent"
@@ -52,7 +52,7 @@
         android:orientation="horizontal"
         android:paddingHorizontal="@dimen/margin_16dp">
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:id="@+id/button_negative"
             style="@style/MaterialDialog.NegativeButton"
             android:layout_width="0dp"
@@ -66,7 +66,7 @@
             android:layout_height="1dp"
             android:layout_weight="1" />
 
-        <vn.shb.lao.base.view.MyTextView
+        <vn.shb.cam.base.view.MyTextView
             android:id="@+id/button_positive"
             style="@style/MaterialDialog.PositiveButton"
             android:layout_width="0dp"

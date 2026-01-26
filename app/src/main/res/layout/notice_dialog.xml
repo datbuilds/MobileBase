@@ -8,7 +8,7 @@
     android:background="@drawable/bg_dialog"
     android:orientation="vertical">
 
-   <vn.shb.lao.base.view.MyTextView
+   <vn.shb.cam.base.view.MyTextView
         android:id="@+id/textView_title"
         style="@style/MaterialDialog.Title"
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
         android:textSize="@dimen/textSize17"
         tools:text="a" />
 
-   <vn.shb.lao.base.view.MyTextView
+   <vn.shb.cam.base.view.MyTextView
         android:id="@+id/textView_message"
         style="@style/MaterialDialog.Message"
         android:layout_width="match_parent"

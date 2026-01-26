@@ -24,7 +24,7 @@
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/ic_warning" />
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
         android:textColor="@color/colorDarkCharcoal"
         android:textSize="@dimen/textSize16" />
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvContentError"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,6 +1,6 @@
-# 🏦 SHB SAHA LAOS
+# 🏦 SHB SAHA CAM
 
-SHB SAHA LAOS là ứng dụng di động được thiết kế đặc biệt của Ngân hàng SHB tại thị trường Lào.
+SHB SAHA CAM là ứng dụng di động được thiết kế đặc biệt của Ngân hàng SHB tại thị trường Campuchia.
 
 ## 🏗️ Kiến trúc hệ thống
 
@@ -41,7 +41,7 @@ SHB SAHA LAOS là ứng dụng di động được thiết kế đặc biệt c�
 ```
 SHB_SAHA_LAOS/
 ├── app/                          # Main application module
-│   ├── src/main/java/vn/shb/lao/
+│   ├── src/main/java/vn/shb/cam/
 │   │   ├── activity/             # Activities và ViewModels
 │   │   ├── base/                 # Base classes và utilities
 │   │   ├── di/                   # Dependency Injection modules
@@ -161,9 +161,9 @@ chmod +x gradlew
 
 | Environment     | Application ID   | Base URL                             | Build Command                  |
 | --------------- | ---------------- | ------------------------------------ | ------------------------------ |
-| **Development** | `vn.shb.lao.dev` | `https://dev-app.shb.com.vn/api/v1/` | `./gradlew assembleDevDebug`   |
-| **UAT**         | `vn.shb.lao.uat` | `https://uat-app.shb.com.vn/api/v1/` | `./gradlew assembleUatRelease` |
-| **Production**  | `vn.shb.lao`     | `https://app.shb.com.vn/api/v1/`     | `./gradlew assembleProRelease` |
+| **Development** | `vn.shb.cam.dev` | `https://dev-app.shb.com.vn/api/v1/` | `./gradlew assembleDevDebug`   |
+| **UAT**         | `vn.shb.cam.uat` | `https://uat-app.shb.com.vn/api/v1/` | `./gradlew assembleUatRelease` |
+| **Production**  | `vn.shb.cam`     | `https://app.shb.com.vn/api/v1/`     | `./gradlew assembleProRelease` |
 
 #### **Build Configuration**
 

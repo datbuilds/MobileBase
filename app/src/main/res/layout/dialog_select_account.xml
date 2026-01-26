@@ -7,7 +7,7 @@
     android:background="@drawable/bg_bottom_sheet"
     android:paddingBottom="@dimen/paddingBottomLayout">
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvSelectAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
         tools:itemCount="7"
         tools:listitem="@layout/item_account_select" />
 
-    <vn.shb.lao.base.view.MyTextView
+    <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvDone"
         style="@style/MaterialDialog.PositiveButton"
         android:layout_width="match_parent"
