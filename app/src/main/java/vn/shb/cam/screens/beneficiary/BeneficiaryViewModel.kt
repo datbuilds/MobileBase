@@ -111,9 +111,7 @@ class BeneficiaryViewModel(
 
     fun createBeneficiary(request: BeneficiaryRequest, isRefresh: Boolean = true) {
         viewModelScope.launch {
-//            showLoading(true)
             useCaseCreateBeneficiary.invoke(request).collect { result ->
-//                showLoading(false)
                 result.onSuccess {
                     _stateAction.value = true
                     if (isRefresh){
@@ -129,16 +127,13 @@ class BeneficiaryViewModel(
 
     fun updateBeneficiary(id: String, request: BeneficiaryRequest) {
         viewModelScope.launch {
-//            showLoading(true)
             useCaseUpdateBeneficiary.invoke(UpdateBeneficiaryUseCase.Params(id, request)).collect { result ->
-//                showLoading(false)
                 result.onSuccess {
                     _stateAction.value = true
                     getAllBeneficiary()
                 }
                 result.onFailure {
-                    _stateAction.value = false
-//                    handleError(it)
+                    _stateError.send(it)
                 }
             }
         }
