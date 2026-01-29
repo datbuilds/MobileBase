@@ -23,13 +23,17 @@ import vn.shb.core.core.domain.source.request.BeneficiaryRequest
 import vn.shb.core.core.domain.usecases.beneficiary.DeleteBeneficiaryUseCase
 import vn.shb.core.core.domain.usecases.beneficiary.GetBanksUseCase
 import vn.shb.data.entities.beneficiary.Bank
+import vn.shb.core.core.domain.usecases.beneficiary.ValidateAccountUseCase
+import vn.shb.core.core.domain.source.request.ValidateAccountRequest
+import vn.shb.core.core.domain.source.response.ValidateAccountResponse
 
 class BeneficiaryViewModel(
     private val useCaseGetBeneficiaries: GetBeneficiariesUseCase,
     private val useCaseGetBanks: GetBanksUseCase,
     private val useCaseDeleteBeneficiary: DeleteBeneficiaryUseCase,
     private val useCaseCreateBeneficiary: CreateBeneficiaryUseCase,
-    private val useCaseUpdateBeneficiary: UpdateBeneficiaryUseCase
+    private val useCaseUpdateBeneficiary: UpdateBeneficiaryUseCase,
+    private val useCaseValidateAccount: ValidateAccountUseCase
 ) : BaseViewModel() {
 
     private val _localBeneficiaries = MutableStateFlow<List<Beneficiary>>(emptyList())
@@ -43,6 +47,11 @@ class BeneficiaryViewModel(
     private val _stateAction = MutableStateFlow<Boolean?>(null)
     val stateAction = _stateAction.asStateFlow()
 
+    private val _stateValidateAccount = Channel<ValidateAccountResponse.ValidateAccountData>(Channel.BUFFERED)
+    val stateValidateAccount = _stateValidateAccount.receiveAsFlow()
+
+    private val _stateErrorValidateAccount = Channel<Reason>(Channel.BUFFERED)
+    val stateErrorValidateAccount = _stateErrorValidateAccount.receiveAsFlow()
     private val _stateError = Channel<Reason>(Channel.BUFFERED)
     val stateError = _stateError.receiveAsFlow()
 
@@ -134,6 +143,22 @@ class BeneficiaryViewModel(
                 }
                 result.onFailure {
                     _stateError.send(it)
+                }
+            }
+        }
+    }
+
+    fun validateAccount(accountNumber: String, bankCode: String) {
+        viewModelScope.launch {
+            val request = ValidateAccountRequest(accountNumber, bankCode)
+            useCaseValidateAccount(request).collect { result ->
+                result.onSuccess { response ->
+                    if (response.data != null) {
+                        _stateValidateAccount.send(response.data!!)
+                    }
+                }
+                result.onFailure {
+                    _stateErrorValidateAccount.send(it)
                 }
             }
         }

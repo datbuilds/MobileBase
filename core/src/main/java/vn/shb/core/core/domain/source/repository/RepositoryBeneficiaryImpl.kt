@@ -43,6 +43,10 @@ class RepositoryBeneficiaryImpl(
         return handleResponse(service.updateBeneficiary(id, request)) { it }
     }
 
+    override suspend fun validateAccount(request: vn.shb.core.core.domain.source.request.ValidateAccountRequest): ResultSHB<vn.shb.core.core.domain.source.response.ValidateAccountResponse> {
+        return handleResponse(service.validateAccount(request)) { it }
+    }
+
     private fun <T : BaseResponse<*>, R> handleResponse(
         result: ResultSHB<T>,
         mapSuccess: (T) -> R

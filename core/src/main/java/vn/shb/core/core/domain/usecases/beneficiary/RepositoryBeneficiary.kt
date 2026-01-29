@@ -7,6 +7,9 @@ import vn.shb.core.core.domain.source.response.BeneficiaryResponse
 import vn.shb.data.entities.beneficiary.Bank
 import vn.shb.data.entities.beneficiary.Beneficiary
 
+import vn.shb.core.core.domain.source.request.ValidateAccountRequest
+import vn.shb.core.core.domain.source.response.ValidateAccountResponse
+
 interface RepositoryBeneficiary {
     suspend fun getBeneficiaries(): ResultSHB<List<Beneficiary>>
     suspend fun getBanks(): ResultSHB<List<Bank>>
@@ -15,6 +18,8 @@ interface RepositoryBeneficiary {
         id: String,
         request: BeneficiaryRequest
     ): ResultSHB<BeneficiaryResponse>
+
+    suspend fun validateAccount(request: ValidateAccountRequest): ResultSHB<ValidateAccountResponse>
 
     suspend fun deleteBeneficiary(id: String): ResultSHB<ActionDone>
 }
