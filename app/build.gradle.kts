@@ -25,7 +25,7 @@ android {
     productFlavors {
         createApplicationFlavor(
             pro = {
-                resValue("string", "app_name", "SHB SAHA Laos")
+                resValue("string", "app_name", "SHB SAHA CAMs")
                 buildConfigField(
                     "String",
                     "BASE_URL",

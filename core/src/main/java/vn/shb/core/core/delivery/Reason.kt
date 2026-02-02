@@ -35,7 +35,7 @@ object ReasonDescription {
     const val UNAUTHORIZED = "Bạn không có quyền truy cập"
     const val BAD_REQUEST = "Yêu cầu không hợp lệ"
 
-    const val LAO = "lo"
+    const val CAM = "km"
     const val VIET = "vi"
     const val ENGLISH = "en"
 

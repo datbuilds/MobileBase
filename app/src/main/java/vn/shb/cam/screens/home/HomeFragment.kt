@@ -19,9 +19,6 @@ import com.example.imagecrouse.ui.whynotimagecarousel.model.CarouselItem
 import com.example.imagecrouse.ui.whynotimagecarousel.utils.setImage
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import vn.shb.core.core.delivery.ReasonDescription.ENGLISH
-import vn.shb.core.core.delivery.ReasonDescription.LAO
-import vn.shb.core.core.delivery.ReasonDescription.VIET
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.AccountBase
 import vn.shb.data.entities.login.UserLog

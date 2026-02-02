@@ -23,15 +23,15 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toDrawable
 import com.google.android.material.snackbar.Snackbar
-import vn.shb.core.core.delivery.ReasonDescription.ENGLISH
-import vn.shb.core.core.delivery.ReasonDescription.LAO
-import vn.shb.core.core.delivery.ReasonDescription.VIET
-import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.cam.R
 import vn.shb.cam.databinding.LayoutLanguagePopupBinding
 import vn.shb.cam.screens.login.ui.LoginFragment
 import vn.shb.cam.utils.extensions.getTextWelcomeUser
 import vn.shb.cam.utils.widgets.LocaleHelper
+import vn.shb.core.core.delivery.ReasonDescription.CAM
+import vn.shb.core.core.delivery.ReasonDescription.ENGLISH
+import vn.shb.core.core.delivery.ReasonDescription.VIET
+import vn.shb.core.utils.extesions.setOnSingleClickListener
 
 fun LoginFragment.setGreeting(textView: TextView) {
 
@@ -106,11 +106,11 @@ fun LoginFragment.showLanguagePopup(anchor: View) {
 
     binding.apply {
         iclLanguage1.apply {
-            ivLogo.setImageResource(R.drawable.ic_logo_lao)
-            tvNameLanguage.text = getString(R.string.lao)
-            root.setDisableAlpha(currentLanguage == LAO)
+            ivLogo.setImageResource(R.drawable.ic_logo_cam)
+            tvNameLanguage.text = getString(R.string.cambodian)
+            root.setDisableAlpha(currentLanguage == CAM)
             root.setOnSingleClickListener {
-                updateLanguage(LAO)
+                updateLanguage(CAM)
                 popupWindow.dismiss()
             }
         }
@@ -151,7 +151,7 @@ fun Context.getResourceLocale(type: String, res: (String, Int) -> Unit) {
         }
 
         "lo" -> {
-            res(getString(R.string.lao), R.drawable.ic_logo_lao)
+            res(getString(R.string.lao), R.drawable.ic_logo_cam)
         }
 
         "vi" -> {

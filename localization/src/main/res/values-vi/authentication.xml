@@ -1,5 +1,5 @@
 <resources>
-    <string name="shb_text_app">SHB SAHA LAOS</string>
+    <string name="shb_text_app">SHB SAHA CAMS</string>
     <string name="shb_version">Phiên bản %s</string>
 
     <string name="shb_session_expire_title">Quý khách đã hết phiên làm việc</string>

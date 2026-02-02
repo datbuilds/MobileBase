@@ -21,6 +21,6 @@
         android:includeFontPadding="false"
         android:textColor="@color/black"
         android:textSize="14sp"
-        tools:text="@string/englishLabel" />
+        tools:text="@string/english" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

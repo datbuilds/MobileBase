@@ -62,7 +62,7 @@ object LocaleHelper {
             }
 
             "lo" -> {
-                res(R.drawable.ic_logo_lao)
+                res(R.drawable.ic_logo_cam)
             }
 
             "vi" -> {

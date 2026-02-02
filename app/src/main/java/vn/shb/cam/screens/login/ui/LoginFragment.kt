@@ -67,7 +67,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         binding.tvHotline.text =
             getString(R.string.version).plus(Const.SEPARATOR_SPACE).plus(BuildConfig.VERSION_NAME)
 
-        loginViewModel.getTokenWso2()
+//        loginViewModel.getTokenWso2()
     }
 
     private fun mapUILogin() {

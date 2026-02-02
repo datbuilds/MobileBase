@@ -188,6 +188,7 @@
     <string name="theBeneficiaryUpdateFail">Beneficiary updated fail</string>
     <string name="theBeneficiaryAlreadyExists">The beneficiary already exists</string>
     <string name="new_version_available">A new version is available</string>
-    <string name="weHaveReleasedNewVersion">We have released a new version. Please update to enjoy a better saving experience with SHB SAHA Laos.</string>
+    <string name="weHaveReleasedNewVersion">We have released a new version. Please update to enjoy a better saving experience with SHB SAHA CAMs.</string>
     <string name="updateLabel">Update</string>
+    <string name="cambodian">Cambodian</string>
 </resources>
