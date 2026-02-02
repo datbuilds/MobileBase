@@ -140,7 +140,7 @@
     <dimen name="widthAvatarProfile">80dp</dimen>
 
     //radius
-    <dimen name="radius_button_alert">8dp</dimen>
+    <dimen name="radius_button_alert">12dp</dimen>
     <dimen name="pageMargin">8dp</dimen>
     <dimen name="pageOffset">16dp</dimen>
     <dimen name="widthImageDialog">120dp</dimen>

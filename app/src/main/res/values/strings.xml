@@ -193,4 +193,11 @@
     <string name="weHaveReleasedNewVersion">We have released a new version. Please update to enjoy a better saving experience with SHB SAHA CAMs.</string>
     <string name="updateLabel">Update</string>
     <string name="cambodian">Cambodian</string>
+    <string name="register_device_title">Register device for using the SHB Saha Cambodia application</string>
+    <string name="register_device_message">To enhance account security, please verify your device using the OTP sent to the phone number %s to complete the app registration. Is this your phone number?</string>
+    <string name="confirm_device_title">Confirm device</string>
+    <string name="confirm_device_message">Please enter the OTP that has been sent to the phone number %s</string>
+    <string name="remaining_time">Remaining time %s second</string>
+    <string name="otp_incorrect_message">The OTP code is incorrect. Please check again.</string>
+    <string name="confirmLabel">Confirm</string>
 </resources>

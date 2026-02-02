@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:background="@drawable/bg_bottom_sheet"
+    android:orientation="vertical"
     android:paddingVertical="@dimen/margin_8dp">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -59,39 +59,39 @@
         android:layout_marginTop="@dimen/margin_8dp"
         android:background="@drawable/bg_enter_nickname"
         android:hint="@string/enter_nickname"
-        android:textColorHint="#CCCCCC"
-        android:textColor="@color/neutral10"
         android:paddingHorizontal="@dimen/margin_12dp"
         android:paddingVertical="@dimen/margin_13dp"
+        android:textColor="@color/neutral10"
+        android:textColorHint="#CCCCCC"
         android:textSize="@dimen/textSize14" />
 
     <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvError"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
         android:layout_marginTop="@dimen/margin_6dp"
         android:text="@string/error_enter_nickname"
         android:textColor="@color/color_error_text_login"
         android:visibility="gone"
-        tools:visibility="visible"
-        android:layout_marginHorizontal="@dimen/margin_16dp"
-        app:customFontWeight="regular" />
+        app:customFontWeight="regular"
+        tools:visibility="visible" />
 
     <vn.shb.cam.base.view.MyTextView
         android:id="@+id/btnConfirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
         android:layout_marginTop="@dimen/margin_16dp"
+        android:layout_marginBottom="@dimen/margin_10dp"
         android:background="@drawable/bg_button_enable"
         android:gravity="center"
-        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:includeFontPadding="false"
         android:paddingHorizontal="@dimen/margin_12dp"
         android:paddingVertical="@dimen/margin_13dp"
         android:text="@string/confirmation"
-        android:includeFontPadding="false"
         android:textColor="@color/white"
         android:textSize="@dimen/textSize14"
-        android:layout_marginBottom="@dimen/margin_10dp"
         app:customFontWeight="semi_bold" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

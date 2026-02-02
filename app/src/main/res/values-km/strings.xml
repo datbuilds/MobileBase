@@ -168,4 +168,11 @@
     <string name="shbBranch2Address">ផ្ទះលេខ ១៦១​សេដេ មហាវិថី ហ្សាវ៉ាហារឡានេហ៍រុ សង្កាត់ផ្សារដេប៉ូទី១ ខណ្ឌទួលគោក រាជធានីភ្នំពេញ</string>
     <string name="bank">ធនាគារ</string>
     <string name="password_rule_special">តម្រូវឱ្យមានយ៉ាងហោចណាស់អក្សរតូច ១ និងអក្សរធំ ១និងសញ្ញាពិសេស១ ដូចជា .~!@#$\%^&amp;*()_+={}|:;&lt;&gt;,/?-</string>
+    <string name="register_device_title">Register device for using the SHB Saha Cambodia application</string>
+    <string name="register_device_message">To enhance account security, please verify your device using the OTP sent to the phone number %s to complete the app registration. Is this your phone number?</string>
+    <string name="confirm_device_title">Confirm device</string>
+    <string name="confirm_device_message">Please enter the OTP that has been sent to the phone number %s</string>
+    <string name="remaining_time">Remaining time %s second</string>
+    <string name="otp_incorrect_message">The OTP code is incorrect. Please check again.</string>
+    <string name="confirmLabel">Confirm</string>
 </resources>

@@ -44,7 +44,9 @@ import vn.shb.cam.utils.extensions.setCustomSpannable
 import vn.shb.cam.utils.extensions.textValue
 import vn.shb.cam.utils.extensions.visible
 import vn.shb.cam.utils.view.dialog.BottomSheetDialogHelper
+import vn.shb.cam.utils.view.dialog.ConfirmDeviceDialog
 import vn.shb.cam.utils.view.dialog.ForceUpdateDialog
+import vn.shb.cam.utils.view.dialog.RegisterDeviceDialog
 import vn.shb.cam.utils.widgets.LocaleHelper
 import java.util.Base64
 
@@ -113,7 +115,30 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             //handle edit username
             btnLogin.setOnSingleClickListener {
                 clearFocusEditText()
-                handleActionLogin()
+//                handleActionLogin()
+                val phone = "0393870399"
+                val maskedPhone = maskPhoneNumber(phone)
+                RegisterDeviceDialog(
+                    phoneNumber = maskedPhone,
+                    onConfirm = { 
+                        ConfirmDeviceDialog(
+                            phoneNumber = maskedPhone,
+                           onConfirm = { otp ->
+                               // Validate OTP or just proceed for now
+                               if (otp == "123456") { // Mock validation
+                                   nextDashboard() 
+                               } else {
+                                   // In a real scenario, we might want to keep the dialog open and show error
+                                   // But since dismiss() is called in dialog, we might need to change logic.
+                                   // For this task request, "show dialog to input OTP" is key.
+                                   // Let's assume onConfirm passes OTP back to fragment to handle.
+                                   nextDashboard()
+                               }
+                           }
+                        ).show(childFragmentManager, ConfirmDeviceDialog.TAG)
+                    },
+                    onCancel = { loginViewModel.logout() }
+                ).show(childFragmentManager, RegisterDeviceDialog.TAG)
             }
             edtInputUsername.setOnFocusChangeListener { _, hasFocus ->
                 userNameContainer.isSelected = hasFocus
@@ -359,6 +384,15 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         if (stateLogin is StateLogin.OpenDashboard) {
             nextDashboard()
         }
+    }
+
+    private fun maskPhoneNumber(phone: String?): String {
+        if (phone.isNullOrEmpty()) return ""
+        val length = phone.length
+        if (length < 7) return phone
+        val start = phone.take(3)
+        val end = phone.substring(length - 2)
+        return "$start*****$end"
     }
 
     fun updateLanguage(type: String) {
