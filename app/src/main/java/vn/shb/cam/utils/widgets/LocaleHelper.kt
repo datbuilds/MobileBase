@@ -13,7 +13,7 @@ object LocaleHelper {
 
     private const val PREFS_NAME = "app_prefs"
     private const val KEY_LANGUAGE = "key_language"
-    private const val DEFAULT_LANGUAGE = "lo"
+    private const val DEFAULT_LANGUAGE = "km"
 
     /**
      * Dùng trong Application.attachBaseContext()
@@ -33,7 +33,7 @@ object LocaleHelper {
         config.setLocale(locale)
         val newContext = context.createConfigurationContext(config)
 
-        if (language.equals("lo", ignoreCase = true)) {
+        if (language.equals("km", ignoreCase = true)) {
             FontManager.init(newContext)
         } else {
             FontManager.init(newContext, "inter")
@@ -61,7 +61,7 @@ object LocaleHelper {
                 res(R.drawable.ic_logo_uk)
             }
 
-            "lo" -> {
+            "km" -> {
                 res(R.drawable.ic_logo_cam)
             }
 

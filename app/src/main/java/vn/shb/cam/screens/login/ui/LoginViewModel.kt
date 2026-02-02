@@ -225,7 +225,13 @@ class LoginViewModel(
                 "+856 30 925 6666",
                 "16.56037",
                 "104.75389"
-            )
-        )
+            ),
+            Branch(
+                context.getString(R.string.shbBranch4),
+                context.getString(R.string.shbBranch4Address),
+                    "+856 30 925 6666",
+                    "16.56037",
+                    "104.75389"
+        ))
     }
 }

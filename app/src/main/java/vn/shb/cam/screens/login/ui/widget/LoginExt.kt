@@ -150,8 +150,8 @@ fun Context.getResourceLocale(type: String, res: (String, Int) -> Unit) {
             res(getString(R.string.english), R.drawable.ic_logo_uk)
         }
 
-        "lo" -> {
-            res(getString(R.string.lao), R.drawable.ic_logo_cam)
+        "km" -> {
+            res(getString(R.string.cambodian), R.drawable.ic_logo_cam)
         }
 
         "vi" -> {

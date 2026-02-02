@@ -1,11 +1,13 @@
 <?xml version="1.0" ?>
 <resources>
     <string name="personalInternetBanking">ធនាគារអនឡាញឯកជន</string>
+    <string name="enterYourDetailToSignIn">បញ្ចូលព័ត៌មានលម្អិតរបស់អ្នក</string>
     <string name="userName">ឈ្មោះអ្នកប្រើប្រាស់</string>
     <string name="userNameLogin">ឈ្មោះអ្នកប្រើប្រាស់</string>
     <string name="enterYourUserName">បញ្ចូលឈ្មោះអ្នកប្រើប្រាស់</string>
     <string name="password">ពាក្យសម្ងាត់</string>
     <string name="enterPassword">បញ្ចូលពាក្យសម្ងាត់</string>
+    <string name="forgotPassword">ភ្លេចពាក្យសម្ងាត់?</string>
     <string name="login">ចូលប្រព័ន្ធ</string>
     <string name="goodMorning">អរុណសួស្តី</string>
     <string name="goodAfternoon">សាយ័ណ្ហសួស្តី</string>
@@ -17,6 +19,10 @@
     <string name="processingError">កំហុសក្នុងការដំណើរការ។ សូមព្យាយាមម្តងទៀតនៅពេលក្រោយ។</string>
     <string name="passwordResetInstructions">ការណែនាំអំពីការកំណត់ពាក្យសម្ងាត់</string>
     <string name="pleaseBringIdToResetPassword">សូមយកអត្តសញ្ញាណប័ណ្ណ ឬលិខិតឆ្លងដែនរបស់អ្នកទៅកាន់សាខាធនាគារ SHB ដែលនៅជិតលោក ដើម្បីធ្វើផ្លាស់ប្ដូរ់លេខសម្ងាត់របស់អ្នកឡើងវិញ។</string>
+    <string name="shbBranch3">ធនាគារ សៃហ្គន-ហាណូយ កម្ពុជា ភីអិលស៊ី- សាខាសែនសុខ</string>
+    <string name="shbBranch3Address">ផ្ទះលេខ ៥១១​សេ វិថីឧកញ្ញ៉ាម៉ុងឫទ្ធី សង្កាត់ភ្នំពេញថ្មី រាជធានីភ្នំពេញ</string>
+    <string name="shbBranch4">ធនាគារ សៃហ្គន-ហាណូយ កម្ពុជា ភីអិលស៊ី- សាខាច្បារអំពៅ</string>
+    <string name="shbBranch4Address">ផ្ទះលេខ ៧៦ ផ្លូវជាតិលេខ១ សង្កាត់និរោធ ខណ្ឌច្បារអំពៅ រាជធានីភ្នំពេញ</string>
     <string name="welcomeToShb">សូមស្វាគមន៍ការមកកាន់ធនាគារ សៃហ្គន-ហាណូយ</string>
     <string name="currentAccount">គណនីចរន្ត</string>
     <string name="transfer">ផ្ទេរប្រាក់</string>
@@ -90,9 +96,11 @@
     <string name="currentBalance">សមតុល្យប្រើបាន</string>
     <string name="show">បង្ហាញ</string>
     <string name="myProfile">ពត៌មានរបស់ខ្ញុំ</string>
+    <string name="tel">Hotline</string>
     <string name="hide">លាក់ទុក</string>
     <string name="english">ភាសាអង់គ្លេស</string>
     <string name="vietnamese">ភាសាវៀតណាម</string>
+    <string name="add">អាសយដ្ឋាន</string>
     <string name="done">រួចរាល់</string>
     <string name="flexibleSaving">គណនីសន្សំ</string>
     <string name="invalidRemarks">ខ្លឹមសារមិនត្រឹមត្រូវ</string>
@@ -100,6 +108,7 @@
     <string name="authenticationFailed">ការផ្ទៀងផ្ទាត់បរាជ័យ សូមព្យាយាមម្តងទៀត។</string>
     <string name="pleaseEnterTheAmount">សូមបញ្ចូលចំនួនទឹកប្រាក់</string>
     <string name="enterRecipientName">បញ្ចូលឈ្មោះអ្នកទទួល</string>
+    <string name="transactionFail">ប្រតិបត្តិការបរាជ័យ!</string>
     <string name="anErrorHasOccurred">មានកំហុសកើតឡើង ប្រតិបត្តិការមិនទាន់បានបញ្ចប់ទេ។ សូមព្យាយាមម្តងទៀត!</string>
     <string name="today">ថ្ងៃនេះ</string>
     <string name="yesterday">ម្សិលម្ងៃ</string>
@@ -126,6 +135,7 @@
     <string name="beneficiary">អ្នកទទួល</string>
     <string name="beneficiaryList">បញ្ជីអ្នកទទួល</string>
     <string name="enterRecipientNameOrAccountNumber">បញ្ចូលឈ្មោះអ្នកទទួល ឬលេខគណនី</string>
+    <string name="doYouWantToDeleteFromBeneficiary"> តើអ្នកចង់លុបលោកស្រី %s ចេញពីបញ្ជីអ្នកទទួលដែរឬទេ?</string>
     <string name="beneficiaryDeletedSuccessfully">បានលុបអ្នកទទួលដោយជោគជ័យ</string>
     <string name="editBeneficiary">កែតម្រូវអ្នកទទួល</string>
     <string name="beneficiaryUpdatedSuccessfully">ធ្វើបច្ចុប្បន្នភាពអ្នកទទួលជោគជ័យ</string>
@@ -145,11 +155,17 @@
     <string name="enterCurrentPassword">បញ្ចូលពាក្យសម្ងាត់បច្ចុប្បន្ន</string>
     <string name="new_password">ពាក្យសម្ងាត់ថ្មី</string>
     <string name="enter_new_password">បញ្ចូលពាក្យសម្ងាត់ថ្មី</string>
+    <string name="password_rule_username"> មិនដូចគណនីចូលប្រើប្រាស់ ឬឈ្មោះរបស់អ្នកប្រើប្រាស់ទេ</string>
     <string name="re_enter_new_password">បញ្ចូលពាក្យសម្ងាត់ថ្មីឡើងវិញ</string>
     <string name="hint_re_enter_new_password">បញ្ចូលពាក្យសម្ងាត់ថ្មីឡើងវិញ</string>
     <string name="changePassword">ប្តូរពាក្យសម្ងាត់</string>
     <string name="password_rule_length">จำนวนពី ៦ ទៅ ៥០ តួអក្សរ</string>
     <string name="password_rule_case">តម្រូវឱ្យមានយ៉ាងហោចណាស់អក្សរតូច ១ និងអក្សរធំ ១</string>
     <string name="change_password_success">ប្តូរពាក្យសម្ងាត់ជោគជ័យ</string>
+    <string name="shbBranch1">ធនាគារ សៃហ្គន-ហាណូយ កម្ពុជា ភីអិលស៊ី</string>
+    <string name="shbBranch1Address">ផ្ទះលេខ ១០៧ មហាវិថីព្រះនរោត្តម សង្កាត់បឹងរាំង ខណ្ឌដូនពេញ រាជធានីភ្នំពេញ</string>
+    <string name="shbBranch2">ធនាគារ សៃហ្គន-ហាណូយ កម្ពុជា ភីអិលស៊ី- សាខានេហ៍រុ</string>
+    <string name="shbBranch2Address">ផ្ទះលេខ ១៦១​សេដេ មហាវិថី ហ្សាវ៉ាហារឡានេហ៍រុ សង្កាត់ផ្សារដេប៉ូទី១ ខណ្ឌទួលគោក រាជធានីភ្នំពេញ</string>
     <string name="bank">ធនាគារ</string>
+    <string name="password_rule_special">តម្រូវឱ្យមានយ៉ាងហោចណាស់អក្សរតូច ១ និងអក្សរធំ ១និងសញ្ញាពិសេស១ ដូចជា .~!@#$\%^&amp;*()_+={}|:;&lt;&gt;,/?-</string>
 </resources>
