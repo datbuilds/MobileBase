@@ -68,7 +68,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
         binding.tvHotline.text =
             getString(R.string.version).plus(Const.SEPARATOR_SPACE).plus(BuildConfig.VERSION_NAME)
-
+        storage.resetToken()
         loginViewModel.getTokenWso2()
     }
 
@@ -90,8 +90,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         getCurrentUser()?.let { user ->
             prepareViewUserLogged(user)
         } ?: resetInputLogin()
-
-        storage.resetToken()
     }
 
     override fun handleSavedState(savedInstanceState: Bundle?) {
@@ -238,7 +236,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
     private fun postLogin(us: String, psW: String) {
         val params = UseCaseLogin.Params(us, psW)
-        loginViewModel.login(params)
+        loginViewModel.checkLogin(params)
     }
 
     private fun getPassword(): Pair<String, String> {

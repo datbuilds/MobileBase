@@ -22,6 +22,9 @@ interface ApiUser {
     @GET(ENDPOINT.BENEFICIARIES)
     fun getBeneficiaries(): Call<BeneficiaryResponse>
 
+    @retrofit2.http.POST(ENDPOINT.BENEFICIARIES + "/validate-account")
+    fun validateAccount(@Body request: vn.shb.core.core.domain.source.request.ValidateAccountRequest): Call<vn.shb.core.core.domain.source.response.ValidateAccountResponse>
+
     @retrofit2.http.POST(ENDPOINT.BENEFICIARIES)
     fun createBeneficiary(@Body request: vn.shb.core.core.domain.source.request.BeneficiaryRequest): Call<vn.shb.core.core.domain.source.response.BeneficiaryResponse>
 

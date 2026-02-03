@@ -176,4 +176,5 @@
     <string name="weHaveReleasedNewVersion">Chúng tôi đã cập nhật phiên bản mới, vui lòng cập nhật để có trải nghiệm tốt  hơn với SHB SAHA CAMs.</string>
     <string name="updateLabel">Cập nhật </string>
     <string name="error_current_password_incorrect">Mật khẩu hiện tại không đúng, vui lòng thử lại</string>
+    <string name="invalidAccountNumber">Số tài khoản không hợp lệ</string>
 </resources>

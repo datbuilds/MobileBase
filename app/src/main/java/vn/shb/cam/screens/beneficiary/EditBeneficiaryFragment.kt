@@ -1,11 +1,13 @@
 package vn.shb.cam.screens.beneficiary
 
+import android.util.Log
 import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.setFragmentResult
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.getScopeName
 import vn.shb.core.core.domain.source.request.BeneficiaryRequest
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.beneficiary.Bank
@@ -35,6 +37,7 @@ class EditBeneficiaryFragment :
     }
 
     private var selectedBank: Bank? = null
+    private var isAccountValidated = true
 
     override fun initView(view: View) {
         initTitle()
@@ -71,7 +74,10 @@ class EditBeneficiaryFragment :
                 iclAccountName.edtValue.setText(data.accountName)
 
                 val defaultRemark = if (data.remark.isNullOrEmpty()) {
-                    getString(R.string.remark_default_value, homeViewModel.getCurrentUserInfo()?.customerName)
+                    getString(
+                        R.string.remark_default_value,
+                        homeViewModel.getCurrentUserInfo()?.customerName
+                    )
                 } else {
                     data.remark
                 }
@@ -85,11 +91,16 @@ class EditBeneficiaryFragment :
 
                 iclBank.ivLogo.visibility = View.VISIBLE
                 iclBank.ivLogo.setImageResource(BankType.getIconByCode(data.bankCode))
+
+                // Disable Account Number editing
+                iclAccountNumber.edtValue.isEnabled = false
+                iclAccountNumber.root.alpha = 0.6f
             }
         }
     }
 
     private fun setupAddMode() {
+        isAccountValidated = false
         with(binding) {
             // Add Mode specific UI
             iclBank.edtValue.isEnabled = false // Not editable by text, only click
@@ -118,7 +129,12 @@ class EditBeneficiaryFragment :
                             iclBank.edtValue.setText(bank.shortName ?: bank.bankCode)
                             iclBank.ivLogo.visibility = View.VISIBLE
                             iclBank.ivLogo.setImageResource(BankType.getIconByCode(bank.bankCode))
-
+                            if (iclAccountNumber.edtValue.text.toString().isNotEmpty()){
+                                viewModel.validateAccount(
+                                    iclAccountNumber.edtValue.text.toString(),
+                                    bank.bankCode?:"SHB"
+                                )
+                            }
                             // Hide error if selected
                             iclBank.tvError.visibility = View.GONE
                             validateInputs()
@@ -201,7 +217,7 @@ class EditBeneficiaryFragment :
             val bankName = iclBank.edtValue.text.toString().trim()
 
             val isValid =
-                accountNumber.isNotEmpty() && accountName.isNotEmpty() && remark.isNotEmpty() && bankName.isNotEmpty()
+                accountNumber.isNotEmpty() && accountName.isNotEmpty() && remark.isNotEmpty() && bankName.isNotEmpty() && isAccountValidated
 
             tvConfirmation.isEnabled = isValid
             tvConfirmation.alpha = if (isValid) 1.0f else 0.5f
@@ -263,6 +279,13 @@ class EditBeneficiaryFragment :
                 includeLayout: vn.shb.cam.databinding.ItemEditBeneficiaryBinding,
                 errorMessage: String
             ) {
+                includeLayout.edtValue.setOnEditorActionListener { v, actionId, event ->
+                    if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE) {
+                        includeLayout.edtValue.clearFocus()
+                    }
+                    false
+                }
+
                 includeLayout.edtValue.setOnFocusChangeListener { _, hasFocus ->
                     if (!hasFocus) {
                         validateField(
@@ -271,10 +294,23 @@ class EditBeneficiaryFragment :
                             includeLayout.llEdit,
                             errorMessage
                         )
+
+                        if (includeLayout == iclAccountNumber && !isEdit && includeLayout.edtValue.text?.isNotEmpty() == true) {
+                            val bankCode = selectedBank?.bankCode
+                            if (!bankCode.isNullOrEmpty()) {
+                                viewModel.validateAccount(
+                                    includeLayout.edtValue.text.toString(),
+                                    bankCode
+                                )
+                            }
+                        }
                     }
                 }
 
                 includeLayout.edtValue.doAfterTextChanged {
+                    if (includeLayout == iclAccountNumber && !isEdit) {
+                         isAccountValidated = false
+                    }
                     validateInputs() // Update button state
                     if (it.toString().isNotEmpty()) {
                         includeLayout.tvError.visibility = View.GONE
@@ -323,16 +359,16 @@ class EditBeneficiaryFragment :
             launch {
                 viewModel.stateError.collectLatest {
 //                    if (it.errorCode == "ACC-007"){
-                        val message = it.errMessage
-                        setFragmentResult(
-                            ApiConst.KEY_RESULT_BENEFICIARY,
-                            android.os.Bundle().apply {
-                                putString(ApiConst.KEY_MESSAGE, message)
-                                putBoolean(ApiConst.KEY_CONFIRM_ERROR, true)
-                            }
-                        )
-                        viewModel.resetActionState()
-                        backPress()
+                    val message = it.errMessage
+                    setFragmentResult(
+                        ApiConst.KEY_RESULT_BENEFICIARY,
+                        android.os.Bundle().apply {
+                            putString(ApiConst.KEY_MESSAGE, message)
+                            putBoolean(ApiConst.KEY_CONFIRM_ERROR, true)
+                        }
+                    )
+                    viewModel.resetActionState()
+                    backPress()
 //                        return@collectLatest
 //                    }
 //                    handleErrorHome(it)
@@ -344,9 +380,31 @@ class EditBeneficiaryFragment :
                     if (isEdit && banks.isNotEmpty()) {
                         beneficiary?.let { data ->
                             val bankOfBeneficiary = banks.find { it.bankCode == data.bankCode }
-                            binding.iclBank.edtValue.setText(bankOfBeneficiary?.shortName ?: data.bankName)
+                            binding.iclBank.edtValue.setText(
+                                bankOfBeneficiary?.shortName ?: data.bankName
+                            )
                         }
                     }
+                }
+            }
+
+            launch {
+                viewModel.stateValidateAccount.collect { data ->
+                    val name = data.accountName?.replace(Regex("[^a-zA-Z0-9 ]"), "") ?: ""
+                    binding.iclAccountName.edtValue.setText(name)
+                    isAccountValidated = true
+                    validateInputs()
+                    val nameUser = getCurrentUser()?.username
+                    binding.iclDefaultRemarks.edtValue.setText(getString(R.string.remark_default_value, nameUser))
+                }
+            }
+
+            launch {
+                viewModel.stateErrorValidateAccount.collectLatest {
+                    isAccountValidated = false
+                    validateInputs()
+                    binding.iclAccountNumber.tvError.text = getString(R.string.invalidAccountNumber)
+                    binding.iclAccountNumber.tvError.visible()
                 }
             }
         }

@@ -86,6 +86,14 @@ class LoginViewModel(
         }
     }
 
+    fun checkLogin(param: UseCaseLogin.Params) {
+        if (storage.getTokenWso2().isNullOrEmpty()) {
+            getTokenWso2BackUpLogin(param)
+        } else {
+            login(param)
+        }
+    }
+
     fun login(param: UseCaseLogin.Params) {
         viewModelScope.launch {
             useCaseLogin(param).collect {
@@ -137,6 +145,37 @@ class LoginViewModel(
                 result.onFailure { error ->
                     stateLoading(false)
                     handleErrorTokenWso2(error)
+                }
+                result.onLoading {
+                    stateLoading(true)
+//                    _state.value = LoginUiState.Loading
+                }
+            }
+        }
+    }
+    fun getTokenWso2BackUpLogin(param: UseCaseLogin.Params) {
+        viewModelScope.launch {
+            val paramsWso2 = UseCaseGetTokenWso2.InputParams(
+                BuildConfig.AUTHORIZATION, UseCaseGetTokenWso2.Params(
+                    grant_type = BuildConfig.GRANT_TYPE,
+                    username = BuildConfig.USERNAME,
+                    password = BuildConfig.PASSWORD,
+                    scope = BuildConfig.SCOPE,
+                )
+            )
+            useCaseGetTokenWso2(paramsWso2).collect { result ->
+                result.onSuccess { trans ->
+                    storage.setTokenWso2(trans.access_token)
+                    storage.setRfTokenWso2(trans.refresh_token)
+                    storage.updateExpireTime(
+                        TimeUnit.SECONDS.toMinutes(trans.expireIn()).toInt()
+                    )
+                    delay(200)
+                    login(param)
+                }
+                result.onFailure { error ->
+                    stateLoading(false)
+                    _state.value = LoginUiState.Error(error)
                 }
                 result.onLoading {
                     stateLoading(true)

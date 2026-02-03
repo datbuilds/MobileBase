@@ -308,10 +308,10 @@ enum class IconState {
     NORMAL, SUCCESS, FAILURE
 }
 
-fun TextView.setLatinAlphanumericFilter(maxLength: Int) {
+fun TextView.setLatinAlphanumericFilter(maxLength: Int, regex: String = "[a-zA-Z0-9 ]") {
     val latinNumberFilter = android.text.InputFilter { source, start, end, dest, dstart, dend ->
         for (i in start until end) {
-            if (!source[i].toString().matches(Regex("[a-zA-Z0-9 ]"))) {
+            if (!source[i].toString().matches(Regex(regex))) {
                 return@InputFilter ""
             }
         }

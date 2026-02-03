@@ -1,5 +1,6 @@
 package vn.shb.cam.screens.beneficiary
 
+import android.app.ProgressDialog
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
@@ -22,6 +23,9 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.delay
 import vn.shb.cam.utils.extensions.setLatinAlphanumericFilter
+import vn.shb.lao.databinding.LayoutProcessBarBinding
+import vn.shb.lao.utils.extensions.gone
+import vn.shb.lao.utils.extensions.setLatinAlphanumericFilter
 
 class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
     FragmentBeneficiaryBinding::inflate
@@ -29,11 +33,13 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
 
     private val adapter by lazy { BeneficiaryAdapter() }
     private val viewModel: BeneficiaryViewModel by viewModel()
+    private var dialog : LayoutProcessBarBinding? = null
 
     override fun initView(view: View) {
         setUpRecyclerview()
         viewModel.getAllBeneficiary()
         viewModel.getBanks()
+        dialog = LayoutProcessBarBinding.inflate(layoutInflater)
     }
 
     private fun setUpRecyclerview() {
@@ -121,9 +127,19 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
                     }
                 }
                 launch {
-                    stateDelete.collectLatest {
+                    stateDelete.collect {
                         if (it == true) {
                             showToastSuccess(getString(R.string.beneficiaryDeletedSuccessfully))
+                        }
+                    }
+                }
+
+                launch {
+                    stateLoading.collect {
+                        if (it) {
+                            dialog?.root?.visible()
+                        } else {
+                            dialog?.root?.gone()
                         }
                     }
                 }
