@@ -24,12 +24,9 @@ import vn.shb.cam.base.BaseViewModel
 import vn.shb.core.core.domain.usecases.beneficiary.CreateBeneficiaryUseCase
 import vn.shb.core.core.domain.usecases.beneficiary.DeleteBeneficiaryUseCase
 import vn.shb.core.core.domain.usecases.beneficiary.GetBanksUseCase
-import vn.shb.core.core.domain.usecases.beneficiary.GetBeneficiariesUseCase
 import vn.shb.core.core.domain.usecases.beneficiary.UpdateBeneficiaryUseCase
 import vn.shb.core.core.domain.usecases.beneficiary.ValidateAccountUseCase
 import vn.shb.data.entities.beneficiary.Bank
-import vn.shb.data.entities.beneficiary.Beneficiary
-import vn.shb.lao.base.BaseViewModel
 
 class BeneficiaryViewModel(
     private val useCaseGetBeneficiaries: GetBeneficiariesUseCase,

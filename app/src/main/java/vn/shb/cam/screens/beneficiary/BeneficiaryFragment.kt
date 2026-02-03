@@ -22,10 +22,9 @@ import vn.shb.cam.utils.view.dialog.BottomSheetDialogHelper
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.delay
+import vn.shb.cam.databinding.LayoutProcessBarBinding
+import vn.shb.cam.utils.extensions.gone
 import vn.shb.cam.utils.extensions.setLatinAlphanumericFilter
-import vn.shb.lao.databinding.LayoutProcessBarBinding
-import vn.shb.lao.utils.extensions.gone
-import vn.shb.lao.utils.extensions.setLatinAlphanumericFilter
 
 class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
     FragmentBeneficiaryBinding::inflate
