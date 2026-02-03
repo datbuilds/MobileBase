@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.core.view.isVisible
+import com.google.android.gms.auth.api.phone.SmsRetriever
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -35,6 +36,7 @@ class DashboardActivity :
         super.onCreate(savedInstanceState)
         startSessionTimer()
         observer()
+        startSmsListener()
     }
 
     private fun observer() {
@@ -46,6 +48,12 @@ class DashboardActivity :
             }
         }
     }
+
+    private fun startSmsListener() {
+        val client = SmsRetriever.getClient(this)
+        client.startSmsRetriever()
+    }
+
 
     private fun startSessionTimer() {
         handler.postDelayed(logoutRunnable, sessionTimeout)

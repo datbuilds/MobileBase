@@ -113,7 +113,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             //handle edit username
             btnLogin.setOnSingleClickListener {
                 clearFocusEditText()
-//                handleActionLogin()
+                handleActionLogin()
                 val phone = "0393870399"
                 val maskedPhone = maskPhoneNumber(phone)
                 RegisterDeviceDialog(
@@ -132,7 +132,10 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                                    // Let's assume onConfirm passes OTP back to fragment to handle.
                                    nextDashboard()
                                }
-                           }
+                           },
+                            resendCode = {
+
+                            }
                         ).show(childFragmentManager, ConfirmDeviceDialog.TAG)
                     },
                     onCancel = { loginViewModel.logout() }

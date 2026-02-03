@@ -230,4 +230,7 @@ dependencies {
     testImplementation(libs.testingJunit)
     androidTestImplementation(libs.testingAndroidxJunit)
     androidTestImplementation(libs.testingEspressoCore)
+
+    //lib
+    implementation("com.google.android.gms:play-services-auth-api-phone:18.0.1")
 }

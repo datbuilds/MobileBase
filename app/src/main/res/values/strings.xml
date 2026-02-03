@@ -201,4 +201,6 @@
     <string name="remaining_time">Remaining time %s second</string>
     <string name="otp_incorrect_message">The OTP code is incorrect. Please check again.</string>
     <string name="confirmLabel">Confirm</string>
+    <string name="theOtpExpired">The OTP has expired. Please generate a new verification code.</string>
+    <string name="resendOtp">Resend OTP</string>
 </resources>
