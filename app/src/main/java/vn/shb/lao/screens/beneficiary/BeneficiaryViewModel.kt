@@ -11,21 +11,21 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import vn.shb.core.core.delivery.Reason
 import vn.shb.core.core.delivery.onFailure
+import vn.shb.core.core.delivery.onLoading
 import vn.shb.core.core.delivery.onSuccess
-import vn.shb.core.core.domain.usecases.None
-import vn.shb.core.core.domain.usecases.beneficiary.GetBeneficiariesUseCase
-import vn.shb.data.entities.beneficiary.Beneficiary
-import vn.shb.lao.base.BaseViewModel
-
-import vn.shb.core.core.domain.usecases.beneficiary.CreateBeneficiaryUseCase
-import vn.shb.core.core.domain.usecases.beneficiary.UpdateBeneficiaryUseCase
 import vn.shb.core.core.domain.source.request.BeneficiaryRequest
-import vn.shb.core.core.domain.usecases.beneficiary.DeleteBeneficiaryUseCase
-import vn.shb.core.core.domain.usecases.beneficiary.GetBanksUseCase
-import vn.shb.data.entities.beneficiary.Bank
-import vn.shb.core.core.domain.usecases.beneficiary.ValidateAccountUseCase
 import vn.shb.core.core.domain.source.request.ValidateAccountRequest
 import vn.shb.core.core.domain.source.response.ValidateAccountResponse
+import vn.shb.core.core.domain.usecases.None
+import vn.shb.core.core.domain.usecases.beneficiary.CreateBeneficiaryUseCase
+import vn.shb.core.core.domain.usecases.beneficiary.DeleteBeneficiaryUseCase
+import vn.shb.core.core.domain.usecases.beneficiary.GetBanksUseCase
+import vn.shb.core.core.domain.usecases.beneficiary.GetBeneficiariesUseCase
+import vn.shb.core.core.domain.usecases.beneficiary.UpdateBeneficiaryUseCase
+import vn.shb.core.core.domain.usecases.beneficiary.ValidateAccountUseCase
+import vn.shb.data.entities.beneficiary.Bank
+import vn.shb.data.entities.beneficiary.Beneficiary
+import vn.shb.lao.base.BaseViewModel
 
 class BeneficiaryViewModel(
     private val useCaseGetBeneficiaries: GetBeneficiariesUseCase,
@@ -41,13 +41,17 @@ class BeneficiaryViewModel(
     private val _stateBanks = MutableStateFlow<List<Bank>>(emptyList())
     val stateBanks = _stateBanks.asStateFlow()
 
-    private val _stateDelete = MutableStateFlow<Boolean?>(null)
-    val stateDelete = _stateDelete.asStateFlow()
+    private val _stateDelete = Channel<Boolean?>(Channel.BUFFERED)
+    val stateDelete = _stateDelete.receiveAsFlow()
 
     private val _stateAction = MutableStateFlow<Boolean?>(null)
     val stateAction = _stateAction.asStateFlow()
 
-    private val _stateValidateAccount = Channel<ValidateAccountResponse.ValidateAccountData>(Channel.BUFFERED)
+    private val _stateLoading = MutableStateFlow(false)
+    val stateLoading = _stateLoading.asStateFlow()
+
+    private val _stateValidateAccount =
+        Channel<ValidateAccountResponse.ValidateAccountData>(Channel.BUFFERED)
     val stateValidateAccount = _stateValidateAccount.receiveAsFlow()
 
     private val _stateErrorValidateAccount = Channel<Reason>(Channel.BUFFERED)
@@ -98,22 +102,26 @@ class BeneficiaryViewModel(
 
     fun deleteBeneficiary(beneficiary: Beneficiary) {
         viewModelScope.launch {
-//            showLoading(true)
-            useCaseDeleteBeneficiary.invoke(DeleteBeneficiaryUseCase.Params(beneficiary.id.toString())).collect { result ->
-//                showLoading(false)
-                result.onSuccess {
-                    _stateDelete.value = true
-                    // Refresh list or remove item locally
-                    getAllBeneficiary()
+            useCaseDeleteBeneficiary.invoke(DeleteBeneficiaryUseCase.Params(beneficiary.id.toString()))
+                .collect { result ->
+                    result.onSuccess {
+                        showLoading(false)
+                        _stateDelete.send(true)
+                        // Refresh list or remove item locally
+                        getAllBeneficiary()
+                    }
+                    result.onFailure {
+                        showLoading(false)
+                        _stateDelete.send(false)
+                        // Handle failure if needed, baseViewModel might handle error toast if configured, but here we just update state
+                    }
+                    result.onLoading {
+                        showLoading(true)
+                    }
                 }
-                result.onFailure {
-                    _stateDelete.value = false
-                    // Handle failure if needed, baseViewModel might handle error toast if configured, but here we just update state
-                }
-            }
         }
     }
-    
+
     fun resetActionState() {
         _stateAction.value = null
     }
@@ -123,7 +131,7 @@ class BeneficiaryViewModel(
             useCaseCreateBeneficiary.invoke(request).collect { result ->
                 result.onSuccess {
                     _stateAction.value = true
-                    if (isRefresh){
+                    if (isRefresh) {
                         getAllBeneficiary()
                     }
                 }
@@ -136,15 +144,16 @@ class BeneficiaryViewModel(
 
     fun updateBeneficiary(id: String, request: BeneficiaryRequest) {
         viewModelScope.launch {
-            useCaseUpdateBeneficiary.invoke(UpdateBeneficiaryUseCase.Params(id, request)).collect { result ->
-                result.onSuccess {
-                    _stateAction.value = true
-                    getAllBeneficiary()
+            useCaseUpdateBeneficiary.invoke(UpdateBeneficiaryUseCase.Params(id, request))
+                .collect { result ->
+                    result.onSuccess {
+                        _stateAction.value = true
+                        getAllBeneficiary()
+                    }
+                    result.onFailure {
+                        _stateError.send(it)
+                    }
                 }
-                result.onFailure {
-                    _stateError.send(it)
-                }
-            }
         }
     }
 
@@ -163,4 +172,9 @@ class BeneficiaryViewModel(
             }
         }
     }
+
+    private fun showLoading(isLoading: Boolean) {
+        _stateLoading.value = isLoading
+    }
+
 }

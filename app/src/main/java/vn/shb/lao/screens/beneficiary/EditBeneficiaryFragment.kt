@@ -129,7 +129,12 @@ class EditBeneficiaryFragment :
                             iclBank.edtValue.setText(bank.shortName ?: bank.bankCode)
                             iclBank.ivLogo.visibility = View.VISIBLE
                             iclBank.ivLogo.setImageResource(BankType.getIconByCode(bank.bankCode))
-
+                            if (iclAccountNumber.edtValue.text.toString().isNotEmpty()){
+                                viewModel.validateAccount(
+                                    iclAccountNumber.edtValue.text.toString(),
+                                    bank.bankCode?:"SHB"
+                                )
+                            }
                             // Hide error if selected
                             iclBank.tvError.visibility = View.GONE
                             validateInputs()

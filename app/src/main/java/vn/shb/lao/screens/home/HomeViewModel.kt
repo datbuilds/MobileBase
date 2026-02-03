@@ -73,7 +73,6 @@ class HomeViewModel(
     private val _stateFetchUser = Channel<UserInfo>(Channel.BUFFERED)
     val stateFetchUser = _stateFetchUser.receiveAsFlow()
 
-
     private val _stateAccounts = Channel<AccountBase>(Channel.BUFFERED)
     val stateSelectedAccount = _stateAccounts.receiveAsFlow()
 
