@@ -41,11 +41,22 @@ class ConfirmDeviceDialog(
         isCancelable = false
         
         startTimer()
+        
+        binding.pinView.requestFocus()
+        binding.pinView.postDelayed({
+            val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? android.view.inputmethod.InputMethodManager
+            imm?.showSoftInput(binding.pinView, android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT)
+        }, 200)
     }
 
     override fun initListener() {
         binding.ivClose.setOnSingleClickListener {
             dismiss()
+        }
+
+        binding.pinView.setOnClickListener {
+            val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? android.view.inputmethod.InputMethodManager
+            imm?.showSoftInput(binding.pinView, android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT)
         }
 
         binding.pinView.doAfterTextChanged {

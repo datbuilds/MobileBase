@@ -15,6 +15,7 @@ import androidx.core.widget.addTextChangedListener
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import vn.shb.cam.BuildConfig
 import vn.shb.core.core.delivery.Reason
 import vn.shb.core.core.delivery.reason.LoginFailReason
 import vn.shb.core.core.domain.usecases.login.StateLogin
@@ -22,7 +23,6 @@ import vn.shb.core.core.domain.usecases.login.UseCaseLogin
 import vn.shb.core.core.security.encrypt.EncryptManager
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.login.UserLog
-import vn.shb.cam.BuildConfig
 import vn.shb.cam.R
 import vn.shb.cam.activity.dashboard.DashboardActivity
 import vn.shb.cam.base.BaseFragmentBinding
@@ -69,7 +69,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         binding.tvHotline.text =
             getString(R.string.version).plus(Const.SEPARATOR_SPACE).plus(BuildConfig.VERSION_NAME)
 
-//        loginViewModel.getTokenWso2()
+        loginViewModel.getTokenWso2()
     }
 
     private fun mapUILogin() {

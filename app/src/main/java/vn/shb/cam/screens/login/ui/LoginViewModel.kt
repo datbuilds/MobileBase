@@ -64,25 +64,25 @@ class LoginViewModel(
 
     fun checkSystemVars() {
         viewModelScope.launch {
-            useCaseGetSystemVars(UseCaseGetSystemVars.Params("MBA")).collect {
-                // Handle result if needed, for now just logging or silent failure as per request (user just asked to call it)
-                // If specific logic is needed on success, we can add it here.
-                it.onResultHandle(
-                    loadingBlock = {
-                        stateLoading(true)
-                    },
-                    successBlock = { data ->
+//            useCaseGetSystemVars(UseCaseGetSystemVars.Params("MBA")).collect {
+//                // Handle result if needed, for now just logging or silent failure as per request (user just asked to call it)
+//                // If specific logic is needed on success, we can add it here.
+//                it.onResultHandle(
+//                    loadingBlock = {
+//                        stateLoading(true)
+//                    },
+//                    successBlock = { data ->
                         stateLoading(false)
-                        if (data.isNeedUpdate(BuildConfig.VERSION_NAME)) {
-                            _showForceUpdate.send(true)
-                        }
-                    },
-                    failureBlock = {
-                        stateLoading(false)
-                        handleErrorTokenWso2(it)
-                    }
-                )
-            }
+//                        if (data.isNeedUpdate(BuildConfig.VERSION_NAME)) {
+//                            _showForceUpdate.send(true)
+//                        }
+//                    },
+//                    failureBlock = {
+//                        stateLoading(false)
+//                        handleErrorTokenWso2(it)
+//                    }
+//                )
+//            }
         }
     }
 

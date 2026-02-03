@@ -50,6 +50,7 @@
         android:textColor="@color/black"
         android:textSize="24sp"
         app:itemCount="6"
+        android:enabled="true"
         app:itemHeight="48dp"
         app:itemRadius="8dp"
         app:itemSpacing="8dp"

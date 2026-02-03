@@ -112,7 +112,7 @@ android {
                 buildConfigField(
                     "String",
                     "WSO_URL",
-                    "\"https://t-apigw-cam.shb.com.vn/\""
+                    "\"https://api-gw-ext-dev.shb.com.vn/\""
                 )
                 buildConfigField(
                     "String",
