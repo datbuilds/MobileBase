@@ -52,4 +52,6 @@ val domainModule = module {
     factory { UseCaseGetTokenWso2(get()) }
     factory { UseCaseChangePassword(get()) }
     factory { ValidateAccountUseCase(get()) }
+    factory { vn.shb.core.core.domain.usecases.login.RegisterDeviceUseCase(get()) }
+    factory { vn.shb.core.core.domain.usecases.login.VerifyDeviceUseCase(get()) }
 }

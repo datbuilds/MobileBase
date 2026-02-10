@@ -22,11 +22,16 @@ class OtpView @JvmOverloads constructor(
     private val otpLength = 6
     private val editTexts = ArrayList<EditText>()
     private var otpCompleteListener: ((String) -> Unit)? = null
+    private var otpChangedListener: ((String, Boolean) -> Unit)? = null
 
     init {
         orientation = HORIZONTAL
         gravity = Gravity.CENTER
         setupOtpFields()
+    }
+    
+    fun setOnOtpChangedListener(listener: (String, Boolean) -> Unit) {
+        otpChangedListener = listener
     }
 
     private fun setupOtpFields() {
@@ -59,8 +64,10 @@ class OtpView @JvmOverloads constructor(
                         if (i < otpLength - 1) {
                             editTexts[i + 1].requestFocus()
                         }
-                        checkOtpComplete()
                     }
+                    val currentOtp = getOtp()
+                    otpChangedListener?.invoke(currentOtp, currentOtp.length == otpLength)
+                    checkOtpComplete()
                 }
 
                 override fun afterTextChanged(s: Editable?) {}

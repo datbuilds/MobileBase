@@ -23,18 +23,18 @@ fun Interceptor.Chain.appRequestBuilder(
         val requestBuilder = original.newBuilder().apply {
             addHeader("Content-Type", "application/json")
             addHeader("X-Platform", "MOBILE")
-            addHeader("X-Device-ID", deviceId ?: "")
+            addHeader("X-Device-ID", deviceId.plus("123") ?: "")
             addHeader("X-Language", Locale.getDefault().language)
 
             val info = "$versionName(Android$deviceVersion; $deviceModel; $deviceManufacturer"
-            val agent = "SHB SAHA Laos App/$info"
+            val agent = "SHB SAHA Cam App/$info"
             addHeader("User-Agent", "Mozilla/5.0 ($agent)")
 
             if (token?.isNotEmpty() == true) {
-                addHeader("Authorization", "Bearer $token")
+                addHeader("CustomToken", "Bearer $token")
             }
             if (!tokenWso2.isNullOrEmpty() && isAddWso2) {
-                addHeader("WSO2-Token", "Bearer $tokenWso2")
+                addHeader("Authorization", "Bearer $tokenWso2")
             }
 
             method(original.method, original.body)

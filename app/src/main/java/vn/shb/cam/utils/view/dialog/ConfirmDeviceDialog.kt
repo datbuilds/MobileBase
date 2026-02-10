@@ -1,32 +1,29 @@
 package vn.shb.cam.utils.view.dialog
 
-import android.content.Context
 import android.content.IntentFilter
 import android.os.CountDownTimer
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.StyleSpan
 import android.view.View
-import androidx.core.content.ContextCompat.registerReceiver
 import androidx.core.view.isVisible
-import androidx.core.widget.doAfterTextChanged
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseBottomDialogBinding
 import vn.shb.cam.databinding.DialogConfirmDeviceBinding
-import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.cam.utils.extensions.gone
+import vn.shb.cam.utils.extensions.hideSoftKeyboard
 import vn.shb.cam.utils.extensions.visible
 import vn.shb.cam.utils.widgets.SmsReceiver
+import vn.shb.core.utils.extesions.setOnSingleClickListener
 
 class ConfirmDeviceDialog(
     private val phoneNumber: String,
+    private val totalTime: Long? = 60000L,
     private val onConfirm: (String) -> Unit,
-    private val resendCode : () -> Unit
+    private val resendCode: () -> Unit
 ) : BaseBottomDialogBinding<DialogConfirmDeviceBinding>(DialogConfirmDeviceBinding::inflate) {
 
     private var timer: CountDownTimer? = null
-    private val totalTime = 60000L // 60 seconds
     private val interval = 1000L
 
     private lateinit var smsReceiver: SmsReceiver
@@ -44,10 +41,10 @@ class ConfirmDeviceDialog(
             )
         }
         binding.tvMessage.text = spannable
-        
+
         // Ensure dialog is not cancelable by touching outside or back button
         isCancelable = false
-        
+
         startTimer()
         smsReceiver = SmsReceiver { otp ->
             binding.otpView.setOtp(otp) // 🔥 auto fill
@@ -75,8 +72,18 @@ class ConfirmDeviceDialog(
         }
 
         binding.otpView.setOtpCompleteListener { otp ->
-            // call API verify OTP
+            onConfirm.invoke(otp)
+            hideSoftKeyboard()
         }
+
+        binding.otpView.setOnOtpChangedListener { otp, isComplete ->
+            binding.btnConfirm.isEnabled = isComplete
+            binding.btnConfirm.alpha = if (isComplete) 1f else 0.5f
+        }
+
+        // Initial state
+        binding.btnConfirm.isEnabled = false
+        binding.btnConfirm.alpha = 0.5f
 
         binding.btnConfirm.setOnSingleClickListener {
             val otp = binding.otpView.getOtp()
@@ -86,21 +93,20 @@ class ConfirmDeviceDialog(
                 // If invalid -> show error
                 // If valid -> callback
                 onConfirm(otp)
-                dismiss()
             }
         }
     }
 
     private fun startTimer() {
         timer?.cancel()
-        timer = object : CountDownTimer(totalTime, interval) {
+        timer = object : CountDownTimer(totalTime ?: 60000L, interval) {
             override fun onTick(millisUntilFinished: Long) {
                 val seconds = millisUntilFinished / 1000
                 val timeString = getString(R.string.remaining_time, seconds.toString())
                 val spannableTime = SpannableString(timeString)
                 val index = timeString.indexOf(seconds.toString())
                 if (index != -1) {
-                     spannableTime.setSpan(
+                    spannableTime.setSpan(
                         StyleSpan(android.graphics.Typeface.BOLD),
                         index,
                         index + seconds.toString().length,
@@ -118,18 +124,24 @@ class ConfirmDeviceDialog(
         }.start()
     }
 
-    private fun showResendCodeDialog(isShown: Boolean) {
-        with(binding){
-            tvTimer.isVisible = !isShown
-            tvError.isVisible = isShown
-            tvError.text = if (isShown) getString(R.string.theOtpExpired) else getString(R.string.otp_incorrect_message)
-            binding.btnConfirm.isVisible = !isShown
-            binding.llResendCode.isVisible = isShown
+    fun showErrorInvalidOtp(message: String) {
+        if (view == null) return
+        with(binding) {
+            tvError.text = message
+            tvError.visible()
         }
     }
-    
-    fun showErrorMessage() {
-        binding.tvError.visible()
+
+    private fun showResendCodeDialog(isShown: Boolean) {
+        with(binding) {
+            tvTimer.isVisible = !isShown
+            tvError.isVisible = isShown
+            tvError.text =
+                if (isShown) getString(R.string.theOtpExpired) else getString(R.string.otp_incorrect_message)
+            binding.btnConfirm.isVisible = !isShown
+            binding.llResendCode.isVisible = isShown
+            otpView.clearOtp()
+        }
     }
 
     override fun onDestroyView() {

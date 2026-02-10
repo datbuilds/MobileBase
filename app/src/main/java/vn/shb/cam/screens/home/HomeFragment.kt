@@ -34,6 +34,7 @@ import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.view.dialog.ScreenUtils
 import vn.shb.cam.utils.view.setWidth
 import vn.shb.cam.utils.widgets.LocaleHelper
+import vn.shb.data.entities.home.AccountInfo
 
 class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
@@ -92,7 +93,11 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
     override fun onResume() {
         super.onResume()
         homeViewModel.selectedAccount = null
-        homeViewModel.getUserInfo()
+//        homeViewModel.getUserInfo()
+        bindViewAccount(AccountInfo().apply {
+            setValueAccountNumber("123456789")
+        })
+        mapUserInfo(UserLog(username = "PHASOUK BOUNMIXAY"))
     }
 
 

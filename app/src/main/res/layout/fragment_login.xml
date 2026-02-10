@@ -300,6 +300,13 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:text="Hotline: +856.21.968.888 - +856.31.257.167" />
 
+    <FrameLayout
+        android:id="@+id/flRegisterDevice"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_height="@dimen/margin_400dp" />
+
     <androidx.constraintlayout.widget.Group
         android:id="@+id/groupViewNoLastUser"
         android:layout_width="wrap_content"

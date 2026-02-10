@@ -28,4 +28,6 @@ object ENDPOINT {
     const val WSO_END_POINT = "oauth2/token"
     const val PASSWORDS = "identity-service/api/v1/passwords"
     const val SYSTEM_VARS = "identity-service/api/v1/sys/vars"
+    const val REGISTER_DEVICE = "identity-service/api/v1/devices/register-device"
+    const val VERIFY_DEVICE = "identity-service/api/v1/devices/verify-device"
 }

@@ -62,10 +62,17 @@ class ProfileFragment :
 
     override fun initView(view: View) {
         val user = homeViewModel.getCurrentUserInfo()
-        if (user != null) {
-            bindViewDetail(user)
+        val userF = UserInfo(
+            customerId = "123123123",
+            customerName = "linh dep trai",
+            defaultAcct = "1234567890",
+            email = "qlinhptit1119@gmail.com",
+            username = "lingard"
+        )
+        if (userF != null) {
+            bindViewDetail(userF)
         } else {
-            homeViewModel.getUserInfo()
+//            homeViewModel.getUserInfo()
         }
         binding.tvHotline.text =
             getString(R.string.version).plus(Const.SEPARATOR_SPACE).plus(BuildConfig.VERSION_NAME)
@@ -166,7 +173,7 @@ class ProfileFragment :
             }
             launch {
                 homeViewModel.stateUserInfo.collect { userInfo ->
-                    getCurrentUser()?.let { bindViewDetail(userInfo) }
+                    userInfo?.let { bindViewDetail(it) }
                 }
             }
 //            launch {

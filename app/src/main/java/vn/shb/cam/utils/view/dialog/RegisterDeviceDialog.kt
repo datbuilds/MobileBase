@@ -8,12 +8,16 @@ import vn.shb.core.utils.extesions.setOnSingleClickListener
 
 class RegisterDeviceDialog(
     private val phoneNumber: String,
+    private val isNewDevice: Boolean,
     private val onConfirm: () -> Unit,
     private val onCancel: () -> Unit
 ) : BaseBottomDialogBinding<DialogRegisterDeviceBinding>(DialogRegisterDeviceBinding::inflate) {
 
     override fun initView(view: View) {
-        val message = getString(R.string.register_device_message, phoneNumber)
+        val message = getString(
+            if (isNewDevice) R.string.newDeviceVerificial else R.string.register_device_message,
+            phoneNumber
+        )
         val spannable = android.text.SpannableString(message)
         val startIndex = message.indexOf(phoneNumber)
         if (startIndex != -1) {
@@ -25,7 +29,7 @@ class RegisterDeviceDialog(
             )
         }
         binding.tvMessage.text = spannable
-        
+
         // Ensure dialog is not cancelable by touching outside or back button
         isCancelable = false
     }

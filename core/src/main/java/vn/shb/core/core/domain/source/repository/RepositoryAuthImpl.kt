@@ -1,20 +1,29 @@
 package vn.shb.core.core.domain.source.repository
 
 import vn.shb.core.core.delivery.ActionDone
+import vn.shb.core.core.delivery.ConnectionError
 import vn.shb.core.core.delivery.ResultSHB
 import vn.shb.core.core.delivery.reason.AppReason
-import vn.shb.core.core.delivery.reason.LoginFailReason
+import vn.shb.core.core.delivery.reason.LoginFailLocked
+import vn.shb.core.core.delivery.reason.LoginRegisterDevice
+import vn.shb.core.core.delivery.reason.RegisterDeviceError
+import vn.shb.core.core.delivery.reason.VerifyOtpError
 import vn.shb.core.core.domain.source.response.LoginResponse
 import vn.shb.core.core.domain.source.response.LogoutResponse
+import vn.shb.core.core.domain.source.response.RegisterDeviceResponse
 import vn.shb.core.core.domain.source.response.SystemVarData
 import vn.shb.core.core.domain.source.response.SystemVarResponse
+import vn.shb.core.core.domain.source.response.VerifyDeviceResponse
 import vn.shb.core.core.domain.source.service.ServiceAuth
 import vn.shb.core.core.domain.usecases.login.RepositoryAuth
 import vn.shb.core.core.domain.usecases.login.StateLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseRefreshToken
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
+import vn.shb.data.entities.login.RegisterDeviceData
+import vn.shb.data.entities.login.RegisterDeviceRequest
 import vn.shb.data.entities.login.UserLog
+import vn.shb.data.entities.login.VerifyDeviceRequest
 import java.util.concurrent.TimeUnit
 
 class RepositoryAuthImpl(
@@ -108,21 +117,35 @@ class RepositoryAuthImpl(
         else -> ResultSHB.Loading
     }
 
-    private fun resultLoginFail(contentResult: LoginResponse) : ResultSHB.Failure{
-        return if (!contentResult.data?.lockedUntil.isNullOrEmpty()){
-            ResultSHB.Failure(
-                LoginFailReason(
-                    message = contentResult.errorMessage,
-                    lockedUntil = contentResult.data?.lockedUntil?:""
+    private fun resultLoginFail(contentResult: LoginResponse): ResultSHB.Failure {
+        return when {
+            !contentResult.data?.lockedUntil.isNullOrEmpty() -> {
+                ResultSHB.Failure(
+                    LoginFailLocked(
+                        message = contentResult.errorMessage,
+                        lockedUntil = contentResult.data!!.lockedUntil
+                    )
                 )
-            )
-        } else {
-            ResultSHB.Failure(
-                AppReason(
-                    message = contentResult.errorMessage,
-                    code = contentResult.errorCode
+            }
+
+            contentResult.data?.masked_phone_number != null -> {
+                ResultSHB.Failure(
+                    LoginRegisterDevice(
+                        message = contentResult.errorMessage,
+                        masked_phone_number = contentResult.data.masked_phone_number!!,
+                        is_new_device= contentResult.data.is_new_device
+                    )
                 )
-            )
+            }
+
+            else -> {
+                ResultSHB.Failure(
+                    AppReason(
+                        message = contentResult.errorMessage,
+                        code = contentResult.errorCode
+                    )
+                )
+            }
         }
     }
 
@@ -183,6 +206,114 @@ class RepositoryAuthImpl(
                             code = contentResult.errorCode
                         )
                     )
+                }
+            }
+
+            is ResultSHB.Failure -> {
+                ResultSHB.Failure(
+                    AppReason(
+                        message = result.reason.errMessage,
+                        code = result.reason.errorCode
+                    )
+                )
+            }
+
+            else -> {
+                ResultSHB.Loading
+            }
+        }
+    }
+
+    override suspend fun registerDevice(
+        headers: Map<String, String>,
+        params: RegisterDeviceRequest
+    ) = resultRegisterDevice(serviceAuth.registerDevice(headers, params))
+
+    private fun resultRegisterDevice(result: ResultSHB<RegisterDeviceResponse>): ResultSHB<RegisterDeviceData> {
+        return when (result) {
+            is ResultSHB.Success -> {
+                val contentResult = result.successData
+                if (contentResult.isSuccess()) {
+                    val content = contentResult.data
+                    ResultSHB.Success(content ?: RegisterDeviceData())
+                } else {
+                    val content = contentResult.data
+                    if (content != null) {
+                        ResultSHB.Failure(
+                            RegisterDeviceError(
+                                message = contentResult.errorMessage ?: content.message
+                                ?: "Unknown Error",
+                                code = contentResult.errorCode ?: "",
+                                remainingSeconds = content.remainingSeconds,
+                                transactionId = content.transactionId
+                            )
+                        )
+                    } else {
+                        ResultSHB.Failure(
+                            AppReason(
+                                message = contentResult.errorMessage ?: "Unknown Error",
+                                code = contentResult.errorCode ?: ""
+                            )
+                        )
+                    }
+                }
+            }
+
+            is ResultSHB.Failure -> {
+                ResultSHB.Failure(
+                    AppReason(
+                        message = result.reason.errMessage,
+                        code = result.reason.errorCode
+                    )
+                )
+            }
+
+            else -> {
+                ResultSHB.Loading
+            }
+        }
+    }
+
+    override suspend fun verifyDevice(
+        headers: Map<String, String>,
+        params: VerifyDeviceRequest
+    ) = resultVerifyDevice(params, serviceAuth.verifyDevice(headers, params))
+
+    private fun resultVerifyDevice(
+        params: VerifyDeviceRequest,
+        result: ResultSHB<VerifyDeviceResponse>
+    ): ResultSHB<UserLog> {
+        return when (result) {
+            is ResultSHB.Success -> {
+                val contentResult = result.successData
+                if (contentResult.isSuccess()) {
+                    val content = contentResult.data
+                    if (content != null) {
+                        content.userLogin = params.username
+                        content.username = params.username
+                        saveData(content)
+                        ResultSHB.Success(content)
+                    } else {
+                        ResultSHB.Failure(ConnectionError())
+                    }
+                } else {
+                    if (contentResult.data != null) {
+                        ResultSHB.Failure(
+                            VerifyOtpError(
+                                contentResult.errorMessage,
+                                code = contentResult.errorCode,
+                                remainingSeconds = contentResult.data.remainingSeconds,
+                                maxAttempts = contentResult.data.maxAttempts
+                            )
+                        )
+                    } else {
+                        ResultSHB.Failure(
+                            AppReason(
+                                message = contentResult.errorMessage ?: "Unknown Error",
+                                code = contentResult.errorCode ?: ""
+                            )
+                        )
+                    }
                 }
             }
 

@@ -67,7 +67,7 @@ class HomeViewModel(
     private val useCaseValidateTransaction: UseCaseValidateTransaction,
     private val useCaseSetDefaultAccount: UseCaseSetDefaultAccount,
 ) : BaseViewModel() {
-    private val _stateUserInfo = MutableStateFlow(UserInfo())
+    private val _stateUserInfo = MutableStateFlow<UserInfo?>(null)
     val stateUserInfo = _stateUserInfo.asStateFlow()
 
     private val _stateFetchUser = Channel<UserInfo>(Channel.BUFFERED)
@@ -207,7 +207,7 @@ class HomeViewModel(
 
     fun getListBanner(): List<Int> {
         return listOf(
-            R.drawable.banner_1, R.drawable.banner_2, R.drawable.banner_3
+            R.drawable.banner_1
         )
     }
 

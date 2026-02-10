@@ -83,7 +83,7 @@ class AccountDetailFragment :
 
     private fun bindViewDetail(accountDetails: AccountDetails) {
         val account = homeViewModel.selectedAccount
-        val defaultAccount = homeViewModel.stateUserInfo.value.defaultAcct
+        val defaultAccount = homeViewModel.stateUserInfo.value?.defaultAcct
         account?.let {
             binding.apply {
                 tvValueBalance.text =

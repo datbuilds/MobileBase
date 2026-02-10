@@ -3,7 +3,6 @@ package vn.shb.core.core.retrofit
 import okhttp3.Interceptor
 import okhttp3.Response
 import org.koin.android.BuildConfig
-import vn.shb.core.core.domain.source.api.ApiAuth
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import java.net.HttpURLConnection.HTTP_FORBIDDEN
 import java.net.HttpURLConnection.HTTP_UNAUTHORIZED

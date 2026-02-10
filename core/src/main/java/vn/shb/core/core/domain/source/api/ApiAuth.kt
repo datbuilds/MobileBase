@@ -2,15 +2,19 @@ package vn.shb.core.core.domain.source.api
 
 import retrofit2.Call
 import retrofit2.http.Body
-import retrofit2.http.POST
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Query
-import vn.shb.core.core.domain.source.response.SystemVarResponse
+import vn.shb.core.core.domain.source.api.ENDPOINT
 import vn.shb.core.core.domain.source.response.LoginResponse
 import vn.shb.core.core.domain.source.response.LogoutResponse
+import vn.shb.core.core.domain.source.response.RegisterDeviceResponse
+import vn.shb.core.core.domain.source.response.SystemVarResponse
+import vn.shb.core.core.domain.source.response.VerifyDeviceResponse
 import vn.shb.core.core.domain.usecases.login.UseCaseLogin
-import vn.shb.core.core.domain.usecases.login.UseCaseLogout
 import vn.shb.core.core.domain.usecases.login.UseCaseRefreshToken
+import vn.shb.data.entities.login.RegisterDeviceRequest
+import vn.shb.data.entities.login.VerifyDeviceRequest
 
 interface ApiAuth {
     @POST(ENDPOINT.AUTH_LOGIN)
@@ -24,4 +28,16 @@ interface ApiAuth {
 
     @GET(ENDPOINT.SYSTEM_VARS)
     fun getSystemVars(@Query("name") name: String): Call<SystemVarResponse>
+
+    @POST(ENDPOINT.REGISTER_DEVICE)
+    fun registerDevice(
+        @retrofit2.http.HeaderMap headers: Map<String, String>,
+        @Body body: RegisterDeviceRequest
+    ): Call<RegisterDeviceResponse>
+
+    @POST(ENDPOINT.VERIFY_DEVICE)
+    fun verifyDevice(
+        @retrofit2.http.HeaderMap headers: Map<String, String>,
+        @Body body: VerifyDeviceRequest
+    ): Call<VerifyDeviceResponse>
 }

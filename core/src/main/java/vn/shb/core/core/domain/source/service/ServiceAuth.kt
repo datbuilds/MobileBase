@@ -23,4 +23,12 @@ class ServiceAuth(private val api: ApiAuth) : SafeExecute() {
     suspend fun getSystemVars(name: String) = execute {
         api.getSystemVars(name).awaitResponse()
     }
+
+    suspend fun registerDevice(headers: Map<String, String>, params: vn.shb.data.entities.login.RegisterDeviceRequest) = execute {
+        api.registerDevice(headers, params).awaitResponse()
+    }
+
+    suspend fun verifyDevice(headers: Map<String, String>, params: vn.shb.data.entities.login.VerifyDeviceRequest) = execute {
+        api.verifyDevice(headers, params).awaitResponse()
+    }
 }

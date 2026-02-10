@@ -1,5 +1,6 @@
 package vn.shb.cam.utils.view.dialog
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Typeface
 import android.text.Spannable
@@ -33,10 +34,19 @@ class BottomSheetDialogHelper(context: Context) {
     private val contextRef = WeakReference(context)
     private var dialog: BottomSheetDialog? = null
 
+    private fun isActivityValid(): Boolean {
+        val context = contextRef.get() ?: return false
+        if (context is Activity) {
+            return !context.isFinishing && !context.isDestroyed
+        }
+        return true
+    }
+
     fun messageLoginFail(
         messageError: String = "",
         lockedUntil: String = ""
     ) {
+        if (!isActivityValid()) return
         val context = contextRef.get() ?: return
         val bindingView = CustomDialogLayoutBinding.inflate(LayoutInflater.from(context))
         createDialog(context, bindingView, isCancelable = false)
@@ -73,6 +83,7 @@ class BottomSheetDialogHelper(context: Context) {
         isCancelable: Boolean = true,
         onDismiss: (() -> Unit)? = null
     ) {
+        if (!isActivityValid()) return
         val context = contextRef.get() ?: return
         val bindingView = CustomDialogLayoutBinding.inflate(LayoutInflater.from(context))
         createDialog(context, bindingView, isCancelable, onDismiss)
@@ -96,6 +107,7 @@ class BottomSheetDialogHelper(context: Context) {
         reason: Reason,
         isCancelable: Boolean = false
     ) {
+        if (!isActivityValid()) return
         val context = contextRef.get() ?: return
         val bindingView = DialogSystemErrorBinding.inflate(LayoutInflater.from(context))
         createDialog(context, bindingView, isCancelable)

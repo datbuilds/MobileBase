@@ -13,18 +13,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import vn.shb.core.core.delivery.Reason
-import vn.shb.core.core.delivery.onFailure
-import vn.shb.core.core.delivery.onLoading
-import vn.shb.core.core.delivery.onResultHandle
-import vn.shb.core.core.delivery.onSuccess
-import vn.shb.core.core.delivery.reason.AppReason
-import vn.shb.core.core.domain.usecases.None
-import vn.shb.core.core.domain.usecases.login.UseCaseGetSystemVars
-import vn.shb.core.core.domain.usecases.login.UseCaseLogin
-import vn.shb.core.core.domain.usecases.login.UseCaseLogout
-import vn.shb.core.core.domain.usecases.wso2.UseCaseGetTokenWso2
-import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import vn.shb.cam.BuildConfig
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseViewModel
@@ -34,6 +22,24 @@ import vn.shb.cam.screens.login.model.Branch
 import vn.shb.cam.screens.login.state.LoginUiState
 import vn.shb.cam.screens.login.state.LogoutUiState
 import vn.shb.cam.utils.view.dialog.BottomSheetDialogHelper
+import vn.shb.core.core.delivery.Reason
+import vn.shb.core.core.delivery.onFailure
+import vn.shb.core.core.delivery.onLoading
+import vn.shb.core.core.delivery.onResultHandle
+import vn.shb.core.core.delivery.onSuccess
+import vn.shb.core.core.delivery.reason.AppReason
+import vn.shb.core.core.delivery.reason.RegisterDeviceError
+import vn.shb.core.core.delivery.reason.VerifyOtpError
+import vn.shb.core.core.domain.usecases.None
+import vn.shb.core.core.domain.usecases.login.RegisterDeviceUseCase
+import vn.shb.core.core.domain.usecases.login.UseCaseGetSystemVars
+import vn.shb.core.core.domain.usecases.login.UseCaseLogin
+import vn.shb.core.core.domain.usecases.login.UseCaseLogout
+import vn.shb.core.core.domain.usecases.login.VerifyDeviceUseCase
+import vn.shb.core.core.domain.usecases.wso2.UseCaseGetTokenWso2
+import vn.shb.core.core.security.encrypt.AndroidSecureStorage
+import vn.shb.data.entities.login.RegisterDeviceData
+import vn.shb.data.entities.login.UserLog
 import java.util.concurrent.TimeUnit
 
 class LoginViewModel(
@@ -42,7 +48,103 @@ class LoginViewModel(
     private val useCaseLogout: UseCaseLogout,
     private val useCaseGetTokenWso2: UseCaseGetTokenWso2,
     private val useCaseGetSystemVars: UseCaseGetSystemVars,
+    private val registerDeviceUseCase: RegisterDeviceUseCase,
+    private val verifyDeviceUseCase: VerifyDeviceUseCase,
 ) : BaseViewModel() {
+
+    private val _registerDeviceResult = Channel<RegisterDeviceData>(Channel.BUFFERED)
+    val registerDeviceResult = _registerDeviceResult.receiveAsFlow()
+    private val _registerDeviceError = Channel<RegisterDeviceData>(Channel.BUFFERED)
+    val registerDeviceError = _registerDeviceError.receiveAsFlow()
+
+    private val _verifyDeviceResult = Channel<UserLog>(Channel.BUFFERED)
+    val verifyDeviceResult = _verifyDeviceResult.receiveAsFlow()
+    private val _verifyDeviceError = Channel<RegisterDeviceData>(Channel.BUFFERED)
+    val verifyDeviceError = _verifyDeviceError.receiveAsFlow()
+
+    fun registerDevice(username: String, password: String) {
+        viewModelScope.launch {
+            val headers = mapOf(
+                "X-Device-Model" to android.os.Build.MODEL,
+                "X-OS-Type" to "Android",
+                "X-OS-Version" to android.os.Build.VERSION.RELEASE,
+                "X-App-Version" to BuildConfig.VERSION_NAME,
+            )
+            val params = RegisterDeviceUseCase.Params(
+                headers = headers,
+                username = username,
+                password = password
+            )
+
+            registerDeviceUseCase(params).collect {
+                it.onLoading {
+                    stateLoading(true)
+                }
+                it.onFailure { error ->
+                    stateLoading(false)
+                    if (error is RegisterDeviceError) {
+                        val data = RegisterDeviceData(
+                            transactionId = error.transactionId,
+                            message = error.message,
+                            remainingSeconds = error.remainingSeconds,
+                            expiresInSeconds = null, // or pass if Reason has it? Reason only has remainingSeconds currently.
+                            maskedPhoneNumber = null, // Reason doesn't have it currently
+                            errorCode = error.errorCode
+                        )
+                        _registerDeviceError.send(data)
+                    } else {
+                        _state.value = LoginUiState.Error(error)
+                    }
+                }
+                it.onSuccess {
+                    _registerDeviceResult.send(it)
+                    stateLoading(false)
+                }
+            }
+        }
+    }
+
+    fun verifyDevice(username: String, password: String, transactionId: String, otpCode: String) {
+        viewModelScope.launch {
+            val headers = mapOf(
+                "X-Device-Model" to android.os.Build.MODEL,
+                "X-OS-Type" to "Android",
+                "X-OS-Version" to android.os.Build.VERSION.RELEASE,
+                "X-App-Version" to BuildConfig.VERSION_NAME,
+            )
+            val params = VerifyDeviceUseCase.Params(
+                headers = headers,
+                username = username,
+                password = password,
+                transactionId = transactionId,
+                otpCode = otpCode
+            )
+
+            verifyDeviceUseCase(params).collect {
+                it.onLoading {
+                    stateLoading(true)
+                }
+                it.onFailure { error ->
+                    stateLoading(false)
+                    if (error is VerifyOtpError) {
+                        val data = RegisterDeviceData(
+                            message = error.message,
+                            errorCode = error.errorCode,
+                            remainingSeconds = error.remainingSeconds,
+                            maxAttempts = error.maxAttempts
+                        )
+                        _verifyDeviceError.send(data)
+                    } else {
+                        _state.value = LoginUiState.Error(error)
+                    }
+                }
+                it.onSuccess { data ->
+                    _verifyDeviceResult.send(data)
+                    stateLoading(false)
+                }
+            }
+        }
+    }
 
     private val _state = MutableStateFlow<LoginUiState>(LoginUiState.Idle)
     val stateLogin = _state.asStateFlow()
@@ -72,7 +174,7 @@ class LoginViewModel(
 //                        stateLoading(true)
 //                    },
 //                    successBlock = { data ->
-                        stateLoading(false)
+            stateLoading(false)
 //                        if (data.isNeedUpdate(BuildConfig.VERSION_NAME)) {
 //                            _showForceUpdate.send(true)
 //                        }
@@ -122,6 +224,10 @@ class LoginViewModel(
         }
     }
 
+    private fun randomNumber() : String{
+        return (100000..999999).random().toString()
+    }
+
     fun getTokenWso2() {
         viewModelScope.launch {
             val paramsWso2 = UseCaseGetTokenWso2.InputParams(
@@ -129,7 +235,7 @@ class LoginViewModel(
                     grant_type = BuildConfig.GRANT_TYPE,
                     username = BuildConfig.USERNAME,
                     password = BuildConfig.PASSWORD,
-                    scope = BuildConfig.SCOPE,
+                    scope = BuildConfig.SCOPE.plus(randomNumber()),
                 )
             )
             useCaseGetTokenWso2(paramsWso2).collect { result ->
@@ -153,6 +259,7 @@ class LoginViewModel(
             }
         }
     }
+
     fun getTokenWso2BackUpLogin(param: UseCaseLogin.Params) {
         viewModelScope.launch {
             val paramsWso2 = UseCaseGetTokenWso2.InputParams(
@@ -247,30 +354,31 @@ class LoginViewModel(
             Branch(
                 context.getString(R.string.shbBranch1),
                 context.getString(R.string.shbBranch1Address),
-                "+856 21 82 8888",
-                "17.96729",
-                "102.61563"
+                "0 23 221 900",
+                "11.5602485",
+                "104.9267921"
             ),
             Branch(
                 context.getString(R.string.shbBranch2),
                 context.getString(R.string.shbBranch2Address),
-                "+856 31 257 167",
-                "15.1136",
-                "105.81568"
+                "0 23 882 358",
+                "11.561437",
+                "104.907504"
             ),
             Branch(
                 context.getString(R.string.shbBranch3),
                 context.getString(R.string.shbBranch3Address),
-                "+856 30 925 6666",
-                "16.56037",
-                "104.75389"
+                "0 23 890 353",
+                "11.5316183",
+                "104.9491833"
             ),
             Branch(
                 context.getString(R.string.shbBranch4),
                 context.getString(R.string.shbBranch4Address),
-                    "+856 30 925 6666",
-                    "16.56037",
-                    "104.75389"
-        ))
+                "023 880091",
+                "11.589961",
+                "104.874072"
+            )
+        )
     }
 }

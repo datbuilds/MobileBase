@@ -102,12 +102,12 @@ android {
             ,
 
             dev = {
-                resValue("string", "app_name", "DEV SHB SAHA Laos")
+                resValue("string", "app_name", "DEV SHB SAHA CAM")
 
                 buildConfigField(
                     "String",
                     "BASE_URL",
-                    "\"https://api-gw-ext-dev.shb.com.vn/external/shb-mobile-lao/1.0.0/mblao/\""
+                    "\"https://api-gw-ext-dev.shb.com.vn/external/shb-mobile-cam/1.0.0/mbcam/\""
                 )
                 buildConfigField(
                     "String",

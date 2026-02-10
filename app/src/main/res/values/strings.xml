@@ -18,14 +18,14 @@
     <string name="processingError">Processing error. Please try again later.</string>
     <string name="passwordResetInstructions">Password Reset Instructions</string>
     <string name="pleaseBringIdToResetPassword">Please bring your ID card or passport to any SHB transaction point to reset your password.</string>
-    <string name="shbBranch1">1. SAIGON-HANOI BANK CAMBODIA PLC</string>
+    <string name="shbBranch1">1.  SAIGON-HANOI BANK CAMBODIA PLC</string>
     <string name="shbBranch1Address">107 Norodom Blvd,Sangkat Boeung Rang ,Khan Daun Penh,Phnompenh,Cambodia.</string>
-    <string name="shbBranch2">2. SAIGON-HANOI BANK CAMBODIA PLC-NEHRU BRANCH</string>
-    <string name="shbBranch2Address">161CD Jawahaal Nehru Blvd, Sangkat Phsar Depou Ti Mouy, Khan Toul Kouk, Phnom Penh</string>
-    <string name="shbBranch3">3.SAIGON-HANOI BANK CAMBODIA PLC- SEN SOKH BRANCH</string>
-    <string name="shbBranch3Address">511C, Oknha Mong Reththy Street, Sangkat Phnom Penh Thmei, Khan Sen Sokh, Phnom Penh</string>
-    <string name="shbBranch4">4.SAIGON-HANOI BANK CAMBODIA PLC-CHNAR AMPOV BRANCH</string>
-    <string name="shbBranch4Address">76, National Road, Sangkat Nirouth, Khan Chbar Ampov, Phnom Penh</string>
+    <string name="shbBranch2">2.  SAIGON-HANOI BANK CAMBODIA PLC- NEHRU BRANCH</string>
+    <string name="shbBranch2Address">161CD, Steet Nehru(215), Sangkat Phsar Depo Ti 1, Khan Toul Kork, Phnom Penh</string>
+    <string name="shbBranch3">3.  SAIGON-HANOI BANK CAMBODIA PLC- SEN SOK BRANCH</string>
+    <string name="shbBranch3Address">511C, Oknha Mong Rethy Street, Phum Bayab, Sangkat Phnom Penh thmei, Khan Sen Sok, Phnom Penh.</string>
+    <string name="shbBranch4">4.  SAIGON-HANOI BANK CAMBODIA PLC- CHBAR AMPOV BRANCH</string>
+    <string name="shbBranch4Address">76, National Road 1 , Phum Boeng Chhuk, Sangkat Nirouth, Khan Chbar Ampov, Phnom Penh.</string>
     <string name="welcomeToShb">Welcome to SHB</string>
     <string name="currentAccount">CURRENT ACCOUNT</string>
     <string name="transfer">Transfer</string>
@@ -203,4 +203,8 @@
     <string name="confirmLabel">Confirm</string>
     <string name="theOtpExpired">The OTP has expired. Please generate a new verification code.</string>
     <string name="resendOtp">Resend OTP</string>
+    <string name="theNewPassMustNotMatchOldPass">The new password must not match the last 5 passwords</string>
+    <string name="otpIncorrectly5Times">You have entered the OTP incorrectly 5 times.</string>
+    <string name="requestOtpMore5Times">You have requested the OTP more than 5 times.</string>
+    <string name="newDeviceVerificial">You are logging into SHB Saha Cambodia on a new device. Please verify using the OTP sent to the phone number %s to continue using the service. Is this your phone number?</string>
 </resources>

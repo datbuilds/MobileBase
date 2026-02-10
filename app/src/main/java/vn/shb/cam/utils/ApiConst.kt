@@ -18,9 +18,18 @@ object ApiConst {
 
     const val FUN_017 = "FUN-017"
     const val FUN_016 = "FUN-016"
+    const val CODE_NEED_REGISTER = "DEVICE-006"
 
     //error old password
     const val AUTH_010 = "AUTH-010"
+
+    //error register device
+    const val OTP_001 = "OTP-001"
+    const val OTP_002 = "OTP-002"
+    const val OTP_003 = "OTP-003"
+    const val OTP_004 = "OTP-004"
+    const val OTP_005 = "OTP-005"
+    const val OTP_008 = "OTP-008"
 
     //key
     const val KEY_REFERENCE_NUMBER_TRANSACTION = "KEY_REFERENCE_NUMBER_TRANSACTION"

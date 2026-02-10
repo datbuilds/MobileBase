@@ -16,19 +16,14 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import vn.shb.cam.BuildConfig
-import vn.shb.core.core.delivery.Reason
-import vn.shb.core.core.delivery.reason.LoginFailReason
-import vn.shb.core.core.domain.usecases.login.StateLogin
-import vn.shb.core.core.domain.usecases.login.UseCaseLogin
-import vn.shb.core.core.security.encrypt.EncryptManager
-import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.data.entities.login.UserLog
 import vn.shb.cam.R
 import vn.shb.cam.activity.dashboard.DashboardActivity
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.FragmentLoginBinding
 import vn.shb.cam.screens.login.state.LoginUiState
+import vn.shb.cam.screens.login.ui.widget.ConfirmDeviceView
 import vn.shb.cam.screens.login.ui.widget.showLanguagePopup
+import vn.shb.cam.utils.ApiConst
 import vn.shb.cam.utils.extensions.checkShowProgressDialog
 import vn.shb.cam.utils.extensions.clearEditTextColorFilter
 import vn.shb.cam.utils.extensions.clearText
@@ -44,10 +39,21 @@ import vn.shb.cam.utils.extensions.setCustomSpannable
 import vn.shb.cam.utils.extensions.textValue
 import vn.shb.cam.utils.extensions.visible
 import vn.shb.cam.utils.view.dialog.BottomSheetDialogHelper
-import vn.shb.cam.utils.view.dialog.ConfirmDeviceDialog
+import vn.shb.cam.utils.view.dialog.CountdownBottomSheetDialog
 import vn.shb.cam.utils.view.dialog.ForceUpdateDialog
 import vn.shb.cam.utils.view.dialog.RegisterDeviceDialog
 import vn.shb.cam.utils.widgets.LocaleHelper
+import vn.shb.core.core.delivery.Reason
+import vn.shb.core.core.delivery.reason.AppReason
+import vn.shb.core.core.delivery.reason.LoginFailLocked
+import vn.shb.core.core.delivery.reason.LoginRegisterDevice
+import vn.shb.core.core.domain.usecases.login.StateLogin
+import vn.shb.core.core.domain.usecases.login.UseCaseLogin
+import vn.shb.core.core.security.encrypt.EncryptManager
+import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.core.utils.logD
+import vn.shb.data.entities.login.RegisterDeviceData
+import vn.shb.data.entities.login.UserLog
 import java.util.Base64
 
 class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
@@ -60,6 +66,10 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
     private var isVisiblePassword = false
 
+    private lateinit var confirmDeviceView: ConfirmDeviceView
+
+    private val codeNeedShowRedText = listOf(ApiConst.OTP_001, ApiConst.OTP_002, ApiConst.OTP_003)
+
     val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { _: Boolean -> }
 
@@ -70,6 +80,11 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             getString(R.string.version).plus(Const.SEPARATOR_SPACE).plus(BuildConfig.VERSION_NAME)
         storage.resetToken()
         loginViewModel.getTokenWso2()
+
+        // Initialize embedded confirm device view
+        confirmDeviceView = ConfirmDeviceView(requireContext())
+        binding.flRegisterDevice.addView(confirmDeviceView)
+        confirmDeviceView.visibility = View.GONE
     }
 
     private fun mapUILogin() {
@@ -114,32 +129,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             btnLogin.setOnSingleClickListener {
                 clearFocusEditText()
                 handleActionLogin()
-                val phone = "0393870399"
-                val maskedPhone = maskPhoneNumber(phone)
-                RegisterDeviceDialog(
-                    phoneNumber = maskedPhone,
-                    onConfirm = { 
-                        ConfirmDeviceDialog(
-                            phoneNumber = maskedPhone,
-                           onConfirm = { otp ->
-                               // Validate OTP or just proceed for now
-                               if (otp == "123456") { // Mock validation
-                                   nextDashboard() 
-                               } else {
-                                   // In a real scenario, we might want to keep the dialog open and show error
-                                   // But since dismiss() is called in dialog, we might need to change logic.
-                                   // For this task request, "show dialog to input OTP" is key.
-                                   // Let's assume onConfirm passes OTP back to fragment to handle.
-                                   nextDashboard()
-                               }
-                           },
-                            resendCode = {
-
-                            }
-                        ).show(childFragmentManager, ConfirmDeviceDialog.TAG)
-                    },
-                    onCancel = { loginViewModel.logout() }
-                ).show(childFragmentManager, RegisterDeviceDialog.TAG)
             }
             edtInputUsername.setOnFocusChangeListener { _, hasFocus ->
                 userNameContainer.isSelected = hasFocus
@@ -181,6 +170,20 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                 }
             }
         }
+    }
+
+    private fun showDialogRegister(phoneNumber: String, isNewDevice: Boolean = false) {
+        val accountLogin = getUserLogin()
+        val (_, encPsw) = getPassword()
+
+        RegisterDeviceDialog(
+            phoneNumber = phoneNumber, // Using username as placeholder if it's phone
+            isNewDevice,
+            onConfirm = {
+                loginViewModel.registerDevice(accountLogin, encPsw)
+            },
+            onCancel = { }
+        ).show(childFragmentManager, RegisterDeviceDialog.TAG)
     }
 
     private fun bindEdtPassword() {
@@ -228,13 +231,17 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
     private fun login() {
         hideSoftKeyboard(0)
-        val accountLogin = if (BuildConfig.FLAVOR == "dev") {
+        val accountLogin = getUserLogin()
+        val (_, encPsw) = getPassword()
+        postLogin(accountLogin, encPsw)
+    }
+
+    private fun getUserLogin(): String {
+        return if (BuildConfig.FLAVOR == "dev") {
             val text = binding.edtInputUsername.text?.trim().toString()
             if (!text.isNullOrEmpty()) text else currentUser?.userLogin ?: ""
         } else currentUser?.userLogin
             ?: binding.edtInputUsername.text?.trim().toString()
-        val (_, encPsw) = getPassword()
-        postLogin(accountLogin, encPsw)
     }
 
     private fun postLogin(us: String, psW: String) {
@@ -265,8 +272,13 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
                         is LoginUiState.Error -> {
                             hideProgressDialog()
-                            if (uiState.reason is LoginFailReason) {
+                            if (uiState.reason is LoginFailLocked) {
                                 showDialogErrorLockUser(uiState.reason)
+                            } else if (uiState.reason is LoginRegisterDevice) {
+                                showDialogRegister(
+                                    uiState.reason.masked_phone_number,
+                                    uiState.reason.is_new_device
+                                )
                             } else {
                                 showDialogError(
                                     reason = uiState.reason
@@ -291,7 +303,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
             launch {
                 loginViewModel.stateErrorWso2.collect {
-                    showDialogErrorWso2(it){
+                    showDialogErrorWso2(it) {
                         loginViewModel.getTokenWso2()
                     }
                 }
@@ -304,7 +316,111 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                     }
                 }
             }
+
+            launch {
+                loginViewModel.registerDeviceResult.collect { result ->
+                    hideProgressDialog()
+                    val maskedPhone = result.maskedPhoneNumber ?: ""
+                    transactionId = result.transactionId
+                    val totalTime = result.remainingSeconds ?: result.expiresInSeconds
+                    logD("234234243", buildString {
+                        append(result.remainingSeconds)
+                        append("------")
+                        append(result.expiresInSeconds)
+                        append("------")
+                        append(result.transactionId)
+                    })
+                    confirmDeviceView.setup(
+                        phoneNumber = maskedPhone,
+                        totalTime = totalTime?.times(1000L),
+                        onConfirm = { otp ->
+                            if (otp.isNotEmpty()) {
+                                val accountLogin = getUserLogin()
+                                val (_, encPsw) = getPassword()
+                                transactionId?.let {
+                                    loginViewModel.verifyDevice(
+                                        accountLogin, encPsw,
+                                        it,
+                                        otp
+                                    )
+                                }
+                            }
+                            hideSoftKeyboard()
+                        },
+                        resendCode = {
+                            // Logic to resend
+                            val accountLogin = getUserLogin()
+                            val (_, encPsw) = getPassword()
+                            loginViewModel.registerDevice(accountLogin, encPsw)
+                        },
+                        onClose = {
+                            // Handle close
+                        }
+                    )
+                    confirmDeviceView.show()
+                }
+            }
+
+            launch {
+                loginViewModel.verifyDeviceResult.collect { data ->
+                    // Handle verify success
+                    confirmDeviceView.hide()
+                    nextDashboard()
+                }
+            }
+
+            launch {
+                loginViewModel.verifyDeviceError.collect {
+                    when {
+                        codeNeedShowRedText.contains(it.errorCode) -> {
+                            it.message?.let { message ->
+                                confirmDeviceView.showErrorInvalidOtp(
+                                    message
+                                )
+                            }
+                        }
+
+                        it.errorCode == ApiConst.OTP_004 || it.errorCode == ApiConst.OTP_005 -> {
+                            handleErrorRegisterDevice(it)
+                        }
+
+                        else -> {
+                            confirmDeviceView.hide()
+                            handleErrorHome(AppReason(it.message?:"", it.errorCode?:""))
+
+                        }
+                    }
+                }
+            }
+
+            launch {
+                loginViewModel.registerDeviceError.collect { errorData ->
+                    hideProgressDialog()
+                    handleErrorRegisterDevice(errorData)
+                }
+            }
         }
+    }
+
+    private var transactionId: String? = null
+
+    private fun handleErrorRegisterDevice(errorData: RegisterDeviceData) {
+        val message = when (errorData.errorCode) {
+            ApiConst.OTP_004 -> {
+                getString(R.string.otpIncorrectly5Times)
+            }
+
+            ApiConst.OTP_005 -> {
+                getString(R.string.requestOtpMore5Times)
+            }
+
+            else -> ""
+        }
+
+        CountdownBottomSheetDialog(
+            message = message,
+            remainingSeconds = errorData.remainingSeconds ?: 15
+        ).show(childFragmentManager, CountdownBottomSheetDialog.TAG)
     }
 
     private fun showDialogForceUpdate() {
@@ -319,13 +435,13 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 //                        )
 //                    )
 //                } catch (e: android.content.ActivityNotFoundException) {
-                    val appPackageName = ctx.packageName
-                    startActivity(
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
-                        )
+                val appPackageName = ctx.packageName
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
                     )
+                )
 //                }
             }.show()
         }
@@ -335,7 +451,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         reason: Reason,
         onAction: (() -> Unit)? = null
     ) {
-        val messageError = "${reason.errorCode}: ${reason.errMessage}"
+//        val messageError = "${reason.errorCode}: ${reason.errMessage}"
         BottomSheetDialogHelper(requireContext()).message(
             title = getString(R.string.notification),
             message = getString(R.string.processingError),
@@ -349,7 +465,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         )
     }
 
-    private fun showDialogErrorLockUser(reason: LoginFailReason) {
+    private fun showDialogErrorLockUser(reason: LoginFailLocked) {
         context?.let {
             BottomSheetDialogHelper(it).messageLoginFail(
                 reason.errMessage,
@@ -420,7 +536,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         clearFlag()
 
         //mock
-        binding.edtInputPass.setText("123456")
+        binding.edtInputPass.setText("empgmn")
 //        handleActionLogin()
     }
 

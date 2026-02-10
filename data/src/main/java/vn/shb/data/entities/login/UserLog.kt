@@ -12,11 +12,16 @@ data class UserLog(
     @SerializedName("session_state") val session_state: String = "",
     @SerializedName("id_token") val id_token: String = "",
     @SerializedName("username") var username: String = "",
-    @SerializedName("userLog") val userLogin: String = "",
+    @SerializedName("userLog") var userLogin: String = "",
     @SerializedName("title") val title: String = "",
     @SerializedName("scope") val scope: String = "",
     @SerializedName("loginFailCount") val loginFailCount: String = "",
     @SerializedName("lockedUntil") val lockedUntil: String = "",
+    @SerializedName("requires_device_verification") val requires_device_verification: String = "",
+    @SerializedName("masked_phone_number") val masked_phone_number: String? = null,
+    @SerializedName("is_new_device") val is_new_device: Boolean = false,
+    @SerializedName("remainingSeconds") val remainingSeconds: Int? = null,
+    @SerializedName("maxAttempts") val maxAttempts: Int? = null,
 
     var customerId : String = "",
 ) : Serializable {
