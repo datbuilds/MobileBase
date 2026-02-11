@@ -139,7 +139,7 @@
     <string name="enterCurrentPassword">ປ້ອນ​ລະ​ຫັດ​ຜ່າ​ນ​ປະ​ຈ​ຸ​ບັນ</string>
     <string name="new_password">ລະ​ຫັດ​ຜ່ານ​ໃໝ່</string>
     <string name="enter_new_password">ປ້ອນ​ລະ​ຫັດ​ຜ່ານ​ໃໝ່</string>
-    <string name="password_rule_length">ຄວາມ​ຍາວ 6-50 ຕົວ​ອັກ​ສອນ</string>
+    <string name="password_rule_length">ຄວາມ​ຍາວ 8-20 ຕົວ​ອັກ​ສອນ</string>
     <string name="password_rule_case">ຢ່າງ​ໜ້ອຍ​ຕ້ອງ​ປະ​ກອບ​ມີ​ ຕົວ​ພິມ​ໃຫຍ່ 1 ຕົວ ແລະ ຕົວ​ພິມ​ນ້ອຍ 1 ຕົວ</string>
     <string name="password_rule_special">ຢ່າງໜ້ອຍ ​ຕ້ອງປະ​ກອບ​ມີ ຕົວ​ເລກ 1 ຕົວ, ຕົວອັກສອນພິເສດ 1 ຕົວ .~!@#$\%^&amp;*()_+={}|:;&lt;&gt;,/?-</string>
     <string name="password_rule_username">ບໍ່​ໃຫ້​ປະ​ກອບມີ​ ຊື່​ user ຫຼື ຊື່​ແທ້​ຂອງ​ຜູ້​ໃຊ້</string>

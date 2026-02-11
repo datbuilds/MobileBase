@@ -29,7 +29,6 @@ import vn.shb.core.core.retrofit.okHttpClient
 import vn.shb.core.core.retrofit.okHttpClientAuthentication
 import vn.shb.core.core.retrofit.retrofit
 import vn.shb.cam.BuildConfig
-import vn.shb.cam.utils.debug.ApiLoggingInterceptor
 
 fun createNetworkModule(
     baseUrl: String,
@@ -60,11 +59,6 @@ fun createNetworkModule(
             )
         }
 
-        // Debug API logging interceptor (only in debug builds)
-        single { 
-            if (isDebug) ApiLoggingInterceptor() else null
-        }
-
         single { loggingInterceptor(isDebug) }
 
         /** AUTHENTICATION interceptor */
@@ -73,7 +67,6 @@ fun createNetworkModule(
                 androidContext(),
                 get(),
                 get(),
-                get() // debug interceptor
             )
         }
 
@@ -85,7 +78,6 @@ fun createNetworkModule(
                 androidContext(),
                 get(qualifier = named(OKHTTP_NORMAL)),
                 get(),
-                get() // debug interceptor
             )
         }
 
@@ -97,8 +89,7 @@ fun createNetworkModule(
             okHttpClient(
                 androidContext(),
                 get(qualifier = named(OKHTTP_WSO2)),   // interceptor đúng!
-                get(),                                  // logging interceptor
-                get()                                   // debug interceptor
+                get()                                  // logging interceptor
             )
         }
 

@@ -150,7 +150,7 @@
 
     <string name="new_password">New password</string>
     <string name="enter_new_password">Enter new password</string>
-    <string name="password_rule_length">6-50 characters long</string>
+    <string name="password_rule_length">8-20 characters long</string>
     <string name="password_rule_case">Requires at least 1 lowercase and 1 uppercase character</string>
     <string name="password_rule_special">Requires at least 1 numeric character, 1 special character .~!@#$\%^&amp;*()_+={}|:;&lt;&gt;,/?-</string>
     <string name="remark_default_value">%s TRANSFER</string>

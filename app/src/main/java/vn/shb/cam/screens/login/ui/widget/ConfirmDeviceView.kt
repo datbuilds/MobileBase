@@ -80,10 +80,10 @@ class ConfirmDeviceView @JvmOverloads constructor(
                 startTimer(60000L)
             }
 
-            otpView.setOtpCompleteListener { otp ->
-                onConfirmCallback?.invoke(otp)
-//                hideSoftKeyboard()
-            }
+//            otpView.setOtpCompleteListener { otp ->
+//                onConfirmCallback?.invoke(otp)
+////                hideSoftKeyboard()
+//            }
 
             otpView.setOnOtpChangedListener { otp, isComplete ->
                 btnConfirm.isEnabled = isComplete

@@ -208,8 +208,8 @@ class ChangePasswordFragment :
         binding.tvErrorSamePassword.isVisible = isSame
         isValidNotSame = !isSame
 
-        // 1. Length 6-50
-        isValidLength = password.length in 6..50
+        // 1. Length 8-20
+        isValidLength = password.length in 8..20
         updateValidationStatus(binding.tvRuleLength, isValidLength)
 
         // 2. Lowercase and Uppercase
