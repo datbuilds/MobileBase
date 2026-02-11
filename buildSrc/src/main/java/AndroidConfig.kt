@@ -21,7 +21,7 @@ object AndroidConfig {
     /**
      *
      */
-    const val archivesBaseName = "SHB SAHA Laos - ${VERSION_NAME}(${VERSION_CODE})"
+    const val archivesBaseName = "SHB SAHA Cam - ${VERSION_NAME}(${VERSION_CODE})"
 
     const val VIEW_BINDING_ENABLED = true
     const val DATA_BINDING_ENABLED = true

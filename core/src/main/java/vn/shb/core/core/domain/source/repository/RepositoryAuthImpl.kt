@@ -133,7 +133,8 @@ class RepositoryAuthImpl(
                     LoginRegisterDevice(
                         message = contentResult.errorMessage,
                         masked_phone_number = contentResult.data.masked_phone_number!!,
-                        is_new_device= contentResult.data.is_new_device
+                        is_new_device = contentResult.data.is_new_device,
+                        contentResult.errorCode
                     )
                 )
             }
@@ -297,23 +298,14 @@ class RepositoryAuthImpl(
                         ResultSHB.Failure(ConnectionError())
                     }
                 } else {
-                    if (contentResult.data != null) {
-                        ResultSHB.Failure(
-                            VerifyOtpError(
-                                contentResult.errorMessage,
-                                code = contentResult.errorCode,
-                                remainingSeconds = contentResult.data.remainingSeconds,
-                                maxAttempts = contentResult.data.maxAttempts
-                            )
+                    ResultSHB.Failure(
+                        VerifyOtpError(
+                            contentResult.errorMessage,
+                            code = contentResult.errorCode,
+                            remainingSeconds = contentResult.data?.remainingSeconds,
+                            maxAttempts = contentResult.data?.maxAttempts
                         )
-                    } else {
-                        ResultSHB.Failure(
-                            AppReason(
-                                message = contentResult.errorMessage ?: "Unknown Error",
-                                code = contentResult.errorCode ?: ""
-                            )
-                        )
-                    }
+                    )
                 }
             }
 

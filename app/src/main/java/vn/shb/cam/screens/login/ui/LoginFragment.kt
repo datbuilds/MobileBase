@@ -279,6 +279,12 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                                     uiState.reason.masked_phone_number,
                                     uiState.reason.is_new_device
                                 )
+                            } else if (
+                                uiState.reason.errorCode == ApiConst.OTP_009
+                            ) {
+                                showDialogVisitBranchCam(reason = uiState.reason){
+                                    context?.let { ct -> loginViewModel.showDialogForgotPassword(ct) }
+                                }
                             } else {
                                 showDialogError(
                                     reason = uiState.reason
@@ -386,7 +392,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
                         else -> {
                             confirmDeviceView.hide()
-                            handleErrorHome(AppReason(it.message?:"", it.errorCode?:""))
+                            handleErrorHome(AppReason(it.message ?: "", it.errorCode ?: ""))
 
                         }
                     }
@@ -404,7 +410,23 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
     private var transactionId: String? = null
 
+    fun showDialogVisitBranchCam(
+        reason: Reason,
+        onAction: (() -> Unit)? = null
+    ) {
+        BottomSheetDialogHelper(requireContext()).message(
+            title = getString(R.string.notification),
+            message = reason.errMessage,
+            textNegative = getString(R.string.close),
+            textPositive = getString(R.string.goToBranch),
+            positiveAction = {
+                onAction?.invoke()
+            }
+        )
+    }
+
     private fun handleErrorRegisterDevice(errorData: RegisterDeviceData) {
+        confirmDeviceView.hide()
         val message = when (errorData.errorCode) {
             ApiConst.OTP_004 -> {
                 getString(R.string.otpIncorrectly5Times)
@@ -492,7 +514,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             groupViewNoLastUser.gone()
             flAvatarUser.setUserName(getPathAvatarUser(user.customerId), currentUserName)
             binding.tvHelloUser.text = requireContext().getTextWelcomeUser()
-            binding.tvNameUser.text = currentUserName
+            binding.tvNameUser.text = " PHASOUK BOUNMIXAY"
             inputPasswordLayout.clearEditTextColorFilter()
         }
     }
@@ -536,7 +558,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         clearFlag()
 
         //mock
-        binding.edtInputPass.setText("empgmn")
+        binding.edtInputPass.setText("Test1234@")
 //        handleActionLogin()
     }
 

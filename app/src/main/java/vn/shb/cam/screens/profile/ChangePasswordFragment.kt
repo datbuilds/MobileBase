@@ -6,17 +6,19 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.core.widget.TextViewCompat
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
-import vn.shb.core.core.security.encrypt.EncryptManager
-import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.base.view.MyTextView
 import vn.shb.cam.databinding.FragmentChangePasswordBinding
 import vn.shb.cam.utils.ApiConst
+import vn.shb.cam.utils.ApiConst.AUTH_111
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.extensions.textValue
+import vn.shb.core.core.security.encrypt.EncryptManager
+import vn.shb.core.utils.extesions.setOnSingleClickListener
 import java.util.Base64
 
 class ChangePasswordFragment :
@@ -149,6 +151,9 @@ class ChangePasswordFragment :
                 viewModel.state.collect { state ->
                     when (state) {
                         is ChangePasswordState.Success -> {
+                            lifecycleScope.launch {
+                                homeViewModel.stateLoading(false)
+                            }
                             viewModel.resetState()
                             viewOldPasswordError(false)
                             safeNavigate(
@@ -158,8 +163,15 @@ class ChangePasswordFragment :
                         }
 
                         is ChangePasswordState.Error -> {
+                            lifecycleScope.launch {
+                                homeViewModel.stateLoading(false)
+                            }
                             if (state.reason.errorCode == ApiConst.AUTH_010) {
                                 viewOldPasswordError()
+                                return@collect
+                            }
+                            if (state.reason.errorCode == AUTH_111) {
+                                binding.ivI.setImageResource(R.drawable.ic_close_circle)
                                 return@collect
                             }
                             viewOldPasswordError(false)
@@ -167,7 +179,16 @@ class ChangePasswordFragment :
                             viewModel.resetState()
                         }
 
+                        is ChangePasswordState.Loading ->{
+                            lifecycleScope.launch {
+                                homeViewModel.stateLoading(true)
+                            }
+                        }
+
                         else -> {
+                            lifecycleScope.launch {
+                                homeViewModel.stateLoading(false)
+                            }
                         }
                     }
                 }

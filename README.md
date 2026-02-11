@@ -39,7 +39,7 @@ SHB SAHA CAM là ứng dụng di động được thiết kế đặc biệt c�
 ### **Cấu trúc Module**
 
 ```
-SHB_SAHA_LAOS/
+SHB_SAHA_CAM/
 ├── app/                          # Main application module
 │   ├── src/main/java/vn/shb/cam/
 │   │   ├── activity/             # Activities và ViewModels
@@ -146,7 +146,7 @@ SHB_SAHA_LAOS/
 git clone https://gitlab.shb.com.vn/shb-mobile-lao/shb-mobile-lao-android.git
 
 # Di chuyển vào thư mục dự án
-cd SHB_SAHA_LAOS
+cd SHB_SAHA_CAM
 
 # Cấp quyền thực thi cho Gradle wrapper
 chmod +x gradlew

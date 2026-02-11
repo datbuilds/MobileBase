@@ -180,7 +180,7 @@
     <string name="theBeneficiaryUpdateFail">ອັບ​ເດດ​ຜູ້​ຮັບ​ລົ້ມ​ເຫຼວ</string>
     <string name="theBeneficiaryAlreadyExists">ມີຜູ້​ຮັບ​ຢູ່​ແລ້ວ</string>
     <string name="new_version_available">ເວີຊັ່ນ​ໃໝ່​ພ້ອມ​ໃຫ້​ໃຊ້​ງານ​ແລ້ວ</string>
-    <string name="weHaveReleasedNewVersion">ພວກເຮົາໄດ້ອັບ​ເດດ​ເວີ​ຊັ່ນໃໝ່. ກະລຸນາອັບເດດເພື່ອກັບປະສົບການທີ່ດີກວ່າ ກັ​ບ SHB SAHA Laos.</string>
+    <string name="weHaveReleasedNewVersion">ພວກເຮົາໄດ້ອັບ​ເດດ​ເວີ​ຊັ່ນໃໝ່. ກະລຸນາອັບເດດເພື່ອກັບປະສົບການທີ່ດີກວ່າ ກັ​ບ SHB SAHA Cam.</string>
     <string name="updateLabel">ອັບ​ເດດ</string>
     <string name="error_current_password_incorrect">ລະ​ຫັດ​ຜ່ານ​ປະ​ຈຸ​ບັນ​ບໍ່​ຖືກ​ຕ້ອງ, ກະ​ລຸ​ນາ​ລອງ​ໃໝ່​ອີກ​ຄັ້ງ</string>
     <string name="invalidAccountNumber">ເລກ​ບັນ​ຊີ​ບໍ່​ຖືກ​ຕ້ອງ</string>

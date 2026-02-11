@@ -60,7 +60,7 @@ android {
             },
 
             uat = {
-                resValue("string", "app_name", "UAT SHB SAHA Laos")
+                resValue("string", "app_name", "UAT SHB SAHA Cam")
 
                 buildConfigField(
                     "String",

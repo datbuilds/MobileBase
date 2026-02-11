@@ -22,6 +22,8 @@ object ApiConst {
 
     //error old password
     const val AUTH_010 = "AUTH-010"
+    const val AUTH_011 = "AUTH-011"
+    const val AUTH_111 = "AUTH-111"
 
     //error register device
     const val OTP_001 = "OTP-001"
@@ -30,6 +32,7 @@ object ApiConst {
     const val OTP_004 = "OTP-004"
     const val OTP_005 = "OTP-005"
     const val OTP_008 = "OTP-008"
+    const val OTP_009 = "OTP-009"
 
     //key
     const val KEY_REFERENCE_NUMBER_TRANSACTION = "KEY_REFERENCE_NUMBER_TRANSACTION"

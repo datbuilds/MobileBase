@@ -15,12 +15,16 @@ fun okHttpClient(
     context: Context,
     headerInterceptor: Interceptor,
     loggingInterceptor: HttpLoggingInterceptor,
+    debugInterceptor: Interceptor? = null
 //    flipperPlugin: NetworkFlipperPlugin
 ) = OkHttpClient.Builder()
     .connectTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
     .readTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
     .writeTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
     .addInterceptor(headerInterceptor)
+    .apply {
+        debugInterceptor?.let { addInterceptor(it) }
+    }
     .addInterceptor(loggingInterceptor)
 //    .addInterceptor(customChuckerInterceptor(context))
 //    .addNetworkInterceptor(FlipperOkhttpInterceptor(flipperPlugin))
@@ -30,12 +34,16 @@ fun okHttpClientAuthentication(
     context: Context,
     headerInterceptor: Interceptor,
     loggingInterceptor: HttpLoggingInterceptor,
+    debugInterceptor: Interceptor? = null
 //    flipperPlugin: NetworkFlipperPlugin
 ) = OkHttpClient.Builder()
     .connectTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
     .readTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
     .writeTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
     .addInterceptor(headerInterceptor)
+    .apply {
+        debugInterceptor?.let { addInterceptor(it) }
+    }
     .addInterceptor(loggingInterceptor)
 //    .addInterceptor(customChuckerInterceptor(context))
 //    .addNetworkInterceptor(FlipperOkhttpInterceptor(flipperPlugin))
