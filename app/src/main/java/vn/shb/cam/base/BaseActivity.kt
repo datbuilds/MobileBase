@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -13,23 +12,14 @@ import android.os.Looper
 import android.os.StrictMode
 import android.view.LayoutInflater
 import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
 import android.view.WindowInsetsController
-import android.view.WindowManager
 import android.view.accessibility.AccessibilityManager
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.media3.common.BuildConfig
 import androidx.viewbinding.ViewBinding
 import org.koin.android.ext.android.inject
-import vn.shb.core.core.domain.usecases.login.UseCaseRefreshToken
-import vn.shb.core.core.domain.usecases.wso2.UseCaseRefreshTokenWso2
-import vn.shb.core.core.security.detectRoot.RootUtils
-import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import vn.shb.cam.R
 import vn.shb.cam.SHBApplication
 import vn.shb.cam.activity.dashboard.DashboardActivity
@@ -42,6 +32,10 @@ import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.returnActivity
 import vn.shb.cam.utils.extensions.toast
 import vn.shb.cam.utils.refreshTK.RefreshTokenManager
+import vn.shb.core.core.domain.usecases.login.UseCaseRefreshToken
+import vn.shb.core.core.domain.usecases.wso2.UseCaseRefreshTokenWso2
+import vn.shb.core.core.security.detectRoot.RootUtils
+import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 
 abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflater) -> T) :
     AppCompatActivity() {
@@ -100,7 +94,7 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
         setContentView(binding.root)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             window.insetsController?.apply {
-                    systemBarsBehavior = WindowInsetsController.BEHAVIOR_DEFAULT
+                systemBarsBehavior = WindowInsetsController.BEHAVIOR_DEFAULT
             }
         }
 

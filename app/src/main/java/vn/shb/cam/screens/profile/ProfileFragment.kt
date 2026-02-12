@@ -64,10 +64,10 @@ class ProfileFragment :
         val user = homeViewModel.getCurrentUserInfo()
         val userF = UserInfo(
             customerId = "123123123",
-            customerName = "linh dep trai",
+            customerName = "PHASOUK BOUNMIXAY",
             defaultAcct = "1234567890",
-            email = "qlinhptit1119@gmail.com",
-            username = "lingard"
+            email = "phasoukbounmixay@gmail.com",
+            username = "PHASOUK BOUNMIXAY"
         )
         if (userF != null) {
             bindViewDetail(userF)

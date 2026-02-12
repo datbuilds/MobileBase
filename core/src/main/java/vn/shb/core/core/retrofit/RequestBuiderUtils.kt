@@ -1,9 +1,7 @@
 package vn.shb.core.core.retrofit
 
-import android.util.Log
 import okhttp3.Interceptor
 import okhttp3.Request
-import org.koin.android.BuildConfig
 import java.util.Locale
 
 fun Interceptor.Chain.appRequestBuilder(
@@ -23,7 +21,7 @@ fun Interceptor.Chain.appRequestBuilder(
         val requestBuilder = original.newBuilder().apply {
             addHeader("Content-Type", "application/json")
             addHeader("X-Platform", "MOBILE")
-            addHeader("X-Device-ID", deviceId.plus("3") ?: "")
+            addHeader("X-Device-ID", deviceId ?: "")
             addHeader("X-Language", Locale.getDefault().language)
 
             val info = "$versionName(Android$deviceVersion; $deviceModel; $deviceManufacturer"

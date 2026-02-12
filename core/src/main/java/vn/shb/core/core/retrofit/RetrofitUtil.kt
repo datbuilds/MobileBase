@@ -1,6 +1,9 @@
 package vn.shb.core.core.retrofit
 
 import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerCollector
+import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.chuckerteam.chucker.api.RetentionManager
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -22,7 +25,7 @@ fun okHttpClient(
     .writeTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
     .addInterceptor(headerInterceptor)
     .addInterceptor(loggingInterceptor)
-//    .addInterceptor(customChuckerInterceptor(context))
+    .addInterceptor(customChuckerInterceptor(context))
 //    .addNetworkInterceptor(FlipperOkhttpInterceptor(flipperPlugin))
     .build()
 
@@ -37,23 +40,23 @@ fun okHttpClientAuthentication(
     .writeTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
     .addInterceptor(headerInterceptor)
     .addInterceptor(loggingInterceptor)
-//    .addInterceptor(customChuckerInterceptor(context))
+    .addInterceptor(customChuckerInterceptor(context))
 //    .addNetworkInterceptor(FlipperOkhttpInterceptor(flipperPlugin))
     .build()
 
 
-//fun customChuckerInterceptor(context: Context) = ChuckerInterceptor.Builder(context)
-//    .collector(
-//        ChuckerCollector(
-//            context = context,
-//            showNotification = true,
-//            retentionPeriod = RetentionManager.Period.ONE_HOUR
-//        )
-//    )
-//    .maxContentLength(250_000L)
-//    .redactHeaders("Auth-Token", "Bearer")
-//    .alwaysReadResponseBody(true)
-//    .build()
+fun customChuckerInterceptor(context: Context) = ChuckerInterceptor.Builder(context)
+    .collector(
+        ChuckerCollector(
+            context = context,
+            showNotification = true,
+            retentionPeriod = RetentionManager.Period.ONE_HOUR
+        )
+    )
+    .maxContentLength(250_000L)
+    .redactHeaders("Auth-Token", "Bearer")
+    .alwaysReadResponseBody(true)
+    .build()
 
 fun loggingInterceptor(isDebug: Boolean = false) = HttpLoggingInterceptor().setLevel(
     if (isDebug)
