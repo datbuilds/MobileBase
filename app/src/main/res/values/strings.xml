@@ -208,4 +208,5 @@
     <string name="requestOtpMore5Times">You have requested the OTP more than 5 times.</string>
     <string name="newDeviceVerificial">You are logging into SHB Saha Cambodia on a new device. Please verify using the OTP sent to the phone number %s to continue using the service. Is this your phone number?</string>
     <string name="goToBranch">Go to Branch</string>
+    <string name="getSupportForChanging">To get support for changing or register your phone number, please visit the nearest branch/transaction point of SHB Saha Cambodia.</string>
 </resources>

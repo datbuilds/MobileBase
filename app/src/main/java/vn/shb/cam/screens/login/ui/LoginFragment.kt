@@ -182,7 +182,11 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             onConfirm = {
                 loginViewModel.registerDevice(accountLogin, encPsw)
             },
-            onCancel = { }
+            onCancel = {
+                showDialogVisitBranchCam(message = getString(R.string.getSupportForChanging)) {
+                    context?.let { ct -> loginViewModel.showDialogForgotPassword(ct) }
+                }
+            }
         ).show(childFragmentManager, RegisterDeviceDialog.TAG)
     }
 
@@ -282,7 +286,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                             } else if (
                                 uiState.reason.errorCode == ApiConst.OTP_009
                             ) {
-                                showDialogVisitBranchCam(reason = uiState.reason){
+                                showDialogVisitBranchCam(message = uiState.reason.errMessage) {
                                     context?.let { ct -> loginViewModel.showDialogForgotPassword(ct) }
                                 }
                             } else {
@@ -411,12 +415,12 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     private var transactionId: String? = null
 
     fun showDialogVisitBranchCam(
-        reason: Reason,
+        message: String,
         onAction: (() -> Unit)? = null
     ) {
         BottomSheetDialogHelper(requireContext()).message(
             title = getString(R.string.notification),
-            message = reason.errMessage,
+            message = message,
             textNegative = getString(R.string.close),
             textPositive = getString(R.string.goToBranch),
             positiveAction = {

@@ -37,7 +37,6 @@ class RegisterDeviceDialog(
     override fun initListener() {
         binding.ivClose.setOnSingleClickListener {
             dismiss()
-            onCancel()
         }
 
         binding.btnNo.setOnSingleClickListener {
