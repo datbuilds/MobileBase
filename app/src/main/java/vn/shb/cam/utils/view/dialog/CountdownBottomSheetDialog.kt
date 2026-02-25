@@ -14,7 +14,7 @@ import vn.shb.cam.utils.extensions.visible
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 
 class CountdownBottomSheetDialog(
-    private val message: String,
+    private val message: Int,
     private val remainingSeconds: Int,
     private val onDismiss: (() -> Unit)? = null
 ) : BaseBottomDialogBinding<CustomDialogLayoutBinding>(CustomDialogLayoutBinding::inflate) {
@@ -62,8 +62,7 @@ class CountdownBottomSheetDialog(
                 val s = (millisUntilFinished / 1000) % 60
                 val formatted = String.format("%02d:%02d", m, s)
                 
-                val pleaseTryAgain = getString(R.string.pleaseTryAgainIn)
-                val fullText = "$message $pleaseTryAgain $formatted"
+                val fullText = getString(message, formatted)
 
                 val spannable = SpannableString(fullText)
                 val start = fullText.lastIndexOf(formatted)
@@ -80,7 +79,7 @@ class CountdownBottomSheetDialog(
 
             override fun onFinish() {
                 if (view == null) return
-                binding.tvContentAlert.text = message
+                binding.tvContentAlert.text = getString(message, 0)
                 dismiss()
                 onDismiss?.invoke()
             }

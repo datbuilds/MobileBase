@@ -177,4 +177,18 @@
     <string name="updateLabel">Cập nhật </string>
     <string name="error_current_password_incorrect">Mật khẩu hiện tại không đúng, vui lòng thử lại</string>
     <string name="invalidAccountNumber">Số tài khoản không hợp lệ</string>
+    <string name="register_device_title">Đăng ký thiết bị sử dụng ứng dụng SHB Saha Cambodia</string>
+    <string name="register_device_message">Để tăng cường bảo mật cho tài khoản, Quý khách vui lòng xác thực thiết bị bằng mã OTP được gửi đến số điện thoại %s để hoàn tất đăng ký sử dụng ứng dụng. Đây có phải là số điện thoại của Quý khách không?</string>
+    <string name="confirm_device_title">Xác thực thiết bị mới</string>
+    <string name="confirm_device_message">Quý khách vui lòng nhập mã OTP đã được gửi về số điện thoại %s</string>
+    <string name="remaining_time">Thời gian còn lại %s giây</string>
+    <string name="otp_incorrect_message">OTP đã được sử dụng</string>
+    <string name="confirmLabel">Xác nhận</string>
+    <string name="requestOtpMore5Times">Bạn đã yêu cầu gửi mã OTP quá 5 lần, xin vui lòng chờ %s để thử lại</string>
+    <string name="newDeviceVerificial">Quý khách đang đăng nhập SHB Saha Cambodia trên thiết bị lạ. Vui lòng xác thực bằng mã OTP được gửi đến số điện thoại %s để tiếp tục sử dụng dịch vụ. Đây có phải là số điện thoại của Quý khách không?</string>
+    <string name="goToBranch">Đến chi nhánh</string>
+    <string name="getSupportForChanging">Để được hỗ trợ thay đổi hoặc đăng ký mới số điện thoại , Quý khách vui lòng đến chi nhánh/điểm giao dịch gần nhất của SHB Saha Cambodia.</string>
+    <string name="theOtpExpired">"OTP đã hết hạn "</string>
+    <string name="resendOtp">Gửi lại OTP</string>
+    <string name="theNewPassMustNotMatchOldPass">Mật khẩu mới không được trùng với 4 mật khẩu gần nhất</string>
 </resources>

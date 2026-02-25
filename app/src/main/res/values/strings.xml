@@ -29,7 +29,7 @@
     <string name="welcomeToShb">Welcome to SHB</string>
     <string name="currentAccount">CURRENT ACCOUNT</string>
     <string name="transfer">Transfer</string>
-    <string name="transferCAP">TRANSFER</string>
+    <string name="transferCAP" translatable="false">TRANSFER</string>
     <string name="accounts">Accounts</string>
     <string name="logoutConfirm">Are you sure you want to log out?</string>
     <string name="cancel">Cancel</string>
@@ -102,7 +102,7 @@
     <string name="account_info_format" translatable="false">%s - %s - %s</string>
     <string name="english">English</string>
     <string name="vietnamese">Vietnamese</string>
-    <string name="lao">Lao</string>
+    <string name="lao" translatable="false">Lao</string>
     <string name="add">Add:</string>
     <string name="done">Done</string>
     <string name="zero" translatable="false">0</string>
@@ -160,7 +160,7 @@
     <string name="re_enter_new_password">Re-enter new password</string>
     <string name="hint_re_enter_new_password">Re-enter new password</string>
     <string name="change_password_success">Change password successfully</string>
-    <string name="change_password_success_message">Please login again to continue using the application</string>
+    <string name="change_password_success_message">Please log in again to continue using the application</string>
     <string name="error_current_password_incorrect">The current password is incorrect, please try again</string>
     <string name="error_passwords_do_not_match">Passwords do not match</string>
     <string name="error_new_and_old_password_same">The new password must not be the same as the old password</string>
@@ -204,8 +204,8 @@
     <string name="theOtpExpired">The OTP has expired. Please generate a new verification code.</string>
     <string name="resendOtp">Resend OTP</string>
     <string name="theNewPassMustNotMatchOldPass">The new password must not match the last 4 passwords</string>
-    <string name="otpIncorrectly5Times">You have entered the OTP incorrectly 5 times.</string>
-    <string name="requestOtpMore5Times">You have requested the OTP more than 5 times.</string>
+    <string name="otpIncorrectly5Times">You have entered the OTP incorrectly 5 times.Please try again in</string>
+    <string name="requestOtpMore5Times">You have requested the OTP more than 5 times. Please try again in %s</string>
     <string name="newDeviceVerificial">You are logging into SHB Saha Cambodia on a new device. Please verify using the OTP sent to the phone number %s to continue using the service. Is this your phone number?</string>
     <string name="goToBranch">Go to Branch</string>
     <string name="getSupportForChanging">To get support for changing or register your phone number, please visit the nearest branch/transaction point of SHB Saha Cambodia.</string>

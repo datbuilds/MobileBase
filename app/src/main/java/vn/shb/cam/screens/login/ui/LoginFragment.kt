@@ -79,7 +79,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         binding.tvHotline.text =
             getString(R.string.version).plus(Const.SEPARATOR_SPACE).plus(BuildConfig.VERSION_NAME)
         storage.resetToken()
-        loginViewModel.getTokenWso2()
+//        loginViewModel.getTokenWso2()
 
         // Initialize embedded confirm device view
         confirmDeviceView = ConfirmDeviceView(requireContext())
@@ -112,11 +112,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         if (savedInstanceState == null) {
             clearFlag()
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        //        checkNotificationPermission()
     }
 
     override fun initListener() {
@@ -433,14 +428,14 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         confirmDeviceView.hide()
         val message = when (errorData.errorCode) {
             ApiConst.OTP_004 -> {
-                getString(R.string.otpIncorrectly5Times)
+                R.string.otpIncorrectly5Times
             }
 
             ApiConst.OTP_005 -> {
-                getString(R.string.requestOtpMore5Times)
+                R.string.requestOtpMore5Times
             }
 
-            else -> ""
+            else -> R.string.otpIncorrectly5Times
         }
 
         CountdownBottomSheetDialog(

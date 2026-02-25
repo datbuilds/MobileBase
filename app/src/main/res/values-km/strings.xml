@@ -133,6 +133,7 @@
     <string name="enterBankName">បញ្ចូលឈ្មោះធនាគារ</string>
     <string name="share">ចែករំលែក</string>
     <string name="beneficiary">អ្នកទទួល</string>
+    <string name="error_new_and_old_password_same">ពាក្យសម្ងាត់ថ្មីមិនត្រូវដូចគ្នានឹងពាក្យសម្ងាត់ចាស់ទេ។</string>
     <string name="beneficiaryList">បញ្ជីអ្នកទទួល</string>
     <string name="enterRecipientNameOrAccountNumber">បញ្ចូលឈ្មោះអ្នកទទួល ឬលេខគណនី</string>
     <string name="doYouWantToDeleteFromBeneficiary"> តើអ្នកចង់លុបលោកស្រី %s ចេញពីបញ្ជីអ្នកទទួលដែរឬទេ?</string>
@@ -168,11 +169,19 @@
     <string name="shbBranch2Address">ផ្ទះលេខ ១៦១​សេដេ មហាវិថី ហ្សាវ៉ាហារឡានេហ៍រុ សង្កាត់ផ្សារដេប៉ូទី១ ខណ្ឌទួលគោក រាជធានីភ្នំពេញ</string>
     <string name="bank">ធនាគារ</string>
     <string name="password_rule_special">តម្រូវឱ្យមានយ៉ាងហោចណាស់អក្សរតូច ១ និងអក្សរធំ ១និងសញ្ញាពិសេស១ ដូចជា .~!@#$\%^&amp;*()_+={}|:;&lt;&gt;,/?-</string>
-    <string name="register_device_title">Register device for using the SHB Saha Cambodia application</string>
-    <string name="register_device_message">To enhance account security, please verify your device using the OTP sent to the phone number %s to complete the app registration. Is this your phone number?</string>
-    <string name="confirm_device_title">Confirm device</string>
-    <string name="confirm_device_message">Please enter the OTP that has been sent to the phone number %s</string>
-    <string name="remaining_time">Remaining time %s second</string>
-    <string name="otp_incorrect_message">The OTP code is incorrect. Please check again.</string>
-    <string name="confirmLabel">Confirm</string>
+    <string name="register_device_title">ចុះឈ្មោះឧបករណ៍របស់អ្នកដើម្បីប្រើប្រាស់កម្មវិធី SHB Saha Cambodia។</string>
+    <string name="register_device_message">ដើម្បីបង្កើនសុវត្ថិភាពគណនី សូមផ្ទៀងផ្ទាត់ឧបករណ៍របស់អ្នកដោយប្រើលេខកូដ OTP ដែលបានផ្ញើទៅកាន់លេខទូរស័ព្ទ %s ដើម្បីបញ្ចប់ការចុះឈ្មោះប្រើប្រាស់ក្មវិធីធនាគារចល័ត។ តើនេះជាលេខទូរស័ព្ទរបស់អ្នកមែនទេ?</string>
+    <string name="confirm_device_title">ផ្ទៀងផ្ទាត់ឧបករណ៍ថ្មី</string>
+    <string name="confirm_device_message">សូមបញ្ចូលលេខ OTP ដែលបានផ្ញើទៅកាន់លេខទូរស័ព្ទ %s</string>
+    <string name="remaining_time">ពេលវេលានៅសល់ %s second</string>
+    <string name="otp_incorrect_message">លេខកូដ OTP មិនត្រឹមត្រូវទេ។ សូមពិនិត្យមើលម្តងទៀត។</string>
+    <string name="confirmLabel">បញ្ជាក់់</string>
+    <string name="requestOtpMore5Times">អ្នកបានស្នើសុំលេខកូដ OTP ច្រើនជាង 5 ដង។ សូមរង់ចាំរហូត %s នាទី រួចព្យាយាមម្តងទៀត។</string>
+    <string name="newDeviceVerificial">អ្នកកំពុងចូលទៅក្នុង SHB Saha Cambodia ដោយប្រើឧបករណ៍ដែលមិនស្គាល់។ សូមផ្ទៀងផ្ទាត់គណនីរបស់អ្នកដោយប្រើលេខកូដ OTP ដែលបានផ្ញើទៅកាន់លេខទូរស័ព្ទ %s ដើម្បីបន្តប្រើប្រាស់សេវាកម្ម។ តើនេះជាលេខទូរស័ព្ទរបស់អ្នកមែនទេ?</string>
+    <string name="goToBranch">ទៅកាន់សាខា</string>
+    <string name="getSupportForChanging">ដើម្បីទទួលបានជំនួយក្នុងការផ្លាស់ប្ដូរ ឬចុះឈ្មោះលេខទូរស័ព្ទថ្មី សូមទៅកាន់សាខា/ការិយាល័យប្រតិបត្តិការរបស់ SHB Saha Cambodia ដែលនៅជិតលោកអ្នកបំផុត។</string>
+    <string name="theOtpExpired">លេខកូដ OTP ផុតកំណត់ហើយ។ សូមបង្កើតលេខកូដផ្ទៀងផ្ទាត់ថ្មី។</string>
+    <string name="resendOtp">ផ្ញើ OTP សារឡើងវិញ</string>
+    <string name="change_password_success_message"> សូមចូលម្តងទៀតដើម្បីបន្តប្រើប្រាស់កម្មវិធី</string>
+    <string name="error_current_password_incorrect">ពាក្យសម្ងាត់បច្ចុប្បន្នមិនត្រឹមត្រូវទេ សូមព្យាយាមម្តងទៀត។</string>
 </resources>
