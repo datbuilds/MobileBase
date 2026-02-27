@@ -10,6 +10,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import vn.shb.cam.R
+import vn.shb.cam.base.BaseViewModel
+import vn.shb.cam.utils.ApiConst
+import vn.shb.cam.utils.ApiConst.FR_2_TO_DATE
+import vn.shb.cam.utils.ApiConst.LAST5
+import vn.shb.cam.utils.extensions.common.Const
+import vn.shb.cam.utils.extensions.common.Const.CURRENT_ACCOUNT
 import vn.shb.core.core.delivery.Reason
 import vn.shb.core.core.delivery.ResultSHB
 import vn.shb.core.core.delivery.onFailure
@@ -42,13 +49,6 @@ import vn.shb.data.entities.home.UserInfo
 import vn.shb.data.entities.login.UserConverters
 import vn.shb.data.entities.transfer.ConfirmationModel
 import vn.shb.data.entities.transfer.TransferAccount
-import vn.shb.cam.R
-import vn.shb.cam.base.BaseViewModel
-import vn.shb.cam.utils.ApiConst
-import vn.shb.cam.utils.ApiConst.FR_2_TO_DATE
-import vn.shb.cam.utils.ApiConst.LAST5
-import vn.shb.cam.utils.extensions.common.Const
-import vn.shb.cam.utils.extensions.common.Const.CURRENT_ACCOUNT
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -157,8 +157,11 @@ class HomeViewModel(
                 result.onSuccess { (userInfo, accountData) ->
                     val useLog = UserConverters.stringToUserInfo(storage.getUserLog())
                     useLog?.apply {
-                        username = userInfo.customerName
-                        customerId = userInfo.customerId
+                        try {
+                            username = userInfo.customerName
+                            customerId = userInfo.customerId
+                        } catch (e: Exception) {
+                        }
                         storage.setUserLog(UserConverters.userInfoToString(this))
                     }
                     _stateUserInfo.value = userInfo

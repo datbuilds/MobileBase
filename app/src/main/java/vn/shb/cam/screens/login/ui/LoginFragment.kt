@@ -513,7 +513,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             groupViewNoLastUser.gone()
             flAvatarUser.setUserName(getPathAvatarUser(user.customerId), currentUserName)
             binding.tvHelloUser.text = requireContext().getTextWelcomeUser().plus(",")
-            binding.tvNameUser.text = " PHASOUK BOUNMIXAY"
+            binding.tvNameUser.text = currentUserName
             inputPasswordLayout.clearEditTextColorFilter()
         }
     }
@@ -558,7 +558,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
         //mock
         binding.edtInputPass.setText("Test234@")
-        handleActionLogin()
+//        handleActionLogin()
     }
 
     companion object {
