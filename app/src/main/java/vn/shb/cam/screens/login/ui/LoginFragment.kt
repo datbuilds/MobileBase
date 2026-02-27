@@ -93,7 +93,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             getString(R.string.forgotPassword), R.color.forgotPassword,
             R.color.forgotPasswordClick
         ) {
-            context?.let { ct -> loginViewModel.showDialogForgotPassword(ct) }
+            context?.let { ct -> loginViewModel.showDialogForgotPassword(ct, getString(R.string.passwordResetInstructions)) }
         }
 
         // set icon current language
@@ -184,7 +184,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             },
             onCancel = {
                 showDialogVisitBranchCam(message = getString(R.string.getSupportForChanging)) {
-                    context?.let { ct -> loginViewModel.showDialogForgotPassword(ct) }
+                    context?.let { ct -> loginViewModel.showDialogForgotPassword(ct, getString(R.string.listBranchTransactionPoint)) }
                 }
             }
         ).show(childFragmentManager, RegisterDeviceDialog.TAG)
@@ -287,7 +287,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                                 uiState.reason.errorCode == ApiConst.OTP_009
                             ) {
                                 showDialogVisitBranchCam(message = uiState.reason.errMessage) {
-                                    context?.let { ct -> loginViewModel.showDialogForgotPassword(ct) }
+                                    context?.let { ct -> loginViewModel.showDialogForgotPassword(ct, getString(R.string.listBranchTransactionPoint)) }
                                 }
                             } else {
                                 showDialogError(

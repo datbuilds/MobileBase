@@ -302,7 +302,7 @@ class LoginViewModel(
         _state.value = LoginUiState.Idle
     }
 
-    fun showDialogForgotPassword(context: Context) {
+    fun showDialogForgotPassword(context: Context, title : String) {
         context.apply {
 
             val bindingSup = LayoutBranchListBinding.inflate(LayoutInflater.from(this))
@@ -322,7 +322,7 @@ class LoginViewModel(
                 }
             }
             BottomSheetDialogHelper(context).message(
-                title = getString(R.string.passwordResetInstructions),
+                title = title,
                 supView = bindingSup.root,
                 isClose = true
             )
