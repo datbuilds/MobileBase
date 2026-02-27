@@ -204,9 +204,10 @@
     <string name="theOtpExpired">The OTP has expired. Please generate a new verification code.</string>
     <string name="resendOtp">Resend OTP</string>
     <string name="theNewPassMustNotMatchOldPass">The new password must not match the last 4 passwords</string>
-    <string name="otpIncorrectly5Times">You have entered the OTP incorrectly 5 times.Please try again in</string>
+    <string name="otpIncorrectly5Times">You have entered the OTP incorrectly 5 times.Please try again in %s</string>
     <string name="requestOtpMore5Times">You have requested the OTP more than 5 times. Please try again in %s</string>
     <string name="newDeviceVerificial">You are logging into SHB Saha Cambodia on a new device. Please verify using the OTP sent to the phone number %s to continue using the service. Is this your phone number?</string>
     <string name="goToBranch">Go to Branch</string>
     <string name="getSupportForChanging">To get support for changing or register your phone number, please visit the nearest branch/transaction point of SHB Saha Cambodia.</string>
+    <string name="language">Language</string>
 </resources>

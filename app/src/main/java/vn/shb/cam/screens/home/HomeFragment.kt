@@ -93,11 +93,11 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
     override fun onResume() {
         super.onResume()
         homeViewModel.selectedAccount = null
-//        homeViewModel.getUserInfo()
-        bindViewAccount(AccountInfo().apply {
-            setValueAccountNumber("123456789")
-        })
-        mapUserInfo(UserLog(username = "PHASOUK BOUNMIXAY"))
+        homeViewModel.getUserInfo()
+//        bindViewAccount(AccountInfo().apply {
+//            setValueAccountNumber("123456789")
+//        })
+//        mapUserInfo(UserLog(username = "PHASOUK BOUNMIXAY"))
     }
 
 

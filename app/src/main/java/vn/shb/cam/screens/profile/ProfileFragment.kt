@@ -1,7 +1,13 @@
 package vn.shb.cam.screens.profile
 
+import android.graphics.Color
 import android.os.Bundle
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.PopupWindow
+import androidx.core.graphics.drawable.toDrawable
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
@@ -18,10 +24,12 @@ import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.base.view.MyTextView
 import vn.shb.cam.databinding.FragmentProfileBinding
 import vn.shb.cam.databinding.ItemProfileInfoBinding
+import vn.shb.cam.databinding.LayoutLanguagePopupBinding
 import vn.shb.cam.screens.home.getTypeAccount
 import vn.shb.cam.screens.home.widget.OnClickDetail
 import vn.shb.cam.screens.login.state.LogoutUiState
 import vn.shb.cam.screens.login.ui.LoginViewModel
+import vn.shb.cam.screens.login.ui.widget.setDisableAlpha
 import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.hideProgressDialog
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
@@ -29,6 +37,10 @@ import vn.shb.cam.utils.extensions.returnActivity
 import vn.shb.cam.utils.extensions.showProgressDialog
 import vn.shb.cam.utils.refreshTK.RefreshTokenManager
 import vn.shb.cam.utils.view.dialog.BottomSheetDialogHelper
+import vn.shb.cam.utils.widgets.LocaleHelper
+import vn.shb.core.core.delivery.ReasonDescription.CAM
+import vn.shb.core.core.delivery.ReasonDescription.ENGLISH
+import vn.shb.core.core.delivery.ReasonDescription.VIET
 
 class ProfileFragment :
     BaseFragmentBinding<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
@@ -62,18 +74,16 @@ class ProfileFragment :
 
     override fun initView(view: View) {
         val user = homeViewModel.getCurrentUserInfo()
-        val userF = UserInfo(
-            customerId = "123123123",
-            customerName = "PHASOUK BOUNMIXAY",
-            defaultAcct = "1234567890",
-            email = "phasoukbounmixay@gmail.com",
-            username = "PHASOUK BOUNMIXAY"
-        )
-        if (userF != null) {
-            bindViewDetail(userF)
+        if (user != null) {
+            bindViewDetail(user)
         } else {
-//            homeViewModel.getUserInfo()
+            homeViewModel.getUserInfo()
         }
+
+        LocaleHelper.getResourceLocale(LocaleHelper.getCurrentLanguage(requireContext())) { resId ->
+            binding.ivLogoLanguage.setImageResource(resId)
+        }
+
         binding.tvHotline.text =
             getString(R.string.version).plus(Const.SEPARATOR_SPACE).plus(BuildConfig.VERSION_NAME)
     }
@@ -144,6 +154,10 @@ class ProfileFragment :
                         dialog.show(childFragmentManager, DialogChooseProfilePicture.TAG)
                     }
                 })
+
+            llLanguage.setOnSingleClickListener {
+                showLanguagePopup(llLanguage)
+            }
         }
     }
 
@@ -230,5 +244,67 @@ class ProfileFragment :
                 }, 3000)
             }
             .start()
+    }
+
+    private fun showLanguagePopup(anchor: View) {
+        val binding = LayoutLanguagePopupBinding.inflate(LayoutInflater.from(anchor.context))
+
+        val popupWindow = PopupWindow(
+            binding.root,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            true // focusable, click outside sẽ tự đóng
+        )
+
+        val currentLanguage = LocaleHelper.getCurrentLanguage(requireContext())
+
+        // style
+        popupWindow.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
+        popupWindow.isOutsideTouchable = true
+        popupWindow.elevation = 8f
+
+        binding.apply {
+
+            iclLanguage1.apply {
+                ivLogo.setImageResource(R.drawable.ic_logo_cam)
+                tvNameLanguage.text = getString(R.string.cambodian)
+                root.setDisableAlpha(currentLanguage == CAM)
+                root.setOnSingleClickListener {
+                    updateLanguage(CAM)
+                    popupWindow.dismiss()
+                }
+            }
+            iclLanguage2.apply {
+                ivLogo.setImageResource(R.drawable.ic_logo_uk)
+                tvNameLanguage.text = getString(R.string.english)
+                root.setDisableAlpha(currentLanguage == ENGLISH)
+                root.setOnSingleClickListener {
+                    updateLanguage(ENGLISH)
+                    popupWindow.dismiss()
+                }
+            }
+
+            iclLanguage3.apply {
+                ivLogo.setImageResource(R.drawable.ic_logo_vn)
+                tvNameLanguage.text = getString(R.string.vietnamese)
+                root.setDisableAlpha(currentLanguage == VIET)
+                root.setOnSingleClickListener {
+                    updateLanguage(VIET)
+                    popupWindow.dismiss()
+                }
+            }
+        }
+
+        val marginRight = (130 * anchor.context.resources.displayMetrics.density).toInt()
+        popupWindow.showAsDropDown(anchor, -marginRight, 0, Gravity.END)
+    }
+
+    fun updateLanguage(type: String) {
+        context?.let { ct ->
+            LocaleHelper.saveLanguage(ct, type)
+            LocaleHelper.setLocale(ct, type)
+//            restartApp(activity!!)
+            requireActivity().recreate()
+        }
     }
 }

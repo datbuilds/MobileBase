@@ -176,6 +176,8 @@
     <string name="remaining_time">ពេលវេលានៅសល់ %s second</string>
     <string name="otp_incorrect_message">លេខកូដ OTP មិនត្រឹមត្រូវទេ។ សូមពិនិត្យមើលម្តងទៀត។</string>
     <string name="confirmLabel">បញ្ជាក់់</string>
+    <string name="theNewPassMustNotMatchOldPass">ពាក្យសម្ងាត់ថ្មីមិនត្រូវដូចគ្នានឹងពាក្យសម្ងាត់ចុង ក្រោយទាំង 4 លើកទេ</string>
+    <string name="otpIncorrectly5Times">អ្នកបានបញ្ចូលលេខសម្ងាត់ OTP មិនត្រឹមត្រូវចំនួន 5 ដង។ សូមរង់ចាំ %s នាទី រួចព្យាយាមម្តងទៀត។</string>
     <string name="requestOtpMore5Times">អ្នកបានស្នើសុំលេខកូដ OTP ច្រើនជាង 5 ដង។ សូមរង់ចាំរហូត %s នាទី រួចព្យាយាមម្តងទៀត។</string>
     <string name="newDeviceVerificial">អ្នកកំពុងចូលទៅក្នុង SHB Saha Cambodia ដោយប្រើឧបករណ៍ដែលមិនស្គាល់។ សូមផ្ទៀងផ្ទាត់គណនីរបស់អ្នកដោយប្រើលេខកូដ OTP ដែលបានផ្ញើទៅកាន់លេខទូរស័ព្ទ %s ដើម្បីបន្តប្រើប្រាស់សេវាកម្ម។ តើនេះជាលេខទូរស័ព្ទរបស់អ្នកមែនទេ?</string>
     <string name="goToBranch">ទៅកាន់សាខា</string>

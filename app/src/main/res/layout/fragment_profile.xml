@@ -85,6 +85,53 @@
             android:id="@+id/iclInfo6"
             layout="@layout/item_profile_info" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingVertical="10dp">
+
+            <vn.shb.cam.base.view.MyTextView
+                android:id="@+id/tvLanguage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:includeFontPadding="false"
+                android:textColor="@color/neutral7"
+                android:textSize="@dimen/textSize12"
+                android:text="@string/language"
+                app:customFontWeight="medium"/>
+
+            <LinearLayout
+                android:id="@+id/llLanguage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_layout_language_w"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/margin_12dp"
+                android:paddingVertical="@dimen/margin_6dp"
+                app:layout_constraintBottom_toBottomOf="@+id/ivLogoSHB"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ivLogoSHB">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivLogoLanguage"
+                    android:layout_width="@dimen/widthLogoLanguage"
+                    android:layout_height="@dimen/widthLogoLanguage"
+                    android:layout_marginEnd="@dimen/margin_6dp"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/ic_logo_uk" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tint="@color/black"
+                    app:srcCompat="@drawable/ic_arrow_down" />
+            </LinearLayout>
+
+        </LinearLayout>
+
         <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvChangePassword"
             style="@style/MaterialDialog.ButtonChangePassword"

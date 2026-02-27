@@ -184,6 +184,7 @@
     <string name="remaining_time">Thời gian còn lại %s giây</string>
     <string name="otp_incorrect_message">OTP đã được sử dụng</string>
     <string name="confirmLabel">Xác nhận</string>
+    <string name="otpIncorrectly5Times">Bạn đã nhập sai 5 lần OTP, xin vui lòng chờ %s để thử lại</string>
     <string name="requestOtpMore5Times">Bạn đã yêu cầu gửi mã OTP quá 5 lần, xin vui lòng chờ %s để thử lại</string>
     <string name="newDeviceVerificial">Quý khách đang đăng nhập SHB Saha Cambodia trên thiết bị lạ. Vui lòng xác thực bằng mã OTP được gửi đến số điện thoại %s để tiếp tục sử dụng dịch vụ. Đây có phải là số điện thoại của Quý khách không?</string>
     <string name="goToBranch">Đến chi nhánh</string>

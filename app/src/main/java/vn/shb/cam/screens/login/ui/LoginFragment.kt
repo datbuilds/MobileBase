@@ -523,7 +523,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             nextDashboard()
         }
     }
-
+/*
     private fun maskPhoneNumber(phone: String?): String {
         if (phone.isNullOrEmpty()) return ""
         val length = phone.length
@@ -531,7 +531,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         val start = phone.take(3)
         val end = phone.substring(length - 2)
         return "$start*****$end"
-    }
+    }*/
 
     fun updateLanguage(type: String) {
         context?.let { ct ->
@@ -557,8 +557,8 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         clearFlag()
 
         //mock
-        binding.edtInputPass.setText("Test1234@")
-//        handleActionLogin()
+        binding.edtInputPass.setText("Test234@")
+        handleActionLogin()
     }
 
     companion object {
