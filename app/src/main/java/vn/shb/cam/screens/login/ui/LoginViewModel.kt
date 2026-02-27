@@ -267,7 +267,7 @@ class LoginViewModel(
                     grant_type = BuildConfig.GRANT_TYPE,
                     username = BuildConfig.USERNAME,
                     password = BuildConfig.PASSWORD,
-                    scope = BuildConfig.SCOPE,
+                    scope = BuildConfig.SCOPE.plus(randomNumber()),
                 )
             )
             useCaseGetTokenWso2(paramsWso2).collect { result ->

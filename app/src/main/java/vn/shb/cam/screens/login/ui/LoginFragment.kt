@@ -79,7 +79,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         binding.tvHotline.text =
             getString(R.string.version).plus(Const.SEPARATOR_SPACE).plus(BuildConfig.VERSION_NAME)
         storage.resetToken()
-        loginViewModel.getTokenWso2()
+//        loginViewModel.getTokenWso2()
 
         // Initialize embedded confirm device view
         confirmDeviceView = ConfirmDeviceView(requireContext())
@@ -562,7 +562,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         clearFlag()
 
         //mock
-        binding.edtInputPass.setText("Test1234@")
+//        binding.edtInputPass.setText("Test1234@")
 //        handleActionLogin()
     }
 
