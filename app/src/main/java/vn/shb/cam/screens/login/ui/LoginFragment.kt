@@ -93,7 +93,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             getString(R.string.forgotPassword), R.color.forgotPassword,
             R.color.forgotPasswordClick
         ) {
-            context?.let { ct -> loginViewModel.showDialogForgotPassword(ct, getString(R.string.passwordResetInstructions)) }
+            context?.let { ct -> loginViewModel.showDialogForgotPassword(ct, getString(R.string.passwordResetInstructions), true) }
         }
 
         // set icon current language
