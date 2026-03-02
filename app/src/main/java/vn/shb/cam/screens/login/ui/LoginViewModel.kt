@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import androidx.core.net.toUri
+import androidx.core.view.isVisible
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.channels.Channel
@@ -302,10 +303,11 @@ class LoginViewModel(
         _state.value = LoginUiState.Idle
     }
 
-    fun showDialogForgotPassword(context: Context, title : String) {
+    fun showDialogForgotPassword(context: Context, title : String, isShowNote : Boolean = false) {
         context.apply {
 
             val bindingSup = LayoutBranchListBinding.inflate(LayoutInflater.from(this))
+            bindingSup.tvOrangeMessage.isVisible = isShowNote
 
             //mock data
             val branches = getListAddress(context)
