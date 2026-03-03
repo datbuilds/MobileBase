@@ -192,4 +192,5 @@
     <string name="theOtpExpired">"OTP đã hết hạn "</string>
     <string name="resendOtp">Gửi lại OTP</string>
     <string name="theNewPassMustNotMatchOldPass">Mật khẩu mới không được trùng với 4 mật khẩu gần nhất</string>
+    <string name="listBranchTransactionPoint">Danh sách chi nhánh/ điểm giao dịch</string>
 </resources>

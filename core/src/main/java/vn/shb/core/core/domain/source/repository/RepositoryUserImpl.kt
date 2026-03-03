@@ -65,36 +65,36 @@ class RepositoryUserImpl(
     }
 
     private fun resultGetAccountsInfo(result: ResultSHB<AccountsInfoResponse>): ResultSHB<AccountData> {
-        return ResultSHB.Success( AccountData())
-//        when (result) {
-//            is ResultSHB.Success -> {
-//                val contentResult = result.successData
-//                if (contentResult.isSuccess()) {
-//                    val content = contentResult.data
-//                    ResultSHB.Success(content ?: AccountData())
-//                } else {
-//                    ResultSHB.Failure(
-//                        AppReason(
-//                            message = contentResult.errorMessage,
-//                            code = contentResult.errorCode
-//                        )
-//                    )
-//                }
-//            }
-//
-//            is ResultSHB.Failure -> {
-//                ResultSHB.Failure(
-//                    AppReason(
-//                        message = result.reason.errMessage,
-//                        code = result.reason.errorCode
-//                    )
-//                )
-//            }
-//
-//            else -> {
-//                ResultSHB.Loading
-//            }
-//        }
+//        return ResultSHB.Success( AccountData())
+       return when (result) {
+            is ResultSHB.Success -> {
+                val contentResult = result.successData
+                if (contentResult.isSuccess()) {
+                    val content = contentResult.data
+                    ResultSHB.Success(content ?: AccountData())
+                } else {
+                    ResultSHB.Failure(
+                        AppReason(
+                            message = contentResult.errorMessage,
+                            code = contentResult.errorCode
+                        )
+                    )
+                }
+            }
+
+            is ResultSHB.Failure -> {
+                ResultSHB.Failure(
+                    AppReason(
+                        message = result.reason.errMessage,
+                        code = result.reason.errorCode
+                    )
+                )
+            }
+
+            else -> {
+                ResultSHB.Loading
+            }
+        }
     }
 
     override suspend fun getAccountDetails(params: UseCaseAccountDetails.Params): ResultSHB<AccountDetailsData> {

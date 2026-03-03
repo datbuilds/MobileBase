@@ -186,4 +186,5 @@
     <string name="resendOtp">ផ្ញើ OTP សារឡើងវិញ</string>
     <string name="change_password_success_message"> សូមចូលម្តងទៀតដើម្បីបន្តប្រើប្រាស់កម្មវិធី</string>
     <string name="error_current_password_incorrect">ពាក្យសម្ងាត់បច្ចុប្បន្នមិនត្រឹមត្រូវទេ សូមព្យាយាមម្តងទៀត។</string>
+    <string name="listBranchTransactionPoint">បញ្ជីសាខា/ការិយាល័យប្រតិបត្តិការ</string>
 </resources>

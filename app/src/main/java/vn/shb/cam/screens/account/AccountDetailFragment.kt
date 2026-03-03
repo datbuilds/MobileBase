@@ -7,19 +7,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.getSharedViewModel
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.data.entities.home.AccountDetails
-import vn.shb.data.entities.home.TransactionItem
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.FragmentAccountDetailBinding
 import vn.shb.cam.screens.account.helper.TransactionAdapter
 import vn.shb.cam.screens.home.DialogSelectAccount
-
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.extensions.visible
+import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.home.AccountDetails
+import vn.shb.data.entities.home.TransactionItem
 
 class AccountDetailFragment :
     BaseFragmentBinding<FragmentAccountDetailBinding>(FragmentAccountDetailBinding::inflate) {
@@ -95,9 +92,10 @@ class AccountDetailFragment :
                 // or ensure listener handles redundant calls.
                 // Or temporarily nullify listener? No, just checking state match is enough.
                 val isDefault = it.accountNumber == defaultAccount
-                val isCurrencyValid = accountDetails.currencyCode == "LAK" || accountDetails.currencyCode == "USD"
+                val isCurrencyValid =
+                    accountDetails.currencyCode == "LAK" || accountDetails.currencyCode == "USD"
                 swDefaultCasa.isEnabled = !isDefault && isCurrencyValid
-                val alphaSw = if(!isCurrencyValid) 0.5f else 1f
+                val alphaSw = if (!isCurrencyValid) 0.5f else 1f
 //                tvNoteAccountDefault.isVisible = isDefault
                 lifecycleScope.launch {
                     swDefaultCasa.isChecked = isDefault
