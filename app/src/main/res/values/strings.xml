@@ -210,4 +210,5 @@
     <string name="goToBranch">Go to Branch</string>
     <string name="getSupportForChanging">To get support for changing or register your phone number, please visit the nearest branch/transaction point of SHB Saha Cambodia.</string>
     <string name="listBranchTransactionPoint">List branch/transaction point</string>
+    <string name="register_device_other">New device verification</string>
 </resources>

@@ -14,6 +14,8 @@ class RegisterDeviceDialog(
 ) : BaseBottomDialogBinding<DialogRegisterDeviceBinding>(DialogRegisterDeviceBinding::inflate) {
 
     override fun initView(view: View) {
+        val title = getString(if (isNewDevice) R.string.register_device_other else R.string.register_device_title)
+        binding.tvTitle.text = title
         val message = getString(
             if (isNewDevice) R.string.newDeviceVerificial else R.string.register_device_message,
             phoneNumber
