@@ -65,12 +65,12 @@ android {
                 buildConfigField(
                     "String",
                     "BASE_URL",
-                    "\"https://t-apigw-la.shb.com.vn/external/shb-mobile-lao/1.0.0/mblao/\""
+                    "\"https://t-apigw-cam.shb.com.vn/external/shb-mobile-cam/1.0.0/mbcam/\""
                 )
                 buildConfigField(
                     "String",
                     "WSO_URL",
-                    "\"https://t-apigw-la.shb.com.vn/\""
+                    "\"https://t-apigw-cam.shb.com.vn/\""
                 )
                 buildConfigField(
                     "String",
