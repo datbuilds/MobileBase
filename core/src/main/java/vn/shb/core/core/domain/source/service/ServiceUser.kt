@@ -1,6 +1,7 @@
 package vn.shb.core.core.domain.source.service
 
 import retrofit2.awaitResponse
+import vn.shb.core.core.delivery.ResultSHB
 import vn.shb.core.core.domain.source.api.ApiUser
 import vn.shb.core.core.domain.source.request.DefaultAccountRequest
 import vn.shb.core.core.domain.source.response.DefaultAccountResponse
@@ -29,7 +30,7 @@ class ServiceUser(private val api: ApiUser) : SafeExecute() {
         ).awaitResponse()
     }
 
-    suspend fun setDefaultAccount(accountNo: String): vn.shb.core.core.delivery.ResultSHB<DefaultAccountResponse> = execute {
+    suspend fun setDefaultAccount(accountNo: String): ResultSHB<DefaultAccountResponse> = execute {
         api.setDefaultAccount(DefaultAccountRequest(accountNo)).awaitResponse()
     }
 
