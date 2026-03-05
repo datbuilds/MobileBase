@@ -3,6 +3,8 @@ package vn.shb.cam.utils.extensions.common
 object Const {
     const val EMPTY = ""
     const val ZERO = "0"
+    const val USD = "USD"
+    const val KHR = "KHR"
     const val SEPARATOR_DASH = " - "
     const val SEPARATOR_SPACE = " "
 

@@ -12,6 +12,7 @@ import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.FragmentAccountDetailBinding
 import vn.shb.cam.screens.account.helper.TransactionAdapter
 import vn.shb.cam.screens.home.DialogSelectAccount
+import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.extensions.visible
 import vn.shb.core.utils.extesions.setOnSingleClickListener
@@ -93,7 +94,7 @@ class AccountDetailFragment :
                 // Or temporarily nullify listener? No, just checking state match is enough.
                 val isDefault = it.accountNumber == defaultAccount
                 val isCurrencyValid =
-                    accountDetails.currencyCode == "LAK" || accountDetails.currencyCode == "USD"
+                    accountDetails.currencyCode == Const.KHR || accountDetails.currencyCode == Const.USD
                 swDefaultCasa.isEnabled = !isDefault && isCurrencyValid
                 val alphaSw = if (!isCurrencyValid) 0.5f else 1f
 //                tvNoteAccountDefault.isVisible = isDefault

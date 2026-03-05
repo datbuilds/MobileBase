@@ -193,7 +193,7 @@ class HomeViewModel(
         }
         selectedAccount = listAccount.find { it.accountNumber == userInfo.defaultAcct }
         if (selectedAccount == null && listAccount.isNotEmpty()) {
-            selectedAccount = listAccount.filter { it.currencyCode == "LAK" }
+            selectedAccount = listAccount.filter { it.currencyCode == Const.KHR }
                 .maxByOrNull { it.availableBalance }
                 ?: listAccount.firstOrNull { it.accountType === CURRENT_ACCOUNT } ?: listAccount[0]
         }
