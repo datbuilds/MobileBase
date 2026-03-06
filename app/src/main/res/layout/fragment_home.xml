@@ -98,11 +98,11 @@
             android:autoSizeStepGranularity="1sp"
             android:autoSizeTextType="uniform"
             android:drawablePadding="@dimen/margin_8dp"
-            android:gravity="start"
-            android:singleLine="true"
             android:ellipsize="end"
+            android:gravity="start"
             android:includeFontPadding="false"
             android:paddingVertical="@dimen/margin_4dp"
+            android:singleLine="true"
             android:textColor="@color/neutral500"
             app:customFontWeight="regular"
             app:drawableTint="@color/neutral500"
@@ -210,28 +210,47 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <FrameLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/flBeneficiary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible"
         android:layout_marginTop="@dimen/margin_16dp"
-        android:background="@drawable/bg_option_beneficiary"
-        android:paddingVertical="@dimen/margin_12dp"
+        android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@+id/llMainAccount">
 
         <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvBeneficiary"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/margin_0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingVertical="@dimen/margin_12dp"
+            android:background="@drawable/bg_option_beneficiary"
             android:drawableTop="@drawable/ic_beneficiary"
             android:drawablePadding="6dp"
             android:text="@string/beneficiary"
             android:textColor="@color/neutral10"
             android:textSize="@dimen/textSize14"
             app:customFontWeight="semi_bold" />
-    </FrameLayout>
+
+        <vn.shb.cam.base.view.MyTextView
+            android:id="@+id/tvChatPay"
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:paddingVertical="@dimen/margin_12dp"
+            android:layout_marginStart="@dimen/margin_8dp"
+            android:background="@drawable/bg_option_beneficiary"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_chatpay"
+            android:drawablePadding="6dp"
+            android:text="@string/chatpay"
+            android:textColor="@color/neutral10"
+            android:textSize="@dimen/textSize14"
+            app:customFontWeight="semi_bold" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <com.example.imagecrouse.ui.whynotimagecarousel.ImageCarousel
         android:id="@+id/carousel3"

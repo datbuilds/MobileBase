@@ -24,6 +24,8 @@ class AndroidSecureStorage(private val context: Context, private val deviceManag
         private const val REFRESH_TOKEN_WSO2 = "REFRESH_TOKEN_WSO2"
         private const val EXPIRE_TIME_WSO2 = "EXPIRE_TIME_WSO2"
         private const val REFRESH_TOKEN_FAIL_WSO2 = "REFRESH_TOKEN_FAIL_WSO2"
+
+        private const val AI_CHAT_INTRO_COMPLETED = "AI_CHAT_INTRO_COMPLETED"
     }
 
     private val masterKey = MasterKey.Builder(context)
@@ -72,6 +74,10 @@ class AndroidSecureStorage(private val context: Context, private val deviceManag
      */
     fun setChangePassword(value: Boolean) = putPreference(CHANGE_PASSWORD, value)
     fun isChangePassword() = getPreference(CHANGE_PASSWORD, false)
+
+
+    fun setAiChatIntroCompleted(completed: Boolean) = putPreference(AI_CHAT_INTRO_COMPLETED, completed)
+    fun isAiChatIntroCompleted() = getPreference(AI_CHAT_INTRO_COMPLETED, false)
 
     /**
      * UserInfo

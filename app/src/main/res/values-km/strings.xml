@@ -105,6 +105,15 @@
     <string name="flexibleSaving">គណនីសន្សំ</string>
     <string name="invalidRemarks">ខ្លឹមសារមិនត្រឹមត្រូវ</string>
     <string name="systemUptateTransactionStatus">សូមអភ័យទោស ប្រព័ន្ធមិនអាចធ្វើបច្ចុប្បន្នភាពស្ថានភាពប្រតិបត្តិការនៅពេលនេះបានទេ។ សូមពិនិត្យមើលរបាយការណ៍គណនីរបស់អ្នក ឬទៅកាន់សាខាដែលនៅជិតបំផុត ដើម្បីផ្ទៀងផ្ទាត់លទ្ធផលប្រតិបត្តិការ។</string>
+
+    <string name="clipboard_sheet_badge">Clipboard</string>
+    <string name="clipboard_sheet_title">Paste from clipboard</string>
+    <string name="clipboard_sheet_subtitle">Choose compatible plain text from your clipboard to fill Chat Pay instantly.</string>
+    <string name="clipboard_sheet_meta">%1$d chars • %2$d lines</string>
+    <string name="clipboard_sheet_source">System clipboard</string>
+    <string name="clipboard_sheet_hint">Tap to paste into Chat Pay</string>
+    <string name="clipboard_sheet_close">Close clipboard chooser</string>
+
     <string name="authenticationFailed">ការផ្ទៀងផ្ទាត់បរាជ័យ សូមព្យាយាមម្តងទៀត។</string>
     <string name="pleaseEnterTheAmount">សូមបញ្ចូលចំនួនទឹកប្រាក់</string>
     <string name="enterRecipientName">បញ្ចូលឈ្មោះអ្នកទទួល</string>
@@ -133,6 +142,7 @@
     <string name="enterBankName">បញ្ចូលឈ្មោះធនាគារ</string>
     <string name="share">ចែករំលែក</string>
     <string name="beneficiary">អ្នកទទួល</string>
+    <string name="chatpay">Paste2Pay</string>
     <string name="error_new_and_old_password_same">ពាក្យសម្ងាត់ថ្មីមិនត្រូវដូចគ្នានឹងពាក្យសម្ងាត់ចាស់ទេ។</string>
     <string name="beneficiaryList">បញ្ជីអ្នកទទួល</string>
     <string name="enterRecipientNameOrAccountNumber">បញ្ចូលឈ្មោះអ្នកទទួល ឬលេខគណនី</string>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_sheet_ai"
+    android:paddingBottom="@dimen/margin_24dp">
+
+    <View
+        android:id="@+id/viewHandle"
+        android:layout_width="@dimen/margin_40dp"
+        android:layout_height="@dimen/margin_4dp"
+        android:layout_marginTop="@dimen/margin_12dp"
+        android:background="@drawable/bg_clipboard_handle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvClipboardBadge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_20dp"
+        android:background="@drawable/bg_accent_stroke_100"
+        android:drawableStart="@drawable/ic_paste"
+        android:drawablePadding="@dimen/margin_6dp"
+        android:fontFamily="@font/inter_medium"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="@dimen/margin_12dp"
+        android:paddingVertical="@dimen/margin_8dp"
+        android:text="@string/clipboard_sheet_badge"
+        android:textColor="@color/accent"
+        android:textSize="@dimen/textSize12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewHandle" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivClose"
+        android:layout_width="@dimen/margin_40dp"
+        android:layout_height="@dimen/margin_40dp"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:layout_marginEnd="@dimen/margin_16dp"
+        android:background="@drawable/bg_clipboard_action"
+        android:clickable="true"
+        android:contentDescription="@string/clipboard_sheet_close"
+        android:focusable="true"
+        android:padding="@dimen/margin_10dp"
+        android:src="@drawable/ic_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewHandle"
+        app:tint="@color/gray_700" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:fontFamily="@font/inter_semi_bold"
+        android:text="@string/clipboard_sheet_title"
+        android:textColor="@color/gray_900"
+        android:textSize="@dimen/textSize24"
+        app:layout_constraintEnd_toStartOf="@id/ivClose"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvClipboardBadge" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSubtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_8dp"
+        android:fontFamily="@font/inter_regular"
+        android:lineSpacingExtra="@dimen/margin_2dp"
+        android:text="@string/clipboard_sheet_subtitle"
+        android:textColor="@color/gray_600"
+        android:textSize="@dimen/textSize14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvClipboardOptions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_20dp"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/margin_8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_max="@dimen/margin_400dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSubtitle"
+        tools:itemCount="3"
+        tools:listitem="@layout/item_clipboard_option" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

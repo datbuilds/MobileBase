@@ -11,10 +11,12 @@ import vn.shb.core.core.RETROFIT_NORMAL
 import vn.shb.core.core.RETROFIT_WSO2
 import vn.shb.core.core.VERSION_NAME
 import vn.shb.core.core.domain.source.api.ApiAuth
+import vn.shb.core.core.domain.source.api.ApiAiPay
 import vn.shb.core.core.domain.source.api.ApiSplash
 import vn.shb.core.core.domain.source.api.ApiTransfer
 import vn.shb.core.core.domain.source.api.ApiUser
 import vn.shb.core.core.domain.source.api.ApiWSO2
+import vn.shb.core.core.domain.source.service.ServiceAiPay
 import vn.shb.core.core.domain.source.service.ServiceAuth
 import vn.shb.core.core.domain.source.service.ServiceSplash
 import vn.shb.core.core.domain.source.service.ServiceTransfer
@@ -112,6 +114,9 @@ fun createNetworkModule(
 
         factory { get<Retrofit>().create(ApiTransfer::class.java) }
         factory { ServiceTransfer(get()) }
+
+        factory { get<Retrofit>().create(ApiAiPay::class.java) }
+        factory { ServiceAiPay(get()) }
 
         factory { get<Retrofit>(named(RETROFIT_WSO2)).create(ApiWSO2::class.java) }
         factory { ServiceWso2(get()) }

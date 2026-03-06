@@ -1,8 +1,11 @@
 package vn.shb.cam.base
 
 import android.content.DialogInterface
+import android.os.Bundle
 import android.text.Html
 import android.view.View
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.containsBoldTag
 import vn.shb.cam.R
@@ -28,6 +31,26 @@ class BaseErrorDialog(private val build: Build) :
 
     companion object {
         const val TAG = "DialogBaseErrorStatus"
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NORMAL, R.style.BottomDialog_Rounded)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val dialog = dialog as? BottomSheetDialog ?: return
+        val bottomSheet =
+            dialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+        bottomSheet?.let {
+            val behavior = BottomSheetBehavior.from(it).apply {
+                state = BottomSheetBehavior.STATE_EXPANDED
+                skipCollapsed = true
+                isCancelable = false
+            }
+            behavior.isDraggable = false
+        }
     }
 
     override fun initView(view: View) {

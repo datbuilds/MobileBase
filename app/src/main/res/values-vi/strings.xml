@@ -142,6 +142,7 @@
     <string name="change_password_success_message">Vui lòng đăng nhập lại để tiếp tục sử dụng ứng dụng</string>
     <string name="hint_select_bank">Chọn ngân hàng</string>
     <string name="beneficiary">Người thụ hưởng</string>
+    <string name="chatpay">Paste2Pay</string>
     <string name="addNew">Thêm mới</string>
     <string name="doYouWantToDeleteFromBeneficiary">Bạn có muốn xóa %s khỏi danh sách thụ hưởng không?</string>
     <string name="beneficiaryDeletedSuccessfully">Xóa người thụ hưởng thành công</string>
@@ -153,6 +154,15 @@
     <string name="enterRecipientNameOrAccountNumber">Nhập tên người nhận hoặc số tài khoản</string>
     <string name="systemUptateTransactionStatus">Xin lỗi hiện tại hệ thống không cập nhật được trạng thái giao dịch. Quý khách vui lòng kiểm tra lại sao kê tài khoản hoặc đến chi nhánh gần nhất để xác định kết quả giao dịch</string>
     <string name="enterBankName">Nhập tên ngân hàng</string>
+
+    <string name="clipboard_sheet_badge">Bảng nhớ tạm</string>
+    <string name="clipboard_sheet_title">Dán từ bảng nhớ tạm</string>
+    <string name="clipboard_sheet_subtitle">Chọn văn bản thuần tương thích từ bảng nhớ tạm của bạn để điền vào Chat Pay ngay lập tức.</string>
+    <string name="clipboard_sheet_meta">%1$d ký tự • %2$d dòng</string>
+    <string name="clipboard_sheet_source">Bảng nhớ tạm hệ thống</string>
+    <string name="clipboard_sheet_hint">Chạm để dán vào Chat Pay</string>
+    <string name="clipboard_sheet_close">Đóng trình chọn bảng nhớ tạm</string>
+
     <string name="newBeneficiaryAddedSuccessfully">Thêm mới người thụ hưởng thành công</string>
     <string name="beneficiaryUpdatedSuccessfully">Cập nhật người thụ hưởng thành công</string>
     <string name="addNewBeneficiary">Thêm mới người thụ hưởng</string>

@@ -1,30 +1,29 @@
 package vn.shb.cam.screens.beneficiary
 
-import android.app.ProgressDialog
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.setFragmentResultListener
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.data.entities.beneficiary.Beneficiary
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.FragmentBeneficiaryBinding
+import vn.shb.cam.databinding.LayoutProcessBarBinding
 import vn.shb.cam.screens.beneficiary.helper.ActionEditBeneficiary
 import vn.shb.cam.screens.beneficiary.helper.BeneficiaryAdapter
 import vn.shb.cam.utils.ApiConst
+import vn.shb.cam.utils.extensions.gone
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
+import vn.shb.cam.utils.extensions.setLatinAlphanumericFilter
 import vn.shb.cam.utils.extensions.visible
 import vn.shb.cam.utils.view.dialog.BottomSheetDialogHelper
-import androidx.fragment.app.setFragmentResultListener
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.delay
-import vn.shb.cam.databinding.LayoutProcessBarBinding
-import vn.shb.cam.utils.extensions.gone
-import vn.shb.cam.utils.extensions.setLatinAlphanumericFilter
+import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.beneficiary.Beneficiary
 
 class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
     FragmentBeneficiaryBinding::inflate
@@ -32,7 +31,7 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
 
     private val adapter by lazy { BeneficiaryAdapter() }
     private val viewModel: BeneficiaryViewModel by viewModel()
-    private var dialog : LayoutProcessBarBinding? = null
+    private var dialog: LayoutProcessBarBinding? = null
 
     override fun initView(view: View) {
         setUpRecyclerview()
@@ -51,11 +50,12 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
         adapter.setListenAction(
             object : ActionEditBeneficiary {
                 override fun edit(item: Beneficiary) {
-                    safeNavigate(R.id.beneficiaryFragment, R.id.editBeneficiaryFragment
-                    , bundleOf(
-                        ApiConst.KEY_TO_EDIT_BENEFICIARY to EditBeneficiaryFragment.EDIT,
-                        ApiConst.KEY_BENEFICIARY_DATA to item
-                    ))
+                    safeNavigate(
+                        R.id.beneficiaryFragment, R.id.editBeneficiaryFragment, bundleOf(
+                            ApiConst.KEY_TO_EDIT_BENEFICIARY to EditBeneficiaryFragment.EDIT,
+                            ApiConst.KEY_BENEFICIARY_DATA to item
+                        )
+                    )
                 }
 
                 override fun delete(item: Beneficiary) {

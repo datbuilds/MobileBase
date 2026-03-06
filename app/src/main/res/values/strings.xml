@@ -136,6 +136,7 @@
     <string name="enterRemarks">Enter remarks</string>
     <string name="transactionSuccess">Transaction Success!</string>
     <string name="beneficiary">Beneficiary</string>
+    <string name="chatpay">Paste2Pay</string>
     <string name="addNew">Add new</string>
     <string name="doYouWantToDeleteFromBeneficiary">Do you want to delete %s from beneficiary list?</string>
     <string name="beneficiaryDeletedSuccessfully">Beneficiary deleted successfully</string>
@@ -168,6 +169,15 @@
     <string name="beneficiaryList">Beneficiary list</string>
     <string name="enterRecipientNameOrAccountNumber">Enter recipient name or account number</string>
     <string name="systemUptateTransactionStatus">Sorry, the system is currently unable to update the transaction status. Please check your account statement or visit the nearest branch to verify the transaction result.</string>
+
+    <string name="clipboard_sheet_badge">Clipboard</string>
+    <string name="clipboard_sheet_title">Paste from clipboard</string>
+    <string name="clipboard_sheet_subtitle">Choose compatible plain text from your clipboard to fill Chat Pay instantly.</string>
+    <string name="clipboard_sheet_meta">%1$d chars • %2$d lines</string>
+    <string name="clipboard_sheet_source">System clipboard</string>
+    <string name="clipboard_sheet_hint">Tap to paste into Chat Pay</string>
+    <string name="clipboard_sheet_close">Close clipboard chooser</string>
+
     <string name="noteDefaultAccount" translatable="false">Tài khoản mặc định sẽ hiển thị khi bạn đăng nhập lại</string>
     <string name="enterBankName">Enter bank name</string>
     <string name="newBeneficiaryAddedSuccessfully">New beneficiary added successfully</string>

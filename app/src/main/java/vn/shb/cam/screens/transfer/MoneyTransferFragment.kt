@@ -27,7 +27,9 @@ import vn.shb.cam.utils.extensions.DateTimeHelper.Companion.getDateFromCurrentDa
 import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.gone
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
+import vn.shb.cam.utils.extensions.serializable
 import vn.shb.cam.utils.extensions.visible
+import vn.shb.core.core.domain.source.response.AiPayResult
 
 class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     FragmentMoneyTransferBinding::inflate
@@ -35,9 +37,24 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     private val beneficiaryViewModel: BeneficiaryViewModel by viewModel()
     private var listBeneficiary: List<Beneficiary> = listOf()
     var currentTypeTransfer: String = INTRABANK
+    private val initialTransferType by lazy {
+        if (arguments?.containsKey(ApiConst.KEY_TYPE_TRANSFER_INTRABANK) == true) {
+            if (arguments?.getBoolean(ApiConst.KEY_TYPE_TRANSFER_INTRABANK) == true) {
+                INTRABANK
+            } else {
+                OWN_ACCOUNT
+            }
+        } else {
+            INTRABANK
+        }
+    }
 
     private var fromAccount: AccountBase? = null
     private var toAccount: AccountBase? = null
+
+    private var aiPayResult: AiPayResult? = null
+    private var isAiPrefilledContent = false
+    private var isAiPrefilledAccount = false
 
     private var totalAmount: Double = 0.0
     var remarks = ""
@@ -63,11 +80,15 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         resetStateTransfer()
         beneficiaryViewModel.getAllBeneficiary()
         beneficiaryViewModel.getBanks()
+
+        if (arguments?.containsKey(ApiConst.KEY_TYPE_TRANSFER_DATA) == true) {
+            aiPayResult = arguments?.serializable(ApiConst.KEY_TYPE_TRANSFER_DATA)
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        onChangeTypeTransfer(INTRABANK)
+        onChangeTypeTransfer(initialTransferType)
         homeViewModel.getTransferAccount()
     }
 
@@ -78,12 +99,14 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                     stateTransferAccount.collect {
                         bindViewFromAccount(it ?: TransferAccount())
                         homeViewModel.getReceiverAccount()
+                        applyAiPayPrefill()
                     }
                 }
 
                 launch {
                     stateReceiverAccount.collect {
                         updateStatusByListReceiverAccount(it)
+                        applyAiPayPrefill(it)
                     }
                 }
 
@@ -129,6 +152,49 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         binding.iclAccountName.apply {
             root.gone()
             edtValue.setText("")
+        }
+    }
+
+    private fun applyAiPayPrefill(receiverAccounts: List<AccountBase>? = null) {
+        val result = aiPayResult ?: return
+
+        if (!isAiPrefilledContent) {
+            val amount = result.amount?.takeIf { it > 0 }?.toString()
+            val remark = result.remark?.trim().orEmpty()
+
+            if (!amount.isNullOrBlank()) {
+                binding.iclAmount.edtValue.setText(amount)
+                checkAmountValidate()
+            }
+
+            if (remark.isNotBlank()) {
+                binding.iclRemarks.edtValue.setText(remark)
+                remarks = remark
+            }
+
+            isAiPrefilledContent = true
+        }
+
+        if (isAiPrefilledAccount) return
+
+        val accountNumber = result.accountNum?.trim().orEmpty()
+        if (accountNumber.isBlank()) {
+            isAiPrefilledAccount = true
+            return
+        }
+
+        if (isIntrabank()) {
+            binding.iclToAccount.edtValue.setText(accountNumber)
+            validateToAccount(accountNumber)
+            isAiPrefilledAccount = true
+            return
+        }
+
+        val candidates = receiverAccounts ?: homeViewModel.listReceiverActive
+        val matched = candidates.firstOrNull { it.accountNumber == accountNumber }
+        if (matched != null) {
+            bindViewReceiverAccount(matched)
+            isAiPrefilledAccount = true
         }
     }
 
@@ -409,7 +475,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             root.isVisible = true
             edtValue.setText(userInfo.customerName)
         }
-        if (beneficiarySelected?.accountNumber == userInfo.accountNumber){
+        if (beneficiarySelected?.accountNumber == userInfo.accountNumber) {
             binding.iclRemarks.edtValue.setText(beneficiarySelected?.remark)
         }
         if (userInfo.currency != fromAccount?.currencyCode) {

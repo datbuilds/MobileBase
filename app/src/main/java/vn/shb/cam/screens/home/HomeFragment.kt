@@ -1,17 +1,10 @@
 package vn.shb.cam.screens.home
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
-import android.graphics.Color
-import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.PopupWindow
-import androidx.core.graphics.drawable.toDrawable
 import androidx.viewbinding.ViewBinding
 import com.example.imagecrouse.databinding.ItemCustomFixedSizeLayout1Binding
 import com.example.imagecrouse.ui.whynotimagecarousel.listener.CarouselListener
@@ -19,26 +12,20 @@ import com.example.imagecrouse.ui.whynotimagecarousel.model.CarouselItem
 import com.example.imagecrouse.ui.whynotimagecarousel.utils.setImage
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.data.entities.AccountBase
-import vn.shb.data.entities.login.UserLog
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.FragmentHomeBinding
-import vn.shb.cam.databinding.LayoutLanguagePopupBinding
-import vn.shb.cam.screens.home.helper.LoopingAdapter
 import vn.shb.cam.screens.home.widget.OnClickDetail
-import vn.shb.cam.screens.login.ui.widget.setDisableAlpha
 import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.view.dialog.ScreenUtils
 import vn.shb.cam.utils.view.setWidth
 import vn.shb.cam.utils.widgets.LocaleHelper
-import vn.shb.data.entities.home.AccountInfo
+import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.AccountBase
+import vn.shb.data.entities.login.UserLog
 
 class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
-
-    private lateinit var adapter: LoopingAdapter
 
     private var isShowValueBalance = false
     private var textGoneValue = "********"
@@ -165,11 +152,15 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
                         ).plus(account.currencyCode)
                 }
             }
-            flQrCode.setOnClickListener {
+            flQrCode.setOnSingleClickListener {
 //                showLanguagePopup(flQrCode)
             }
-            flBeneficiary.setOnSingleClickListener {
+            tvBeneficiary.setOnSingleClickListener {
                 safeNavigate(R.id.homeFragment, R.id.action_homeFragment_to_beneficiaryFragment)
+            }
+
+            tvChatPay.setOnSingleClickListener {
+                safeNavigate(R.id.homeFragment, R.id.action_homeFragment_to_pastePayFragment)
             }
         }
     }
