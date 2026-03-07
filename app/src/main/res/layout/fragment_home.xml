@@ -98,11 +98,11 @@
             android:autoSizeStepGranularity="1sp"
             android:autoSizeTextType="uniform"
             android:drawablePadding="@dimen/margin_8dp"
-            android:gravity="start"
-            android:singleLine="true"
             android:ellipsize="end"
+            android:gravity="start"
             android:includeFontPadding="false"
             android:paddingVertical="@dimen/margin_4dp"
+            android:singleLine="true"
             android:textColor="@color/neutral500"
             app:customFontWeight="regular"
             app:drawableTint="@color/neutral500"
@@ -214,10 +214,10 @@
         android:id="@+id/flBeneficiary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible"
         android:layout_marginTop="@dimen/margin_16dp"
         android:background="@drawable/bg_option_beneficiary"
         android:paddingVertical="@dimen/margin_12dp"
+        android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@+id/llMainAccount">
 
         <vn.shb.cam.base.view.MyTextView

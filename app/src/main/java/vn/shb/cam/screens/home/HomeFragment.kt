@@ -30,6 +30,7 @@ import vn.shb.cam.screens.home.helper.LoopingAdapter
 import vn.shb.cam.screens.home.widget.OnClickDetail
 import vn.shb.cam.screens.login.ui.widget.setDisableAlpha
 import vn.shb.cam.utils.extensions.common.Const
+import vn.shb.cam.utils.extensions.getTextWelcomeUser
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.view.dialog.ScreenUtils
 import vn.shb.cam.utils.view.setWidth
@@ -197,6 +198,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
     private fun mapUserInfo(userLog: UserLog) {
         userLog.let { user ->
             binding.tvNameUser.text = user.username
+            binding.tvWelcomeSHB.text = requireContext().getTextWelcomeUser()
             binding.flAvatarUser.setUserName(getPathAvatarUser(), user.username)
         }
     }

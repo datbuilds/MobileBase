@@ -305,6 +305,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        tools:visibility="gone"
         tools:layout_height="@dimen/margin_400dp" />
 
     <androidx.constraintlayout.widget.Group
