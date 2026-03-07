@@ -19,8 +19,8 @@
         android:id="@+id/tvTitleFeature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:customFontWeight="regular"
+        app:customFontWeight="semi_bold"
         android:textColor="@color/neutral10"
-        android:textSize="@dimen/textSize12"
+        android:textSize="@dimen/textSize14"
         tools:text="Feature Title" />
 </androidx.appcompat.widget.LinearLayoutCompat>

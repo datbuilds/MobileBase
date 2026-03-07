@@ -59,16 +59,31 @@
 
         <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvValueBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_6dp"
+            android:textColor="@color/neutral10"
+            android:textSize="@dimen/textSize18"
+            app:customFontWeight="medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCurrentBalance"
+            tools:text="1,000,000.00" />
+
+        <vn.shb.cam.base.view.MyTextView
+            android:id="@+id/tvCurrencyBalance"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_8dp"
             android:layout_marginTop="@dimen/margin_2dp"
             android:textColor="@color/neutral8"
             android:textSize="@dimen/textSize14"
+            android:gravity="top"
+            android:includeFontPadding="false"
             app:customFontWeight="regular"
             app:layout_constraintEnd_toStartOf="@+id/ivExpandDown"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvCurrentBalance"
-            tools:text="1,000,000.00 LAK" />
+            app:layout_constraintStart_toEndOf="@+id/tvValueBalance"
+            app:layout_constraintTop_toTopOf="@+id/tvValueBalance"
+            tools:text="LAK" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/llAccountNumber"
@@ -171,12 +186,12 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_note_default_account"
             android:padding="@dimen/margin_8dp"
-            android:visibility="gone"
-            tools:visibility="visible"
             android:text="@string/noteDefaultAccount"
             android:textColor="@color/neutral300"
+            android:visibility="gone"
             app:customFontWeight="medium"
-            app:layout_constraintTop_toBottomOf="@+id/llDefaultCasa" />
+            app:layout_constraintTop_toBottomOf="@+id/llDefaultCasa"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

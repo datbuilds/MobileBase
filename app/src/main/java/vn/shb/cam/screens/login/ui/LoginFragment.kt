@@ -472,7 +472,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         reason: Reason,
         onAction: (() -> Unit)? = null
     ) {
-//        val messageError = "${reason.errorCode}: ${reason.errMessage}"
         BottomSheetDialogHelper(requireContext()).message(
             title = getString(R.string.notification),
             message = getString(R.string.processingError),
