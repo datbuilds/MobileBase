@@ -146,7 +146,7 @@
             style="@style/MaterialDialog.ButtonLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_16dp"
+            android:layout_marginTop="@dimen/margin_32dp"
             android:text="@string/logout"
             app:layout_constraintTop_toBottomOf="@+id/tvChangePassword" />
 

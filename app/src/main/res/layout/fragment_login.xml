@@ -234,14 +234,15 @@
         <vn.shb.cam.base.view.MyTextView
             android:id="@+id/btn_toggle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginStart="8dp"
             android:gravity="center_vertical"
-            android:text="@string/show"
+            android:text="@string/hide"
             android:textColor="@color/neutral1"
             android:textSize="@dimen/textSize14"
             android:visibility="gone"
-            app:customFontWeight="regular" />
+            app:customFontWeight="regular"
+            tools:visibility="visible" />
     </LinearLayout>
 
     <vn.shb.cam.base.view.MyTextView
@@ -305,8 +306,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:visibility="gone"
-        tools:layout_height="@dimen/margin_400dp" />
+        tools:layout_height="@dimen/margin_400dp"
+        tools:visibility="gone" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/groupViewNoLastUser"

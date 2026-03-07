@@ -169,11 +169,12 @@
     <string name="shbBranch2Address">ផ្ទះលេខ ១៦១​សេដេ មហាវិថី ហ្សាវ៉ាហារឡានេហ៍រុ សង្កាត់ផ្សារដេប៉ូទី១ ខណ្ឌទួលគោក រាជធានីភ្នំពេញ</string>
     <string name="bank">ធនាគារ</string>
     <string name="password_rule_special">តម្រូវឱ្យមានយ៉ាងហោចណាស់អក្សរតូច ១ និងអក្សរធំ ១និងសញ្ញាពិសេស១ ដូចជា .~!@#$\%^&amp;*()_+={}|:;&lt;&gt;,/?-</string>
+    <string name="cambodian">ភាសាខ្មែរ</string>
     <string name="register_device_title">ចុះឈ្មោះឧបករណ៍របស់អ្នកដើម្បីប្រើប្រាស់កម្មវិធី SHB Saha Cambodia។</string>
     <string name="register_device_message">ដើម្បីបង្កើនសុវត្ថិភាពគណនី សូមផ្ទៀងផ្ទាត់ឧបករណ៍របស់អ្នកដោយប្រើលេខកូដ OTP ដែលបានផ្ញើទៅកាន់លេខទូរស័ព្ទ %s ដើម្បីបញ្ចប់ការចុះឈ្មោះប្រើប្រាស់ក្មវិធីធនាគារចល័ត។ តើនេះជាលេខទូរស័ព្ទរបស់អ្នកមែនទេ?</string>
     <string name="confirm_device_title">ផ្ទៀងផ្ទាត់ឧបករណ៍ថ្មី</string>
     <string name="confirm_device_message">សូមបញ្ចូលលេខ OTP ដែលបានផ្ញើទៅកាន់លេខទូរស័ព្ទ %s</string>
-    <string name="remaining_time">ពេលវេលានៅសល់ %s second</string>
+    <string name="remaining_time">ពេលវេលានៅសល់ %s វិនាទី</string>
     <string name="otp_incorrect_message">លេខកូដ OTP មិនត្រឹមត្រូវទេ។ សូមពិនិត្យមើលម្តងទៀត។</string>
     <string name="confirmLabel">បញ្ជាក់់</string>
     <string name="theNewPassMustNotMatchOldPass">ពាក្យសម្ងាត់ថ្មីមិនត្រូវដូចគ្នានឹងពាក្យសម្ងាត់ចុង ក្រោយទាំង 4 លើកទេ</string>
