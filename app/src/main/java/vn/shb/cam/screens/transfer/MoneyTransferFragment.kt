@@ -272,23 +272,27 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         binding.iclAmount.bindViewError(textError)
     }
 
-
     private fun bindView() {
         with(binding) {
             iclToAccount.apply {
                 tvTitle.text = getString(R.string.toAccount)
                 edtValue.hint = getString(R.string.selectAccount)
                 ivExpandDown.visible()
-                viewLine.gone()
                 tvCurrentCode.gone()
                 edtValue.setInputEditText(true)
                 tvError.text = getString(R.string.invalidBeneficiaryAccount)
             }
 
+            iclExchangeRate.apply {
+                tvTitle.text = getString(R.string.exchangeRate)
+                ivExpandDown.gone()
+                tvCurrentCode.gone()
+                edtValue.enableInput(false)
+            }
+
             iclAccountName.apply {
                 tvTitle.text = getString(R.string.accountName)
                 edtValue.setTextColor(getColor(R.color.neutral7))
-                viewLine.gone()
                 edtValue.isEnabled = false
             }
 
@@ -296,7 +300,6 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 tvTitle.text = getString(R.string.amount)
                 edtValue.hint = getString(R.string.enterAmount)
                 ivExpandDown.gone()
-                viewLine.visible()
                 tvCurrentCode.visible()
                 tvError.text = getString(R.string.insufficientBalance)
                 bindColor(R.color.neutral8)
@@ -306,7 +309,6 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 tvTitle.text = getString(R.string.fee)
                 edtValue.setText(Const.ZERO)
                 ivExpandDown.gone()
-                viewLine.visible()
                 tvCurrentCode.visible()
                 edtValue.enableInput(false)
                 bindColor(R.color.neutral7)
@@ -316,7 +318,6 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 tvTitle.text = getString(R.string.totalAmount)
                 edtValue.hint = getString(R.string.zero)
                 ivExpandDown.gone()
-                viewLine.visible()
                 tvCurrentCode.visible()
                 edtValue.enableInput(false)
                 bindColor(R.color.neutral7)
@@ -326,7 +327,6 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 tvTitle.text = getString(R.string.remarks)
                 resetRemarks()
                 ivExpandDown.gone()
-                viewLine.gone()
                 tvCurrentCode.gone()
                 tvError.text = getString(R.string.pleaseEnterTheRemarks)
                 bindColor(R.color.neutral8)
@@ -375,8 +375,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         fromAccount = account
         with(binding) {
             tvAccountNumber.text = account.accountNumber
-            tvBalanceValue.text =
-                account.getAvailableBalance().plus(Const.SEPARATOR_SPACE).plus(account.currencyCode)
+            tvBalanceValue.text = account.getAvailableBalance()
+            tvCurrencyValue.text = account.currencyCode
             iclAmount.tvCurrentCode.text = account.currencyCode
             iclAmount.edtValue.setInputEditText(true, isTypeSigned = account.currencyCode == "USD")
 

@@ -27,7 +27,7 @@
     <string name="shbBranch4">4.  SAIGON-HANOI BANK CAMBODIA PLC- CHBAR AMPOV BRANCH</string>
     <string name="shbBranch4Address">76, National Road 1 , Phum Boeng Chhuk, Sangkat Nirouth, Khan Chbar Ampov, Phnom Penh.</string>
     <string name="welcomeToShb">Welcome to SHB</string>
-    <string name="currentAccount">CURRENT ACCOUNT</string>
+    <string name="currentAccount">Current Account</string>
     <string name="transfer">Transfer</string>
     <string name="transferCAP" translatable="false">TRANSFER</string>
     <string name="accounts">Accounts</string>
@@ -212,4 +212,6 @@
     <string name="language">Language</string>
     <string name="listBranchTransactionPoint">List branch/transaction point</string>
     <string name="register_device_other">New device verification</string>
+    <string name="toMeAtSHB">To me at SHB</string>
+    <string name="exchangeRate">Exchange rate</string>
 </resources>

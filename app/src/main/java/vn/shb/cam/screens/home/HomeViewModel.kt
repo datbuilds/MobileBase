@@ -359,8 +359,7 @@ class HomeViewModel(
     }
 
     fun listenChangeFromAccount(account: AccountBase) {
-//        selectedAccount = account
-        listReceiverActive = listReceiverAccount.filter { it.currencyCode == account.currencyCode }
+        listReceiverActive = listReceiverAccount
         _stateReceiverAccount.value = listReceiverActive
     }
 

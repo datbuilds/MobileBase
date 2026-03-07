@@ -72,6 +72,10 @@
                     layout="@layout/child_view_confirmation" />
 
                 <include
+                    android:id="@+id/iclExchangeRate"
+                    layout="@layout/child_view_amount" />
+
+                <include
                     android:id="@+id/iclAmount"
                     layout="@layout/child_view_amount" />
 

@@ -4,8 +4,6 @@ import android.view.View
 import androidx.core.os.bundleOf
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.data.entities.getBalance
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.FragmentConfirmationBinding
@@ -15,7 +13,8 @@ import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.gone
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.extensions.visible
-import vn.shb.cam.utils.view.dialog.BottomSheetDialogHelper
+import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.getBalance
 
 class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
     FragmentConfirmationBinding::inflate
@@ -127,7 +126,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                                         homeViewModel.confirmTransactionTransfer(code)
                                     },
                                     actionDismiss = {
-                                       binding.flBru.gone()
+                                        binding.flBru.gone()
                                     }
                                 ).show(parentFragmentManager, "ConfirmCodeBottomSheetDialog")
                             }
@@ -144,12 +143,16 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                 backPress()
             }
             tvConfirm.setOnSingleClickListener {
-                homeViewModel.confirmModel?.let { cf ->
-                    homeViewModel.postTransactionTransfer(
-                        cf.paymentType,
-                        cf.fromAccount.accountNumber, cf.toAccount.accountNumber,
-                        cf.totalAmount, cf.fromAccount.currencyCode, cf.remarks
-                    )
+                if (isIntrabank) {
+
+                } else {
+                    homeViewModel.confirmModel?.let { cf ->
+                        homeViewModel.postTransactionTransfer(
+                            cf.paymentType,
+                            cf.fromAccount.accountNumber, cf.toAccount.accountNumber,
+                            cf.totalAmount, cf.fromAccount.currencyCode, cf.remarks
+                        )
+                    }
                 }
             }
         }

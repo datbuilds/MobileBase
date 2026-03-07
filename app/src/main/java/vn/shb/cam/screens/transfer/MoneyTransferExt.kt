@@ -167,7 +167,6 @@ fun ItemTransferTypeBinding.bindViewError(text: String? = null) {
 fun ItemTransferTypeBinding.bindColor(idColor: Int) {
     val color = ContextCompat.getColor(root.context, idColor)
     edtValue.setTextColor(color)
-    tvCurrentCode.setTextColor(color)
 }
 
 fun Fragment.finishTyping(
