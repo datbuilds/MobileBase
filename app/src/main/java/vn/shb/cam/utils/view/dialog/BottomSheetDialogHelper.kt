@@ -237,7 +237,7 @@ class BottomSheetDialogHelper(context: Context) {
                 val baseMsg = message
                 val fullMsg = "${baseMsg.plus(" ")}${
                     context.getString(R.string.pleaseTryAgainIn).plus(Const.SEPARATOR_SPACE)
-                }$formatted ${context.getString(R.string.minus)}."
+                }$formatted."
 
                 val spannable = SpannableString(fullMsg)
                 val start = fullMsg.indexOf(formatted)

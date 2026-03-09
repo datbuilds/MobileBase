@@ -97,6 +97,7 @@
             android:autoSizeMinTextSize="@dimen/textSize10"
             android:autoSizeStepGranularity="1sp"
             android:autoSizeTextType="uniform"
+            android:drawableEnd="@drawable/ic_arrow_down"
             android:drawablePadding="@dimen/margin_8dp"
             android:ellipsize="end"
             android:gravity="start"
