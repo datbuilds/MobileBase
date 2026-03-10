@@ -5,19 +5,18 @@
     <string name="userName">Tên đăng nhập</string>
     <string name="enterYourUserName">Nhập tên tài khoản của bạn</string>
     <string name="password">Mật khẩu</string>
-    <string name="enterPassword">Nhập mật khẩu</string>
-    <string name="forgotPassword">Quên mật khẩu?</string>
+    <string name="enterPassword">Vui lòng nhập mật khẩu</string>
+    <string name="forgotPassword">Quên mật khẩu ?</string>
     <string name="login">Đăng nhập</string>
     <string name="goodMorning">Chào buổi sáng</string>
     <string name="goodAfternoon">Chào buổi chiều</string>
-    <string name="goodnight">Chào buổi tối</string>
-    <string name="welcome">Chào mừng</string>
+    <string name="goodnight">Chào buổi tối,</string>
+    <string name="welcome">Xin chào !</string>
     <string name="notification">Thông báo</string>
-    <string name="incorrectUsernameOrPassword">Sai tên đăng nhập hoặc mật khẩu. Vui lòng thử lại.</string>
-    <string name="exceededLoginAttempts">Bạn đã nhập sai quá 5 lần. Vui lòng thử lại sau 15 phút.</string>
-    <string name="processingError">Lỗi xử lý. Vui lòng thử lại sau.</string>
+    <string name="incorrectUsernameOrPassword">Tên đăng nhập hoặc mật khẩu không đúng. Vui lòng thử lại.</string>
+    <string name="processingError">Hệ thống đang gặp sự cố khi xử lý. Quý khách vui lòng thực hiện lại sau ít phút.</string>
     <string name="passwordResetInstructions">HƯỚNG DẪN ĐẶT LẠI MẬT KHẨU</string>
-    <string name="pleaseBringIdToResetPassword">Vui lòng mang căn cước công dân/ Hộ chiếu đến các điểm giao dịch SHB để đặt lại mật khẩu.</string>
+    <string name="pleaseBringIdToResetPassword">Vui lòng mang theo CMND/CCCD hoặc Hộ chiếu đến điểm giao dịch SHB gần nhất để đặt lại mật khẩu.</string>
     <string name="welcomeToShb">Chào mừng đến với SHB</string>
     <string name="currentAccount">Tài khoản thanh toán</string>
     <string name="transfer">Chuyển tiền</string>
@@ -80,8 +79,7 @@
     <string name="nicknameSetSuccess">Đặt tên gợi nhớ thành công</string>
     <string name="profilePictureFailed">Cập nhật ảnh hồ sơ thất bại</string>
     <string name="invalidBeneficiaryAccount">Tài khoản nhận không hợp lệ</string>
-    <string name="invalidSelectedDate">Ngày được chọn không hợp lệ</string>
-    <string name="invalidFormat">Định dạng không hợp lệ</string>
+    <string name="invalidSelectedDate">Ngày đã chọn không hợp lệ.</string>
     <string name="pleaseEnterUsername">Vui lòng nhập tên tài khoản</string>
     <string name="pleaseEnterPassword">Vui lòng nhập mật khẩu</string>
     <string name="pleaseTryAgainIn">Vui lòng thử lại sau</string>
@@ -193,5 +191,6 @@
     <string name="theOtpExpired">"OTP đã hết hạn "</string>
     <string name="resendOtp">Gửi lại OTP</string>
     <string name="theNewPassMustNotMatchOldPass">Mật khẩu mới không được trùng với 4 mật khẩu gần nhất</string>
+    <string name="language">Ngôn ngữ</string>
     <string name="listBranchTransactionPoint">Danh sách chi nhánh/ điểm giao dịch</string>
 </resources>

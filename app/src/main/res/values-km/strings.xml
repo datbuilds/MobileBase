@@ -15,7 +15,6 @@
     <string name="welcome">សូមស្វាគមន៍</string>
     <string name="notification">ជូនដំណឹង</string>
     <string name="incorrectUsernameOrPassword">ឈ្មោះ​អ្នកប្រើប្រាស់ ឬ​ពាក្យសម្ងាត់​មិនត្រឹមត្រូវ។ សូម​ព្យាយាម​ម្តងទៀត។</string>
-    <string name="exceededLoginAttempts">អ្នកបានព្យាយាមចូលលើសពី 5 ដងដែលបរាជ័យ។ សូមព្យាយាមម្តងទៀតក្នុងរយៈពេល ១៥ នាទីក្រោយ។</string>
     <string name="processingError">កំហុសក្នុងការដំណើរការ។ សូមព្យាយាមម្តងទៀតនៅពេលក្រោយ។</string>
     <string name="passwordResetInstructions">ការណែនាំអំពីការកំណត់ពាក្យសម្ងាត់</string>
     <string name="pleaseBringIdToResetPassword">សូមយកអត្តសញ្ញាណប័ណ្ណ ឬលិខិតឆ្លងដែនរបស់អ្នកទៅកាន់សាខាធនាគារ SHB ដែលនៅជិតលោក ដើម្បីធ្វើផ្លាស់ប្ដូរ់លេខសម្ងាត់របស់អ្នកឡើងវិញ។</string>
@@ -90,9 +89,9 @@
     <string name="profilePictureFailed">បរាជ័យ​ក្នុង​ការ​ធ្វើ​បច្ចុប្បន្នភាព​រូបភាព</string>
     <string name="invalidBeneficiaryAccount">គណនីអ្នកទទួលមិនត្រឹមត្រូវ</string>
     <string name="invalidSelectedDate">ជ្រើសរើសកាលបរិច្ឆេទ​មិន​ត្រឹមត្រូវ។</string>
-    <string name="invalidFormat">ជ្រើសរើសកាលបរិច្ឆេទ​មិន​ត្រឹមត្រូវ។</string>
     <string name="pleaseEnterUsername">សូមបញ្ចូលឈ្មោះអ្នកប្រើប្រាស់</string>
     <string name="pleaseEnterPassword">សូមបញ្ចូលឈ្មោះអ្នកប្រើប្រាស់</string>
+    <string name="pleaseTryAgainIn">សូមព្យាយាមម្តងទៀត</string>
     <string name="currentBalance">សមតុល្យប្រើបាន</string>
     <string name="show">បង្ហាញ</string>
     <string name="myProfile">ពត៌មានរបស់ខ្ញុំ</string>
@@ -133,6 +132,7 @@
     <string name="enterBankName">បញ្ចូលឈ្មោះធនាគារ</string>
     <string name="share">ចែករំលែក</string>
     <string name="beneficiary">អ្នកទទួល</string>
+    <string name="error_passwords_do_not_match">ពាក្យសម្ងាត់មិនត្រូវគ្នាទេ</string>
     <string name="error_new_and_old_password_same">ពាក្យសម្ងាត់ថ្មីមិនត្រូវដូចគ្នានឹងពាក្យសម្ងាត់ចាស់ទេ។</string>
     <string name="beneficiaryList">បញ្ជីអ្នកទទួល</string>
     <string name="enterRecipientNameOrAccountNumber">បញ្ចូលឈ្មោះអ្នកទទួល ឬលេខគណនី</string>
@@ -169,6 +169,7 @@
     <string name="shbBranch2Address">ផ្ទះលេខ ១៦១​សេដេ មហាវិថី ហ្សាវ៉ាហារឡានេហ៍រុ សង្កាត់ផ្សារដេប៉ូទី១ ខណ្ឌទួលគោក រាជធានីភ្នំពេញ</string>
     <string name="bank">ធនាគារ</string>
     <string name="password_rule_special">តម្រូវឱ្យមានយ៉ាងហោចណាស់អក្សរតូច ១ និងអក្សរធំ ១និងសញ្ញាពិសេស១ ដូចជា .~!@#$\%^&amp;*()_+={}|:;&lt;&gt;,/?-</string>
+    <string name="invalidAccountNumber">លេខគណនីមិនត្រឹមត្រូវ</string>
     <string name="cambodian">ភាសាខ្មែរ</string>
     <string name="register_device_title">ចុះឈ្មោះឧបករណ៍របស់អ្នកដើម្បីប្រើប្រាស់កម្មវិធី SHB Saha Cambodia។</string>
     <string name="register_device_message">ដើម្បីបង្កើនសុវត្ថិភាពគណនី សូមផ្ទៀងផ្ទាត់ឧបករណ៍របស់អ្នកដោយប្រើលេខកូដ OTP ដែលបានផ្ញើទៅកាន់លេខទូរស័ព្ទ %s ដើម្បីបញ្ចប់ការចុះឈ្មោះប្រើប្រាស់ក្មវិធីធនាគារចល័ត។ តើនេះជាលេខទូរស័ព្ទរបស់អ្នកមែនទេ?</string>
@@ -187,5 +188,7 @@
     <string name="resendOtp">ផ្ញើ OTP សារឡើងវិញ</string>
     <string name="change_password_success_message"> សូមចូលម្តងទៀតដើម្បីបន្តប្រើប្រាស់កម្មវិធី</string>
     <string name="error_current_password_incorrect">ពាក្យសម្ងាត់បច្ចុប្បន្នមិនត្រឹមត្រូវទេ សូមព្យាយាមម្តងទៀត។</string>
+    <string name="language">ភាសាខ្មែរ</string>
     <string name="listBranchTransactionPoint">បញ្ជីសាខា/ការិយាល័យប្រតិបត្តិការ</string>
+    <string name="theBeneficiaryAlreadyExists">ឈ្មោះអ្នកទទួលផលមានរួចហើយ</string>
 </resources>
