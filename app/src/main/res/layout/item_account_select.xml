@@ -57,6 +57,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="@dimen/margin_16dp"
-        android:layout_gravity="bottom"
+        android:layout_gravity="top"
         android:background="@color/color_line_account" />
 </FrameLayout>

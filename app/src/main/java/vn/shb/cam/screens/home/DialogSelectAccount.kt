@@ -24,7 +24,9 @@ class DialogSelectAccount(private val listAccount: List<AccountBase>) :
 
     private var onAction: ((AccountBase) -> Unit)? = null
 
-    private var selectAccount: AccountBase? = null
+    private var sctAccount: AccountBase? = null
+
+    private var canSelect = true
 
     companion object {
         const val TAG = "DialogSelectAccount"
@@ -33,11 +35,13 @@ class DialogSelectAccount(private val listAccount: List<AccountBase>) :
     class Build(
         val list: List<AccountBase>,
         val selectedAccount: AccountBase? = null,
+        val isCanSelect : Boolean = true,
         val action: (AccountBase) -> Unit
     ) {
         fun build() = DialogSelectAccount(list).apply {
-            selectAccount = selectedAccount
+            sctAccount = selectedAccount
             onAction = action
+            canSelect = isCanSelect
         }
     }
 
@@ -62,16 +66,18 @@ class DialogSelectAccount(private val listAccount: List<AccountBase>) :
     }
 
     override fun initView(view: View) {
+        binding.tvDone.isVisible = canSelect
+        if (!canSelect) binding.tvSelectAccount.text = getString(R.string.listAccount)
         binding.rcvAccount.apply {
             layoutManager = LinearLayoutManager(context)
             listAccount.forEach {
-                it.setSelected(it.accountNumber == selectAccount?.accountNumber)
+                it.setSelected(it.accountNumber == sctAccount?.accountNumber)
             }
-            adapter = SelectAccountAdapter(listAccount) { account ->
-                selectAccount = account
+            adapter = SelectAccountAdapter(listAccount, canSelect) { account ->
+                sctAccount = account
                 val statusDone =
-                    if (selectAccount is AccountInfo) selectAccount?.accountType == Const.CURRENT_ACCOUNT else true
-                binding.tvDone.isVisible = statusDone
+                    if (sctAccount is AccountInfo) sctAccount?.accountType == Const.CURRENT_ACCOUNT else true
+                binding.tvDone.isVisible = statusDone && canSelect
             }
             setHasFixedSize(true)
         }
@@ -81,7 +87,7 @@ class DialogSelectAccount(private val listAccount: List<AccountBase>) :
         with(binding) {
             binding.tvDone.setOnSingleClickListener {
                 lifecycleScope.launch {
-                    selectAccount?.let { ac -> onAction?.invoke(ac) }
+                    sctAccount?.let { ac -> onAction?.invoke(ac) }
                     delay(300)
                     dismiss()
                 }

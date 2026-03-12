@@ -1,17 +1,10 @@
 package vn.shb.cam.screens.home
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
-import android.graphics.Color
-import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.PopupWindow
-import androidx.core.graphics.drawable.toDrawable
 import androidx.viewbinding.ViewBinding
 import com.example.imagecrouse.databinding.ItemCustomFixedSizeLayout1Binding
 import com.example.imagecrouse.ui.whynotimagecarousel.listener.CarouselListener
@@ -19,23 +12,20 @@ import com.example.imagecrouse.ui.whynotimagecarousel.model.CarouselItem
 import com.example.imagecrouse.ui.whynotimagecarousel.utils.setImage
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.data.entities.AccountBase
-import vn.shb.data.entities.login.UserLog
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.FragmentHomeBinding
-import vn.shb.cam.databinding.LayoutLanguagePopupBinding
 import vn.shb.cam.screens.home.helper.LoopingAdapter
 import vn.shb.cam.screens.home.widget.OnClickDetail
-import vn.shb.cam.screens.login.ui.widget.setDisableAlpha
 import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.getTextWelcomeUser
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.view.dialog.ScreenUtils
 import vn.shb.cam.utils.view.setWidth
 import vn.shb.cam.utils.widgets.LocaleHelper
-import vn.shb.data.entities.home.AccountInfo
+import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.AccountBase
+import vn.shb.data.entities.login.UserLog
 
 class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
@@ -46,7 +36,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
 
     override fun initView(view: View) {
         bindView()
-        setup()
+//        setup()
     }
 
     private fun setup() {
@@ -112,6 +102,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
                 ivIconFeature.setImageResource(R.drawable.ic_accounts)
                 tvTitleFeature.text = getString(R.string.accounts)
             }
+            ivBanner.setImageResource(R.drawable.iv_banner)
         }
     }
 
@@ -145,13 +136,14 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
             }
 
             tvCurrentAccount.setOnSingleClickListener {
-//                DialogSelectAccount.Build(
-//                    homeViewModel.getListAccount(),
-//                    homeViewModel.selectedAccount
-//                ) { ac ->
+                DialogSelectAccount.Build(
+                    homeViewModel.getListAccount(),
+                    homeViewModel.selectedAccount,
+                    isCanSelect = false
+                ) { ac ->
 //                    homeViewModel.selectedAccount = ac
 //                    bindViewAccount(ac)
-//                }.build().show(childFragmentManager, DialogSelectAccount.TAG)
+                }.build().show(childFragmentManager, DialogSelectAccount.TAG)
             }
 
             ivEyeSeeValue.setOnSingleClickListener {
