@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class DefaultAccountRequest(
     @SerializedName("accountNo")
-    val accountNo: String
+    val accountNo: String 
 )

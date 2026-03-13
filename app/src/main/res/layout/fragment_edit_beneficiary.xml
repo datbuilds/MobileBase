@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,61 +10,99 @@
     android:paddingTop="@dimen/paddingTopLayout"
     tools:context=".screens.beneficiary.BeneficiaryFragment">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/llBody"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="20dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/tvConfirmation"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/margin_20dp"
+        android:gravity="center_vertical"
+        android:layout_height="wrap_content">
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foreground="@drawable/ripple_grey_circle"
+            app:layout_constraintEnd_toEndOf="@+id/llBody"
+            app:layout_constraintTop_toTopOf="@+id/llBody"
+            app:srcCompat="@drawable/ic_arrow_back_new" />
+
 
         <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvEditBeneficiary"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:drawablePadding="@dimen/margin_20dp"
+            android:layout_weight="1"
             android:gravity="center_vertical"
             android:includeFontPadding="false"
-            android:paddingVertical="@dimen/margin_8dp"
-            android:paddingStart="@dimen/margin_4dp"
-            android:paddingEnd="@dimen/margin_50dp"
+            android:layout_marginStart="@dimen/margin_4dp"
             android:textColor="@color/neutral10"
             android:textSize="@dimen/textSize20"
             app:customFontWeight="medium"
-            app:drawableStartCompat="@drawable/ic_arrow_back"
-            tools:text="co le naof em voi quen di co lex nafo em dua mua thu di" />
+            tools:text="Add new beneficiary" />
 
-        <include
-            android:id="@+id/iclBank"
-            layout="@layout/item_edit_beneficiary"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foreground="@drawable/ripple_grey_circle"
+            app:layout_constraintEnd_toEndOf="@+id/llBody"
+            app:layout_constraintTop_toTopOf="@+id/llBody"
+            app:srcCompat="@drawable/ic_to_home" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:ignore="UselessParent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_20dp" />
+            android:layout_marginHorizontal="20dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <include
-            android:id="@+id/iclAccountNumber"
-            layout="@layout/item_edit_beneficiary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_20dp" />
+            <include
+                android:id="@+id/iclBank"
+                layout="@layout/item_edit_beneficiary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp" />
 
-        <include
-            android:id="@+id/iclAccountName"
-            layout="@layout/item_edit_beneficiary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_20dp" />
+            <include
+                android:id="@+id/iclAccountNumber"
+                layout="@layout/item_edit_beneficiary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp" />
 
-        <include
-            android:id="@+id/iclDefaultRemarks"
-            layout="@layout/item_edit_beneficiary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_20dp" />
+            <include
+                android:id="@+id/iclAccountName"
+                layout="@layout/item_edit_beneficiary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp" />
+
+            <include
+                android:id="@+id/iclNickName"
+                layout="@layout/item_edit_beneficiary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp" />
+
+            <include
+                android:id="@+id/iclDefaultRemarks"
+                layout="@layout/item_edit_beneficiary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp" />
 
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/llToastStatus"
@@ -77,7 +115,8 @@
         android:paddingHorizontal="@dimen/margin_8dp"
         android:paddingVertical="@dimen/margin_8dp"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="@+id/llBody">
+        app:layout_constraintTop_toTopOf="@+id/llBody"
+        tools:visibility="gone">
 
         <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvToastMessage"
@@ -103,15 +142,6 @@
             app:srcCompat="@drawable/ic_close" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/margin_4dp"
-        app:layout_constraintEnd_toEndOf="@+id/llBody"
-        app:layout_constraintTop_toTopOf="@+id/llBody"
-        app:srcCompat="@drawable/ic_to_home" />
-
     <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvConfirmation"
         android:layout_width="match_parent"
@@ -119,11 +149,14 @@
         android:layout_marginHorizontal="@dimen/margin_20dp"
         android:layout_marginBottom="@dimen/paddingBottomLayout"
         android:background="@drawable/bg_button_action_material"
+        android:foreground="@drawable/ripple_grey_rec"
         android:gravity="center"
         android:includeFontPadding="false"
         android:paddingVertical="@dimen/margin_12dp"
         android:text="@string/confirmation"
+        android:layout_gravity="bottom"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
+

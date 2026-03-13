@@ -83,6 +83,7 @@
     <string name="save">Save</string>
     <string name="setNicknameQuestion">Would you like to set a nickname for this recipient?</string>
     <string name="enterNickname">Enter nickname</string>
+    <string name="titleNickname">Nickname</string>
     <string name="setNickname">Set nickname</string>
     <string name="complete">Complete</string>
     <string name="nicknameSetSuccess">Successfully set nickname</string>

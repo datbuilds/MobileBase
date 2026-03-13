@@ -171,7 +171,8 @@ class PaymentTransferFragment :
                         val request = BeneficiaryRequest(
                             accountNumber = toAccount?.accountNumber ?: "",
                             accountName = nickname,
-                            remark = (user?.customerName ?: "").plus(Const.SEPARATOR_SPACE).plus(getString(R.string.transferCAP)),
+                            remark = (user?.customerName ?: "").plus(Const.SEPARATOR_SPACE)
+                                .plus(getString(R.string.transferCAP)),
                             bankCode = "SHB"
                         )
                         beneficiaryViewModel.createBeneficiary(request, false)
@@ -233,20 +234,17 @@ class PaymentTransferFragment :
         with(beneficiaryViewModel) {
             launchRepeatOnLifecycle {
                 launch {
-                    stateAction.collectLatest { success ->
+                    stateAction.collect{ success ->
                         if (success == true) {
                             showToastSuccess(getString(R.string.successfullySetNickname), true)
-                            beneficiaryViewModel.resetActionState()
-                        } else if (success == false) {
-                            beneficiaryViewModel.resetActionState()
                         }
                     }
                 }
-
-                stateError.collectLatest {
-                    showToastSuccess(it.errMessage, false)
-                    beneficiaryViewModel.resetActionState()
+                launch {
+                    stateError.collect {
+                        showToastSuccess(it.errMessage, false)
 //                    handleErrorHome(it)
+                    }
                 }
             }
         }
@@ -254,33 +252,31 @@ class PaymentTransferFragment :
 
     fun showToastSuccess(text: String, isSuccess: Boolean = true) {
         with(binding) {
-            launchRepeatOnLifecycle {
-                tvToastMessage.text = text
-                llToastStatus.setBackgroundResource(if (isSuccess) R.drawable.bg_toast_change_avatar_ss else R.drawable.bg_toast_change_avatar_error)
-                tvToastMessage.setCompoundDrawablesWithIntrinsicBounds(
-                    if (isSuccess) R.drawable.ic_success else R.drawable.ic_error,
-                    0,
-                    0,
-                    0
-                )
-                llToastStatus.visible()
-                llToastStatus.animate()
-                    .alpha(1f)
-                    .setDuration(200)
-                    .withEndAction {
-                        llToastStatus.postDelayed({
-                            llToastStatus.animate()
-                                .alpha(0f)
-                                .setDuration(300)
-                                .withEndAction {
-                                    llToastStatus.visibility = View.GONE
-                                    llToastStatus.alpha = 1f
-                                }
-                                .start()
-                        }, 3000)
-                    }
-                    .start()
-            }
+            tvToastMessage.text = text
+            llToastStatus.setBackgroundResource(if (isSuccess) R.drawable.bg_toast_change_avatar_ss else R.drawable.bg_toast_change_avatar_error)
+            tvToastMessage.setCompoundDrawablesWithIntrinsicBounds(
+                if (isSuccess) R.drawable.ic_success else R.drawable.ic_error,
+                0,
+                0,
+                0
+            )
+            llToastStatus.visible()
+            llToastStatus.animate()
+                .alpha(1f)
+                .setDuration(200)
+                .withEndAction {
+                    llToastStatus.postDelayed({
+                        llToastStatus.animate()
+                            .alpha(0f)
+                            .setDuration(300)
+                            .withEndAction {
+                                llToastStatus.visibility = View.GONE
+                                llToastStatus.alpha = 1f
+                            }
+                            .start()
+                    }, 3000)
+                }
+                .start()
         }
     }
 
