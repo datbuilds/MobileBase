@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name_choose">choosePhotoHelper</string>
+    <string name="pick_photo_rationale">សូមបើកការអនុញ្ញាតកាមេរ៉ានៅក្នុងការកំណត់ ដើម្បីប្រើប្រាស់មុខងារនេះ។</string>
+    <string name="action_close">បិទ</string>
+    <string name="action_setting">បើកការកំណត់</string>
+</resources>
