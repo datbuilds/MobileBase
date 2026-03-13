@@ -28,7 +28,7 @@
         app:customFontWeight="medium"
         android:gravity="end"
         android:includeFontPadding="false"
-        android:singleLine="true"
+        android:maxLines="2"
         android:textColor="@color/neutral7"
         android:textSize="@dimen/textSize14"
         tools:text="Demand Deposits - 1001747332" />
