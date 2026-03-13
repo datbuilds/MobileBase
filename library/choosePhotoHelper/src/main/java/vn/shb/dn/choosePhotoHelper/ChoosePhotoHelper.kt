@@ -234,7 +234,7 @@ class ChoosePhotoHelper private constructor(
 
     private fun showRationalePopup() {
         AlertDialog.Builder(context).apply {
-            setMessage(R.string.required_permission_is_not_granted)
+            setMessage(R.string.pick_photo_rationale)
             setNegativeButton(R.string.action_close, null)
             setPositiveButton(
                 R.string.action_setting
