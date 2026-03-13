@@ -213,4 +213,6 @@
     <string name="listAccount">List Account</string>
     <string name="toMeAtSHB">To me at SHB</string>
     <string name="exchangeRate">Exchange rate</string>
+    <string name="formatTextExchangeCurrency">1 %s = %s %s</string>
+    <string name="rateAreIndicative">Note: Rates are indicative at inquiry and subject to change upon posting</string>
 </resources>

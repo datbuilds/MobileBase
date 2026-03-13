@@ -98,8 +98,7 @@ android {
                     "SCOPE",
                     "\"${localProperties.getProperty("uat_scope")}\""
                 )
-            }
-            ,
+            },
 
             dev = {
                 resValue("string", "app_name", "DEV SHB SAHA CAM")

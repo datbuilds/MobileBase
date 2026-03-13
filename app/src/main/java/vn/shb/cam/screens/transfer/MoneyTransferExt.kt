@@ -1,20 +1,34 @@
 package vn.shb.cam.screens.transfer
 
+import android.graphics.Color
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.DigitsKeyListener
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.PopupWindow
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import vn.shb.data.entities.DecimalDigitsInputFilter
-import vn.shb.data.entities.getBalanceFormatted
 import vn.shb.cam.R
 import vn.shb.cam.base.view.MyEditText
 import vn.shb.cam.base.view.MyTextView
 import vn.shb.cam.databinding.ItemTransferTypeBinding
+import vn.shb.cam.databinding.LayoutLanguagePopupBinding
+import vn.shb.cam.screens.login.ui.widget.setDisableAlpha
 import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.hideSoftKeyboard
+import vn.shb.cam.utils.widgets.LocaleHelper
+import vn.shb.core.core.delivery.ReasonDescription.CAM
+import vn.shb.core.core.delivery.ReasonDescription.ENGLISH
+import vn.shb.core.core.delivery.ReasonDescription.VIET
+import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.DecimalDigitsInputFilter
+import vn.shb.data.entities.getBalanceFormatted
 import java.text.Normalizer
 
 fun MoneyTransferFragment.viewOptionTransfer(tv: MyTextView, typeView: String) {
@@ -193,4 +207,55 @@ fun Fragment.finishTyping(
         }
     }
 
+}
+
+fun MoneyTransferFragment.popupChooseCurrency(anchor: View, choose: (String) -> Unit) {
+    val binding = LayoutLanguagePopupBinding.inflate(LayoutInflater.from(anchor.context))
+
+    val popupWindow = PopupWindow(
+        binding.root,
+        ViewGroup.LayoutParams.WRAP_CONTENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT,
+        true // focusable, click outside sẽ tự đóng
+    )
+
+    val currentLanguage = LocaleHelper.getCurrentLanguage(requireContext())
+
+    // style
+    popupWindow.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
+    popupWindow.isOutsideTouchable = true
+    popupWindow.elevation = 8f
+
+    binding.apply {
+
+        iclLanguage1.apply {
+            ivLogo.setImageResource(R.drawable.ic_logo_cam)
+            tvNameLanguage.text = getString(R.string.cambodian)
+            root.setDisableAlpha(currentLanguage == CAM)
+            root.setOnSingleClickListener {
+                choose.invoke(CAM)
+                popupWindow.dismiss()
+            }
+        }
+        iclLanguage2.apply {
+            ivLogo.setImageResource(R.drawable.ic_logo_uk)
+            tvNameLanguage.text = getString(R.string.english)
+            root.setDisableAlpha(currentLanguage == ENGLISH)
+            root.setOnSingleClickListener {
+                popupWindow.dismiss()
+            }
+        }
+
+        iclLanguage3.apply {
+            ivLogo.setImageResource(R.drawable.ic_logo_vn)
+            tvNameLanguage.text = getString(R.string.vietnamese)
+            root.setDisableAlpha(currentLanguage == VIET)
+            root.setOnSingleClickListener {
+                popupWindow.dismiss()
+            }
+        }
+    }
+
+    val marginRight = (130 * anchor.context.resources.displayMetrics.density).toInt()
+    popupWindow.showAsDropDown(anchor, -marginRight, 0, Gravity.END)
 }

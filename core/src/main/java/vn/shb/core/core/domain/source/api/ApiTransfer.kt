@@ -9,6 +9,7 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 import vn.shb.core.core.domain.source.response.AccountUserNameResponse
+import vn.shb.core.core.domain.source.response.ExchangeRateResponse
 import vn.shb.core.core.domain.source.response.TransactionDetailResponse
 import vn.shb.core.core.domain.source.response.TransactionTransferConfirmResponse
 import vn.shb.core.core.domain.source.response.TransactionTransferResponse
@@ -50,8 +51,13 @@ interface ApiTransfer {
         @Query("transDate") transDate: String = "",
     ): Response<TransactionDetailResponse>
 
-
     @POST(ENDPOINT.VALIDATE_TRANSFER)
     suspend fun validateTransfer(@Body params: UseCaseValidateTransaction.Params)
             : Response<ValidateTransactionResponse>
+
+    @GET(ENDPOINT.EXCHANGE_RATE)
+    suspend fun getExchangeRates(
+        @Query("sourceCurrency") sourceCurrency: String,
+        @Query("targetCurrency") targetCurrency: String
+    ): Response<ExchangeRateResponse>
 }

@@ -106,14 +106,14 @@
                 android:id="@+id/tvBalance"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:gravity="center"
                 android:text="@string/currentBalance"
                 android:textColor="@color/neutral1"
                 android:textSize="@dimen/textSize14"
-                android:gravity="center"
                 app:customFontWeight="regular"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="@+id/tvBalanceValue"
-                app:layout_constraintTop_toTopOf="@+id/tvBalanceValue"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvBalanceValue" />
 
             <vn.shb.cam.base.view.MyTextView
                 android:id="@+id/tvBalanceValue"
@@ -121,10 +121,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_6dp"
                 android:layout_marginEnd="@dimen/margin_8dp"
+                android:paddingVertical="@dimen/margin_1dp"
                 android:textColor="@color/neutral1"
                 android:textSize="@dimen/textSize18"
                 app:customFontWeight="regular"
-                android:paddingVertical="@dimen/margin_1dp"
                 app:layout_constraintEnd_toStartOf="@+id/tvCurrencyValue"
                 app:layout_constraintTop_toBottomOf="@+id/tvCurrentAccount"
                 tools:text="18,617,662" />
@@ -133,12 +133,12 @@
                 android:id="@+id/tvCurrencyValue"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:gravity="center"
                 android:textColor="@color/neutral1"
                 android:textSize="@dimen/textSize14"
                 app:customFontWeight="regular"
-                android:gravity="center"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="@+id/tvBalanceValue"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tvBalanceValue"
                 tools:text="LKKKK" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -166,13 +166,6 @@
                 android:layout_marginTop="@dimen/margin_16dp" />
 
             <include
-                android:id="@+id/iclExchangeRate"
-                layout="@layout/item_transfer_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_16dp" />
-
-            <include
                 android:id="@+id/iclAccountName"
                 layout="@layout/item_transfer_type"
                 android:layout_width="match_parent"
@@ -188,11 +181,19 @@
                 android:layout_marginTop="@dimen/margin_16dp" />
 
             <include
-                android:id="@+id/iclFee"
+                android:id="@+id/iclExchangeRate"
                 layout="@layout/item_transfer_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_16dp" />
+
+            <include
+                android:id="@+id/iclFee"
+                layout="@layout/item_transfer_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:visibility="gone" />
 
             <include
                 android:id="@+id/iclTotalAmount"

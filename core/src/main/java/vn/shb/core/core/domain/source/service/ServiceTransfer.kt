@@ -47,4 +47,8 @@ class ServiceTransfer(private val api: ApiTransfer) : SafeExecute() {
     suspend fun validateTransaction(params: UseCaseValidateTransaction.Params) = execute {
         api.validateTransfer(params)
     }
+
+    suspend fun getExchangeRates(sourceCurrency: String, targetCurrency: String) = execute {
+        api.getExchangeRates(sourceCurrency, targetCurrency)
+    }
 }

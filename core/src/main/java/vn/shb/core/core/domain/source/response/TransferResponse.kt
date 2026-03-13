@@ -5,6 +5,8 @@ import vn.shb.core.core.delivery.BaseResponse
 import vn.shb.data.entities.home.AccountInfo
 import vn.shb.data.entities.transfer.TransferAccount
 import java.io.Serializable
+import java.math.BigDecimal
+
 class TransferAccountResponse : BaseResponse<TransferAccountData>()
 
 data class TransferAccountData(
@@ -42,4 +44,10 @@ data class AccountUserNameModel(
     var accountNumber : String = "",
 )
 
+class ExchangeRateResponse : BaseResponse<ExchangeRateModel>()
 
+data class ExchangeRateModel(
+    @SerializedName("sourceCurrency") val sourceCurrency: String = "",
+    @SerializedName("targetCurrency") val targetCurrency: String = "",
+    @SerializedName("exchangeRate") val exchangeRate: BigDecimal? = BigDecimal.ZERO
+) : Serializable

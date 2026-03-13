@@ -54,4 +54,5 @@ val domainModule = module {
     factory { ValidateAccountUseCase(get()) }
     factory { vn.shb.core.core.domain.usecases.login.RegisterDeviceUseCase(get()) }
     factory { vn.shb.core.core.domain.usecases.login.VerifyDeviceUseCase(get()) }
+    factory { vn.shb.core.core.domain.usecases.transfer.UseCaseExchangeRate(get()) }
 }

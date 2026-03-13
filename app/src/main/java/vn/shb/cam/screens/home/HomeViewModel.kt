@@ -39,6 +39,8 @@ import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionTransfer
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionTransferConfirm
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransferAccount
 import vn.shb.core.core.domain.usecases.transfer.UseCaseValidateTransaction
+import vn.shb.core.core.domain.usecases.transfer.UseCaseExchangeRate
+import vn.shb.core.core.domain.source.response.ExchangeRateModel
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import vn.shb.data.entities.AccountBase
 import vn.shb.data.entities.home.AccountDetails
@@ -66,6 +68,7 @@ class HomeViewModel(
     private val useCaseTransactionDetail: UseCaseTransactionDetail,
     private val useCaseValidateTransaction: UseCaseValidateTransaction,
     private val useCaseSetDefaultAccount: UseCaseSetDefaultAccount,
+    private val useCaseExchangeRate: UseCaseExchangeRate,
 ) : BaseViewModel() {
     private val _stateUserInfo = MutableStateFlow<UserInfo?>(null)
     val stateUserInfo = _stateUserInfo.asStateFlow()
@@ -131,6 +134,12 @@ class HomeViewModel(
 
     private val _stateValidateTransaction = MutableSharedFlow<String>()
     val stateValidateTransaction = _stateValidateTransaction.asSharedFlow()
+
+    private val _stateExchangeUSDToKm = MutableSharedFlow<ExchangeRateModel?>()
+    val stateExchangeUSDToKm = _stateExchangeUSDToKm.asSharedFlow()
+
+    private val _stateExchangeKmToUSD = MutableSharedFlow<ExchangeRateModel?>()
+    val stateExchangeKmToUSD = _stateExchangeKmToUSD.asSharedFlow()
 
     private val _stateLoading = MutableStateFlow(false)
     val stateLoading = _stateLoading.asStateFlow()
@@ -498,6 +507,29 @@ class HomeViewModel(
                         callFinish.invoke()
                     }
                 })
+            }
+        }
+    }
+
+    fun getExchangeRates(sourceCurrency: String, targetCurrency: String) {
+        viewModelScope.launch {
+            useCaseExchangeRate.invoke(UseCaseExchangeRate.Params(sourceCurrency, targetCurrency)).collect { result ->
+                result.onResultHandle(
+                    successBlock = { rateModel ->
+                        viewModelScope.launch {
+                            if (sourceCurrency == Const.USD){
+                                _stateExchangeUSDToKm.emit(rateModel)
+                            } else {
+                                _stateExchangeKmToUSD.emit(rateModel)
+                            }
+                        }
+                    },
+                    failureBlock = { error ->
+                        viewModelScope.launch {
+                            stateError(error)
+                        }
+                    }
+                )
             }
         }
     }
