@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="personalInternetBanking">NGÂN HÀNG TRỰC TUYẾN CÁ NHÂN</string>
-    <string name="enterYourDetailToSignIn">Nhập thông tin để đăng nhập</string>
+    <string name="enterYourDetailToSignIn">Vui lòng nhập thông tin để đăng nhậpm</string>
     <string name="userName">Tên đăng nhập</string>
     <string name="enterYourUserName">Nhập tên tài khoản của bạn</string>
     <string name="password">Mật khẩu</string>
     <string name="enterPassword">Nhập mật khẩu</string>
     <string name="forgotPassword">Quên mật khẩu ?</string>
     <string name="login">Đăng nhập</string>
-    <string name="goodMorning">Chào buổi sáng</string>
-    <string name="goodAfternoon">Chào buổi chiều</string>
-    <string name="goodnight">Chào buổi tối</string>
+    <string name="goodMorning">Chào buổi sáng,</string>
+    <string name="goodAfternoon">Chào buổi chiều,</string>
+    <string name="goodnight">Chào buổi tối,</string>
     <string name="welcome">Xin chào !</string>
     <string name="notification">Thông báo</string>
     <string name="incorrectUsernameOrPassword">Tên đăng nhập hoặc mật khẩu không đúng. Vui lòng thử lại.</string>
@@ -44,7 +44,7 @@
     <string name="shbOnline">SHB Online</string>
     <string name="userNameLogin">Tên đăng nhập</string>
     <string name="demandDeposits">Tiền gửi không kỳ hạn</string>
-    <string name="chooseProfilePicture">Chọn ảnh hồ sơ</string>
+    <string name="chooseProfilePicture">Chọn ảnh đại diện</string>
     <string name="takePhoto">Chụp ảnh</string>
     <string name="selectFromPhotoLibrary">Chọn từ thư viện ảnh</string>
     <string name="profilePictureUpdated">Cập nhật ảnh đại diện thành công!</string>
@@ -148,18 +148,18 @@
     <string name="new_password">Mật khẩu mới</string>
     <string name="enter_new_password">Nhập mật khẩu mới</string>
     <string name="password_rule_length">Độ dài 8-20 ký tự</string>
-    <string name="password_rule_case">Yêu cầu ít nhất 1 ký tự viết thường và 1 ký tự viết hoa</string>
-    <string name="password_rule_special">Yêu cầu ít nhất 1 chữ số, 1 ký tự đặc biệt .~!@#$\%^&amp;*()_+={}|:;&lt;&gt;,/?-</string>
+    <string name="password_rule_case">Mật khẩu phải chứa ít nhất một chữ cái viết hoa.</string>
+    <string name="password_rule_special">Mật khẩu phải chứa ít nhất 1 chữ số và 1 ký tự đặc biệt .~!@#$\%^&amp;*()_+={}|:;&lt;&gt;,/?-</string>
     <string name="remark_default_value">%s CHUYEN TIEN</string>
     <string name="hint_select_bank">Chọn ngân hàng</string>
     <string name="hint_enter_account_name">Nhập tên tài khoản</string>
-    <string name="password_rule_username">Không chứa tên đăng nhập hoặc tên thật của người dùng</string>
+    <string name="password_rule_username">Mật khẩu không được chứa tên đăng nhập hoặc tên thật của người dùng.</string>
     <string name="re_enter_new_password">Nhập lại mật khẩu mới</string>
     <string name="hint_re_enter_new_password">Nhập lại mật khẩu mới</string>
     <string name="change_password_success">Đổi mật khẩu thành công</string>
     <string name="change_password_success_message">Vui lòng đăng nhập lại để tiếp tục sử dụng ứng dụng</string>
     <string name="error_current_password_incorrect">Mật khẩu hiện tại không đúng, vui lòng thử lại</string>
-    <string name="error_passwords_do_not_match">Mật khẩu không khớp</string>
+    <string name="error_passwords_do_not_match">Mật khẩu nhập lại không khớp</string>
     <string name="error_new_and_old_password_same">Mật khẩu mới không được trùng với mật khẩu cũ</string>
     <string name="beneficiaryList">Danh sách thụ hưởng</string>
     <string name="enterRecipientNameOrAccountNumber">Nhập tên người nhận hoặc số tài khoản</string>
@@ -180,8 +180,8 @@
     <string name="error_enter_nickname">Vui lòng nhập tên</string>
     <string name="error_invalid_nickname">Tên không hợp lệ</string>
     <string name="successfullySetNickname">Đặt tên gợi nhớ thành công</string>
-    <string name="noLabel">Không</string>
-    <string name="yesLabel">Có</string>
+    <string name="noLabel">Sai</string>
+    <string name="yesLabel">Đúng</string>
     <string name="theNameIsInvaid">Tên không hợp lệ</string>
     <string name="theBeneficiaryUpdateFail">Cập nhật người thụ hưởng thất bại</string>
     <string name="theBeneficiaryAlreadyExists">Người thụ hưởng đã tồn tại</string>
@@ -190,21 +190,21 @@
     <string name="updateLabel">Cập nhật</string>
     <string name="invalidAccountNumber">Số tài khoản không hợp lệ</string>
     <string name="cambodian">Tiếng Khmer</string>
-    <string name="register_device_title">Đăng ký thiết bị để sử dụng ứng dụng SHB Saha Cambodia</string>
-    <string name="register_device_message">Để tăng cường bảo mật tài khoản, vui lòng xác thực thiết bị của bạn bằng mã OTP đã được gửi về số điện thoại %s để hoàn tất đăng ký ứng dụng. Đây có phải số điện thoại của bạn không?</string>
-    <string name="confirm_device_title">Xác nhận thiết bị</string>
+    <string name="register_device_title">Vui lòng đăng ký thiết bị để sử dụng ứng dụng SHB Saha Cambodia.</string>
+    <string name="register_device_message">Để tăng cường bảo mật tài khoản, vui lòng xác thực thiết bị bằng mã OTP được gửi đến số điện thoại %s để hoàn tất đăng ký ứng dụng. Đây có phải là số điện thoại của Quý khách không?</string>
+    <string name="confirm_device_title">Xác thực thiết bị mới</string>
     <string name="confirm_device_message">Vui lòng nhập mã OTP đã được gửi về số điện thoại %s</string>
     <string name="remaining_time">Thời gian còn lại %s giây</string>
     <string name="otp_incorrect_message">Mã OTP không chính xác. Vui lòng kiểm tra lại.</string>
     <string name="confirmLabel">Xác nhận</string>
-    <string name="theOtpExpired">Mã OTP đã hết hạn. Vui lòng tạo mã xác thực mới.</string>
+    <string name="theOtpExpired">Mã OTP đã hết hạn</string>
     <string name="resendOtp">Gửi lại mã OTP</string>
     <string name="theNewPassMustNotMatchOldPass">Mật khẩu mới không được trùng với 4 mật khẩu gần nhất</string>
     <string name="otpIncorrectly5Times">Bạn đã nhập sai mã OTP 5 lần. Vui lòng thử lại sau %s phút</string>
-    <string name="requestOtpMore5Times">Bạn đã yêu cầu mã OTP quá 5 lần. Vui lòng thử lại sau %s</string>
-    <string name="newDeviceVerificial">Bạn đang đăng nhập SHB Saha Cambodia trên một thiết bị mới. Vui lòng xác thực bằng mã OTP được gửi về số điện thoại %s để tiếp tục sử dụng dịch vụ. Đây có phải là số điện thoại của bạn?</string>
+    <string name="requestOtpMore5Times">Quý khách đã vượt quá số lần yêu cầu mã OTP (5 lần). Vui lòng quay lại sau %s.</string>
+    <string name="newDeviceVerificial">Quý khách đang đăng nhập vào SHB Saha Cambodia trên một thiết bị mới. Vui lòng xác thực bằng mã OTP được gửi tới số điện thoại 023*12 để tiếp tục sử dụng dịch vụ. Đây có phải là số điện thoại của Quý khách không?</string>
     <string name="goToBranch">Đến chi nhánh</string>
-    <string name="getSupportForChanging">Để được hỗ trợ thay đổi hoặc đăng ký số điện thoại, vui lòng đến chi nhánh/điểm giao dịch gần nhất của SHB Cambodia.</string>
+    <string name="getSupportForChanging">Quý khách vui lòng đến chi nhánh hoặc điểm giao dịch SHB Chi nhánh Campuchia gần nhất để được hỗ trợ đăng ký/thay đổi số điện thoại.</string>
     <string name="language">Ngôn ngữ</string>
     <string name="listBranchTransactionPoint">Danh sách chi nhánh/điểm giao dịch</string>
     <string name="register_device_other">Xác nhận thiết bị mới</string>
