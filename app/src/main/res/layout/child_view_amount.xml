@@ -12,10 +12,14 @@
         android:id="@+id/tvLabel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="3"
+        android:layout_weight="5"
         android:includeFontPadding="false"
         android:textColor="@color/neutral8"
+        android:lines="1"
         android:textSize="@dimen/textSize14"
+        android:autoSizeMaxTextSize="@dimen/textSize14"
+        android:autoSizeMinTextSize="@dimen/textSize9"
+        app:autoSizeTextType="uniform"
         app:customFontWeight="regular"
         tools:text="Default Casa Account" />
 
@@ -36,6 +40,35 @@
     <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvCurrencyCode"
         android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/margin_4dp"
+        android:ellipsize="end"
+        android:gravity="end"
+        android:includeFontPadding="false"
+        android:textColor="@color/color_error_text_login"
+        android:textSize="@dimen/textSize12"
+        app:customFontWeight="regular"
+        tools:text="USD" />
+
+    <vn.shb.cam.base.view.MyTextView
+        android:id="@+id/tvValueSup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="end"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:includeFontPadding="false"
+        android:textColor="@color/color_error_text_login"
+        android:textSize="@dimen/textSize18"
+        app:customFontWeight="semi_bold"
+        tools:text="1001747332" />
+
+    <vn.shb.cam.base.view.MyTextView
+        android:id="@+id/tvCurrencyCodeSup"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        tools:visibility="visible"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/margin_4dp"
         android:ellipsize="end"

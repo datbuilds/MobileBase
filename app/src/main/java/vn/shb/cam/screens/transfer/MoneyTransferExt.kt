@@ -18,14 +18,9 @@ import vn.shb.cam.R
 import vn.shb.cam.base.view.MyEditText
 import vn.shb.cam.base.view.MyTextView
 import vn.shb.cam.databinding.ItemTransferTypeBinding
-import vn.shb.cam.databinding.LayoutLanguagePopupBinding
-import vn.shb.cam.screens.login.ui.widget.setDisableAlpha
+import vn.shb.cam.databinding.LayoutChooseCurrencyPopupBinding
 import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.hideSoftKeyboard
-import vn.shb.cam.utils.widgets.LocaleHelper
-import vn.shb.core.core.delivery.ReasonDescription.CAM
-import vn.shb.core.core.delivery.ReasonDescription.ENGLISH
-import vn.shb.core.core.delivery.ReasonDescription.VIET
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.DecimalDigitsInputFilter
 import vn.shb.data.entities.getBalanceFormatted
@@ -94,7 +89,7 @@ fun MyEditText.enableInput(enable: Boolean) {
     isLongClickable = enable
 }
 
-fun MyEditText.setupDecimalInput() {
+fun MyEditText.setupDecimalInput(currencyProvider: (() -> String)? = null) {
 
     addTextChangedListener(object : TextWatcher {
         private var current = ""
@@ -109,29 +104,55 @@ fun MyEditText.setupDecimalInput() {
             if (text == current) return
 
             editing = true
+            val currency = currencyProvider?.invoke() ?: Const.KHR
+            val isUSD = currency == Const.USD
 
             if (text.isNotEmpty()) {
 
-                if (text.startsWith("0")) {
+                if (!isUSD && text.startsWith("0")) {
                     setText("")
                     current = ""
                     editing = false
                     return
                 }
 
+                if (isUSD && text.startsWith("0") && text.length > 1 && !text.startsWith("0.")) {
+                    val clean0 = text.replaceFirst("^0+(?!$)".toRegex(), "")
+                    if (clean0 != text) {
+                        setText(clean0)
+                        setSelection(clean0.length)
+                        current = clean0
+                        editing = false
+                        return
+                    }
+                }
+
                 if (text.startsWith(".")) {
-                    setText("")
-                    current = ""
+                    val prefix = if (isUSD) "0." else ""
+                    setText(prefix)
+                    if (prefix.isNotEmpty()) setSelection(2)
+                    current = prefix
                     editing = false
                     return
                 }
 
                 val numeric = text.replace(",", "").toDoubleOrNull()
-                if (numeric != null && numeric < 1) {
-                    setText("")
-                    current = ""
-                    editing = false
-                    return
+                if (numeric != null) {
+                    if (isUSD) {
+                        if (numeric == 0.0 && text.replace(",", "") == "0.00") {
+                            setText("")
+                            current = ""
+                            editing = false
+                            return
+                        }
+                    } else {
+                        if (numeric < 1) {
+                            setText("")
+                            current = ""
+                            editing = false
+                            return
+                        }
+                    }
                 }
             }
 
@@ -139,8 +160,10 @@ fun MyEditText.setupDecimalInput() {
                 // Lưu lại vị trí con trỏ hiện tại
                 val cursorStart = selectionStart
 
+                val isZeroDecimal = isUSD && (text == "0" || (text.startsWith("0.0") && text.replace(",", "") == "0.0"))
+
                 // Không format khi user đang nhập dấu "." ở cuối
-                if (text.endsWith(".") || text == "." || text.isEmpty()) {
+                if (text.endsWith(".") || text == "." || text.isEmpty() || isZeroDecimal) {
                     current = text
                 } else {
                     val clean = text.replace(",", "")
@@ -209,17 +232,19 @@ fun Fragment.finishTyping(
 
 }
 
-fun MoneyTransferFragment.popupChooseCurrency(anchor: View, choose: (String) -> Unit) {
-    val binding = LayoutLanguagePopupBinding.inflate(LayoutInflater.from(anchor.context))
+fun MoneyTransferFragment.popupChooseCurrency(
+    currentCurrency: String,
+    anchor: View,
+    choose: (String) -> Unit
+) {
+    val binding = LayoutChooseCurrencyPopupBinding.inflate(LayoutInflater.from(anchor.context))
 
     val popupWindow = PopupWindow(
         binding.root,
         ViewGroup.LayoutParams.WRAP_CONTENT,
         ViewGroup.LayoutParams.WRAP_CONTENT,
-        true // focusable, click outside sẽ tự đóng
+        true
     )
-
-    val currentLanguage = LocaleHelper.getCurrentLanguage(requireContext())
 
     // style
     popupWindow.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
@@ -228,34 +253,22 @@ fun MoneyTransferFragment.popupChooseCurrency(anchor: View, choose: (String) -> 
 
     binding.apply {
 
-        iclLanguage1.apply {
-            ivLogo.setImageResource(R.drawable.ic_logo_cam)
-            tvNameLanguage.text = getString(R.string.cambodian)
-            root.setDisableAlpha(currentLanguage == CAM)
-            root.setOnSingleClickListener {
-                choose.invoke(CAM)
+        tvKHR.apply {
+            setTextColor(getColor(if (currentCurrency == Const.KHR) R.color.neutral10 else R.color.neutral7))
+            setOnSingleClickListener {
+                choose.invoke(Const.KHR)
                 popupWindow.dismiss()
             }
         }
-        iclLanguage2.apply {
-            ivLogo.setImageResource(R.drawable.ic_logo_uk)
-            tvNameLanguage.text = getString(R.string.english)
-            root.setDisableAlpha(currentLanguage == ENGLISH)
-            root.setOnSingleClickListener {
-                popupWindow.dismiss()
-            }
-        }
-
-        iclLanguage3.apply {
-            ivLogo.setImageResource(R.drawable.ic_logo_vn)
-            tvNameLanguage.text = getString(R.string.vietnamese)
-            root.setDisableAlpha(currentLanguage == VIET)
-            root.setOnSingleClickListener {
+        tvUSD.apply {
+            setTextColor(getColor(if (currentCurrency == Const.USD) R.color.neutral10 else R.color.neutral7))
+            setOnSingleClickListener {
+                choose.invoke(Const.USD)
                 popupWindow.dismiss()
             }
         }
     }
 
-    val marginRight = (130 * anchor.context.resources.displayMetrics.density).toInt()
-    popupWindow.showAsDropDown(anchor, -marginRight, 0, Gravity.END)
+    val marginRight = (77 * anchor.context.resources.displayMetrics.density).toInt()
+    popupWindow.showAsDropDown(anchor, -marginRight, 20, Gravity.END)
 }

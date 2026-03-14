@@ -556,8 +556,8 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         clearFlag()
 
         //mock
-//        binding.edtInputPass.setText("Test123@")
-//        handleActionLogin()
+        binding.edtInputPass.setText("12345678")
+        handleActionLogin()
     }
 
     companion object {

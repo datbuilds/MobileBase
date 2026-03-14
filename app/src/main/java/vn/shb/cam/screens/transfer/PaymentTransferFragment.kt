@@ -1,17 +1,17 @@
 package vn.shb.cam.screens.transfer
 
+import android.graphics.Typeface
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.RelativeSizeSpan
+import android.text.style.StyleSpan
+import android.text.style.SuperscriptSpan
 import android.view.View
+import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import vn.shb.core.core.delivery.reason.AppReason
-import vn.shb.core.core.domain.source.request.BeneficiaryRequest
-import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionDetail
-import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.data.entities.getBalance
-import vn.shb.data.entities.home.TransactionDetail
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.ChildViewTransactionInfoBinding
@@ -29,6 +29,12 @@ import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.extensions.shareImage
 import vn.shb.cam.utils.extensions.toBitmap
 import vn.shb.cam.utils.extensions.visible
+import vn.shb.core.core.delivery.reason.AppReason
+import vn.shb.core.core.domain.source.request.BeneficiaryRequest
+import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionDetail
+import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.getBalance
+import vn.shb.data.entities.home.TransactionDetail
 
 class PaymentTransferFragment :
     BaseFragmentBinding<FragmentTransactionDetailBinding>(FragmentTransactionDetailBinding::inflate) {
@@ -136,6 +142,18 @@ class PaymentTransferFragment :
                 iclAccountName.root.gone()
             }
 
+            iclExchangeRate.apply {
+                tvLabel.text = getString(R.string.exchangeRate)
+                val cfModel = homeViewModel.confirmModel
+                val fromIsUSD = cfModel?.fromAccount?.currencyCode == Const.USD
+                tvValue.setExchangeRateText(
+                    "1",
+                    if (fromIsUSD) Const.USD else Const.KHR,
+                    "",
+                    if (fromIsUSD) Const.KHR else Const.USD
+                )
+            }
+
             // Show save recipient logic
             if (trans.benAccount?.isNotEmpty() == true && isIntrabank) {
                 (rlSaveRecipient as View).visible()
@@ -171,7 +189,8 @@ class PaymentTransferFragment :
                         val request = BeneficiaryRequest(
                             accountNumber = toAccount?.accountNumber ?: "",
                             accountName = nickname,
-                            remark = (user?.customerName ?: "").plus(Const.SEPARATOR_SPACE).plus(getString(R.string.transferCAP)),
+                            remark = (user?.customerName ?: "").plus(Const.SEPARATOR_SPACE)
+                                .plus(getString(R.string.transferCAP)),
                             bankCode = "SHB"
                         )
                         beneficiaryViewModel.createBeneficiary(request, false)
@@ -303,6 +322,62 @@ class PaymentTransferFragment :
     ) {
         tvLabel.text = title
         tvValue.text = des
+    }
+
+    fun TextView.setExchangeRateText(
+        value1: String,
+        currency1: String,
+        value2: String,
+        currency2: String
+    ) {
+        val text = "$value1 $currency1 = $value2 $currency2"
+        val spannable = SpannableString(text)
+
+        fun applyCurrencyStyle(currency: String) {
+            val start = text.indexOf(currency)
+            val end = start + currency.length
+
+            spannable.setSpan(
+                RelativeSizeSpan(0.7f),
+                start,
+                end,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+            spannable.setSpan(
+                SuperscriptSpan(),
+                start,
+                end,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+
+        fun applyValueStyle(value: String) {
+            val start = text.indexOf(value)
+            val end = start + value.length
+
+            spannable.setSpan(
+                StyleSpan(Typeface.BOLD),
+                start,
+                end,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+            spannable.setSpan(
+                RelativeSizeSpan(1.4f),
+                start,
+                end,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+
+        applyValueStyle(value1)
+        applyValueStyle(value2)
+
+        applyCurrencyStyle(currency1)
+        applyCurrencyStyle(currency2)
+
+        this.text = spannable
     }
 
 }

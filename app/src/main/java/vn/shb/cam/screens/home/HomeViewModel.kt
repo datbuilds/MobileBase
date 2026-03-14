@@ -23,6 +23,7 @@ import vn.shb.core.core.delivery.onFailure
 import vn.shb.core.core.delivery.onLoading
 import vn.shb.core.core.delivery.onSuccess
 import vn.shb.core.core.domain.source.response.AccountUserNameModel
+import vn.shb.core.core.domain.source.response.ExchangeRateModel
 import vn.shb.core.core.domain.source.response.TransactionTransfer
 import vn.shb.core.core.domain.source.response.TransactionTransferConfirm
 import vn.shb.core.core.domain.usecases.None
@@ -34,13 +35,12 @@ import vn.shb.core.core.domain.usecases.transfer.AccountInfoRequest
 import vn.shb.core.core.domain.usecases.transfer.FundTransferRequest
 import vn.shb.core.core.domain.usecases.transfer.OrderDetail
 import vn.shb.core.core.domain.usecases.transfer.UseCaseAccountByNumber
+import vn.shb.core.core.domain.usecases.transfer.UseCaseExchangeRate
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionDetail
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionTransfer
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionTransferConfirm
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransferAccount
 import vn.shb.core.core.domain.usecases.transfer.UseCaseValidateTransaction
-import vn.shb.core.core.domain.usecases.transfer.UseCaseExchangeRate
-import vn.shb.core.core.domain.source.response.ExchangeRateModel
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import vn.shb.data.entities.AccountBase
 import vn.shb.data.entities.home.AccountDetails
@@ -51,6 +51,7 @@ import vn.shb.data.entities.home.UserInfo
 import vn.shb.data.entities.login.UserConverters
 import vn.shb.data.entities.transfer.ConfirmationModel
 import vn.shb.data.entities.transfer.TransferAccount
+import java.math.BigDecimal
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -149,6 +150,7 @@ class HomeViewModel(
     var listReceiverActive = listOf<TransferAccount>()
 
     var confirmModel: ConfirmationModel? = null
+    var exchangeRealtime: BigDecimal? = BigDecimal.ZERO
 
     private var listErrorCodeConfirmContinue = listOf(ApiConst.FUN_017, ApiConst.FUN_016)
 
@@ -428,7 +430,8 @@ class HomeViewModel(
             val params = UseCaseTransactionTransferConfirm.Params(
                 transactionId = currentTransfer.transactionId.toString(),
                 confirmStatus = ApiConst.ACCEPTED,
-                otp = otp
+                otp = otp,
+                exchangeRealtime!!
             )
             useCaseTransactionTransferConfirm.invoke(params).collect { result ->
                 result.onResultHandle({ transactionTransferConfirmData ->
@@ -513,24 +516,25 @@ class HomeViewModel(
 
     fun getExchangeRates(sourceCurrency: String, targetCurrency: String) {
         viewModelScope.launch {
-            useCaseExchangeRate.invoke(UseCaseExchangeRate.Params(sourceCurrency, targetCurrency)).collect { result ->
-                result.onResultHandle(
-                    successBlock = { rateModel ->
-                        viewModelScope.launch {
-                            if (sourceCurrency == Const.USD){
-                                _stateExchangeUSDToKm.emit(rateModel)
-                            } else {
-                                _stateExchangeKmToUSD.emit(rateModel)
+            useCaseExchangeRate.invoke(UseCaseExchangeRate.Params(sourceCurrency, targetCurrency))
+                .collect { result ->
+                    result.onResultHandle(
+                        successBlock = { rateModel ->
+                            viewModelScope.launch {
+                                if (sourceCurrency == Const.USD) {
+                                    _stateExchangeUSDToKm.emit(rateModel)
+                                } else {
+                                    _stateExchangeKmToUSD.emit(rateModel)
+                                }
+                            }
+                        },
+                        failureBlock = { error ->
+                            viewModelScope.launch {
+                                stateError(error)
                             }
                         }
-                    },
-                    failureBlock = { error ->
-                        viewModelScope.launch {
-                            stateError(error)
-                        }
-                    }
-                )
-            }
+                    )
+                }
         }
     }
 

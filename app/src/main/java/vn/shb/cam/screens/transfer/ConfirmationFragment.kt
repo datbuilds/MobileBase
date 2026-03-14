@@ -51,6 +51,11 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
             iclAmount.tvLabel.text = getString(R.string.amount)
             iclFee.tvLabel.text = getString(R.string.fee)
             iclTotalAmount.tvLabel.text = getString(R.string.totalAmount)
+            iclExchangeRate.apply {
+                tvLabel.text = getString(R.string.exchangeRate)
+                tvValueSup.visible()
+                tvCurrencyCodeSup.visible()
+            }
         }
     }
 
@@ -65,21 +70,33 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                         .plus(cf.toAccount.accountNumber)
                 iclRemarks.tvValue.text = cf.remarks
                 iclTransactionDate.tvValue.text = cf.transactionDate
-                val currencyCode = cf.fromAccount.currencyCode
                 iclAmount.apply {
                     tvValue.text = cf.amount.getBalance()
-                    tvCurrencyCode.text = currencyCode
+                    tvCurrencyCode.text = cf.fromAccount.currencyCode
                 }
                 iclFee.apply {
+                    root.gone()
                     tvValue.text = cf.fee.getBalance()
-                    tvCurrencyCode.text = currencyCode
+                    tvCurrencyCode.text = cf.fromAccount.currencyCode
                 }
                 iclTotalAmount.apply {
                     tvValue.text = cf.totalAmount.getBalance()
-                    tvCurrencyCode.text = currencyCode
+                    tvCurrencyCode.text = cf.toAccount.currencyCode
                 }
                 if (isIntrabank) {
                     iclAccountName.tvValue.text = cf.toAccount.customerName
+                }
+                if (cf.fromAccount.currencyCode != cf.toAccount.currencyCode) {
+                    val fromIsUSD = cf.fromAccount.currencyCode == Const.USD
+                    iclExchangeRate.apply {
+                        root.visible()
+                        tvValue.text = "1"
+                        tvCurrencyCode.text = if (fromIsUSD) Const.USD else Const.KHR
+                        tvValueSup.text = "=${homeViewModel.exchangeRealtime?.toPlainString()}"
+                        tvCurrencyCodeSup.text = if (fromIsUSD) Const.KHR else Const.USD
+                    }
+                } else {
+                    iclExchangeRate.root.gone()
                 }
             }
         }
@@ -150,7 +167,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                         homeViewModel.postTransactionTransfer(
                             cf.paymentType,
                             cf.fromAccount.accountNumber, cf.toAccount.accountNumber,
-                            cf.totalAmount, cf.fromAccount.currencyCode, cf.remarks
+                            cf.amount, cf.fromAccount.currencyCode, cf.remarks
                         )
                     }
                 }

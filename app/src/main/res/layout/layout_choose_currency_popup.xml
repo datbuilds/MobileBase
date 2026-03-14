@@ -1,44 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="78dp"
     android:layout_height="wrap_content"
     android:gravity="start"
     android:orientation="vertical"
-    android:padding="8dp"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/margin_12dp">
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
+        android:layout_width="78dp"
+        android:gravity="center"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="@dimen/margin_12dp"
-        android:paddingVertical="@dimen/margin_4dp">
+        android:orientation="vertical">
 
         <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvUSD"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_36dp"
+            android:gravity="center"
             android:includeFontPadding="false"
+            android:text="USD"
             android:textColor="@color/black"
             android:textSize="14sp"
-            app:customFontWeight="medium"
-            tools:text="@string/english" />
+            android:layout_marginBottom="2dp"
+            app:customFontWeight="medium" />
 
         <vn.shb.cam.base.view.MyTextView
-            android:id="@+id/tvKME"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:id="@+id/tvKHR"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_36dp"
+            android:layout_marginTop="2dp"
+            android:gravity="center"
             android:includeFontPadding="false"
+            android:text="KHR"
             android:textColor="@color/black"
             android:textSize="14sp"
-            app:customFontWeight="medium"
-            tools:text="@string/english" />
+            app:customFontWeight="medium" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

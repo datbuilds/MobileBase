@@ -25,7 +25,7 @@ class ServiceTransfer(private val api: ApiTransfer) : SafeExecute() {
     suspend fun confirmTransaction(request: UseCaseTransactionTransferConfirm.Params) = execute {
         api.confirmTransaction(
             request.transactionId,
-            UseCaseTransactionTransferConfirm.BodyParams(request.confirmStatus, request.otp)
+            UseCaseTransactionTransferConfirm.BodyParams(request.confirmStatus, request.otp, request.rate)
         )
     }
 
