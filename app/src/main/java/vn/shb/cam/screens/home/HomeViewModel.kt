@@ -395,7 +395,8 @@ class HomeViewModel(
         toAccount: String,
         amount: Double,
         currency: String,
-        remarks: String
+        remarks: String,
+        transactionId: Int?,
     ) {
         viewModelScope.launch {
             val params = FundTransferRequest(
@@ -404,7 +405,8 @@ class HomeViewModel(
                     amount = amount,
                     currency = currency,
                     remark = remarks,
-                    saveNewAccount = true
+                    saveNewAccount = true,
+                    transactionId = transactionId
                 ),
                 sender = AccountInfoRequest(accountNo = fromAccount),
                 beneficiary = AccountInfoRequest(accountNo = toAccount)

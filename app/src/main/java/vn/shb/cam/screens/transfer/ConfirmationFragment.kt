@@ -148,16 +148,6 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                             homeViewModel.confirmTransactionTransfer(Const.EMPTY)
                         } else {
                             if (it?.paymentType.equals(ApiConst.INTRA)) {
-//                                binding.flBru.visible()
-//                                ConfirmCodeBottomSheetDialogFragment(
-//                                    authSms = it?.authSms ?: "",
-//                                    actionConfirmCode = { code ->
-//                                        homeViewModel.confirmTransactionTransfer(code)
-//                                    },
-//                                    actionDismiss = {
-//                                        binding.flBru.gone()
-//                                    }
-//                                ).show(parentFragmentManager, "ConfirmCodeBottomSheetDialog")
                                 showConfirmOtpTransaction(it)
                             }
                         }
@@ -170,8 +160,8 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
     private fun showConfirmOtpTransaction(result: TransactionTransfer?) {
         hideProgressDialog()
         val totalTime = result?.otpRemainingSeconds
-        confirmDeviceView.setupOtpTransaction(
-            authSms = result?.authSms ?: "",
+        confirmDeviceView.setup(
+            phoneNumber = result?.authSms ?: "",
             totalTime = totalTime?.times(1000L),
             onConfirm = { otp ->
                 if (otp.isNotEmpty()) {
@@ -180,7 +170,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                 hideSoftKeyboard()
             },
             resendCode = {
-                postTransactions()
+                postTransactions(result?.transactionId)
             },
             onClose = {
                 // Handle close
@@ -200,12 +190,12 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
         }
     }
 
-    private fun postTransactions() {
+    private fun postTransactions(transactionId: Int? = null) {
         homeViewModel.confirmModel?.let { cf ->
             homeViewModel.postTransactionTransfer(
                 cf.paymentType,
                 cf.fromAccount.accountNumber, cf.toAccount.accountNumber,
-                cf.amount, cf.fromAccount.currencyCode, cf.remarks
+                cf.amount, cf.fromAccount.currencyCode, cf.remarks, transactionId
             )
         }
     }
