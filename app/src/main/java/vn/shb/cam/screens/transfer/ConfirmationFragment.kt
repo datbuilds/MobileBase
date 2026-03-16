@@ -7,18 +7,23 @@ import kotlinx.coroutines.launch
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.FragmentConfirmationBinding
-import vn.shb.cam.screens.transfer.dialog.ConfirmCodeBottomSheetDialogFragment
+import vn.shb.cam.screens.login.ui.widget.ConfirmDeviceView
 import vn.shb.cam.utils.ApiConst
 import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.gone
+import vn.shb.cam.utils.extensions.hideProgressDialog
+import vn.shb.cam.utils.extensions.hideSoftKeyboard
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.extensions.visible
+import vn.shb.core.core.domain.source.response.TransactionTransfer
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.getBalance
 
 class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
     FragmentConfirmationBinding::inflate
 ) {
+
+    private lateinit var confirmDeviceView: ConfirmDeviceView
 
     private val isIntrabank by lazy {
         arguments?.getBoolean(ApiConst.KEY_TYPE_TRANSFER_INTRABANK) ?: false
@@ -31,6 +36,13 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
     override fun initView(view: View) {
         bindViewDefault()
         bindConfirmationView()
+        initViewDialogCf()
+    }
+
+    private fun initViewDialogCf() {
+        confirmDeviceView = ConfirmDeviceView(requireContext())
+        binding.flRegisterDevice.addView(confirmDeviceView)
+        confirmDeviceView.visibility = View.GONE
     }
 
     private fun bindViewDefault() {
@@ -136,16 +148,17 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                             homeViewModel.confirmTransactionTransfer(Const.EMPTY)
                         } else {
                             if (it?.paymentType.equals(ApiConst.INTRA)) {
-                                binding.flBru.visible()
-                                ConfirmCodeBottomSheetDialogFragment(
-                                    authSms = it?.authSms ?: "",
-                                    actionConfirmCode = { code ->
-                                        homeViewModel.confirmTransactionTransfer(code)
-                                    },
-                                    actionDismiss = {
-                                        binding.flBru.gone()
-                                    }
-                                ).show(parentFragmentManager, "ConfirmCodeBottomSheetDialog")
+//                                binding.flBru.visible()
+//                                ConfirmCodeBottomSheetDialogFragment(
+//                                    authSms = it?.authSms ?: "",
+//                                    actionConfirmCode = { code ->
+//                                        homeViewModel.confirmTransactionTransfer(code)
+//                                    },
+//                                    actionDismiss = {
+//                                        binding.flBru.gone()
+//                                    }
+//                                ).show(parentFragmentManager, "ConfirmCodeBottomSheetDialog")
+                                showConfirmOtpTransaction(it)
                             }
                         }
                     }
@@ -154,24 +167,47 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
         }
     }
 
+    private fun showConfirmOtpTransaction(result: TransactionTransfer?) {
+        hideProgressDialog()
+        val transactionId = result?.transactionId
+        val totalTime = result?.expireInSeconds
+        confirmDeviceView.setupOtpTransaction(
+            authSms = result?.authSms ?: "",
+            totalTime = totalTime?.times(1000L),
+            onConfirm = { otp ->
+                if (otp.isNotEmpty()) {
+                    homeViewModel.confirmTransactionTransfer(otp)
+                }
+                hideSoftKeyboard()
+            },
+            resendCode = {
+                postTransactions()
+            },
+            onClose = {
+                // Handle close
+            }
+        )
+        confirmDeviceView.show()
+    }
+
     override fun initListener() {
         with(binding) {
             tvConfirmation.setOnSingleClickListener {
                 backPress()
             }
             tvConfirm.setOnSingleClickListener {
-                if (isIntrabank) {
-
-                } else {
-                    homeViewModel.confirmModel?.let { cf ->
-                        homeViewModel.postTransactionTransfer(
-                            cf.paymentType,
-                            cf.fromAccount.accountNumber, cf.toAccount.accountNumber,
-                            cf.amount, cf.fromAccount.currencyCode, cf.remarks
-                        )
-                    }
-                }
+                postTransactions()
             }
+        }
+    }
+
+    private fun postTransactions() {
+        homeViewModel.confirmModel?.let { cf ->
+            homeViewModel.postTransactionTransfer(
+                cf.paymentType,
+                cf.fromAccount.accountNumber, cf.toAccount.accountNumber,
+                cf.amount, cf.fromAccount.currencyCode, cf.remarks
+            )
         }
     }
 

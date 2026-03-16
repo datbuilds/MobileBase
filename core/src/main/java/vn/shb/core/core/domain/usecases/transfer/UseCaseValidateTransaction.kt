@@ -23,7 +23,8 @@ class UseCaseValidateTransaction(private val repoTransfer: RepositoryTransfer) :
 
     data class OrderTransaction(
         @SerializedName("paymentType") val paymentType: String = "",
-        @SerializedName("amount") val amount: Double = 0.0
+        @SerializedName("amount") val amount: Double = 0.0,
+        @SerializedName("currency") val currency: String
     )
 
     data class AccountTransaction(

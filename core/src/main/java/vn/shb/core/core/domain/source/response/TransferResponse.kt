@@ -24,7 +24,8 @@ data class TransactionTransfer(
     @SerializedName("authMethod") val authMethod: String = "",
     @SerializedName("authSms") val authSms: String? = null,
     @SerializedName("paymentType") val paymentType: String = "",
-    @SerializedName("expireInSeconds") val expireInSeconds: Int = 0
+    @SerializedName("expireInSeconds") val expireInSeconds: Int = 0,
+    @SerializedName("fee") val fee: Int = 0,
 ) : Serializable
 
 data class TransactionTransferConfirm(
@@ -33,7 +34,8 @@ data class TransactionTransferConfirm(
     @SerializedName("status") val status: String = "",
     @SerializedName("mdCode") val moduleCode: String = "",
     @SerializedName("transCode") val transactionCode: String = "",
-    @SerializedName("transDate") val transactionDate: String = ""
+    @SerializedName("transDate") val transactionDate: String = "",
+    @SerializedName("hasBeneficiary") val hasBeneficiary: String = "",
 ) : Serializable
 
 data class AccountUserNameModel(

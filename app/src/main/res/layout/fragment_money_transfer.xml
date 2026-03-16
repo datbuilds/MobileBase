@@ -34,14 +34,14 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/llTypeTransfer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="@dimen/margin_16dp"
             android:orientation="horizontal">
 
             <vn.shb.cam.base.view.MyTextView
                 android:id="@+id/tvIntraBankTransfer"
                 android:layout_width="@dimen/margin_0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginEnd="4dp"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -55,7 +55,7 @@
             <vn.shb.cam.base.view.MyTextView
                 android:id="@+id/tvOwnAccountTransfer"
                 android:layout_width="@dimen/margin_0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="4dp"
                 android:layout_weight="1"
                 android:gravity="center"

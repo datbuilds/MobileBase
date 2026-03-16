@@ -206,7 +206,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                     UseCaseValidateTransaction.Params(
                         orderDetail = UseCaseValidateTransaction.OrderTransaction(
                             paymentType = if (isIntrabank()) ApiConst.INTRA else ApiConst.SELF,
-                            amount = amountOfSender
+                            amount = amountOfSender,
+                            currency = fromAccount?.currencyCode!!
                         ),
                         sender = UseCaseValidateTransaction.AccountTransaction(
                             accountNo = fromAccount?.accountNumber ?: ""

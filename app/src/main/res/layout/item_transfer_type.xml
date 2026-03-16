@@ -66,11 +66,13 @@
         android:paddingVertical="@dimen/margin_13dp"
         android:textColor="@color/white"
         android:textSize="@dimen/textSize14"
+        android:visibility="gone"
         app:customFontWeight="medium"
         app:layout_constraintBottom_toBottomOf="@+id/llEdit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/llEdit"
-        tools:text="LAK" />
+        tools:text="LAK"
+        tools:visibility="visible" />
 
     <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvError"

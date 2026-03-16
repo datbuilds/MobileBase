@@ -155,7 +155,7 @@ class PaymentTransferFragment :
             }
 
             // Show save recipient logic
-            if (trans.benAccount?.isNotEmpty() == true && isIntrabank) {
+            if (!trans.hasBeneficiary && isIntrabank) {
                 (rlSaveRecipient as View).visible()
             }
         }

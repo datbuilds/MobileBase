@@ -28,7 +28,7 @@
     <string name="welcomeToShb">Chào mừng đến với SHB</string>
     <string name="currentAccount">TÀI KHOẢN THANH TOÁN</string>
     <string name="transfer">Chuyển tiền</string>
-    <string name="transferCAP" translatable="false">CHUYỂN TIỀN</string>
+    <string name="transferCAP" translatable="false">CHUYEN TIEN</string>
     <string name="accounts">Tài khoản</string>
     <string name="logoutConfirm">Quý khách có chắc chắn muốn đăng xuất?</string>
     <string name="cancel">Hủy</string>
