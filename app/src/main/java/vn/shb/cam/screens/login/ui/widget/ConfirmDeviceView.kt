@@ -80,7 +80,7 @@ class ConfirmDeviceView @JvmOverloads constructor(
             spannable.setSpan(
                 android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
                 startIndex,
-                startIndex + message.length,
+                startIndex + message.length -1,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
         }

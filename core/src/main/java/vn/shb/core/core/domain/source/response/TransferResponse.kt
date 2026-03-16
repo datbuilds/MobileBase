@@ -21,11 +21,14 @@ class AccountUserNameResponse : BaseResponse<AccountUserNameModel>()
 data class TransactionTransfer(
     @SerializedName("transactionId") val transactionId: Int = 0,
     @SerializedName("status") val status: String = "",
+    @SerializedName("otp") val otp: String = "",
     @SerializedName("authMethod") val authMethod: String = "",
     @SerializedName("authSms") val authSms: String? = null,
     @SerializedName("paymentType") val paymentType: String = "",
     @SerializedName("expireInSeconds") val expireInSeconds: Int = 0,
     @SerializedName("fee") val fee: Int = 0,
+    @SerializedName("otpRemainingSeconds") val otpRemainingSeconds: Int = 0,
+    @SerializedName("otpExpirySeconds") val otpExpirySeconds: Int = 0,
 ) : Serializable
 
 data class TransactionTransferConfirm(

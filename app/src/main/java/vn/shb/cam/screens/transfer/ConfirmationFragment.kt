@@ -169,8 +169,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
 
     private fun showConfirmOtpTransaction(result: TransactionTransfer?) {
         hideProgressDialog()
-        val transactionId = result?.transactionId
-        val totalTime = result?.expireInSeconds
+        val totalTime = result?.otpRemainingSeconds
         confirmDeviceView.setupOtpTransaction(
             authSms = result?.authSms ?: "",
             totalTime = totalTime?.times(1000L),

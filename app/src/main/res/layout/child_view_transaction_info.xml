@@ -23,14 +23,14 @@
         android:id="@+id/tvValue"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_40dp"
-        android:layout_weight="5"
+        android:layout_marginStart="@dimen/margin_24dp"
+        android:layout_weight="5.5"
         android:ellipsize="end"
         android:gravity="end"
         android:includeFontPadding="false"
         android:textColor="@color/neutral10"
         android:textSize="@dimen/textSize14"
-        app:customFontWeight="medium"
+        app:customFontWeight="semi_bold"
         tools:text="Demand Deposits - 1001747332" />
 
 </LinearLayout>

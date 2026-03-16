@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
+import vn.shb.cam.base.view.MyTextView
 import vn.shb.cam.databinding.ChildViewTransactionInfoBinding
 import vn.shb.cam.databinding.FragmentTransactionDetailBinding
 import vn.shb.cam.screens.beneficiary.BeneficiaryViewModel
@@ -26,6 +27,7 @@ import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.gone
 import vn.shb.cam.utils.extensions.invisible
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
+import vn.shb.cam.utils.extensions.setExchangeRateText
 import vn.shb.cam.utils.extensions.shareImage
 import vn.shb.cam.utils.extensions.toBitmap
 import vn.shb.cam.utils.extensions.visible
@@ -112,14 +114,24 @@ class PaymentTransferFragment :
 
             bindButtonNewTransaction(R.drawable.bg_new_transaction, R.color.primary100)
             val fromAccount = trans.ordAccType.plus(Const.SEPARATOR_DASH).plus(trans.ordAccount)
-            iclFromAccount.bindView(
-                getString(R.string.fromAccount),
-                fromAccount
-            )
-            iclToAccount.bindView(
-                getString(R.string.toAccount),
-                trans.benAccType.plus(Const.SEPARATOR_DASH).plus(trans.benAccount)
-            )
+            if (!trans.ordAccount.isNullOrEmpty()) {
+                iclFromAccount.bindView(
+                    getString(R.string.fromAccount),
+                    trans.ordAccType.plus(Const.SEPARATOR_DASH).plus(trans.ordAccount)
+                )
+                iclFromAccount.root.visible()
+            } else {
+                iclFromAccount.root.gone()
+            }
+            if (!trans.benAccount.isNullOrEmpty()) {
+                iclToAccount.bindView(
+                    getString(R.string.toAccount),
+                    trans.benAccType.plus(Const.SEPARATOR_DASH).plus(trans.benAccount)
+                )
+                iclToAccount.root.visible()
+            } else {
+                iclToAccount.root.gone()
+            }
             iclRemarks.bindView(
                 getString(R.string.remarks),
                 trans.remarks
@@ -144,13 +156,11 @@ class PaymentTransferFragment :
 
             iclExchangeRate.apply {
                 tvLabel.text = getString(R.string.exchangeRate)
-                val cfModel = homeViewModel.confirmModel
-                val fromIsUSD = cfModel?.fromAccount?.currencyCode == Const.USD
                 tvValue.setExchangeRateText(
                     "1",
-                    if (fromIsUSD) Const.USD else Const.KHR,
-                    "",
-                    if (fromIsUSD) Const.KHR else Const.USD
+                    trans.ccyCdSrc,
+                    trans.rate.toPlainString(),
+                    trans.ccyCdDst
                 )
             }
 
@@ -322,62 +332,6 @@ class PaymentTransferFragment :
     ) {
         tvLabel.text = title
         tvValue.text = des
-    }
-
-    fun TextView.setExchangeRateText(
-        value1: String,
-        currency1: String,
-        value2: String,
-        currency2: String
-    ) {
-        val text = "$value1 $currency1 = $value2 $currency2"
-        val spannable = SpannableString(text)
-
-        fun applyCurrencyStyle(currency: String) {
-            val start = text.indexOf(currency)
-            val end = start + currency.length
-
-            spannable.setSpan(
-                RelativeSizeSpan(0.7f),
-                start,
-                end,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-
-            spannable.setSpan(
-                SuperscriptSpan(),
-                start,
-                end,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-        }
-
-        fun applyValueStyle(value: String) {
-            val start = text.indexOf(value)
-            val end = start + value.length
-
-            spannable.setSpan(
-                StyleSpan(Typeface.BOLD),
-                start,
-                end,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-
-            spannable.setSpan(
-                RelativeSizeSpan(1.4f),
-                start,
-                end,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-        }
-
-        applyValueStyle(value1)
-        applyValueStyle(value2)
-
-        applyCurrencyStyle(currency1)
-        applyCurrencyStyle(currency2)
-
-        this.text = spannable
     }
 
 }

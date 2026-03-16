@@ -554,22 +554,20 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         if (isDiffCurrency(userInfo.currency)) {
             bindExchangeCurrency(userInfo.currency)
         } else {
-            toAccount = AccountInfo().apply {
-                setValueAccountNumber(binding.iclToAccount.edtValue.text.toString())
-                currencyCode = userInfo.currency
-                productCode = userInfo.productCode
-                productDescription = userInfo.productDescription
-                customerName = userInfo.customerName
-            }
-            binding.iclTotalAmount.tvCurrentCode.text = userInfo.currency
             bindExchangeCurrency(null)
-            with(binding) {
-                iclToAccount.tvError.gone()
-//                iclFee.edtValue.setText(Const.ZERO)
-//                iclFee.root.gone()
-                iclTotalAmount.edtValue.setText("")
-                iclTotalAmount.root.gone()
-            }
+        }
+        toAccount = AccountInfo().apply {
+            setValueAccountNumber(binding.iclToAccount.edtValue.text.toString())
+            currencyCode = userInfo.currency
+            productCode = userInfo.productCode
+            productDescription = userInfo.productDescription
+            customerName = userInfo.customerName
+        }
+        binding.iclTotalAmount.tvCurrentCode.text = userInfo.currency
+        with(binding) {
+            iclToAccount.tvError.gone()
+            iclTotalAmount.edtValue.setText("")
+            iclTotalAmount.root.gone()
         }
 
         updateStatusTransfer()

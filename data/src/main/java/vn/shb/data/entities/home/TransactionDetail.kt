@@ -15,6 +15,8 @@ data class TransactionDetail(
     @SerializedName("remarks") val remarks: String = "",
     @SerializedName("currency") val currency: String = "",
     @SerializedName("accountName") val accountName: String = "",
+    @SerializedName("ccyCdSrc") val ccyCdSrc: String = "",
+    @SerializedName("ccyCdDst") val ccyCdDst: String = "",
     @SerializedName("hasBeneficiary") val hasBeneficiary: Boolean = false,
-//    @SerializedName("rate") val rate: BigDecimal = 0.000001
+    @SerializedName("rate") val rate: BigDecimal = BigDecimal.valueOf(0.000001)
 ) : Serializable
