@@ -88,45 +88,6 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/llToastStatus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_20dp"
-        android:background="@drawable/bg_toast_change_avatar_ss"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/margin_8dp"
-        android:paddingVertical="@dimen/margin_8dp"
-        android:visibility="gone"
-        app:layout_constraintTop_toTopOf="@+id/llBody"
-        tools:visibility="gone">
-
-        <vn.shb.cam.base.view.MyTextView
-            android:id="@+id/tvToastMessage"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableStart="@drawable/ic_success"
-            android:drawablePadding="@dimen/margin_8dp"
-            android:gravity="center_vertical"
-            android:includeFontPadding="false"
-            android:textColor="@color/white"
-            android:textSize="@dimen/textSize14"
-            app:customFontWeight="medium"
-            tools:text="@string/beneficiaryDeletedSuccessfully" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivClose"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_6dp"
-            android:foreground="@drawable/ripple_grey_circle"
-            android:padding="@dimen/margin_6dp"
-            android:tint="@color/white"
-            app:srcCompat="@drawable/ic_close" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
     <FrameLayout
         android:id="@+id/flAddNew"
         android:layout_width="match_parent"

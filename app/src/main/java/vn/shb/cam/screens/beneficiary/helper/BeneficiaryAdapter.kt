@@ -41,10 +41,10 @@ class BeneficiaryAdapter :
         RecyclerView.ViewHolder(binding.root) {
         fun bindItem(item: Beneficiary) {
             with(binding) {
-                tvNameUser.setTextOrGone( item.accountName )
+                tvNameUser.setTextOrGone(item.accountName)
                 tvNicknameUser.setTextOrGone(item.accountNick)
-                tvNumber.setTextOrGone( item.accountNumber )
-                tvBank.setTextOrGone( item.bankName )
+                tvNumber.setTextOrGone(item.accountNumber)
+                tvBank.setTextOrGone(item.bankName)
                 ivLogoBank.setImageResource(BankType.getIconByCode(item.bankCode))
 
                 ivEdit.setOnSingleClickListener {
@@ -63,6 +63,8 @@ class BeneficiaryAdapter :
     }
 
     private var originalList = listOf<Beneficiary>()
+
+    fun getDefaultList() = originalList
 
     fun submitListData(list: List<Beneficiary>?) {
         super.submitList(list)

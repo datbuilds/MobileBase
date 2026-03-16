@@ -13,9 +13,11 @@ import vn.shb.cam.base.view.FontManager
 import vn.shb.cam.databinding.FragmentEditBeneficiaryBinding
 import vn.shb.cam.utils.ApiConst
 import vn.shb.cam.utils.BankType
+import vn.shb.cam.utils.extensions.CustomToastShowOnTop
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.extensions.setLatinAlphanumericFilter
 import vn.shb.cam.utils.extensions.visible
+import vn.shb.cam.utils.view.dialog.BottomSheetDialogHelper
 import vn.shb.core.core.delivery.ResultSHB
 import vn.shb.core.core.domain.source.request.BeneficiaryRequest
 import vn.shb.core.utils.extesions.setOnSingleClickListener
@@ -25,9 +27,9 @@ import vn.shb.data.entities.beneficiary.Beneficiary
 class EditBeneficiaryFragment :
     BaseFragmentBinding<FragmentEditBeneficiaryBinding>(FragmentEditBeneficiaryBinding::inflate) {
 
-    private val MAX_LENGHT_INPUT_NAME=50
-    private val MAX_LENGHT_INPUT_REMARK=200
-    private val TIME_SHOW_SNACK_BAR=3000L
+    private val MAX_LENGHT_INPUT_NAME = 50
+    private val MAX_LENGHT_INPUT_REMARK = 200
+    private val TIME_SHOW_SNACK_BAR = 3000L
 
     private val viewModel: BeneficiaryViewModel by viewModel()
 
@@ -42,6 +44,17 @@ class EditBeneficiaryFragment :
             arguments?.getParcelable(ApiConst.KEY_BENEFICIARY_DATA, Beneficiary::class.java)
         } else {
             arguments?.getParcelable(ApiConst.KEY_BENEFICIARY_DATA)
+        }
+    }
+
+    private val listBeneficiary by lazy {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.getParcelableArrayList(
+                ApiConst.KEY_LIST_BENEFICIARY_DATA,
+                Beneficiary::class.java
+            )
+        } else {
+            arguments?.getParcelableArrayList(ApiConst.KEY_LIST_BENEFICIARY_DATA)
         }
     }
 
@@ -177,39 +190,62 @@ class EditBeneficiaryFragment :
             validateInputs()
 
             tvConfirmation.setOnSingleClickListener {
-                // ... (keep existing click logic, but now button is only enabled if valid)
-                // We can keep the manual checks inside just in case, or rely on isEnabled.
-                // Keeping them is safer for logic, but UI prevents click.
-
-                val accountNumber = iclAccountNumber.edtValue.text.toString().trim()
-                val accountName = iclAccountName.edtValue.text.toString().trim()
-                val remark = iclDefaultRemarks.edtValue.text.toString().trim()
+                // check nickname exist
                 val accountNick = iclNickName.edtValue.text.toString().trim()
+                val accountNumber = iclAccountNumber.edtValue.text.toString().trim()
 
-                val request = BeneficiaryRequest(
-                    accountNumber = accountNumber,
-                    accountName = accountName,
-                    remark = remark.trim().ifEmpty { return@ifEmpty null },
-                    accountNick = accountNick.trim().ifEmpty { return@ifEmpty null }
-                )
+                val isExist =
+                    listBeneficiary?.find { it.accountNick == accountNick && it.accountNumber != accountNumber }
 
-                if (isEdit) {
-                    // Update person
-                    beneficiary?.let { data ->
-                        request.bankCode = data.bankCode
-                        viewModel.updateBeneficiary(request)
-                    }
-                } else {
-                    // Add New person
-                    request.bankCode = selectedBank?.bankCode
-
-                    viewModel.createBeneficiary(request)
+                if (isExist == null) {
+                    // case not exist
+                    doAddOrUpdate()
+                    return@setOnSingleClickListener
                 }
+
+                BottomSheetDialogHelper(requireContext()).message(
+                    title = getString(R.string.confirmation),
+                    message = getString(
+                        R.string.nicknameAlreadyExists
+                    ),
+                    textNegative = getString(R.string.noLabel),
+                    textPositive = getString(R.string.yesLabel),
+                    positiveAction = {
+                        doAddOrUpdate()
+                    }
+                )
             }
 
             ivHome.setOnSingleClickListener {
                 popBackTo(R.id.homeFragment)
             }
+        }
+    }
+
+    private fun doAddOrUpdate() = with(binding) {
+        val accountNumber = iclAccountNumber.edtValue.text.toString().trim()
+        val accountName = iclAccountName.edtValue.text.toString().trim()
+        val remark = iclDefaultRemarks.edtValue.text.toString().trim()
+        val accountNick = iclNickName.edtValue.text.toString().trim()
+
+        val request = BeneficiaryRequest(
+            accountNumber = accountNumber,
+            accountName = accountName,
+            remark = remark.trim().ifEmpty { return@ifEmpty null },
+            accountNick = accountNick.trim().ifEmpty { return@ifEmpty null }
+        )
+
+        if (isEdit) {
+            // Update person
+            beneficiary?.let { data ->
+                request.bankCode = data.bankCode
+                viewModel.updateBeneficiary(request)
+            }
+        } else {
+            // Add New person
+            request.bankCode = selectedBank?.bankCode
+
+            viewModel.createBeneficiary(request)
         }
     }
 
@@ -411,31 +447,23 @@ class EditBeneficiaryFragment :
     }
 
     fun showSnackBarTop(text: String, isSuccess: Boolean = true) {
-        with(binding) {
-            tvToastMessage.text = text
-            llToastStatus.setBackgroundResource(if (isSuccess) R.drawable.bg_toast_change_avatar_ss else R.drawable.bg_toast_change_avatar_error)
-            tvToastMessage.setCompoundDrawablesWithIntrinsicBounds(
-                if (isSuccess) R.drawable.ic_success else R.drawable.ic_error,
-                0,
-                0,
-                0
+        context?.let { context->
+            val background=if (isSuccess) R.drawable.bg_toast_change_avatar_ss else R.drawable.bg_toast_change_avatar_error
+            val icon=if (isSuccess) R.drawable.ic_success else R.drawable.ic_error
+
+            val toast = CustomToastShowOnTop(
+                context,
+                binding.root,
+                icon = icon,
+                message = text,
+                background = background,
+                duration = TIME_SHOW_SNACK_BAR,
+                textColor = R.color.neutral1,
+                iconClose = R.color.neutral1
             )
-            llToastStatus.visible()
-            llToastStatus.animate()
-                .alpha(1f)
-                .setDuration(200)
-                .withEndAction {
-                    llToastStatus.postDelayed({
-                        llToastStatus.animate()
-                            .alpha(0f)
-                            .setDuration(300)
-                            .withEndAction {
-                                llToastStatus.visibility = View.GONE
-                            }
-                            .start()
-                    }, TIME_SHOW_SNACK_BAR)
-                }.start()
+            toast.show()
         }
+
     }
 
     private fun initTitle() {

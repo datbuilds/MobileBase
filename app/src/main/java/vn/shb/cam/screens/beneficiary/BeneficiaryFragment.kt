@@ -1,6 +1,5 @@
 package vn.shb.cam.screens.beneficiary
 
-import android.app.ProgressDialog
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
@@ -22,9 +21,9 @@ import vn.shb.cam.utils.view.dialog.BottomSheetDialogHelper
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import vn.shb.cam.databinding.LayoutProcessBarBinding
+import vn.shb.cam.utils.extensions.CustomToastShowOnTop
 import vn.shb.cam.utils.extensions.gone
 import vn.shb.cam.utils.extensions.setLatinAlphanumericFilter
 
@@ -56,7 +55,8 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
                     safeNavigate(
                         R.id.beneficiaryFragment, R.id.editBeneficiaryFragment, bundleOf(
                             ApiConst.KEY_TO_EDIT_BENEFICIARY to EditBeneficiaryFragment.EDIT,
-                            ApiConst.KEY_BENEFICIARY_DATA to item
+                            ApiConst.KEY_BENEFICIARY_DATA to item,
+                            ApiConst.KEY_LIST_BENEFICIARY_DATA to adapter.getDefaultList(),
                         )
                     )
                 }
@@ -101,10 +101,6 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
                 }
             }
 
-            ivClose.setOnSingleClickListener {
-                llToastStatus.animate().cancel()
-                llToastStatus.visibility = View.GONE
-            }
 
             setFragmentResultListener(ApiConst.KEY_RESULT_BENEFICIARY) { requestKey, bundle ->
                 val message = bundle.getString(ApiConst.KEY_MESSAGE)
@@ -154,37 +150,32 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
         safeNavigate(
             R.id.beneficiaryFragment,
             R.id.editBeneficiaryFragment,
-            bundleOf(ApiConst.KEY_TO_EDIT_BENEFICIARY to EditBeneficiaryFragment.ADD_NEW)
+            bundleOf(
+                ApiConst.KEY_TO_EDIT_BENEFICIARY to EditBeneficiaryFragment.ADD_NEW,
+                ApiConst.KEY_LIST_BENEFICIARY_DATA to adapter.getDefaultList()
+            )
         )
     }
 
     fun showToastSuccess(text: String, isSuccess: Boolean = true) {
-        with(binding) {
-            tvToastMessage.text = text
-            llToastStatus.setBackgroundResource(if (isSuccess) R.drawable.bg_toast_change_avatar_ss else R.drawable.bg_toast_change_avatar_error)
-            tvToastMessage.setCompoundDrawablesWithIntrinsicBounds(
-                if (isSuccess) R.drawable.ic_success else R.drawable.ic_error,
-                0,
-                0,
-                0
+
+        context?.let { context->
+            val background=if (isSuccess) R.drawable.bg_toast_change_avatar_ss else R.drawable.bg_toast_change_avatar_error
+            val icon=if (isSuccess) R.drawable.ic_success else R.drawable.ic_error
+
+            val toast = CustomToastShowOnTop(
+                context,
+                binding.root,
+                icon = icon,
+                message = text,
+                background = background,
+                duration = 3000,
+                textColor = R.color.neutral1,
+                iconClose = R.color.neutral1
             )
-            llToastStatus.visible()
-            llToastStatus.animate()
-                .alpha(1f)
-                .setDuration(200)
-                .withEndAction {
-                    llToastStatus.postDelayed({
-                        llToastStatus.animate()
-                            .alpha(0f)
-                            .setDuration(300)
-                            .withEndAction {
-                                llToastStatus.visibility = View.GONE
-                                llToastStatus.alpha = 1f
-                            }
-                            .start()
-                    }, 3000)
-                }.start()
+            toast.show()
         }
+
     }
 
 }
