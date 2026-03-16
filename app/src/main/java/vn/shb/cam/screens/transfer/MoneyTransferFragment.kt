@@ -7,14 +7,6 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import vn.shb.core.core.domain.source.response.AccountUserNameModel
-import vn.shb.core.core.domain.usecases.transfer.UseCaseValidateTransaction
-import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.data.entities.AccountBase
-import vn.shb.data.entities.beneficiary.Beneficiary
-import vn.shb.data.entities.home.AccountInfo
-import vn.shb.data.entities.transfer.ConfirmationModel
-import vn.shb.data.entities.transfer.TransferAccount
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.FragmentMoneyTransferBinding
@@ -28,6 +20,14 @@ import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.gone
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.extensions.visible
+import vn.shb.core.core.domain.source.response.AccountUserNameModel
+import vn.shb.core.core.domain.usecases.transfer.UseCaseValidateTransaction
+import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.AccountBase
+import vn.shb.data.entities.beneficiary.Beneficiary
+import vn.shb.data.entities.home.AccountInfo
+import vn.shb.data.entities.transfer.ConfirmationModel
+import vn.shb.data.entities.transfer.TransferAccount
 
 class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     FragmentMoneyTransferBinding::inflate
@@ -121,6 +121,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         }
     }
 
+    /*
+    xử lý khi nhập số tài khoản nhận không hợp lệ
+    * */
     private fun errorAccountNumber(value: String) {
         binding.iclToAccount.tvError.apply {
             text = value
@@ -190,6 +193,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         }
     }
 
+    /*
+    *  kiểm tra và call api kiểm tra tài khoản theo số được nhập
+    * */
     fun validateToAccount(account: String? = null) {
         with(binding) {
             val textAccountNo = account ?: iclToAccount.edtValue.text.toString()
@@ -209,6 +215,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         }
     }
 
+    /*
+    * kiểm tra và fill ra các trường khác sau khi nhập Amount
+    */
     private fun checkAmountValidate() {
         val text = binding.iclAmount.edtValue.text.toString().trim()
         checkBalanceInvalid(text)
@@ -217,6 +226,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 
     private var beneficiarySelected: Beneficiary? = null
 
+    /*
+    * hiển thị list người huởng thụ
+    * */
     private fun showListBeneficiary() {
         DialogSelectBeneficiary.Build(listBeneficiary) { selectedAccount ->
             with(binding.iclToAccount.edtValue) {
@@ -226,10 +238,12 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                     validateToAccount(selectedAccount.accountNumber)
                 }
             }
-//            homeViewModel.getAccountByNumber(selectedAccount.accountNumber ?: "")
         }.build().show(childFragmentManager, DialogSelectAccount.TAG)
     }
 
+    /*
+    *  lấy dữ liệu cho màn confirm phía sau
+    * */
     private fun getConfirmationStatus(): ConfirmationModel {
         return ConfirmationModel(
             fromAccount!!, toAccount!!, remarks, transactionDate = getDateFromCurrentDate(),
@@ -238,18 +252,26 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         )
     }
 
+    /*
+    *  xử lý khi click vào icon ở mục toAccount
+    * */
     private fun handleShowDialogSelectAccount() {
         if (!isIntrabank()) {
+            //show list tài khoản của bản thân
             DialogSelectAccount.Build(
                 homeViewModel.listReceiverActive, toAccount
             ) { selectedAccount ->
                 bindViewReceiverAccount(selectedAccount)
             }.build().show(childFragmentManager, DialogSelectAccount.TAG)
         } else {
+            // show list người  hưởng thụ
             showListBeneficiary()
         }
     }
 
+    /*
+    * nhận số tiền nhập và xử lý hiển thị các mục khác
+    * */
     private fun checkBalanceInvalid(valueBalance: String) {
         totalAmount =
             if (valueBalance.isNotBlank()) valueBalance.replace(",", "").toDouble() else 0.0
@@ -272,7 +294,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         binding.iclAmount.bindViewError(textError)
     }
 
-
+    /*
+    *  hiển thị view khi vào màn
+    * */
     private fun bindView() {
         with(binding) {
             iclToAccount.apply {
@@ -341,6 +365,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         updateStatusTransfer()
     }
 
+    /*
+    * xử lý khi click đổi type chuyển khoản
+    * */
     private fun updateViewTypeTransfer() {
         with(binding) {
             viewOptionTransfer(tvIntraBankTransfer, INTRABANK)
@@ -348,6 +375,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         }
     }
 
+    /*
+    * kiểm tra trạng thái có thể chuyển tiền được không -> cập nhật nút chuyển khoản
+    * */
     private fun updateStatusTransfer() {
         if (
             fromAccount?.accountNumber != null
@@ -364,6 +394,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         }
     }
 
+    /*
+    * update trạng thái nút chuyển khoản
+    * */
     private fun setEnableDone(isEnable: Boolean) {
         binding.tvTransferAction.apply {
             isEnabled = isEnable
@@ -371,6 +404,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         }
     }
 
+    /*
+    * nhận giá trị tài khoản gửi và update UI
+    * */
     private fun bindViewFromAccount(account: AccountBase) {
         fromAccount = account
         with(binding) {
@@ -386,6 +422,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         resetStateTransfer()
     }
 
+    /*
+    * nhận giá trị tài khoản nhận từ list tài khoản cá nhân rồi xử lý UI
+    * */
     private fun bindViewReceiverAccount(account: AccountBase) {
         with(binding) {
             iclToAccount.edtValue.setText(
@@ -404,12 +443,17 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         updateStatusTransfer()
     }
 
+
+    /*
+    * nhận giá trị tài khoản nhận từ API ( case tự nhập stk hoặc chọn từ list người hưởng thụ)
+    * xử lý UI tài khoản nhận
+    * */
     private fun bindViewReceiverAccount(userInfo: AccountUserNameModel) {
         binding.iclAccountName.apply {
             root.isVisible = true
             edtValue.setText(userInfo.customerName)
         }
-        if (beneficiarySelected?.accountNumber == userInfo.accountNumber){
+        if (beneficiarySelected?.accountNumber == userInfo.accountNumber) {
             binding.iclRemarks.edtValue.setText(beneficiarySelected?.remark)
         }
         if (userInfo.currency != fromAccount?.currencyCode) {
@@ -438,6 +482,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         updateStatusTransfer()
     }
 
+    /*
+    * reset lại trạng thái chuyển khoản của UI
+    * */
     private fun resetStateTransfer() {
         with(binding) {
             iclToAccount.apply {
@@ -470,6 +517,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 
     private fun isIntrabank() = run { currentTypeTransfer == INTRABANK }
 
+    /*
+    * update khi người dùng đổi type chuyển khoản
+    * */
     private fun onChangeTypeTransfer(type: String) {
         if (currentTypeTransfer != type) {
             currentTypeTransfer = type
@@ -478,6 +528,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         }
     }
 
+    /*
+    * update khi nhận được danh sách tài khoản cá nhân của bản thân
+    * */
     private fun updateStatusByListReceiverAccount(list: List<AccountBase>) {
         if (!isIntrabank()) {
             with(binding.iclToAccount.edtValue) {
