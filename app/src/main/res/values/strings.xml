@@ -83,6 +83,7 @@
     <string name="save">Save</string>
     <string name="setNicknameQuestion">Would you like to set a nickname for this recipient?</string>
     <string name="enterNickname">Enter nickname</string>
+    <string name="titleNickname">Nickname</string>
     <string name="setNickname">Set nickname</string>
     <string name="complete">Complete</string>
     <string name="nicknameSetSuccess">Successfully set nickname</string>
@@ -136,6 +137,7 @@
     <string name="beneficiary">Beneficiary</string>
     <string name="addNew">Add new</string>
     <string name="doYouWantToDeleteFromBeneficiary">Do you want to delete %s from beneficiary list?</string>
+    <string name="nicknameAlreadyExists">The nickname already exists. Are you sure you want to use this nickname?</string>
     <string name="beneficiaryDeletedSuccessfully">Beneficiary deleted successfully</string>
     <string name="editBeneficiary">Edit beneficiary</string>
     <string name="bank">Bank</string>
