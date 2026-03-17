@@ -1,6 +1,7 @@
 package vn.shb.cam.screens.profile
 
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import vn.shb.core.utils.extesions.setOnSingleClickListener
@@ -29,7 +30,7 @@ class ChangePasswordSuccessFragment :
     }
 
     private fun logoutAndNavigateToLogin() {
-        launchRepeatOnLifecycle {
+        lifecycleScope.launch {
             launch {
                 RefreshTokenManager.stop()
                 storage.resetToken()

@@ -83,6 +83,7 @@
     <string name="save">Lưu</string>
     <string name="setNicknameQuestion">Bạn có muốn đặt tên gợi nhớ cho người thụ hưởng này không?</string>
     <string name="enterNickname">Nhập tên gợi nhớ</string>
+    <string name="titleNickname">Tên gợi nhớ</string>
     <string name="setNickname">Đặt tên gợi nhớ</string>
     <string name="complete">Hoàn thành</string>
     <string name="nicknameSetSuccess">Đặt tên gợi nhớ thành công</string>

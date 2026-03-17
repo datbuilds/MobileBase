@@ -6,23 +6,31 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
+import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Build
+import android.text.Editable
 import android.text.Html
+import android.text.InputFilter
+import android.text.InputType
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.TextPaint
+import android.text.TextWatcher
+import android.text.method.DigitsKeyListener
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.URLSpan
 import android.view.MotionEvent
 import android.view.View
+import android.widget.EditText
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import vn.shb.cam.R
 import vn.shb.cam.utils.extensions.DateTimeHelper.Companion.isSameDay
 import java.math.BigDecimal
@@ -308,17 +316,64 @@ enum class IconState {
     NORMAL, SUCCESS, FAILURE
 }
 
-fun TextView.setLatinAlphanumericFilter(maxLength: Int, regex: String = "[a-zA-Z0-9 ]") {
-    val latinNumberFilter = android.text.InputFilter { source, start, end, dest, dstart, dend ->
-        for (i in start until end) {
-            if (!source[i].toString().matches(Regex(regex))) {
-                return@InputFilter ""
+fun EditText.setLatinAlphanumericFilter(
+    maxLength: Int = 50,
+    regex: String = "^[a-zA-Z0-9 ]*$"
+) {
+
+    val pattern = Regex(regex)
+
+    var previousText = ""
+    var isRestoring = false
+
+    addTextChangedListener(object : TextWatcher {
+
+        override fun beforeTextChanged(
+            s: CharSequence?,
+            start: Int,
+            count: Int,
+            after: Int
+        ) {
+            if (!isRestoring) {
+                previousText = s?.toString().orEmpty()
             }
         }
-        null
+
+        override fun onTextChanged(
+            s: CharSequence?,
+            start: Int,
+            before: Int,
+            count: Int
+        ) = Unit
+
+        override fun afterTextChanged(s: Editable?) {
+
+            if (isRestoring) return
+
+            val newText = s?.toString().orEmpty()
+
+            val invalid =
+                newText.length > maxLength ||
+                        !pattern.matches(newText)
+
+            if (invalid) {
+                isRestoring = true
+
+                setText(previousText)
+                setSelection(previousText.length)
+
+                isRestoring = false
+            }
+        }
+    })
+}
+
+fun TextView.setTextOrGone(value: String?) {
+    if (value.isNullOrEmpty()) {
+        this.gone()
+    } else {
+        this.isVisible = true
+        this.text = value
     }
-    filters = arrayOf(
-        android.text.InputFilter.LengthFilter(maxLength),
-        latinNumberFilter
-    )
+
 }

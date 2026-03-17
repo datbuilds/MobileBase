@@ -9,6 +9,7 @@ import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.beneficiary.Beneficiary
 import vn.shb.cam.databinding.ItemBeneficiaryBinding
 import vn.shb.cam.utils.BankType
+import vn.shb.cam.utils.extensions.setTextOrGone
 
 class BeneficiaryAdapter :
     ListAdapter<Beneficiary, BeneficiaryAdapter.BeneficiaryVH>(BankAccountDiffCallback()) {
@@ -40,9 +41,10 @@ class BeneficiaryAdapter :
         RecyclerView.ViewHolder(binding.root) {
         fun bindItem(item: Beneficiary) {
             with(binding) {
-                tvNameUser.text = item.accountName ?: ""
-                tvNumber.text = item.accountNumber ?: ""
-                tvBank.text = item.bankName ?: ""
+                tvNameUser.setTextOrGone(item.accountName)
+                tvNicknameUser.setTextOrGone(item.accountNick)
+                tvNumber.setTextOrGone(item.accountNumber)
+                tvBank.setTextOrGone(item.bankName)
                 ivLogoBank.setImageResource(BankType.getIconByCode(item.bankCode))
 
                 ivEdit.setOnSingleClickListener {
@@ -62,6 +64,8 @@ class BeneficiaryAdapter :
 
     private var originalList = listOf<Beneficiary>()
 
+    fun getDefaultList() = originalList
+
     fun submitListData(list: List<Beneficiary>?) {
         super.submitList(list)
         originalList = list ?: emptyList()
@@ -77,6 +81,7 @@ class BeneficiaryAdapter :
         val filtered = originalList.filter {
             (it.accountName ?: "").lowercase().contains(query)
                     || (it.accountNumber ?: "").contains(query)
+                    || (it.accountNick ?: "").contains(query)
                     || (it.bankName ?: "").lowercase().contains(query)
         }
 

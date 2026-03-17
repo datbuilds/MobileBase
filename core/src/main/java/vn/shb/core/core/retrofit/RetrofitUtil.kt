@@ -71,6 +71,7 @@ fun retrofit(
 ): Retrofit {
     val gson = GsonBuilder()
         .setLenient()
+        .serializeNulls()
         .create()
 
     return Retrofit.Builder()

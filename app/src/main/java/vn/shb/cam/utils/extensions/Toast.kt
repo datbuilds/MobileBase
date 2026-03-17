@@ -2,6 +2,7 @@ package vn.shb.cam.utils.extensions
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
@@ -80,14 +81,16 @@ fun Fragment.customSnackBar(
     snackbar.show()
 }
 
-@SuppressLint("RestrictedApi")
+@SuppressLint("RestrictedApi", "ResourceAsColor")
 class CustomToastShowOnTop(
     context: Context,
     view: View,
     icon: Int,
     message: String,
     background: Int = R.drawable.bg_custom_success,
-    duration: Long
+    duration: Long,
+    textColor: Int = R.color.gray_800,
+    iconClose: Int = R.color.neutral7,
 ) {
 
     private val snackBarLayout = LayoutInflater.from(context).inflate(R.layout.custom_toast, null)
@@ -103,6 +106,7 @@ class CustomToastShowOnTop(
     init {
         ivStatus?.setImageResource(icon)
         tvMessage?.text = message
+        tvMessage?.setTextColorRes(textColor)
         container?.setBackgroundResource(background)
 
         val params = WindowManager.LayoutParams()
@@ -114,6 +118,8 @@ class CustomToastShowOnTop(
         layout.layoutParams = params
         layout.removeAllViews()
         layout.addView(snackBarLayout)
+
+        ivClose?.imageTintList = ColorStateList.valueOf(context.getColorCompat(iconClose))
 
         ivClose?.setOnClickListener {
             snackBar.dismiss()

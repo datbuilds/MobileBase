@@ -1,6 +1,7 @@
 package vn.shb.core.core.domain.source.api
 
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.DELETE
 import retrofit2.http.Path
@@ -11,53 +12,59 @@ import vn.shb.core.core.domain.source.response.AccountsInfoResponse
 import vn.shb.core.core.domain.source.response.TransactionResponse
 import vn.shb.core.core.domain.source.response.UserInfoResponse
 import retrofit2.http.Body
+import retrofit2.http.HTTP
 import retrofit2.http.PUT
 import vn.shb.core.core.delivery.BaseResponse
+import vn.shb.core.core.delivery.EmptyResponse
+import vn.shb.core.core.domain.source.request.BeneficiaryRequest
 import vn.shb.core.core.domain.source.request.ChangePasswordRequest
 import vn.shb.core.core.domain.source.request.DefaultAccountRequest
+import vn.shb.core.core.domain.source.request.RemoveBeneficiaryRequest
+import vn.shb.core.core.domain.source.request.ValidateAccountRequest
 import vn.shb.core.core.domain.source.response.DefaultAccountResponse
 import vn.shb.core.core.domain.source.response.BeneficiaryResponse
+import vn.shb.core.core.domain.source.response.ChangePasswordResponse
+import vn.shb.core.core.domain.source.response.ValidateAccountResponse
 
 interface ApiUser {
     @GET(ENDPOINT.BENEFICIARIES)
-    fun getBeneficiaries(): Call<BeneficiaryResponse>
+    suspend fun getBeneficiaries(): Response<BeneficiaryResponse>
 
     @retrofit2.http.POST(ENDPOINT.BENEFICIARIES + "/validate-account")
-    fun validateAccount(@Body request: vn.shb.core.core.domain.source.request.ValidateAccountRequest): Call<vn.shb.core.core.domain.source.response.ValidateAccountResponse>
+    suspend fun validateAccount(@Body request: ValidateAccountRequest): Response<ValidateAccountResponse>
 
     @retrofit2.http.POST(ENDPOINT.BENEFICIARIES)
-    fun createBeneficiary(@Body request: vn.shb.core.core.domain.source.request.BeneficiaryRequest): Call<vn.shb.core.core.domain.source.response.BeneficiaryResponse>
+    suspend fun createBeneficiary(@Body request: BeneficiaryRequest): Response<BeneficiaryResponse>
 
-    @PUT(ENDPOINT.BENEFICIARIES + "/{id}")
-    fun updateBeneficiary(@Path("id") id: String, @Body request: vn.shb.core.core.domain.source.request.BeneficiaryRequest): Call<vn.shb.core.core.domain.source.response.BeneficiaryResponse>
+    @PUT(ENDPOINT.BENEFICIARIES )
+    suspend fun updateBeneficiary( @Body request: BeneficiaryRequest): Response<BeneficiaryResponse>
 
-    @DELETE(ENDPOINT.BENEFICIARIES + "/{id}")
-    fun deleteBeneficiary(@Path("id") id: String): Call<vn.shb.core.core.delivery.EmptyResponse>
-
+    @HTTP(method = "DELETE", path = ENDPOINT.BENEFICIARIES, hasBody = true)
+    suspend fun deleteBeneficiary(@Body request: RemoveBeneficiaryRequest): Response<EmptyResponse>
 
     @GET(ENDPOINT.BANKS)
-    fun getBanks(): Call<vn.shb.core.core.domain.source.response.BankResponse>
+    suspend fun getBanks(): Response<vn.shb.core.core.domain.source.response.BankResponse>
 
     @GET(ENDPOINT.USER_INFO)
-    fun getUserInfo(): Call<UserInfoResponse>
+    suspend fun getUserInfo(): Response<UserInfoResponse>
 
     @GET(ENDPOINT.ACCOUNTS_INFO)
-    fun getAccountsInfo(): Call<AccountsInfoResponse>
+    suspend fun getAccountsInfo(): Response<AccountsInfoResponse>
 
     @GET(ENDPOINT.ACCOUNT_DETAILS)
-    fun getAccountDetails(@Query("accountNumber") accountNumber: String): Call<AccountDetailsResponse>
+    suspend fun getAccountDetails(@Query("accountNumber") accountNumber: String): Response<AccountDetailsResponse>
 
     @GET(ENDPOINT.TRANSACTION)
-    fun getTransactions(
+    suspend fun getTransactions(
         @Query("accountNumber") accountNumber: String? = null,
         @Query("queryType") queryType: String? = null,
         @Query("fromDate") fromDate: String? = null,
         @Query("toDate") toDate: String? = null
-    ): Call<TransactionResponse>
+    ): Response<TransactionResponse>
 
     @PUT(ENDPOINT.ACCOUNTS_DEFAULT)
-    fun setDefaultAccount(@Body request: DefaultAccountRequest): Call<DefaultAccountResponse>
+    suspend fun setDefaultAccount(@Body request: DefaultAccountRequest): Response<DefaultAccountResponse>
 
     @PUT(ENDPOINT.PASSWORDS)
-    fun changePassword(@Body request: ChangePasswordRequest): Call<vn.shb.core.core.domain.source.response.ChangePasswordResponse>
+    suspend fun changePassword(@Body request: ChangePasswordRequest): Response<ChangePasswordResponse>
 }

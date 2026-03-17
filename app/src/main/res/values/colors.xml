@@ -120,6 +120,8 @@
     <color name="neutral7">#8C8C8C</color>
     <color name="neutral4">#F0F0F0</color>
     <color name="color_error_text_login">#FF4D4F</color>
+    <color name="character_danger">#FF4D4F</color>
+    <color name="bg_toast_success">#52C41A</color>
 
     //profile
     <color name="colorLineGray">#F0F0F0</color>

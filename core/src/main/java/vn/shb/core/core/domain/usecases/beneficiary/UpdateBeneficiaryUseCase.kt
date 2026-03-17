@@ -12,11 +12,10 @@ class UpdateBeneficiaryUseCase(
 ) : BaseUseCase<BeneficiaryResponse, UpdateBeneficiaryUseCase.Params>() {
 
     data class Params(
-        val id: String,
         val request: BeneficiaryRequest
     ) : UseCaseParameters
 
     override suspend fun FlowCollector<ResultSHB<BeneficiaryResponse>>.run(params: Params) {
-        emit(repository.updateBeneficiary(params.id, params.request))
+        emit(repository.updateBeneficiary(params.request))
     }
 }
