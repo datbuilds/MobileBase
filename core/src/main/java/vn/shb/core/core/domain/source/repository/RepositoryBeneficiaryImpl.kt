@@ -5,6 +5,7 @@ import vn.shb.core.core.delivery.BaseResponse
 import vn.shb.core.core.delivery.ResultSHB
 import vn.shb.core.core.delivery.reason.AppReason
 import vn.shb.core.core.domain.source.request.BeneficiaryRequest
+import vn.shb.core.core.domain.source.request.RemoveBeneficiaryRequest
 import vn.shb.core.core.domain.source.response.BeneficiaryResponse
 import vn.shb.core.core.domain.source.service.ServiceBeneficiary
 import vn.shb.core.core.domain.usecases.beneficiary.RepositoryBeneficiary
@@ -27,8 +28,8 @@ class RepositoryBeneficiaryImpl(
         }
     }
 
-    override suspend fun deleteBeneficiary(id: String): ResultSHB<ActionDone> {
-        return handleResponse(service.deleteBeneficiary(id)) {
+    override suspend fun deleteBeneficiary(request: RemoveBeneficiaryRequest): ResultSHB<ActionDone> {
+        return handleResponse(service.deleteBeneficiary(request)) {
             ActionDone
         }
     }
@@ -37,10 +38,9 @@ class RepositoryBeneficiaryImpl(
         return handleResponse(service.createBeneficiary(request)) { it }
     }
 
-    override suspend fun updateBeneficiary(
-        id: String, request: BeneficiaryRequest
+    override suspend fun updateBeneficiary(request: BeneficiaryRequest
     ): ResultSHB<BeneficiaryResponse> {
-        return handleResponse(service.updateBeneficiary(id, request)) { it }
+        return handleResponse(service.updateBeneficiary( request)) { it }
     }
 
     override suspend fun validateAccount(request: vn.shb.core.core.domain.source.request.ValidateAccountRequest): ResultSHB<vn.shb.core.core.domain.source.response.ValidateAccountResponse> {

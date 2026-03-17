@@ -21,6 +21,7 @@ import vn.shb.cam.screens.beneficiary.BeneficiaryViewModel
 import vn.shb.cam.screens.transaction.DialogSetNickname
 import vn.shb.cam.utils.ApiConst
 import vn.shb.cam.utils.extensions.CACHE_IMAGE_FILE_NAME
+import vn.shb.cam.utils.extensions.CustomToastShowOnTop
 import vn.shb.cam.utils.extensions.DateTimeHelper
 import vn.shb.cam.utils.extensions.cacheBitmap
 import vn.shb.cam.utils.extensions.common.Const
@@ -262,55 +263,67 @@ class PaymentTransferFragment :
         with(beneficiaryViewModel) {
             launchRepeatOnLifecycle {
                 launch {
-                    stateAction.collectLatest { success ->
+                    stateAction.collect{ success ->
                         if (success == true) {
                             showToastSuccess(getString(R.string.successfullySetNickname), true)
-                            beneficiaryViewModel.resetActionState()
-                        } else if (success == false) {
-                            beneficiaryViewModel.resetActionState()
                         }
                     }
                 }
-
-                stateError.collectLatest {
-                    showToastSuccess(it.errMessage, false)
-                    beneficiaryViewModel.resetActionState()
+                launch {
+                    stateError.collect {
+                        showToastSuccess(it.errMessage, false)
 //                    handleErrorHome(it)
+                    }
                 }
             }
         }
     }
 
     fun showToastSuccess(text: String, isSuccess: Boolean = true) {
-        with(binding) {
-            launchRepeatOnLifecycle {
-                tvToastMessage.text = text
-                llToastStatus.setBackgroundResource(if (isSuccess) R.drawable.bg_toast_change_avatar_ss else R.drawable.bg_toast_change_avatar_error)
-                tvToastMessage.setCompoundDrawablesWithIntrinsicBounds(
-                    if (isSuccess) R.drawable.ic_success else R.drawable.ic_error,
-                    0,
-                    0,
-                    0
-                )
-                llToastStatus.visible()
-                llToastStatus.animate()
-                    .alpha(1f)
-                    .setDuration(200)
-                    .withEndAction {
-                        llToastStatus.postDelayed({
-                            llToastStatus.animate()
-                                .alpha(0f)
-                                .setDuration(300)
-                                .withEndAction {
-                                    llToastStatus.visibility = View.GONE
-                                    llToastStatus.alpha = 1f
-                                }
-                                .start()
-                        }, 3000)
-                    }
-                    .start()
-            }
+        context?.let { context->
+            val background=if (isSuccess) R.drawable.bg_toast_change_avatar_ss else R.drawable.bg_toast_change_avatar_error
+            val icon=if (isSuccess) R.drawable.ic_success else R.drawable.ic_error
+
+            val toast = CustomToastShowOnTop(
+                context,
+                binding.root,
+                icon = icon,
+                message = text,
+                background = background,
+                duration = 3000,
+                textColor = R.color.neutral1,
+                iconClose = R.color.neutral1
+            )
+            toast.show()
         }
+//
+//        with(binding) {
+//            tvToastMessage.text = text
+//            llToastStatus.setBackgroundResource(if (isSuccess) R.drawable.bg_toast_change_avatar_ss else R.drawable.bg_toast_change_avatar_error)
+//            tvToastMessage.setCompoundDrawablesWithIntrinsicBounds(
+//                if (isSuccess) R.drawable.ic_success else R.drawable.ic_error,
+//                0,
+//                0,
+//                0
+//            )
+//            llToastStatus.visible()
+//            llToastStatus.animate()
+//                .alpha(1f)
+//                .setDuration(200)
+//                .withEndAction {
+//                    llToastStatus.postDelayed({
+//                        llToastStatus.animate()
+//                            .alpha(0f)
+//                            .setDuration(300)
+//                            .withEndAction {
+//                                llToastStatus.visibility = View.GONE
+//                                llToastStatus.alpha = 1f
+//                            }
+//                            .start()
+//                    }, 3000)
+//                }
+//                .start()
+//        }
     }
 
     private fun bindButtonNewTransaction(
