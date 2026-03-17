@@ -155,13 +155,17 @@ class PaymentTransferFragment :
             }
 
             iclExchangeRate.apply {
-                tvLabel.text = getString(R.string.exchangeRate)
-                tvValue.setExchangeRateText(
-                    "1",
-                    trans.ccyCdSrc,
-                    trans.rate.toPlainString(),
-                    trans.ccyCdDst
-                )
+                if (trans.ccyCdDst != trans.ccyCdSrc){
+                    tvLabel.text = getString(R.string.exchangeRate)
+                    tvValue.setExchangeRateText(
+                        "1",
+                        trans.ccyCdSrc,
+                        trans.rate.toPlainString(),
+                        trans.ccyCdDst
+                    )
+                } else {
+                    root.gone()
+                }
             }
 
             // Show save recipient logic
