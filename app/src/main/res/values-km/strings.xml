@@ -91,7 +91,7 @@
     <string name="invalidSelectedDate">កាលបរិច្ឆេទដែលបានជ្រើសរើសមិនត្រឹមត្រូវ</string>
     <string name="pleaseEnterUsername">សូមបញ្ចូលឈ្មោះអ្នកប្រើប្រាស់</string>
     <string name="pleaseEnterPassword">សូមបញ្ចូលលេខកូដសម្ងាត់</string>
-    <string name="loginFailed5Times">លលោកអ្នកបានបញ្ចូលលេខសម្ងាត់ខុសលើសពី ៥ ដង។ សូមព្យាយាមម្ដងទៀតក្នុងរយៈពេល %s នាទីបន្ទាប់។</string>
+    <string name="loginFailed5Times">លោកអ្នកបានបញ្ចូលលេខសម្ងាត់ខុសលើសពី 5 ដង។ សូមព្យាយាមម្ដងទៀតក្នុងរយៈពេល %s នាទីបន្ទាប់។</string>
     <string name="currentBalance">សមតុល្យប្រើបាន</string>
     <string name="show">បង្ហាញ</string>
     <string name="myProfile">កម្រងព័ត៌មានរបស់ខ្ញុំ</string>
