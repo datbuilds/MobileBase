@@ -91,7 +91,7 @@
     <string name="invalidSelectedDate">Invalid selected date</string>
     <string name="pleaseEnterUsername">Please enter your username</string>
     <string name="pleaseEnterPassword">Please enter your password</string>
-    <string name="pleaseTryAgainIn">Please try again in</string>
+    <string name="loginFailed5Times">You have exceeded 5 failed login attempts. Please try again in %s minutes.</string>
     <string name="currentBalance">Current balance</string>
     <string name="show">Show</string>
     <string name="myProfile">My Profile</string>
@@ -157,7 +157,7 @@
     <string name="password_rule_username">Does not contain the username or the user\'s real name</string>
     <string name="re_enter_new_password">Re-enter new password</string>
     <string name="hint_re_enter_new_password">Re-enter new password</string>
-    <string name="change_password_success">Change password successfully</string>
+    <string name="change_password_success">Change password successfully !</string>
     <string name="change_password_success_message">Please log in again to continue using the application</string>
     <string name="error_current_password_incorrect">The current password is incorrect, please try again</string>
     <string name="error_passwords_do_not_match">Passwords do not match</string>
@@ -210,5 +210,5 @@
     <string name="language">Language</string>
     <string name="listBranchTransactionPoint">List branch/transaction point</string>
     <string name="register_device_other">New device verification</string>
-    <string name="listAccount">List Account</string>
+    <string name="listAccount">Account List</string>
 </resources>

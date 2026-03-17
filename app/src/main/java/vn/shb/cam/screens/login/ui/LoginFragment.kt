@@ -522,15 +522,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             nextDashboard()
         }
     }
-/*
-    private fun maskPhoneNumber(phone: String?): String {
-        if (phone.isNullOrEmpty()) return ""
-        val length = phone.length
-        if (length < 7) return phone
-        val start = phone.take(3)
-        val end = phone.substring(length - 2)
-        return "$start*****$end"
-    }*/
 
     fun updateLanguage(type: String) {
         context?.let { ct ->

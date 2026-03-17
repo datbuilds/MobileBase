@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="personalInternetBanking">NGÂN HÀNG TRỰC TUYẾN CÁ NHÂN</string>
-    <string name="enterYourDetailToSignIn">Vui lòng nhập thông tin để đăng nhậpm</string>
+    <string name="enterYourDetailToSignIn">Vui lòng nhập thông tin để đăng nhập</string>
     <string name="userName">Tên đăng nhập</string>
     <string name="enterYourUserName">Nhập tên tài khoản của bạn</string>
     <string name="password">Mật khẩu</string>
     <string name="enterPassword">Nhập mật khẩu</string>
     <string name="forgotPassword">Quên mật khẩu ?</string>
     <string name="login">Đăng nhập</string>
-    <string name="goodMorning">Chào buổi sáng,</string>
-    <string name="goodAfternoon">Chào buổi chiều,</string>
-    <string name="goodnight">Chào buổi tối,</string>
+    <string name="goodMorning">Chào buổi sáng</string>
+    <string name="goodAfternoon">Chào buổi chiều</string>
+    <string name="goodnight">Chào buổi tối</string>
     <string name="welcome">Xin chào !</string>
     <string name="notification">Thông báo</string>
     <string name="incorrectUsernameOrPassword">Tên đăng nhập hoặc mật khẩu không đúng. Vui lòng thử lại.</string>
@@ -91,7 +91,7 @@
     <string name="invalidSelectedDate">Ngày được chọn không hợp lệ</string>
     <string name="pleaseEnterUsername">Vui lòng nhập tên đăng nhập của Quý khách</string>
     <string name="pleaseEnterPassword">Vui lòng nhập mật khẩu</string>
-    <string name="pleaseTryAgainIn">Vui lòng thử lại sau</string>
+    <string name="loginFailed5Times">Quý khách đã nhập sai quá 5 lần. Vui lòng thử lại sau %s phút.</string>
     <string name="currentBalance">Số dư khả dụng</string>
     <string name="show">Hiện</string>
     <string name="myProfile">Hồ sơ của tôi</string>
@@ -148,15 +148,15 @@
     <string name="new_password">Mật khẩu mới</string>
     <string name="enter_new_password">Nhập mật khẩu mới</string>
     <string name="password_rule_length">Độ dài 8-20 ký tự</string>
-    <string name="password_rule_case">Mật khẩu phải chứa ít nhất một chữ cái viết hoa.</string>
+    <string name="password_rule_case">Mật khẩu phải chứa ít nhất một chữ cái viết hoa</string>
     <string name="password_rule_special">Mật khẩu phải chứa ít nhất 1 chữ số và 1 ký tự đặc biệt .~!@#$\%^&amp;*()_+={}|:;&lt;&gt;,/?-</string>
     <string name="remark_default_value">%s CHUYEN TIEN</string>
     <string name="hint_select_bank">Chọn ngân hàng</string>
     <string name="hint_enter_account_name">Nhập tên tài khoản</string>
-    <string name="password_rule_username">Mật khẩu không được chứa tên đăng nhập hoặc tên thật của người dùng.</string>
+    <string name="password_rule_username">Mật khẩu không được chứa tên đăng nhập hoặc tên thật của người dùng</string>
     <string name="re_enter_new_password">Nhập lại mật khẩu mới</string>
     <string name="hint_re_enter_new_password">Nhập lại mật khẩu mới</string>
-    <string name="change_password_success">Đổi mật khẩu thành công</string>
+    <string name="change_password_success">Đổi mật khẩu thành công !</string>
     <string name="change_password_success_message">Vui lòng đăng nhập lại để tiếp tục sử dụng ứng dụng</string>
     <string name="error_current_password_incorrect">Mật khẩu hiện tại không đúng, vui lòng thử lại</string>
     <string name="error_passwords_do_not_match">Mật khẩu nhập lại không khớp</string>
@@ -197,12 +197,12 @@
     <string name="remaining_time">Thời gian còn lại %s giây</string>
     <string name="otp_incorrect_message">Mã OTP không chính xác. Vui lòng kiểm tra lại.</string>
     <string name="confirmLabel">Xác nhận</string>
-    <string name="theOtpExpired">Mã OTP đã hết hạn</string>
+    <string name="theOtpExpired">Mã OTP đã hết hạn. Vui lòng lấy mã mới.</string>
     <string name="resendOtp">Gửi lại mã OTP</string>
     <string name="theNewPassMustNotMatchOldPass">Mật khẩu mới không được trùng với 4 mật khẩu gần nhất</string>
     <string name="otpIncorrectly5Times">Bạn đã nhập sai mã OTP 5 lần. Vui lòng thử lại sau %s phút</string>
     <string name="requestOtpMore5Times">Quý khách đã vượt quá số lần yêu cầu mã OTP (5 lần). Vui lòng quay lại sau %s.</string>
-    <string name="newDeviceVerificial">Quý khách đang đăng nhập vào SHB Saha Cambodia trên một thiết bị mới. Vui lòng xác thực bằng mã OTP được gửi tới số điện thoại 023*12 để tiếp tục sử dụng dịch vụ. Đây có phải là số điện thoại của Quý khách không?</string>
+    <string name="newDeviceVerificial">Quý khách đang đăng nhập vào SHB Saha Cambodia trên một thiết bị mới. Vui lòng xác thực bằng mã OTP được gửi tới số điện thoại %s để tiếp tục sử dụng dịch vụ. Đây có phải là số điện thoại của Quý khách không?</string>
     <string name="goToBranch">Đến chi nhánh</string>
     <string name="getSupportForChanging">Quý khách vui lòng đến chi nhánh hoặc điểm giao dịch SHB Chi nhánh Campuchia gần nhất để được hỗ trợ đăng ký/thay đổi số điện thoại.</string>
     <string name="language">Ngôn ngữ</string>

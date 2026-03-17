@@ -29,7 +29,7 @@ class AccountDetailFragment :
 
     override fun onResume() {
         super.onResume()
-        homeViewModel.getTake5Transaction(requireContext())
+//        homeViewModel.getTake5Transaction(requireContext())
         homeViewModel.getAccountDetails()
     }
 
