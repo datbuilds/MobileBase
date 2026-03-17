@@ -12,6 +12,7 @@ import vn.shb.cam.databinding.FragmentTransactionDetailBinding
 import vn.shb.cam.screens.beneficiary.BeneficiaryViewModel
 import vn.shb.cam.screens.transaction.DialogSetNickname
 import vn.shb.cam.utils.ApiConst
+import vn.shb.cam.utils.BankType
 import vn.shb.cam.utils.extensions.CACHE_IMAGE_FILE_NAME
 import vn.shb.cam.utils.extensions.CustomToastShowOnTop
 import vn.shb.cam.utils.extensions.DateTimeHelper
@@ -155,7 +156,7 @@ class PaymentTransferFragment :
             }
 
             iclExchangeRate.apply {
-                if (trans.ccyCdDst != trans.ccyCdSrc){
+                if (trans.ccyCdDst != trans.ccyCdSrc) {
                     tvLabel.text = getString(R.string.exchangeRate)
                     tvValue.setExchangeRateText(
                         "1",
@@ -196,8 +197,7 @@ class PaymentTransferFragment :
             }
 
             rlSaveRecipient.setOnSingleClickListener {
-                val toAccount = homeViewModel.confirmModel?.toAccount
-                DialogSetNickname(toAccount?.customerName ?: "") { nickname ->
+                DialogSetNickname { nickname ->
                     if (listBeneficiary.any { it.accountNick == nickname }) {
                         showDialogAlreadyNickname {
                             createBeneficiary(nickname)
@@ -227,13 +227,14 @@ class PaymentTransferFragment :
     private fun createBeneficiary(nickname: String) {
         if (accountNo != null) {
             val user = homeViewModel.getCurrentUserInfo()
+            val toAccount = homeViewModel.confirmModel?.toAccount
             val request = BeneficiaryRequest(
-                accountNumber = transactionDetails?.benAccount ?: "",
-                accountName = transactionDetails?.accountName ?: "",
+                accountNumber = toAccount?.accountNumber ?: "",
+                accountName = toAccount?.customerName ?: transactionDetails?.accountName ?: "",
                 accountNick = nickname,
                 remark = (user?.customerName ?: "").plus(Const.SEPARATOR_SPACE)
                     .plus(getString(R.string.transferCAP)),
-                bankCode = "SHB"
+                bankCode = BankType.SHB.code
             )
             beneficiaryViewModel.createBeneficiary(request, false)
             binding.rlSaveRecipient.gone()

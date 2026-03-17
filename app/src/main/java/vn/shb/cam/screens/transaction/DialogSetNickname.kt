@@ -7,7 +7,6 @@ import vn.shb.cam.utils.extensions.setLatinAlphanumericFilter
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 
 class DialogSetNickname(
-    private val defaultNickname: String = "",
     private val includeNickname: (String) -> Unit
 ) : BaseBottomDialogBinding<DialogSetNicknameBinding>(DialogSetNicknameBinding::inflate) {
 
