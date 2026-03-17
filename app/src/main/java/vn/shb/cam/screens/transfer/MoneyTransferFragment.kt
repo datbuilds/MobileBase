@@ -283,7 +283,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     * hiển thị list người huởng thụ
     * */
     private fun showListBeneficiary() {
-        DialogSelectBeneficiary.Build(listBeneficiary) { selectedAccount ->
+        DialogSelectBeneficiary.Build(listBeneficiary, beneficiarySelected) { selectedAccount ->
             with(binding.iclToAccount.edtValue) {
                 if (this.text.toString() != selectedAccount.accountNumber) {
                     beneficiarySelected = selectedAccount

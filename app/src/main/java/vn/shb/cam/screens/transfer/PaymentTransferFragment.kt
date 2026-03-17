@@ -1,20 +1,12 @@
 package vn.shb.cam.screens.transfer
 
-import android.graphics.Typeface
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.RelativeSizeSpan
-import android.text.style.StyleSpan
-import android.text.style.SuperscriptSpan
 import android.view.View
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
-import vn.shb.cam.base.view.MyTextView
 import vn.shb.cam.databinding.ChildViewTransactionInfoBinding
 import vn.shb.cam.databinding.FragmentTransactionDetailBinding
 import vn.shb.cam.screens.beneficiary.BeneficiaryViewModel
@@ -55,6 +47,8 @@ class PaymentTransferFragment :
     private val isConfirmError by lazy {
         arguments?.getBoolean(ApiConst.KEY_CONFIRM_ERROR) == true
     }
+
+    private var transactionDetails: TransactionDetail? = null
 
     override fun initView(view: View) {
         bindViewPayment()
@@ -104,6 +98,7 @@ class PaymentTransferFragment :
     }
 
     private fun setupView(trans: TransactionDetail) {
+        transactionDetails = trans
         with(binding) {
             ivStatus.visible()
             tvTransactionAmount.visible()
@@ -198,8 +193,9 @@ class PaymentTransferFragment :
                     if (accountNo != null) {
                         val user = homeViewModel.getCurrentUserInfo()
                         val request = BeneficiaryRequest(
-                            accountNumber = toAccount?.accountNumber ?: "",
-                            accountName = nickname,
+                            accountNumber = transactionDetails?.benAccount ?: "",
+                            accountName = transactionDetails?.accountName ?: "",
+                            accountNick = nickname,
                             remark = (user?.customerName ?: "").plus(Const.SEPARATOR_SPACE)
                                 .plus(getString(R.string.transferCAP)),
                             bankCode = "SHB"
@@ -263,7 +259,7 @@ class PaymentTransferFragment :
         with(beneficiaryViewModel) {
             launchRepeatOnLifecycle {
                 launch {
-                    stateAction.collect{ success ->
+                    stateAction.collect { success ->
                         if (success == true) {
                             showToastSuccess(getString(R.string.successfullySetNickname), true)
                         }
@@ -280,9 +276,10 @@ class PaymentTransferFragment :
     }
 
     fun showToastSuccess(text: String, isSuccess: Boolean = true) {
-        context?.let { context->
-            val background=if (isSuccess) R.drawable.bg_toast_change_avatar_ss else R.drawable.bg_toast_change_avatar_error
-            val icon=if (isSuccess) R.drawable.ic_success else R.drawable.ic_error
+        context?.let { context ->
+            val background =
+                if (isSuccess) R.drawable.bg_toast_change_avatar_ss else R.drawable.bg_toast_change_avatar_error
+            val icon = if (isSuccess) R.drawable.ic_success else R.drawable.ic_error
 
             val toast = CustomToastShowOnTop(
                 context,
