@@ -24,10 +24,12 @@ import vn.shb.cam.utils.extensions.setExchangeRateText
 import vn.shb.cam.utils.extensions.shareImage
 import vn.shb.cam.utils.extensions.toBitmap
 import vn.shb.cam.utils.extensions.visible
+import vn.shb.cam.utils.view.dialog.BottomSheetDialogHelper
 import vn.shb.core.core.delivery.reason.AppReason
 import vn.shb.core.core.domain.source.request.BeneficiaryRequest
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionDetail
 import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.beneficiary.Beneficiary
 import vn.shb.data.entities.getBalance
 import vn.shb.data.entities.home.TransactionDetail
 
@@ -49,9 +51,11 @@ class PaymentTransferFragment :
     }
 
     private var transactionDetails: TransactionDetail? = null
+    private var listBeneficiary: List<Beneficiary> = arrayListOf()
 
     override fun initView(view: View) {
         bindViewPayment()
+        beneficiaryViewModel.getAllBeneficiary()
         val confirmSuccess = homeViewModel.confirmSuccessData
         if (confirmSuccess?.refNo != null && accountNo != null && confirmSuccess.status == ApiConst.SUCCESS && !isConfirmError) {
             homeViewModel.getTransactionDetail(
@@ -190,21 +194,45 @@ class PaymentTransferFragment :
             rlSaveRecipient.setOnSingleClickListener {
                 val toAccount = homeViewModel.confirmModel?.toAccount
                 DialogSetNickname(toAccount?.customerName ?: "") { nickname ->
-                    if (accountNo != null) {
-                        val user = homeViewModel.getCurrentUserInfo()
-                        val request = BeneficiaryRequest(
-                            accountNumber = transactionDetails?.benAccount ?: "",
-                            accountName = transactionDetails?.accountName ?: "",
-                            accountNick = nickname,
-                            remark = (user?.customerName ?: "").plus(Const.SEPARATOR_SPACE)
-                                .plus(getString(R.string.transferCAP)),
-                            bankCode = "SHB"
-                        )
-                        beneficiaryViewModel.createBeneficiary(request, false)
-                        binding.rlSaveRecipient.gone()
+                    if (listBeneficiary.any { it.accountNick == nickname }) {
+                        showDialogAlreadyNickname {
+                            createBeneficiary(nickname)
+                        }
+                    } else {
+                        createBeneficiary(nickname)
                     }
                 }.show(childFragmentManager, DialogSetNickname.TAG)
             }
+        }
+    }
+
+    private fun showDialogAlreadyNickname(update: () -> Unit) {
+        BottomSheetDialogHelper(requireContext()).message(
+            title = getString(R.string.confirmation),
+            message = getString(
+                R.string.nicknameAlreadyExists
+            ),
+            textNegative = getString(R.string.noLabel),
+            textPositive = getString(R.string.yesLabel),
+            positiveAction = {
+                update.invoke()
+            }
+        )
+    }
+
+    private fun createBeneficiary(nickname: String) {
+        if (accountNo != null) {
+            val user = homeViewModel.getCurrentUserInfo()
+            val request = BeneficiaryRequest(
+                accountNumber = transactionDetails?.benAccount ?: "",
+                accountName = transactionDetails?.accountName ?: "",
+                accountNick = nickname,
+                remark = (user?.customerName ?: "").plus(Const.SEPARATOR_SPACE)
+                    .plus(getString(R.string.transferCAP)),
+                bankCode = "SHB"
+            )
+            beneficiaryViewModel.createBeneficiary(request, false)
+            binding.rlSaveRecipient.gone()
         }
     }
 
@@ -269,6 +297,12 @@ class PaymentTransferFragment :
                     stateError.collect {
                         showToastSuccess(it.errMessage, false)
 //                    handleErrorHome(it)
+                    }
+                }
+
+                launch {
+                    localBeneficiaries.collect {
+                        listBeneficiary = it
                     }
                 }
             }
