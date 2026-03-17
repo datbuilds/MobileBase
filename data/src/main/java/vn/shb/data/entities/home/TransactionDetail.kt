@@ -14,7 +14,7 @@ data class TransactionDetail(
     @SerializedName("amount") val amount: Double = 0.0,
     @SerializedName("remarks") val remarks: String = "",
     @SerializedName("currency") val currency: String = "",
-    @SerializedName("accountName") val accountName: String = "",
+    @SerializedName("accountName") val accountName: String? = "",
     @SerializedName("ccyCdSrc") val ccyCdSrc: String = "",
     @SerializedName("ccyCdDst") val ccyCdDst: String = "",
     @SerializedName("hasBeneficiary") val hasBeneficiary: Boolean = false,

@@ -144,11 +144,11 @@ class PaymentTransferFragment :
                 getString(R.string.referenceNumber),
                 trans.refNo
             )
-            if (isIntrabank) {
+            if (isIntrabank && trans.accountName != null) {
                 iclAccountName.root.visible()
                 iclAccountName.bindView(
                     getString(R.string.accountName),
-                    trans.accountName
+                    trans.accountName!!
                 )
             } else {
                 iclAccountName.root.gone()

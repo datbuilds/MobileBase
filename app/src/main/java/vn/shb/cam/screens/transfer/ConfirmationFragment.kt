@@ -123,13 +123,13 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                             homeViewModel.confirmSuccessData = it
                             safeNavigate(
                                 R.id.confirmationFragment, R.id.paymentTransferFragment,
-                                bundle =
-                                    bundleOf(
-                                        ApiConst.KEY_ACCOUNT_NO_TRANSACTION to confirmModel!!.fromAccount.accountNumber,
-                                        ApiConst.KEY_TYPE_TRANSFER_INTRABANK to isIntrabank
-                                    )
+                                bundle = bundleOf(
+                                    ApiConst.KEY_ACCOUNT_NO_TRANSACTION to confirmModel!!.fromAccount.accountNumber,
+                                    ApiConst.KEY_TYPE_TRANSFER_INTRABANK to isIntrabank
+                                )
                             )
                         }
+                        confirmDeviceView.hide()
                     }
                 }
 
