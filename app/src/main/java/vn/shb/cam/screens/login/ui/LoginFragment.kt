@@ -363,6 +363,10 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                             val (_, encPsw) = getPassword()
                             loginViewModel.registerDevice(accountLogin, encPsw)
                         },
+
+                        onFinishCB = {
+                            hideSoftKeyboard()
+                        },
                         onClose = {
                             // Handle close
                         }
