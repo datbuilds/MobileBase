@@ -36,7 +36,7 @@ class BSAiResult(private val builder: Builder) :
     override fun initView(view: View) {
         isCancelable = false
         with(binding) {
-            val bank = builder.result.beneficiaryBank
+            val bank = builder.result.shortName
                 ?.takeIf { it.isNotBlank() }
                 ?: EMPTY_VALUE
             val account = builder.result.accountNum
