@@ -34,6 +34,14 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
 
+        <action
+            android:id="@+id/action_homeFragment_to_pastePayFragment"
+            app:destination="@id/pastePayFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
     </fragment>
 
     <fragment
@@ -130,6 +138,11 @@
         android:id="@+id/beneficiaryFragment"
         android:name="vn.shb.cam.screens.beneficiary.BeneficiaryFragment"
         android:label="@string/beneficiary" />
+
+    <fragment
+        android:id="@+id/pastePayFragment"
+        android:name="vn.shb.cam.screens.paste2pay.Paste2PayFragment"
+        android:label="@string/chatpay" />
 
     <fragment
         android:id="@+id/editBeneficiaryFragment"

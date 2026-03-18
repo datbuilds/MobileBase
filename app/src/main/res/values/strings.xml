@@ -135,6 +135,7 @@
     <string name="enterRemarks">Enter remarks</string>
     <string name="transactionSuccess">Transaction successful !</string>
     <string name="beneficiary">Beneficiary</string>
+    <string name="chatpay">Paste2Pay</string>
     <string name="addNew">Add new</string>
     <string name="doYouWantToDeleteFromBeneficiary">Do you want to delete %s from beneficiary list?</string>
     <string name="nicknameAlreadyExists">The nickname already exists. Are you sure you want to use this nickname?</string>

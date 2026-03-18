@@ -19,6 +19,7 @@ import vn.shb.cam.utils.extensions.DateTimeHelper.Companion.getDateFromCurrentDa
 import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.gone
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
+import vn.shb.cam.utils.extensions.serializable
 import vn.shb.cam.utils.extensions.visible
 import vn.shb.core.core.domain.source.response.AccountUserNameModel
 import vn.shb.core.core.domain.usecases.transfer.UseCaseValidateTransaction
@@ -28,6 +29,7 @@ import vn.shb.data.entities.beneficiary.Beneficiary
 import vn.shb.data.entities.home.AccountInfo
 import vn.shb.data.entities.transfer.ConfirmationModel
 import vn.shb.data.entities.transfer.TransferAccount
+import vn.shb.core.core.domain.source.response.AiPayResult
 
 class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     FragmentMoneyTransferBinding::inflate
@@ -38,6 +40,10 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 
     private var fromAccount: AccountBase? = null
     private var toAccount: AccountBase? = null
+
+    private var aiPayResult: AiPayResult? = null
+    private var isAiPrefilledContent = false
+    private var isAiPrefilledAccount = false
 
     private var totalAmount: Double = 0.0
     var remarks = ""
@@ -63,6 +69,10 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         resetStateTransfer()
         beneficiaryViewModel.getAllBeneficiary()
         beneficiaryViewModel.getBanks()
+
+        if (arguments?.containsKey(ApiConst.KEY_TYPE_TRANSFER_DATA) == true) {
+            aiPayResult = arguments?.serializable(ApiConst.KEY_TYPE_TRANSFER_DATA)
+        }
     }
 
     override fun onResume() {
