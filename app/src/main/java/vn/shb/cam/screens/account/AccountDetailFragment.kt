@@ -64,7 +64,7 @@ class AccountDetailFragment :
                 ) { ac ->
                     homeViewModel.selectedAccount = ac
                     homeViewModel.getAccountDetails(ac.accountNumber)
-                    homeViewModel.getTake5Transaction(requireContext())
+//                    homeViewModel.getTake5Transaction(requireContext())
                 }.build().show(childFragmentManager, DialogSelectAccount.TAG)
             }
             swDefaultCasa.setOnCheckedChangeListener { _, isChecked ->
