@@ -31,6 +31,7 @@ import vn.shb.cam.screens.login.state.LogoutUiState
 import vn.shb.cam.screens.login.ui.LoginViewModel
 import vn.shb.cam.screens.login.ui.widget.setDisableAlpha
 import vn.shb.cam.utils.extensions.common.Const
+import vn.shb.cam.utils.extensions.gone
 import vn.shb.cam.utils.extensions.hideProgressDialog
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.extensions.returnActivity
@@ -110,7 +111,8 @@ class ProfileFragment :
             val defaultAccount = getNameAccountDefault(user.defaultAcct)
             iclInfo3.bind(getString(R.string.defaultCasaAccount), defaultAccount)
             iclInfo4.bind(getString(R.string.email), user.email)
-            iclInfo5.bind(getString(R.string.shbOnline), user.authMethodName)
+//            iclInfo5.bind(getString(R.string.shbOnline), user.authMethodName)
+            iclInfo5.root.gone()
             iclInfo6.bind(getString(R.string.userName), user.username)
         }
 

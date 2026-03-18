@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name_choose">choosePhotoHelper</string>
+    <string name="pick_photo_rationale">Vui lòng bật quyền Camera trong Cài đặt để sử dụng tính năng này.</string>
+    <string name="action_close">Đóng</string>
+    <string name="action_setting">Mở Cài đặt</string>
+</resources>

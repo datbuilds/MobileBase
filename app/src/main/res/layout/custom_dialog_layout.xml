@@ -13,6 +13,7 @@
         android:id="@+id/ivCloseDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:foreground="@drawable/ripple_grey_circle"
         android:layout_gravity="end"
         android:layout_marginEnd="@dimen/margin_16dp"
         android:padding="@dimen/margin_8dp"
@@ -56,6 +57,7 @@
             android:id="@+id/button_negative"
             style="@style/MaterialDialog.NegativeButton"
             android:layout_width="0dp"
+            android:foreground="@drawable/ripple_grey_rec"
             android:layout_height="wrap_content"
             android:layout_weight="5"
             android:text="@string/cancel" />
@@ -69,6 +71,7 @@
         <vn.shb.cam.base.view.MyTextView
             android:id="@+id/button_positive"
             style="@style/MaterialDialog.PositiveButton"
+            android:foreground="@drawable/ripple_grey_rec"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="5"

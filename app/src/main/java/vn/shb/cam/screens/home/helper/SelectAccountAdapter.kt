@@ -21,6 +21,7 @@ import vn.shb.cam.utils.extensions.visible
 
 class SelectAccountAdapter(
     private val items: List<AccountBase>,
+    val isCanSelect : Boolean = true,
     private val onClickAccount: (AccountBase) -> Unit
 ) : RecyclerView.Adapter<SelectAccountAdapter.AccountBaseViewHolder>() {
 
@@ -48,7 +49,7 @@ class SelectAccountAdapter(
                 accountItem.getAvailableBalance(),
                 " ${accountItem.currencyCode}"
             )
-            if (accountItem.isSelected()) {
+            if (accountItem.isSelected() && isCanSelect) {
                 root.setBackgroundResource(R.drawable.bg_selected_account)
                 ivSelectAccount.visible()
                 viewLineAccount.gone()
@@ -58,11 +59,13 @@ class SelectAccountAdapter(
                 viewLineAccount.visible()
             }
             root.setOnSingleClickListener {
-                items.forEach {
-                    it.setSelected(it.accountNumber == accountItem.accountNumber)
+                if (isCanSelect){
+                    items.forEach {
+                        it.setSelected(it.accountNumber == accountItem.accountNumber)
+                    }
+                    notifyDataSetChanged()
+                    onClickAccount.invoke(accountItem)
                 }
-                notifyDataSetChanged()
-                onClickAccount.invoke(accountItem)
             }
         }
     }

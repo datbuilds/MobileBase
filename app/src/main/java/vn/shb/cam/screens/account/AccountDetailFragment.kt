@@ -84,8 +84,8 @@ class AccountDetailFragment :
         val defaultAccount = homeViewModel.stateUserInfo.value?.defaultAcct
         account?.let {
             binding.apply {
-                tvValueBalance.text =
-                    "${accountDetails.getAvailableBalance()} ${accountDetails.currencyCode}"
+                tvValueBalance.text = accountDetails.getAvailableBalance()
+                tvCurrencyBalance.text = accountDetails.currencyCode
                 tvNumberAccount.text = accountDetails.accountNumber
                 tvNameBranch.text = accountDetails.positionDescription
 

@@ -1,33 +1,32 @@
 <resources>
 
     <string name="personalInternetBanking">Personal Internet Banking</string>
-    <string name="enterYourDetailToSignIn">Enter your details to sign in</string>
-    <string name="userName">User name</string>
+    <string name="enterYourDetailToSignIn">Enter your detail to sign in</string>
+    <string name="userName">Username</string>
     <string name="enterYourUserName">Enter Your Username</string>
     <string name="password">Password</string>
     <string name="enterPassword">Enter Password</string>
-    <string name="forgotPassword">Forgot Password?</string>
+    <string name="forgotPassword">Forgot Password ?</string>
     <string name="login">Login</string>
     <string name="goodMorning">Good morning</string>
     <string name="goodAfternoon">Good afternoon</string>
-    <string name="goodnight">Goodnight</string>
-    <string name="welcome">Welcome</string>
+    <string name="goodnight">Good evening</string>
+    <string name="welcome">Welcome !</string>
     <string name="notification">Notification</string>
     <string name="incorrectUsernameOrPassword">Incorrect username or password. Please try again.</string>
-    <string name="exceededLoginAttempts">You have exceeded 5 failed login attempts. Please try again in 15 minutes.</string>
     <string name="processingError">Processing error. Please try again later.</string>
     <string name="passwordResetInstructions">Password Reset Instructions</string>
     <string name="pleaseBringIdToResetPassword">Please bring your ID card or passport to any SHB transaction point to reset your password.</string>
-    <string name="shbBranch1">1.  SAIGON-HANOI BANK CAMBODIA PLC</string>
+    <string name="shbBranch1">1. SAIGON-HANOI BANK CAMBODIA PLC</string>
     <string name="shbBranch1Address">107 Norodom Blvd,Sangkat Boeung Rang ,Khan Daun Penh,Phnompenh,Cambodia.</string>
-    <string name="shbBranch2">2.  SAIGON-HANOI BANK CAMBODIA PLC- NEHRU BRANCH</string>
-    <string name="shbBranch2Address">161CD, Steet Nehru(215), Sangkat Phsar Depo Ti 1, Khan Toul Kork, Phnom Penh</string>
-    <string name="shbBranch3">3.  SAIGON-HANOI BANK CAMBODIA PLC- SEN SOK BRANCH</string>
-    <string name="shbBranch3Address">511C, Oknha Mong Rethy Street, Phum Bayab, Sangkat Phnom Penh thmei, Khan Sen Sok, Phnom Penh.</string>
-    <string name="shbBranch4">4.  SAIGON-HANOI BANK CAMBODIA PLC- CHBAR AMPOV BRANCH</string>
-    <string name="shbBranch4Address">76, National Road 1 , Phum Boeng Chhuk, Sangkat Nirouth, Khan Chbar Ampov, Phnom Penh.</string>
+    <string name="shbBranch2">2. SAIGON-HANOI BANK CAMBODIA PLC-NEHRU BRANCH</string>
+    <string name="shbBranch2Address">161CD Jawahaal Nehru Blvd, Sangkat Phsar Depou Ti Mouy, Khan Toul Kouk, Phnom Penh</string>
+    <string name="shbBranch3">3.SAIGON-HANOI BANK CAMBODIA PLC- SEN SOKH BRANCH</string>
+    <string name="shbBranch3Address">511C, Oknha Mong Reththy Street, Sangkat Phnom Penh Thmei, Khan Sen Sokh, Phnom Penh</string>
+    <string name="shbBranch4">4.SAIGON-HANOI BANK CAMBODIA PLC-CHNAR AMPOV BRANCH</string>
+    <string name="shbBranch4Address">76, National Road, Sangkat Nirouth, Khan Chbar Ampov, Phnom Penh</string>
     <string name="welcomeToShb">Welcome to SHB</string>
-    <string name="currentAccount">CURRENT ACCOUNT</string>
+    <string name="currentAccount">Current Account</string>
     <string name="transfer">Transfer</string>
     <string name="transferCAP" translatable="false">TRANSFER</string>
     <string name="accounts">Accounts</string>
@@ -62,11 +61,11 @@
     <string name="referenceNumber">Reference Number</string>
     <string name="moneyTransfer">Money transfer</string>
     <string name="intrabankTransfer">Intrabank transfer</string>
-    <string name="ownAccountTransfer">Own account transfer</string>
+    <string name="ownAccountTransfer">To me at SHB</string>
     <string name="balance">Balance</string>
     <string name="toAccount">To Account</string>
     <string name="amount">Amount</string>
-    <string name="enterAccountNumber">Enter Account Number</string>
+    <string name="enterAccountNumber">Enter account number</string>
     <string name="enterAmount">Enter Amount</string>
     <string name="insufficientBalance">Insufficient account balance. Please try again.</string>
     <string name="fee">Fee</string>
@@ -74,7 +73,7 @@
     <string name="transactionFailed">Transaction failed. Please try again.</string>
     <string name="tryAgain">Try Again</string>
     <string name="transactionExceedLimit">Transaction failed due to exceeding the limit</string>
-    <string name="paymentSuccess">Payment Success!</string>
+    <string name="paymentSuccess">Transaction successful !</string>
     <string name="createNewTransaction">New Transaction</string>
     <string name="selectBeneficiary">Select beneficiary</string>
     <string name="confirmationCode">Confirmation Code</string>
@@ -84,26 +83,26 @@
     <string name="save">Save</string>
     <string name="setNicknameQuestion">Would you like to set a nickname for this recipient?</string>
     <string name="enterNickname">Enter nickname</string>
+    <string name="titleNickname">Nickname</string>
     <string name="setNickname">Set nickname</string>
     <string name="complete">Complete</string>
     <string name="nicknameSetSuccess">Successfully set nickname</string>
     <string name="profilePictureFailed">Failed to update profile picture</string>
     <string name="invalidBeneficiaryAccount">Invalid beneficiary account</string>
     <string name="invalidSelectedDate">Invalid selected date</string>
-    <string name="invalidFormat">Invalid selected date</string>
     <string name="pleaseEnterUsername">Please enter your username</string>
     <string name="pleaseEnterPassword">Please enter your password</string>
     <string name="pleaseTryAgainIn">Please try again in</string>
     <string name="currentBalance">Current balance</string>
     <string name="show">Show</string>
     <string name="myProfile">My Profile</string>
-    <string name="tel">Tel:</string>
+    <string name="tel">Hotline:</string>
     <string name="hide">Hide</string>
     <string name="account_info_format" translatable="false">%s - %s - %s</string>
     <string name="english">English</string>
     <string name="vietnamese">Vietnamese</string>
     <string name="lao" translatable="false">Lao</string>
-    <string name="add">Add:</string>
+    <string name="add">Address:</string>
     <string name="done">Done</string>
     <string name="zero" translatable="false">0</string>
     <string name="invalidRemarks">Invalid remarks</string>
@@ -134,11 +133,12 @@
     <string name="pleaseEnterTheAccountNumber">Please enter the Account Number</string>
     <string name="pleaseEnterTheRemarks">Please enter the remarks</string>
     <string name="enterRemarks">Enter remarks</string>
-    <string name="transactionSuccess">Transaction Success!</string>
+    <string name="transactionSuccess">Transaction successful !</string>
     <string name="beneficiary">Beneficiary</string>
     <string name="chatpay">Paste2Pay</string>
     <string name="addNew">Add new</string>
     <string name="doYouWantToDeleteFromBeneficiary">Do you want to delete %s from beneficiary list?</string>
+    <string name="nicknameAlreadyExists">The nickname already exists. Are you sure you want to use this nickname?</string>
     <string name="beneficiaryDeletedSuccessfully">Beneficiary deleted successfully</string>
     <string name="editBeneficiary">Edit beneficiary</string>
     <string name="bank">Bank</string>
@@ -169,15 +169,6 @@
     <string name="beneficiaryList">Beneficiary list</string>
     <string name="enterRecipientNameOrAccountNumber">Enter recipient name or account number</string>
     <string name="systemUptateTransactionStatus">Sorry, the system is currently unable to update the transaction status. Please check your account statement or visit the nearest branch to verify the transaction result.</string>
-
-    <string name="clipboard_sheet_badge">Clipboard</string>
-    <string name="clipboard_sheet_title">Paste from clipboard</string>
-    <string name="clipboard_sheet_subtitle">Choose compatible plain text from your clipboard to fill Chat Pay instantly.</string>
-    <string name="clipboard_sheet_meta">%1$d chars • %2$d lines</string>
-    <string name="clipboard_sheet_source">System clipboard</string>
-    <string name="clipboard_sheet_hint">Tap to paste into Chat Pay</string>
-    <string name="clipboard_sheet_close">Close clipboard chooser</string>
-
     <string name="noteDefaultAccount" translatable="false">Tài khoản mặc định sẽ hiển thị khi bạn đăng nhập lại</string>
     <string name="enterBankName">Enter bank name</string>
     <string name="newBeneficiaryAddedSuccessfully">New beneficiary added successfully</string>
@@ -203,7 +194,7 @@
     <string name="weHaveReleasedNewVersion">We have released a new version. Please update to enjoy a better saving experience with SHB SAHA CAMs.</string>
     <string name="updateLabel">Update</string>
     <string name="invalidAccountNumber">Invalid Account Number</string>
-    <string name="cambodian">Cambodian</string>
+    <string name="cambodian">Khmer Language</string>
     <string name="register_device_title">Register device for using the SHB Saha Cambodia application</string>
     <string name="register_device_message">To enhance account security, please verify your device using the OTP sent to the phone number %s to complete the app registration. Is this your phone number?</string>
     <string name="confirm_device_title">Confirm device</string>
@@ -214,12 +205,13 @@
     <string name="theOtpExpired">The OTP has expired. Please generate a new verification code.</string>
     <string name="resendOtp">Resend OTP</string>
     <string name="theNewPassMustNotMatchOldPass">The new password must not match the last 4 passwords</string>
-    <string name="otpIncorrectly5Times">You have entered the OTP incorrectly 5 times.Please try again in %s</string>
+    <string name="otpIncorrectly5Times">You have entered the OTP incorrectly 5 times. Please try again in %s minutes</string>
     <string name="requestOtpMore5Times">You have requested the OTP more than 5 times. Please try again in %s</string>
     <string name="newDeviceVerificial">You are logging into SHB Saha Cambodia on a new device. Please verify using the OTP sent to the phone number %s to continue using the service. Is this your phone number?</string>
     <string name="goToBranch">Go to Branch</string>
-    <string name="getSupportForChanging">To get support for changing or register your phone number, please visit the nearest branch/transaction point of SHB Saha Cambodia.</string>
+    <string name="getSupportForChanging">To get support for changing or register your phone number, please visit the nearest branch/transaction point of SHB Cambodia.</string>
     <string name="language">Language</string>
     <string name="listBranchTransactionPoint">List branch/transaction point</string>
     <string name="register_device_other">New device verification</string>
+    <string name="listAccount">List Account</string>
 </resources>

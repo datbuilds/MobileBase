@@ -18,28 +18,41 @@
         app:layout_constraintBottom_toTopOf="@+id/flAddNew"
         app:layout_constraintTop_toTopOf="parent">
 
-        <vn.shb.cam.base.view.MyTextView
-            android:id="@+id/tvBeneficiaryList"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:drawablePadding="@dimen/margin_20dp"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:paddingVertical="@dimen/margin_8dp"
-            android:paddingStart="@dimen/margin_4dp"
-            android:paddingEnd="@dimen/margin_10dp"
-            android:text="@string/beneficiaryList"
-            android:textColor="@color/neutral10"
-            android:textSize="@dimen/textSize20"
-            app:customFontWeight="medium"
-            app:drawableStartCompat="@drawable/ic_arrow_back" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/margin_20dp">
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/btnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foreground="@drawable/ripple_grey_circle"
+                app:srcCompat="@drawable/ic_arrow_back_new" />
+
+            <vn.shb.cam.base.view.MyTextView
+                android:id="@+id/tvBeneficiaryList"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_12dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:text="@string/beneficiaryList"
+                android:textColor="@color/neutral10"
+                android:textSize="@dimen/textSize20"
+                app:customFontWeight="medium" />
+
+        </LinearLayout>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="@dimen/margin_20dp"
+            android:layout_marginTop="@dimen/margin_16dp"
             android:background="@drawable/bg_search_beneficiary_w"
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/margin_12dp"
@@ -56,8 +69,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_12dp"
+                android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789"
                 android:hint="@string/enterRecipientNameOrAccountNumber"
                 android:includeFontPadding="false"
+                android:inputType="textPassword|textVisiblePassword"
                 android:textColor="@color/black"
                 android:textColorHint="@color/neutral6"
                 android:textSize="@dimen/textSize14" />
@@ -71,43 +86,6 @@
             android:layout_marginTop="@dimen/margin_12dp"
             tools:listitem="@layout/item_beneficiary" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/llToastStatus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_20dp"
-        android:background="@drawable/bg_toast_change_avatar_ss"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="@dimen/margin_8dp"
-        android:visibility="gone"
-        tools:visibility="gone"
-        app:layout_constraintTop_toTopOf="@+id/llBody">
-
-        <vn.shb.cam.base.view.MyTextView
-            android:id="@+id/tvToastMessage"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableStart="@drawable/ic_success"
-            android:drawablePadding="@dimen/margin_8dp"
-            android:gravity="center_vertical"
-            android:includeFontPadding="false"
-            android:textColor="@color/white"
-            android:textSize="@dimen/textSize14"
-            app:customFontWeight="medium"
-            tools:text="@string/beneficiaryDeletedSuccessfully" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivClose"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_6dp"
-            android:padding="@dimen/margin_6dp"
-            android:tint="@color/white"
-            app:srcCompat="@drawable/ic_close" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <FrameLayout
@@ -126,11 +104,12 @@
             android:layout_marginHorizontal="@dimen/margin_20dp"
             android:layout_marginVertical="@dimen/paddingBottomLayout"
             android:background="@drawable/bg_button_action_material"
+            android:foreground="@drawable/ripple_grey_rec"
             android:gravity="center"
-            android:textColor="@color/white"
             android:includeFontPadding="false"
             android:paddingVertical="@dimen/margin_12dp"
-            android:text="@string/addNew" />
+            android:text="@string/addNew"
+            android:textColor="@color/white" />
 
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,8 +15,10 @@ import kotlinx.coroutines.launch
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.FragmentHomeBinding
+import vn.shb.cam.screens.home.helper.LoopingAdapter
 import vn.shb.cam.screens.home.widget.OnClickDetail
 import vn.shb.cam.utils.extensions.common.Const
+import vn.shb.cam.utils.extensions.getTextWelcomeUser
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.view.dialog.ScreenUtils
 import vn.shb.cam.utils.view.setWidth
@@ -32,7 +34,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
 
     override fun initView(view: View) {
         bindView()
-        setup()
+//        setup()
     }
 
     private fun setup() {
@@ -98,6 +100,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
                 ivIconFeature.setImageResource(R.drawable.ic_accounts)
                 tvTitleFeature.text = getString(R.string.accounts)
             }
+            ivBanner.setImageResource(R.drawable.iv_banner)
         }
     }
 
@@ -131,13 +134,14 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
             }
 
             tvCurrentAccount.setOnSingleClickListener {
-//                DialogSelectAccount.Build(
-//                    homeViewModel.getListAccount(),
-//                    homeViewModel.selectedAccount
-//                ) { ac ->
+                DialogSelectAccount.Build(
+                    homeViewModel.getListAccount(),
+                    homeViewModel.selectedAccount,
+                    isCanSelect = false
+                ) { ac ->
 //                    homeViewModel.selectedAccount = ac
 //                    bindViewAccount(ac)
-//                }.build().show(childFragmentManager, DialogSelectAccount.TAG)
+                }.build().show(childFragmentManager, DialogSelectAccount.TAG)
             }
 
             ivEyeSeeValue.setOnSingleClickListener {
@@ -188,6 +192,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
     private fun mapUserInfo(userLog: UserLog) {
         userLog.let { user ->
             binding.tvNameUser.text = user.username
+            binding.tvWelcomeSHB.text = requireContext().getTextWelcomeUser()
             binding.flAvatarUser.setUserName(getPathAvatarUser(), user.username)
         }
     }

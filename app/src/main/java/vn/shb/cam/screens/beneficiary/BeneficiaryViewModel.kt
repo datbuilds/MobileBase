@@ -2,8 +2,11 @@ package vn.shb.cam.screens.beneficiary
 
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -20,6 +23,8 @@ import vn.shb.core.core.domain.usecases.None
 import vn.shb.core.core.domain.usecases.beneficiary.GetBeneficiariesUseCase
 import vn.shb.data.entities.beneficiary.Beneficiary
 import vn.shb.cam.base.BaseViewModel
+import vn.shb.core.core.delivery.ResultSHB
+import vn.shb.core.core.domain.source.request.RemoveBeneficiaryRequest
 
 import vn.shb.core.core.domain.usecases.beneficiary.CreateBeneficiaryUseCase
 import vn.shb.core.core.domain.usecases.beneficiary.DeleteBeneficiaryUseCase
@@ -40,25 +45,23 @@ class BeneficiaryViewModel(
     private val _localBeneficiaries = MutableStateFlow<List<Beneficiary>>(emptyList())
 
     private val _stateBanks = MutableStateFlow<List<Bank>>(emptyList())
-    val stateBanks = _stateBanks.asStateFlow()
+    val stateBanks: StateFlow<List<Bank>> = _stateBanks
 
-    private val _stateDelete = Channel<Boolean?>(Channel.BUFFERED)
-    val stateDelete = _stateDelete.receiveAsFlow()
+    private val _stateDelete = MutableSharedFlow<Boolean?>()
+    val stateDelete: SharedFlow<Boolean?> = _stateDelete
 
-    private val _stateAction = MutableStateFlow<Boolean?>(null)
-    val stateAction = _stateAction.asStateFlow()
+    private val _stateAction = MutableSharedFlow<Boolean?>()
+    val stateAction: SharedFlow<Boolean?> = _stateAction
 
     private val _stateLoading = MutableStateFlow(false)
-    val stateLoading = _stateLoading.asStateFlow()
+    val stateLoading: StateFlow<Boolean> = _stateLoading
 
     private val _stateValidateAccount =
-        Channel<ValidateAccountResponse.ValidateAccountData>(Channel.BUFFERED)
-    val stateValidateAccount = _stateValidateAccount.receiveAsFlow()
+        MutableStateFlow<ResultSHB<ValidateAccountResponse.ValidateAccountData>>(ResultSHB.Loading)
+    val stateValidateAccount: StateFlow<ResultSHB<ValidateAccountResponse.ValidateAccountData>> = _stateValidateAccount
 
-    private val _stateErrorValidateAccount = Channel<Reason>(Channel.BUFFERED)
-    val stateErrorValidateAccount = _stateErrorValidateAccount.receiveAsFlow()
-    private val _stateError = Channel<Reason>(Channel.BUFFERED)
-    val stateError = _stateError.receiveAsFlow()
+    private val _stateError = MutableSharedFlow<Reason>()
+    val stateError = _stateError
 
     val stateAllBeneficiary = combine(_localBeneficiaries, _stateBanks) { beneficiaries, banks ->
         if (banks.isEmpty() || beneficiaries.isEmpty()) {
@@ -103,17 +106,20 @@ class BeneficiaryViewModel(
 
     fun deleteBeneficiary(beneficiary: Beneficiary) {
         viewModelScope.launch {
-            useCaseDeleteBeneficiary.invoke(DeleteBeneficiaryUseCase.Params(beneficiary.id.toString()))
+            val bodyRequest =
+                RemoveBeneficiaryRequest(beneficiary.accountNumber, beneficiary.bankCode)
+
+            useCaseDeleteBeneficiary.invoke(DeleteBeneficiaryUseCase.Params(bodyRequest))
                 .collect { result ->
                     result.onSuccess {
                         showLoading(false)
-                        _stateDelete.send(true)
+                        _stateDelete.emit(true)
                         // Refresh list or remove item locally
                         getAllBeneficiary()
                     }
                     result.onFailure {
                         showLoading(false)
-                        _stateDelete.send(false)
+                        _stateDelete.emit(false)
                         // Handle failure if needed, baseViewModel might handle error toast if configured, but here we just update state
                     }
                     result.onLoading {
@@ -123,36 +129,33 @@ class BeneficiaryViewModel(
         }
     }
 
-    fun resetActionState() {
-        _stateAction.value = null
-    }
 
     fun createBeneficiary(request: BeneficiaryRequest, isRefresh: Boolean = true) {
         viewModelScope.launch {
             useCaseCreateBeneficiary.invoke(request).collect { result ->
                 result.onSuccess {
-                    _stateAction.value = true
+                    _stateAction.emit(true)
                     if (isRefresh) {
                         getAllBeneficiary()
                     }
                 }
                 result.onFailure {
-                    _stateError.send(it)
+                    _stateError.emit(it)
                 }
             }
         }
     }
 
-    fun updateBeneficiary(id: String, request: BeneficiaryRequest) {
+    fun updateBeneficiary(request: BeneficiaryRequest) {
         viewModelScope.launch {
-            useCaseUpdateBeneficiary.invoke(UpdateBeneficiaryUseCase.Params(id, request))
+            useCaseUpdateBeneficiary.invoke(UpdateBeneficiaryUseCase.Params(request))
                 .collect { result ->
                     result.onSuccess {
-                        _stateAction.value = true
+                        _stateAction.emit(true)
                         getAllBeneficiary()
                     }
                     result.onFailure {
-                        _stateError.send(it)
+                        _stateError.emit(it)
                     }
                 }
         }
@@ -162,13 +165,17 @@ class BeneficiaryViewModel(
         viewModelScope.launch {
             val request = ValidateAccountRequest(accountNumber, bankCode)
             useCaseValidateAccount(request).collect { result ->
+                result.onLoading {
+                    _stateValidateAccount.value = ResultSHB.Loading
+                }
+
                 result.onSuccess { response ->
                     if (response.data != null) {
-                        _stateValidateAccount.send(response.data!!)
+                        _stateValidateAccount.value = ResultSHB.Success(response.data!!)
                     }
                 }
                 result.onFailure {
-                    _stateErrorValidateAccount.send(it)
+                    _stateValidateAccount.value = ResultSHB.Failure(it)
                 }
             }
         }

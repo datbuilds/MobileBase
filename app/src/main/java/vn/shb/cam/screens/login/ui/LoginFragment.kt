@@ -473,7 +473,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         reason: Reason,
         onAction: (() -> Unit)? = null
     ) {
-//        val messageError = "${reason.errorCode}: ${reason.errMessage}"
         BottomSheetDialogHelper(requireContext()).message(
             title = getString(R.string.notification),
             message = getString(R.string.processingError),
@@ -558,7 +557,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         clearFlag()
 
         //mock
-        binding.edtInputPass.setText("wfuehh")
+//        binding.edtInputPass.setText("Test123@")
 //        handleActionLogin()
     }
 

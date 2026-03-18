@@ -3,13 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/transparent">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/containerToast"
         android:layout_width="match_parent"
+        android:gravity="center_vertical"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_30dp"
+        android:layout_marginTop="@dimen/margin_10dp"
         android:background="@drawable/bg_custom_success"
         android:orientation="horizontal"
         android:padding="@dimen/margin_12dp">
@@ -25,15 +27,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_5dp"
+            app:customFontWeight="medium"
             android:layout_weight="1"
             android:textColor="@color/gray_800"
-            android:textSize="@dimen/textSize17"
+            android:textSize="@dimen/textSize14"
             tools:text="Tài khoản của Quý khách xác minh oản của Quý khách xác minh thành công." />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivToastClose"
-            android:layout_width="@dimen/margin_30dp"
-            android:layout_height="@dimen/margin_30dp"
+            android:layout_width="@dimen/margin_20dp"
+            android:layout_height="@dimen/margin_20dp"
+            android:foreground="@drawable/ripple_grey_circle"
             android:layout_marginStart="@dimen/margin_5dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_close" />
