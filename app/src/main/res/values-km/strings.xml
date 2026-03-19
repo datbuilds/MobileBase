@@ -147,7 +147,7 @@
     <string name="enterCurrentPassword">បញ្ចូលលេខសម្ងាត់បច្ចុប្បន្ន</string>
     <string name="new_password">លេខសម្ងាត់ថ្មី</string>
     <string name="enter_new_password">បញ្ចូលលេខសម្ងាត់ថ្មី</string>
-    <string name="password_rule_length">ប្រវែង ៨-២០ តួអក្សរ</string>
+    <string name="password_rule_length">ប្រវែងពី ៨-២០ តួអក្សរ</string>
     <string name="password_rule_case">តម្រូវឱ្យមានយ៉ាងហោចណាស់អក្សរតូច ១ និងអក្សរធំ ១</string>
     <string name="password_rule_special">តម្រូវឱ្យមានយ៉ាងហោចណាស់លេខ ១ តួអក្សរពិសេស ១ .~!@#$\%^&amp;*()_+={}|:;&lt;&gt;,/?-</string>
     <string name="remark_default_value">%s ផ្ទេរប្រាក់</string>
