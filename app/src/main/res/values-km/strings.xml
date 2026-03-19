@@ -91,7 +91,7 @@
     <string name="invalidSelectedDate">កាលបរិច្ឆេទដែលបានជ្រើសរើសមិនត្រឹមត្រូវ</string>
     <string name="pleaseEnterUsername">សូមបញ្ចូលឈ្មោះអ្នកប្រើប្រាស់</string>
     <string name="pleaseEnterPassword">សូមបញ្ចូលលេខកូដសម្ងាត់</string>
-    <string name="pleaseTryAgainIn">សូមព្យាយាមម្តងទៀត</string>
+    <string name="loginFailed5Times">លោកអ្នកបានបញ្ចូលលេខសម្ងាត់ខុសលើសពី 5 ដង។ សូមព្យាយាមម្ដងទៀតក្នុងរយៈពេល %s នាទីបន្ទាប់។</string>
     <string name="currentBalance">សមតុល្យប្រើបាន</string>
     <string name="show">បង្ហាញ</string>
     <string name="myProfile">កម្រងព័ត៌មានរបស់ខ្ញុំ</string>
@@ -148,7 +148,7 @@
     <string name="enterCurrentPassword">បញ្ចូលលេខសម្ងាត់បច្ចុប្បន្ន</string>
     <string name="new_password">លេខសម្ងាត់ថ្មី</string>
     <string name="enter_new_password">បញ្ចូលលេខសម្ងាត់ថ្មី</string>
-    <string name="password_rule_length">ប្រវែង ៨-២០ តួអក្សរ</string>
+    <string name="password_rule_length">ប្រវែងពី ៨-២០ តួអក្សរ</string>
     <string name="password_rule_case">តម្រូវឱ្យមានយ៉ាងហោចណាស់អក្សរតូច ១ និងអក្សរធំ ១</string>
     <string name="password_rule_special">តម្រូវឱ្យមានយ៉ាងហោចណាស់លេខ ១ តួអក្សរពិសេស ១ .~!@#$\%^&amp;*()_+={}|:;&lt;&gt;,/?-</string>
     <string name="remark_default_value">%s ផ្ទេរប្រាក់</string>

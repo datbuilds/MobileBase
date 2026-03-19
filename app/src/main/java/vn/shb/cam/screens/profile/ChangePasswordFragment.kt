@@ -227,7 +227,7 @@ class ChangePasswordFragment :
 
         // 4. No username or real name
         val user = getCurrentUser()
-        val username = user?.customerId?.replace("\\s+".toRegex(), " ")?.trim() ?: ""
+        val username = user?.customerId?.replace("\\s+".toRegex(), " ")?.trim() ?: getCurrentUser()?.userLogin?:""
         val realName = user?.username?.replace("\\s+".toRegex(), "")?.trim() ?: ""
 
         // Simple check: password should not contain username or real name (ignoring case)

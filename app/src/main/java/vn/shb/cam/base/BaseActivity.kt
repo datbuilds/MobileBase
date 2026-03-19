@@ -181,8 +181,8 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
     }
 
     open fun showDialogSessionExpire() {
-        logout()
-        DialogSessionExpire().show(context = this)
+        // Navigate to Login first, then let LoginActivity show the dialog.
+        logout(isShowSessionExpired = true)
     }
 
     override fun onDestroy() {
@@ -207,10 +207,10 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
     open fun handleSavedState(savedInstanceState: Bundle?) {}
     open fun sessionExpired() {}
 
-    fun logout() {
+    fun logout(isShowSessionExpired: Boolean = false) {
         storage.resetToken()
         finishAffinity()
-        returnActivity(LoginActivity.intent(this))
+        returnActivity(LoginActivity.intent(this, isShowSessionExpired))
     }
 
     private fun checkThreadPolicy() {

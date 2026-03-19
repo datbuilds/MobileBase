@@ -4,7 +4,7 @@
     android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_login_long"
+    android:background="@drawable/bg_login"
     android:paddingHorizontal="@dimen/margin_20dp">
 
     <vn.shb.cam.screens.home.widget.FrameAvatarUser

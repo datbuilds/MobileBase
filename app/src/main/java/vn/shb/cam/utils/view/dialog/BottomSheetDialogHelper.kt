@@ -234,13 +234,9 @@ class BottomSheetDialogHelper(context: Context) {
                 val s = (millisUntilFinished / 1000) % 60
                 val formatted = String.format("%02d:%02d", m, s)
 
-                val baseMsg = message
-                val fullMsg = "${baseMsg.plus(" ")}${
-                    context.getString(R.string.pleaseTryAgainIn).plus(Const.SEPARATOR_SPACE)
-                }$formatted."
-
-                val spannable = SpannableString(fullMsg)
-                val start = fullMsg.indexOf(formatted)
+                val message = context.getString(R.string.loginFailed5Times, formatted)
+                val spannable = SpannableString(message)
+                val start = message.indexOf(formatted)
                 val end = start + formatted.length
                 spannable.setSpan(
                     StyleSpan(Typeface.BOLD),
