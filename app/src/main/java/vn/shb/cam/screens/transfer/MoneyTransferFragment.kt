@@ -20,6 +20,7 @@ import vn.shb.cam.utils.ApiConst
 import vn.shb.cam.utils.extensions.DateTimeHelper.Companion.getDateFromCurrentDate
 import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.gone
+import vn.shb.cam.utils.extensions.hideSoftKeyboard
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.extensions.serializable
 import vn.shb.cam.utils.extensions.visible
@@ -44,10 +45,21 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     var currentTypeTransfer: String = INTRABANK
 
     private var fromAccount: AccountBase? = null
+        set(value) {
+            field = value
+            try {
+                if (isAdded) updateCurrencySelectorState()
+            } catch (_: Exception) {
+            }
+        }
     private var toAccount: AccountBase? = null
         set(value) {
             field = value
             stateAmountInput(value != null)
+            try {
+                if (isAdded) updateCurrencySelectorState()
+            } catch (_: Exception) {
+            }
         }
 
     private var aiPayResult: AiPayResult? = null
@@ -189,12 +201,34 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             edtValue.setText("")
         }
         toAccount = null
+        binding.iclTotalAmount.edtValue.setText("")
         updateStatusTransfer()
     }
 
     private fun stateAmountInput(value: Boolean) {
         binding.iclAmount.edtValue.enableInput(value)
         if (!value) binding.iclAmount.edtValue.setText(Const.EMPTY)
+    }
+
+    private fun updateCurrencySelectorState() {
+        val fromCur = fromAccount?.currencyCode
+        val toCur = toAccount?.currencyCode
+        val isSame = fromCur != null && toCur != null && fromCur == toCur
+
+        binding.iclAmount.tvCurrentCode.apply {
+            if (isSame) {
+                setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
+                isClickable = false
+            } else {
+                setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.ic_arrow_down_black,
+                    0
+                )
+                isClickable = true
+            }
+        }
     }
 
     override fun initListener() {
@@ -655,6 +689,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         run { currentCurrencyChoose != toCurrency }
 
     private fun resetStateTransfer() {
+        toAccount = null
         with(binding) {
             iclToAccount.apply {
                 ivExpandDown.setImageResource(if (!isIntrabank()) R.drawable.ic_arrow_down_black else R.drawable.ic_account_intrabank)
@@ -672,7 +707,6 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                     arrayOf(InputFilter.LengthFilter(if (isIntrabank()) 10 else 1000000))
             }
             iclAmount.edtValue.setText(Const.EMPTY)
-//            iclFee.root.gone()
             iclExchangeRate.root.gone()
             iclTotalAmount.root.gone()
             iclAccountName.root.gone()
@@ -681,7 +715,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             iclRemarks.bindViewError(null)
             resetRemarks()
         }
-
+        hideSoftKeyboard()
         updateStatusTransfer()
     }
 
