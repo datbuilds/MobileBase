@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardClipboardOption"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/margin_16dp"
+    android:layout_marginBottom="@dimen/margin_12dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/margin_20dp"
+    app:cardElevation="@dimen/margin_0dp"
+    app:rippleColor="@color/accent_10"
+    app:strokeColor="@color/gray_300"
+    app:strokeWidth="@dimen/margin_1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/margin_100dp"
+        android:padding="@dimen/margin_16dp">
+
+        <FrameLayout
+            android:id="@+id/flIcon"
+            android:layout_width="@dimen/margin_44dp"
+            android:layout_height="@dimen/margin_44dp"
+            android:background="@drawable/bg_clipboard_icon_container"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/margin_20dp"
+                android:layout_height="@dimen/margin_20dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_paste"
+                app:tint="@color/accent" />
+        </FrameLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvSource"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_12dp"
+            android:layout_marginEnd="@dimen/margin_8dp"
+            android:fontFamily="@font/inter_medium"
+            android:text="@string/clipboard_sheet_source"
+            android:textColor="@color/gray_700"
+            android:textSize="@dimen/textSize12"
+            app:layout_constraintEnd_toStartOf="@id/tvMeta"
+            app:layout_constraintStart_toEndOf="@id/flIcon"
+            app:layout_constraintTop_toTopOf="@id/flIcon" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvMeta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_selected_filter"
+            android:fontFamily="@font/inter_medium"
+            android:paddingHorizontal="@dimen/margin_8dp"
+            android:paddingVertical="@dimen/margin_4dp"
+            android:textColor="@color/accent"
+            android:textSize="@dimen/textSize11"
+            app:layout_constraintEnd_toStartOf="@id/ivArrow"
+            app:layout_constraintTop_toTopOf="@id/flIcon"
+            tools:text="84 chars • 2 lines" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivArrow"
+            android:layout_width="@dimen/margin_16dp"
+            android:layout_height="@dimen/margin_16dp"
+            android:layout_marginStart="@dimen/margin_8dp"
+            android:src="@drawable/ic_arrow_right"
+            app:layout_constraintBottom_toBottomOf="@id/flIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/flIcon"
+            app:tint="@color/accent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPreview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_12dp"
+            android:layout_marginTop="@dimen/margin_6dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter_semi_bold"
+            android:maxLines="3"
+            android:textColor="@color/gray_900"
+            android:textSize="@dimen/textSize15"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/flIcon"
+            app:layout_constraintTop_toBottomOf="@id/tvSource"
+            tools:text="Transfer 100 USD to account 123456789 at SHB, remark utility payment for March." />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvHint"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_12dp"
+            android:layout_marginTop="@dimen/margin_10dp"
+            android:fontFamily="@font/inter_regular"
+            android:text="@string/clipboard_sheet_hint"
+            android:textColor="@color/gray_600"
+            android:textSize="@dimen/textSize12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/flIcon"
+            app:layout_constraintTop_toBottomOf="@id/tvPreview" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

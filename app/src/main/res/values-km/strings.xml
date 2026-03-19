@@ -142,6 +142,8 @@
     <string name="minus">នាទី</string>
     <string name="version">កំណែ</string>
     <string name="share">ចែករំលែក</string>
+    <string name="beneficiary">អ្នកទទួល</string>
+    <string name="chatpay">Paste2Pay</string>
     <string name="changePassword">ផ្លាស់ប្តូរលេខសម្ងាត់</string>
     <string name="currentPassword">លេខសម្ងាត់បច្ចុប្បន្ន</string>
     <string name="enterCurrentPassword">បញ្ចូលលេខសម្ងាត់បច្ចុប្បន្ន</string>

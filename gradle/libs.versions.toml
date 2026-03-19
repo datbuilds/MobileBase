@@ -3,7 +3,7 @@ compileSdk = "35"
 targetSdk = "35"
 minSdk = "26"
 
-kotlin = "1.9.10"
+kotlin = "1.9.24"
 gradleBuildTools = "8.2.2"
 mavenPushlish = "0.22.0"
 

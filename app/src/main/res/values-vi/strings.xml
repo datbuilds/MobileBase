@@ -159,6 +159,15 @@
     <string name="hint_re_enter_new_password">Nhập lại mật khẩu mới</string>
     <string name="change_password_success">Đổi mật khẩu thành công</string>
     <string name="change_password_success_message">Vui lòng đăng nhập lại để tiếp tục sử dụng ứng dụng</string>
+    <string name="hint_select_bank">Chọn ngân hàng</string>
+    <string name="beneficiary">Người thụ hưởng</string>
+    <string name="chatpay">Paste2Pay</string>
+    <string name="addNew">Thêm mới</string>
+    <string name="doYouWantToDeleteFromBeneficiary">Bạn có muốn xóa %s khỏi danh sách thụ hưởng không?</string>
+    <string name="beneficiaryDeletedSuccessfully">Xóa người thụ hưởng thành công</string>
+    <string name="editBeneficiary">Chỉnh sửa người thụ hưởng</string>
+    <string name="hint_enter_account_name">Nhập tên tài khoản</string>
+    <string name="error_passwords_do_not_match">Mật khẩu không khớp</string>
     <string name="error_current_password_incorrect">Mật khẩu hiện tại không đúng, vui lòng thử lại</string>
     <string name="error_passwords_do_not_match">Mật khẩu nhập lại không khớp</string>
     <string name="error_new_and_old_password_same">Mật khẩu mới không được trùng với mật khẩu cũ</string>

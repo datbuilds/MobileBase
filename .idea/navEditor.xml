@@ -101,6 +101,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="chatPayFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-625" />
+                            <option name="y" value="-170" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="confirmationFragment">
                     <value>
                       <LayoutPositions>
@@ -118,8 +130,7 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
+                            <option name="x" value="704" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -142,6 +153,11 @@
                               </value>
                             </entry>
                             <entry key="action_homeFragment_to_beneficiaryFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_homeFragment_to_chatPayFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -218,8 +234,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="248" />
-                            <option name="y" value="-230" />
+                            <option name="x" value="580" />
+                            <option name="y" value="-378" />
                           </Point>
                         </option>
                         <option name="myPositions">

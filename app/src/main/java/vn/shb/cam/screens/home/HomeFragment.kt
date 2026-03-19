@@ -29,8 +29,6 @@ import vn.shb.data.entities.login.UserLog
 
 class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
-    private lateinit var adapter: LoopingAdapter
-
     private var isShowValueBalance = false
     private var textGoneValue = "********"
 
@@ -158,10 +156,15 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
                         ).plus(account.currencyCode)
                 }
             }
-            flQrCode.setOnClickListener {
+            flQrCode.setOnSingleClickListener {
+//                showLanguagePopup(flQrCode)
             }
-            flBeneficiary.setOnSingleClickListener {
+            tvBeneficiary.setOnSingleClickListener {
                 safeNavigate(R.id.homeFragment, R.id.action_homeFragment_to_beneficiaryFragment)
+            }
+
+            tvChatPay.setOnSingleClickListener {
+                safeNavigate(R.id.homeFragment, R.id.action_homeFragment_to_pastePayFragment)
             }
         }
     }

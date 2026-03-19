@@ -2,6 +2,7 @@ package vn.shb.cam.di.feature
 
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
+import vn.shb.cam.screens.paste2pay.ChatPayViewModel
 import vn.shb.cam.screens.home.HomeViewModel
 import vn.shb.cam.screens.login.ui.LoginViewModel
 import vn.shb.cam.screens.profile.ChangePasswordViewModel
@@ -18,6 +19,7 @@ val featureModule = module {
             get(),  get(), get(), get(), get()
         )
     }
+    viewModel { ChatPayViewModel(get()) }
     viewModel { ChangePasswordViewModel(get()) }
     viewModel { BeneficiaryViewModel(get(), get(), get(), get(), get(), get()) }
 }
