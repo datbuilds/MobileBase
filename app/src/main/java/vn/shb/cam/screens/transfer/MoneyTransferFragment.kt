@@ -5,6 +5,8 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import vn.shb.cam.R
@@ -22,6 +24,7 @@ import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.extensions.serializable
 import vn.shb.cam.utils.extensions.visible
 import vn.shb.core.core.domain.source.response.AccountUserNameModel
+import vn.shb.core.core.domain.source.response.AiPayResult
 import vn.shb.core.core.domain.usecases.transfer.UseCaseValidateTransaction
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.AccountBase
@@ -32,7 +35,6 @@ import vn.shb.data.entities.transfer.ConfirmationModel
 import vn.shb.data.entities.transfer.TransferAccount
 import java.math.BigDecimal
 import java.math.RoundingMode
-import vn.shb.core.core.domain.source.response.AiPayResult
 
 class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     FragmentMoneyTransferBinding::inflate
@@ -45,8 +47,6 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     private var toAccount: AccountBase? = null
 
     private var aiPayResult: AiPayResult? = null
-    private var isAiPrefilledContent = false
-    private var isAiPrefilledAccount = false
 
     private var amountOfSender: Double = 0.0
     private var totalAmount: Double = 0.0
@@ -84,6 +84,21 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         if (arguments?.containsKey(ApiConst.KEY_TYPE_TRANSFER_DATA) == true) {
             aiPayResult = arguments?.serializable(ApiConst.KEY_TYPE_TRANSFER_DATA)
         }
+
+        lifecycleScope.launch {
+            delay(600)
+            if (aiPayResult != null) {
+                bindViewPay(aiPayResult)
+            }
+        }
+    }
+
+    private fun bindViewPay(aiPayResult: AiPayResult?) {
+        with(binding) {
+            iclToAccount.edtValue.setText(aiPayResult?.accountNum)
+            iclAmount.edtValue.setText((aiPayResult?.amount ?: 0).toString())
+        }
+        homeViewModel.getAccountByNumber(aiPayResult!!.accountNum ?: "")
     }
 
     override fun onResume() {
@@ -344,7 +359,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     /*
   * nhận số tiền nhập và xử lý hiển thị các mục khác
   * */
-    private fun checkBalanceInvalid() {
+    private fun checkBalanceInvalid(isCheckErrorAmount : Boolean = true) {
         val valueBalance = binding.iclAmount.edtValue.text.toString().trim()
         amountOfSender =
             if (valueBalance.isNotBlank()) valueBalance.replace(",", "").toDouble() else 0.0
@@ -381,7 +396,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             isError -> getString(R.string.insufficientBalance)
             else -> null
         }
-        binding.iclAmount.bindViewError(textError)
+        binding.iclAmount.bindViewError(if (isCheckErrorAmount) textError else null)
     }
 
     /*
@@ -542,7 +557,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 bindExchangeCurrency(null)
             }
             toAccount = account
-            checkBalanceInvalid()
+            checkBalanceInvalid(false)
             iclTotalAmount.tvCurrentCode.text = account.currencyCode
         }
 
@@ -563,7 +578,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             binding.iclRemarks.edtValue.setText(beneficiarySelected?.remark)
         }
         if (isDiffCurrency(userInfo.currency)) {
-            bindExchangeCurrency(userInfo.currency)
+            bindExchangeCurrency(fromAccount?.currencyCode)
         } else {
             bindExchangeCurrency(null)
         }
@@ -577,8 +592,12 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         binding.iclTotalAmount.tvCurrentCode.text = userInfo.currency
         with(binding) {
             iclToAccount.tvError.gone()
-            iclTotalAmount.edtValue.setText("")
-            iclTotalAmount.root.gone()
+            if (iclAmount.edtValue.text.toString().isNotEmpty()) {
+                checkBalanceInvalid()
+            } else {
+                iclTotalAmount.edtValue.setText("")
+                iclTotalAmount.root.gone()
+            }
         }
 
         updateStatusTransfer()

@@ -133,7 +133,7 @@
     <string name="pleaseEnterTheRemarks">សូមបញ្ចូលខ្លឹមសារកំណត់សម្គាល់</string>
     <string name="enterRemarks">បញ្ចួលកំណត់សម្គាល់</string>
     <string name="transactionSuccess">កិច្ចការជោគជ័យ !</string>
-    <string name="beneficiary">អ្នកទទួលផល</string>
+    <string name="beneficiary">អ្នកទទួល</string>
     <string name="addNew">បន្ថែមថ្មី</string>
     <string name="doYouWantToDeleteFromBeneficiary">តើអ្នកចង់លុប %s ចេញពីបញ្ជីអ្នកទទួលផលដែរឬទេ?</string>
     <string name="beneficiaryDeletedSuccessfully">បានលុបអ្នកទទួលផលដោយជោគជ័យ</string>
@@ -142,7 +142,6 @@
     <string name="minus">នាទី</string>
     <string name="version">កំណែ</string>
     <string name="share">ចែករំលែក</string>
-    <string name="beneficiary">អ្នកទទួល</string>
     <string name="chatpay">Paste2Pay</string>
     <string name="changePassword">ផ្លាស់ប្តូរលេខសម្ងាត់</string>
     <string name="currentPassword">លេខសម្ងាត់បច្ចុប្បន្ន</string>

@@ -50,7 +50,7 @@
             android:background="@drawable/bg_input_chatpay"
             android:gravity="start"
             android:hint="Paste transfer information"
-            android:imeOptions="actionNext"
+            android:imeOptions="actionDone"
             android:inputType="textNoSuggestions|textMultiLine"
             android:maxLength="500"
             android:minHeight="178dp"

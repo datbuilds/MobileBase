@@ -4,6 +4,7 @@ import android.content.ClipDescription
 import android.content.ClipboardManager
 import android.content.Context
 import android.util.AttributeSet
+import android.view.inputmethod.EditorInfo
 import com.google.android.material.textfield.TextInputEditText
 import vn.shb.cam.utils.extensions.toast
 
@@ -11,6 +12,10 @@ class SafePasteEditText @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
 ) : TextInputEditText(context, attrs) {
+
+    init {
+        imeOptions = EditorInfo.IME_ACTION_DONE
+    }
 
     override fun onTextContextMenuItem(id: Int): Boolean {
 

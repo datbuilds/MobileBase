@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
 import androidx.navigation.fragment.findNavController
@@ -14,7 +15,6 @@ import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.FragmentPastePayBinding
 import vn.shb.cam.screens.paste2pay.dialog.AiIntroductionDialog
 import vn.shb.cam.screens.paste2pay.dialog.BSAiResult
-import vn.shb.cam.screens.paste2pay.dialog.BSClipboardChooser
 import vn.shb.cam.screens.paste2pay.state.ChatPayUiState
 import vn.shb.cam.screens.paste2pay.widget.SafePasteEditText
 import vn.shb.cam.screens.transfer.MoneyTransferFragment
@@ -67,6 +67,7 @@ class Paste2PayFragment :
             binding.imagePreview.collapse()
             updateConfirmButtonState()
         }
+        binding.edtContent.imeOptions = EditorInfo.IME_ACTION_DONE
         updateConfirmButtonState()
         if (!storage.isAiChatIntroCompleted()) {
             showAiIntroDialog()
@@ -155,36 +156,19 @@ class Paste2PayFragment :
                     .orEmpty()
 
                 if (text.isNotEmpty() && SafePasteEditText.isValidClipboardText(text)) {
-                    add(
-                        BSClipboardChooser.ClipboardOption(
-                            fullText = text,
-                            charCount = text.length,
-                            lineCount = text.lineSequence().count { it.isNotBlank() }
-                                .coerceAtLeast(1)
-                        )
-                    )
+                    add(text)
                 }
             }
-        }.distinctBy { it.fullText }
+        }.distinctBy { it }
 
         if (clipboardItems.isEmpty()) {
             toast("Nội dung không hợp lệ")
             return
         }
 
-        binding.edtContent.setText(clipboardItems.first().fullText)
+        binding.edtContent.setText(clipboardItems.first())
         binding.edtContent.requestFocus()
         binding.edtContent.setSelection(binding.edtContent.text?.length ?: 0)
-
-//        BSClipboardChooser.Builder()
-//            .setItems(clipboardItems)
-//            .setOnItemSelected { item ->
-//                binding.edtContent.setText(item.fullText)
-//                binding.edtContent.requestFocus()
-//                binding.edtContent.setSelection(binding.edtContent.text?.length ?: 0)
-//            }
-//            .build()
-//            .show(childFragmentManager, BSClipboardChooser.TAG)
     }
 
     private fun updateConfirmButtonState() {
@@ -238,7 +222,7 @@ class Paste2PayFragment :
 
     private fun navigateToTransfer(result: AiPayResult) {
         safeNavigate(
-            R.id.chatPayFragment,
+            R.id.pastePayFragment,
             R.id.moneyTransferFragment,
             bundleOf(
                 ApiConst.KEY_TYPE_TRANSFER_INTRABANK to isIntrabankResponse(result.responseType),
