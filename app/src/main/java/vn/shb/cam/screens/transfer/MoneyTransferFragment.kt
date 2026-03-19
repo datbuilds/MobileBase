@@ -45,6 +45,10 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 
     private var fromAccount: AccountBase? = null
     private var toAccount: AccountBase? = null
+        set(value) {
+            field = value
+            stateAmountInput(value != null)
+        }
 
     private var aiPayResult: AiPayResult? = null
 
@@ -184,6 +188,13 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             root.gone()
             edtValue.setText("")
         }
+        toAccount = null
+        updateStatusTransfer()
+    }
+
+    private fun stateAmountInput(value: Boolean) {
+        binding.iclAmount.edtValue.enableInput(value)
+        if (!value) binding.iclAmount.edtValue.setText(Const.EMPTY)
     }
 
     override fun initListener() {
@@ -359,7 +370,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     /*
   * nhận số tiền nhập và xử lý hiển thị các mục khác
   * */
-    private fun checkBalanceInvalid(isCheckErrorAmount : Boolean = true) {
+    private fun checkBalanceInvalid(isCheckErrorAmount: Boolean = true) {
         val valueBalance = binding.iclAmount.edtValue.text.toString().trim()
         amountOfSender =
             if (valueBalance.isNotBlank()) valueBalance.replace(",", "").toDouble() else 0.0
@@ -525,6 +536,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     * */
     private fun bindViewFromAccount(account: AccountBase) {
         fromAccount = account
+        toAccount = null
         with(binding) {
             tvAccountNumber.text = account.accountNumber
             tvBalanceValue.text = account.getAvailableBalance()
