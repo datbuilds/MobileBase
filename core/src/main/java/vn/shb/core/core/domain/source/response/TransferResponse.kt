@@ -5,6 +5,8 @@ import vn.shb.core.core.delivery.BaseResponse
 import vn.shb.data.entities.home.AccountInfo
 import vn.shb.data.entities.transfer.TransferAccount
 import java.io.Serializable
+import java.math.BigDecimal
+
 class TransferAccountResponse : BaseResponse<TransferAccountData>()
 
 data class TransferAccountData(
@@ -19,10 +21,14 @@ class AccountUserNameResponse : BaseResponse<AccountUserNameModel>()
 data class TransactionTransfer(
     @SerializedName("transactionId") val transactionId: Int = 0,
     @SerializedName("status") val status: String = "",
+    @SerializedName("otp") val otp: String = "",
     @SerializedName("authMethod") val authMethod: String = "",
     @SerializedName("authSms") val authSms: String? = null,
     @SerializedName("paymentType") val paymentType: String = "",
-    @SerializedName("expireInSeconds") val expireInSeconds: Int = 0
+    @SerializedName("expireInSeconds") val expireInSeconds: Int = 0,
+    @SerializedName("fee") val fee: Int = 0,
+    @SerializedName("otpRemainingSeconds") val otpRemainingSeconds: Int = 0,
+    @SerializedName("otpExpirySeconds") val otpExpirySeconds: Int = 0,
 ) : Serializable
 
 data class TransactionTransferConfirm(
@@ -31,7 +37,8 @@ data class TransactionTransferConfirm(
     @SerializedName("status") val status: String = "",
     @SerializedName("mdCode") val moduleCode: String = "",
     @SerializedName("transCode") val transactionCode: String = "",
-    @SerializedName("transDate") val transactionDate: String = ""
+    @SerializedName("transDate") val transactionDate: String = "",
+    @SerializedName("hasBeneficiary") val hasBeneficiary: String = "",
 ) : Serializable
 
 data class AccountUserNameModel(
@@ -42,4 +49,10 @@ data class AccountUserNameModel(
     var accountNumber : String = "",
 )
 
+class ExchangeRateResponse : BaseResponse<ExchangeRateModel>()
 
+data class ExchangeRateModel(
+    @SerializedName("sourceCurrency") val sourceCurrency: String = "",
+    @SerializedName("targetCurrency") val targetCurrency: String = "",
+    @SerializedName("exchangeRate") val exchangeRate: BigDecimal? = BigDecimal.ZERO
+) : Serializable

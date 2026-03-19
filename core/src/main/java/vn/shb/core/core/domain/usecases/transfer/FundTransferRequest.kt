@@ -14,6 +14,7 @@ data class OrderDetail(
     @SerializedName("amount") val amount: Double = 0.0,
     @SerializedName("currency") val currency: String = "",
     @SerializedName("remark") val remark: String = "",
+    @SerializedName("transactionId") val transactionId: Int? = null,
     @SerializedName("saveNewAccount") val saveNewAccount: Boolean = false
 )
 

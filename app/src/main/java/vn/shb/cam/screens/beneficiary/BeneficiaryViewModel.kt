@@ -1,37 +1,33 @@
 package vn.shb.cam.screens.beneficiary
 
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import vn.shb.cam.base.BaseViewModel
 import vn.shb.core.core.delivery.Reason
+import vn.shb.core.core.delivery.ResultSHB
 import vn.shb.core.core.delivery.onFailure
 import vn.shb.core.core.delivery.onLoading
 import vn.shb.core.core.delivery.onSuccess
 import vn.shb.core.core.domain.source.request.BeneficiaryRequest
+import vn.shb.core.core.domain.source.request.RemoveBeneficiaryRequest
 import vn.shb.core.core.domain.source.request.ValidateAccountRequest
 import vn.shb.core.core.domain.source.response.ValidateAccountResponse
 import vn.shb.core.core.domain.usecases.None
-import vn.shb.core.core.domain.usecases.beneficiary.GetBeneficiariesUseCase
-import vn.shb.data.entities.beneficiary.Beneficiary
-import vn.shb.cam.base.BaseViewModel
-import vn.shb.core.core.delivery.ResultSHB
-import vn.shb.core.core.domain.source.request.RemoveBeneficiaryRequest
-
 import vn.shb.core.core.domain.usecases.beneficiary.CreateBeneficiaryUseCase
 import vn.shb.core.core.domain.usecases.beneficiary.DeleteBeneficiaryUseCase
 import vn.shb.core.core.domain.usecases.beneficiary.GetBanksUseCase
+import vn.shb.core.core.domain.usecases.beneficiary.GetBeneficiariesUseCase
 import vn.shb.core.core.domain.usecases.beneficiary.UpdateBeneficiaryUseCase
 import vn.shb.core.core.domain.usecases.beneficiary.ValidateAccountUseCase
 import vn.shb.data.entities.beneficiary.Bank
+import vn.shb.data.entities.beneficiary.Beneficiary
 
 class BeneficiaryViewModel(
     private val useCaseGetBeneficiaries: GetBeneficiariesUseCase,
@@ -43,7 +39,7 @@ class BeneficiaryViewModel(
 ) : BaseViewModel() {
 
     private val _localBeneficiaries = MutableStateFlow<List<Beneficiary>>(emptyList())
-
+    val localBeneficiaries: StateFlow<List<Beneficiary>> = _localBeneficiaries
     private val _stateBanks = MutableStateFlow<List<Bank>>(emptyList())
     val stateBanks: StateFlow<List<Bank>> = _stateBanks
 
@@ -58,7 +54,8 @@ class BeneficiaryViewModel(
 
     private val _stateValidateAccount =
         MutableStateFlow<ResultSHB<ValidateAccountResponse.ValidateAccountData>>(ResultSHB.Loading)
-    val stateValidateAccount: StateFlow<ResultSHB<ValidateAccountResponse.ValidateAccountData>> = _stateValidateAccount
+    val stateValidateAccount: StateFlow<ResultSHB<ValidateAccountResponse.ValidateAccountData>> =
+        _stateValidateAccount
 
     private val _stateError = MutableSharedFlow<Reason>()
     val stateError = _stateError

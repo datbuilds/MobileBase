@@ -186,6 +186,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_10dp" />
 
+            <include
+                android:id="@+id/iclExchangeRate"
+                layout="@layout/child_view_transaction_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10dp" />
+
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>
 

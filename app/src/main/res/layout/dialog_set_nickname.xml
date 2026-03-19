@@ -89,7 +89,7 @@
         android:includeFontPadding="false"
         android:paddingHorizontal="@dimen/margin_12dp"
         android:paddingVertical="@dimen/margin_13dp"
-        android:text="@string/confirmation"
+        android:text="@string/confirm"
         android:textColor="@color/white"
         android:textSize="@dimen/textSize14"
         app:customFontWeight="semi_bold" />

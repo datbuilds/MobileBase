@@ -328,13 +328,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                     val maskedPhone = result.maskedPhoneNumber ?: ""
                     transactionId = result.transactionId
                     val totalTime = result.remainingSeconds ?: result.expiresInSeconds
-                    logD("234234243", buildString {
-                        append(result.remainingSeconds)
-                        append("------")
-                        append(result.expiresInSeconds)
-                        append("------")
-                        append(result.transactionId)
-                    })
                     confirmDeviceView.setup(
                         phoneNumber = maskedPhone,
                         totalTime = totalTime?.times(1000L),
@@ -522,15 +515,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             nextDashboard()
         }
     }
-/*
-    private fun maskPhoneNumber(phone: String?): String {
-        if (phone.isNullOrEmpty()) return ""
-        val length = phone.length
-        if (length < 7) return phone
-        val start = phone.take(3)
-        val end = phone.substring(length - 2)
-        return "$start*****$end"
-    }*/
 
     fun updateLanguage(type: String) {
         context?.let { ct ->
@@ -556,7 +540,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         clearFlag()
 
         //mock
-//        binding.edtInputPass.setText("Test123@")
+        binding.edtInputPass.setText("12345678")
 //        handleActionLogin()
     }
 

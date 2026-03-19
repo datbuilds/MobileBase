@@ -16,6 +16,7 @@ import vn.shb.cam.utils.extensions.DateTimeHelper
 import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.gone
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
+import vn.shb.cam.utils.extensions.setExchangeRateText
 import vn.shb.cam.utils.extensions.visible
 
 class TransactionDetailFragment :
@@ -87,6 +88,16 @@ class TransactionDetailFragment :
                 )
             } else {
                 iclAccountName.root.gone()
+            }
+
+            iclExchangeRate.apply {
+                tvLabel.text = getString(R.string.exchangeRate)
+                tvValue.setExchangeRateText(
+                    "1",
+                    trans.ccyCdSrc,
+                    trans.rate.toPlainString(),
+                    trans.ccyCdDst
+                )
             }
         }
     }

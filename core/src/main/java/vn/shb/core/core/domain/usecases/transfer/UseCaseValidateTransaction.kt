@@ -16,12 +16,18 @@ class UseCaseValidateTransaction(private val repoTransfer: RepositoryTransfer) :
     }
 
     data class Params(
-        @SerializedName("orderDetail") val orderDetail: OrderTransaction
+        @SerializedName("orderDetail") val orderDetail: OrderTransaction,
+        @SerializedName("sender") val sender: AccountTransaction,
+        @SerializedName("beneficiary") val beneficiary: AccountTransaction
     ) : UseCaseParameters
 
     data class OrderTransaction(
         @SerializedName("paymentType") val paymentType: String = "",
         @SerializedName("amount") val amount: Double = 0.0,
-        @SerializedName("currency") val currency: String = "",
+        @SerializedName("currency") val currency: String
+    )
+
+    data class AccountTransaction(
+        @SerializedName("accountNo") val accountNo: String = ""
     )
 }

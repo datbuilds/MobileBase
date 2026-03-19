@@ -30,4 +30,5 @@ object ENDPOINT {
     const val SYSTEM_VARS = "identity-service/api/v1/sys/vars"
     const val REGISTER_DEVICE = "identity-service/api/v1/devices/register-device"
     const val VERIFY_DEVICE = "identity-service/api/v1/devices/verify-device"
+    const val EXCHANGE_RATE = "fundtransfer-service/api/v1/exchange-rates"
 }

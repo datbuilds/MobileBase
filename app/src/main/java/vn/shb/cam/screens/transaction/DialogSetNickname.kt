@@ -1,30 +1,25 @@
 package vn.shb.cam.screens.transaction
 
 import android.view.View
-import androidx.core.view.isVisible
-import androidx.core.widget.doAfterTextChanged
-import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.cam.R
 import vn.shb.cam.base.BaseBottomDialogBinding
 import vn.shb.cam.databinding.DialogSetNicknameBinding
 import vn.shb.cam.utils.extensions.setLatinAlphanumericFilter
-import vn.shb.cam.utils.extensions.visible
+import vn.shb.core.utils.extesions.setOnSingleClickListener
 
 class DialogSetNickname(
-    private val defaultNickname: String = "",
     private val includeNickname: (String) -> Unit
 ) : BaseBottomDialogBinding<DialogSetNicknameBinding>(DialogSetNicknameBinding::inflate) {
 
     override fun initView(view: View) {
-        setEnableButton(binding.edtNickname.text?.trim()?.isNullOrEmpty() != true)
+//        setEnableButton(binding.edtNickname.text?.trim()?.isNullOrEmpty() != true)
 
         // Validation logic
-        binding.edtNickname.doAfterTextChanged {
-            val text = it.toString()
+//        binding.edtNickname.doAfterTextChanged {
+//        val text = it.toString()
 //            binding.tvError.text = if (text.isEmpty()) getString(R.string.error_enter_nickname) else getString(R.string.theNameIsInvaid)
 //            binding.tvError.isVisible = text.trim().isBlank()
-            setEnableButton(text.trim().isNotEmpty())
-        }
+//            setEnableButton(text.trim().isNotEmpty())
+//        }
 
         // Input Filter
         binding.edtNickname.setLatinAlphanumericFilter(50)

@@ -2,25 +2,22 @@ package vn.shb.cam.screens.home
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.data.entities.beneficiary.Beneficiary
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseBottomDialogBinding
 import vn.shb.cam.databinding.DialogSelectBeneficiaryBinding
 import vn.shb.cam.screens.home.helper.SelectBeneficiaryAdapter
+import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.beneficiary.Beneficiary
 
 class DialogSelectBeneficiary(private val listBeneficiary: List<Beneficiary>) :
     BaseBottomDialogBinding<DialogSelectBeneficiaryBinding>(DialogSelectBeneficiaryBinding::inflate) {
 
     private var onAction: ((Beneficiary) -> Unit)? = null
     private var filteredList = listBeneficiary
+    private var beneficiarySelected: Beneficiary? = null
     private var adapter: SelectBeneficiaryAdapter? = null
 
     companion object {
@@ -29,10 +26,12 @@ class DialogSelectBeneficiary(private val listBeneficiary: List<Beneficiary>) :
 
     class Build(
         val list: List<Beneficiary>,
+        val beneficiaryS: Beneficiary? = null,
         val action: (Beneficiary) -> Unit
     ) {
         fun build() = DialogSelectBeneficiary(list).apply {
             onAction = action
+            beneficiarySelected = beneficiaryS
         }
     }
 
@@ -70,7 +69,7 @@ class DialogSelectBeneficiary(private val listBeneficiary: List<Beneficiary>) :
         filteredList = listBeneficiary
         binding.rcvBeneficiary.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = SelectBeneficiaryAdapter(filteredList) { beneficiary ->
+            adapter = SelectBeneficiaryAdapter(filteredList, beneficiarySelected) { beneficiary ->
                 onAction?.invoke(beneficiary)
                 dismiss()
             }
@@ -86,7 +85,13 @@ class DialogSelectBeneficiary(private val listBeneficiary: List<Beneficiary>) :
             }
 
             edtSearchBeneficiary.addTextChangedListener(object : android.text.TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
@@ -103,8 +108,10 @@ class DialogSelectBeneficiary(private val listBeneficiary: List<Beneficiary>) :
             listBeneficiary
         } else {
             listBeneficiary.filter { ben ->
-                (ben.accountName?.lowercase(java.util.Locale.getDefault())?.contains(query) == true) ||
-                        (ben.accountNumber?.lowercase(java.util.Locale.getDefault())?.contains(query) == true)
+                (ben.accountName?.lowercase(java.util.Locale.getDefault())
+                    ?.contains(query) == true) ||
+                        (ben.accountNumber?.lowercase(java.util.Locale.getDefault())
+                            ?.contains(query) == true)
             }
         }
         adapter?.updateData(filteredList)

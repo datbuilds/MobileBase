@@ -18,11 +18,14 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/llEdit"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_6dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/bg_child_view_transfer"
         android:paddingHorizontal="@dimen/margin_12dp"
+        app:layout_constraintEnd_toStartOf="@+id/tvCurrentCode"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle">
 
         <vn.shb.cam.base.view.MyEditText
@@ -30,11 +33,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:imeOptions="actionDone"
             android:paddingVertical="@dimen/margin_12dp"
             android:textColor="@color/neutral10"
             android:textColorHint="@color/neutral6"
             android:textSize="@dimen/textSize14"
-            android:imeOptions="actionDone"
             app:customFontWeight="medium"
             tools:hint="selected account" />
 
@@ -46,35 +49,42 @@
             android:padding="@dimen/margin_4dp"
             app:srcCompat="@drawable/ic_arrow_down" />
 
-        <View
-            android:id="@+id/viewLine"
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:layout_marginVertical="@dimen/margin_12dp"
-            android:background="@color/colorLineGray" />
-
-        <vn.shb.cam.base.view.MyTextView
-            android:id="@+id/tvCurrentCode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_12dp"
-            android:textColor="@color/neutral8"
-            android:textSize="@dimen/textSize14"
-            app:customFontWeight="medium"
-            tools:text="LAK" />
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <vn.shb.cam.base.view.MyTextView
+        android:id="@+id/tvCurrentCode"
+        android:layout_width="78dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="@dimen/margin_12dp"
+        android:background="@drawable/bg_primary_radius_12"
+        android:drawablePadding="2dp"
+        android:drawableTint="@color/white"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:paddingHorizontal="@dimen/margin_12dp"
+        android:paddingVertical="@dimen/margin_13dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSize14"
+        android:visibility="gone"
+        app:customFontWeight="medium"
+        app:layout_constraintBottom_toBottomOf="@+id/llEdit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/llEdit"
+        tools:text="LAK"
+        tools:visibility="visible" />
 
     <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvError"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_5dp"
         android:textColor="@color/color_error_text_login"
         android:textSize="@dimen/textSize12"
-        app:customFontWeight="medium"
         android:visibility="gone"
-        tools:visibility="visible"
-        android:layout_marginTop="@dimen/margin_5dp"
+        app:customFontWeight="medium"
         app:layout_constraintTop_toBottomOf="@+id/llEdit"
-        tools:text="@string/invalidSelectedDate" />
+        tools:text="@string/invalidSelectedDate"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

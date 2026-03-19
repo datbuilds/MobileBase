@@ -1,20 +1,29 @@
 package vn.shb.cam.screens.transfer
 
+import android.graphics.Color
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.DigitsKeyListener
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.PopupWindow
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import vn.shb.data.entities.DecimalDigitsInputFilter
-import vn.shb.data.entities.getBalanceFormatted
 import vn.shb.cam.R
 import vn.shb.cam.base.view.MyEditText
 import vn.shb.cam.base.view.MyTextView
 import vn.shb.cam.databinding.ItemTransferTypeBinding
+import vn.shb.cam.databinding.LayoutChooseCurrencyPopupBinding
 import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.hideSoftKeyboard
+import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.DecimalDigitsInputFilter
+import vn.shb.data.entities.getBalanceFormatted
 import java.text.Normalizer
 
 fun MoneyTransferFragment.viewOptionTransfer(tv: MyTextView, typeView: String) {
@@ -80,7 +89,7 @@ fun MyEditText.enableInput(enable: Boolean) {
     isLongClickable = enable
 }
 
-fun MyEditText.setupDecimalInput() {
+fun MyEditText.setupDecimalInput(currencyProvider: (() -> String)? = null) {
 
     addTextChangedListener(object : TextWatcher {
         private var current = ""
@@ -95,29 +104,55 @@ fun MyEditText.setupDecimalInput() {
             if (text == current) return
 
             editing = true
+            val currency = currencyProvider?.invoke() ?: Const.KHR
+            val isUSD = currency == Const.USD
 
             if (text.isNotEmpty()) {
 
-                if (text.startsWith("0")) {
+                if (!isUSD && text.startsWith("0")) {
                     setText("")
                     current = ""
                     editing = false
                     return
                 }
 
+                if (isUSD && text.startsWith("0") && text.length > 1 && !text.startsWith("0.")) {
+                    val clean0 = text.replaceFirst("^0+(?!$)".toRegex(), "")
+                    if (clean0 != text) {
+                        setText(clean0)
+                        setSelection(clean0.length)
+                        current = clean0
+                        editing = false
+                        return
+                    }
+                }
+
                 if (text.startsWith(".")) {
-                    setText("")
-                    current = ""
+                    val prefix = if (isUSD) "0." else ""
+                    setText(prefix)
+                    if (prefix.isNotEmpty()) setSelection(2)
+                    current = prefix
                     editing = false
                     return
                 }
 
                 val numeric = text.replace(",", "").toDoubleOrNull()
-                if (numeric != null && numeric < 1) {
-                    setText("")
-                    current = ""
-                    editing = false
-                    return
+                if (numeric != null) {
+                    if (isUSD) {
+                        if (numeric == 0.0 && text.replace(",", "") == "0.00") {
+                            setText("")
+                            current = ""
+                            editing = false
+                            return
+                        }
+                    } else {
+                        if (numeric < 1) {
+                            setText("")
+                            current = ""
+                            editing = false
+                            return
+                        }
+                    }
                 }
             }
 
@@ -125,8 +160,10 @@ fun MyEditText.setupDecimalInput() {
                 // Lưu lại vị trí con trỏ hiện tại
                 val cursorStart = selectionStart
 
+                val isZeroDecimal = isUSD && (text == "0" || (text.startsWith("0.0") && text.replace(",", "") == "0.0"))
+
                 // Không format khi user đang nhập dấu "." ở cuối
-                if (text.endsWith(".") || text == "." || text.isEmpty()) {
+                if (text.endsWith(".") || text == "." || text.isEmpty() || isZeroDecimal) {
                     current = text
                 } else {
                     val clean = text.replace(",", "")
@@ -167,7 +204,6 @@ fun ItemTransferTypeBinding.bindViewError(text: String? = null) {
 fun ItemTransferTypeBinding.bindColor(idColor: Int) {
     val color = ContextCompat.getColor(root.context, idColor)
     edtValue.setTextColor(color)
-    tvCurrentCode.setTextColor(color)
 }
 
 fun Fragment.finishTyping(
@@ -194,4 +230,45 @@ fun Fragment.finishTyping(
         }
     }
 
+}
+
+fun MoneyTransferFragment.popupChooseCurrency(
+    currentCurrency: String,
+    anchor: View,
+    choose: (String) -> Unit
+) {
+    val binding = LayoutChooseCurrencyPopupBinding.inflate(LayoutInflater.from(anchor.context))
+
+    val popupWindow = PopupWindow(
+        binding.root,
+        ViewGroup.LayoutParams.WRAP_CONTENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT,
+        true
+    )
+
+    // style
+    popupWindow.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
+    popupWindow.isOutsideTouchable = true
+    popupWindow.elevation = 8f
+
+    binding.apply {
+
+        tvKHR.apply {
+            setTextColor(getColor(if (currentCurrency == Const.KHR) R.color.neutral10 else R.color.neutral7))
+            setOnSingleClickListener {
+                choose.invoke(Const.KHR)
+                popupWindow.dismiss()
+            }
+        }
+        tvUSD.apply {
+            setTextColor(getColor(if (currentCurrency == Const.USD) R.color.neutral10 else R.color.neutral7))
+            setOnSingleClickListener {
+                choose.invoke(Const.USD)
+                popupWindow.dismiss()
+            }
+        }
+    }
+
+    val marginRight = (77 * anchor.context.resources.displayMetrics.density).toInt()
+    popupWindow.showAsDropDown(anchor, -marginRight, 20, Gravity.END)
 }

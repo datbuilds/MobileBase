@@ -62,6 +62,34 @@ class ConfirmDeviceView @JvmOverloads constructor(
         startTimer(totalTime ?: 60000L)
     }
 
+    fun setupOtpTransaction(
+        authSms: String,
+        totalTime: Long?,
+        onConfirm: (String) -> Unit,
+        resendCode: () -> Unit,
+        onClose: () -> Unit
+    ) {
+        this.onConfirmCallback = onConfirm
+        this.onResendCallback = resendCode
+        this.onCloseCallback = onClose
+
+        val message = authSms
+        val spannable = SpannableString(message)
+        val startIndex = message.length - 10
+        if (startIndex != -1) {
+            spannable.setSpan(
+                android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
+                startIndex,
+                startIndex + message.length -1,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+        binding.tvMessage.text = spannable
+        binding.tvError.gone()
+
+        startTimer(totalTime ?: 60000L)
+    }
+
     private fun setupListeners() {
         with(binding) {
             ivClose.setOnSingleClickListener {

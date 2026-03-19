@@ -2,16 +2,9 @@ package vn.shb.cam.screens.transfer
 
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import vn.shb.core.core.delivery.reason.AppReason
-import vn.shb.core.core.domain.source.request.BeneficiaryRequest
-import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionDetail
-import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.data.entities.getBalance
-import vn.shb.data.entities.home.TransactionDetail
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.ChildViewTransactionInfoBinding
@@ -19,6 +12,7 @@ import vn.shb.cam.databinding.FragmentTransactionDetailBinding
 import vn.shb.cam.screens.beneficiary.BeneficiaryViewModel
 import vn.shb.cam.screens.transaction.DialogSetNickname
 import vn.shb.cam.utils.ApiConst
+import vn.shb.cam.utils.BankType
 import vn.shb.cam.utils.extensions.CACHE_IMAGE_FILE_NAME
 import vn.shb.cam.utils.extensions.CustomToastShowOnTop
 import vn.shb.cam.utils.extensions.DateTimeHelper
@@ -27,9 +21,18 @@ import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.gone
 import vn.shb.cam.utils.extensions.invisible
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
+import vn.shb.cam.utils.extensions.setExchangeRateText
 import vn.shb.cam.utils.extensions.shareImage
 import vn.shb.cam.utils.extensions.toBitmap
 import vn.shb.cam.utils.extensions.visible
+import vn.shb.cam.utils.view.dialog.BottomSheetDialogHelper
+import vn.shb.core.core.delivery.reason.AppReason
+import vn.shb.core.core.domain.source.request.BeneficiaryRequest
+import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionDetail
+import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.beneficiary.Beneficiary
+import vn.shb.data.entities.getBalance
+import vn.shb.data.entities.home.TransactionDetail
 
 class PaymentTransferFragment :
     BaseFragmentBinding<FragmentTransactionDetailBinding>(FragmentTransactionDetailBinding::inflate) {
@@ -48,8 +51,12 @@ class PaymentTransferFragment :
         arguments?.getBoolean(ApiConst.KEY_CONFIRM_ERROR) == true
     }
 
+    private var transactionDetails: TransactionDetail? = null
+    private var listBeneficiary: List<Beneficiary> = arrayListOf()
+
     override fun initView(view: View) {
         bindViewPayment()
+        beneficiaryViewModel.getAllBeneficiary()
         val confirmSuccess = homeViewModel.confirmSuccessData
         if (confirmSuccess?.refNo != null && accountNo != null && confirmSuccess.status == ApiConst.SUCCESS && !isConfirmError) {
             homeViewModel.getTransactionDetail(
@@ -96,6 +103,7 @@ class PaymentTransferFragment :
     }
 
     private fun setupView(trans: TransactionDetail) {
+        transactionDetails = trans
         with(binding) {
             ivStatus.visible()
             tvTransactionAmount.visible()
@@ -107,14 +115,24 @@ class PaymentTransferFragment :
 
             bindButtonNewTransaction(R.drawable.bg_new_transaction, R.color.primary100)
             val fromAccount = trans.ordAccType.plus(Const.SEPARATOR_DASH).plus(trans.ordAccount)
-            iclFromAccount.bindView(
-                getString(R.string.fromAccount),
-                fromAccount
-            )
-            iclToAccount.bindView(
-                getString(R.string.toAccount),
-                trans.benAccType.plus(Const.SEPARATOR_DASH).plus(trans.benAccount)
-            )
+            if (!trans.ordAccount.isNullOrEmpty()) {
+                iclFromAccount.bindView(
+                    getString(R.string.fromAccount),
+                    trans.ordAccType.plus(Const.SEPARATOR_DASH).plus(trans.ordAccount)
+                )
+                iclFromAccount.root.visible()
+            } else {
+                iclFromAccount.root.gone()
+            }
+            if (!trans.benAccount.isNullOrEmpty()) {
+                iclToAccount.bindView(
+                    getString(R.string.toAccount),
+                    trans.benAccType.plus(Const.SEPARATOR_DASH).plus(trans.benAccount)
+                )
+                iclToAccount.root.visible()
+            } else {
+                iclToAccount.root.gone()
+            }
             iclRemarks.bindView(
                 getString(R.string.remarks),
                 trans.remarks
@@ -127,18 +145,32 @@ class PaymentTransferFragment :
                 getString(R.string.referenceNumber),
                 trans.refNo
             )
-            if (isIntrabank) {
+            if (isIntrabank && trans.accountName != null) {
                 iclAccountName.root.visible()
                 iclAccountName.bindView(
                     getString(R.string.accountName),
-                    trans.accountName
+                    trans.accountName!!
                 )
             } else {
                 iclAccountName.root.gone()
             }
 
+            iclExchangeRate.apply {
+                if (trans.ccyCdDst != trans.ccyCdSrc) {
+                    tvLabel.text = getString(R.string.exchangeRate)
+                    tvValue.setExchangeRateText(
+                        "1",
+                        trans.ccyCdSrc,
+                        trans.rate.toPlainString(),
+                        trans.ccyCdDst
+                    )
+                } else {
+                    root.gone()
+                }
+            }
+
             // Show save recipient logic
-            if (trans.benAccount?.isNotEmpty() == true && isIntrabank) {
+            if (!trans.hasBeneficiary && isIntrabank) {
                 (rlSaveRecipient as View).visible()
             }
         }
@@ -165,22 +197,47 @@ class PaymentTransferFragment :
             }
 
             rlSaveRecipient.setOnSingleClickListener {
-                val toAccount = homeViewModel.confirmModel?.toAccount
-                DialogSetNickname(toAccount?.customerName ?: "") { nickname ->
-                    if (accountNo != null) {
-                        val user = homeViewModel.getCurrentUserInfo()
-                        val request = BeneficiaryRequest(
-                            accountNumber = toAccount?.accountNumber ?: "",
-                            accountName = nickname,
-                            remark = (user?.customerName ?: "").plus(Const.SEPARATOR_SPACE)
-                                .plus(getString(R.string.transferCAP)),
-                            bankCode = "SHB"
-                        )
-                        beneficiaryViewModel.createBeneficiary(request, false)
-                        binding.rlSaveRecipient.gone()
+                DialogSetNickname { nickname ->
+                    if (listBeneficiary.any { it.accountNick == nickname }) {
+                        showDialogAlreadyNickname {
+                            createBeneficiary(nickname)
+                        }
+                    } else {
+                        createBeneficiary(nickname)
                     }
                 }.show(childFragmentManager, DialogSetNickname.TAG)
             }
+        }
+    }
+
+    private fun showDialogAlreadyNickname(update: () -> Unit) {
+        BottomSheetDialogHelper(requireContext()).message(
+            title = getString(R.string.confirmation),
+            message = getString(
+                R.string.nicknameAlreadyExists
+            ),
+            textNegative = getString(R.string.noLabel),
+            textPositive = getString(R.string.yesLabel),
+            positiveAction = {
+                update.invoke()
+            }
+        )
+    }
+
+    private fun createBeneficiary(nickname: String) {
+        if (accountNo != null) {
+            val user = homeViewModel.getCurrentUserInfo()
+            val toAccount = homeViewModel.confirmModel?.toAccount
+            val request = BeneficiaryRequest(
+                accountNumber = toAccount?.accountNumber ?: "",
+                accountName = toAccount?.customerName ?: transactionDetails?.accountName ?: "",
+                accountNick = nickname,
+                remark = (user?.customerName ?: "").plus(Const.SEPARATOR_SPACE)
+                    .plus(getString(R.string.transferCAP)),
+                bankCode = BankType.SHB.code
+            )
+            beneficiaryViewModel.createBeneficiary(request, false)
+            binding.rlSaveRecipient.gone()
         }
     }
 
@@ -235,7 +292,7 @@ class PaymentTransferFragment :
         with(beneficiaryViewModel) {
             launchRepeatOnLifecycle {
                 launch {
-                    stateAction.collect{ success ->
+                    stateAction.collect { success ->
                         if (success == true) {
                             showToastSuccess(getString(R.string.successfullySetNickname), true)
                         }
@@ -247,14 +304,21 @@ class PaymentTransferFragment :
 //                    handleErrorHome(it)
                     }
                 }
+
+                launch {
+                    localBeneficiaries.collect {
+                        listBeneficiary = it
+                    }
+                }
             }
         }
     }
 
     fun showToastSuccess(text: String, isSuccess: Boolean = true) {
-        context?.let { context->
-            val background=if (isSuccess) R.drawable.bg_toast_change_avatar_ss else R.drawable.bg_toast_change_avatar_error
-            val icon=if (isSuccess) R.drawable.ic_success else R.drawable.ic_error
+        context?.let { context ->
+            val background =
+                if (isSuccess) R.drawable.bg_toast_change_avatar_ss else R.drawable.bg_toast_change_avatar_error
+            val icon = if (isSuccess) R.drawable.ic_success else R.drawable.ic_error
 
             val toast = CustomToastShowOnTop(
                 context,

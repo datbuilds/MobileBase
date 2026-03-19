@@ -25,9 +25,12 @@ import vn.shb.core.core.domain.usecases.transfer.UseCaseValidateTransaction
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.AccountBase
 import vn.shb.data.entities.beneficiary.Beneficiary
+import vn.shb.data.entities.getBalance
 import vn.shb.data.entities.home.AccountInfo
 import vn.shb.data.entities.transfer.ConfirmationModel
 import vn.shb.data.entities.transfer.TransferAccount
+import java.math.BigDecimal
+import java.math.RoundingMode
 
 class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     FragmentMoneyTransferBinding::inflate
@@ -38,9 +41,15 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 
     private var fromAccount: AccountBase? = null
     private var toAccount: AccountBase? = null
-
+    private var amountOfSender: Double = 0.0
     private var totalAmount: Double = 0.0
+
+    private var exchangeUSDToKm: BigDecimal? = BigDecimal.ZERO
+    private var exchangeKmToUSD: BigDecimal? = BigDecimal.ZERO
+
     var remarks = ""
+
+    private var currentCurrencyChoose = ""
 
     companion object {
         const val INTRABANK = "INTRABANK"
@@ -50,6 +59,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     override fun onDestroyView() {
         super.onDestroyView()
         toAccount = null
+        amountOfSender = 0.0
         totalAmount = 0.0
     }
 
@@ -69,6 +79,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         super.onResume()
         onChangeTypeTransfer(INTRABANK)
         homeViewModel.getTransferAccount()
+        homeViewModel.getExchangeRates(Const.USD, Const.KHR)
+        homeViewModel.getExchangeRates(Const.KHR, Const.USD)
     }
 
     override fun initObserve() {
@@ -90,7 +102,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 launch {
                     stateAccountByNumber.collect {
                         if (it != null) {
-                            bindViewReceiverAccount(it)
+                            bindViewSelectReceiverAccount(it)
                         }
                     }
                 }
@@ -104,10 +116,23 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 launch {
                     stateValidateTransaction.collect {
                         homeViewModel.confirmModel = getConfirmationStatus()
+                        homeViewModel.exchangeRealtime = getExchangeRealtime()
                         safeNavigate(
                             R.id.moneyTransferFragment, R.id.confirmationFragment,
                             bundleOf(ApiConst.KEY_TYPE_TRANSFER_INTRABANK to isIntrabank())
                         )
+                    }
+                }
+
+                launch {
+                    stateExchangeUSDToKm.collect { rateModel ->
+                        exchangeUSDToKm = rateModel?.exchangeRate
+                    }
+                }
+
+                launch {
+                    stateExchangeKmToUSD.collect { rateModel ->
+                        exchangeKmToUSD = rateModel?.exchangeRate
                     }
                 }
             }
@@ -137,6 +162,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 
     override fun initListener() {
         with(binding) {
+            //click title
             tvMoneyTransferTitle.setOnSingleClickListener {
                 backPress()
             }
@@ -149,6 +175,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 onChangeTypeTransfer(OWN_ACCOUNT)
             }
 
+            // click option value
             tvAccountNumber.setOnSingleClickListener {
                 DialogSelectAccount.Build(
                     homeViewModel.listTransferAccount, fromAccount
@@ -158,18 +185,17 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 }.build().show(childFragmentManager, DialogSelectAccount.TAG)
             }
 
-            finishTyping(iclToAccount.edtValue, isIntrabank()) {
-                validateToAccount()
-            }
-
             iclToAccount.ivExpandDown.setOnSingleClickListener {
                 handleShowDialogSelectAccount()
             }
 
-            finishTyping(iclAmount.edtValue, true) {
-                checkAmountValidate()
+            iclAmount.edtValue.setupDecimalInput { currentCurrencyChoose }
+
+            iclAmount.tvCurrentCode.setOnSingleClickListener {
+                popupChooseCurrency(currentCurrencyChoose, binding.iclAmount.tvCurrentCode) {
+                    updateChooseCurrency(it)
+                }
             }
-            iclAmount.edtValue.setupDecimalInput()
 
             iclRemarks.edtValue.doAfterTextChanged {
                 iclRemarks.tvError.isVisible = it.toString().isBlank()
@@ -181,14 +207,42 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 tvTransferAction.isEnabled = false
                 homeViewModel.validateTransaction(
                     UseCaseValidateTransaction.Params(
-                        UseCaseValidateTransaction.OrderTransaction(
+                        orderDetail = UseCaseValidateTransaction.OrderTransaction(
                             paymentType = if (isIntrabank()) ApiConst.INTRA else ApiConst.SELF,
-                            amount = totalAmount, fromAccount?.currencyCode!!
+                            amount = amountOfSender,
+                            currency = fromAccount?.currencyCode!!
+                        ),
+                        sender = UseCaseValidateTransaction.AccountTransaction(
+                            accountNo = fromAccount?.accountNumber ?: ""
+                        ),
+                        beneficiary = UseCaseValidateTransaction.AccountTransaction(
+                            accountNo = toAccount?.accountNumber ?: ""
                         )
                     )
                 ) {
                     tvTransferAction.isEnabled = true
                 }
+            }
+
+            finishTyping(iclToAccount.edtValue, isIntrabank()) {
+                validateToAccount()
+            }
+
+            finishTyping(iclAmount.edtValue, true) {
+                checkAmountValidate()
+            }
+        }
+    }
+
+    private fun updateChooseCurrency(currency: String) {
+        val oldCurrency = currentCurrencyChoose
+        currentCurrencyChoose = currency
+        with(binding) {
+            iclAmount.tvCurrentCode.text = currency
+            if (oldCurrency != currency) {
+                iclAmount.edtValue.setInputEditText(true, isTypeSigned = currency == Const.USD)
+                iclAmount.edtValue.setText("")
+                checkAmountValidate()
             }
         }
     }
@@ -219,8 +273,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     * kiểm tra và fill ra các trường khác sau khi nhập Amount
     */
     private fun checkAmountValidate() {
-        val text = binding.iclAmount.edtValue.text.toString().trim()
-        checkBalanceInvalid(text)
+        checkBalanceInvalid()
         updateStatusTransfer()
     }
 
@@ -230,7 +283,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     * hiển thị list người huởng thụ
     * */
     private fun showListBeneficiary() {
-        DialogSelectBeneficiary.Build(listBeneficiary) { selectedAccount ->
+        DialogSelectBeneficiary.Build(listBeneficiary, beneficiarySelected) { selectedAccount ->
             with(binding.iclToAccount.edtValue) {
                 if (this.text.toString() != selectedAccount.accountNumber) {
                     beneficiarySelected = selectedAccount
@@ -247,7 +300,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     private fun getConfirmationStatus(): ConfirmationModel {
         return ConfirmationModel(
             fromAccount!!, toAccount!!, remarks, transactionDate = getDateFromCurrentDate(),
-            totalAmount, 0.0, totalAmount,
+            amountOfSender, 0.0, totalAmount,
             paymentType = if (isIntrabank()) ApiConst.INTRA else ApiConst.SELF
         )
     }
@@ -261,7 +314,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             DialogSelectAccount.Build(
                 homeViewModel.listReceiverActive, toAccount
             ) { selectedAccount ->
-                bindViewReceiverAccount(selectedAccount)
+                bindViewSelectReceiverAccount(selectedAccount)
             }.build().show(childFragmentManager, DialogSelectAccount.TAG)
         } else {
             // show list người  hưởng thụ
@@ -269,25 +322,51 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         }
     }
 
+    private fun roundExchangeValue(value: Double, currency: String): Double {
+        return if (currency == Const.USD) {
+            BigDecimal(value.toString()).setScale(2, RoundingMode.HALF_UP).toDouble()
+        } else {
+            BigDecimal(value.toString()).setScale(0, RoundingMode.HALF_UP).toDouble()
+        }
+    }
+
     /*
-    * nhận số tiền nhập và xử lý hiển thị các mục khác
-    * */
-    private fun checkBalanceInvalid(valueBalance: String) {
-        totalAmount =
+  * nhận số tiền nhập và xử lý hiển thị các mục khác
+  * */
+    private fun checkBalanceInvalid() {
+        val valueBalance = binding.iclAmount.edtValue.text.toString().trim()
+        amountOfSender =
             if (valueBalance.isNotBlank()) valueBalance.replace(",", "").toDouble() else 0.0
-        binding.iclFee.apply {
-            edtValue.setText(Const.ZERO)
-            if (!valueBalance.isEmpty()) root.visible()
+
+        val toCurrency = toAccount?.currencyCode ?: Const.KHR
+        totalAmount = if (isDiffCurrency(toCurrency)) {
+            val rate = getExchangeRealtime()?.toDouble() ?: 0.0
+            if (rate > 0) {
+                if (currentCurrencyChoose == Const.USD && toCurrency == Const.KHR) {
+                    roundExchangeValue(amountOfSender * rate, toCurrency)
+                } else if (currentCurrencyChoose == Const.KHR && toCurrency == Const.USD) {
+                    roundExchangeValue(amountOfSender * rate, toCurrency)
+                } else {
+                    amountOfSender
+                }
+            } else {
+                amountOfSender
+            }
+        } else {
+            amountOfSender
         }
 
         binding.iclTotalAmount.apply {
-            edtValue.setText(valueBalance)
+            edtValue.setText(totalAmount.getBalance())
             if (!valueBalance.isEmpty()) root.visible()
         }
 
-        val isError = totalAmount > (fromAccount?.availableBalance ?: 0.0)
+        val isError = amountOfSender > (fromAccount?.availableBalance ?: 0.0)
         val textError = when {
-            valueBalance.isEmpty() || valueBalance == "0" -> getString(R.string.pleaseEnterTheAmount)
+            valueBalance.isEmpty() || valueBalance == "0" || (currentCurrencyChoose == Const.USD && amountOfSender == 0.0) -> getString(
+                R.string.pleaseEnterTheAmount
+            )
+
             isError -> getString(R.string.insufficientBalance)
             else -> null
         }
@@ -303,16 +382,25 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 tvTitle.text = getString(R.string.toAccount)
                 edtValue.hint = getString(R.string.selectAccount)
                 ivExpandDown.visible()
-                viewLine.gone()
                 tvCurrentCode.gone()
                 edtValue.setInputEditText(true)
                 tvError.text = getString(R.string.invalidBeneficiaryAccount)
             }
 
+            iclExchangeRate.apply {
+                tvTitle.text = getString(R.string.exchangeRate)
+                ivExpandDown.gone()
+                tvCurrentCode.gone()
+                edtValue.setTextColor(getColor(R.color.neutral7))
+                edtValue.enableInput(false)
+                tvError.text = getString(R.string.rateAreIndicative)
+                tvError.setTextColor(getColor(R.color.yellow))
+                tvError.visible()
+            }
+
             iclAccountName.apply {
                 tvTitle.text = getString(R.string.accountName)
                 edtValue.setTextColor(getColor(R.color.neutral7))
-                viewLine.gone()
                 edtValue.isEnabled = false
             }
 
@@ -320,27 +408,31 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 tvTitle.text = getString(R.string.amount)
                 edtValue.hint = getString(R.string.enterAmount)
                 ivExpandDown.gone()
-                viewLine.visible()
+                tvCurrentCode.text = currentTypeTransfer
                 tvCurrentCode.visible()
+                tvCurrentCode.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.ic_arrow_down_black,
+                    0
+                )
                 tvError.text = getString(R.string.insufficientBalance)
                 bindColor(R.color.neutral8)
             }
 
-            iclFee.apply {
-                tvTitle.text = getString(R.string.fee)
-                edtValue.setText(Const.ZERO)
-                ivExpandDown.gone()
-                viewLine.visible()
-                tvCurrentCode.visible()
-                edtValue.enableInput(false)
-                bindColor(R.color.neutral7)
-            }
+//            iclFee.apply {
+//                tvTitle.text = getString(R.string.fee)
+//                edtValue.setText(Const.ZERO)
+//                ivExpandDown.gone()
+//                tvCurrentCode.visible()
+//                edtValue.enableInput(false)
+//                bindColor(R.color.neutral7)
+//            }
 
             iclTotalAmount.apply {
                 tvTitle.text = getString(R.string.totalAmount)
                 edtValue.hint = getString(R.string.zero)
                 ivExpandDown.gone()
-                viewLine.visible()
                 tvCurrentCode.visible()
                 edtValue.enableInput(false)
                 bindColor(R.color.neutral7)
@@ -350,7 +442,6 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 tvTitle.text = getString(R.string.remarks)
                 resetRemarks()
                 ivExpandDown.gone()
-                viewLine.gone()
                 tvCurrentCode.gone()
                 tvError.text = getString(R.string.pleaseEnterTheRemarks)
                 bindColor(R.color.neutral8)
@@ -384,8 +475,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             && toAccount?.accountNumber != null
             && fromAccount?.accountNumber != toAccount?.accountNumber
             && fromAccount?.currencyCode?.isNotEmpty() == true
-            && fromAccount?.currencyCode == toAccount?.currencyCode
-            && totalAmount <= (fromAccount?.availableBalance ?: 0.0) && totalAmount > 0.0
+            && amountOfSender <= (fromAccount?.availableBalance ?: 0.0) && amountOfSender > 0.0
             && remarks.isNotEmpty()
         ) {
             setEnableDone(true)
@@ -411,21 +501,19 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         fromAccount = account
         with(binding) {
             tvAccountNumber.text = account.accountNumber
-            tvBalanceValue.text =
-                account.getAvailableBalance().plus(Const.SEPARATOR_SPACE).plus(account.currencyCode)
+            tvBalanceValue.text = account.getAvailableBalance()
+            tvCurrencyValue.text = account.currencyCode
             iclAmount.tvCurrentCode.text = account.currencyCode
             iclAmount.edtValue.setInputEditText(true, isTypeSigned = account.currencyCode == "USD")
-
-            iclFee.tvCurrentCode.text = account.currencyCode
-            iclTotalAmount.tvCurrentCode.text = account.currencyCode
+            currentCurrencyChoose = account.currencyCode
         }
         resetStateTransfer()
     }
 
     /*
-    * nhận giá trị tài khoản nhận từ list tài khoản cá nhân rồi xử lý UI
-    * */
-    private fun bindViewReceiverAccount(account: AccountBase) {
+* nhận giá trị tài khoản nhận từ list tài khoản cá nhân rồi xử lý UI
+* */
+    private fun bindViewSelectReceiverAccount(account: AccountBase) {
         with(binding) {
             iclToAccount.edtValue.setText(
                 getTypeAccount(requireContext(), account).plus(Const.SEPARATOR_DASH)
@@ -437,7 +525,14 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                     R.string.invalidBeneficiaryAccount
                 ) else null
             )
+            if (isDiffCurrency(account.currencyCode)) {
+                bindExchangeCurrency(fromAccount?.currencyCode)
+            } else {
+                bindExchangeCurrency(null)
+            }
             toAccount = account
+            checkBalanceInvalid()
+            iclTotalAmount.tvCurrentCode.text = account.currencyCode
         }
 
         updateStatusTransfer()
@@ -448,7 +543,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     * nhận giá trị tài khoản nhận từ API ( case tự nhập stk hoặc chọn từ list người hưởng thụ)
     * xử lý UI tài khoản nhận
     * */
-    private fun bindViewReceiverAccount(userInfo: AccountUserNameModel) {
+    private fun bindViewSelectReceiverAccount(userInfo: AccountUserNameModel) {
         binding.iclAccountName.apply {
             root.isVisible = true
             edtValue.setText(userInfo.customerName)
@@ -456,35 +551,67 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         if (beneficiarySelected?.accountNumber == userInfo.accountNumber) {
             binding.iclRemarks.edtValue.setText(beneficiarySelected?.remark)
         }
-        if (userInfo.currency != fromAccount?.currencyCode) {
-            with(binding) {
-                iclToAccount.tvError.text =
-                    getString(R.string.transferAccountAndReceivingAccountNotSame)
-                iclToAccount.tvError.visible()
-            }
+        if (isDiffCurrency(userInfo.currency)) {
+            bindExchangeCurrency(userInfo.currency)
         } else {
-            toAccount = AccountInfo().apply {
-                setValueAccountNumber(binding.iclToAccount.edtValue.text.toString())
-                currencyCode = userInfo.currency
-                productCode = userInfo.productCode
-                productDescription = userInfo.productDescription
-                customerName = userInfo.customerName
-            }
-            with(binding) {
-                iclToAccount.tvError.gone()
-                iclFee.edtValue.setText(Const.ZERO)
-                iclFee.root.gone()
-                iclTotalAmount.edtValue.setText("")
-                iclTotalAmount.root.gone()
-            }
+            bindExchangeCurrency(null)
+        }
+        toAccount = AccountInfo().apply {
+            setValueAccountNumber(binding.iclToAccount.edtValue.text.toString())
+            currencyCode = userInfo.currency
+            productCode = userInfo.productCode
+            productDescription = userInfo.productDescription
+            customerName = userInfo.customerName
+        }
+        binding.iclTotalAmount.tvCurrentCode.text = userInfo.currency
+        with(binding) {
+            iclToAccount.tvError.gone()
+            iclTotalAmount.edtValue.setText("")
+            iclTotalAmount.root.gone()
         }
 
         updateStatusTransfer()
     }
 
     /*
-    * reset lại trạng thái chuyển khoản của UI
-    * */
+ * reset lại trạng thái chuyển khoản của UI
+ * */
+    private fun bindExchangeCurrency(currency: String? = null) {
+        with(binding.iclExchangeRate) {
+            if (currency != null) {
+                root.visible()
+                edtValue.setText(getTextExchangeCurrency(currency))
+            } else {
+                root.gone()
+            }
+        }
+    }
+
+    private fun getTextExchangeCurrency(currency: String): String {
+        return if (currency == Const.USD) {
+            getString(
+                R.string.formatTextExchangeCurrency,
+                Const.USD,
+                exchangeUSDToKm?.toPlainString(),
+                Const.KHR
+            )
+        } else {
+            getString(
+                R.string.formatTextExchangeCurrency,
+                Const.KHR,
+                exchangeKmToUSD?.toPlainString(),
+                Const.USD
+            )
+        }
+    }
+
+    private fun getExchangeRealtime(): BigDecimal? {
+        return if (currentCurrencyChoose == Const.USD) exchangeUSDToKm else exchangeKmToUSD
+    }
+
+    private fun isDiffCurrency(toCurrency: String): Boolean =
+        run { currentCurrencyChoose != toCurrency }
+
     private fun resetStateTransfer() {
         with(binding) {
             iclToAccount.apply {
@@ -503,7 +630,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                     arrayOf(InputFilter.LengthFilter(if (isIntrabank()) 10 else 1000000))
             }
             iclAmount.edtValue.setText(Const.EMPTY)
-            iclFee.root.gone()
+//            iclFee.root.gone()
+            iclExchangeRate.root.gone()
             iclTotalAmount.root.gone()
             iclAccountName.root.gone()
             iclToAccount.tvError.gone()
