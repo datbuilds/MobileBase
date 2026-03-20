@@ -211,4 +211,15 @@
     <string name="listBranchTransactionPoint">Danh sách chi nhánh/điểm giao dịch</string>
     <string name="register_device_other">Xác nhận thiết bị mới</string>
     <string name="listAccount">Danh sách tài khoản</string>
+    <string name="paste_pay_top_label">Dán nội dung hoặc tải ảnh chứa thông tin chuyển khoản</string>
+    <string name="paste_pay_hint">Dán thông tin chuyển khoản</string>
+    <string name="paste_pay_upload_image">Tải ảnh</string>
+    <string name="paste_pay_intro_label">Dán nội dung hoặc tải ảnh để chuyển tiền nhanh</string>
+    <string name="paste_pay_action_label">Bỏ qua</string>
+    <string name="ai_result_analyzed">Phân tích bởi SHB AI</string>
+    <string name="ai_result_bank_label">Ngân hàng</string>
+    <string name="ai_result_to_account_label">Tài khoản nhận</string>
+    <string name="ai_result_amount_label">Số tiền</string>
+    <string name="ai_result_remarks_label">Nội dung giao dịch</string>
+    <string name="action_continue">Tiếp tục</string>
 </resources>

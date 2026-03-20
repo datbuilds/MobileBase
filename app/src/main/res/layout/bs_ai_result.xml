@@ -26,7 +26,7 @@
             android:gravity="center_vertical"
             android:paddingHorizontal="@dimen/margin_12dp"
             android:paddingVertical="@dimen/margin_4dp"
-            android:text="Analyzed by SHB AI"
+            android:text="@string/ai_result_analyzed"
             android:textColor="#F47920"
             android:textSize="@dimen/textSize12" />
 
@@ -38,7 +38,7 @@
         android:layout_marginHorizontal="@dimen/margin_16dp"
         android:layout_marginTop="@dimen/margin_12dp"
         android:fontFamily="@font/inter_medium"
-        android:text="Bank"
+        android:text="@string/ai_result_bank_label"
         android:textColor="#545454"
         android:textSize="@dimen/textSize14" />
 
@@ -65,7 +65,7 @@
         android:layout_marginHorizontal="@dimen/margin_16dp"
         android:layout_marginTop="@dimen/margin_12dp"
         android:fontFamily="@font/inter_medium"
-        android:text="To Account"
+        android:text="@string/ai_result_to_account_label"
         android:textColor="#545454"
         android:textSize="@dimen/textSize14" />
 
@@ -91,7 +91,7 @@
         android:layout_marginHorizontal="@dimen/margin_16dp"
         android:layout_marginTop="@dimen/margin_12dp"
         android:fontFamily="@font/inter_medium"
-        android:text="Amount"
+        android:text="@string/ai_result_amount_label"
         android:textColor="#545454"
         android:textSize="@dimen/textSize14" />
 
@@ -141,7 +141,7 @@
         android:layout_marginHorizontal="@dimen/margin_16dp"
         android:layout_marginTop="@dimen/margin_12dp"
         android:fontFamily="@font/inter_medium"
-        android:text="Remarks"
+        android:text="@string/ai_result_remarks_label"
         android:textColor="#545454"
         android:textSize="@dimen/textSize14" />
 
@@ -173,7 +173,7 @@
             android:layout_height="@dimen/margin_44dp"
             android:layout_marginStart="@dimen/margin_16dp"
             android:layout_weight="1"
-            android:text="Close"
+            android:text="@string/close"
             android:textAllCaps="false" />
 
         <com.google.android.material.button.MaterialButton
@@ -184,7 +184,7 @@
             android:layout_marginHorizontal="@dimen/margin_16dp"
             android:layout_marginBottom="@dimen/margin_28dp"
             android:layout_weight="1"
-            android:text="Continue"
+            android:text="@string/action_continue"
             android:textAllCaps="false"
             app:backgroundTint="@color/accent" />
 

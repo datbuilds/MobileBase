@@ -10,6 +10,6 @@
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/margin_10dp"
         android:scaleType="fitCenter"
-        tools:src="@drawable/img_ai_chat_intro_1" />
+        tools:src="@drawable/img_ai_chat_intro_1_en" />
 
 </FrameLayout>
