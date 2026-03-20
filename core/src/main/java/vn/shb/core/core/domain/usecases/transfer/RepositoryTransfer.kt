@@ -2,6 +2,7 @@ package vn.shb.core.core.domain.usecases.transfer
 
 import vn.shb.core.core.delivery.ResultSHB
 import vn.shb.core.core.domain.source.response.AccountUserNameModel
+import vn.shb.core.core.domain.source.response.ExchangeRateModel
 import vn.shb.core.core.domain.source.response.TransactionTransfer
 import vn.shb.core.core.domain.source.response.TransactionTransferConfirm
 import vn.shb.core.core.domain.source.response.TransferAccountData
@@ -21,4 +22,6 @@ interface RepositoryTransfer {
     suspend fun getTransactionDetail(params: UseCaseTransactionDetail.Params): ResultSHB<TransactionDetail>
 
     suspend fun validateTransaction(params : UseCaseValidateTransaction.Params) : ResultSHB<String>
+
+    suspend fun getExchangeRates(sourceCurrency: String, targetCurrency: String): ResultSHB<ExchangeRateModel>
 }

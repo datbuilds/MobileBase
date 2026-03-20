@@ -36,6 +36,7 @@ import vn.shb.cam.utils.extensions.isValidInputLogin
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.extensions.nextActivity
 import vn.shb.cam.utils.extensions.setCustomSpannable
+import vn.shb.cam.utils.extensions.setOnMaterialButtonClick
 import vn.shb.cam.utils.extensions.textValue
 import vn.shb.cam.utils.extensions.visible
 import vn.shb.cam.utils.view.dialog.BottomSheetDialogHelper
@@ -121,7 +122,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             }
 
             //handle edit username
-            btnLogin.setOnSingleClickListener {
+            btnLogin.setOnMaterialButtonClick {
                 clearFocusEditText()
                 handleActionLogin()
             }
@@ -328,13 +329,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                     val maskedPhone = result.maskedPhoneNumber ?: ""
                     transactionId = result.transactionId
                     val totalTime = result.remainingSeconds ?: result.expiresInSeconds
-                    logD("234234243", buildString {
-                        append(result.remainingSeconds)
-                        append("------")
-                        append(result.expiresInSeconds)
-                        append("------")
-                        append(result.transactionId)
-                    })
                     confirmDeviceView.setup(
                         phoneNumber = maskedPhone,
                         totalTime = totalTime?.times(1000L),
@@ -357,6 +351,10 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                             val accountLogin = getUserLogin()
                             val (_, encPsw) = getPassword()
                             loginViewModel.registerDevice(accountLogin, encPsw)
+                        },
+
+                        onFinishCB = {
+                            hideSoftKeyboard()
                         },
                         onClose = {
                             // Handle close
@@ -522,15 +520,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             nextDashboard()
         }
     }
-/*
-    private fun maskPhoneNumber(phone: String?): String {
-        if (phone.isNullOrEmpty()) return ""
-        val length = phone.length
-        if (length < 7) return phone
-        val start = phone.take(3)
-        val end = phone.substring(length - 2)
-        return "$start*****$end"
-    }*/
 
     fun updateLanguage(type: String) {
         context?.let { ct ->
@@ -556,7 +545,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         clearFlag()
 
         //mock
-//        binding.edtInputPass.setText("Test123@")
+        binding.edtInputPass.setText("12345678")
 //        handleActionLogin()
     }
 

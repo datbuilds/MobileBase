@@ -28,6 +28,7 @@ class ConfirmDeviceView @JvmOverloads constructor(
     private var onConfirmCallback: ((String) -> Unit)? = null
     private var onResendCallback: (() -> Unit)? = null
     private var onCloseCallback: (() -> Unit)? = null
+    private var onFinishCallBack: (() -> Unit)? = null
 
     init {
         binding = DialogConfirmDeviceBinding.inflate(LayoutInflater.from(context), this, true)
@@ -39,11 +40,13 @@ class ConfirmDeviceView @JvmOverloads constructor(
         totalTime: Long?,
         onConfirm: (String) -> Unit,
         resendCode: () -> Unit,
+        onFinishCB: () -> Unit,
         onClose: () -> Unit
     ) {
         this.onConfirmCallback = onConfirm
         this.onResendCallback = resendCode
         this.onCloseCallback = onClose
+        this.onFinishCallBack = onFinishCB
 
         val message = context.getString(R.string.confirm_device_message, phoneNumber)
         val spannable = SpannableString(message)
@@ -53,6 +56,34 @@ class ConfirmDeviceView @JvmOverloads constructor(
                 android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
                 startIndex,
                 startIndex + phoneNumber.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+        binding.tvMessage.text = spannable
+        binding.tvError.gone()
+
+        startTimer(totalTime ?: 60000L)
+    }
+
+    fun setupOtpTransaction(
+        authSms: String,
+        totalTime: Long?,
+        onConfirm: (String) -> Unit,
+        resendCode: () -> Unit,
+        onClose: () -> Unit
+    ) {
+        this.onConfirmCallback = onConfirm
+        this.onResendCallback = resendCode
+        this.onCloseCallback = onClose
+
+        val message = authSms
+        val spannable = SpannableString(message)
+        val startIndex = message.length - 10
+        if (startIndex != -1) {
+            spannable.setSpan(
+                android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
+                startIndex,
+                startIndex + message.length -1,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
         }
@@ -125,6 +156,7 @@ class ConfirmDeviceView @JvmOverloads constructor(
             override fun onFinish() {
                 binding.tvTimer.text = context.getString(R.string.remaining_time, "0")
                 showResendCodeDialog(true)
+                onFinishCallBack?.invoke()
             }
         }.start()
     }

@@ -36,16 +36,38 @@
         android:textColor="@color/neutral10"
         android:textSize="@dimen/textSize14"
         app:customFontWeight="regular"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tvNickName"
+        app:layout_constraintEnd_toStartOf="@+id/ivV"
         app:layout_constraintStart_toEndOf="@+id/flLogoBank"
-        app:layout_constraintBottom_toTopOf="@+id/tvAccountNumber"
         tools:text="MS VATHANA SISANE" />
+
+    <vn.shb.cam.base.view.MyTextView
+        android:id="@+id/tvNickName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/margin_4dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/neutral10"
+        android:textSize="@dimen/textSize16"
+        app:customFontWeight="semi_bold"
+        app:layout_constraintBottom_toTopOf="@+id/glCenter"
+        app:layout_constraintEnd_toEndOf="@+id/tvAccountName"
+        app:layout_constraintStart_toStartOf="@+id/tvAccountName"
+        tools:text="1001740559" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glCenter"
+        android:layout_width="@dimen/margin_1dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
 
     <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvAccountNumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_4dp"
+        android:layout_marginVertical="@dimen/margin_4dp"
         android:ellipsize="end"
         android:singleLine="true"
         android:textColor="@color/neutral10"
@@ -53,8 +75,7 @@
         app:customFontWeight="semi_bold"
         app:layout_constraintEnd_toEndOf="@+id/tvAccountName"
         app:layout_constraintStart_toStartOf="@+id/tvAccountName"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/glCenter"
         tools:text="1001740559" />
 
     <vn.shb.cam.base.view.MyTextView
@@ -69,6 +90,16 @@
         app:layout_constraintStart_toStartOf="@+id/tvAccountName"
         app:layout_constraintTop_toBottomOf="@+id/tvAccountNumber"
         tools:text="Saigon – Hanoi Commercial Joint Stock Bank" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_checked" />
 
     <View
         android:id="@+id/viewDivider"

@@ -8,6 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import androidx.core.graphics.scale
 
 /**
  * @author aminography
@@ -113,7 +114,7 @@ fun modifyOrientationAndResize(absolutePath: String): ByteArray? {
         preferredWidth = 640
         preferredHeight = (640 * (bitmap.height.toDouble() / bitmap.width.toDouble())).toInt()
     }
-    bitmap = Bitmap.createScaledBitmap(bitmap, preferredWidth, preferredHeight, true)
+    bitmap = bitmap.scale(preferredWidth, preferredHeight)
 
     try {
         bitmap = modifyOrientation(bitmap, absolutePath)
@@ -122,6 +123,6 @@ fun modifyOrientationAndResize(absolutePath: String): ByteArray? {
     }
 
     val bos = ByteArrayOutputStream()
-    bitmap.compress(Bitmap.CompressFormat.JPEG, 85, bos)
+    bitmap.compress(Bitmap.CompressFormat.JPEG, 85, ByteArrayOutputStream())
     return bos.toByteArray()
 }

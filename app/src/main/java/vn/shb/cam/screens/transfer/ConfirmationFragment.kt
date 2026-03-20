@@ -4,22 +4,26 @@ import android.view.View
 import androidx.core.os.bundleOf
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.data.entities.getBalance
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.FragmentConfirmationBinding
-import vn.shb.cam.screens.transfer.dialog.ConfirmCodeBottomSheetDialogFragment
+import vn.shb.cam.screens.login.ui.widget.ConfirmDeviceView
 import vn.shb.cam.utils.ApiConst
 import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.gone
+import vn.shb.cam.utils.extensions.hideProgressDialog
+import vn.shb.cam.utils.extensions.hideSoftKeyboard
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.extensions.visible
-import vn.shb.cam.utils.view.dialog.BottomSheetDialogHelper
+import vn.shb.core.core.domain.source.response.TransactionTransfer
+import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.getBalance
 
 class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
     FragmentConfirmationBinding::inflate
 ) {
+
+    private lateinit var confirmDeviceView: ConfirmDeviceView
 
     private val isIntrabank by lazy {
         arguments?.getBoolean(ApiConst.KEY_TYPE_TRANSFER_INTRABANK) ?: false
@@ -32,6 +36,13 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
     override fun initView(view: View) {
         bindViewDefault()
         bindConfirmationView()
+        initViewDialogCf()
+    }
+
+    private fun initViewDialogCf() {
+        confirmDeviceView = ConfirmDeviceView(requireContext())
+        binding.flRegisterDevice.addView(confirmDeviceView)
+        confirmDeviceView.visibility = View.GONE
     }
 
     private fun bindViewDefault() {
@@ -52,6 +63,11 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
             iclAmount.tvLabel.text = getString(R.string.amount)
             iclFee.tvLabel.text = getString(R.string.fee)
             iclTotalAmount.tvLabel.text = getString(R.string.totalAmount)
+            iclExchangeRate.apply {
+                tvLabel.text = getString(R.string.exchangeRate)
+                tvValueSup.visible()
+                tvCurrencyCodeSup.visible()
+            }
         }
     }
 
@@ -66,21 +82,33 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                         .plus(cf.toAccount.accountNumber)
                 iclRemarks.tvValue.text = cf.remarks
                 iclTransactionDate.tvValue.text = cf.transactionDate
-                val currencyCode = cf.fromAccount.currencyCode
                 iclAmount.apply {
                     tvValue.text = cf.amount.getBalance()
-                    tvCurrencyCode.text = currencyCode
+                    tvCurrencyCode.text = cf.fromAccount.currencyCode
                 }
                 iclFee.apply {
+                    root.gone()
                     tvValue.text = cf.fee.getBalance()
-                    tvCurrencyCode.text = currencyCode
+                    tvCurrencyCode.text = cf.fromAccount.currencyCode
                 }
                 iclTotalAmount.apply {
                     tvValue.text = cf.totalAmount.getBalance()
-                    tvCurrencyCode.text = currencyCode
+                    tvCurrencyCode.text = cf.toAccount.currencyCode
                 }
                 if (isIntrabank) {
                     iclAccountName.tvValue.text = cf.toAccount.customerName
+                }
+                if (cf.fromAccount.currencyCode != cf.toAccount.currencyCode) {
+                    val fromIsUSD = cf.fromAccount.currencyCode == Const.USD
+                    iclExchangeRate.apply {
+                        root.visible()
+                        tvValue.text = "1"
+                        tvCurrencyCode.text = if (fromIsUSD) Const.USD else Const.KHR
+                        tvValueSup.text = "=${homeViewModel.exchangeRealtime?.toPlainString()}"
+                        tvCurrencyCodeSup.text = if (fromIsUSD) Const.KHR else Const.USD
+                    }
+                } else {
+                    iclExchangeRate.root.gone()
                 }
             }
         }
@@ -95,13 +123,13 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                             homeViewModel.confirmSuccessData = it
                             safeNavigate(
                                 R.id.confirmationFragment, R.id.paymentTransferFragment,
-                                bundle =
-                                    bundleOf(
-                                        ApiConst.KEY_ACCOUNT_NO_TRANSACTION to confirmModel!!.fromAccount.accountNumber,
-                                        ApiConst.KEY_TYPE_TRANSFER_INTRABANK to isIntrabank
-                                    )
+                                bundle = bundleOf(
+                                    ApiConst.KEY_ACCOUNT_NO_TRANSACTION to confirmModel!!.fromAccount.accountNumber,
+                                    ApiConst.KEY_TYPE_TRANSFER_INTRABANK to isIntrabank
+                                )
                             )
                         }
+                        confirmDeviceView.hide()
                     }
                 }
 
@@ -120,16 +148,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                             homeViewModel.confirmTransactionTransfer(Const.EMPTY)
                         } else {
                             if (it?.paymentType.equals(ApiConst.INTRA)) {
-                                binding.flBru.visible()
-                                ConfirmCodeBottomSheetDialogFragment(
-                                    authSms = it?.authSms ?: "",
-                                    actionConfirmCode = { code ->
-                                        homeViewModel.confirmTransactionTransfer(code)
-                                    },
-                                    actionDismiss = {
-                                       binding.flBru.gone()
-                                    }
-                                ).show(parentFragmentManager, "ConfirmCodeBottomSheetDialog")
+                                showConfirmOtpTransaction(it)
                             }
                         }
                     }
@@ -138,20 +157,46 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
         }
     }
 
+    private fun showConfirmOtpTransaction(result: TransactionTransfer?) {
+        hideProgressDialog()
+        val totalTime = result?.otpRemainingSeconds
+        confirmDeviceView.setup(
+            phoneNumber = result?.authSms ?: "",
+            totalTime = totalTime?.times(1000L),
+            onConfirm = { otp ->
+                if (otp.isNotEmpty()) {
+                    homeViewModel.confirmTransactionTransfer(otp)
+                }
+                hideSoftKeyboard()
+            },
+            resendCode = {
+                postTransactions(result?.transactionId)
+            },
+            onClose = {
+                // Handle close
+            }
+        )
+        confirmDeviceView.show()
+    }
+
     override fun initListener() {
         with(binding) {
             tvConfirmation.setOnSingleClickListener {
                 backPress()
             }
             tvConfirm.setOnSingleClickListener {
-                homeViewModel.confirmModel?.let { cf ->
-                    homeViewModel.postTransactionTransfer(
-                        cf.paymentType,
-                        cf.fromAccount.accountNumber, cf.toAccount.accountNumber,
-                        cf.totalAmount, cf.fromAccount.currencyCode, cf.remarks
-                    )
-                }
+                postTransactions()
             }
+        }
+    }
+
+    private fun postTransactions(transactionId: Int? = null) {
+        homeViewModel.confirmModel?.let { cf ->
+            homeViewModel.postTransactionTransfer(
+                cf.paymentType,
+                cf.fromAccount.accountNumber, cf.toAccount.accountNumber,
+                cf.amount, cf.fromAccount.currencyCode, cf.remarks, transactionId
+            )
         }
     }
 

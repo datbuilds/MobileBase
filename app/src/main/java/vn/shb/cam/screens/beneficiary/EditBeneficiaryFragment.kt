@@ -112,7 +112,7 @@ class EditBeneficiaryFragment :
                 iclAccountNumber.edtValue.setTextAndDisableFocus(data.accountNumber)
 
                 // Disable Account name editing
-                iclAccountName.edtValue.setTextAndDisableFocus(data.accountNumber)
+                iclAccountName.edtValue.setTextAndDisableFocus(data.accountName)
             }
         }
     }

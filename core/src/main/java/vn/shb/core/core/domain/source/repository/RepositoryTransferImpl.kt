@@ -3,6 +3,8 @@ package vn.shb.core.core.domain.source.repository
 import vn.shb.core.core.delivery.ResultSHB
 import vn.shb.core.core.domain.source.response.AccountUserNameModel
 import vn.shb.core.core.domain.source.response.AccountUserNameResponse
+import vn.shb.core.core.domain.source.response.ExchangeRateModel
+import vn.shb.core.core.domain.source.response.ExchangeRateResponse
 import vn.shb.core.core.domain.source.response.TransactionDetailResponse
 import vn.shb.core.core.domain.source.response.TransactionTransfer
 import vn.shb.core.core.domain.source.response.TransactionTransferConfirm
@@ -50,6 +52,25 @@ class RepositoryTransferImpl(
 
     override suspend fun validateTransaction(params: UseCaseValidateTransaction.Params): ResultSHB<String> {
         return resultValidateTransaction(serviceTransfer.validateTransaction(params))
+    }
+
+    override suspend fun getExchangeRates(sourceCurrency: String, targetCurrency: String): ResultSHB<vn.shb.core.core.domain.source.response.ExchangeRateModel> {
+        return resultExchangeRates(serviceTransfer.getExchangeRates(sourceCurrency, targetCurrency))
+    }
+
+    private fun resultExchangeRates(result: ResultSHB<ExchangeRateResponse>): ResultSHB<ExchangeRateModel> {
+        return when (result) {
+            is ResultSHB.Success -> {
+                val contentResult = result.successData
+                if (contentResult.isSuccess()) {
+                    ResultSHB.Success(contentResult.data ?: ExchangeRateModel())
+                } else {
+                    handleFailure(contentResult)
+                }
+            }
+            is ResultSHB.Failure -> handleFailure(result.reason)
+            else -> ResultSHB.Loading
+        }
     }
 
     private fun resultValidateTransaction(result: ResultSHB<ValidateTransactionResponse>): ResultSHB<String> {

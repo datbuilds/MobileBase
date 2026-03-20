@@ -41,6 +41,16 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
             return intent
         }
 
+        @JvmStatic
+        fun intent(context: Context, isShowError: Boolean): Intent {
+            val intent = Intent(context, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            if (isShowError) {
+                intent.putExtra(IS_SHOW_ERROR, true)
+            }
+            return intent
+        }
+
     }
 
     override fun attachBaseContext(newBase: Context?) {
