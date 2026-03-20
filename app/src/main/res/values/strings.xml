@@ -218,4 +218,15 @@
     <string name="exchangeRate">Exchange rate</string>
     <string name="formatTextExchangeCurrency">1 %s = %s %s</string>
     <string name="rateAreIndicative">Note: Rates are indicative at inquiry and subject to change upon posting</string>
+    <string name="paste_pay_top_label">Paste the message or upload an image containing transfer information</string>
+    <string name="paste_pay_hint">Paste transfer information</string>
+    <string name="paste_pay_upload_image">Upload Image</string>
+    <string name="paste_pay_intro_label">Paste message or upload image to transfer quickly</string>
+    <string name="paste_pay_action_label">Skip</string>
+    <string name="ai_result_analyzed">Analyzed by SHB AI</string>
+    <string name="ai_result_bank_label">Bank</string>
+    <string name="ai_result_to_account_label">To Account</string>
+    <string name="ai_result_amount_label">Amount</string>
+    <string name="ai_result_remarks_label">Remarks</string>
+    <string name="action_continue">Continue</string>
 </resources>

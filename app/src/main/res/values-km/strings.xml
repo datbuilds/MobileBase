@@ -210,4 +210,15 @@
     <string name="listBranchTransactionPoint">បញ្ជីសាខា/កន្លែងផ្តល់សេវាកម្ម</string>
     <string name="register_device_other">ការផ្ទៀងផ្ទាត់ឧបករណ៍ថ្មី</string>
     <string name="listAccount">បញ្ជីគណនី</string>
+    <string name="paste_pay_top_label">សូមថតចម្លង ឬផ្ញើនូវរូបភាពដែលមានព័ត៌មានផ្ទេរប្រាក់</string>
+    <string name="paste_pay_hint">បិទភ្ជាប់ព័ត៌មានផ្ទេរប្រាក់</string>
+    <string name="paste_pay_upload_image">ផ្ទុករូបភាពឡើង</string>
+    <string name="paste_pay_intro_label">សូមថតចម្លង ឬផ្ញើនូវរូបភាពដែលមានព័ត៌មានផ្ទេរប្រាក់</string>
+    <string name="paste_pay_action_label">រំលង</string>
+    <string name="ai_result_analyzed">វិភាគដោយប្រព័ន្ធឆ្លាតវៃ SHB AI</string>
+    <string name="ai_result_bank_label">ធនាគារ</string>
+    <string name="ai_result_to_account_label">ទៅគណនី</string>
+    <string name="ai_result_amount_label">Amount</string>
+    <string name="ai_result_remarks_label">ទឹកប្រាក់</string>
+    <string name="action_continue">បន្ត</string>
 </resources>

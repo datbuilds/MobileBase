@@ -27,11 +27,16 @@ class AiIntroductionDialog(private val builder: Builder) :
     private val storage: AndroidSecureStorage by inject()
     private var viewPager: ViewPager2? = null
 
-    private val pageAdapter: PagerAdapter by lazy {
+    private val onboards = listOf(
+        OnAIChartEntity(R.drawable.img_ai_chat_intro_1),
+        OnAIChartEntity(R.drawable.img_ai_chat_intro_2),
+        OnAIChartEntity(R.drawable.img_ai_chat_intro_3),
+        OnAIChartEntity(R.drawable.img_ai_chat_intro_4)
+    )
+
+    private val pageAdapter: PagerAdapter by lazy(LazyThreadSafetyMode.NONE) {
         PagerAdapter(onboards)
     }
-
-    private var onboards = listOf<OnAIChartEntity>()
 
     private var countdownTimer: CustomCountdownTimer? = null
     private var isDone = false
@@ -55,8 +60,6 @@ class AiIntroductionDialog(private val builder: Builder) :
     }
 
     override fun initView(view: View) {
-        onboards = prepareOnboards()
-
         viewPager = binding.viewPager
 
         viewPager?.apply {
@@ -109,15 +112,6 @@ class AiIntroductionDialog(private val builder: Builder) :
     private fun nextAction() {
         storage.setAiChatIntroCompleted(true)
         dismissAllowingStateLoss()
-    }
-
-    private fun prepareOnboards(): List<OnAIChartEntity> {
-        return listOf(
-            OnAIChartEntity(imageRes = R.drawable.img_ai_chat_intro_1),
-            OnAIChartEntity(imageRes = R.drawable.img_ai_chat_intro_2),
-            OnAIChartEntity(imageRes = R.drawable.img_ai_chat_intro_3),
-            OnAIChartEntity(imageRes = R.drawable.img_ai_chat_intro_4),
-        )
     }
 
     override fun onDismiss(dialog: DialogInterface) {

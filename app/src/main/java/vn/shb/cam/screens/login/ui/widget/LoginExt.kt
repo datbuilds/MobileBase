@@ -56,36 +56,36 @@ fun LoginFragment.setGreeting(textView: TextView) {
     textView.text = spannable
 }
 
-fun LoginFragment.checkNotificationPermission() {
-    when {
-        ContextCompat.checkSelfPermission(
-            requireContext(), Manifest.permission.POST_NOTIFICATIONS
-        ) == PackageManager.PERMISSION_GRANTED -> {
-            // You can use the API that requires the permission.
-        }
-
-        shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS) -> {
-            Snackbar.make(
-                binding.coordinatorLayout,
-                "SHB SAHA CAMs cần cấp quyền thông báo trong ứng dụng",
-                Snackbar.LENGTH_LONG
-            ).setAction("Cài đặt") {
-                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                val uri: Uri = Uri.fromParts("package", requireActivity().packageName, null)
-                intent.data = uri
-                startActivity(intent)
-            }.show()
-        }
-
-        else -> {
-            // The registered ActivityResultCallback gets the result of this request
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-            }
-        }
-    }
-}
+//fun LoginFragment.checkNotificationPermission() {
+//    when {
+//        ContextCompat.checkSelfPermission(
+//            requireContext(), Manifest.permission.POST_NOTIFICATIONS
+//        ) == PackageManager.PERMISSION_GRANTED -> {
+//            // You can use the API that requires the permission.
+//        }
+//
+//        shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS) -> {
+//            Snackbar.make(
+//                binding.coordinatorLayout,
+//                "SHB SAHA CAMs cần cấp quyền thông báo trong ứng dụng",
+//                Snackbar.LENGTH_LONG
+//            ).setAction("Cài đặt") {
+//                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                val uri: Uri = Uri.fromParts("package", requireActivity().packageName, null)
+//                intent.data = uri
+//                startActivity(intent)
+//            }.show()
+//        }
+//
+//        else -> {
+//            // The registered ActivityResultCallback gets the result of this request
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+//            }
+//        }
+//    }
+//}
 
 fun LoginFragment.showLanguagePopup(anchor: View) {
     val binding = LayoutLanguagePopupBinding.inflate(LayoutInflater.from(anchor.context))
