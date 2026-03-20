@@ -3,6 +3,7 @@ package vn.shb.cam.di
 import org.koin.dsl.module
 import vn.shb.core.core.domain.usecases.beneficiary.CreateBeneficiaryUseCase
 import vn.shb.core.core.domain.usecases.beneficiary.DeleteBeneficiaryUseCase
+import vn.shb.core.core.domain.usecases.chatpay.UseCaseAiPay
 import vn.shb.core.core.domain.usecases.home.UseCaseAccountDetails
 import vn.shb.core.core.domain.usecases.home.UseCaseTransaction
 import vn.shb.core.core.domain.usecases.home.UseCaseUserInfo
@@ -38,6 +39,7 @@ val domainModule = module {
     factory { UseCaseAccountDetails(get()) }
     factory { UseCaseSetDefaultAccount(get()) }
     factory { UseCaseTransaction(get()) }
+    factory { UseCaseAiPay(get()) }
     factory { UseCaseTransferAccount(get()) }
     factory { UseCaseAccountByNumber(get()) }
     factory { UseCaseTransactionTransfer(get()) }

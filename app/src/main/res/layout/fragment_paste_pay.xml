@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorBgAccount">
+
+    <vn.shb.cam.utils.view.actionView.ToolbarView
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <vn.shb.cam.base.view.MyTextView
+        android:id="@+id/tvDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_32dp"
+        android:text="Paste the message or upload an image containing transfer information"
+        android:textColor="#545454"
+        android:textSize="@dimen/textSize14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolBar" />
+
+    <vn.shb.cam.utils.view.input.TextInputClearError
+        android:id="@+id/inputContentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_10dp"
+        app:boxBackgroundMode="none"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/white"
+        app:errorTextAppearance="@style/ErrorTextAppearance"
+        app:hintEnabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDescription"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <vn.shb.cam.screens.paste2pay.widget.SafePasteEditText
+            android:id="@+id/edtContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_input_chatpay"
+            android:gravity="start"
+            android:hint="Paste transfer information"
+            android:imeOptions="actionDone"
+            android:inputType="textNoSuggestions|textMultiLine"
+            android:maxLength="500"
+            android:minHeight="178dp"
+            android:paddingVertical="@dimen/margin_8dp"
+            android:textColor="#545454"
+            android:textColorHint="#CCCCCC"
+            android:lineSpacingExtra="2dp"
+            tools:text="Chuyển 50000 KHR tới tài khoản 123456789 tại SHB, nội dung test chatpay"
+            android:textSize="@dimen/textSize14" />
+
+    </vn.shb.cam.utils.view.input.TextInputClearError>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivPaste"
+        android:layout_width="@dimen/margin_44dp"
+        android:layout_height="@dimen/margin_44dp"
+        android:padding="@dimen/margin_10dp"
+        android:src="@drawable/ic_paste"
+        app:layout_constraintBottom_toBottomOf="@id/inputContentLayout"
+        app:layout_constraintEnd_toEndOf="@id/inputContentLayout" />
+
+    <vn.shb.cam.screens.paste2pay.widget.ImagePreview
+        android:id="@+id/imagePreview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_12dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/inputContentLayout" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btUploadImage"
+        style="@style/button_orange_light_style"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_46dp"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_12dp"
+        android:fontFamily="@font/inter_medium"
+        android:text="Upload Image"
+        android:textAllCaps="false"
+        android:textSize="@dimen/textSize14"
+        app:backgroundTint="@color/accent"
+        app:icon="@drawable/ic_gallery"
+        app:iconGravity="textEnd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imagePreview" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btConfirm"
+        style="@style/button_orange_light_style"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_46dp"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_8dp"
+        android:layout_marginBottom="@dimen/margin_24dp"
+        app:backgroundTint="@drawable/selected_button"
+        android:enabled="false"
+        android:fontFamily="@font/inter_medium"
+        android:text="Confirm"
+        android:textAllCaps="false"
+        android:textSize="@dimen/textSize14"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

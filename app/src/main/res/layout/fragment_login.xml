@@ -111,10 +111,14 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_20dp"
         android:layout_marginTop="@dimen/margin_24dp"
+        android:autoSizeMaxTextSize="@dimen/textSize24"
+        android:autoSizeMinTextSize="@dimen/textSize16"
         android:gravity="center"
+        android:lines="1"
         android:text="@string/personalInternetBanking"
         android:textColor="@color/neutral1"
         android:textSize="@dimen/textSize24"
+        app:autoSizeTextType="uniform"
         app:customFontWeight="medium"
         app:layout_constraintTop_toBottomOf="@+id/llInfoUser"
         app:layout_goneMarginTop="@dimen/margin_0dp" />
@@ -259,15 +263,16 @@
         app:layout_constraintTop_toBottomOf="@+id/passwordContainer"
         tools:visibility="visible" />
 
-    <vn.shb.cam.base.view.MyTextView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogin"
-        style="@style/MaterialDialog.ButtonActionMain"
+        android:backgroundTint="@color/white"
+        style="@style/button_orange_style.outline"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/margin_44dp"
         android:layout_marginHorizontal="@dimen/margin_20dp"
         android:layout_marginTop="@dimen/margin_24dp"
-        android:paddingVertical="@dimen/margin_12dp"
         android:text="@string/login"
+        app:cornerRadius="@dimen/margin_12dp"
         app:layout_constraintTop_toBottomOf="@+id/tvErrorPassword" />
 
     <vn.shb.cam.base.view.MyTextView

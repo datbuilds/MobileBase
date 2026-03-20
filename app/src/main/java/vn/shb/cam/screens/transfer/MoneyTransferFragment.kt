@@ -5,6 +5,8 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import vn.shb.cam.R
@@ -18,9 +20,12 @@ import vn.shb.cam.utils.ApiConst
 import vn.shb.cam.utils.extensions.DateTimeHelper.Companion.getDateFromCurrentDate
 import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.gone
+import vn.shb.cam.utils.extensions.hideSoftKeyboard
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
+import vn.shb.cam.utils.extensions.serializable
 import vn.shb.cam.utils.extensions.visible
 import vn.shb.core.core.domain.source.response.AccountUserNameModel
+import vn.shb.core.core.domain.source.response.AiPayResult
 import vn.shb.core.core.domain.usecases.transfer.UseCaseValidateTransaction
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.AccountBase
@@ -40,7 +45,25 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     var currentTypeTransfer: String = INTRABANK
 
     private var fromAccount: AccountBase? = null
+        set(value) {
+            field = value
+            try {
+                if (isAdded) updateCurrencySelectorState()
+            } catch (_: Exception) {
+            }
+        }
     private var toAccount: AccountBase? = null
+        set(value) {
+            field = value
+            stateAmountInput(value != null)
+            try {
+                if (isAdded) updateCurrencySelectorState()
+            } catch (_: Exception) {
+            }
+        }
+
+    private var aiPayResult: AiPayResult? = null
+
     private var amountOfSender: Double = 0.0
     private var totalAmount: Double = 0.0
 
@@ -73,6 +96,25 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         resetStateTransfer()
         beneficiaryViewModel.getAllBeneficiary()
         beneficiaryViewModel.getBanks()
+
+        if (arguments?.containsKey(ApiConst.KEY_TYPE_TRANSFER_DATA) == true) {
+            aiPayResult = arguments?.serializable(ApiConst.KEY_TYPE_TRANSFER_DATA)
+        }
+
+        lifecycleScope.launch {
+            delay(600)
+            if (aiPayResult != null) {
+                bindViewPay(aiPayResult)
+            }
+        }
+    }
+
+    private fun bindViewPay(aiPayResult: AiPayResult?) {
+        with(binding) {
+            iclToAccount.edtValue.setText(aiPayResult?.accountNum)
+            iclAmount.edtValue.setText((aiPayResult?.amount ?: 0).toString())
+        }
+        homeViewModel.getAccountByNumber(aiPayResult!!.accountNum ?: "")
     }
 
     override fun onResume() {
@@ -157,6 +199,35 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         binding.iclAccountName.apply {
             root.gone()
             edtValue.setText("")
+        }
+        toAccount = null
+        binding.iclTotalAmount.edtValue.setText("")
+        updateStatusTransfer()
+    }
+
+    private fun stateAmountInput(value: Boolean) {
+        binding.iclAmount.edtValue.enableInput(value)
+        if (!value) binding.iclAmount.edtValue.setText(Const.EMPTY)
+    }
+
+    private fun updateCurrencySelectorState() {
+        val fromCur = fromAccount?.currencyCode
+        val toCur = toAccount?.currencyCode
+        val isSame = fromCur != null && toCur != null && fromCur == toCur
+
+        binding.iclAmount.tvCurrentCode.apply {
+            if (isSame) {
+                setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
+                isClickable = false
+            } else {
+                setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.ic_arrow_down_black,
+                    0
+                )
+                isClickable = true
+            }
         }
     }
 
@@ -333,7 +404,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     /*
   * nhận số tiền nhập và xử lý hiển thị các mục khác
   * */
-    private fun checkBalanceInvalid() {
+    private fun checkBalanceInvalid(isCheckErrorAmount: Boolean = true) {
         val valueBalance = binding.iclAmount.edtValue.text.toString().trim()
         amountOfSender =
             if (valueBalance.isNotBlank()) valueBalance.replace(",", "").toDouble() else 0.0
@@ -370,7 +441,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             isError -> getString(R.string.insufficientBalance)
             else -> null
         }
-        binding.iclAmount.bindViewError(textError)
+        binding.iclAmount.bindViewError(if (isCheckErrorAmount) textError else null)
     }
 
     /*
@@ -499,6 +570,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     * */
     private fun bindViewFromAccount(account: AccountBase) {
         fromAccount = account
+        toAccount = null
         with(binding) {
             tvAccountNumber.text = account.accountNumber
             tvBalanceValue.text = account.getAvailableBalance()
@@ -531,7 +603,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 bindExchangeCurrency(null)
             }
             toAccount = account
-            checkBalanceInvalid()
+            checkBalanceInvalid(false)
             iclTotalAmount.tvCurrentCode.text = account.currencyCode
         }
 
@@ -552,7 +624,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             binding.iclRemarks.edtValue.setText(beneficiarySelected?.remark)
         }
         if (isDiffCurrency(userInfo.currency)) {
-            bindExchangeCurrency(userInfo.currency)
+            bindExchangeCurrency(fromAccount?.currencyCode)
         } else {
             bindExchangeCurrency(null)
         }
@@ -566,8 +638,12 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         binding.iclTotalAmount.tvCurrentCode.text = userInfo.currency
         with(binding) {
             iclToAccount.tvError.gone()
-            iclTotalAmount.edtValue.setText("")
-            iclTotalAmount.root.gone()
+            if (iclAmount.edtValue.text.toString().isNotEmpty()) {
+                checkBalanceInvalid()
+            } else {
+                iclTotalAmount.edtValue.setText("")
+                iclTotalAmount.root.gone()
+            }
         }
 
         updateStatusTransfer()
@@ -613,6 +689,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         run { currentCurrencyChoose != toCurrency }
 
     private fun resetStateTransfer() {
+        toAccount = null
         with(binding) {
             iclToAccount.apply {
                 ivExpandDown.setImageResource(if (!isIntrabank()) R.drawable.ic_arrow_down_black else R.drawable.ic_account_intrabank)
@@ -630,7 +707,6 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                     arrayOf(InputFilter.LengthFilter(if (isIntrabank()) 10 else 1000000))
             }
             iclAmount.edtValue.setText(Const.EMPTY)
-//            iclFee.root.gone()
             iclExchangeRate.root.gone()
             iclTotalAmount.root.gone()
             iclAccountName.root.gone()
@@ -639,7 +715,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             iclRemarks.bindViewError(null)
             resetRemarks()
         }
-
+        hideSoftKeyboard()
         updateStatusTransfer()
     }
 

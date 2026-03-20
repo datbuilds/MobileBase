@@ -36,6 +36,7 @@ import vn.shb.cam.utils.extensions.isValidInputLogin
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.extensions.nextActivity
 import vn.shb.cam.utils.extensions.setCustomSpannable
+import vn.shb.cam.utils.extensions.setOnMaterialButtonClick
 import vn.shb.cam.utils.extensions.textValue
 import vn.shb.cam.utils.extensions.visible
 import vn.shb.cam.utils.view.dialog.BottomSheetDialogHelper
@@ -121,7 +122,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             }
 
             //handle edit username
-            btnLogin.setOnSingleClickListener {
+            btnLogin.setOnMaterialButtonClick {
                 clearFocusEditText()
                 handleActionLogin()
             }
@@ -350,6 +351,10 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                             val accountLogin = getUserLogin()
                             val (_, encPsw) = getPassword()
                             loginViewModel.registerDevice(accountLogin, encPsw)
+                        },
+
+                        onFinishCB = {
+                            hideSoftKeyboard()
                         },
                         onClose = {
                             // Handle close

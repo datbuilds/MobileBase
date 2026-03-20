@@ -48,7 +48,7 @@ object RefreshTokenManager {
         currentUseCaseWso2 = useCaseWso2
         updateActivity(activity)
 
-        val refreshIntervalMillis = 3 * 60 * 1000L
+        val refreshIntervalMillis = (storage.getExpireTime()).minus(1) * 60 * 1000L
         println("RFManager333 -> Expire ${storage.getExpireTime()}")
         println("RFManager333 -> Token will be refreshed every ${refreshIntervalMillis / 1000} seconds")
 
