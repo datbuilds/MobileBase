@@ -533,6 +533,12 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         updateStatusTransfer()
     }
 
+    fun resetRemarks() {
+        remarks = getCurrentUser()?.username.plus(Const.SEPARATOR_SPACE)
+            .plus(getString(R.string.transferCAP))
+        binding.iclRemarks.edtValue.setText(remarks)
+    }
+
     /*
     * xử lý khi click đổi type chuyển khoản
     * */
