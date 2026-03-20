@@ -172,6 +172,9 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
             resendCode = {
                 postTransactions(result?.transactionId)
             },
+            onFinishCB = {
+                hideSoftKeyboard()
+            },
             onClose = {
                 // Handle close
             }

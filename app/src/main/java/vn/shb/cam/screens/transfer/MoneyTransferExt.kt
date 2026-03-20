@@ -187,12 +187,6 @@ fun MyEditText.setupDecimalInput(currencyProvider: (() -> String)? = null) {
     })
 }
 
-fun MoneyTransferFragment.resetRemarks() {
-    remarks = getCurrentUser()?.username.plus(Const.SEPARATOR_SPACE)
-        .plus(getString(R.string.transferCAP))
-    binding.iclRemarks.edtValue.setText(remarks)
-}
-
 fun ItemTransferTypeBinding.bindViewError(text: String? = null) {
     val isError = text != null
     tvError.isVisible = isError

@@ -67,7 +67,7 @@ fun LoginFragment.checkNotificationPermission() {
         shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS) -> {
             Snackbar.make(
                 binding.coordinatorLayout,
-                "Sale App cần cấp quyền thông báo trong ứng dụng",
+                "SHB SAHA CAMs cần cấp quyền thông báo trong ứng dụng",
                 Snackbar.LENGTH_LONG
             ).setAction("Cài đặt") {
                 val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)

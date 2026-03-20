@@ -214,7 +214,6 @@
     <string name="listBranchTransactionPoint">List branch/transaction point</string>
     <string name="register_device_other">New device verification</string>
     <string name="listAccount">Account List</string>
-    <string name="listAccount">List Account</string>
     <string name="toMeAtSHB">To me at SHB</string>
     <string name="exchangeRate">Exchange rate</string>
     <string name="formatTextExchangeCurrency">1 %s = %s %s</string>
