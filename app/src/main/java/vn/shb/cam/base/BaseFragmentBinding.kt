@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import androidx.activity.OnBackPressedCallback
 import androidx.annotation.ColorRes
 import androidx.annotation.IdRes
 import androidx.core.app.ActivityCompat.finishAffinity
@@ -23,15 +22,7 @@ import com.google.android.material.transition.platform.MaterialFadeThrough
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import vn.shb.core.core.delivery.Reason
-import vn.shb.core.core.retrofit.SafeExecute.Companion.AUTH_001
-import vn.shb.core.core.retrofit.SafeExecute.Companion.AUTH_002
-import vn.shb.core.core.retrofit.SafeExecute.Companion.AUTH_006
-import vn.shb.core.core.retrofit.SafeExecute.Companion.HTTP_NOT_FOUND
-import vn.shb.core.core.security.encrypt.AndroidSecureStorage
-import vn.shb.data.entities.login.UserConverters
 import vn.shb.cam.R
-import vn.shb.cam.activity.dashboard.DashboardActivity
 import vn.shb.cam.activity.login.LoginActivity
 import vn.shb.cam.screens.home.HomeViewModel
 import vn.shb.cam.utils.ApiConst
@@ -40,6 +31,13 @@ import vn.shb.cam.utils.extensions.navigation.safeNavigate
 import vn.shb.cam.utils.extensions.returnActivity
 import vn.shb.cam.utils.refreshTK.RefreshTokenManager
 import vn.shb.cam.utils.view.dialog.BottomSheetDialogHelper
+import vn.shb.core.core.delivery.Reason
+import vn.shb.core.core.retrofit.SafeExecute.Companion.AUTH_001
+import vn.shb.core.core.retrofit.SafeExecute.Companion.AUTH_002
+import vn.shb.core.core.retrofit.SafeExecute.Companion.AUTH_006
+import vn.shb.core.core.retrofit.SafeExecute.Companion.HTTP_NOT_FOUND
+import vn.shb.core.core.security.encrypt.AndroidSecureStorage
+import vn.shb.data.entities.login.UserConverters
 
 abstract class BaseFragmentBinding<T : ViewBinding>(
     private val inflateMethod: (LayoutInflater, ViewGroup?, Boolean) -> T
@@ -48,10 +46,10 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
     protected val storage: AndroidSecureStorage by inject()
 
     protected val homeViewModel: HomeViewModel by sharedViewModel()
-    private var _binding: T? = null
 
-    val binding: T
-        get() = _binding!!
+    private var _binding: T? = null
+    protected val binding: T
+        get() = requireNotNull(_binding)
 
     private val listErrorLogout = listOf(AUTH_006, AUTH_001, AUTH_002)
 
