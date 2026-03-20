@@ -206,28 +206,34 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     }
 
     private fun stateAmountInput(value: Boolean) {
-        binding.iclAmount.edtValue.enableInput(value)
-        if (!value) binding.iclAmount.edtValue.setText(Const.EMPTY)
+        try {
+            binding.iclAmount.edtValue.enableInput(value)
+            if (!value) binding.iclAmount.edtValue.setText(Const.EMPTY)
+        } catch (e: Exception) {
+        }
     }
 
     private fun updateCurrencySelectorState() {
-        val fromCur = fromAccount?.currencyCode
-        val toCur = toAccount?.currencyCode
-        val isSame = fromCur != null && toCur != null && fromCur == toCur
+        try {
+            val fromCur = fromAccount?.currencyCode
+            val toCur = toAccount?.currencyCode
+            val isSame = fromCur != null && toCur != null && fromCur == toCur
 
-        binding.iclAmount.tvCurrentCode.apply {
-            if (isSame) {
-                setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
-                isClickable = false
-            } else {
-                setCompoundDrawablesRelativeWithIntrinsicBounds(
-                    0,
-                    0,
-                    R.drawable.ic_arrow_down_black,
-                    0
-                )
-                isClickable = true
+            binding.iclAmount.tvCurrentCode.apply {
+                if (isSame) {
+                    setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
+                    isClickable = false
+                } else {
+                    setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        0,
+                        0,
+                        R.drawable.ic_arrow_down_black,
+                        0
+                    )
+                    isClickable = true
+                }
             }
+        } catch (e: Exception) {
         }
     }
 
