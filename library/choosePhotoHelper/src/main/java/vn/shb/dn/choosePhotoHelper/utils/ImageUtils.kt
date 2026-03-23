@@ -3,12 +3,16 @@ package vn.shb.dn.choosePhotoHelper.utils
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
+import androidx.core.graphics.scale
 import androidx.exifinterface.media.ExifInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
+import java.io.File
 import java.io.IOException
-import androidx.core.graphics.scale
+
+private const val MAX_IMAGE_EDGE_PX = 640
+private const val JPEG_QUALITY = 85
 
 /**
  * @author aminography
@@ -103,26 +107,68 @@ fun modifyOrientation(bitmap: Bitmap, absolutePath: String): Bitmap {
  */
 @Throws(IOException::class)
 fun modifyOrientationAndResize(absolutePath: String): ByteArray? {
-    var bitmap = BitmapFactory.decodeFile(absolutePath)
+    if (absolutePath.isBlank()) return null
 
-    var preferredHeight = bitmap.height
-    var preferredWidth = bitmap.width
-    if (preferredHeight > preferredWidth) {
-        preferredHeight = 640
-        preferredWidth = (640 * (bitmap.width.toDouble() / bitmap.height.toDouble())).toInt()
-    } else {
-        preferredWidth = 640
-        preferredHeight = (640 * (bitmap.height.toDouble() / bitmap.width.toDouble())).toInt()
-    }
-    bitmap = bitmap.scale(preferredWidth, preferredHeight)
+    val sourceFile = File(absolutePath)
+    if (!sourceFile.exists() || !sourceFile.isFile) return null
+
+    var workingBitmap = BitmapFactory.decodeFile(absolutePath) ?: return null
 
     try {
-        bitmap = modifyOrientation(bitmap, absolutePath)
-    } catch (e: IOException) {
-        e.printStackTrace()
+        val resizedBitmap = resizeBitmap(workingBitmap)
+        if (resizedBitmap !== workingBitmap) {
+            workingBitmap.recycle()
+            workingBitmap = resizedBitmap
+        }
+
+        try {
+            val orientedBitmap = modifyOrientation(workingBitmap, absolutePath)
+            if (orientedBitmap !== workingBitmap) {
+                workingBitmap.recycle()
+                workingBitmap = orientedBitmap
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+        return ByteArrayOutputStream().use { outputStream ->
+            val isCompressed = workingBitmap.compress(
+                Bitmap.CompressFormat.JPEG,
+                JPEG_QUALITY,
+                outputStream
+            )
+            if (!isCompressed) return null
+
+            outputStream.toByteArray().takeIf { it.isNotEmpty() }
+        }
+    } finally {
+        if (!workingBitmap.isRecycled) {
+            workingBitmap.recycle()
+        }
+    }
+}
+
+private fun resizeBitmap(bitmap: Bitmap): Bitmap {
+    val sourceWidth = bitmap.width
+    val sourceHeight = bitmap.height
+
+    if (sourceWidth <= 0 || sourceHeight <= 0) return bitmap
+
+    val (targetWidth, targetHeight) = if (sourceHeight > sourceWidth) {
+        val scaledWidth = (MAX_IMAGE_EDGE_PX * (sourceWidth.toDouble() / sourceHeight.toDouble()))
+            .toInt()
+            .coerceAtLeast(1)
+        scaledWidth to MAX_IMAGE_EDGE_PX
+    } else {
+        val scaledHeight = (MAX_IMAGE_EDGE_PX * (sourceHeight.toDouble() / sourceWidth.toDouble()))
+            .toInt()
+            .coerceAtLeast(1)
+        MAX_IMAGE_EDGE_PX to scaledHeight
     }
 
-    val bos = ByteArrayOutputStream()
-    bitmap.compress(Bitmap.CompressFormat.JPEG, 85, ByteArrayOutputStream())
-    return bos.toByteArray()
+    if (sourceWidth == targetWidth && sourceHeight == targetHeight) {
+        return bitmap
+    }
+
+    return bitmap.scale(targetWidth, targetHeight)
 }

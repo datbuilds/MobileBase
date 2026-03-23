@@ -8,6 +8,7 @@ import vn.shb.cam.databinding.BsAiResultBinding
 import vn.shb.cam.utils.BankType
 import vn.shb.cam.utils.extensions.setOnMaterialButtonClick
 import vn.shb.core.core.domain.source.response.AiPayResult
+import vn.shb.data.entities.getBalance
 
 class BSAiResult(private val builder: Builder) :
     BaseBottomDialogBinding<BsAiResultBinding>(BsAiResultBinding::inflate) {
@@ -42,8 +43,9 @@ class BSAiResult(private val builder: Builder) :
             val account = builder.result.accountNum
                 ?.takeIf { it.isNotBlank() }
                 ?: EMPTY_VALUE
-            val amount = builder.result.amount?.toString()
-                ?.takeIf { it.isNotBlank() }
+            val amount = builder.result.amount
+                ?.toDouble()
+                ?.getBalance()
                 ?: EMPTY_VALUE
             val currency = builder.result.currency
                 ?.takeIf { it.isNotBlank() }
