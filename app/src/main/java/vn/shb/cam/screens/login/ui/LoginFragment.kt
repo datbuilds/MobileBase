@@ -52,7 +52,6 @@ import vn.shb.core.core.domain.usecases.login.StateLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseLogin
 import vn.shb.core.core.security.encrypt.EncryptManager
 import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.core.utils.logD
 import vn.shb.data.entities.login.RegisterDeviceData
 import vn.shb.data.entities.login.UserLog
 import java.util.Base64
@@ -94,7 +93,13 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             getString(R.string.forgotPassword), R.color.forgotPassword,
             R.color.forgotPasswordClick
         ) {
-            context?.let { ct -> loginViewModel.showDialogForgotPassword(ct, getString(R.string.passwordResetInstructions), true) }
+            context?.let { ct ->
+                loginViewModel.showDialogForgotPassword(
+                    ct,
+                    getString(R.string.passwordResetInstructions),
+                    true
+                )
+            }
         }
 
         // set icon current language
@@ -161,70 +166,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             }
 
             if (BuildConfig.FLAVOR == "dev") {
-                ivLogoSHB.setOnSingleClickListener {
-                    confirmDeviceView.setup(
-                        phoneNumber = "000000000",
-                        totalTime = 3.times(1000L),
-                        onConfirm = { otp ->
-                            if (otp.isNotEmpty()) {
-                                val accountLogin = getUserLogin()
-                                val (_, encPsw) = getPassword()
-                                transactionId?.let {
-                                    loginViewModel.verifyDevice(
-                                        accountLogin, encPsw,
-                                        it,
-                                        otp
-                                    )
-                                }
-                            }
-                            hideSoftKeyboard()
-                        },
-                        resendCode = {
-                            confirmDeviceView.setup(
-                                phoneNumber = "00000000",
-                                totalTime = 22?.times(1000L),
-                                onConfirm = { otp ->
-                                    if (otp.isNotEmpty()) {
-                                        val accountLogin = getUserLogin()
-                                        val (_, encPsw) = getPassword()
-                                        transactionId?.let {
-                                            loginViewModel.verifyDevice(
-                                                accountLogin, encPsw,
-                                                it,
-                                                otp
-                                            )
-                                        }
-                                    }
-                                    hideSoftKeyboard()
-                                },
-                                resendCode = {
-                                    // Logic to resend
-                                    val accountLogin = getUserLogin()
-                                    val (_, encPsw) = getPassword()
-                                    loginViewModel.registerDevice(accountLogin, encPsw)
-                                },
-
-                                onFinishCB = {
-                                    hideSoftKeyboard()
-                                },
-                                onClose = {
-                                    // Handle close
-                                }
-                            )
-                            if (!confirmDeviceView.isVisible){
-                                confirmDeviceView.show()
-                            }
-                        },
-
-                        onFinishCB = {
-                            hideSoftKeyboard()
-                        },
-                        onClose = {
-                            // Handle close
-                        }
-                    )
-                    confirmDeviceView.show()
-                }
+                resetInputLogin()
             }
         }
     }
@@ -241,7 +183,12 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             },
             onCancel = {
                 showDialogVisitBranchCam(message = getString(R.string.getSupportForChanging)) {
-                    context?.let { ct -> loginViewModel.showDialogForgotPassword(ct, getString(R.string.listBranchTransactionPoint)) }
+                    context?.let { ct ->
+                        loginViewModel.showDialogForgotPassword(
+                            ct,
+                            getString(R.string.listBranchTransactionPoint)
+                        )
+                    }
                 }
             }
         ).show(childFragmentManager, RegisterDeviceDialog.TAG)
@@ -344,7 +291,12 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                                 uiState.reason.errorCode == ApiConst.OTP_009
                             ) {
                                 showDialogVisitBranchCam(message = uiState.reason.errMessage) {
-                                    context?.let { ct -> loginViewModel.showDialogForgotPassword(ct, getString(R.string.listBranchTransactionPoint)) }
+                                    context?.let { ct ->
+                                        loginViewModel.showDialogForgotPassword(
+                                            ct,
+                                            getString(R.string.listBranchTransactionPoint)
+                                        )
+                                    }
                                 }
                             } else {
                                 showDialogError(
@@ -421,7 +373,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                             // Handle close
                         }
                     )
-                    if (!confirmDeviceView.isVisible){
+                    if (!confirmDeviceView.isVisible) {
                         confirmDeviceView.show()
                     }
                 }
