@@ -162,7 +162,68 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
             if (BuildConfig.FLAVOR == "dev") {
                 ivLogoSHB.setOnSingleClickListener {
-                    resetInputLogin()
+                    confirmDeviceView.setup(
+                        phoneNumber = "000000000",
+                        totalTime = 3.times(1000L),
+                        onConfirm = { otp ->
+                            if (otp.isNotEmpty()) {
+                                val accountLogin = getUserLogin()
+                                val (_, encPsw) = getPassword()
+                                transactionId?.let {
+                                    loginViewModel.verifyDevice(
+                                        accountLogin, encPsw,
+                                        it,
+                                        otp
+                                    )
+                                }
+                            }
+                            hideSoftKeyboard()
+                        },
+                        resendCode = {
+                            confirmDeviceView.setup(
+                                phoneNumber = "00000000",
+                                totalTime = 22?.times(1000L),
+                                onConfirm = { otp ->
+                                    if (otp.isNotEmpty()) {
+                                        val accountLogin = getUserLogin()
+                                        val (_, encPsw) = getPassword()
+                                        transactionId?.let {
+                                            loginViewModel.verifyDevice(
+                                                accountLogin, encPsw,
+                                                it,
+                                                otp
+                                            )
+                                        }
+                                    }
+                                    hideSoftKeyboard()
+                                },
+                                resendCode = {
+                                    // Logic to resend
+                                    val accountLogin = getUserLogin()
+                                    val (_, encPsw) = getPassword()
+                                    loginViewModel.registerDevice(accountLogin, encPsw)
+                                },
+
+                                onFinishCB = {
+                                    hideSoftKeyboard()
+                                },
+                                onClose = {
+                                    // Handle close
+                                }
+                            )
+                            if (!confirmDeviceView.isVisible){
+                                confirmDeviceView.show()
+                            }
+                        },
+
+                        onFinishCB = {
+                            hideSoftKeyboard()
+                        },
+                        onClose = {
+                            // Handle close
+                        }
+                    )
+                    confirmDeviceView.show()
                 }
             }
         }
@@ -360,7 +421,9 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                             // Handle close
                         }
                     )
-                    confirmDeviceView.show()
+                    if (!confirmDeviceView.isVisible){
+                        confirmDeviceView.show()
+                    }
                 }
             }
 

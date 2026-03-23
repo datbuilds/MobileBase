@@ -13,7 +13,6 @@ import androidx.core.view.isVisible
 import vn.shb.cam.R
 import vn.shb.cam.databinding.DialogConfirmDeviceBinding
 import vn.shb.cam.utils.extensions.gone
-import vn.shb.cam.utils.extensions.hideSoftKeyboard
 import vn.shb.cam.utils.extensions.visible
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 
@@ -53,37 +52,9 @@ class ConfirmDeviceView @JvmOverloads constructor(
         val startIndex = message.indexOf(phoneNumber)
         if (startIndex != -1) {
             spannable.setSpan(
-                android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
+                StyleSpan(android.graphics.Typeface.BOLD),
                 startIndex,
                 startIndex + phoneNumber.length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-        }
-        binding.tvMessage.text = spannable
-        binding.tvError.gone()
-
-        startTimer(totalTime ?: 60000L)
-    }
-
-    fun setupOtpTransaction(
-        authSms: String,
-        totalTime: Long?,
-        onConfirm: (String) -> Unit,
-        resendCode: () -> Unit,
-        onClose: () -> Unit
-    ) {
-        this.onConfirmCallback = onConfirm
-        this.onResendCallback = resendCode
-        this.onCloseCallback = onClose
-
-        val message = authSms
-        val spannable = SpannableString(message)
-        val startIndex = message.length - 10
-        if (startIndex != -1) {
-            spannable.setSpan(
-                android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
-                startIndex,
-                startIndex + message.length -1,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
         }
@@ -173,7 +144,7 @@ class ConfirmDeviceView @JvmOverloads constructor(
             tvTimer.isVisible = !isShown
             tvError.isVisible = isShown
             tvError.text =
-                if (isShown) context.getString(R.string.theOtpExpired) 
+                if (isShown) context.getString(R.string.theOtpExpired)
                 else context.getString(R.string.otp_incorrect_message)
             btnConfirm.isVisible = !isShown
             llResendCode.isVisible = isShown
@@ -196,6 +167,7 @@ class ConfirmDeviceView @JvmOverloads constructor(
                 timer?.cancel()
                 binding.otpView.clearOtp()
             }
+
             override fun onAnimationRepeat(animation: android.view.animation.Animation?) {}
         })
         startAnimation(slideDown)

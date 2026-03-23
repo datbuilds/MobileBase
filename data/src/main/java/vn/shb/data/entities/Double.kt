@@ -50,7 +50,7 @@ fun String.getBalanceFormatted(): String {
 
     val decimalCount = indexOf('.').takeIf { it >= 0 }?.let { length - it - 1 } ?: 0
     val pattern = if (decimalCount > 0) {
-        "#,##0." + "#".repeat(decimalCount.coerceAtMost(2))
+        "#,##0." + "0".repeat(decimalCount.coerceAtMost(2))
     } else {
         "#,##0"
     }

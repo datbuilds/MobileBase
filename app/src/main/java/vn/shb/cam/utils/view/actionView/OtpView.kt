@@ -26,14 +26,14 @@ class OtpView @JvmOverloads constructor(
     private val textViews = ArrayList<TextView>()
     private var otpCompleteListener: ((String) -> Unit)? = null
     private var otpChangedListener: ((String, Boolean) -> Unit)? = null
-    
+
     private lateinit var hiddenEditText: EditText
     private lateinit var boxesContainer: LinearLayout
 
     init {
         setupViews()
     }
-    
+
     private fun setupViews() {
         // Container for visual boxes
         boxesContainer = LinearLayout(context).apply {
@@ -53,9 +53,9 @@ class OtpView @JvmOverloads constructor(
             setTextColor(Color.TRANSPARENT)
             inputType = InputType.TYPE_CLASS_NUMBER
             filters = arrayOf(InputFilter.LengthFilter(otpLength))
-            importantForAutofill = View.IMPORTANT_FOR_AUTOFILL_YES 
+            importantForAutofill = View.IMPORTANT_FOR_AUTOFILL_YES
         }
-        
+
         // Add hiddenEditText on top to capture touches
         val paramsHidden = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
         addView(hiddenEditText, paramsHidden)
@@ -65,52 +65,58 @@ class OtpView @JvmOverloads constructor(
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 updateOtpBoxes(s?.toString() ?: "")
-                
+
                 val currentOtp = s?.toString() ?: ""
                 otpChangedListener?.invoke(currentOtp, currentOtp.length == otpLength)
-                
+
                 if (currentOtp.length == otpLength) {
                     otpCompleteListener?.invoke(currentOtp)
-                // Hide keyboard if needed? Usually better to keep it open or let user decide.
-                // Original code didn't hide it explicitly inside onTextChanged.
+                    // Hide keyboard if needed? Usually better to keep it open or let user decide.
+                    // Original code didn't hide it explicitly inside onTextChanged.
                 }
             }
 
             override fun afterTextChanged(s: Editable?) {}
         })
-        
+
         // Forward focus to hiddenEditText whenever the view is clicked
         setOnClickListener {
             hiddenEditText.requestFocus()
             // Show keyboard logic could be added here if needed, 
             // but clicking EditText usually handles it.
-            val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as? android.view.inputmethod.InputMethodManager
-            imm?.showSoftInput(hiddenEditText, android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT)
+            val imm =
+                context.getSystemService(Context.INPUT_METHOD_SERVICE) as? android.view.inputmethod.InputMethodManager
+            imm?.showSoftInput(
+                hiddenEditText,
+                android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT
+            )
         }
     }
 
     private fun setupOtpBoxes() {
         textViews.clear()
         boxesContainer.removeAllViews()
-        
+
+        val widthBox = resources.displayMetrics.widthPixels / 10
+
         for (i in 0 until otpLength) {
             val tv = TextView(context)
-            val params = LinearLayout.LayoutParams(100, 150)
-            params.marginEnd = 16
-            params.marginStart = 16
+            val params = LinearLayout.LayoutParams(widthBox, (widthBox * 1.5).toInt())
+            params.marginEnd = widthBox / 4
+            params.marginStart = widthBox / 4
             tv.layoutParams = params
 
             tv.setTextColor(ContextCompat.getColor(context, R.color.neutral8))
             tv.typeface = ResourcesCompat.getFont(context, R.font.onest)
             tv.gravity = Gravity.CENTER
-            tv.textSize = 32f
+            tv.textSize = (widthBox / 4).toFloat()
             tv.setBackgroundResource(R.drawable.bg_edt_otp)
-            
+
             textViews.add(tv)
             boxesContainer.addView(tv)
         }
     }
-    
+
     private fun updateOtpBoxes(otp: String) {
         for (i in 0 until otpLength) {
             if (i < otp.length) {
