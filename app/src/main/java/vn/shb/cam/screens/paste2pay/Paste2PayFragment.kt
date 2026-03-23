@@ -139,6 +139,12 @@ class Paste2PayFragment :
     private fun showClipboardChooser() {
         val clipboard =
             requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+
+        if (!clipboard.hasPrimaryClip()) {
+            toast("Clipboard đang trống")
+            return
+        }
+
         val clipData = clipboard.primaryClip
 
         if (clipData == null || clipData.itemCount == 0) {
@@ -147,25 +153,25 @@ class Paste2PayFragment :
         }
 
         val description = clipboard.primaryClipDescription
-        if (description?.hasMimeType("image/*") == true ||
-            description?.hasMimeType(ClipDescription.MIMETYPE_TEXT_URILIST) == true
-        ) {
-            toast("Vui lòng chọn upload ảnh")
-            return
-        }
-
         val clipboardItems = buildList {
             for (index in 0 until clipData.itemCount) {
-                val text = clipData.getItemAt(index).coerceToText(requireContext())
-                    ?.toString()
-                    ?.trim()
-                    .orEmpty()
+                val text = SafePasteEditText.normalizeClipboardText(
+                    clipData.getItemAt(index).coerceToText(requireContext())
+                )
 
                 if (text.isNotEmpty() && SafePasteEditText.isValidClipboardText(text)) {
                     add(text)
                 }
             }
         }.distinctBy { it }
+
+        if (clipboardItems.isEmpty() &&
+            (description?.hasMimeType("image/*") == true ||
+                description?.hasMimeType(ClipDescription.MIMETYPE_TEXT_URILIST) == true)
+        ) {
+            toast("Vui lòng chọn upload ảnh")
+            return
+        }
 
         if (clipboardItems.isEmpty()) {
             toast("Nội dung không hợp lệ")
