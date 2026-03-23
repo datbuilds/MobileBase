@@ -27,8 +27,11 @@ class SafePasteEditText @JvmOverloads constructor(
             val clipData = clipboard.primaryClip ?: return false
             val description = clipboard.primaryClipDescription
 
-            // nếu clipboard là image / uri
-            if (description != null &&
+            val item = clipData.getItemAt(0)
+            val text = normalizeClipboardText(item.coerceToText(context))
+
+            // Nếu clipboard chỉ là image/uri và không coerce được ra text hiển thị được
+            if (text.isEmpty() && description != null &&
                 (description.hasMimeType("image/*") ||
                     description.hasMimeType(ClipDescription.MIMETYPE_TEXT_URILIST))
             ) {
@@ -36,10 +39,6 @@ class SafePasteEditText @JvmOverloads constructor(
                 return false
             }
 
-            val item = clipData.getItemAt(0)
-            val text = item.coerceToText(context).toString()
-
-            // kiểm tra ký tự hợp lệ
             if (!isValidClipboardText(text)) {
                 context.toast("Nội dung không hợp lệ")
                 return false
@@ -50,8 +49,23 @@ class SafePasteEditText @JvmOverloads constructor(
     }
 
     companion object {
-        private val regex = Regex("^[a-zA-Z0-9.,\\s]*$")
+        private val invisibleCharactersRegex = Regex("[\\u200B\\u200C\\u200D\\u2060\\uFEFF]")
+        private val disallowedControlCharactersRegex = Regex("[\\p{Cntrl}&&[^\\n\\r\\t]]")
+        private val contentUriOnlyRegex = Regex("^(content|file)://\\S+$", RegexOption.IGNORE_CASE)
 
-        fun isValidClipboardText(text: String): Boolean = regex.matches(text)
+        fun normalizeClipboardText(text: CharSequence?): String {
+            return text
+                ?.toString()
+                ?.replace(invisibleCharactersRegex, "")
+                ?.trim()
+                .orEmpty()
+        }
+
+        fun isValidClipboardText(text: String): Boolean {
+            val normalized = normalizeClipboardText(text)
+            if (normalized.isBlank()) return false
+            if (contentUriOnlyRegex.matches(normalized)) return false
+            return !disallowedControlCharactersRegex.containsMatchIn(normalized)
+        }
     }
 }
