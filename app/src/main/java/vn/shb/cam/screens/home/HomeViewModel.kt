@@ -17,6 +17,7 @@ import vn.shb.cam.utils.ApiConst.FR_2_TO_DATE
 import vn.shb.cam.utils.ApiConst.LAST5
 import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.common.Const.CURRENT_ACCOUNT
+import vn.shb.cam.utils.extensions.sortAccount
 import vn.shb.core.core.delivery.Reason
 import vn.shb.core.core.delivery.ResultSHB
 import vn.shb.core.core.delivery.onFailure
@@ -179,7 +180,7 @@ class HomeViewModel(
                     if (isFetchUser) {
                         _stateFetchUser.send(userInfo)
                     }
-                    listAccount = accountData.array
+                    listAccount = accountData.array.sortAccount()
                     currentUserInfo = userInfo
                     getCurrentAccount(userInfo, accountData.array)
                 }
@@ -355,7 +356,7 @@ class HomeViewModel(
         viewModelScope.launch {
             useCaseTransferAccount.invoke(UseCaseTransferAccount.Params(true)).collect { result ->
                 result.onSuccess { accountData ->
-                    listTransferAccount = accountData.array
+                    listTransferAccount = accountData.array.sortAccount()
                     val account =
                         listTransferAccount.firstOrNull { it.accountNumber == selectedAccount?.accountNumber }
                             ?: listTransferAccount.firstOrNull()
@@ -378,7 +379,7 @@ class HomeViewModel(
         viewModelScope.launch {
             useCaseTransferAccount.invoke(UseCaseTransferAccount.Params(false)).collect { result ->
                 result.onSuccess { accountData ->
-                    listReceiverAccount = accountData.array
+                    listReceiverAccount = accountData.array.sortAccount()
                     selectedAccount?.let { listenChangeFromAccount(it) }
                 }
                 result.onFailure { error ->

@@ -23,6 +23,7 @@ import vn.shb.cam.utils.BankType
 import vn.shb.cam.utils.extensions.collapse
 import vn.shb.cam.utils.extensions.collectState
 import vn.shb.cam.utils.extensions.hideProgressDialog
+import vn.shb.cam.utils.extensions.hideSoftKeyboard
 import vn.shb.cam.utils.extensions.setOnMaterialButtonClick
 import vn.shb.cam.utils.extensions.showProgressDialog
 import vn.shb.cam.utils.extensions.toast
@@ -129,6 +130,11 @@ class Paste2PayFragment :
 
             edtContent.doAfterTextChanged {
                 updateConfirmButtonState()
+            }
+
+            rootView.setOnTouchListener { _, _ ->
+                hideSoftKeyboard()
+                false
             }
         }
     }
