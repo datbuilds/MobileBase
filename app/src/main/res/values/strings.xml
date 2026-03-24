@@ -57,6 +57,8 @@
     <string name="transactionAmount">Transaction Amount</string>
     <string name="fromAccount">From Account</string>
     <string name="remarks">Remarks</string>
+    <string name="remarksDefault">Default Remarks</string>
+    <string name="enterRemarksDefault">Enter Default Remarks</string>
     <string name="transactionDate">Transaction Date</string>
     <string name="referenceNumber">Reference Number</string>
     <string name="moneyTransfer">Money transfer</string>
@@ -65,7 +67,7 @@
     <string name="balance">Balance</string>
     <string name="toAccount">To Account</string>
     <string name="amount">Amount</string>
-    <string name="enterAccountNumber">Enter account number</string>
+    <string name="enterAccountNumber">Enter Account Number</string>
     <string name="enterAmount">Enter Amount</string>
     <string name="insufficientBalance">Insufficient account balance. Please try again.</string>
     <string name="fee">Fee</string>
@@ -111,7 +113,7 @@
     <string name="authenticationFailed">Authentication failed. Please try again.</string>
     <string name="transactionFail">Transaction Fail!</string>
     <string name="anErrorHasOccurred">An error has occurred, the transaction was not completed. Please try again!</string>
-    <string name="enterRecipientName">Enter recipient name</string>
+    <string name="enterRecipientName">Enter Beneficiary Name</string>
     <string name="pleaseEnterTheAmount">Please enter the amount</string>
     <string name="flexibleSaving">FLEXIBLE SAVING</string>
     <string name="staffLoans">SHB STAFF LOANS</string>
@@ -181,12 +183,14 @@
     <string name="save_recipient">Save recipient</string>
     <string name="set_nickname">Set nickname</string>
     <string name="ask_set_nickname">Would you like to set a nickname for this recipient?</string>
-    <string name="enter_nickname">Enter nickname</string>
+    <string name="enter_nickname">Enter Nickname</string>
     <string name="error_enter_nickname">Please enter the name</string>
     <string name="error_invalid_nickname">The name is invalid</string>
     <string name="successfullySetNickname">Successfully set nickname</string>
     <string name="noLabel">No</string>
     <string name="yesLabel">Yes</string>
+    <string name="allowRemoveBeneficiary">Yes</string>
+    <string name="dontAllowRemoveBeneficiary">No</string>
     <string name="theNameIsInvaid">The name is invalid</string>
     <string name="theBeneficiaryUpdateFail">Beneficiary updated fail</string>
     <string name="theBeneficiaryAlreadyExists">The beneficiary already exists</string>

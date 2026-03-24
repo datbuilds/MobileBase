@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -14,6 +15,8 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.WindowInsetsController
 import android.view.accessibility.AccessibilityManager
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
@@ -129,9 +132,28 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        // 1. Giữ nguyên logic bảo mật (Chống Tapjacking)
         if (ev?.flags?.and(MotionEvent.FLAG_WINDOW_IS_PARTIALLY_OBSCURED) != 0) {
             return false
         }
+
+        // 2. Thêm logic ẩn bàn phím/focus khi click ra ngoài
+        if (ev.action == MotionEvent.ACTION_DOWN) {
+            val v = currentFocus
+            if (v is EditText) {
+                val outRect = Rect()
+                v.getGlobalVisibleRect(outRect)
+
+                // Kiểm tra tọa độ chạm có nằm ngoài EditText không
+                if (!outRect.contains(ev.rawX.toInt(), ev.rawY.toInt())) {
+                    v.clearFocus()
+                    val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(v.windowToken, 0)
+                }
+            }
+        }
+
+        // 3. Luôn gọi super để các Fragment và View con nhận được sự kiện
         return super.dispatchTouchEvent(ev)
     }
 

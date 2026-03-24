@@ -56,7 +56,6 @@
                 android:id="@+id/tvNicknameUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAllCaps="true"
                 android:layout_marginTop="6dp"
                 android:textColor="@color/neutral10"
                 android:textSize="@dimen/textSize14"

@@ -57,6 +57,7 @@
             android:hint="@string/enterRecipientName"
             android:includeFontPadding="false"
             android:textColor="@color/black"
+
             android:textColorHint="@color/neutral6"
             android:textSize="@dimen/textSize14" />
 
