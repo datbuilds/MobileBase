@@ -14,6 +14,7 @@ import vn.shb.cam.databinding.FragmentEditBeneficiaryBinding
 import vn.shb.cam.utils.ApiConst
 import vn.shb.cam.utils.BankType
 import vn.shb.cam.utils.extensions.CustomToastShowOnTop
+import vn.shb.cam.utils.extensions.hideSoftKeyboard
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.extensions.setLatinAlphanumericFilter
 import vn.shb.cam.utils.extensions.visible
@@ -27,7 +28,7 @@ import vn.shb.data.entities.beneficiary.Beneficiary
 class EditBeneficiaryFragment :
     BaseFragmentBinding<FragmentEditBeneficiaryBinding>(FragmentEditBeneficiaryBinding::inflate) {
 
-    private val MAX_LENGHT_INPUT_NAME = 50
+    private val MAX_LENGHT_INPUT_NAME = 20
     private val MAX_LENGHT_INPUT_REMARK = 200
     private val TIME_SHOW_SNACK_BAR = 3000L
 
@@ -132,8 +133,12 @@ class EditBeneficiaryFragment :
             iclBank.ivExpandDown.visibility = View.VISIBLE
             iclBank.ivLogo.visibility = View.GONE
 
-            iclAccountNumber.edtValue.setText("")
             iclAccountName.edtValue.setText("")
+            iclAccountName.edtValue.isEnabled = false
+            iclAccountName.edtValue.setTextColor(context?.getColor(R.color.neutral6)?:0)
+            iclAccountName.edtValue.clearFocus()
+
+            iclAccountNumber.edtValue.setText("")
             iclDefaultRemarks.edtValue.setText("")
             iclNickName.edtValue.setText("")
             iclBank.edtValue.setText("")
@@ -208,8 +213,8 @@ class EditBeneficiaryFragment :
                     message = getString(
                         R.string.nicknameAlreadyExists
                     ),
-                    textNegative = getString(R.string.noLabel),
-                    textPositive = getString(R.string.yesLabel),
+                    textNegative = getString(R.string.dontAllowRemoveBeneficiary),
+                    textPositive = getString(R.string.allowRemoveBeneficiary),
                     positiveAction = {
                         doAddOrUpdate()
                     }
@@ -274,12 +279,25 @@ class EditBeneficiaryFragment :
                 }
 
                 // Account Number Validation
-                validateField(
-                    iclAccountNumber.edtValue.text.toString(),
-                    iclAccountNumber.tvError,
-                    iclAccountNumber.llEdit,
-                    getString(R.string.error_enter_account_number)
-                )
+                if (iclAccountNumber.edtValue.text.toString().isEmpty()) {
+                    iclAccountNumber.tvError.visible()
+                    iclAccountNumber.tvError.text = getString(R.string.error_enter_account_number)
+
+                    //clear data accountName
+                    iclAccountName.edtValue.setText("")
+                    iclAccountName.edtValue.isEnabled = false
+                    iclAccountName.edtValue.setTextColor(context?.getColor(R.color.neutral6)?:0)
+                    iclAccountName.edtValue.clearFocus()
+                } else {
+                    iclAccountNumber.tvError.visibility = View.GONE
+                }
+
+//                validateField(
+//                    iclAccountNumber.edtValue.text.toString(),
+//                    iclAccountNumber.tvError,
+//                    iclAccountNumber.llEdit,
+//                    getString(R.string.error_enter_account_number)
+//                )
 
                 // Account Name Validation
                 validateField(
@@ -312,7 +330,8 @@ class EditBeneficiaryFragment :
             // Helper function to setup listeners
             fun setupListener(
                 includeLayout: vn.shb.cam.databinding.ItemEditBeneficiaryBinding,
-                errorMessage: String
+                errorMessage: String,
+                callBackError:()->Unit={}
             ) {
                 includeLayout.edtValue.setOnEditorActionListener { v, actionId, event ->
                     if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -342,23 +361,38 @@ class EditBeneficiaryFragment :
                     }
                 }
 
-                includeLayout.edtValue.doAfterTextChanged {
-                    if (includeLayout == iclAccountNumber && !isEdit) {
-                        isAccountValidated = false
-                    }
-                    validateInputs() // Update button state
-                    if (it.toString().isNotEmpty()) {
-                        includeLayout.tvError.visibility = View.GONE
+
+            }
+
+            iclAccountNumber.edtValue.doAfterTextChanged {
+                if (!isEdit) {
+                    isAccountValidated = false
+                }
+                validateInputs() // Update button state
+                if (it.toString().isNotEmpty()) {
+                    iclAccountNumber.tvError.visibility = View.GONE
+                } else {
+                    // Only show error if we are "dirty" ?
+                    // Requirement: "show error when input done but text empty (case delete all text)"
+                    // So if it BECOMES empty, show error.
+//                    validateField(
+//                        iclAccountNumber.edtValue.text.toString(),
+//                        iclAccountNumber.tvError,
+//                        iclAccountNumber.llEdit,
+//                        getString(R.string.error_enter_account_number)
+//                    )
+
+                    if (iclAccountNumber.edtValue.text.toString().isEmpty()) {
+                        iclAccountNumber.tvError.visible()
+                        iclAccountNumber.tvError.text = getString(R.string.error_enter_account_number)
+
+                        //clear data accountName
+                        iclAccountName.edtValue.setText("")
+                        iclAccountName.edtValue.isEnabled = false
+                        iclAccountName.edtValue.setTextColor(context?.getColor(R.color.neutral6)?:0)
+                        iclAccountName.edtValue.clearFocus()
                     } else {
-                        // Only show error if we are "dirty" ?
-                        // Requirement: "show error when input done but text empty (case delete all text)"
-                        // So if it BECOMES empty, show error.
-                        validateField(
-                            includeLayout.edtValue.text.toString(),
-                            includeLayout.tvError,
-                            includeLayout.llEdit,
-                            errorMessage
-                        )
+                        iclAccountNumber.tvError.visibility = View.GONE
                     }
                 }
             }
@@ -392,6 +426,8 @@ class EditBeneficiaryFragment :
             launch {
                 viewModel.stateError.collect {
                     showSnackBarTop(it.errMessage, false)
+                    binding.tvConfirmation.isEnabled = false
+                    binding.tvConfirmation.alpha = 0.5f
                 }
             }
 
@@ -472,14 +508,14 @@ class EditBeneficiaryFragment :
             iclBank.tvTitle.text = getString(R.string.bank)
             iclNickName.tvTitle.text = getString(R.string.titleNickname)
             iclAccountName.tvTitle.text = getString(R.string.accountName)
-            iclDefaultRemarks.tvTitle.text = getString(R.string.remarks)
+            iclDefaultRemarks.tvTitle.text = getString(R.string.remarksDefault)
             iclBank.ivLogo.visibility = View.VISIBLE
 
             iclAccountNumber.edtValue.hint = getString(R.string.enterAccountNumber)
             iclBank.edtValue.hint = getString(R.string.hint_select_bank)
             iclAccountName.edtValue.hint = getString(R.string.hint_enter_account_name)
             iclNickName.edtValue.hint = getString(R.string.enter_nickname)
-            iclDefaultRemarks.edtValue.hint = getString(R.string.enterRemarks)
+            iclDefaultRemarks.edtValue.hint = getString(R.string.enterRemarksDefault)
 
         }
     }

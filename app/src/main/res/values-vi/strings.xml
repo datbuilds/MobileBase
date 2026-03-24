@@ -57,6 +57,8 @@
     <string name="transactionAmount">Số tiền giao dịch</string>
     <string name="fromAccount">Tài khoản nguồn</string>
     <string name="remarks">Nội dung giao dịch</string>
+    <string name="remarksDefault">Nội dung giao dịch mặc định</string>
+    <string name="enterRemarksDefault"> Nhập nội dung giao dịch mặc định</string>
     <string name="transactionDate">Ngày giao dịch</string>
     <string name="referenceNumber">Mã giao dịch</string>
     <string name="moneyTransfer">Chuyển tiền</string>
@@ -111,7 +113,7 @@
     <string name="authenticationFailed">Xác thực thất bại. Vui lòng thử lại.</string>
     <string name="transactionFail">Giao dịch thất bại!</string>
     <string name="anErrorHasOccurred">Đã có lỗi xảy ra, giao dịch chưa hoàn thành. Vui lòng thử lại!</string>
-    <string name="enterRecipientName">Nhập tên người nhận</string>
+    <string name="enterRecipientName">Nhập tên người thụ hưởng</string>
     <string name="pleaseEnterTheAmount">Vui lòng nhập số tiền</string>
     <string name="flexibleSaving">TIẾT KIỆM LINH HOẠT</string>
     <string name="staffLoans">KHOẢN VAY NHÂN VIÊN SHB</string>
@@ -137,6 +139,7 @@
     <string name="beneficiary">Người thụ hưởng</string>
     <string name="addNew">Thêm mới</string>
     <string name="doYouWantToDeleteFromBeneficiary">Bạn có muốn xóa %s khỏi danh sách người thụ hưởng?</string>
+    <string name="nicknameAlreadyExists">Nickname đã tồn tại, bạn có chắc chắn muốn đặt nickname này không?</string>
     <string name="beneficiaryDeletedSuccessfully">Xóa người thụ hưởng thành công</string>
     <string name="editBeneficiary">Chỉnh sửa người thụ hưởng</string>
     <string name="bank">Ngân hàng</string>
@@ -163,14 +166,14 @@
     <string name="error_current_password_incorrect">Mật khẩu hiện tại không đúng, vui lòng thử lại</string>
     <string name="error_passwords_do_not_match">Mật khẩu nhập lại không khớp</string>
     <string name="error_new_and_old_password_same">Mật khẩu mới không được trùng với mật khẩu cũ</string>
-    <string name="beneficiaryList">Danh sách thụ hưởng</string>
+    <string name="beneficiaryList">Danh sách người thụ hưởng</string>
     <string name="enterRecipientNameOrAccountNumber">Nhập tên người nhận hoặc số tài khoản</string>
     <string name="systemUptateTransactionStatus">Rất tiếc, hệ thống hiện chưa thể cập nhật trạng thái giao dịch. Vui lòng kiểm tra sao kê tài khoản hoặc đến chi nhánh gần nhất để xác minh kết quả giao dịch.</string>
     <string name="noteDefaultAccount" translatable="false">Tài khoản mặc định sẽ hiển thị khi bạn đăng nhập lại</string>
     <string name="enterBankName">Nhập tên ngân hàng</string>
     <string name="newBeneficiaryAddedSuccessfully">Thêm người thụ hưởng mới thành công</string>
     <string name="beneficiaryUpdatedSuccessfully">Cập nhật người thụ hưởng thành công</string>
-    <string name="addNewBeneficiary">Thêm người thụ hưởng mới</string>
+    <string name="addNewBeneficiary">Thêm mới người thụ hưởng</string>
     <string name="error_select_bank">Vui lòng chọn ngân hàng</string>
     <string name="error_enter_account_number">Vui lòng nhập số tài khoản</string>
     <string name="error_enter_account_name">Vui lòng nhập tên tài khoản</string>
@@ -184,6 +187,8 @@
     <string name="successfullySetNickname">Đặt tên gợi nhớ thành công</string>
     <string name="noLabel">Sai</string>
     <string name="yesLabel">Đúng</string>
+    <string name="allowRemoveBeneficiary">Xác nhận</string>
+    <string name="dontAllowRemoveBeneficiary">Hủy</string>
     <string name="theNameIsInvaid">Tên không hợp lệ</string>
     <string name="theBeneficiaryUpdateFail">Cập nhật người thụ hưởng thất bại</string>
     <string name="theBeneficiaryAlreadyExists">Người thụ hưởng đã tồn tại</string>
