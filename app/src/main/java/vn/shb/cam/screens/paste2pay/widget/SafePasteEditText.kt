@@ -13,10 +13,6 @@ class SafePasteEditText @JvmOverloads constructor(
     attrs: AttributeSet? = null
 ) : TextInputEditText(context, attrs) {
 
-    init {
-        imeOptions = EditorInfo.IME_ACTION_DONE
-    }
-
     override fun onTextContextMenuItem(id: Int): Boolean {
 
         if (id == android.R.id.paste || id == android.R.id.pasteAsPlainText) {

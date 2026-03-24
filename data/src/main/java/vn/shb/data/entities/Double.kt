@@ -37,8 +37,7 @@ fun Double.getBalance(): String {
         decimalSeparator = '.'
     }
 
-    val pattern = if (this % 1 == 0.0) "#,##0" else "#,##0.00"
-    val formatter = DecimalFormat(pattern, symbols)
+    val formatter = DecimalFormat("#,##0.##", symbols)
     return formatter.format(this)
 }
 
@@ -50,7 +49,7 @@ fun String.getBalanceFormatted(): String {
 
     val decimalCount = indexOf('.').takeIf { it >= 0 }?.let { length - it - 1 } ?: 0
     val pattern = if (decimalCount > 0) {
-        "#,##0." + "#".repeat(decimalCount.coerceAtMost(2))
+        "#,##0." + "0".repeat(decimalCount.coerceAtMost(2))
     } else {
         "#,##0"
     }

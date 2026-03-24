@@ -1,9 +1,11 @@
 package vn.shb.cam.screens.transfer
 
+import android.content.res.ColorStateList
 import android.text.InputFilter
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.delay
@@ -19,6 +21,7 @@ import vn.shb.cam.screens.home.getTypeAccount
 import vn.shb.cam.utils.ApiConst
 import vn.shb.cam.utils.extensions.DateTimeHelper.Companion.getDateFromCurrentDate
 import vn.shb.cam.utils.extensions.common.Const
+import vn.shb.cam.utils.extensions.getColorCompat
 import vn.shb.cam.utils.extensions.gone
 import vn.shb.cam.utils.extensions.hideSoftKeyboard
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
@@ -308,6 +311,14 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             finishTyping(iclAmount.edtValue, true) {
                 checkAmountValidate()
             }
+
+            iclRemarks.edtValue.addTextChangedListener {
+                iclRemarks.ivExpandDown.isVisible = !it.isNullOrEmpty()
+            }
+
+            iclRemarks.ivExpandDown.setOnClickListener {
+                iclRemarks.edtValue.setText("")
+            }
         }
     }
 
@@ -434,8 +445,13 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         }
 
         binding.iclTotalAmount.apply {
-            edtValue.setText(totalAmount.getBalance())
-            if (!valueBalance.isEmpty()) root.visible()
+            if (valueBalance.isNotBlank()){
+                edtValue.setText(totalAmount.getBalance())
+                if (!valueBalance.isEmpty()) root.visible()
+                root.visible()
+            } else {
+                root.gone()
+            }
         }
 
         val isError = amountOfSender > (fromAccount?.availableBalance ?: 0.0)
@@ -497,15 +513,6 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 bindColor(R.color.neutral8)
             }
 
-//            iclFee.apply {
-//                tvTitle.text = getString(R.string.fee)
-//                edtValue.setText(Const.ZERO)
-//                ivExpandDown.gone()
-//                tvCurrentCode.visible()
-//                edtValue.enableInput(false)
-//                bindColor(R.color.neutral7)
-//            }
-
             iclTotalAmount.apply {
                 tvTitle.text = getString(R.string.totalAmount)
                 edtValue.hint = getString(R.string.zero)
@@ -519,6 +526,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 tvTitle.text = getString(R.string.remarks)
                 resetRemarks()
                 ivExpandDown.gone()
+                ivExpandDown.setImageResource(R.drawable.ic_clear_text)
+                ivExpandDown.imageTintList = ColorStateList.valueOf(requireContext().getColorCompat(R.color.neutral8))
                 tvCurrentCode.gone()
                 tvError.text = getString(R.string.pleaseEnterTheRemarks)
                 bindColor(R.color.neutral8)
@@ -676,21 +685,21 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     }
 
     private fun getTextExchangeCurrency(currency: String): String {
-        return if (currency == Const.USD) {
-            getString(
-                R.string.formatTextExchangeCurrency,
-                Const.USD,
-                exchangeUSDToKm?.toPlainString(),
-                Const.KHR
-            )
-        } else {
-            getString(
-                R.string.formatTextExchangeCurrency,
-                Const.KHR,
-                exchangeKmToUSD?.toPlainString(),
-                Const.USD
-            )
-        }
+//        return if (currency == Const.USD) {
+        return getString(
+            R.string.formatTextExchangeCurrency,
+            Const.USD,
+            exchangeUSDToKm?.toPlainString(),
+            Const.KHR
+        )
+//        } else {
+//            getString(
+//                R.string.formatTextExchangeCurrency,
+//                Const.KHR,
+//                exchangeKmToUSD?.toPlainString(),
+//                Const.USD
+//            )
+//        }
     }
 
     private fun getExchangeRealtime(): BigDecimal? {
@@ -715,8 +724,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                     isLongClickable = isIntrabank()
                 }
 
-                edtValue.filters =
-                    arrayOf(InputFilter.LengthFilter(if (isIntrabank()) 10 else 1000000))
+//                edtValue.filters =
+//                    arrayOf(InputFilter.LengthFilter(if (isIntrabank()) 10 else 1000000))
             }
             iclAmount.edtValue.setText(Const.EMPTY)
             iclExchangeRate.root.gone()
