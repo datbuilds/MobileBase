@@ -1,7 +1,6 @@
 package vn.shb.cam.screens.transfer
 
 import android.content.res.ColorStateList
-import android.text.InputFilter
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
@@ -445,7 +444,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         }
 
         binding.iclTotalAmount.apply {
-            if (valueBalance.isNotBlank()){
+            if (valueBalance.isNotBlank()) {
                 edtValue.setText(totalAmount.getBalance())
                 if (!valueBalance.isEmpty()) root.visible()
                 root.visible()
@@ -460,6 +459,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 R.string.pleaseEnterTheAmount
             )
 
+            totalAmount < 0.01 && toAccount?.currencyCode == Const.USD -> getString(R.string.minumumCreditAmount)
             isError -> getString(R.string.insufficientBalance)
             else -> null
         }
@@ -527,7 +527,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 resetRemarks()
                 ivExpandDown.gone()
                 ivExpandDown.setImageResource(R.drawable.ic_clear_text)
-                ivExpandDown.imageTintList = ColorStateList.valueOf(requireContext().getColorCompat(R.color.neutral8))
+                ivExpandDown.imageTintList =
+                    ColorStateList.valueOf(requireContext().getColorCompat(R.color.neutral8))
                 tvCurrentCode.gone()
                 tvError.text = getString(R.string.pleaseEnterTheRemarks)
                 bindColor(R.color.neutral8)
@@ -615,7 +616,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             val isDuplicate = account.accountNumber == fromAccount?.accountNumber
             iclToAccount.bindViewError(
                 if (isDuplicate) getString(
-                    R.string.invalidBeneficiaryAccount
+                    R.string.sourceAndRecipient
                 ) else null
             )
             if (isDiffCurrency(account.currencyCode)) {
