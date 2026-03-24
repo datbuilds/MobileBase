@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:layout_gravity="bottom"
     android:background="@color/bg_beneficiary"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical"
     android:paddingTop="@dimen/paddingTopLayout"
     tools:context=".screens.beneficiary.BeneficiaryFragment">

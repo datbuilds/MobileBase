@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="bottom"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:background="@color/bg_beneficiary"
     android:orientation="vertical"
     android:paddingTop="@dimen/paddingTopLayout"
@@ -69,10 +71,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_12dp"
-                android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789"
                 android:hint="@string/enterRecipientNameOrAccountNumber"
                 android:includeFontPadding="false"
-                android:inputType="textPassword|textVisiblePassword"
+                android:imeOptions="actionDone"
                 android:textColor="@color/black"
                 android:textColorHint="@color/neutral6"
                 android:textSize="@dimen/textSize14" />
@@ -84,6 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/margin_12dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_beneficiary" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

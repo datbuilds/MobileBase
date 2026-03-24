@@ -1,6 +1,12 @@
 package vn.shb.cam.screens.beneficiary
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Rect
+import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,6 +31,7 @@ import kotlinx.coroutines.delay
 import vn.shb.cam.databinding.LayoutProcessBarBinding
 import vn.shb.cam.utils.extensions.CustomToastShowOnTop
 import vn.shb.cam.utils.extensions.gone
+import vn.shb.cam.utils.extensions.hideSoftKeyboard
 import vn.shb.cam.utils.extensions.setLatinAlphanumericFilter
 
 class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
@@ -43,11 +50,7 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
     }
 
     private fun setUpRecyclerview() {
-        binding.rcvBeneficiary.apply {
-            layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = this@BeneficiaryFragment.adapter
-        }
+        binding.rcvBeneficiary.adapter=adapter
 
         adapter.setListenAction(
             object : ActionEditBeneficiary {
@@ -68,8 +71,8 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
                             R.string.doYouWantToDeleteFromBeneficiary,
                             item.accountName ?: ""
                         ),
-                        textNegative = getString(R.string.noLabel),
-                        textPositive = getString(R.string.yesLabel),
+                        textNegative = getString(R.string.dontAllowRemoveBeneficiary),
+                        textPositive = getString(R.string.allowRemoveBeneficiary),
                         positiveAction = {
                             viewModel.deleteBeneficiary(item)
                         }

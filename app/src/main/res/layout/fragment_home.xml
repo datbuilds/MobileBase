@@ -214,13 +214,9 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/flBeneficiary"
         android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/margin_16dp"
         android:layout_height="wrap_content"
         android:visibility="visible"
-        app:cardElevation="0dp"
-        app:cardBackgroundColor="@color/white"
-        android:layout_marginTop="@dimen/margin_16dp"
-        android:foreground="?selectableItemBackgroundBorderless"
-        app:cardCornerRadius="@dimen/margin_12dp"
         app:layout_constraintTop_toBottomOf="@+id/llMainAccount">
 
         <vn.shb.cam.base.view.MyTextView
@@ -228,6 +224,7 @@
             android:layout_width="@dimen/margin_0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:foreground="@drawable/ripple_grey_rec_12"
             android:layout_weight="1"
             android:gravity="center"
             android:paddingVertical="@dimen/margin_12dp"
@@ -244,6 +241,7 @@
             android:layout_width="@dimen/margin_0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:foreground="@drawable/ripple_grey_rec_12"
             android:layout_gravity="center"
             android:paddingVertical="@dimen/margin_12dp"
             android:layout_marginStart="@dimen/margin_8dp"
@@ -282,7 +280,7 @@
         android:layout_width="match_parent"
         app:shapeAppearanceOverlay="@style/circleImageBanner"
         android:layout_height="@dimen/margin_150dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:scaleType="centerCrop"
         app:layout_constraintTop_toBottomOf="@+id/flBeneficiary" />
 

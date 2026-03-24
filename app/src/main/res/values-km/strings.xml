@@ -56,6 +56,8 @@
     <string name="transactionAmount">ចំនួនទឹកប្រាក់ធ្វើប្រតិបត្តិការ</string>
     <string name="fromAccount">ពីគណនី</string>
     <string name="remarks">កំណត់សម្គាល់</string>
+    <string name="remarksDefault">កំណត់សម្គាល់គោល</string>
+    <string name="enterRemarksDefault">បញ្ជូលកំណត់សម្គាល់គោល</string>
     <string name="transactionDate">កាលបរិច្ឆេទប្រតិបត្តិការ</string>
     <string name="referenceNumber">លេខយោង</string>
     <string name="moneyTransfer">ផ្ទេរប្រាក់</string>
@@ -82,6 +84,7 @@
     <string name="save">រក្សាទុក</string>
     <string name="setNicknameQuestion">តើអ្នកចង់កំណត់ឈ្មោះសម្គាល់សម្រាប់អ្នកទទួលផលនេះដែរឬទេ?</string>
     <string name="enterNickname">បញ្ចូលឈ្មោះសម្គាល់</string>
+    <string name="titleNickname">ឈ្មោះហៅក្រៅ</string>
     <string name="setNickname">កំណត់ឈ្មោះសម្គាល់</string>
     <string name="complete">រួចរាល់</string>
     <string name="nicknameSetSuccess">បានកំណត់ឈ្មោះសម្គាល់ដោយជោគជ័យ</string>
@@ -133,6 +136,7 @@
     <string name="beneficiary">អ្នកទទួល</string>
     <string name="addNew">បន្ថែមថ្មី</string>
     <string name="doYouWantToDeleteFromBeneficiary">តើអ្នកចង់លុប %s ចេញពីបញ្ជីអ្នកទទួលផលដែរឬទេ?</string>
+    <string name="nicknameAlreadyExists">ឈ្មោះហៅក្រៅនេះមានរួចហើយ។ តើអ្នកពិតជាចង់ប្រើឈ្មោះហៅក្រៅនេះមែនទេ?</string>
     <string name="beneficiaryDeletedSuccessfully">បានលុបអ្នកទទួលផលដោយជោគជ័យ</string>
     <string name="editBeneficiary">កែសម្រួលអ្នកទទួលផល</string>
     <string name="bank">ធនាគារ</string>
@@ -159,14 +163,14 @@
     <string name="error_current_password_incorrect">លពាក្យសម្ងាត់បច្ចុប្បន្នមិនត្រឹមត្រូវទេ សូមព្យាយាមម្តងទៀត។</string>
     <string name="error_passwords_do_not_match">ពាក្យសម្ងាត់មិនត្រូវគ្នាទេ</string>
     <string name="error_new_and_old_password_same">ពាក្យសម្ងាត់ថ្មីមិនត្រូវដូចគ្នានឹងពាក្យសម្ងាត់ចាស់ទេ។</string>
-    <string name="beneficiaryList">បញ្ជីអ្នកទទួលផល</string>
+    <string name="beneficiaryList">បញ្ជីអ្នកទទួល</string>
     <string name="enterRecipientNameOrAccountNumber">បញ្ចូលឈ្មោះអ្នកទទួល ឬលេខគណនី</string>
     <string name="systemUptateTransactionStatus">សូមអភ័យទោស បច្ចុប្បន្នប្រព័ន្ធមិនអាចធ្វើបច្ចុប្បន្នភាពស្ថានភាពកិច្ចការបានទេ។ សូមពិនិត្យមើលរបាយការណ៍គណនីរបស់អ្នក ឬទៅកាន់សាខាដែលនៅជិតបំផុតដើម្បីផ្ទៀងផ្ទាត់លទ្ធផលកិច្ចការ។</string>
     <string name="noteDefaultAccount" translatable="false">គណនីលំនាំដើមនឹងបង្ហាញនៅពេលអ្នកចូលប្រើម្តងទៀត</string>
     <string name="enterBankName">បញ្ចូលឈ្មោះធនាគារ</string>
     <string name="newBeneficiaryAddedSuccessfully">បានបន្ថែមអ្នកទទួលផលថ្មីដោយជោគជ័យ</string>
     <string name="beneficiaryUpdatedSuccessfully">បានធ្វើបច្ចុប្បន្នភាពអ្នកទទួលផលដោយជោគជ័យ</string>
-    <string name="addNewBeneficiary">បន្ថែមអ្នកទទួលផលថ្មី</string>
+    <string name="addNewBeneficiary">បន្ថែមអ្នកទទួលថ្មី</string>
     <string name="error_select_bank">សូមជ្រើសរើសធនាគារ</string>
     <string name="error_enter_account_number">សូមបញ្ចូលលេខគណនី</string>
     <string name="error_enter_account_name">សូមបញ្ចូលឈ្មោះគណនី</string>
@@ -174,12 +178,14 @@
     <string name="save_recipient">រក្សាទុកអ្នកទទួលផល</string>
     <string name="set_nickname">កំណត់ឈ្មោះសម្គាល់</string>
     <string name="ask_set_nickname">តើអ្នកចង់កំណត់ឈ្មោះសម្គាល់សម្រាប់អ្នកទទួលផលនេះដែរឬទេ?</string>
-    <string name="enter_nickname">បញ្ចូលឈ្មោះសម្គាល់</string>
+    <string name="enter_nickname">សូមបញ្ចូលឈ្មោះហៅក្រៅ</string>
     <string name="error_enter_nickname">សូមបញ្ចូលឈ្មោះ</string>
     <string name="error_invalid_nickname">ឈ្មោះមិនត្រឹមត្រូវ</string>
     <string name="successfullySetNickname">បានកំណត់ឈ្មោះសម្គាល់ដោយជោគជ័យ</string>
     <string name="noLabel">មិនមែន</string>
     <string name="yesLabel">បាទ/ចាស៎</string>
+    <string name="allowRemoveBeneficiary">បញ្ជាក់</string>
+    <string name="dontAllowRemoveBeneficiary">បោះបង់</string>
     <string name="theNameIsInvaid">ឈ្មោះមិនត្រឹមត្រូវ</string>
     <string name="theBeneficiaryUpdateFail">ការធ្វើបច្ចុប្បន្នភាពអ្នកទទួលផលមិនបានជោគជ័យ</string>
     <string name="theBeneficiaryAlreadyExists">អ្នកទទួលផលមានរួចហើយ</string>

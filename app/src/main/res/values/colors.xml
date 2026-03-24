@@ -77,6 +77,7 @@
     <color name="spotlightBackground">#80000000</color>
     <color name="red_600">#E53E3E</color>
     <color name="black_40">#66000000</color>
+    <color name="black_15">#00000026</color>
     <color name="black_70">#B3000000</color>
     <color name="black">#000000</color>
 

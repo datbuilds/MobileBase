@@ -48,7 +48,7 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
     protected val homeViewModel: HomeViewModel by sharedViewModel()
 
     private var _binding: T? = null
-    protected val binding: T
+    public val binding: T
         get() = requireNotNull(_binding)
 
     private val listErrorLogout = listOf(AUTH_006, AUTH_001, AUTH_002)
@@ -201,7 +201,13 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
             if (listErrorLogout.contains(error.errorCode)) {
                 logout(error)
             } else {
-                showDialogError(error, onAction)
+                showDialogError(error, {
+                    onAction?.invoke()
+                    storage.resetUser()
+                    RefreshTokenManager.stop()
+                    finishAffinity(requireActivity())
+                    returnActivity(LoginActivity.intent(requireActivity(), error))
+                })
             }
         }
     }
@@ -229,6 +235,6 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
     // Removing the binding reference when not needed is recommended as it avoids memory leak
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+//        _binding = null
     }
 }

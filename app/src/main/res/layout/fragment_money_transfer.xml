@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     android:background="@color/colorBgAccount">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/llTop"
         android:layout_width="match_parent"
+        android:elevation="5dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/paddingTopLayout"
         android:orientation="vertical"
@@ -148,6 +150,8 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:elevation="5dp"
+        android:layout_weight="1"
         app:layout_constraintBottom_toTopOf="@+id/vShadow"
         app:layout_constraintTop_toBottomOf="@+id/llTop">
 
@@ -211,21 +215,47 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>
 
-    <View
-        android:id="@+id/vShadow"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/margin_5dp"
-        android:background="@drawable/bg_shadow_line"
-        app:layout_constraintBottom_toTopOf="@+id/flAddNew" />
+<!--    <View-->
+<!--        android:id="@+id/vShadow"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="@dimen/margin_5dp"-->
+<!--        android:background="@drawable/bg_shadow_line"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/flAddNew" />-->
+
+
+<!--    <FrameLayout-->
+<!--        android:id="@+id/flAddNew"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="bottom"-->
+<!--        android:background="@color/white"-->
+<!--        android:elevation="8dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent">-->
+
+<!--        <vn.shb.cam.base.view.MyTextView-->
+<!--            android:id="@+id/tvAddNew"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginHorizontal="@dimen/margin_20dp"-->
+<!--            android:layout_marginVertical="@dimen/paddingBottomLayout"-->
+<!--            android:background="@drawable/bg_button_action_material"-->
+<!--            android:foreground="@drawable/ripple_grey_rec"-->
+<!--            android:gravity="center"-->
+<!--            android:includeFontPadding="false"-->
+<!--            android:paddingVertical="@dimen/margin_12dp"-->
+<!--            android:text="@string/addNew"-->
+<!--            android:textColor="@color/white" />-->
+
+<!--    </FrameLayout>-->
 
     <FrameLayout
         android:id="@+id/flAddNew"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_margin="0dp"
-        app:cardBackgroundColor="#FAF6ED"
-        app:cardElevation="@dimen/margin_8dp"
+        android:background="@drawable/bg_shadow"
+        android:elevation="4dp"
+        android:translationZ="25dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <vn.shb.cam.base.view.MyTextView
@@ -238,10 +268,11 @@
             android:background="@drawable/bg_account_info_transfer"
             android:gravity="center"
             android:paddingVertical="@dimen/margin_10dp"
+
             android:text="@string/transfer"
             android:textColor="@color/neutral1"
             android:textSize="@dimen/textSize14"
             app:customFontWeight="semi_bold" />
     </FrameLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

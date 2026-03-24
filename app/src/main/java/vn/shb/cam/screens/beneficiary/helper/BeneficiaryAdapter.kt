@@ -80,8 +80,8 @@ class BeneficiaryAdapter :
         val query = keyword.lowercase().trim()
         val filtered = originalList.filter {
             (it.accountName ?: "").lowercase().contains(query)
-                    || (it.accountNumber ?: "").contains(query)
-                    || (it.accountNick ?: "").contains(query)
+                    || (it.accountNumber ?: "").lowercase().contains(query)
+                    || (it.accountNick ?: "").lowercase().contains(query)
                     || (it.bankName ?: "").lowercase().contains(query)
         }
 
