@@ -100,7 +100,7 @@
     <string name="hide">Hide</string>
     <string name="account_info_format" translatable="false">%s - %s - %s</string>
     <string name="english">English</string>
-    <string name="vietnamese">Vietnamese</string>
+    <string name="vietnamese">Tiếng Việt</string>
     <string name="lao" translatable="false">Lao</string>
     <string name="add">Address:</string>
     <string name="done">Done</string>
@@ -194,7 +194,7 @@
     <string name="weHaveReleasedNewVersion">We have released a new version. Please update to enjoy a better saving experience with SHB SAHA CAMs.</string>
     <string name="updateLabel">Update</string>
     <string name="invalidAccountNumber">Invalid Account Number</string>
-    <string name="cambodian">Khmer Language</string>
+    <string name="cambodian">ភាសាខ្មែរ</string>
     <string name="register_device_title">Register device for using the SHB Saha Cambodia application</string>
     <string name="register_device_message">To enhance account security, please verify your device using the OTP sent to the phone number %s to complete the app registration. Is this your phone number?</string>
     <string name="confirm_device_title">Confirm device</string>

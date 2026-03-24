@@ -8,7 +8,7 @@ object Const {
     const val SEPARATOR_DASH = " - "
     const val SEPARATOR_SPACE = " "
 
-    const val TIME_NO_ACTION = 5
+    const val TIME_NO_ACTION = 1
 
     const val FORMAT_TRANSACTION_DATE = "dd/MM/yyyy"
 
