@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/paddingTopLayout"
+        android:orientation="vertical">
+
+        <vn.shb.cam.base.view.MyTextView
+            android:id="@+id/tvMyProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/margin_20dp"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:paddingHorizontal="@dimen/margin_4dp"
+            android:paddingVertical="@dimen/margin_8dp"
+            android:text="@string/myProfile"
+            android:textColor="@color/neutral10"
+            android:textSize="@dimen/textSize20"
+            app:customFontWeight="medium"
+            app:drawableStartCompat="@drawable/ic_arrow_back" />
+
+        <vn.shb.cam.screens.home.widget.FrameAvatarUser
+            android:id="@+id/flAvatarUser"
+            android:layout_width="@dimen/widthAvatarProfile"
+            android:layout_height="@dimen/widthAvatarProfile"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_20dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivImageUser"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="end|bottom"
+                app:srcCompat="@drawable/ic_camera" />
+        </vn.shb.cam.screens.home.widget.FrameAvatarUser>
+
+        <vn.shb.cam.base.view.MyTextView
+            android:id="@+id/tvNameUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12dp"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:textAllCaps="true"
+            android:textColor="@color/neutral10"
+            android:textSize="@dimen/textSize18"
+            app:customFontWeight="medium"
+            tools:text="PHASOUK BOUNMIXAY" />
+
+        <!-- Info list -->
+        <include
+            android:id="@+id/iclInfo1"
+            layout="@layout/item_profile_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16dp" />
+
+        <include
+            android:id="@+id/iclInfo2"
+            layout="@layout/item_profile_info" />
+
+        <include
+            android:id="@+id/iclInfo3"
+            layout="@layout/item_profile_info" />
+
+        <include
+            android:id="@+id/iclInfo4"
+            layout="@layout/item_profile_info" />
+
+        <include
+            android:id="@+id/iclInfo5"
+            layout="@layout/item_profile_info" />
+
+        <include
+            android:id="@+id/iclInfo6"
+            layout="@layout/item_profile_info" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingVertical="10dp">
+
+            <vn.shb.cam.base.view.MyTextView
+                android:id="@+id/tvLanguage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:includeFontPadding="false"
+                android:textColor="@color/neutral7"
+                android:textSize="@dimen/textSize12"
+                android:text="@string/language"
+                app:customFontWeight="medium"/>
+
+            <LinearLayout
+                android:id="@+id/llLanguage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_layout_language_w"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/margin_12dp"
+                android:paddingVertical="@dimen/margin_6dp"
+                app:layout_constraintBottom_toBottomOf="@+id/ivLogoSHB"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ivLogoSHB">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivLogoLanguage"
+                    android:layout_width="@dimen/widthLogoLanguage"
+                    android:layout_height="@dimen/widthLogoLanguage"
+                    android:layout_marginEnd="@dimen/margin_6dp"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/ic_logo_uk" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tint="@color/black"
+                    app:srcCompat="@drawable/ic_arrow_down" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <vn.shb.cam.base.view.MyTextView
+            android:id="@+id/tvChangePassword"
+            style="@style/MaterialDialog.ButtonChangePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_32dp"
+            android:text="@string/changePassword"
+            app:layout_constraintTop_toBottomOf="@+id/iclInfo6" />
+
+        <vn.shb.cam.base.view.MyTextView
+            android:id="@+id/btnLogout"
+            style="@style/MaterialDialog.ButtonLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_32dp"
+            android:text="@string/logout"
+            app:layout_constraintTop_toBottomOf="@+id/tvChangePassword" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <vn.shb.cam.base.view.MyTextView
+        android:id="@+id/tvStatusUpdateAvatar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/paddingTopLayout"
+        android:drawableEnd="@drawable/ic_close"
+        android:drawablePadding="@dimen/margin_8dp"
+        android:gravity="center_vertical"
+        android:includeFontPadding="false"
+        android:paddingHorizontal="@dimen/margin_10dp"
+        android:paddingVertical="@dimen/margin_10dp"
+        android:textColor="@color/neutral1"
+        android:textSize="@dimen/textSize14"
+        app:customFontWeight="medium"
+        app:drawableTint="@color/neutral1"
+        tools:background="@drawable/bg_toast_change_avatar_ss"
+        tools:drawableStart="@drawable/ic_success"
+        tools:text="Profile picture updated successfully" />
+
+    <vn.shb.cam.base.view.MyTextView
+        android:id="@+id/tvHotline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginHorizontal="@dimen/margin_20dp"
+        android:layout_marginBottom="@dimen/margin_20dp"
+        android:gravity="bottom|center_horizontal"
+        android:textColor="@color/neutral7"
+        android:textSize="@dimen/textSize14"
+        android:visibility="visible"
+        app:customFontWeight="medium"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Hotline:" />
+</FrameLayout>

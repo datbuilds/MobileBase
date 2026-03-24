@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_notification_channel_id" translatable="false">Salon Manager Mobile</string>
+    <string name="common_error_retry" translatable="false">Có lỗi trong quá trình kết nối hệ thống. Vui lòng thực hiện lại sau</string>
+
+    <string name="account_login" translatable="false">Sign In</string>
+    <string name="account_register" translatable="false">Sign Up</string>
+    <string name="account_forget_password" translatable="false">Forgot password</string>
+    <string name="later" translatable="false">Later</string>
+    <string name="skip" translatable="false">Skip</string>
+    <string name="exit" translatable="false">Exit</string>
+
+    <string name="ui_loading" translatable="false">Loading…</string>
+    <string name="ui_retry" translatable="false">Thử lại</string>
+    <string name="ui_share" translatable="false">Chia sẻ</string>
+    <string name="ui_common_error" translatable="false">Error</string>
+    <string name="ui_common_close" translatable="false">Đóng</string>
+    <string name="ui_common_cancel" translatable="false">Hủy bỏ</string>
+    <string name="ui_common_agree" translatable="false">Agree</string>
+    <string name="ui_common_notice" translatable="false">Notice</string>
+    <string name="success" translatable="false">Success</string>
+
+    <string name="action_next" translatable="false">Next</string>
+    <string name="action_continue" translatable="false">Continue</string>
+    <string name="action_previous" translatable="false">Previous</string>
+    <string name="update" translatable="false">Update</string>
+    <string name="cancel" translatable="false">Cancel</string>
+    <string name="send" translatable="false">Send</string>
+
+    <string name="rate_now" translatable="false">RATE NOW</string>
+
+    // NETWORK ERROR
+    <string name="error_bad_gateway" translatable="false">error_bad_gateway</string>
+    <string name="error_generic" translatable="false">error_generic</string>
+    <string name="error_network" translatable="false">error_network</string>
+    <string name="error_empty" translatable="false">error_empty</string>
+    <string name="error_response" translatable="false">error_response</string>
+    <string name="error_timeout" translatable="false">error_timeout</string>
+    <string name="error_not_found" translatable="false">error_not_found</string>
+    <string name="reason_authorized" translatable="false">reason_authorized</string>
+
+    <string name="notification_channel_id" translatable="false">Notification</string>
+    <string name="notification_channel_name" translatable="false">Notification</string>
+
+    <string name="notification_network_not_available" translatable="false">Mất kết nối mạng, vui lòng thử lại sau.</string>
+
+    <string name="message_share_image" translatable="false">Choose an app to share</string>
+
+    <string name="format_html" translatable="false"><![CDATA[%s]]></string>
+
+    <string name="title_settings_dialog" translatable="false">Cấp quyền truy cập</string>
+    <string name="permission_join_room" translatable="false">Để nói chuyện trong phòng, bạn cần cấp quyền truy cập cần thiết.</string>
+    <string name="permission_join_room_rationale" translatable="false">
+            SHB Sale App cần bạn cho phép truy cập Mic và Bộ nhớ máy trước khi tham gia vào phòng.
+            Bạn hãy vào cài đặt để thực hiện việc cấp quyền.
+        </string>
+    <string name="permission_photo" translatable="false">SHB Sale App cần bạn cho phép truy cập máy ảnh và thư viện ảnh</string>
+    <string name="permission_photo_rationale" translatable="false">SHB Sale App cần bạn cho phép truy cập máy ảnh và thư viện ảnh. Bạn hãy vào cài đặt để thực hiện việc cấp quyền.</string>
+    <string name="permission_camera" translatable="false">SHB Sale App cần bạn cho phép truy cập máy ảnh.</string>
+    <string name="action_open_setting" translatable="false">Mở cài đặt</string>
+    <string name="action_cancel" translatable="false">Hủy</string>
+</resources>

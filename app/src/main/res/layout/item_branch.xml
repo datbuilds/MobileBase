@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_12dp"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_address" />
+
+        <vn.shb.cam.base.view.MyTextView
+            android:id="@+id/tvBranchName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_8dp"
+            android:gravity="top"
+            android:textColor="@color/neutral10"
+            android:textSize="@dimen/textSize14"
+            app:customFontWeight="medium"
+            tools:text="1. SAIGON –HANOI BANK LAO LIMITEDHANOI BANK LAO LIMITEDHANOI BANK LAO LIMITED HANOI BANK LAO LIMITED" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_6dp">
+
+        <vn.shb.cam.base.view.MyTextView
+            android:id="@+id/tvBranchAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add"
+            android:lines="1"
+            android:textColor="@color/neutral10"
+            android:textSize="@dimen/textSize14"
+            app:customFontWeight="medium" />
+
+        <vn.shb.cam.base.view.MyTextView
+            android:id="@+id/tvAddressDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_hotline"
+            android:textSize="@dimen/textSize14"
+            android:layout_marginStart="@dimen/margin_6dp"
+            app:customFontWeight="medium"
+            tools:text=" 123 ABC Street, XYZ Ward, HCM City 1123 ABC Street, XYZ Ward, HCM City123 ABC Street, XYZ Ward, HCM City23 ABC Street, XYZ Ward, HCM City" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_6dp">
+
+        <vn.shb.cam.base.view.MyTextView
+            android:id="@+id/tvBranchTel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoLink="phone"
+            android:text="@string/tel"
+            android:lines="1"
+            android:textColor="@color/neutral10"
+            android:textSize="@dimen/textSize14"
+            app:customFontWeight="medium" />
+
+        <vn.shb.cam.base.view.MyTextView
+            android:id="@+id/tvHotlineDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_hotline"
+            android:textSize="@dimen/textSize14"
+            android:layout_marginStart="@dimen/margin_6dp"
+            app:customFontWeight="medium"
+            tools:text=" 123 ABC Street, XYZ Ward, HCM City" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</LinearLayout>

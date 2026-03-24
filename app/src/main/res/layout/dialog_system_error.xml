@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/margin_24dp"
+    android:paddingBottom="@dimen/margin_16dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:paddingVertical="@dimen/margin_10dp"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivErrorSystem"
+            style="@style/MaterialDialog.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_error_system"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <vn.shb.cam.base.view.MyTextView
+            android:id="@+id/tvNotification"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_4dp"
+            android:text="@string/notification"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize18"
+            app:customFontWeight="semi_bold"
+            app:layout_constraintBottom_toTopOf="@+id/tvErrorCode"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivErrorSystem"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <vn.shb.cam.base.view.MyTextView
+            android:id="@+id/tvErrorCode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_4dp"
+            android:text="@string/errorCode"
+            android:textColor="@color/color_error_code"
+            android:textSize="@dimen/textSize14"
+            app:customFontWeight="regular"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivErrorSystem"
+            app:layout_constraintTop_toBottomOf="@+id/tvNotification" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <vn.shb.cam.base.view.MyTextView
+        android:id="@+id/tvContentAlert"
+        style="@style/MaterialDialog.Message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@string/fab_transformation_scrim_behavior" />
+
+    <vn.shb.cam.base.view.MyTextView
+        android:id="@+id/tvClose"
+        style="@style/MaterialDialog.PositiveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_24dp"
+        android:layout_weight="5"
+        android:text="@string/close" />
+</androidx.appcompat.widget.LinearLayoutCompat>

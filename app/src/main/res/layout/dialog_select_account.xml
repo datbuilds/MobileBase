@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_sheet"
+    android:paddingBottom="@dimen/paddingBottomLayout">
+
+    <vn.shb.cam.base.view.MyTextView
+        android:id="@+id/tvSelectAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_36dp"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="@string/selectAccount"
+        android:textColor="@color/neutral10"
+        android:textSize="@dimen/textSize20"
+        app:customFontWeight="semi_bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_12dp"
+        app:layout_constraintHeight_max="350dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvSelectAccount"
+        tools:itemCount="7"
+        tools:listitem="@layout/item_account_select" />
+
+    <vn.shb.cam.base.view.MyTextView
+        android:id="@+id/tvDone"
+        style="@style/MaterialDialog.PositiveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:text="@string/done"
+        android:textSize="@dimen/textSize18"
+        app:layout_constraintTop_toBottomOf="@+id/rcvAccount" />
+</androidx.constraintlayout.widget.ConstraintLayout>

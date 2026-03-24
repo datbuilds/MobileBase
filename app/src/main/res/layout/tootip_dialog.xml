@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tooltip_dialog_content_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/tooltip_top_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:srcCompat="@drawable/tooltip_dialog_triangle_up" />
+
+        <LinearLayout
+            android:id="@+id/tooltip_dialog_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tooltip_top_arrow"
+            android:layout_marginHorizontal="@dimen/margin_16dp"
+            android:background="@drawable/tooltip_dialog_background"
+            android:orientation="vertical"
+            android:paddingBottom="8dp">
+
+           <vn.shb.cam.base.view.MyTextView
+                android:id="@+id/tooltip_content"
+                style="?toolTipDialog.bodyTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_8dp"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:layout_marginBottom="@dimen/margin_12dp"
+                app:customFontWeight="regular"
+                android:textSize="14sp"
+                tools:text="This is where you can add more detailed information about your exciting new feature." />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_close"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="12dp"
+                app:customFontWeight="regular"
+                android:insetTop="5dp"
+                android:insetBottom="5dp"
+                android:minHeight="24dp"
+                android:textAllCaps="false"
+                android:textColor="?toolTipDialog.buttonTextColor"
+                android:textSize="17sp"
+                android:theme="@style/Theme.AppCompat"
+                android:visibility="gone"
+                tools:text="Tôi đã hiểu" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/bottom_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tooltip_dialog_box"
+            android:visibility="gone"
+            app:srcCompat="@drawable/tooltip_dialog_triangle_down" />
+    </RelativeLayout>
+
+</RelativeLayout>

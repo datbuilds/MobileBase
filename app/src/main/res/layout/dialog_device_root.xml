@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/margin_16dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:foreground="?selectableItemBackgroundBorderless"
+        android:padding="@dimen/margin_10dp"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/ic_close" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:srcCompat="@drawable/ic_coming_soon" />
+
+    <vn.shb.cam.base.view.MyTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_16dp"
+        app:customFontWeight="medium"
+        android:text="@string/title_noti"
+        android:textColor="@color/colorDarkCharcoal"
+        android:textSize="@dimen/textSize16" />
+
+    <vn.shb.cam.base.view.MyTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:gravity="center"
+        android:text="Device đã bị thay đổi hệ điều hành, Quý khách sẽ bị tạm ngừng sử dụng ứng dụng!"
+        android:textColor="@color/colorDimGray"
+        android:textSize="@dimen/textSize16" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDeviceRootClose"
+        style="@style/button_orange_light_style"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_44dp"
+        android:layout_marginHorizontal="@dimen/margin_18dp"
+        android:layout_marginTop="@dimen/margin_20dp"
+        android:text="@string/ui_common_close"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSize16" />
+</androidx.appcompat.widget.LinearLayoutCompat>

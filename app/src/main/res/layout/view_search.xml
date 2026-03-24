@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/searchContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/margin_5dp"
+    android:paddingHorizontal="@dimen/margin_16dp">
+
+    <vn.shb.cam.utils.view.input.TextInputClearError
+        android:id="@+id/input_search_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/margin_2dp"
+        android:layout_weight="1"
+        app:boxBackgroundMode="none"
+        app:endIconMode="clear_text"
+        app:errorTextAppearance="@style/ErrorTextAppearance"
+        app:hintEnabled="false"
+        app:startIconDrawable="@drawable/ic_search">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_input_search"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_48dp"
+            android:layout_marginStart="@dimen/margin_2dp"
+            android:background="@drawable/selector_edt"
+            android:drawablePadding="-10dp"
+            android:hint="Nhập tìm kiếm"
+            android:imeActionLabel="@string/account_login"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="textNoSuggestions"
+            android:maxLength="50"
+            android:paddingHorizontal="@dimen/margin_12dp"
+            android:paddingVertical="@dimen/margin_8dp"
+            android:selectAllOnFocus="true"
+            android:textColor="@color/gray_900"
+            android:textColorHint="@color/gray_400"
+            android:textSize="@dimen/textSize16"
+            tools:text="" />
+
+    </vn.shb.cam.utils.view.input.TextInputClearError>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginHorizontal="@dimen/margin_5dp"
+        android:background="?selectableItemBackground"
+        android:padding="@dimen/margin_5dp"
+        android:src="@drawable/ic_search"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_search" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

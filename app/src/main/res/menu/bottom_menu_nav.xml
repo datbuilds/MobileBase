@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/nav_transfer"
+        android:icon="@drawable/ic_transfer"
+        android:title="@string/transfer"
+        app:showAsAction="withText" />
+
+    <item
+        android:id="@+id/nav_accounts"
+        android:icon="@drawable/ic_accounts"
+        android:title="@string/accounts"
+        app:showAsAction="withText" />
+</menu>

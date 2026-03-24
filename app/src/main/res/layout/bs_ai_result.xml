@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_sheet_ai"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_28dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/margin_12dp"
+        android:paddingVertical="@dimen/margin_8dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_accent_stroke_100"
+            android:drawableStart="@drawable/ic_chatpay"
+            android:drawablePadding="@dimen/margin_6dp"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="@dimen/margin_12dp"
+            android:paddingVertical="@dimen/margin_4dp"
+            android:text="@string/ai_result_analyzed"
+            android:textColor="#F47920"
+            android:textSize="@dimen/textSize12" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_12dp"
+        android:fontFamily="@font/inter_medium"
+        android:text="@string/ai_result_bank_label"
+        android:textColor="#545454"
+        android:textSize="@dimen/textSize14" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvBankValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_6dp"
+        android:background="@drawable/bg_neutral_900"
+        android:drawablePadding="@dimen/margin_8dp"
+        android:fontFamily="@font/inter_semi_bold"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/margin_46dp"
+        android:paddingHorizontal="@dimen/margin_12dp"
+        android:paddingVertical="@dimen/margin_8dp"
+        android:textColor="#2E2E2E"
+        android:textSize="@dimen/textSize14"
+        tools:text="SHB" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_12dp"
+        android:fontFamily="@font/inter_medium"
+        android:text="@string/ai_result_to_account_label"
+        android:textColor="#545454"
+        android:textSize="@dimen/textSize14" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvAccountValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_6dp"
+        android:background="@drawable/bg_neutral_900"
+        android:fontFamily="@font/inter_semi_bold"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/margin_46dp"
+        android:paddingHorizontal="@dimen/margin_12dp"
+        android:paddingVertical="@dimen/margin_8dp"
+        android:textColor="#2E2E2E"
+        android:textSize="@dimen/textSize14"
+        tools:text="1001740559" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_12dp"
+        android:fontFamily="@font/inter_medium"
+        android:text="@string/ai_result_amount_label"
+        android:textColor="#545454"
+        android:textSize="@dimen/textSize14" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_6dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvAmountValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_neutral_900"
+            android:fontFamily="@font/inter_semi_bold"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/margin_46dp"
+            android:paddingHorizontal="@dimen/margin_12dp"
+            android:paddingVertical="@dimen/margin_8dp"
+            android:textColor="#2E2E2E"
+            android:textSize="@dimen/textSize14"
+            tools:text="1001740559" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCurrencyValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_12dp"
+            android:layout_marginEnd="@dimen/margin_16dp"
+            android:background="@drawable/bg_neutral_900"
+            android:backgroundTint="@color/accent"
+            android:fontFamily="@font/inter_semi_bold"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/margin_46dp"
+            android:paddingHorizontal="@dimen/margin_12dp"
+            android:paddingVertical="@dimen/margin_8dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textSize14"
+            tools:text="KHR" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_12dp"
+        android:fontFamily="@font/inter_medium"
+        android:text="@string/ai_result_remarks_label"
+        android:textColor="#545454"
+        android:textSize="@dimen/textSize14" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvRemarkValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_6dp"
+        android:background="@drawable/bg_neutral_900"
+        android:fontFamily="@font/inter_semi_bold"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/margin_46dp"
+        android:paddingHorizontal="@dimen/margin_12dp"
+        android:paddingVertical="@dimen/margin_8dp"
+        android:textColor="#2E2E2E"
+        android:textSize="@dimen/textSize14"
+        tools:text="1001740559" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_24dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btClose"
+            style="@style/button_orange_style.outline"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/margin_44dp"
+            android:layout_marginStart="@dimen/margin_16dp"
+            android:layout_weight="1"
+            android:text="@string/close"
+            android:textAllCaps="false" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btContinue"
+            style="@style/button_orange_light_style"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/margin_44dp"
+            android:layout_marginHorizontal="@dimen/margin_16dp"
+            android:layout_marginBottom="@dimen/margin_28dp"
+            android:layout_weight="1"
+            android:text="@string/action_continue"
+            android:textAllCaps="false"
+            app:backgroundTint="@color/accent" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_sheet"
+    android:orientation="vertical"
+    android:paddingVertical="@dimen/margin_8dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="@dimen/margin_10dp"
+        android:padding="@dimen/margin_6dp"
+        app:srcCompat="@drawable/ic_close" />
+
+    <vn.shb.cam.base.view.MyTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_16dp"
+        android:text="@string/set_nickname"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textSize18"
+        app:customFontWeight="semi_bold" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_24dp"
+        android:background="#FEF0E6"
+        android:padding="@dimen/margin_12dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            app:srcCompat="@drawable/ic_save_bene" />
+
+        <vn.shb.cam.base.view.MyTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/margin_12dp"
+            android:includeFontPadding="false"
+            android:text="@string/ask_set_nickname"
+            android:textColor="@color/neutral10"
+            android:textSize="@dimen/textSize14"
+            app:customFontWeight="regular" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <vn.shb.cam.base.view.MyEditText
+        android:id="@+id/edtNickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_8dp"
+        android:background="@drawable/bg_enter_nickname"
+        android:hint="@string/enter_nickname"
+        android:paddingHorizontal="@dimen/margin_12dp"
+        android:paddingVertical="@dimen/margin_13dp"
+        android:textColor="@color/neutral10"
+        android:textColorHint="#CCCCCC"
+        android:textSize="@dimen/textSize14" />
+
+    <vn.shb.cam.base.view.MyTextView
+        android:id="@+id/tvError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_6dp"
+        android:text="@string/error_enter_nickname"
+        android:textColor="@color/color_error_text_login"
+        android:visibility="gone"
+        app:customFontWeight="regular"
+        tools:visibility="visible" />
+
+    <vn.shb.cam.base.view.MyTextView
+        android:id="@+id/btnConfirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:layout_marginBottom="@dimen/margin_10dp"
+        android:background="@drawable/bg_button_enable"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:paddingHorizontal="@dimen/margin_12dp"
+        android:paddingVertical="@dimen/margin_13dp"
+        android:text="@string/confirm"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSize14"
+        app:customFontWeight="semi_bold" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

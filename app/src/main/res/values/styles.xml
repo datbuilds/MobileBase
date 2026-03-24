@@ -1,0 +1,682 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="navTextInactive">
+        <item name="lineHeight">13sp</item>
+        <item name="android:textSize">@dimen/textSize11</item>
+        <item name="android:textColor">@color/colorTextTitle</item>
+        <item name="android:tint">@color/colorTextTitle</item>
+    </style>
+
+    <style name="navTextActive">
+        <item name="lineHeight">13sp</item>
+        <item name="android:textSize">@dimen/textSize11</item>
+        <item name="android:textColor">@color/colorTextTitle</item>
+        <item name="android:tint">@color/colorTextTitle</item>
+    </style>
+
+    <style name="weekText" parent="Widget.AppCompat.TextView">
+        <item name="customFontWeight">regular</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">#36434A</item>
+    </style>
+
+    <style name="ToolTipDialog" />
+
+    <style name="ToolTipDialog.Text">
+        <item name="android:textColor">?android:colorForeground</item>
+    </style>
+
+    <style name="SlideInCenterAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_center</item>
+    </style>
+
+    <style name="tooltip_dialog_anaimation">
+        <item name="android:windowEnterAnimation">@anim/fade_in_animate_up</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+
+    <style name="DialogAnimation" parent="android:Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_right</item>
+    </style>
+
+    <style name="DialogAnimationTerm" parent="android:Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/bottom_out</item>
+    </style>
+
+    <style name="base">
+        <item name="android:ellipsize">end</item>
+        <item name="customFontWeight">regular</item>
+    </style>
+
+    <declare-styleable name="CustomProgressBar">
+        <attr name="foreground_color" format="color" />
+    </declare-styleable>
+
+    <style name="custom.progressbar" parent="base">
+        <item name="foreground_color">@color/colorAMCalendarDaySelectedCircle</item>
+    </style>
+
+    <style name="dialog_transparent_width" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+        <item name="android:windowMinWidthMajor">@dimen/margin_300dp</item>
+        <item name="android:windowMinWidthMinor">@dimen/margin_300dp</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="BottomSheetDialogSlideAnimation" parent="android:Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/slide_in_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_down</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="BottomSheetDialogFragmentSlideAnimation" parent="Theme.Design.Light.BottomSheetDialog">
+        <!-- Giữ lại dim background -->
+<!--        <item name="android:windowIsTranslucent">true</item>-->
+<!--        <item name="dim">0.5</item>-->
+
+        <!-- Animation -->
+        <item name="android:windowEnterAnimation">@anim/slide_in_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_down</item>
+
+        <!-- Background trong suốt -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="Widget.Theme.ToolTip.ActionBar.Fullscreen" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
+    </style>
+
+    <style name="Widget.Theme.ToolTip.ButtonBar.Fullscreen" parent="">
+        <item name="android:background">@color/black_overlay</item>
+        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
+    </style>
+
+
+    <style name="TooltipDialogTheme.Light" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="toolTipDialog.buttonVisibility">2</item>
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="toolTipDialog.bodyTextStyle">@style/ToolTipDialog.Text.Body</item>
+        <item name="toolTipDialog.backgroundColor">@color/white</item>
+        <item name="toolTipDialog.buttonTextColor">@color/accent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">@bool/use_light_status</item>
+        <item name="android:statusBarColor">@color/statusBarColor</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">
+            @bool/use_light_navigation
+        </item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    </style>
+
+    <style name="TooltipDialogTheme.Dark" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="toolTipDialog.buttonVisibility">2</item>
+        <!--        <item name="android:windowMinWidthMajor">100%</item>-->
+        <!--        <item name="android:windowMinWidthMinor">100%</item>-->
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="toolTipDialog.bodyTextStyle">@style/ToolTipDialog.Text.Body.Dark</item>
+        <item name="toolTipDialog.backgroundColor">@color/gray_800</item>
+        <item name="toolTipDialog.buttonTextColor">@color/accent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">@bool/use_light_status</item>
+        <item name="android:statusBarColor">@color/statusBarColor</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">
+            @bool/use_light_navigation
+        </item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    </style>
+
+    <style name="ToolTipDialog.Text.Body">
+        <item name="android:textSize">17sp</item>
+        <!--        <item name="android:lineSpacingExtra">4sp</item>-->
+    </style>
+
+    <style name="ToolTipDialog.Text.Body.Dark">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/accent</item>
+    </style>
+
+    <style name="AMCalendarButtonStyle" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:colorButtonNormal">@color/colorAMCalendarShortcutElementBackground
+        </item>
+        <item name="android:textColor">@color/colorAMCalendarShortcutElementText</item>
+    </style>
+
+    <!-- res/values/styles.xml -->
+    <style name="FeatureButtonStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">top|center</item>
+        <item name="android:padding">@dimen/margin_5dp</item>
+        <item name="android:drawablePadding">@dimen/margin_4dp</item>
+        <item name="android:textColor">@color/colorText</item>
+        <item name="android:textSize">@dimen/textSize13</item>
+        <item name="customFontWeight">medium</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">@drawable/custom_ripple_borderless</item>
+    </style>
+
+    <style name="BottomNavTextActive" parent="@android:style/TextAppearance.Small">
+        <item name="android:textSize">@dimen/textSize12</item>
+        <item name="customFontWeight">medium</item>
+        <item name="android:letterSpacing">0.03</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="BottomNavTextInactive" parent="@android:style/TextAppearance.Small">
+        <item name="android:textSize">@dimen/textSize12</item>
+        <item name="android:textStyle">normal</item>
+        <item name="customFontWeight">regular</item>
+        <item name="android:letterSpacing">0.03</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="BottomNavigationViewStyle" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:background">@drawable/bottom_nav_background_with_shadow</item>
+        <item name="itemIconSize">@dimen/margin_22dp</item>
+        <item name="labelVisibilityMode">labeled</item>
+        <item name="android:elevation">0dp</item>
+        <item name="itemRippleColor">@color/Transparent</item>
+    </style>
+
+    <style name="MaterialDialog.ButtonActionMain" parent="android:Widget.TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:paddingVertical">@dimen/margin_12dp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="customFontWeight">bold</item>
+        <item name="android:textColor">@color/primary100</item>
+        <item name="android:textSize">@dimen/textSizeButtonAlert</item>
+        <item name="android:background">@drawable/bg_button_login</item>
+    </style>
+
+
+    <style name="MaterialDialog.ButtonChangePassword" parent="android:Widget.TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:paddingVertical">@dimen/margin_12dp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="customFontWeight">semi_bold</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/textSize18</item>
+        <item name="android:background">@drawable/bg_bt_share</item>
+    </style>
+
+
+    <style name="MaterialDialog.ButtonLogout" parent="android:Widget.TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:paddingVertical">@dimen/margin_12dp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="customFontWeight">bold</item>
+        <item name="android:textColor">@color/primary100</item>
+        <item name="android:textSize">@dimen/textSizeButtonAlert</item>
+        <item name="android:background">@drawable/bg_button_negative_alert</item>
+    </style>
+
+    <style name="AppTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundMode">@null</item>
+        <item name="hintEnabled">false</item>
+        <item name="android:paddingVertical">@dimen/margin_4dp</item>
+    </style>
+
+    <style name="AppTextInputEditTextStyle">
+        <item name="android:background">@null</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:paddingHorizontal">@dimen/margin_12dp</item>
+        <item name="android:paddingVertical">@dimen/margin_1dp</item>
+        <item name="android:textColor">@color/neutral1</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:textColorHint">@color/primary40</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
+        <item name="android:textSize">@dimen/textSize14</item>
+    </style>
+
+    <style name="AppTextInputEditTextPassword">
+        <item name="android:background">@null</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:paddingHorizontal">@dimen/margin_12dp</item>
+        <item name="android:paddingVertical">@dimen/margin_1dp</item>
+        <item name="android:textColor">@color/neutral8</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
+        <item name="android:textColorHint">@color/neutral6</item>
+        <item name="android:textSize">@dimen/textSize14</item>
+    </style>
+
+    <style name="button_orange_light_style" parent="@style/Widget.MaterialComponents.Button.UnelevatedButton.Icon">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+<!--        <item name="android:paddingVertical">@dimen/margin_10dp</item>-->
+        <item name="cornerRadius">@dimen/margin_6dp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="customFontWeight">medium</item>
+        <item name="android:textColor">@color/colorButtonPositiveDialog</item>
+        <item name="android:textSize">@dimen/textSizeButtonAlert</item>
+        <item name="android:background">@drawable/bg_button_positive_alert</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+    </style>
+
+    <style name="button_orange_style.outline" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">52dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="cornerRadius">@dimen/margin_6dp</item>
+        <item name="strokeWidth">1.5dip</item>
+        <item name="strokeColor">@color/button_outline_stroke_color</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/button_outline_text_color</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="button_gray_style" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">52dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="backgroundTint">@color/gray_300</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="cornerRadius">@dimen/margin_16dp</item>
+        <item name="android:textColor">@color/gray_900</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="circleImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="circleImageBanner" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">13%</item>
+    </style>
+
+    <style name="circleImageView16" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16%</item>
+    </style>
+
+
+    <style name="circleImageView_stroke" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+        <item name="android:solidColor">@color/white</item>
+    </style>
+
+    <style name="radiusImageView_16" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerRadius">@dimen/margin_16dp</item>
+    </style>
+
+    <style name="roundedImageView_8" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerRadius">@dimen/margin_8dp</item>
+    </style>
+
+    <style name="roundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/margin_16dp</item>
+    </style>
+
+    <style name="ImageShape.Round" parent="">
+        <item name="cornerSizeTopLeft">@dimen/default_margin</item>
+        <item name="cornerSizeBottomLeft">@dimen/default_margin</item>
+        <item name="cornerSizeTopRight">@dimen/default_margin</item>
+        <item name="cornerSizeBottomRight">@dimen/default_margin</item>
+    </style>
+
+    <style name="ImageShape.Round.8" parent="">
+        <item name="cornerSizeTopLeft">@dimen/margin_8dp</item>
+        <item name="cornerSizeBottomLeft">@dimen/margin_8dp</item>
+        <item name="cornerSizeTopRight">@dimen/margin_8dp</item>
+        <item name="cornerSizeBottomRight">@dimen/margin_8dp</item>
+    </style>
+
+    <style name="TextSize.11sp" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textSize">11sp</item>
+        <item name="customFontWeight">regular</item>
+    </style>
+
+    <style name="TextSize.13sp" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textSize">13sp</item>
+        <item name="customFontWeight">regular</item>
+    </style>
+
+    <style name="TextSize.22sp" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">22sp</item>
+        <item name="customFontWeight">regular</item>
+    </style>
+
+<!--    <style name="dialog_transparent_width" parent="Theme.MaterialComponents.Light.Dialog.Alert">-->
+<!--        <item name="android:windowIsFloating">true</item>-->
+<!--        <item name="android:windowIsTranslucent">false</item>-->
+<!--        <item name="android:windowNoTitle">true</item>-->
+<!--        <item name="android:windowBackground">@android:color/transparent</item>-->
+<!--    </style>-->
+
+    <style name="FullScreenDialog" parent="AppTheme">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@android:color/background_light</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
+    </style>
+
+    <style name="FullScreenDialogCustom" parent="AppTheme">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@android:color/background_light</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
+    </style>
+
+    <style name="FullScreenDialog.Keyboard" parent="AppTheme.Color">
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@color/statusBarColor</item>
+        <item name="android:navigationBarColor">@color/statusBarColor</item>
+        <item name="android:windowBackground">@android:color/background_light</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+
+    <style name="FullScreenDialog.Transparent" parent="AppTheme">
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+    </style>
+
+    <style name="DialogTopTransparent" parent="AppTheme.SystemBar">
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="SupportDialog" parent="AppTheme">
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/statusBarColor</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+
+    <style name="BottomDialog_Rounded" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowSoftInputMode">adjustPan</item>
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
+
+    <style name="BottomDialog_Rounded_Calendar" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowSoftInputMode">adjustNothing</item>
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
+
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="BottomDialog_Rounded.Keyboard" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheet_Rounded</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+
+    <style name="BottomSheet_Rounded" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceBottomSheetDialog_Rounded</item>
+    </style>
+
+    <style name="ShapeAppearanceBottomSheetDialog_Rounded" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">@dimen/margin_16dp</item>
+        <item name="cornerSizeTopLeft">@dimen/margin_16dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="CustomTabTextNoCaps" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Tab.NoCaps.Medium" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:textAllCaps">false</item>
+        <item name="customFontWeight">medium</item>
+    </style>
+
+    <style name="MyBottomSheetBehavior" parent="AppTheme">
+        <item name="gestureInsetBottomIgnored">true</item>
+    </style>
+
+    <style name="SwitchTextAppearance" parent="@style/Widget.AppCompat.CompoundButton.Switch">
+        <item name="android:textColor">@color/selector_text_online_status</item>
+        <item name="android:textSize">14sp</item>
+        <item name="colorControlActivated">@color/green_500</item>
+        <item name="colorSwitchThumbNormal">@color/red_600</item>
+        <item name="android:colorForeground">#42221f1f</item>
+    </style>
+
+    <style name="SwitchTextAppearance.reverse" parent="@style/Widget.AppCompat.CompoundButton.Switch">
+        <item name="android:textColor">@color/selector_text_reverse</item>
+        <item name="android:textSize">14sp</item>
+        <item name="colorControlActivated">@color/red_600</item>
+        <item name="colorSwitchThumbNormal">@color/green_500</item>
+        <item name="android:colorForeground">#42221f1f</item>
+    </style>
+
+    <style name="SwitchTextAppearance.orange" parent="@style/Widget.AppCompat.CompoundButton.Switch">
+        <item name="android:textColor">@color/selector_text_reverse</item>
+        <item name="android:textSize">14sp</item>
+        <item name="colorControlActivated">#FF6D03</item>
+        <item name="colorSwitchThumbNormal">#B2FFFFFF</item>
+        <item name="android:colorForeground">#33221F1F</item>
+    </style>
+
+    <style name="SalonSwitch" parent="@style/Widget.AppCompat.CompoundButton.Switch">
+        <item name="android:button">@null</item>
+        <item name="customFontWeight">regular</item>
+        <item name="android:switchTextAppearance">@style/SwitchTextAppearance</item>
+        <item name="android:textColor">@color/selector_text_online_status</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:theme">@style/SwitchTextAppearance</item>
+        <item name="android:track">@drawable/track_selector</item>
+        <item name="showText">false</item>
+        <item name="switchPadding">5dp</item>
+        <item name="track">@drawable/track_selector</item>
+    </style>
+
+    <style name="switch.reverse" parent="@style/Widget.AppCompat.CompoundButton.Switch">
+        <item name="android:button">@null</item>
+        <item name="customFontWeight">regular</item>
+        <item name="android:switchTextAppearance">@style/SwitchTextAppearance.reverse</item>
+        <item name="android:textColor">@color/selector_text_reverse</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:theme">@style/SwitchTextAppearance.reverse</item>
+        <item name="android:track">@drawable/track_selector_reverse</item>
+        <item name="showText">false</item>
+        <item name="switchPadding">5dp</item>
+        <item name="track">@drawable/track_selector_reverse</item>
+    </style>
+
+    <style name="switch.orange" parent="@style/Widget.AppCompat.CompoundButton.Switch">
+        <item name="android:button">@null</item>
+        <item name="customFontWeight">regular</item>
+        <item name="android:switchTextAppearance">@style/SwitchTextAppearance.orange</item>
+        <item name="android:textColor">@color/selector_text_reverse</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:theme">@style/SwitchTextAppearance.orange</item>
+        <item name="showText">false</item>
+        <item name="switchPadding">5dp</item>
+        <item name="thumbTint">@drawable/thumb_selector_normal</item>
+        <item name="track">@drawable/track_selector_orange</item>
+    </style>
+
+    <style name="CheckBoxText" parent="@style/Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:buttonTint">@color/checkbox_checked_color</item>
+    </style>
+
+    <style name="ReviewTab" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">24sp</item>
+        <item name="customFontWeight">medium</item>
+    </style>
+
+    <style name="MaterialDialog">
+        <item name="customFontWeight">regular</item>
+    </style>
+
+    <!-- Theme for Dialog Title -->
+    <style name="MaterialDialog.Title">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorTitleDialog</item>
+        <item name="android:textSize">@dimen/textSizeTitleAlert</item>
+        <item name="customFontWeight">semi_bold</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <!-- Theme for Dialog Message -->
+    <style name="MaterialDialog.Message">
+        <item name="android:textSize">@dimen/textSizeContentAlert</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="customFontWeight">regular</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:textColor">@color/colorContentDialog</item>
+    </style>
+
+    <!-- Theme for Dialog Positive Button -->
+    <style name="MaterialDialog.PositiveButton" parent="Widget.AppCompat.TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:paddingVertical">@dimen/margin_10dp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="customFontWeight">semi_bold</item>
+        <item name="android:textColor">@color/colorButtonPositiveDialog</item>
+        <item name="android:textSize">@dimen/textSizeButtonAlert</item>
+        <item name="android:background">@drawable/bg_button_positive_alert</item>
+    </style>
+
+    <!-- Theme cho TextView Negative trong Dialog -->
+    <style name="MaterialDialog.NegativeButton" parent="Widget.AppCompat.TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:paddingVertical">@dimen/margin_10dp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="customFontWeight">semi_bold</item>
+        <item name="android:textColor">@color/colorButtonNegativeDialog</item>
+        <item name="android:textSize">@dimen/textSizeButtonAlert</item>
+        <item name="android:background">@drawable/bg_button_negative_alert</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+
+    <style name="ErrorTextAppearance" parent="TextAppearance.Design.Error">
+        <item name="android:textSize">@dimen/textSize15</item>
+        <item name="android:textColor">@color/colorInputError</item>
+    </style>
+
+    <style name="TransactionTab" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">@dimen/textSize16</item>
+        <item name="customFontWeight">medium</item>
+    </style>
+
+    <style name="HeaderCell">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:paddingHorizontal">@dimen/margin_3dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/textSize13</item>
+        <item name="android:layout_marginHorizontal">@dimen/margin_1dp</item>
+        <item name="android:background">#EDF2F7</item>
+        <item name="android:textColor">#1A202C</item>
+        <item name="customFontWeight">medium</item>
+    </style>
+
+    <style name="CellText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textColor">#1A202C</item>
+        <item name="android:textSize">@dimen/textSize13</item>
+        <item name="android:layout_marginHorizontal">@dimen/margin_1dp</item>
+        <item name="android:paddingHorizontal">@dimen/margin_8dp</item>
+        <item name="android:paddingVertical">@dimen/margin_10dp</item>
+        <item name="android:gravity">center</item>
+        <item name="customFontWeight">regular</item>
+    </style>
+
+    <style name="RoundedImage">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item> <!-- radius -->
+    </style>
+
+    <style name="RoundedImageAvatarUser">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">30dp</item> <!-- radius -->
+    </style>
+
+</resources>

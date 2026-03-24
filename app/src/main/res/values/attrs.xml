@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="StateLayout">
+        <attr name="sl_loading_view" format="reference" />
+        <attr name="sl_error_view" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="AspectRatioImageView">
+        <attr name="aspectRatio" format="float" />
+        <attr name="aspectRatioEnabled" format="boolean" />
+        <attr name="dominantMeasurement">
+            <enum name="width" value="0" />
+            <enum name="height" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="AspectRatioLayout">
+        <attr name="arl_widthRatio" format="float" />
+        <attr name="arl_heightRatio" format="float" />
+    </declare-styleable>
+
+    <!-- Fonts -->
+    <attr name="toolTipDialog.bodyTextStyle" format="reference" />
+    <!-- Colors -->
+    <attr name="toolTipDialog.backgroundColor" format="color" />
+    <attr name="toolTipDialog.buttonTextColor" format="color" />
+    <attr name="toolTipDialog.buttonVisibility" format="integer" />
+
+    <declare-styleable name="RatingStarView">
+        <attr name="rsv_starMargin" format="integer|dimension" />
+        <attr name="rsv_cornerRadius" format="float|dimension" />
+        <attr name="rsv_starForegroundColor" format="color|reference" />
+        <attr name="rsv_starBackgroundColor" format="color|reference" />
+        <attr name="rsv_strokeColor" format="color|reference" />
+        <attr name="rsv_strokeWidth" format="float|dimension" />
+        <attr name="rsv_starNum" format="integer" />
+        <attr name="rsv_rating" format="float" />
+        <attr name="rsv_un_rate" format="boolean" />
+        <attr name="rsv_starThickness" format="float|fraction" />
+        <attr name="rsv_drawStrokeForEmptyStar" format="boolean" />
+        <attr name="rsv_drawStrokeForFullStar" format="boolean" />
+        <attr name="rsv_drawStrokeForHalfStar" format="boolean" />
+        <attr name="rsv_enableSelectRating" format="boolean" />
+        <attr name="rsv_onlyHalfStar" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="PinViewTheme">
+        <attr name="pinViewStyle" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="PinView">
+        <attr name="itemCount" format="integer" />
+        <attr name="itemWidth" format="dimension" />
+        <attr name="itemHeight" format="dimension" />
+        <attr name="itemRadius" format="dimension" />
+        <attr name="itemSpacing" format="dimension" />
+        <attr name="lineWidth" format="dimension" />
+        <attr name="lineColor" format="reference|color" />
+        <attr name="viewType" format="enum">
+            <enum name="rectangle" value="0" />
+            <enum name="line" value="1" />
+            <enum name="none" value="2" />
+        </attr>
+        <attr name="android:cursorVisible" />
+        <attr name="cursorWidth" format="dimension" />
+        <attr name="cursorColor" format="reference|color" />
+        <attr name="android:itemBackground" />
+        <attr name="hideLineWhenFilled" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="TooltipIndicator">
+        <attr name="ti_lineWidth" format="dimension" />
+        <attr name="ti_lineWidthSelected" format="dimension" />
+        <attr name="ti_lineHeight" format="dimension" />
+        <attr name="ti_lineMargin" format="dimension" />
+
+        <attr name="ti_tooltipWidth" format="dimension" />
+        <attr name="ti_tooltipHeight" format="dimension" />
+
+        <attr name="ti_selectedLineDrawable" format="reference" />
+        <attr name="ti_unselectedLineDrawable" format="reference" />
+
+    </declare-styleable>
+
+    <color name="viewfinder_corner">#FF1FB3E2</color>
+    <color name="viewfinder_frame">#7F1FB3E2</color>
+    <color name="viewfinder_label_text">#FFC0C0C0</color>
+    <color name="viewfinder_laser">#FF1FB3E2</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="viewfinder_point">#FF1FB3E2</color>
+    <color name="viewfinder_point_stroke">#FFFFFFFF</color>
+    <declare-styleable name="ViewfinderView">
+        <attr name="vvViewfinderStyle" format="enum">
+            <enum name="classic" value="0" />
+            <enum name="popular" value="1" />
+        </attr>
+        <attr name="vvMaskColor" format="color" />
+        <attr name="vvFrameColor" format="color" />
+        <attr name="vvFrameWidth" format="dimension" />
+        <attr name="vvFrameHeight" format="dimension" />
+        <attr name="vvFrameRatio" format="float" />
+        <attr name="vvFrameLineStrokeWidth" format="dimension" />
+        <attr name="vvFramePaddingLeft" format="dimension" />
+        <attr name="vvFramePaddingTop" format="dimension" />
+        <attr name="vvFramePaddingRight" format="dimension" />
+        <attr name="vvFramePaddingBottom" format="dimension" />
+        <attr name="vvFrameGravity" format="enum">
+            <enum name="center" value="0" />
+            <enum name="left" value="1" />
+            <enum name="top" value="2" />
+            <enum name="right" value="3" />
+            <enum name="bottom" value="4" />
+        </attr>
+        <attr name="vvFrameCornerColor" format="color" />
+        <attr name="vvFrameCornerSize" format="dimension" />
+        <attr name="vvFrameCornerStrokeWidth" format="dimension" />
+        <attr name="vvFrameDrawable" format="reference" />
+
+        <attr name="vvLaserLineHeight" format="dimension" />
+        <attr name="vvLaserMovementSpeed" format="dimension" />
+        <attr name="vvLaserAnimationInterval" format="integer" />
+        <attr name="vvLaserGridColumn" format="integer" />
+        <attr name="vvLaserGridHeight" format="dimension" />
+        <attr name="vvLaserColor" format="color" />
+        <attr name="vvLaserStyle" format="enum">
+            <enum name="none" value="0" />
+            <enum name="line" value="1" />
+            <enum name="grid" value="2" />
+            <enum name="image" value="3" />
+        </attr>
+        <attr name="vvLaserDrawable" format="reference" />
+        <attr name="vvLaserDrawableRatio" format="float" />
+
+        <attr name="vvLabelText" format="string" />
+        <attr name="vvLabelTextColor" format="color" />
+        <attr name="vvLabelTextSize" format="dimension" />
+        <attr name="vvLabelTextPadding" format="dimension" />
+        <attr name="vvLabelTextWidth" format="dimension" />
+        <attr name="vvLabelTextLocation" format="enum">
+            <enum name="top" value="0" />
+            <enum name="bottom" value="1" />
+        </attr>
+
+        <attr name="vvPointColor" format="color" />
+        <attr name="vvPointStrokeColor" format="color" />
+        <attr name="vvPointRadius" format="dimension" />
+        <attr name="vvPointStrokeRatio" format="float" />
+        <attr name="vvPointDrawable" format="reference" />
+        <attr name="vvPointAnimation" format="boolean" />
+        <attr name="vvPointAnimationInterval" format="integer" />
+
+    </declare-styleable>
+
+    <declare-styleable name="KalendarView">
+        <!--        Indicator to show the today's date. accepts drawables only-->
+        <attr name="todayIndicator" format="reference" />
+        <!--        Indicator to show the selected date. accepts drawables only-->
+        <attr name="selectedIndicator" format="reference" />
+        <!--        To indicate the events in the date cell. accepts drawables only-->
+        <attr name="eventIndicator" format="reference" />
+        <!--        Color to change the date text color of showing month-->
+        <attr name="dateColor" format="color" />
+        <!--        Color to change the date text color of non-showing month(previous and next month's)-->
+        <attr name="nonMonthDateColor" format="color" />
+        <!--        Color to change the date text color of today's date-->
+        <attr name="todayDateColor" format="color" />
+        <!--        Color to change the date text color of selected date-->
+        <attr name="selectedDateColor" format="color" />
+        <!--        Font Family of month, year head in the top-->
+        <attr name="monthFontFamily" format="reference" />
+        <!--        Font Family of week days head-->
+        <attr name="weekFontFamily" format="reference" />
+        <!--        Font Family of date text-->
+        <attr name="dateFontFamily" format="reference" />
+        <!--        TextAppearance of month,year head-->
+        <attr name="monthTextStyle" format="reference" />
+        <!--        TextAppearance of weekdays head-->
+        <attr name="weekTextStyle" format="reference" />
+        <!--        TextAppearance of date text-->
+        <attr name="dateTextStyle" format="reference" />
+        <!--        Drawable for next icon-->
+        <attr name="nextIcon" format="reference" />
+        <!--        Drawable for prev icon-->
+        <attr name="prevIcon" format="reference" />
+        <!--        color for calendar background-->
+        <attr name="calendarBackground" format="color" />
+    </declare-styleable>
+
+    <!-- The xml resource that is inflated and used as the day cell view, must be provided. -->
+    <attr name="cv_dayViewResource" format="reference" />
+
+    <!-- The scrolling behavior of the calendar. If `true`, the calendar will
+     snap to the nearest month or week (in the WeekCalendarView) after a scroll
+     or swipe action. If `false`, the calendar scrolls normally. -->
+    <attr name="cv_scrollPaged" format="boolean" />
+
+    <!-- Determines how the size of each day on the calendar is calculated. -->
+    <attr name="cv_daySize" format="enum">
+        <!-- Each day will have both width and height matching
+         the width of the calendar divided by 7. -->
+        <enum name="square" value="0" />
+        <!-- Each day will have its width matching the width of the calendar
+         divided by 7, and its height matching the height of the calendar divided
+         by the number of weeks in the index - could be 4, 5 or 6 for the month
+         calendar and 1 for the week calendar. Use this if you want each month or
+         week to fill the parent's width and height. -->
+        <enum name="rectangle" value="1" />
+        <!-- Each day will have its width matching the width of the calendar
+         divided by 7. The day is allowed to determine its height by
+         setting a specific value or using [ViewGroup.LayoutParams.WRAP_CONTENT]. -->
+        <enum name="seventhWidth" value="2" />
+        <!-- This day is allowed to determine its width and height by
+         setting specific values or using [ViewGroup.LayoutParams.WRAP_CONTENT]. -->
+        <enum name="freeForm" value="3" />
+    </attr>
+
+    <declare-styleable name="CalendarView">
+        <attr name="cv_dayViewResource" />
+
+        <!-- The xml resource that is inflated and used as a header for every month. -->
+        <attr name="cv_monthHeaderResource" format="reference" />
+
+        <!-- The xml resource that is inflated and used as a footer for every month. -->
+        <attr name="cv_monthFooterResource" format="reference" />
+
+        <!-- Determines how outDates are generated for each month on the calendar. -->
+        <attr name="cv_outDateStyle" format="enum">
+            <!-- The calendar will generate outDates until it reaches the end
+            of the month row. This means that if a month has 5 rows, it will
+            display 5 rows and if a month has 6 rows, it will display 6 rows. -->
+            <enum name="endOfRow" value="0" />
+            <!-- The calendar will generate outDates until it reaches the end
+            of a 6 x 7 grid on each month. This means that all months will have 6 rows. -->
+            <enum name="endOfGrid" value="1" />
+        </attr>
+
+        <!-- A ViewGroup which is instantiated and used as the container for each month.
+         This class must have a constructor which takes only a Context. You should
+         exclude the name and constructor of this class from code obfuscation if enabled. -->
+        <attr name="cv_monthViewClass" format="string" />
+
+        <!--This determines the scroll direction of the the calendar. -->
+        <attr name="cv_orientation" format="enum">
+            <enum name="horizontal" value="0" />
+            <enum name="vertical" value="1" />
+        </attr>
+
+        <attr name="cv_scrollPaged" />
+        <attr name="cv_daySize" />
+    </declare-styleable>
+
+    <declare-styleable name="WeekCalendarView">
+        <attr name="cv_dayViewResource" />
+
+        <!-- The xml resource that is inflated and used as a header for every week. -->
+        <attr name="cv_weekHeaderResource" format="reference" />
+
+        <!-- The xml resource that is inflated and used as a footer for every week. -->
+        <attr name="cv_weekFooterResource" format="reference" />
+
+        <!-- A ViewGroup which is instantiated and used as the container for each week.
+         This class must have a constructor which takes only a Context. You should
+         exclude the name and constructor of this class from code obfuscation if enabled. -->
+        <attr name="cv_weekViewClass" format="string" />
+
+        <attr name="cv_scrollPaged" />
+        <attr name="cv_daySize" />
+    </declare-styleable>
+
+
+    <declare-styleable name="ExpandableLayout">
+        <attr name="el_duration" format="integer" />
+        <attr name="el_expanded" format="boolean" />
+        <attr name="el_parallax" format="float" />
+        <attr name="android:orientation" />
+    </declare-styleable>
+
+
+    <declare-styleable name="FloatingActionButton">
+
+        <attr name="buttonPosition">
+            <flag name="top" value="1" />
+            <flag name="bottom" value="2" />
+            <flag name="start" value="4" />
+            <flag name="end" value="8" />
+            <flag name="left" value="16" />
+            <flag name="right" value="32" />
+        </attr>
+
+        <attr name="buttonIcon" format="reference" />
+
+        <attr name="buttonBackgroundColour" format="color" />
+
+        <attr name="internalOffsetTop" format="dimension" />
+        <attr name="internalOffsetBottom" format="dimension" />
+        <attr name="internalOffsetStart" format="dimension" />
+        <attr name="internalOffsetEnd" format="dimension" />
+        <attr name="internalOffsetLeft" format="dimension" />
+        <attr name="internalOffsetRight" format="dimension" />
+
+    </declare-styleable>
+
+    <declare-styleable name="MyTextView">
+        <attr name="customFontWeight" format="enum">
+            <enum name="regular" value="0"/>
+            <enum name="medium" value="1"/>
+            <enum name="bold" value="2"/>
+            <enum name="semi_bold" value="3"/>
+        </attr>
+    </declare-styleable>
+</resources>
