@@ -101,8 +101,6 @@
     <string name="tel">Hotline:</string>
     <string name="hide">Ẩn</string>
     <string name="account_info_format" translatable="false">%s - %s - %s</string>
-    <string name="english">Tiếng Anh</string>
-    <string name="vietnamese">Tiếng Việt</string>
     <string name="lao" translatable="false">Lào</string>
     <string name="add">Địa chỉ:</string>
     <string name="done">Hoàn tất</string>
@@ -196,7 +194,6 @@
     <string name="weHaveReleasedNewVersion">Chúng tôi đã phát hành một phiên bản mới. Vui lòng cập nhật để có trải nghiệm tiết kiệm tốt hơn với SHB SAHA CAMs.</string>
     <string name="updateLabel">Cập nhật</string>
     <string name="invalidAccountNumber">Số tài khoản không hợp lệ</string>
-    <string name="cambodian">Tiếng Khmer</string>
     <string name="register_device_title">Vui lòng đăng ký thiết bị để sử dụng ứng dụng SHB Saha Cambodia.</string>
     <string name="register_device_message">Để tăng cường bảo mật tài khoản, vui lòng xác thực thiết bị bằng mã OTP được gửi đến số điện thoại %s để hoàn tất đăng ký ứng dụng. Đây có phải là số điện thoại của Quý khách không?</string>
     <string name="confirm_device_title">Xác thực thiết bị mới</string>
@@ -221,6 +218,8 @@
     <string name="paste_pay_upload_image">Tải ảnh</string>
     <string name="paste_pay_intro_label">Dán nội dung hoặc tải ảnh để chuyển tiền nhanh</string>
     <string name="paste_pay_action_label">Bỏ qua</string>
+    <string name="paste_pay_image_too_large">Vui lòng chọn ảnh nhỏ hơn %1$d MB</string>
+    <string name="paste_pay_only_shb_supported">Hiện tại hệ thống chỉ hỗ trợ chuyển tiền trong hệ thống SHB.</string>
     <string name="ai_result_analyzed">Phân tích bởi SHB AI</string>
     <string name="ai_result_bank_label">Ngân hàng</string>
     <string name="ai_result_to_account_label">Tài khoản nhận</string>

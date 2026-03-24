@@ -28,7 +28,6 @@
     <string name="welcomeToShb">សូមស្វាគមន៍ការមកកាន់ធនាគារ សៃហ្គន-ហាណូយ</string>
     <string name="currentAccount">គណនីចរន្ត</string>
     <string name="transfer">ផ្ទេរប្រាក់</string>
-    <string name="transferCAP" translatable="false">ផ្ទេរប្រាក់</string>
     <string name="accounts">គណនី</string>
     <string name="logoutConfirm">តើលោកអ្នកពិតជាចង់ចាកចេញពីប្រព័ន្ធមែនដែរ ឬទេ?</string>
     <string name="cancel">បោះបង់</string>
@@ -101,8 +100,6 @@
     <string name="tel">លេខទូរស័ព្ទជំនួយ៖</string>
     <string name="hide">លាក់ទុក</string>
     <string name="account_info_format" translatable="false">%s - %s - %s</string>
-    <string name="english">ភាសាអង់គ្លេស</string>
-    <string name="vietnamese">ភាសាវៀតណាម</string>
     <string name="lao" translatable="false">Lao</string>
     <string name="add">អាសយដ្ឋាន៖</string>
     <string name="done">រួចរាល់</string>
@@ -196,7 +193,6 @@
     <string name="weHaveReleasedNewVersion">យើងខ្ញុំបានបញ្ចេញកំណែថ្មីហើយ។ សូមធ្វើបច្ចុប្បន្នភាព ដើម្បីទទួលបានបទពិសោធន៍សន្សំកាន់តែប្រសើរជាមួយ SHB SAHA CAMs។</string>
     <string name="updateLabel">ធ្វើបច្ចុប្បន្នភាព</string>
     <string name="invalidAccountNumber">លេខគណនីមិនត្រឹមត្រូវ</string>
-    <string name="cambodian">ភាសាខ្មែរ</string>
     <string name="register_device_title">ចុះឈ្មោះឧបករណ៍របស់អ្នកដើម្បីប្រើប្រាស់កម្មវិធី SHB Saha Cambodia។</string>
     <string name="register_device_message">ដើម្បីបង្កើនសុវត្ថិភាពគណនី សូមផ្ទៀងផ្ទាត់ឧបករណ៍របស់អ្នកដោយប្រើលេខកូដ OTP ដែលបានផ្ញើទៅកាន់លេខទូរស័ព្ទ %s ដើម្បីបញ្ចប់ការចុះឈ្មោះប្រើប្រាស់ក្មវិធីធនាគារចល័ត។ តើនេះជាលេខទូរស័ព្ទរបស់អ្នកមែនទេ?</string>
     <string name="confirm_device_title">បញ្ជាក់ឧបករណ៍</string>
@@ -221,6 +217,8 @@
     <string name="paste_pay_upload_image">ផ្ទុករូបភាពឡើង</string>
     <string name="paste_pay_intro_label">សូមថតចម្លង ឬផ្ញើនូវរូបភាពដែលមានព័ត៌មានផ្ទេរប្រាក់</string>
     <string name="paste_pay_action_label">រំលង</string>
+    <string name="paste_pay_image_too_large">សូមជ្រើសរើសរូបភាពដែលតូចជាង %1$d MB</string>
+    <string name="paste_pay_only_shb_supported">បច្ចុប្បន្ន ប្រព័ន្ធគាំទ្រតែការផ្ទេរប្រាក់នៅក្នុងប្រព័ន្ធ SHB ប៉ុណ្ណោះ។</string>
     <string name="ai_result_analyzed">វិភាគដោយប្រព័ន្ធឆ្លាតវៃ SHB AI</string>
     <string name="ai_result_bank_label">ធនាគារ</string>
     <string name="ai_result_to_account_label">ទៅគណនី</string>

@@ -27,7 +27,6 @@ import vn.shb.cam.R
 import vn.shb.cam.SHBApplication
 import vn.shb.cam.activity.dashboard.DashboardActivity
 import vn.shb.cam.activity.login.LoginActivity
-import vn.shb.cam.base.dialog.DialogSessionExpire
 import vn.shb.cam.base.dialog.DialogWarningAccessibilityPermission
 import vn.shb.cam.base.dialog.DialogWarningDeviceRoot
 import vn.shb.cam.screens.splash.ui.SplashActivity
@@ -180,7 +179,9 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
     }
 
     private fun startUserInteractionTimer() {
-        handlerInactivity.postDelayed(runnableInActivity, mTime)
+        if (this is DashboardActivity) {
+            handlerInactivity.postDelayed(runnableInActivity, mTime)
+        }
     }
 
     private fun resetUserInteractionTimer() {

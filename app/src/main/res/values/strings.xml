@@ -80,7 +80,7 @@
     <string name="selectBeneficiary">Select beneficiary</string>
     <string name="confirmationCode">Confirmation Code</string>
     <string name="enterConfirmationCode">Please enter confirmaion code at C5 possition on eSecure Card</string>
-    <string name="confirm">Comfirm</string>
+    <string name="confirm">Confirm</string>
     <string name="saveRecipient">Save recipient</string>
     <string name="save">Save</string>
     <string name="setNicknameQuestion">Would you like to set a nickname for this recipient?</string>
@@ -102,7 +102,7 @@
     <string name="hide">Hide</string>
     <string name="account_info_format" translatable="false">%s - %s - %s</string>
     <string name="english">English</string>
-    <string name="vietnamese">Vietnamese</string>
+    <string name="vietnamese">Tiếng Việt</string>
     <string name="lao" translatable="false">Lao</string>
     <string name="add">Address:</string>
     <string name="done">Done</string>
@@ -198,7 +198,7 @@
     <string name="weHaveReleasedNewVersion">We have released a new version. Please update to enjoy a better saving experience with SHB SAHA CAMs.</string>
     <string name="updateLabel">Update</string>
     <string name="invalidAccountNumber">Invalid Account Number</string>
-    <string name="cambodian">Khmer Language</string>
+    <string name="cambodian">ភាសាខ្មែរ</string>
     <string name="register_device_title">Register device for using the SHB Saha Cambodia application</string>
     <string name="register_device_message">To enhance account security, please verify your device using the OTP sent to the phone number %s to complete the app registration. Is this your phone number?</string>
     <string name="confirm_device_title">Confirm device</string>
@@ -227,6 +227,8 @@
     <string name="paste_pay_upload_image">Upload Image</string>
     <string name="paste_pay_intro_label">Paste message or upload image to transfer quickly</string>
     <string name="paste_pay_action_label">Skip</string>
+    <string name="paste_pay_image_too_large">Please upload an image smaller than %1$d MB</string>
+    <string name="paste_pay_only_shb_supported">Currently the system only supports transfers within SHB.</string>
     <string name="ai_result_analyzed">Analyzed by SHB AI</string>
     <string name="ai_result_bank_label">Bank</string>
     <string name="ai_result_to_account_label">To Account</string>
