@@ -6,7 +6,6 @@ object Plugins {
     const val ANDROID_KAPT = "kotlin-kapt"
     const val ANDROID_KOTLIN = "kotlin-android"
     const val ANDROID_EXTENSION = "android.extensions"
-    const val ANDROID_NAVIGATION = "androidx.navigation.safeargs.kotlin"
     const val ANDROID_MAVEN_PUBLISH = "com.vanniktech.maven.publish"
     const val ANDROID_GITHUB_MAVEN_PUBLISH = "com.github.dcendents.android-maven"
 

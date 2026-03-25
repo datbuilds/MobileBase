@@ -3,7 +3,6 @@ import java.util.Properties
 plugins {
     id(Plugins.SHB_APP)
     id(Plugins.ANDROID_APPLICATION)
-    id(Plugins.ANDROID_NAVIGATION)
     id(Plugins.ANDROID_KOTLIN)
     id(Plugins.ANDROID_MAVEN_PUBLISH)
     kotlin(Plugins.KOTLIN_KAPT)
@@ -166,8 +165,6 @@ dependencies {
     implementation(libs.androidxConstraintlayout)
     implementation(libs.androidxFragment)
     implementation(libs.androidxLifecycleProcess)
-    implementation(libs.androidxNavigationUI)
-    implementation(libs.androidxNavigationFragment)
     implementation(libs.easyPermission)
     implementation(libs.networkMonitor)
     implementation(libs.timber)
@@ -193,8 +190,6 @@ dependencies {
     //Room
     implementation(libs.roomKtx)
     implementation(libs.roomRuntime)
-    implementation(libs.navigation.fragment.ktx)
-    implementation(libs.navigation.ui.ktx)
     kapt(libs.roomCompiler)
 
     //Paging

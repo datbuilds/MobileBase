@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@interpolator/nav_standard"
+    android:shareInterpolator="true">
+
+    <translate
+        android:duration="320"
+        android:fromXDelta="-8%p"
+        android:toXDelta="0%p" />
+
+    <alpha
+        android:duration="260"
+        android:fromAlpha="0.0"
+        android:startOffset="20"
+        android:toAlpha="1.0" />
+
+    <scale
+        android:duration="320"
+        android:fromXScale="0.99"
+        android:fromYScale="0.99"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:toXScale="1.0"
+        android:toYScale="1.0" />
+</set>

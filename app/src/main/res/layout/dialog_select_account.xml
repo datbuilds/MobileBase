@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_bottom_sheet"
-    android:paddingBottom="@dimen/paddingBottomLayout">
+    android:background="@drawable/bg_bottom_sheet">
 
     <vn.shb.cam.base.view.MyTextView
         android:id="@+id/tvSelectAccount"
@@ -39,7 +38,9 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_16dp"
         android:layout_marginTop="@dimen/margin_16dp"
+        android:layout_marginBottom="@dimen/margin_28dp"
         android:text="@string/done"
         android:textSize="@dimen/textSize18"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rcvAccount" />
 </androidx.constraintlayout.widget.ConstraintLayout>

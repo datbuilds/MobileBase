@@ -11,7 +11,6 @@ buildscript {
         classpath(libs.gradlePluginBuildtools)
         classpath(libs.gradlePluginKotlin)
 //        classpath(libs.gradlePluginGoogleservices)
-        classpath(libs.gradlePluginNavigationSafeArgs)
     }
 }
 

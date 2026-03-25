@@ -68,6 +68,7 @@
         android:layout_marginHorizontal="@dimen/margin_20dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/ivImageLogin"
         tools:visibility="visible">
 
@@ -318,7 +319,7 @@
         android:id="@+id/groupViewNoLastUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
-        app:constraint_referenced_ids="tvInternetBanking, tvEnterYourDetail, userNameContainer" />
+        android:visibility="gone"
+        app:constraint_referenced_ids="tvInternetBanking, tvEnterYourDetail, userNameContainer, tvErrorUsername" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

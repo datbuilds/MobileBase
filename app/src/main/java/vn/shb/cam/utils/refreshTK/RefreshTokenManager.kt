@@ -18,7 +18,7 @@ import vn.shb.core.core.domain.usecases.wso2.UseCaseRefreshTokenWso2
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import vn.shb.cam.BuildConfig
 import vn.shb.cam.R
-import vn.shb.cam.activity.login.LoginActivity
+import vn.shb.cam.activity.MainActivity
 import vn.shb.cam.utils.extensions.returnActivity
 import vn.shb.cam.utils.view.dialog.BottomSheetDialogHelper
 import java.util.concurrent.TimeUnit
@@ -237,7 +237,7 @@ object RefreshTokenManager {
             if (!activity.isFinishing && !activity.isDestroyed) {
                 activity.apply {
                     finishAffinity()
-                    returnActivity(LoginActivity.intent(this))
+                    returnActivity(MainActivity.loginIntent(this))
                 }
             }
         } catch (e: Exception) {

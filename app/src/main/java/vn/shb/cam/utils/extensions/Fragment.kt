@@ -13,9 +13,6 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
-import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputLayout
 import vn.shb.cam.utils.view.dialog.ProgressDialogUtil
@@ -57,11 +54,6 @@ fun Fragment.setStatusBarAndNavigationBarColor(color: Int) {
     this.requireActivity().window.navigationBarColor = requireContext().getColor(color)
 }
 
-fun AppCompatActivity.setupActionBarWithNavController(toolbar: MaterialToolbar) {
-    this.setSupportActionBar(toolbar)
-    this.supportActionBar?.setDisplayShowTitleEnabled(false)
-}
-
 fun BottomSheetDialogFragment.showKeyboard(inputLayout: TextInputLayout) {
     val inputMethodManager =
         requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -96,17 +88,6 @@ inline fun <reified T : Serializable> Intent.serializable(key: String): T? = whe
     )
 
     else -> @Suppress("DEPRECATION") getSerializableExtra(key) as? T
-}
-
-
-fun <T> Fragment.getNavigationResult(key: String = "result") =
-    findNavController().currentBackStackEntry?.savedStateHandle?.get<T>(key)
-
-fun <T> Fragment.getNavigationResultLiveData(key: String = "result") =
-    findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<T>(key)
-
-fun <T> Fragment.setNavigationResult(result: T, key: String = "result") {
-    findNavController().previousBackStackEntry?.savedStateHandle?.set(key, result)
 }
 
 @SuppressLint("NewApi", "DiscouragedPrivateApi")

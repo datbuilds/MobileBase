@@ -1,4 +1,4 @@
-package vn.shb.sale.base
+package vn.shb.cam.base
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import vn.shb.cam.databinding.ItemLoadingBinding
+import vn.shb.core.R
 
 abstract class BaseLoadMoreAdapter<T : Any, VB : ViewBinding>(
     private val bindingInflater: (LayoutInflater, ViewGroup, Boolean) -> VB,
@@ -149,7 +150,7 @@ abstract class BaseLoadMoreAdapter<T : Any, VB : ViewBinding>(
                 val view = holder.itemView
 
                 val context = view.context
-                val original = ContextCompat.getColor(context, vn.shb.core.R.color.white)
+                val original = ContextCompat.getColor(context, R.color.white)
                 val highlight = 0xFFF7FAFC.toInt()
 
                 ValueAnimator.ofObject(ArgbEvaluator(), original, highlight, original).apply {

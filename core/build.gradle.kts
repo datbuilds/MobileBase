@@ -19,8 +19,6 @@ dependencies {
     // Coroutines
     implementation(libs.kotlinxCoroutinesAndroid)
 
-    implementation(libs.androidxNavigationUI)
-    implementation(libs.androidxNavigationFragment)
     implementation(libs.easyPermission)
     implementation(libs.networkMonitor)
 
