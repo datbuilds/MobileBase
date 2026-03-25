@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.FragmentAccountDetailBinding
+import vn.shb.cam.navigation.AppDestination
 import vn.shb.cam.screens.account.helper.TransactionAdapter
 import vn.shb.cam.screens.home.DialogSelectAccount
 import vn.shb.cam.utils.extensions.common.Const
@@ -36,7 +37,7 @@ class AccountDetailFragment :
     private fun setUpRecyclerView() {
         adapter.setOnClickDetailListener {
             homeViewModel.currentTransaction = it
-            safeNavigate(R.id.accountDetailFragment, R.id.transactionDetailFragment)
+            safeNavigate(AppDestination.TransactionDetail)
         }
         with(binding.rcvTransaction) {
             layoutManager = LinearLayoutManager(requireContext())
@@ -47,15 +48,15 @@ class AccountDetailFragment :
     override fun initListener() {
         with(binding) {
             tvAccountDetails.setOnSingleClickListener {
-                safeNavigate(R.id.accountDetailFragment, R.id.backToHomeFragment)
+                popBackTo(AppDestination.Home)
             }
 
             flTransfer.setOnSingleClickListener {
-                safeNavigate(R.id.accountDetailFragment, R.id.moneyTransferFragment)
+                safeNavigate(AppDestination.MoneyTransfer())
             }
 
             tvViewAll.setOnSingleClickListener {
-                safeNavigate(R.id.accountDetailFragment, R.id.action_to_transaction_history)
+                safeNavigate(AppDestination.TransactionHistory)
             }
 
             ivExpandDown.setOnSingleClickListener {

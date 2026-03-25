@@ -9,6 +9,7 @@ import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.ChildViewTransactionInfoBinding
 import vn.shb.cam.databinding.FragmentTransactionDetailBinding
+import vn.shb.cam.navigation.AppDestination
 import vn.shb.cam.screens.beneficiary.BeneficiaryViewModel
 import vn.shb.cam.screens.transaction.DialogSetNickname
 import vn.shb.cam.utils.ApiConst
@@ -180,7 +181,7 @@ class PaymentTransferFragment :
 
         with(binding) {
             ivClose.setOnSingleClickListener {
-                popBackTo(R.id.homeFragment)
+                popBackTo(AppDestination.Home)
             }
 
             ivCloseToast.setOnSingleClickListener {
@@ -189,7 +190,7 @@ class PaymentTransferFragment :
             }
 
             tvCreateNewTransaction.setOnSingleClickListener {
-                popBackTo(R.id.moneyTransferFragment)
+                popBackTo(AppDestination.MoneyTransfer())
             }
 
             tvShare.setOnSingleClickListener {

@@ -19,12 +19,13 @@ import vn.shb.dn.choosePhotoHelper.ChoosePhotoHelper
 import vn.shb.dn.choosePhotoHelper.callback.ChoosePhotoCallback
 import vn.shb.cam.BuildConfig
 import vn.shb.cam.R
-import vn.shb.cam.activity.login.LoginActivity
+import vn.shb.cam.activity.MainActivity
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.base.view.MyTextView
 import vn.shb.cam.databinding.FragmentProfileBinding
 import vn.shb.cam.databinding.ItemProfileInfoBinding
 import vn.shb.cam.databinding.LayoutLanguagePopupBinding
+import vn.shb.cam.navigation.AppDestination
 import vn.shb.cam.screens.home.getTypeAccount
 import vn.shb.cam.screens.home.widget.OnClickDetail
 import vn.shb.cam.screens.login.state.LogoutUiState
@@ -126,10 +127,10 @@ class ProfileFragment :
     override fun initListener() {
         with(binding) {
             tvMyProfile.setOnSingleClickListener {
-                safeNavigate(R.id.profileFragment, R.id.homeFragment)
+                popBackTo(AppDestination.Home)
             }
             tvChangePassword.setOnSingleClickListener {
-                safeNavigate(R.id.profileFragment, R.id.action_profileFragment_to_changePasswordFragment)
+                safeNavigate(AppDestination.ChangePassword)
             }
             btnLogout.setOnSingleClickListener {
                 BottomSheetDialogHelper(requireContext()).message(
@@ -174,7 +175,7 @@ class ProfileFragment :
                             storage.resetToken()
                             requireActivity().apply {
                                 finishAffinity()
-                                returnActivity(LoginActivity.intent(requireContext()))
+                                returnActivity(MainActivity.loginIntent(requireContext()))
                             }
                         }
                     }

@@ -11,20 +11,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import androidx.annotation.IdRes
 import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import vn.shb.cam.R
+import vn.shb.cam.navigation.AppDestination
+import vn.shb.cam.navigation.NavigationTransition
+import vn.shb.cam.navigation.requireNavigator
 import vn.shb.cam.utils.extensions.CustomToastShowOnTop
-import vn.shb.cam.utils.extensions.navigation.safeNavigate
 
 abstract class BaseBottomDialogBinding<T : ViewBinding>(
         private val inflateMethod: (LayoutInflater, ViewGroup?, Boolean) -> T
@@ -137,12 +136,17 @@ abstract class BaseBottomDialogBinding<T : ViewBinding>(
     }
 
     fun safeNavigate(
-            @IdRes currentDestinationId: Int,
-            @IdRes actionId: Int,
-            bundle: Bundle? = null,
-            options: NavOptions? = null
+            destination: AppDestination,
+            clearBackStack: Boolean = false,
+            addToBackStack: Boolean = true,
+            transition: NavigationTransition? = null,
     ) {
-        findNavController().safeNavigate(currentDestinationId, actionId, bundle, options)
+        requireNavigator().open(
+                destination = destination,
+                clearBackStack = clearBackStack,
+                addToBackStack = addToBackStack,
+                transition = transition,
+        )
     }
 
     override fun show(manager: FragmentManager, tag: String?) {

@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.FragmentHomeBinding
+import vn.shb.cam.navigation.AppDestination
 import vn.shb.cam.screens.home.helper.LoopingAdapter
 import vn.shb.cam.screens.home.widget.OnClickDetail
 import vn.shb.cam.utils.extensions.common.Const
@@ -118,19 +119,19 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
 
     override fun initListener() {
         with(binding) {
-            flAvatarUser.setListener(
+                flAvatarUser.setListener(
                 object : OnClickDetail {
                     override fun onAvatarClick() {
-                        safeNavigate(R.id.homeFragment, R.id.action_homeFragment_to_profileFragment)
+                        safeNavigate(AppDestination.Profile)
                     }
                 })
 
             incItemTransfer.root.setOnSingleClickListener {
-                safeNavigate(R.id.homeFragment, R.id.moneyTransferFragment)
+                safeNavigate(AppDestination.MoneyTransfer())
             }
 
             incItemAccounts.root.setOnSingleClickListener {
-                safeNavigate(R.id.homeFragment, R.id.action_homeFragment_to_accountDetailFragment)
+                safeNavigate(AppDestination.AccountDetail)
             }
 
             tvCurrentAccount.setOnSingleClickListener {
@@ -160,11 +161,11 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
 //                showLanguagePopup(flQrCode)
             }
             tvBeneficiary.setOnSingleClickListener {
-                safeNavigate(R.id.homeFragment, R.id.action_homeFragment_to_beneficiaryFragment)
+                safeNavigate(AppDestination.Beneficiary)
             }
 
             tvChatPay.setOnSingleClickListener {
-                safeNavigate(R.id.homeFragment, R.id.action_homeFragment_to_pastePayFragment)
+                safeNavigate(AppDestination.Paste2Pay)
             }
         }
     }
