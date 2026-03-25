@@ -1,5 +1,6 @@
 package vn.shb.cam.base
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.transition.TransitionManager
@@ -8,26 +9,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.annotation.ColorRes
-import androidx.annotation.IdRes
 import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.transition.platform.MaterialFadeThrough
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import vn.shb.cam.R
-import vn.shb.cam.activity.login.LoginActivity
+import vn.shb.cam.activity.MainActivity
+import vn.shb.cam.navigation.AppDestination
+import vn.shb.cam.navigation.NavigationTransition
+import vn.shb.cam.navigation.requireNavigator
 import vn.shb.cam.screens.home.HomeViewModel
 import vn.shb.cam.utils.ApiConst
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
-import vn.shb.cam.utils.extensions.navigation.safeNavigate
 import vn.shb.cam.utils.extensions.returnActivity
 import vn.shb.cam.utils.refreshTK.RefreshTokenManager
 import vn.shb.cam.utils.view.dialog.BottomSheetDialogHelper
@@ -54,10 +54,16 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
     private val listErrorLogout = listOf(AUTH_006, AUTH_001, AUTH_002)
 
     open fun isPaddingBottom() = false
+    protected open fun useBaseFadeThrough() = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setBaseTransitions()
+        if (useBaseFadeThrough()) {
+            setBaseTransitions()
+        } else {
+            enterTransition = null
+            reenterTransition = null
+        }
     }
 
     override fun onCreateView(
@@ -105,7 +111,9 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
 
     override fun onResume() {
         super.onResume()
-        playFadeThrough() // Kích hoạt lại animation mỗi khi Fragment trở lại trạng thái RESUMED
+        if (useBaseFadeThrough()) {
+            playFadeThrough() // Kích hoạt lại animation mỗi khi Fragment trở lại trạng thái RESUMED
+        }
     }
 
     private fun setBaseTransitions() {
@@ -141,25 +149,39 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
     }
 
     fun safeNavigate(
-        @IdRes currentDestinationId: Int,
-        @IdRes actionId: Int,
-        bundle: Bundle? = null,
-        options: NavOptions? = null
+        destination: AppDestination,
+        clearBackStack: Boolean = false,
+        addToBackStack: Boolean = true,
+        transition: NavigationTransition? = null,
     ) {
-        findNavController().safeNavigate(currentDestinationId, actionId, bundle, options)
+        requireNavigator().open(
+            destination = destination,
+            clearBackStack = clearBackStack,
+            addToBackStack = addToBackStack,
+            transition = transition,
+        )
     }
 
     fun backPress() {
-        findNavController().popBackStack()
+        val handled = requireNavigator().goBack()
+        if (!handled) {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
     }
 
-    fun popBackTo(@IdRes id: Int) {
-        findNavController().popBackStack(id, false)
+    fun popBackTo(
+        destination: AppDestination,
+        inclusive: Boolean = false,
+    ) {
+        val handled = requireNavigator().popTo(destination, inclusive)
+        if (!handled) {
+            backPress()
+        }
     }
 
     fun safeNavigate(deepLink: Uri) {
         try {
-            findNavController().navigate(deepLink)
+            startActivity(Intent(Intent.ACTION_VIEW, deepLink))
         } catch (ex: Exception) {
             ex.printStackTrace()
         }
@@ -196,6 +218,17 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         )
     }
 
+    open fun showErrorMessageOnly(message: String, onAction: (() -> Unit)? = null){
+        BottomSheetDialogHelper(requireContext()).message(
+            title = getString(R.string.notification),
+            message = message,
+            textPositive = getString(R.string.close),
+            positiveAction = {
+                onAction?.invoke()
+            }
+        )
+    }
+
     protected fun handleErrorHome(error: Reason?, onAction: (() -> Unit)? = null) {
         if (error != null) {
             if (listErrorLogout.contains(error.errorCode)) {
@@ -206,7 +239,7 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
                     storage.resetUser()
                     RefreshTokenManager.stop()
                     finishAffinity(requireActivity())
-                    returnActivity(LoginActivity.intent(requireActivity(), error))
+                    returnActivity(MainActivity.loginIntent(requireActivity()))
                 })
             }
         }
@@ -229,7 +262,7 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         storage.resetUser()
         RefreshTokenManager.stop()
         finishAffinity(requireActivity())
-        returnActivity(LoginActivity.intent(requireActivity(), error))
+        returnActivity(MainActivity.loginIntent(requireActivity()))
     }
 
     // Removing the binding reference when not needed is recommended as it avoids memory leak

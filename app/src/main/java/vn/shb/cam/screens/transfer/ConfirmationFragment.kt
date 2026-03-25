@@ -7,6 +7,7 @@ import kotlinx.coroutines.launch
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.FragmentConfirmationBinding
+import vn.shb.cam.navigation.AppDestination
 import vn.shb.cam.screens.login.ui.widget.ConfirmDeviceView
 import vn.shb.cam.utils.ApiConst
 import vn.shb.cam.utils.extensions.common.Const
@@ -122,11 +123,10 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                         if (it != null) {
                             homeViewModel.confirmSuccessData = it
                             safeNavigate(
-                                R.id.confirmationFragment, R.id.paymentTransferFragment,
-                                bundle = bundleOf(
+                                AppDestination.PaymentTransfer(bundleOf(
                                     ApiConst.KEY_ACCOUNT_NO_TRANSACTION to confirmModel!!.fromAccount.accountNumber,
                                     ApiConst.KEY_TYPE_TRANSFER_INTRABANK to isIntrabank
-                                )
+                                ))
                             )
                         }
                         confirmDeviceView.hide()
@@ -136,8 +136,9 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                 launch {
                     stateTransferConfirmError.collectLatest {
                         safeNavigate(
-                            R.id.confirmationFragment, R.id.paymentTransferFragment,
-                            bundle = bundleOf(ApiConst.KEY_CONFIRM_ERROR to true)
+                            AppDestination.PaymentTransfer(
+                                bundleOf(ApiConst.KEY_CONFIRM_ERROR to true)
+                            )
                         )
                     }
                 }

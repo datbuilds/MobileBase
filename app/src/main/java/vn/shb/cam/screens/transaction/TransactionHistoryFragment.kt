@@ -9,16 +9,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.base.view.MyTextView
 import vn.shb.cam.databinding.FragmentTransactionHistoryBinding
+import vn.shb.cam.navigation.AppDestination
 import vn.shb.cam.screens.account.helper.TransactionAdapter
-
-
 import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
+import vn.shb.core.utils.extesions.setOnSingleClickListener
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -82,7 +81,7 @@ class TransactionHistoryFragment :
     private fun setUpRecyclerView() {
         adapter.setOnClickDetailListener {
             homeViewModel.currentTransaction = it
-            safeNavigate(R.id.transactionHistory, R.id.transactionDetailFragment)
+            safeNavigate(AppDestination.TransactionDetail)
         }
         with(binding.rcvTransaction) {
             layoutManager = LinearLayoutManager(requireContext())

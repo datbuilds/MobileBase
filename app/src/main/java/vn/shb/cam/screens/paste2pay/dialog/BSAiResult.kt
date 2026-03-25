@@ -7,21 +7,23 @@ import vn.shb.cam.base.BaseBottomDialogBinding
 import vn.shb.cam.databinding.BsAiResultBinding
 import vn.shb.cam.utils.BankType
 import vn.shb.cam.utils.extensions.setOnMaterialButtonClick
+import vn.shb.cam.utils.extensions.visibleWhenTrue
 import vn.shb.core.core.domain.source.response.AiPayResult
-import vn.shb.data.entities.getBalance
+import vn.shb.data.entities.getBalanceFormatted
 
 class BSAiResult(private val builder: Builder) :
     BaseBottomDialogBinding<BsAiResultBinding>(BsAiResultBinding::inflate) {
 
     companion object {
         const val TAG = "BSAiResult"
-        private const val EMPTY_VALUE = "--"
+        private const val EMPTY_VALUE = ""
         private const val BANK_ICON_SIZE_DP = 25
     }
 
     class Builder {
         var result: AiPayResult = AiPayResult()
         var onContinue: (() -> Unit)? = null
+        var onClose: (() -> Unit)? = null
 
         fun setResult(result: AiPayResult) = apply {
             this.result = result
@@ -29,6 +31,10 @@ class BSAiResult(private val builder: Builder) :
 
         fun setOnContinue(onContinue: (() -> Unit)?) = apply {
             this.onContinue = onContinue
+        }
+
+        fun setOnClose(onClose: (() -> Unit)?) = apply {
+            this.onClose = onClose
         }
 
         fun build() = BSAiResult(this)
@@ -44,8 +50,9 @@ class BSAiResult(private val builder: Builder) :
                 ?.takeIf { it.isNotBlank() }
                 ?: EMPTY_VALUE
             val amount = builder.result.amount
-                ?.toDouble()
-                ?.getBalance()
+                ?.stripTrailingZeros()
+                ?.toPlainString()
+                ?.getBalanceFormatted()
                 ?: EMPTY_VALUE
             val currency = builder.result.currency
                 ?.takeIf { it.isNotBlank() }
@@ -59,12 +66,15 @@ class BSAiResult(private val builder: Builder) :
             tvAmountValue.text = amount
             tvCurrencyValue.text = currency
             tvRemarkValue.text = remark
+
+            tvCurrencyValue.visibleWhenTrue(currency.isNotEmpty())
         }
     }
 
     override fun initListener() {
         binding.btClose.setOnMaterialButtonClick {
             dismissAllowingStateLoss()
+            builder.onClose?.invoke()
         }
         binding.btContinue.setOnMaterialButtonClick {
             dismissAllowingStateLoss()

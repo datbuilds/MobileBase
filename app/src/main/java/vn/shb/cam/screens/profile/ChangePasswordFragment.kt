@@ -13,6 +13,7 @@ import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.base.view.MyTextView
 import vn.shb.cam.databinding.FragmentChangePasswordBinding
+import vn.shb.cam.navigation.AppDestination
 import vn.shb.cam.utils.ApiConst
 import vn.shb.cam.utils.ApiConst.AUTH_111
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
@@ -156,10 +157,7 @@ class ChangePasswordFragment :
                             }
                             viewModel.resetState()
                             viewOldPasswordError(false)
-                            safeNavigate(
-                                R.id.changePasswordFragment,
-                                R.id.action_changePasswordFragment_to_changePasswordSuccessFragment
-                            )
+                            safeNavigate(AppDestination.ChangePasswordSuccess)
                         }
 
                         is ChangePasswordState.Error -> {

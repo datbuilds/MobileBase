@@ -1,5 +1,6 @@
 package vn.shb.cam.screens.paste2pay
 
+import android.annotation.SuppressLint
 import android.content.ClipDescription
 import android.content.ClipboardManager
 import android.content.Context
@@ -8,11 +9,11 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
-import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.FragmentPastePayBinding
+import vn.shb.cam.navigation.AppDestination
 import vn.shb.cam.screens.paste2pay.dialog.AiIntroductionDialog
 import vn.shb.cam.screens.paste2pay.dialog.BSAiResult
 import vn.shb.cam.screens.paste2pay.state.ChatPayUiState
@@ -29,7 +30,6 @@ import vn.shb.cam.utils.extensions.showProgressDialog
 import vn.shb.cam.utils.extensions.toast
 import vn.shb.cam.utils.extensions.visible
 import vn.shb.cam.utils.view.actionView.OnToolbarListener
-import vn.shb.core.core.delivery.reason.AppReason
 import vn.shb.core.core.domain.source.response.AiPayResult
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.dn.choosePhotoHelper.ChoosePhotoHelper
@@ -63,8 +63,9 @@ class Paste2PayFragment :
                     if (!selectedFile.exists() || !selectedFile.isFile) return
 
                     if (selectedFile.length() >= MAX_UPLOAD_IMAGE_SIZE_BYTES) {
-                        toast(getString(R.string.paste_pay_image_too_large, MAX_UPLOAD_IMAGE_SIZE_MB))
-                        clearSelectedImage()
+                        showErrorMessageOnly(message = getString(R.string.paste_pay_image_too_large)) {
+                            clearSelectedImage()
+                        }
                         return
                     }
 
@@ -104,6 +105,16 @@ class Paste2PayFragment :
         updateConfirmButtonState()
     }
 
+    private fun resetInputState() {
+        selectedImagePath = null
+        binding.edtContent.text?.clear()
+        binding.edtContent.clearFocus()
+        binding.imagePreview.clear()
+        binding.imagePreview.collapse()
+        updateConfirmButtonState()
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
     override fun initListener() {
         with(binding) {
             btUploadImage.setOnMaterialButtonClick {
@@ -120,7 +131,7 @@ class Paste2PayFragment :
 
             toolBar.setListener(object : OnToolbarListener {
                 override fun onPreviousClick() {
-                    findNavController().navigateUp()
+                    backPress()
                 }
             })
 
@@ -153,7 +164,9 @@ class Paste2PayFragment :
                 is ChatPayUiState.Error -> {
                     hideProgressDialog()
                     chatPayViewModel.resetState()
-                    showDialogError(state.reason)
+                    showDialogError(state.reason) {
+                        resetInputState()
+                    }
                 }
             }
         }
@@ -190,7 +203,7 @@ class Paste2PayFragment :
 
         if (clipboardItems.isEmpty() &&
             (description?.hasMimeType("image/*") == true ||
-                description?.hasMimeType(ClipDescription.MIMETYPE_TEXT_URILIST) == true)
+                    description?.hasMimeType(ClipDescription.MIMETYPE_TEXT_URILIST) == true)
         ) {
             toast("Vui lòng chọn upload ảnh")
             return
@@ -246,11 +259,14 @@ class Paste2PayFragment :
     private fun showAiResultDialog(result: AiPayResult) {
         BSAiResult.Builder()
             .setResult(result)
+            .setOnClose {
+                resetInputState()
+            }
             .setOnContinue {
                 if (!isSupportedShbTransfer(result)) {
-                    showDialogError(
-                        AppReason(getString(R.string.paste_pay_only_shb_supported))
-                    )
+                    showErrorMessageOnly(message = getString(R.string.paste_pay_only_shb_supported)) {
+                        resetInputState()
+                    }
                     return@setOnContinue
                 }
                 selectedImagePath = ""
@@ -262,9 +278,7 @@ class Paste2PayFragment :
     }
 
     private fun isSupportedShbTransfer(result: AiPayResult): Boolean {
-        val bankCode = result.beneficiaryBank
-            ?.takeIf { it.isNotBlank() }
-            ?: result.shortName
+        val bankCode = result.shortName
             ?.takeIf { it.isNotBlank() }
 
         return bankCode?.trim()?.uppercase(Locale.getDefault()) == BankType.SHB.code
@@ -272,11 +286,11 @@ class Paste2PayFragment :
 
     private fun navigateToTransfer(result: AiPayResult) {
         safeNavigate(
-            R.id.pastePayFragment,
-            R.id.moneyTransferFragment,
-            bundleOf(
-                ApiConst.KEY_TYPE_TRANSFER_INTRABANK to isIntrabankResponse(result.responseType),
-                ApiConst.KEY_TYPE_TRANSFER_DATA to result
+            AppDestination.MoneyTransfer(
+                bundleOf(
+                    ApiConst.KEY_TYPE_TRANSFER_INTRABANK to isIntrabankResponse(result.responseType),
+                    ApiConst.KEY_TYPE_TRANSFER_DATA to result
+                )
             )
         )
     }

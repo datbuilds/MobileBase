@@ -14,6 +14,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.FragmentMoneyTransferBinding
+import vn.shb.cam.navigation.AppDestination
 import vn.shb.cam.screens.beneficiary.BeneficiaryViewModel
 import vn.shb.cam.screens.home.DialogSelectAccount
 import vn.shb.cam.screens.home.DialogSelectBeneficiary
@@ -115,9 +116,14 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     private fun bindViewPay(aiPayResult: AiPayResult?) {
         with(binding) {
             iclToAccount.edtValue.setText(aiPayResult?.accountNum)
-            iclAmount.edtValue.setText((aiPayResult?.amount ?: 0).toString())
+            iclAmount.edtValue.setText(formatAiAmount(aiPayResult?.amount))
         }
         homeViewModel.getAccountByNumber(aiPayResult!!.accountNum ?: "")
+    }
+
+    private fun formatAiAmount(amount: BigDecimal?): String {
+        if (amount == null) return ""
+        return amount.stripTrailingZeros().toPlainString()
     }
 
     override fun onResume() {
@@ -163,8 +169,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                         homeViewModel.confirmModel = getConfirmationStatus()
                         homeViewModel.exchangeRealtime = getExchangeRealtime()
                         safeNavigate(
-                            R.id.moneyTransferFragment, R.id.confirmationFragment,
-                            bundleOf(ApiConst.KEY_TYPE_TRANSFER_INTRABANK to isIntrabank())
+                            AppDestination.Confirmation(
+                                bundleOf(ApiConst.KEY_TYPE_TRANSFER_INTRABANK to isIntrabank())
+                            )
                         )
                     }
                 }

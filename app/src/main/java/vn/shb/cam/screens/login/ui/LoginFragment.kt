@@ -1,7 +1,5 @@
 package vn.shb.cam.screens.login.ui
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -17,9 +15,12 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import vn.shb.cam.BuildConfig
 import vn.shb.cam.R
-import vn.shb.cam.activity.dashboard.DashboardActivity
+import vn.shb.cam.activity.MainActivity
 import vn.shb.cam.base.BaseFragmentBinding
+import vn.shb.cam.base.dialog.DialogSessionExpire
 import vn.shb.cam.databinding.FragmentLoginBinding
+import vn.shb.cam.navigation.AppDestination
+import vn.shb.cam.navigation.requireNavigator
 import vn.shb.cam.screens.login.state.LoginUiState
 import vn.shb.cam.screens.login.ui.widget.ConfirmDeviceView
 import vn.shb.cam.screens.login.ui.widget.showLanguagePopup
@@ -34,7 +35,6 @@ import vn.shb.cam.utils.extensions.hideProgressDialog
 import vn.shb.cam.utils.extensions.hideSoftKeyboard
 import vn.shb.cam.utils.extensions.isValidInputLogin
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
-import vn.shb.cam.utils.extensions.nextActivity
 import vn.shb.cam.utils.extensions.setCustomSpannable
 import vn.shb.cam.utils.extensions.setOnMaterialButtonClick
 import vn.shb.cam.utils.extensions.textValue
@@ -73,6 +73,8 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { _: Boolean -> }
 
+    override fun useBaseFadeThrough() = false
+
     override fun initView(view: View) {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
@@ -85,6 +87,16 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         confirmDeviceView = ConfirmDeviceView(requireContext())
         binding.flRegisterDevice.addView(confirmDeviceView)
         confirmDeviceView.visibility = View.GONE
+
+        // Bind remembered user state before the fragment becomes visible to avoid layout jumps.
+        mapUILogin()
+        bindEdtPassword()
+        clearFlag()
+
+        if (arguments?.getBoolean(AppDestination.ARG_SHOW_SESSION_EXPIRED) == true) {
+            arguments?.putBoolean(AppDestination.ARG_SHOW_SESSION_EXPIRED, false)
+            DialogSessionExpire().show(requireContext())
+        }
     }
 
     private fun mapUILogin() {
@@ -165,9 +177,9 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                 showLanguagePopup(binding.llLanguage)
             }
 
-            if (BuildConfig.FLAVOR == "dev") {
-                resetInputLogin()
-            }
+//            if (BuildConfig.FLAVOR == "dev") {
+//                resetInputLogin()
+//            }
         }
     }
 
@@ -245,11 +257,10 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     }
 
     private fun getUserLogin(): String {
-        return if (BuildConfig.FLAVOR == "dev") {
+        return run {
             val text = binding.edtInputUsername.text?.trim().toString()
-            if (!text.isNullOrEmpty()) text else currentUser?.userLogin ?: ""
-        } else currentUser?.userLogin
-            ?: binding.edtInputUsername.text?.trim().toString()
+            text.ifEmpty { currentUser?.userLogin ?: "" }
+        }
     }
 
     private fun postLogin(us: String, psW: String) {
@@ -264,8 +275,13 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         return Pair(psw, encPsw)
     }
 
-    private fun nextDashboard() {
-        nextActivity(DashboardActivity.intent(requireContext()))
+    private fun openHomeAfterLogin() {
+        requireNavigator().open(
+            destination = AppDestination.Home,
+            clearBackStack = true,
+            addToBackStack = false,
+        )
+        (activity as? MainActivity)?.onAuthenticatedFlowStarted()
     }
 
     override fun initObserve() {
@@ -383,7 +399,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                 loginViewModel.verifyDeviceResult.collect { data ->
                     // Handle verify success
                     confirmDeviceView.hide()
-                    nextDashboard()
+                    openHomeAfterLogin()
                 }
             }
 
@@ -508,6 +524,8 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     }
 
     private fun resetInputLogin() {
+        currentUser = null
+        currentUserName = ""
         with(binding) {
             llInfoUser.gone()
             groupViewNoLastUser.visible()
@@ -532,7 +550,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
     private fun onLoginSuccess(stateLogin: StateLogin) {
         if (stateLogin is StateLogin.OpenDashboard) {
-            nextDashboard()
+            openHomeAfterLogin()
         }
     }
 
@@ -540,32 +558,11 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         context?.let { ct ->
             LocaleHelper.saveLanguage(ct, type)
             LocaleHelper.setLocale(ct, type)
-            restartApp(requireActivity())
+            requireActivity().recreate()
         }
-    }
-
-    private fun restartApp(context: Context) {
-        val intent = context.packageManager.getLaunchIntentForPackage(context.packageName)
-        intent?.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-        context.startActivity(intent)
-        if (context is Activity) {
-            context.recreate()
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        mapUILogin()
-        bindEdtPassword()
-        clearFlag()
-
-        //mock
-        binding.edtInputPass.setText("12345678")
-//        handleActionLogin()
     }
 
     companion object {
         const val TAG = "LoginFragment"
     }
 }
-
