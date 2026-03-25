@@ -346,7 +346,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 }
 
                 textAccountNo == fromAccount?.accountNumber -> {
-                    errorAccountNumber(getString(R.string.invalidBeneficiaryAccount))
+                    errorAccountNumber(getString(R.string.sourceAndRecipient))
                 }
 
                 else -> {
@@ -570,6 +570,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             && fromAccount?.currencyCode?.isNotEmpty() == true
             && amountOfSender <= (fromAccount?.availableBalance ?: 0.0) && amountOfSender > 0.0
             && remarks.isNotEmpty()
+            && totalAmount >= 0.01
         ) {
             setEnableDone(true)
         } else {
