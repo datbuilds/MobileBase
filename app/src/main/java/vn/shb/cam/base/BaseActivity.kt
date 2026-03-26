@@ -25,15 +25,14 @@ import androidx.viewbinding.ViewBinding
 import org.koin.android.ext.android.inject
 import vn.shb.cam.R
 import vn.shb.cam.SHBApplication
-import vn.shb.cam.activity.dashboard.DashboardActivity
-import vn.shb.cam.activity.login.LoginActivity
+import vn.shb.cam.activity.MainActivity
 import vn.shb.cam.base.dialog.DialogWarningAccessibilityPermission
 import vn.shb.cam.base.dialog.DialogWarningDeviceRoot
-import vn.shb.cam.screens.splash.ui.SplashActivity
 import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.returnActivity
 import vn.shb.cam.utils.extensions.toast
 import vn.shb.cam.utils.refreshTK.RefreshTokenManager
+import vn.shb.cam.utils.view.dialog.ProgressDialogUtil
 import vn.shb.core.core.domain.usecases.login.UseCaseRefreshToken
 import vn.shb.core.core.domain.usecases.wso2.UseCaseRefreshTokenWso2
 import vn.shb.core.core.security.detectRoot.RootUtils
@@ -59,11 +58,9 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
             }
 
             // Xử lý back press theo từng activity
-            when (this@BaseActivity) {
-                is DashboardActivity -> handleDoubleBackPress()
-
-                is LoginActivity -> finishAffinity() // Close app luôn khi ở LoginActivity
-
+            when {
+                shouldUseDoubleBackToExit() -> handleDoubleBackPress()
+                shouldExitAppOnBackImmediately() -> finishAffinity()
                 else -> onBackPressedAction()
             }
         }
@@ -172,6 +169,11 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
         stopInactivityTimer()
     }
 
+    override fun onStop() {
+        dismissTransientUi()
+        super.onStop()
+    }
+
     /** Được gọi mỗi khi có sự tương tác của người dùng với màn hình */
     override fun onUserInteraction() {
         super.onUserInteraction()
@@ -179,7 +181,7 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
     }
 
     private fun startUserInteractionTimer() {
-        if (this is DashboardActivity) {
+        if (shouldHandleInactivityTimer()) {
             handlerInactivity.postDelayed(runnableInActivity, mTime)
         }
     }
@@ -196,6 +198,9 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
     }
 
     private fun inactivityTimeout() {
+        if (!shouldHandleInactivityTimer() || isSessionExpiryExempt()) {
+            return
+        }
         if (currentActivity() !in activityNotExpires()) {
             showDialogSessionExpire()
         } else {
@@ -204,7 +209,6 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
     }
 
     open fun showDialogSessionExpire() {
-        // Navigate to Login first, then let LoginActivity show the dialog.
         logout(isShowSessionExpired = true)
     }
 
@@ -217,8 +221,7 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
         super.onDestroy()
     }
 
-    private fun activityNotExpires(): List<String> =
-        listOf(LoginActivity::class.java.simpleName, SplashActivity::class.java.simpleName)
+    private fun activityNotExpires(): List<String> = emptyList()
 
     private fun currentActivity() =
         (application as SHBApplication).currentActivity?.javaClass?.simpleName
@@ -229,11 +232,23 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
 
     open fun handleSavedState(savedInstanceState: Bundle?) {}
     open fun sessionExpired() {}
+    open fun dismissTransientUi() {
+        ProgressDialogUtil.dismiss()
+    }
+
+    protected fun startRefreshTokenManager() {
+        RefreshTokenManager.start(
+            activity = this,
+            useCase = useCaseRefreshToken,
+            useCaseWso2 = useCaseRefreshTokenWso2,
+            storage = storage
+        )
+    }
 
     fun logout(isShowSessionExpired: Boolean = false) {
         storage.resetToken()
         finishAffinity()
-        returnActivity(LoginActivity.intent(this, isShowSessionExpired))
+        returnActivity(buildLoginIntent(isShowSessionExpired))
     }
 
     private fun checkThreadPolicy() {
@@ -332,6 +347,9 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
                     }
 
                     Intent.ACTION_SCREEN_ON -> {
+                        if (!shouldHandleInactivityTimer()) {
+                            return
+                        }
                         val currentTime = System.currentTimeMillis()
                         val elapsedTime = currentTime - lastInteractionTime
                         val remainingTime = mTime - elapsedTime
@@ -351,12 +369,31 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
         return false // Default: không start
     }
 
+    protected open fun shouldUseDoubleBackToExit(): Boolean {
+        return false
+    }
+
+    protected open fun shouldExitAppOnBackImmediately(): Boolean {
+        return false
+    }
+
+    protected open fun shouldHandleInactivityTimer(): Boolean {
+        return false
+    }
+
+    protected open fun isSessionExpiryExempt(): Boolean {
+        return false
+    }
+
+    protected open fun buildLoginIntent(isShowSessionExpired: Boolean): Intent {
+        return MainActivity.loginIntent(this, isShowSessionExpired)
+    }
+
     // Method để xử lý back press mặc định
     open fun onBackPressedAction() {
         finish()
     }
 
-    // Method để xử lý double back press cho DashboardActivity
     private fun handleDoubleBackPress() {
         if (doubleBackToExitPressedOnce) {
             // Lần thứ 2: thoát app

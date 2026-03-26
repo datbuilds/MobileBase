@@ -5,7 +5,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.cam.activity.login.LoginActivity
+import vn.shb.cam.activity.MainActivity
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.FragmentChangePasswordSuccessBinding
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
@@ -37,7 +37,7 @@ class ChangePasswordSuccessFragment :
                 delay(260) // Optional delay for smooth transition if needed, kept from ProfileFragment logic
                 requireActivity().apply {
                     finishAffinity()
-                    returnActivity(LoginActivity.intent(requireContext()))
+                    returnActivity(MainActivity.loginIntent(requireContext()))
                 }
             }
         }

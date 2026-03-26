@@ -163,6 +163,10 @@ class HomeViewModel(
         _stateLoading.emit(isLoading)
     }
 
+    fun resetLoadingState() {
+        _stateLoading.value = false
+    }
+
     fun getUserInfo(isFetchUser: Boolean = false) {
         viewModelScope.launch {
             useCaseUserInfo.invoke(None).collect { result ->

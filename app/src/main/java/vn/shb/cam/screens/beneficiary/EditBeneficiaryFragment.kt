@@ -11,6 +11,7 @@ import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.base.view.FontManager
 import vn.shb.cam.databinding.FragmentEditBeneficiaryBinding
+import vn.shb.cam.navigation.AppDestination
 import vn.shb.cam.utils.ApiConst
 import vn.shb.cam.utils.BankType
 import vn.shb.cam.utils.extensions.CustomToastShowOnTop
@@ -222,7 +223,7 @@ class EditBeneficiaryFragment :
             }
 
             ivHome.setOnSingleClickListener {
-                popBackTo(R.id.homeFragment)
+                popBackTo(AppDestination.Home)
             }
         }
     }

@@ -29,6 +29,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import vn.shb.cam.databinding.LayoutProcessBarBinding
+import vn.shb.cam.navigation.AppDestination
 import vn.shb.cam.utils.extensions.CustomToastShowOnTop
 import vn.shb.cam.utils.extensions.gone
 import vn.shb.cam.utils.extensions.hideSoftKeyboard
@@ -56,11 +57,11 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
             object : ActionEditBeneficiary {
                 override fun edit(item: Beneficiary) {
                     safeNavigate(
-                        R.id.beneficiaryFragment, R.id.editBeneficiaryFragment, bundleOf(
+                        AppDestination.EditBeneficiary(bundleOf(
                             ApiConst.KEY_TO_EDIT_BENEFICIARY to EditBeneficiaryFragment.EDIT,
                             ApiConst.KEY_BENEFICIARY_DATA to item,
                             ApiConst.KEY_LIST_BENEFICIARY_DATA to adapter.getDefaultList(),
-                        )
+                        ))
                     )
                 }
 
@@ -151,12 +152,10 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
 
     private fun navToEditBeneficiary() {
         safeNavigate(
-            R.id.beneficiaryFragment,
-            R.id.editBeneficiaryFragment,
-            bundleOf(
+            AppDestination.EditBeneficiary(bundleOf(
                 ApiConst.KEY_TO_EDIT_BENEFICIARY to EditBeneficiaryFragment.ADD_NEW,
                 ApiConst.KEY_LIST_BENEFICIARY_DATA to adapter.getDefaultList()
-            )
+            ))
         )
     }
 

@@ -1,5 +1,6 @@
 package vn.shb.cam.screens.paste2pay
 
+import android.annotation.SuppressLint
 import android.content.ClipDescription
 import android.content.ClipboardManager
 import android.content.Context
@@ -8,11 +9,11 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
-import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.FragmentPastePayBinding
+import vn.shb.cam.navigation.AppDestination
 import vn.shb.cam.screens.paste2pay.dialog.AiIntroductionDialog
 import vn.shb.cam.screens.paste2pay.dialog.BSAiResult
 import vn.shb.cam.screens.paste2pay.state.ChatPayUiState
@@ -104,6 +105,7 @@ class Paste2PayFragment :
         updateConfirmButtonState()
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun initListener() {
         with(binding) {
             btUploadImage.setOnMaterialButtonClick {
@@ -120,7 +122,7 @@ class Paste2PayFragment :
 
             toolBar.setListener(object : OnToolbarListener {
                 override fun onPreviousClick() {
-                    findNavController().navigateUp()
+                    backPress()
                 }
             })
 
@@ -272,12 +274,10 @@ class Paste2PayFragment :
 
     private fun navigateToTransfer(result: AiPayResult) {
         safeNavigate(
-            R.id.pastePayFragment,
-            R.id.moneyTransferFragment,
-            bundleOf(
+            AppDestination.MoneyTransfer(bundleOf(
                 ApiConst.KEY_TYPE_TRANSFER_INTRABANK to isIntrabankResponse(result.responseType),
                 ApiConst.KEY_TYPE_TRANSFER_DATA to result
-            )
+            ))
         )
     }
 
