@@ -12,18 +12,18 @@ object FontManager {
 
     fun init(context: Context, fontName: String? = null) {
 
-//        if (fontName.isNullOrBlank()) {
-//            // Nếu là tiếng Lào → dùng 1 font duy nhất
-//            val laoFont = ResourcesCompat.getFont(
-//                context,
-//                context.resources.getIdentifier("phetsarath_lao", "font", context.packageName)
-//            )
-//            regular = laoFont
-//            medium = laoFont
-//            bold = laoFont
-//            semi_bold = laoFont
-//            return
-//        }
+        if (fontName.isNullOrBlank()) {
+            // Nếu là tiếng CAM → dùng 1 font duy nhất
+            val camFont = ResourcesCompat.getFont(
+                context,
+                context.resources.getIdentifier("siemreap_regular", "font", context.packageName)
+            )
+            regular = camFont
+            medium = camFont
+            bold = camFont
+            semi_bold = camFont
+            return
+        }
 
         regular = ResourcesCompat.getFont(
             context,

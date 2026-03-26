@@ -33,11 +33,11 @@ object LocaleHelper {
         config.setLocale(locale)
         val newContext = context.createConfigurationContext(config)
 
-//        if (language.equals("km", ignoreCase = true)) {
-//            FontManager.init(newContext)
-//        } else {
+        if (language.equals("km", ignoreCase = true)) {
+            FontManager.init(newContext)
+        } else {
             FontManager.init(newContext, "inter")
-//        }
+        }
 
         return newContext
     }
