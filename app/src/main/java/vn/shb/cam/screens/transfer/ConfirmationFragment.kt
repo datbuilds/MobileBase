@@ -123,10 +123,12 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                         if (it != null) {
                             homeViewModel.confirmSuccessData = it
                             safeNavigate(
-                                AppDestination.PaymentTransfer(bundleOf(
-                                    ApiConst.KEY_ACCOUNT_NO_TRANSACTION to confirmModel!!.fromAccount.accountNumber,
-                                    ApiConst.KEY_TYPE_TRANSFER_INTRABANK to isIntrabank
-                                ))
+                                AppDestination.PaymentTransfer(
+                                    bundleOf(
+                                        ApiConst.KEY_ACCOUNT_NO_TRANSACTION to confirmModel!!.fromAccount.accountNumber,
+                                        ApiConst.KEY_TYPE_TRANSFER_INTRABANK to isIntrabank
+                                    )
+                                )
                             )
                         }
                         confirmDeviceView.hide()
@@ -135,11 +137,19 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
 
                 launch {
                     stateTransferConfirmError.collectLatest {
-                        safeNavigate(
-                            AppDestination.PaymentTransfer(
-                                bundleOf(ApiConst.KEY_CONFIRM_ERROR to true)
-                            )
-                        )
+                        when(it.errorCode){
+                            ApiConst.TRAN_017 ->
+                                confirmDeviceView.showErrorInvalidOtp(getString(R.string.incorrectOtpPleaseTryAgain))
+
+                            ApiConst.TRAN_015 -> handleErrorHome(it)
+                            else -> {
+                                safeNavigate(
+                                    AppDestination.PaymentTransfer(
+                                        bundleOf(ApiConst.KEY_CONFIRM_ERROR to true)
+                                    )
+                                )
+                            }
+                        }
                     }
                 }
 

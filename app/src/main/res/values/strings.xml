@@ -237,4 +237,5 @@
     <string name="action_continue">Continue</string>
     <string name="minumumCreditAmount">Minimum credit amount: 0.01 USD (For KHR to USD transfers)</string>
     <string name="sourceAndRecipient">Source and recipient accounts must be different</string>
+    <string name="incorrectOtpPleaseTryAgain">Incorrect OTP. Please try again.</string>
 </resources>
