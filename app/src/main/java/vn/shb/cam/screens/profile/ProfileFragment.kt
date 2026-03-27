@@ -305,6 +305,7 @@ class ProfileFragment :
     fun updateLanguage(type: String) {
         context?.let { ct ->
             LocaleHelper.saveLanguage(ct, type)
+            storage.setLanguage(type)
             LocaleHelper.setLocale(ct, type)
 //            restartApp(activity!!)
             requireActivity().recreate()

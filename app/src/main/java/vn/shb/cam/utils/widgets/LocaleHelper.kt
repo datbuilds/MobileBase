@@ -7,6 +7,7 @@ import androidx.annotation.DrawableRes
 import androidx.core.content.edit
 import vn.shb.cam.R
 import vn.shb.cam.base.view.FontManager
+import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import java.util.Locale
 
 object LocaleHelper {

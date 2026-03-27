@@ -557,6 +557,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     fun updateLanguage(type: String) {
         context?.let { ct ->
             LocaleHelper.saveLanguage(ct, type)
+            storage.setLanguage(type)
             LocaleHelper.setLocale(ct, type)
             requireActivity().recreate()
         }

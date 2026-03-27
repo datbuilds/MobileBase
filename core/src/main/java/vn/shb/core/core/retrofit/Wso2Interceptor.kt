@@ -11,6 +11,7 @@ class Wso2Interceptor(
     override fun intercept(chain: Interceptor.Chain) = chain.proceed(
         chain.appRequestBuilder(
             versionName = versionName,
+            language = storage.getLanguage(),
             token = storage.getToken(),
             deviceId = storage.getDeviceId(),
             tokenWso2 = storage.getTokenWso2(),
