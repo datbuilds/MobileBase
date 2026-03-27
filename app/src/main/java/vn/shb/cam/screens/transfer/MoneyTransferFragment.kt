@@ -115,9 +115,14 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     private fun bindViewPay(aiPayResult: AiPayResult?) {
         with(binding) {
             iclToAccount.edtValue.setText(aiPayResult?.accountNum)
-            iclAmount.edtValue.setText((aiPayResult?.amount ?: 0).toString())
+            iclAmount.edtValue.setText(formatAiAmount(aiPayResult?.amount))
         }
         homeViewModel.getAccountByNumber(aiPayResult!!.accountNum ?: "")
+    }
+
+    private fun formatAiAmount(amount: BigDecimal?): String {
+        if (amount == null) return ""
+        return amount.stripTrailingZeros().toPlainString()
     }
 
     override fun onResume() {

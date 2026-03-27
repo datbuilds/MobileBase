@@ -39,23 +39,17 @@ class AiIntroductionDialog(private val builder: Builder) :
     }
 
     private var countdownTimer: CustomCountdownTimer? = null
-    private var isDone = false
     private var currentPosition = 0
+    private val lastPageIndex: Int
+        get() = onboards.lastIndex
+
     private val pageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
 
         override fun onPageSelected(position: Int) {
             super.onPageSelected(position)
             currentPosition = position
             binding.dot.selectPage(position)
-
-            countdownTimer?.reset()
-            if (isDone) {
-                countdownTimer?.stop()
-            } else countdownTimer?.start()
-
-            if (currentPosition == onboards.size - 1) {
-                isDone = true
-            }
+            updateAutoScrollState()
         }
     }
 
@@ -70,13 +64,19 @@ class AiIntroductionDialog(private val builder: Builder) :
             isUserInputEnabled = true
         }
 
-        // Bắt đầu cuộn tự động
-        startCountDownTimer()
+        updateAutoScrollState()
     }
 
     private fun stopAutoScroll() {
-        // Tạm dừng auto scroll ở đây
         countdownTimer?.stop()
+    }
+
+    private fun updateAutoScrollState() {
+        if (currentPosition >= lastPageIndex) {
+            stopAutoScroll()
+            return
+        }
+        startCountDownTimer()
     }
 
     private fun startCountDownTimer() {
@@ -84,10 +84,10 @@ class AiIntroductionDialog(private val builder: Builder) :
             countdownTimer?.stop()
         }
         countdownTimer = CustomCountdownTimer(
-            totalTimeMillis = 3 * 1000L, // Tổng thời gian đếm ngược (60 giây)
-            intervalMillis = 1000,  // Khoảng thời gian giữa các tick (1 giây)
+            totalTimeMillis = 5 * 1000L,
+            intervalMillis = 1000,
             onFinishAction = {
-                if (currentPosition < onboards.size - 1) {
+                if (currentPosition < lastPageIndex) {
                     currentPosition++
                     viewPager?.setCurrentItem(currentPosition, true)
                 }
@@ -97,12 +97,7 @@ class AiIntroductionDialog(private val builder: Builder) :
 
     override fun initListener() {
         binding.btnSkip.setOnMaterialButtonClick {
-            if (currentPosition < onboards.size - 1) {
-                currentPosition++
-                viewPager?.setCurrentItem(currentPosition, true)
-            } else {
-                nextAction()
-            }
+            nextAction()
         }
     }
 

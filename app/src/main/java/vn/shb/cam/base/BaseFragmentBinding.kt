@@ -218,6 +218,17 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         )
     }
 
+    open fun showErrorMessageOnly(message: String, onAction: (() -> Unit)? = null){
+        BottomSheetDialogHelper(requireContext()).message(
+            title = getString(R.string.notification),
+            message = message,
+            textPositive = getString(R.string.close),
+            positiveAction = {
+                onAction?.invoke()
+            }
+        )
+    }
+
     protected fun handleErrorHome(error: Reason?, onAction: (() -> Unit)? = null) {
         if (error != null) {
             if (listErrorLogout.contains(error.errorCode)) {
