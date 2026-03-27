@@ -190,7 +190,6 @@ fun MyEditText.setupDecimalInput(currencyProvider: (() -> String)? = null) {
 fun ItemTransferTypeBinding.bindViewError(text: String? = null) {
     val isError = text != null
     tvError.isVisible = isError
-//    edtValue.alpha = if (isError) 0.6f else 1f
     if (!isError) return
     tvError.text = text
 }
