@@ -21,7 +21,7 @@ fun Interceptor.Chain.appRequestBuilder(
         val requestBuilder = original.newBuilder().apply {
             addHeader("Content-Type", "application/json")
             addHeader("X-Platform", "MOBILE")
-            addHeader("X-Device-ID", deviceId.plus("") ?: "")
+            addHeader("X-Device-ID", deviceId.plus("1") ?: "")
             addHeader("X-Language", Locale.getDefault().language)
 
             val info = "$versionName(Android$deviceVersion; $deviceModel; $deviceManufacturer"

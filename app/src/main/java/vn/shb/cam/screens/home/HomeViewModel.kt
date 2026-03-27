@@ -23,6 +23,8 @@ import vn.shb.core.core.delivery.ResultSHB
 import vn.shb.core.core.delivery.onFailure
 import vn.shb.core.core.delivery.onLoading
 import vn.shb.core.core.delivery.onSuccess
+import vn.shb.core.core.delivery.reason.PostTransactionError
+import vn.shb.core.core.delivery.reason.SendOtpTransactionError
 import vn.shb.core.core.domain.source.response.AccountUserNameModel
 import vn.shb.core.core.domain.source.response.ExchangeRateModel
 import vn.shb.core.core.domain.source.response.TransactionTransfer
@@ -116,8 +118,10 @@ class HomeViewModel(
     private val _stateTransactionTransferConfirm = MutableSharedFlow<TransactionTransferConfirm?>()
     val stateTransactionTransferConfirm = _stateTransactionTransferConfirm.asSharedFlow()
 
-    private val _stateTransferConfirmError = Channel<Reason>(Channel.BUFFERED)
+    private val _stateTransferConfirmError = Channel<SendOtpTransactionError>(Channel.BUFFERED)
     val stateTransferConfirmError = _stateTransferConfirmError.receiveAsFlow()
+    private val _statePostTransferError = Channel<PostTransactionError>(Channel.BUFFERED)
+    val statePostTransferError = _statePostTransferError.receiveAsFlow()
 
     private val _stateTransactionDetail = Channel<TransactionDetail?>(Channel.BUFFERED)
     val stateTransactionDetail = _stateTransactionDetail.receiveAsFlow()
@@ -424,7 +428,18 @@ class HomeViewModel(
                     }
                 }, { reason ->
                     viewModelScope.launch {
-                        stateError(reason)
+                        if (reason is PostTransactionError) {
+                            val data = PostTransactionError(
+                                code = reason.code,
+                                message = reason.message,
+                                maxOtpRequestsPerWindow = reason.maxOtpRequestsPerWindow,
+                                remainingSeconds = reason.remainingSeconds,
+                                success = reason.success,
+                            )
+                            _statePostTransferError.send(data)
+                        } else {
+                            stateError(reason)
+                        }
                     }
                 })
             }
@@ -450,7 +465,20 @@ class HomeViewModel(
                         if (listErrorCodeConfirmContinue.contains(reason.errorCode)) {
                             stateError(reason)
                         } else {
-                            _stateTransferConfirmError.send(reason)
+                            if (reason is SendOtpTransactionError) {
+                                val data = SendOtpTransactionError(
+                                    code = reason.code,
+                                    transactionId = reason.transactionId,
+                                    message = reason.message,
+                                    isValid = reason.isValid,
+                                    remainingAttempts = reason.remainingAttempts, // or pass if Reason has it? Reason only has remainingSeconds currently.
+                                    lockRemainingSeconds = reason.lockRemainingSeconds, // Reason doesn't have it currently
+                                    maxAttempts = reason.maxAttempts
+                                )
+                                _stateTransferConfirmError.send(data)
+                            } else {
+                                stateError(reason)
+                            }
                         }
                     }
                 })

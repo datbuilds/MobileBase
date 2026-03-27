@@ -16,8 +16,10 @@ import vn.shb.cam.utils.extensions.hideProgressDialog
 import vn.shb.cam.utils.extensions.hideSoftKeyboard
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.extensions.visible
+import vn.shb.cam.utils.view.dialog.CountdownBottomSheetDialog
 import vn.shb.core.core.domain.source.response.TransactionTransfer
 import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.formatExchangeRate
 import vn.shb.data.entities.getBalance
 
 class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
@@ -100,13 +102,12 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                     iclAccountName.tvValue.text = cf.toAccount.customerName
                 }
                 if (cf.fromAccount.currencyCode != cf.toAccount.currencyCode) {
-                    val fromIsUSD = cf.fromAccount.currencyCode == Const.USD
                     iclExchangeRate.apply {
                         root.visible()
                         tvValue.text = "1"
-                        tvCurrencyCode.text = if (fromIsUSD) Const.USD else Const.KHR
-                        tvValueSup.text = "=${homeViewModel.exchangeRealtime?.toPlainString()}"
-                        tvCurrencyCodeSup.text = if (fromIsUSD) Const.KHR else Const.USD
+                        tvCurrencyCode.text = Const.USD
+                        tvValueSup.text = "~${cf.exchangeRateUSD?.formatExchangeRate()}"
+                        tvCurrencyCodeSup.text = Const.KHR
                     }
                 } else {
                     iclExchangeRate.root.gone()
@@ -137,17 +138,42 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
 
                 launch {
                     stateTransferConfirmError.collectLatest {
-                        when(it.errorCode){
+                        when (it.errorCode) {
                             ApiConst.TRAN_017 ->
                                 confirmDeviceView.showErrorInvalidOtp(getString(R.string.incorrectOtpPleaseTryAgain))
 
-                            ApiConst.TRAN_015 -> handleErrorHome(it)
+                            ApiConst.TRAN_014 -> {
+                                CountdownBottomSheetDialog(
+                                    message = R.string.youHaveEnteredTheOtp3Time,
+                                    remainingSeconds = it.lockRemainingSeconds ?: 1,
+                                    maxRequest = it.maxAttempts
+                                ).show(childFragmentManager, CountdownBottomSheetDialog.TAG)
+                            }
+
                             else -> {
                                 safeNavigate(
                                     AppDestination.PaymentTransfer(
                                         bundleOf(ApiConst.KEY_CONFIRM_ERROR to true)
                                     )
                                 )
+                            }
+                        }
+                    }
+                }
+
+                launch {
+                    statePostTransferError.collectLatest {
+                        when (it.errorCode) {
+                            ApiConst.TRAN_015 -> {
+                                CountdownBottomSheetDialog(
+                                    message = R.string.youHaveRequestOtpLimitz,
+                                    remainingSeconds = it.remainingSeconds ?: 1,
+                                    maxRequest = it.maxOtpRequestsPerWindow
+                                ).show(childFragmentManager, CountdownBottomSheetDialog.TAG)
+                            }
+
+                            else -> {
+                                handleErrorHome(it)
                             }
                         }
                     }

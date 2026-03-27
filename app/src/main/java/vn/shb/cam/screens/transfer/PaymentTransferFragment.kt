@@ -1,5 +1,6 @@
 package vn.shb.cam.screens.transfer
 
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import kotlinx.coroutines.flow.collectLatest
@@ -32,6 +33,7 @@ import vn.shb.core.core.domain.source.request.BeneficiaryRequest
 import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionDetail
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.beneficiary.Beneficiary
+import vn.shb.data.entities.formatExchangeRate
 import vn.shb.data.entities.getBalance
 import vn.shb.data.entities.home.TransactionDetail
 
@@ -158,12 +160,15 @@ class PaymentTransferFragment :
 
             iclExchangeRate.apply {
                 if (trans.ccyCdDst != trans.ccyCdSrc) {
-                    tvLabel.text = getString(R.string.exchangeRate)
+//                    Log.i("23432443234", "${trans.rate}")
+                    val isFromUsd = trans.ccyCdSrc == Const.USD
+                    val exChangeRate = if (isFromUsd) trans.rate else (1 / trans.rate.toDouble()).formatExchangeRate()
+
                     tvValue.setExchangeRateText(
                         "1",
-                        trans.ccyCdSrc,
-                        trans.rate.toPlainString(),
-                        trans.ccyCdDst
+                        Const.USD,
+                        exChangeRate.toString(),
+                        Const.KHR
                     )
                 } else {
                     root.gone()

@@ -29,16 +29,22 @@ data class TransactionTransfer(
     @SerializedName("fee") val fee: Int = 0,
     @SerializedName("otpRemainingSeconds") val otpRemainingSeconds: Int = 0,
     @SerializedName("otpExpirySeconds") val otpExpirySeconds: Int = 0,
+    @SerializedName("maxOtpRequestsPerWindow") val maxOtpRequestsPerWindow: Int = 0,
+    @SerializedName("success") val success: Boolean = false,
+    @SerializedName("remainingSeconds") val remainingSeconds: Int = 0,
 ) : Serializable
 
 data class TransactionTransferConfirm(
-    @SerializedName("transactionId") val transactionId: Int = 0,
+    @SerializedName("transactionId") val transactionId: String = "",
     @SerializedName("refNo") val refNo: String = "",
     @SerializedName("status") val status: String = "",
     @SerializedName("mdCode") val moduleCode: String = "",
     @SerializedName("transCode") val transactionCode: String = "",
     @SerializedName("transDate") val transactionDate: String = "",
-    @SerializedName("hasBeneficiary") val hasBeneficiary: String = "",
+    @SerializedName("isValid") val isValid: Boolean = false,
+    @SerializedName("remainingAttempts") val remainingAttempts: String = "",
+    @SerializedName("lockRemainingSeconds") val lockRemainingSeconds: Int? = null,
+    @SerializedName("maxAttempts") val maxAttempts: Int? = null,
 ) : Serializable
 
 data class AccountUserNameModel(

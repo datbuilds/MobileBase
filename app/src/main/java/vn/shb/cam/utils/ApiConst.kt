@@ -20,6 +20,7 @@ object ApiConst {
     const val FUN_016 = "FUN-016"
     const val TRAN_017 = "TRAN-017"
     const val TRAN_015 = "TRAN-015"
+    const val TRAN_014 = "TRAN-014"
     const val TRAN_016 = "TRAN-016"
     const val CODE_NEED_REGISTER = "DEVICE-006"
 
