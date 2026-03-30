@@ -434,6 +434,7 @@ class HomeViewModel(
                                 message = reason.message,
                                 maxOtpRequestsPerWindow = reason.maxOtpRequestsPerWindow,
                                 remainingSeconds = reason.remainingSeconds,
+                                maxAttempts = reason.maxAttempts,
                                 success = reason.success,
                             )
                             _statePostTransferError.send(data)

@@ -53,6 +53,7 @@ class PostTransactionError(
     val code: String,
     val maxOtpRequestsPerWindow: Int? = null,
     val remainingSeconds: Int? = null,
+    val maxAttempts: Int? = null,
     val success: Boolean? = null,
 ) : Reason() {
     override val errMessage: String

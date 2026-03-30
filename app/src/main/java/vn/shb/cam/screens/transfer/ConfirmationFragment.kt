@@ -131,7 +131,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                                 )
                             )
                         }
-                        confirmDeviceView.hide()
+                        hideConfirmOtpTransaction()
                     }
                 }
 
@@ -142,6 +142,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                                 confirmDeviceView.showErrorInvalidOtp(getString(R.string.incorrectOtpPleaseTryAgain))
 
                             ApiConst.TRAN_014 -> {
+                                hideConfirmOtpTransaction()
                                 CountdownBottomSheetDialog(
                                     message = R.string.youHaveEnteredTheOtp3Time,
                                     remainingSeconds = it.lockRemainingSeconds ?: 1,
@@ -150,6 +151,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                             }
 
                             else -> {
+                                hideConfirmOtpTransaction()
                                 safeNavigate(
                                     AppDestination.PaymentTransfer(
                                         bundleOf(ApiConst.KEY_CONFIRM_ERROR to true)
@@ -162,12 +164,21 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
 
                 launch {
                     statePostTransferError.collectLatest {
+//                        hideConfirmOtpTransaction()
                         when (it.errorCode) {
                             ApiConst.TRAN_015 -> {
                                 CountdownBottomSheetDialog(
                                     message = R.string.youHaveRequestOtpLimitz,
                                     remainingSeconds = it.remainingSeconds ?: 1,
                                     maxRequest = it.maxOtpRequestsPerWindow
+                                ).show(childFragmentManager, CountdownBottomSheetDialog.TAG)
+                            }
+
+                            ApiConst.TRAN_014 -> {
+                                CountdownBottomSheetDialog(
+                                    message = R.string.youHaveEnteredTheOtp3Time,
+                                    remainingSeconds = it.remainingSeconds ?: 1,
+                                    maxRequest = it.maxAttempts
                                 ).show(childFragmentManager, CountdownBottomSheetDialog.TAG)
                             }
 
@@ -215,7 +226,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                 // Handle close
             }
         )
-        confirmDeviceView.show()
+        showConfirmOtpTransaction()
     }
 
     override fun initListener() {
@@ -237,6 +248,16 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                 cf.amount, cf.fromAccount.currencyCode, cf.remarks, transactionId
             )
         }
+    }
+
+    private fun hideConfirmOtpTransaction() {
+        binding.flRegisterDevice.gone()
+        confirmDeviceView.hide()
+    }
+
+    private fun showConfirmOtpTransaction() {
+        binding.flRegisterDevice.visible()
+        confirmDeviceView.show()
     }
 
 }

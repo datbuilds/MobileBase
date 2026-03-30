@@ -158,6 +158,7 @@ class RepositoryTransferImpl(
                             code = contentResult.errorCode,
                             maxOtpRequestsPerWindow = contentResult.data?.maxOtpRequestsPerWindow,
                             remainingSeconds = contentResult.data?.remainingSeconds,
+                            maxAttempts = contentResult.data?.maxAttempts,
                             success = contentResult.data?.success,
                         )
                     )

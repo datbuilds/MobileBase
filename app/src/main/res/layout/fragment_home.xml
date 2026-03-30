@@ -214,8 +214,8 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/flBeneficiary"
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/margin_16dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16dp"
         android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@+id/llMainAccount">
 
@@ -224,13 +224,13 @@
             android:layout_width="@dimen/margin_0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:foreground="@drawable/ripple_grey_rec_12"
             android:layout_weight="1"
-            android:gravity="center"
-            android:paddingVertical="@dimen/margin_12dp"
             android:background="@drawable/bg_option_beneficiary"
             android:drawableTop="@drawable/ic_beneficiary"
             android:drawablePadding="6dp"
+            android:foreground="@drawable/ripple_grey_rec_12"
+            android:gravity="center"
+            android:paddingVertical="@dimen/margin_12dp"
             android:text="@string/beneficiary"
             android:textColor="@color/neutral10"
             android:textSize="@dimen/textSize14"
@@ -240,15 +240,15 @@
             android:id="@+id/tvChatPay"
             android:layout_width="@dimen/margin_0dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:foreground="@drawable/ripple_grey_rec_12"
             android:layout_gravity="center"
-            android:paddingVertical="@dimen/margin_12dp"
             android:layout_marginStart="@dimen/margin_8dp"
-            android:background="@drawable/bg_option_beneficiary"
             android:layout_weight="1"
-            android:drawableTop="@drawable/ic_chatpay"
+            android:background="@drawable/bg_option_beneficiary"
+            android:drawableTop="@drawable/ic_paste2pay"
             android:drawablePadding="6dp"
+            android:foreground="@drawable/ripple_grey_rec_12"
+            android:gravity="center"
+            android:paddingVertical="@dimen/margin_12dp"
             android:text="@string/chatpay"
             android:textColor="@color/neutral10"
             android:textSize="@dimen/textSize14"
@@ -278,10 +278,10 @@
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/ivBanner"
         android:layout_width="match_parent"
-        app:shapeAppearanceOverlay="@style/circleImageBanner"
         android:layout_height="@dimen/margin_150dp"
         android:layout_marginTop="16dp"
         android:scaleType="centerCrop"
-        app:layout_constraintTop_toBottomOf="@+id/flBeneficiary" />
+        app:layout_constraintTop_toBottomOf="@+id/flBeneficiary"
+        app:shapeAppearanceOverlay="@style/circleImageBanner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
