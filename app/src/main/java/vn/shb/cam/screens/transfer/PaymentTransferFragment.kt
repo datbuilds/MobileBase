@@ -160,7 +160,6 @@ class PaymentTransferFragment :
 
             iclExchangeRate.apply {
                 if (trans.ccyCdDst != trans.ccyCdSrc) {
-//                    Log.i("23432443234", "${trans.rate}")
                     val isFromUsd = trans.ccyCdSrc == Const.USD
                     val exChangeRate = if (isFromUsd) trans.rate else (1 / trans.rate.toDouble()).formatExchangeRate()
 

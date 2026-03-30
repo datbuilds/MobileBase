@@ -49,6 +49,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     private var listBeneficiary: List<Beneficiary> = listOf()
     var currentTypeTransfer: String = INTRABANK
 
+    private var exChangeScreen: String? = null
+
     private var fromAccount: AccountBase? = null
         set(value) {
             field = value
@@ -398,7 +400,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             fromAccount!!, toAccount!!, remarks, transactionDate = getDateFromCurrentDate(),
             amountOfSender, 0.0, totalAmount,
             paymentType = if (isIntrabank()) ApiConst.INTRA else ApiConst.SELF,
-            exchangeRateUSD = exchangeUSDToKm
+            exchangeRateScreen = exChangeScreen
         )
     }
 
@@ -697,21 +699,15 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     }
 
     private fun getTextExchangeCurrency(currency: String): String {
-//        return if (currency == Const.USD) {
+        exChangeScreen = if (currency == Const.USD) exchangeUSDToKm?.formatExchangeRate() else
+            1.div((exchangeKmToUSD?.toDouble() ?: 1.0)).formatExchangeRate()
+
         return getString(
             R.string.formatTextExchangeCurrency,
             Const.USD,
-            exchangeUSDToKm?.formatExchangeRate(),
+            exChangeScreen,
             Const.KHR
         )
-//        } else {
-//            getString(
-//                R.string.formatTextExchangeCurrency,
-//                Const.KHR,
-//                exchangeKmToUSD?.toPlainString(),
-//                Const.USD
-//            )
-//        }
     }
 
     private fun getExchangeRealtime(): BigDecimal? {

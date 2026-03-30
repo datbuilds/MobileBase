@@ -19,7 +19,6 @@ import vn.shb.cam.utils.extensions.visible
 import vn.shb.cam.utils.view.dialog.CountdownBottomSheetDialog
 import vn.shb.core.core.domain.source.response.TransactionTransfer
 import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.data.entities.formatExchangeRate
 import vn.shb.data.entities.getBalance
 
 class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
@@ -106,7 +105,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                         root.visible()
                         tvValue.text = "1"
                         tvCurrencyCode.text = Const.USD
-                        tvValueSup.text = "~${cf.exchangeRateUSD?.formatExchangeRate()}"
+                        tvValueSup.text = "≈${cf.exchangeRateScreen}"
                         tvCurrencyCodeSup.text = Const.KHR
                     }
                 } else {
