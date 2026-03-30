@@ -93,6 +93,9 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         bindEdtPassword()
         clearFlag()
 
+        binding.edtInputPass.setText("12345678")
+        login()
+
         if (arguments?.getBoolean(AppDestination.ARG_SHOW_SESSION_EXPIRED) == true) {
             arguments?.putBoolean(AppDestination.ARG_SHOW_SESSION_EXPIRED, false)
             DialogSessionExpire().show(requireContext())
@@ -177,9 +180,11 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                 showLanguagePopup(binding.llLanguage)
             }
 
-//            if (BuildConfig.FLAVOR == "dev") {
-//                resetInputLogin()
-//            }
+            if (BuildConfig.FLAVOR == "dev") {
+                binding.ivLogoSHB.setOnSingleClickListener {
+                    resetInputLogin()
+                }
+            }
         }
     }
 

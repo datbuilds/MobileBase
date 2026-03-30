@@ -14,5 +14,6 @@ data class ConfirmationModel(
     @SerializedName("fee") val fee: Double = 0.0,
     @SerializedName("totalAmount") val totalAmount: Double = 0.00,
     @SerializedName("otp") val otp: String = "",
+    @SerializedName("exchangeRateUSD") val exchangeRateScreen: String? = "",
     var paymentType: String
 ) : Serializable

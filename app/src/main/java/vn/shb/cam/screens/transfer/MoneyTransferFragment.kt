@@ -1,6 +1,7 @@
 package vn.shb.cam.screens.transfer
 
 import android.content.res.ColorStateList
+import android.text.InputFilter
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
@@ -33,6 +34,7 @@ import vn.shb.core.core.domain.usecases.transfer.UseCaseValidateTransaction
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.AccountBase
 import vn.shb.data.entities.beneficiary.Beneficiary
+import vn.shb.data.entities.formatExchangeRate
 import vn.shb.data.entities.getBalance
 import vn.shb.data.entities.home.AccountInfo
 import vn.shb.data.entities.transfer.ConfirmationModel
@@ -46,6 +48,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     private val beneficiaryViewModel: BeneficiaryViewModel by viewModel()
     private var listBeneficiary: List<Beneficiary> = listOf()
     var currentTypeTransfer: String = INTRABANK
+
+    private var exChangeScreen: String? = null
 
     private var fromAccount: AccountBase? = null
         set(value) {
@@ -395,7 +399,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         return ConfirmationModel(
             fromAccount!!, toAccount!!, remarks, transactionDate = getDateFromCurrentDate(),
             amountOfSender, 0.0, totalAmount,
-            paymentType = if (isIntrabank()) ApiConst.INTRA else ApiConst.SELF
+            paymentType = if (isIntrabank()) ApiConst.INTRA else ApiConst.SELF,
+            exchangeRateScreen = exChangeScreen
         )
     }
 
@@ -694,21 +699,15 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     }
 
     private fun getTextExchangeCurrency(currency: String): String {
-//        return if (currency == Const.USD) {
+        exChangeScreen = if (currency == Const.USD) exchangeUSDToKm?.formatExchangeRate() else
+            1.div((exchangeKmToUSD?.toDouble() ?: 1.0)).formatExchangeRate()
+
         return getString(
             R.string.formatTextExchangeCurrency,
             Const.USD,
-            exchangeUSDToKm?.toPlainString(),
+            exChangeScreen,
             Const.KHR
         )
-//        } else {
-//            getString(
-//                R.string.formatTextExchangeCurrency,
-//                Const.KHR,
-//                exchangeKmToUSD?.toPlainString(),
-//                Const.USD
-//            )
-//        }
     }
 
     private fun getExchangeRealtime(): BigDecimal? {
@@ -733,8 +732,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                     isLongClickable = isIntrabank()
                 }
 
-//                edtValue.filters =
-//                    arrayOf(InputFilter.LengthFilter(if (isIntrabank()) 10 else 1000000))
+                edtValue.filters =
+                    arrayOf(InputFilter.LengthFilter(12))
             }
             iclAmount.edtValue.setText(Const.EMPTY)
             iclExchangeRate.root.gone()

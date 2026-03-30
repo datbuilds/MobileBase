@@ -30,7 +30,7 @@ class AccountDetailFragment :
 
     override fun onResume() {
         super.onResume()
-//        homeViewModel.getTake5Transaction(requireContext())
+        homeViewModel.getTake5Transaction(requireContext())
         homeViewModel.getAccountDetails()
     }
 
@@ -65,7 +65,7 @@ class AccountDetailFragment :
                 ) { ac ->
                     homeViewModel.selectedAccount = ac
                     homeViewModel.getAccountDetails(ac.accountNumber)
-//                    homeViewModel.getTake5Transaction(requireContext())
+                    homeViewModel.getTake5Transaction(requireContext())
                 }.build().show(childFragmentManager, DialogSelectAccount.TAG)
             }
             swDefaultCasa.setOnCheckedChangeListener { _, isChecked ->

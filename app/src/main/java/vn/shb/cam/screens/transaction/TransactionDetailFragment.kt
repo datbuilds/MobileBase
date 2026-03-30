@@ -18,6 +18,7 @@ import vn.shb.cam.utils.extensions.gone
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.extensions.setExchangeRateText
 import vn.shb.cam.utils.extensions.visible
+import vn.shb.data.entities.formatExchangeRate
 
 class TransactionDetailFragment :
     BaseFragmentBinding<FragmentTransactionDetailBinding>(FragmentTransactionDetailBinding::inflate) {
@@ -91,13 +92,19 @@ class TransactionDetailFragment :
             }
 
             iclExchangeRate.apply {
-                tvLabel.text = getString(R.string.exchangeRate)
-                tvValue.setExchangeRateText(
-                    "1",
-                    trans.ccyCdSrc,
-                    trans.rate.toPlainString(),
-                    trans.ccyCdDst
-                )
+                if (trans.ccyCdDst != trans.ccyCdSrc) {
+                    val isFromUsd = trans.ccyCdSrc == Const.USD
+                    val exChangeRate = if (isFromUsd) trans.rate else (1 / trans.rate.toDouble()).formatExchangeRate()
+
+                    tvValue.setExchangeRateText(
+                        "1",
+                        Const.USD,
+                        exChangeRate.toString(),
+                        Const.KHR
+                    )
+                } else {
+                    root.gone()
+                }
             }
         }
     }

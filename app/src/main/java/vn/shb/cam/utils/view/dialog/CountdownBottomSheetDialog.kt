@@ -16,6 +16,7 @@ import vn.shb.core.utils.extesions.setOnSingleClickListener
 class CountdownBottomSheetDialog(
     private val message: Int,
     private val remainingSeconds: Int,
+    private val maxRequest: Int? = null,
     private val onDismiss: (() -> Unit)? = null
 ) : BaseBottomDialogBinding<CustomDialogLayoutBinding>(CustomDialogLayoutBinding::inflate) {
 
@@ -25,7 +26,7 @@ class CountdownBottomSheetDialog(
         with(binding) {
             tvTitleAlert.text = getString(R.string.notification)
             ivCloseDialog.gone()
-            
+
             buttonNegative.gone()
             viewCenter.gone()
             buttonPositive.apply {
@@ -35,11 +36,11 @@ class CountdownBottomSheetDialog(
                     dismiss()
                 }
             }
-            
+
             // Start countdown
             startTimer()
         }
-        
+
         // Ensure dialog is not cancelable
         isCancelable = false
     }
@@ -57,12 +58,24 @@ class CountdownBottomSheetDialog(
         timer = object : CountDownTimer(remainingSeconds * 1000L, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 if (view == null) return
-                
+
                 val m = (millisUntilFinished / 1000) / 60
                 val s = (millisUntilFinished / 1000) % 60
                 val formatted = String.format("%02d:%02d", m, s)
-                
-                val fullText = getString(message, formatted)
+                val maxR = maxRequest.toString()
+
+                val fullText =
+                    try {
+                        if (maxRequest != null) {
+                            getString(
+                                message,
+                                maxR,
+                                formatted
+                            )
+                        } else getString(message, formatted)
+                    } catch (e: Exception){
+                        getString(message, formatted)
+                    }
 
                 val spannable = SpannableString(fullText)
                 val start = fullText.lastIndexOf(formatted)

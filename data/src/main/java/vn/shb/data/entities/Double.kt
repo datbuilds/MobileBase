@@ -1,9 +1,9 @@
 package vn.shb.data.entities
 
-import android.annotation.SuppressLint
-import android.icu.math.BigDecimal
 import android.text.InputFilter
 import android.text.Spanned
+import java.math.BigDecimal
+import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
@@ -26,9 +26,12 @@ fun Double.roundNearestInteger(): Int {
     return round(this).toInt()
 }
 
-fun roundDecimal(data: Double?): String {
-    val decimalFormat = DecimalFormat("#.##")
-    return decimalFormat.format(data)
+fun BigDecimal.formatExchangeRate(): String {
+    return this.setScale(3, RoundingMode.HALF_UP).toPlainString()
+}
+
+fun Double.formatExchangeRate(): String {
+    return BigDecimal.valueOf(this).formatExchangeRate()
 }
 
 fun Double.getBalance(): String {

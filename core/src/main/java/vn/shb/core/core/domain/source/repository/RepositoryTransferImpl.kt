@@ -1,6 +1,8 @@
 package vn.shb.core.core.domain.source.repository
 
 import vn.shb.core.core.delivery.ResultSHB
+import vn.shb.core.core.delivery.reason.PostTransactionError
+import vn.shb.core.core.delivery.reason.SendOtpTransactionError
 import vn.shb.core.core.domain.source.response.AccountUserNameModel
 import vn.shb.core.core.domain.source.response.AccountUserNameResponse
 import vn.shb.core.core.domain.source.response.ExchangeRateModel
@@ -54,7 +56,10 @@ class RepositoryTransferImpl(
         return resultValidateTransaction(serviceTransfer.validateTransaction(params))
     }
 
-    override suspend fun getExchangeRates(sourceCurrency: String, targetCurrency: String): ResultSHB<vn.shb.core.core.domain.source.response.ExchangeRateModel> {
+    override suspend fun getExchangeRates(
+        sourceCurrency: String,
+        targetCurrency: String
+    ): ResultSHB<vn.shb.core.core.domain.source.response.ExchangeRateModel> {
         return resultExchangeRates(serviceTransfer.getExchangeRates(sourceCurrency, targetCurrency))
     }
 
@@ -68,6 +73,7 @@ class RepositoryTransferImpl(
                     handleFailure(contentResult)
                 }
             }
+
             is ResultSHB.Failure -> handleFailure(result.reason)
             else -> ResultSHB.Loading
         }
@@ -138,6 +144,36 @@ class RepositoryTransferImpl(
         }
     }
 
+    fun resultPostTransaction(result: ResultSHB<TransactionTransferResponse>): ResultSHB<TransactionTransfer> {
+        return when (result) {
+            is ResultSHB.Success -> {
+                val contentResult = result.successData
+                if (contentResult.isSuccess()) {
+                    val content = contentResult.data
+                    ResultSHB.Success(content ?: TransactionTransfer())
+                } else {
+                    ResultSHB.Failure(
+                        PostTransactionError(
+                            message = contentResult.errorMessage,
+                            code = contentResult.errorCode,
+                            maxOtpRequestsPerWindow = contentResult.data?.maxOtpRequestsPerWindow,
+                            remainingSeconds = contentResult.data?.remainingSeconds,
+                            success = contentResult.data?.success,
+                        )
+                    )
+                }
+            }
+
+            is ResultSHB.Failure -> {
+                handleFailure(result.reason)
+            }
+
+            else -> {
+                ResultSHB.Loading
+            }
+        }
+    }
+
     private fun resultConfirmTransaction(result: ResultSHB<TransactionTransferConfirmResponse>): ResultSHB<TransactionTransferConfirm> {
         return when (result) {
             is ResultSHB.Success -> {
@@ -146,7 +182,18 @@ class RepositoryTransferImpl(
                     val content = contentResult.data
                     ResultSHB.Success(content ?: TransactionTransferConfirm())
                 } else {
-                    handleFailure(contentResult)
+                    ResultSHB.Failure(
+                        SendOtpTransactionError(
+                            message = contentResult.errorMessage,
+                            code = contentResult.errorCode,
+                            transactionId = contentResult.data?.transactionId.toString(),
+                            isValid = contentResult.data?.isValid,
+                            remainingAttempts = contentResult.data?.remainingAttempts,
+                            lockRemainingSeconds = contentResult.data?.lockRemainingSeconds,
+                            maxAttempts = contentResult.data?.maxAttempts,
+
+                            )
+                    )
                 }
             }
 
@@ -181,28 +228,5 @@ class RepositoryTransferImpl(
             }
         }
     }
-
-    fun resultPostTransaction(result: ResultSHB<TransactionTransferResponse>): ResultSHB<TransactionTransfer> {
-        return when (result) {
-            is ResultSHB.Success -> {
-                val contentResult = result.successData
-                if (contentResult.isSuccess()) {
-                    val content = contentResult.data
-                    ResultSHB.Success(content ?: TransactionTransfer())
-                } else {
-                    handleFailure(contentResult)
-                }
-            }
-
-            is ResultSHB.Failure -> {
-                handleFailure(result.reason)
-            }
-
-            else -> {
-                ResultSHB.Loading
-            }
-        }
-    }
-
 
 }

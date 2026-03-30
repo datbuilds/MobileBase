@@ -220,7 +220,7 @@
     <string name="listAccount">Account List</string>
     <string name="toMeAtSHB">To me at SHB</string>
     <string name="exchangeRate">Exchange rate</string>
-    <string name="formatTextExchangeCurrency">1 %s = %s %s</string>
+    <string name="formatTextExchangeCurrency">1 %s ≈ %s %s</string>
     <string name="rateAreIndicative">Note: Rates are indicative at inquiry and subject to change upon posting</string>
     <string name="paste_pay_top_label">Paste the message or upload an image containing transfer information</string>
     <string name="paste_pay_hint">Paste transfer information</string>
@@ -237,4 +237,7 @@
     <string name="action_continue">Continue</string>
     <string name="minumumCreditAmount">Minimum credit amount: 0.01 USD (For KHR to USD transfers)</string>
     <string name="sourceAndRecipient">Source and recipient accounts must be different</string>
+    <string name="incorrectOtpPleaseTryAgain">Incorrect OTP. Please try again.</string>
+    <string name="youHaveEnteredTheOtp3Time">You have entered the OTP incorrectly %s times. Please try again in %s</string>
+    <string name="youHaveRequestOtpLimitz">You have requested the OTP more than %s times. Please try again in %s</string>
 </resources>

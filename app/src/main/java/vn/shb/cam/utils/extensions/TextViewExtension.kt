@@ -47,7 +47,7 @@ fun MyTextView.setExchangeRateText(
     value2: String,
     currency2: String
 ) {
-    val text = "$value1 $currency1 = $value2 $currency2"
+    val text = "$value1 $currency1 ≈ $value2 $currency2"
     val spannable = SpannableString(text)
 
     fun applyCurrencyStyle(currency: String) {
