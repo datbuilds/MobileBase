@@ -2,7 +2,6 @@ package vn.shb.core.core.retrofit
 
 import okhttp3.Interceptor
 import okhttp3.Response
-import org.koin.android.BuildConfig
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import java.net.HttpURLConnection.HTTP_FORBIDDEN
 import java.net.HttpURLConnection.HTTP_UNAUTHORIZED
@@ -18,6 +17,7 @@ class HeaderAuthenticationInterceptor(
         var request =
             chain.appRequestBuilder(
                 versionName = versionName,
+                language = storage.getLanguage(),
                 token = storage.getToken(),
                 deviceId = storage.getDeviceId(),
                 tokenWso2 = storage.getTokenWso2(),
@@ -39,6 +39,7 @@ class HeaderAuthenticationInterceptor(
                         // Có token mới từ RefreshTokenManager
                         request = chain.appRequestBuilder(
                             versionName = versionName,
+                            language = storage.getLanguage(),
                             token = newToken,
                             deviceId = storage.getDeviceId(),
                             tokenWso2 = storage.getTokenWso2(),

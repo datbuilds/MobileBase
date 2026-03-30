@@ -227,7 +227,7 @@
     <string name="paste_pay_upload_image">Upload Image</string>
     <string name="paste_pay_intro_label">Paste message or upload image to transfer quickly</string>
     <string name="paste_pay_action_label">Skip</string>
-    <string name="paste_pay_image_too_large">Please upload an image smaller than %1$d MB</string>
+    <string name="paste_pay_image_too_large">Image size exceeds limit of 10MB</string>
     <string name="paste_pay_only_shb_supported">Currently the system only supports transfers within SHB.</string>
     <string name="ai_result_analyzed">Analyzed by SHB AI</string>
     <string name="ai_result_bank_label">Bank</string>

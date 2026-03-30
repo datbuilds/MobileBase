@@ -20,6 +20,7 @@ class AndroidSecureStorage(private val context: Context, private val deviceManag
         private const val REFRESH_TOKEN = "REFRESH_TOKEN"
         private const val REFRESH_TOKEN_FAIL = "REFRESH_TOKEN_FAIL"
         private const val AUTH_TOKEN_WSO2 = "AUTH_TOKEN_WSO2"
+        private const val LANGUAGE_APP = "LANGUAGE_APP"
 
         private const val REFRESH_TOKEN_WSO2 = "REFRESH_TOKEN_WSO2"
         private const val EXPIRE_TIME_WSO2 = "EXPIRE_TIME_WSO2"
@@ -76,7 +77,9 @@ class AndroidSecureStorage(private val context: Context, private val deviceManag
     fun isChangePassword() = getPreference(CHANGE_PASSWORD, false)
 
 
-    fun setAiChatIntroCompleted(completed: Boolean) = putPreference(AI_CHAT_INTRO_COMPLETED, completed)
+    fun setAiChatIntroCompleted(completed: Boolean) =
+        putPreference(AI_CHAT_INTRO_COMPLETED, completed)
+
     fun isAiChatIntroCompleted() = getPreference(AI_CHAT_INTRO_COMPLETED, false)
 
     /**
@@ -97,8 +100,8 @@ class AndroidSecureStorage(private val context: Context, private val deviceManag
     fun setExpireTime(data: Int) = putPreference(EXPIRE_TIME, data)
     fun getExpireTime() = getPreference(EXPIRE_TIME, 5)
 
-    fun updateExpireTime(data: Int){
-        if (data <= getExpireTime()){
+    fun updateExpireTime(data: Int) {
+        if (data <= getExpireTime()) {
             setExpireTime(data)
         }
     }
@@ -108,6 +111,9 @@ class AndroidSecureStorage(private val context: Context, private val deviceManag
      */
     fun setBackgroundLogin(data: String) = putPreference(BACKGROUND_LOGIN, data)
     fun getBackgroundLogin() = getPreference(BACKGROUND_LOGIN, "")
+
+    fun setLanguage(language: String) = putPreference(LANGUAGE_APP, language)
+    fun getLanguage() = getPreference(LANGUAGE_APP, "")
 
     /**
      * Token
