@@ -74,7 +74,7 @@ class CountdownBottomSheetDialog(
                             )
                         } else getString(message, formatted)
                     } catch (e: Exception){
-                        getString(message, formatted)
+                        getString(message)
                     }
 
                 val spannable = SpannableString(fullText)

@@ -203,8 +203,8 @@
     <string name="theOtpExpired">លេខកូដ OTP ផុតកំណត់ហើយ។ សូមបង្កើតលេខកូដផ្ទៀងផ្ទាត់ថ្មី។</string>
     <string name="resendOtp">ផផ្ញើ OTP សារឡើងវិញ</string>
     <string name="theNewPassMustNotMatchOldPass">លេខសម្ងាត់ថ្មីមិនត្រូវដូចលេខសម្ងាត់ ៤ ចុងក្រោយឡើយ</string>
-    <string name="otpIncorrectly5Times">អ្នកបានបញ្ចូលលេខសម្ងាត់ OTP មិនត្រឹមត្រូវចំនួន 5 ដង។ សូមរង់ចាំ %s នាទី រួចព្យាយាមម្តងទៀត។</string>
-    <string name="requestOtpMore5Times">អ្នកបានស្នើសុំលេខកូដ OTP ច្រើនជាង 5 ដង។ សូមរង់ចាំរហូត %s នាទី រួចព្យាយាមម្តងទៀត។</string>
+    <string name="otpIncorrectly5Times">អ្នកបានបញ្ចូលលេខសម្ងាត់ OTP មិនត្រឹមត្រូវចំនួន %s ដង។ សូមរង់ចាំ %s នាទី រួចព្យាយាមម្តងទៀត។</string>
+    <string name="requestOtpMore5Times">អ្នកបានស្នើសុំលេខកូដ OTP ច្រើនជាង %s ដង។ សូមរង់ចាំរហូត %s នាទី រួចព្យាយាមម្តងទៀត។</string>
     <string name="newDeviceVerificial">អ្នកកំពុងចូលទៅក្នុង SHB Saha Cambodia ដោយប្រើឧបករណ៍ដែលមិនស្គាល់។ សូមផ្ទៀងផ្ទាត់គណនីរបស់អ្នកដោយប្រើលេខកូដ OTP ដែលបានផ្ញើទៅកាន់លេខទូរស័ព្ទ %s ដើម្បីបន្តប្រើប្រាស់សេវាកម្ម។ តើនេះជាលេខទូរស័ព្ទរបស់អ្នកមែនទេ?</string>
     <string name="goToBranch">ទៅកាន់សាខា</string>
     <string name="getSupportForChanging">ដើម្បីទទួលបានជំនួយក្នុងការផ្លាស់ប្ដូរ ឬចុះឈ្មោះលេខទូរស័ព្ទថ្មី សូមទៅកាន់សាខា/ការិយាល័យប្រតិបត្តិការរបស់ SHB Saha Cambodia ដែលនៅជិតលោកអ្នកបំផុត។</string>

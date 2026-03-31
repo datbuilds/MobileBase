@@ -10,5 +10,6 @@ data class RegisterDeviceData(
     @SerializedName("remainingSeconds") val remainingSeconds: Int? = null,
     @SerializedName("otpCode") val otpCode: String? = null,
     @SerializedName("maxAttempts") val maxAttempts: Int? = null,
+    @SerializedName("maxOtpRequestsPerWindow") val maxOtpRequestsPerWindow: Int? = null,
     var errorCode: String? = null
 )

@@ -88,6 +88,8 @@ class LoginViewModel(
                             transactionId = error.transactionId,
                             message = error.message,
                             remainingSeconds = error.remainingSeconds,
+                            maxAttempts = error.maxAttempts,
+                            maxOtpRequestsPerWindow = error.maxOtpRequestsPerWindow,
                             expiresInSeconds = null, // or pass if Reason has it? Reason only has remainingSeconds currently.
                             maskedPhoneNumber = null, // Reason doesn't have it currently
                             errorCode = error.errorCode
@@ -132,7 +134,8 @@ class LoginViewModel(
                             message = error.message,
                             errorCode = error.errorCode,
                             remainingSeconds = error.remainingSeconds,
-                            maxAttempts = error.maxAttempts
+                            maxAttempts = error.maxAttempts,
+                            maxOtpRequestsPerWindow = error.maxOtpRequestsPerWindow
                         )
                         _verifyDeviceError.send(data)
                     } else {
@@ -225,7 +228,7 @@ class LoginViewModel(
         }
     }
 
-    private fun randomNumber() : String{
+    private fun randomNumber(): String {
         return (100000..999999).random().toString()
     }
 
@@ -303,7 +306,7 @@ class LoginViewModel(
         _state.value = LoginUiState.Idle
     }
 
-    fun showDialogForgotPassword(context: Context, title : String, isShowNote : Boolean = false) {
+    fun showDialogForgotPassword(context: Context, title: String, isShowNote: Boolean = false) {
         context.apply {
 
             val bindingSup = LayoutBranchListBinding.inflate(LayoutInflater.from(this))

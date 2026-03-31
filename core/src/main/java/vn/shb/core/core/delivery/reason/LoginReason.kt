@@ -28,6 +28,8 @@ class RegisterDeviceError(
     override val message: String,
     val code: String,
     val remainingSeconds: Int? = null,
+    val maxAttempts: Int? = null,
+    val maxOtpRequestsPerWindow: Int? = null,
     val transactionId: String? = null
 ) : Reason() {
     override val errMessage: String
@@ -40,7 +42,8 @@ class VerifyOtpError(
     override val message: String,
     val code: String,
     val remainingSeconds: Int? = null,
-    val maxAttempts: Int? = null
+    val maxAttempts: Int? = null,
+    val maxOtpRequestsPerWindow: Int? = null
 ) : Reason() {
     override val errMessage: String
         get() = message

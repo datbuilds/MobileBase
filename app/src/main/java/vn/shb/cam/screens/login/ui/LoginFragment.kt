@@ -93,8 +93,8 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         bindEdtPassword()
         clearFlag()
 
-//        binding.edtInputPass.setText("12345678")
-//        login()
+        binding.edtInputPass.setText("12345678")
+        login()
 
         if (arguments?.getBoolean(AppDestination.ARG_SHOW_SESSION_EXPIRED) == true) {
             arguments?.putBoolean(AppDestination.ARG_SHOW_SESSION_EXPIRED, false)
@@ -477,7 +477,10 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
         CountdownBottomSheetDialog(
             message = message,
-            remainingSeconds = errorData.remainingSeconds ?: 15
+            remainingSeconds = errorData.remainingSeconds ?: 15,
+            maxRequest = if (errorData.errorCode == ApiConst.OTP_004)
+                errorData.maxAttempts ?: errorData.maxOtpRequestsPerWindow else
+                errorData.maxOtpRequestsPerWindow ?: errorData.maxAttempts
         ).show(childFragmentManager, CountdownBottomSheetDialog.TAG)
     }
 
