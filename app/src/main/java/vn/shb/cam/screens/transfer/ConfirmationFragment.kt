@@ -1,9 +1,11 @@
 package vn.shb.cam.screens.transfer
 
+import android.annotation.SuppressLint
 import android.view.View
 import androidx.core.os.bundleOf
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import vn.shb.cam.BuildConfig
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.FragmentConfirmationBinding
@@ -73,6 +75,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun bindConfirmationView() {
         homeViewModel.confirmModel?.let { cf ->
             with(binding) {
@@ -85,8 +88,8 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                 iclRemarks.tvValue.text = cf.remarks
                 iclTransactionDate.tvValue.text = cf.transactionDate
                 iclAmount.apply {
-                    tvValue.text = cf.amount.getBalance()
-                    tvCurrencyCode.text = cf.fromAccount.currencyCode
+                    tvValue.text = cf.amount.first.getBalance()
+                    tvCurrencyCode.text = cf.amount.second
                 }
                 iclFee.apply {
                     root.gone()
@@ -94,8 +97,8 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                     tvCurrencyCode.text = cf.fromAccount.currencyCode
                 }
                 iclTotalAmount.apply {
-                    tvValue.text = cf.totalAmount.getBalance()
-                    tvCurrencyCode.text = cf.toAccount.currencyCode
+                    tvValue.text = cf.totalAmount.first.getBalance()
+                    tvCurrencyCode.text = cf.totalAmount.second
                 }
                 if (isIntrabank) {
                     iclAccountName.tvValue.text = cf.toAccount.customerName
@@ -224,7 +227,10 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
             },
             onClose = {
                 // Handle close
-            }
+            },
+            otpDefault = if (BuildConfig.DEBUG)
+                result?.otp ?: ""
+            else ""
         )
         showConfirmOtpTransaction()
     }
@@ -245,7 +251,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
             homeViewModel.postTransactionTransfer(
                 cf.paymentType,
                 cf.fromAccount.accountNumber, cf.toAccount.accountNumber,
-                cf.amount, cf.fromAccount.currencyCode, cf.remarks, transactionId
+                cf.amount.first, cf.amount.second, cf.remarks, transactionId
             )
         }
     }

@@ -176,6 +176,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             edtInputPass.addTextChangedListener {
                 btnClearPassword.isVisible = !it.isNullOrEmpty()
                 btnToggle.isVisible = !it.isNullOrEmpty()
+
                 tvErrorPassword.isVisible = it.isNullOrEmpty()
             }
 
@@ -184,9 +185,15 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             }
 
             if (BuildConfig.FLAVOR == "dev") {
-                binding.ivLogoSHB.setOnSingleClickListener {
+                ivLogoSHB.setOnSingleClickListener {
                     resetInputLogin()
                 }
+            }
+
+            if (BuildConfig.DEBUG) {
+                binding.edtInputUsername.setText("0101013925")
+                binding.edtInputPass.setText("123456")
+                handleActionLogin()
             }
         }
     }
@@ -395,7 +402,10 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                         },
                         onClose = {
                             // Handle close
-                        }
+                        },
+                        otpDefault = if (BuildConfig.DEBUG)
+                            result.otpCode ?: ""
+                        else ""
                     )
                     if (!confirmDeviceView.isVisible) {
                         confirmDeviceView.show()

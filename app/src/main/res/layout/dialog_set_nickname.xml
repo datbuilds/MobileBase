@@ -58,7 +58,7 @@
         android:layout_marginHorizontal="@dimen/margin_16dp"
         android:layout_marginTop="@dimen/margin_8dp"
         android:background="@drawable/bg_enter_nickname"
-        android:hint="@string/enter_nickname"
+        android:hint="@string/enterNickname"
         android:paddingHorizontal="@dimen/margin_12dp"
         android:paddingVertical="@dimen/margin_13dp"
         android:textColor="@color/neutral10"

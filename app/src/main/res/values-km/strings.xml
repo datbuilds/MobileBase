@@ -48,7 +48,7 @@
     <string name="selectFromPhotoLibrary">ជ្រើសរើសពីបណ្ណាល័យរូបភាព</string>
     <string name="profilePictureUpdated">រូបភាពកម្រងព័ត៌មានត្រូវបានធ្វើបច្ចុប្បន្នភាពជោគជ័យ</string>
     <string name="accountDetails">ពត៌មានលម្អិតអំពីគណនី</string>
-    <string name="availableBalance">សមតុល្យសាច់ប្រាក់</string>
+    <string name="availableBalance">សមតុល្យប្រើបាន</string>
     <string name="accountNumber">លេខគណនី</string>
     <string name="branch">សាខា</string>
     <string name="transactionHistory">ប្រវត្តិប្រតិបត្តិការ</string>
@@ -68,7 +68,7 @@
     <string name="amount">ទឹកប្រាក់</string>
     <string name="enterAccountNumber">បញ្ចូលលេខគណនី</string>
     <string name="enterAmount">បញ្ចូលចំនួនទឹកប្រាក់</string>
-    <string name="insufficientBalance">សមតុល្យគណនីមិនគ្រប់គ្រាន់។ សូមព្យាយាមម្តងទៀត។</string>
+    <string name="insufficientBalance">សមតុល្យក្នុងគណនីមិនគ្រប់គ្រាន់។ សូមព្យាយាមម្តងទៀត។</string>
     <string name="fee">ថ្លៃសេវា</string>
     <string name="totalAmount">ចំនួនទឹកប្រាក់សរុប</string>
     <string name="transactionFailed">កិច្ចការមិនជោគជ័យ។ សូមព្យាយាមម្តងទៀត។</string>
@@ -152,7 +152,6 @@
     <string name="password_rule_length">ប្រវែងពី ៨-២០ តួអក្សរ</string>
     <string name="password_rule_case">តម្រូវឱ្យមានយ៉ាងហោចណាស់អក្សរតូច ១ និងអក្សរធំ ១</string>
     <string name="password_rule_special">តម្រូវឱ្យមានយ៉ាងហោចណាស់លេខ ១ តួអក្សរពិសេស ១ .~!@#$\%^&amp;*()_+={}|:;&lt;&gt;,/?-</string>
-    <string name="remark_default_value">%s ផ្ទេរប្រាក់</string>
     <string name="hint_select_bank">ជ្រើសរើសធនាគារ</string>
     <string name="hint_enter_account_name">បញ្ចូលឈ្មោះគណនី</string>
     <string name="password_rule_username">មិនមានឈ្មោះអ្នកប្រើប្រាស់ ឬឈ្មោះពិតរបស់អ្នកប្រើប្រាស់ទេ</string>
@@ -177,7 +176,7 @@
     <string name="error_enter_remark">សូមបញ្ចូលចំណាំ</string>
     <string name="save_recipient">រក្សាទុកអ្នកទទួលផល</string>
     <string name="set_nickname">កំណត់ឈ្មោះសម្គាល់</string>
-    <string name="ask_set_nickname">តើអ្នកចង់កំណត់ឈ្មោះសម្គាល់សម្រាប់អ្នកទទួលផលនេះដែរឬទេ?</string>
+    <string name="ask_set_nickname">តើអ្នកចង់កំណត់ឈ្មោះហៅក្រៅសម្រាប់អ្នកទទួលនេះទេ?</string>
     <string name="enter_nickname">សូមបញ្ចូលឈ្មោះហៅក្រៅ</string>
     <string name="error_enter_nickname">សូមបញ្ចូលឈ្មោះ</string>
     <string name="error_invalid_nickname">ឈ្មោះមិនត្រឹមត្រូវ</string>
@@ -212,6 +211,9 @@
     <string name="listBranchTransactionPoint">បញ្ជីសាខា/កន្លែងផ្តល់សេវាកម្ម</string>
     <string name="register_device_other">ការផ្ទៀងផ្ទាត់ឧបករណ៍ថ្មី</string>
     <string name="listAccount">បញ្ជីគណនី</string>
+    <string name="toMeAtSHB">ផ្ទេរមកគណនី SHB របស់ខ្ញុំ</string>
+    <string name="exchangeRate">អត្រាប្តូរប្រាក់</string>
+    <string name="rateAreIndicative">អត្រាប្តូរប្រាក់មានសុពលភាពនៅពេលធ្វើការសាកសួរ ហើយអាចផ្លាស់ប្តូរនៅពេលធ្វើប្រតិបត្តិការ</string>
     <string name="paste_pay_top_label">សូមថតចម្លង ឬផ្ញើនូវរូបភាពដែលមានព័ត៌មានផ្ទេរប្រាក់</string>
     <string name="paste_pay_hint">បិទភ្ជាប់ព័ត៌មានផ្ទេរប្រាក់</string>
     <string name="paste_pay_upload_image">ផ្ទុករូបភាពឡើង</string>
@@ -225,4 +227,8 @@
     <string name="ai_result_amount_label">Amount</string>
     <string name="ai_result_remarks_label">ទឹកប្រាក់</string>
     <string name="action_continue">បន្ត</string>
+    <string name="minumumCreditAmount">ចំនួនទឹកប្រាក់ផ្ទេរអប្បបរមាគឺ 0.01 ដុល្លារអាមេរិក (សម្រាប់ពីគណនី ប្រាក់រៀល ទៅ គណនីប្រាក់ដុល្លារ)</string>
+    <string name="minumumCreditAmountKHR">ចំនួនទឹកប្រាក់ផ្ទេរអប្បបរមា៖ ១រៀល (សម្រាប់ផ្ទេរពីគណនីប្រាក់រៀលទៅគណនីប្រាក់រៀល)</string>
+    <string name="minumumTransferAmount">ចំនួនទឹកប្រាក់ផ្ទេរអប្បបរមាគឺ 0.01 ដុល្លារអាមេរិក (សម្រាប់គណនីប្រាក់ដុល្លារ)</string>
+    <string name="sourceAndRecipient">គណនីប្រភព និងគណនីអ្នកទទួលត្រូវតែខុសគ្នា</string>
 </resources>

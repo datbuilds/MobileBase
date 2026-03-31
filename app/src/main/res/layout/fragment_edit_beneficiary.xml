@@ -50,7 +50,7 @@
             android:foreground="@drawable/ripple_grey_circle"
             app:layout_constraintEnd_toEndOf="@+id/llBody"
             app:layout_constraintTop_toTopOf="@+id/llBody"
-            app:srcCompat="@drawable/ic_to_home" />
+            app:srcCompat="@drawable/ic_to_home_new" />
     </LinearLayout>
 
     <ScrollView

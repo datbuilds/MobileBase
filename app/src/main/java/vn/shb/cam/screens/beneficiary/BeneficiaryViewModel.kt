@@ -127,33 +127,41 @@ class BeneficiaryViewModel(
     }
 
 
-    fun createBeneficiary(request: BeneficiaryRequest, isRefresh: Boolean = true) {
+    fun createBeneficiary(request: BeneficiaryRequest, isRefresh: Boolean = true,onFinish:()->Unit={},onLoading:()-> Unit={}) {
         viewModelScope.launch {
             useCaseCreateBeneficiary.invoke(request).collect { result ->
                 result.onSuccess {
+                    onFinish.invoke()
                     _stateAction.emit(true)
                     if (isRefresh) {
                         getAllBeneficiary()
                     }
                 }
                 result.onFailure {
+                    onFinish.invoke()
                     _stateError.emit(it)
+                }
+                result.onLoading {
+                    showLoading(true)
                 }
             }
         }
     }
 
-    fun updateBeneficiary(request: BeneficiaryRequest) {
+    fun updateBeneficiary(request: BeneficiaryRequest,onFinish:()->Unit={},onLoading:()-> Unit={}) {
         viewModelScope.launch {
             useCaseUpdateBeneficiary.invoke(UpdateBeneficiaryUseCase.Params(request))
                 .collect { result ->
                     result.onSuccess {
+                        onFinish.invoke()
                         _stateAction.emit(true)
                         getAllBeneficiary()
                     }
                     result.onFailure {
+                        onFinish.invoke()
                         _stateError.emit(it)
                     }
+                    result.onLoading { onLoading.invoke() }
                 }
         }
     }
