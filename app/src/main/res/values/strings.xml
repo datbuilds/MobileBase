@@ -121,7 +121,7 @@
     <string name="yesterday">Yesterday</string>
     <string name="from">From</string>
     <string name="toDate">To Date</string>
-    <string name="noTransactionHistory">No transaction history</string>
+    <string name="noTransactionHistory">No transactions found</string>
     <string name="noAccountAvailable">No accounts available</string>
     <string name="confirmation">Confirmation</string>
     <string name="accountName">Account Name</string>
