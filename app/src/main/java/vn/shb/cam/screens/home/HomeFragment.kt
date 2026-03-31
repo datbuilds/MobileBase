@@ -16,7 +16,6 @@ import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.FragmentHomeBinding
 import vn.shb.cam.navigation.AppDestination
-import vn.shb.cam.screens.home.helper.LoopingAdapter
 import vn.shb.cam.screens.home.widget.OnClickDetail
 import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.getTextWelcomeUser

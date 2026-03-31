@@ -44,6 +44,7 @@
             android:layout_weight="1"
             android:imeOptions="actionDone"
             android:includeFontPadding="false"
+            tools:text="add"
             android:layout_marginHorizontal="@dimen/margin_8dp"
             android:paddingVertical="@dimen/margin_13dp"
             android:textColor="@color/neutral10"

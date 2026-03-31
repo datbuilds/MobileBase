@@ -29,6 +29,9 @@ class TransactionDetailFragment :
         binding.ivStatus.gone()
         binding.tvTransactionAmount.gone()
         val trans = homeViewModel.currentTransaction ?: return
+
+        homeViewModel.getExchangeRates(Const.USD, Const.KHR)
+
         homeViewModel.getTransactionDetail(
             UseCaseTransactionDetail.Params(
                 trans.referenceNumber,

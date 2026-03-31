@@ -36,6 +36,7 @@ import vn.shb.core.core.retrofit.SafeExecute.Companion.AUTH_001
 import vn.shb.core.core.retrofit.SafeExecute.Companion.AUTH_002
 import vn.shb.core.core.retrofit.SafeExecute.Companion.AUTH_006
 import vn.shb.core.core.retrofit.SafeExecute.Companion.HTTP_NOT_FOUND
+import vn.shb.core.core.retrofit.SafeExecute.Companion.HTTP_UNAUTHORIZED
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import vn.shb.data.entities.login.UserConverters
 
@@ -52,6 +53,7 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         get() = requireNotNull(_binding)
 
     private val listErrorLogout = listOf(AUTH_006, AUTH_001, AUTH_002)
+    private val listErrorShowErrorAndLogout = listOf(HTTP_UNAUTHORIZED.toString(),HTTP_NOT_FOUND)
 
     open fun isPaddingBottom() = false
     protected open fun useBaseFadeThrough() = true
@@ -233,13 +235,19 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         if (error != null) {
             if (listErrorLogout.contains(error.errorCode)) {
                 logout(error)
-            } else {
+            }
+            else if (listErrorShowErrorAndLogout.contains(error.errorCode)){
                 showDialogError(error, {
                     onAction?.invoke()
                     storage.resetUser()
                     RefreshTokenManager.stop()
                     finishAffinity(requireActivity())
                     returnActivity(MainActivity.loginIntent(requireActivity()))
+                })
+            }
+            else {
+                showDialogError(error, {
+                    onAction?.invoke()
                 })
             }
         }

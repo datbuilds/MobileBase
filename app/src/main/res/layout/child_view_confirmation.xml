@@ -15,6 +15,7 @@
         android:layout_weight="3"
         android:includeFontPadding="false"
         android:textColor="@color/neutral8"
+        android:maxLines="2"
         android:textSize="@dimen/textSize14"
         app:customFontWeight="regular"
         tools:text="Default Casa Account" />

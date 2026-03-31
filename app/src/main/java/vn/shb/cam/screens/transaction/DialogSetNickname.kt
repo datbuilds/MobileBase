@@ -22,8 +22,10 @@ class DialogSetNickname(
 //        }
 
         // Input Filter
-        binding.edtNickname.setLatinAlphanumericFilter(50)
+        binding.edtNickname.setLatinAlphanumericFilter(MAX_LENGHT_INPUT_NAME)
     }
+
+    private val MAX_LENGHT_INPUT_NAME = 20
 
     private fun setEnableButton(enable: Boolean) {
         binding.btnConfirm.isEnabled = enable
@@ -37,11 +39,6 @@ class DialogSetNickname(
 
         binding.btnConfirm.setOnSingleClickListener {
             val nickname = binding.edtNickname.text.toString().trim()
-            if (nickname.isEmpty()) {
-//                binding.tvError.text = getString(R.string.error_enter_nickname)
-//                binding.tvError.visible()
-                return@setOnSingleClickListener
-            }
             includeNickname(nickname)
             dismiss()
         }
