@@ -191,9 +191,9 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             }
 
             if (BuildConfig.DEBUG) {
-                binding.edtInputUsername.setText("0101013925")
-                binding.edtInputPass.setText("123456")
-                handleActionLogin()
+//                binding.edtInputUsername.setText("0101013925")
+//                binding.edtInputPass.setText("123456")
+//                handleActionLogin()
             }
         }
     }
