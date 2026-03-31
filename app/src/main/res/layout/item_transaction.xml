@@ -29,10 +29,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:maxLines="2"
             android:textColor="@color/neutral8"
             android:textSize="12sp"
             app:customFontWeight="regular"
-            tools:text="@string/shb_action_logout" />
+            tools:text="shb_action_logoutshb_action_logoutshb_action_logoutshb_action_logoutshb_action_logout" />
 
         <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvSubInfo"
@@ -53,10 +54,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="3"
+        android:ellipsize="end"
         android:gravity="end"
+        android:maxLines="2"
         android:textColor="@color/neutral7"
         android:textSize="@dimen/textSize12"
         android:textStyle="bold"
         app:customFontWeight="medium"
-        tools:text="+5,000,000" />
+        tools:text="+5,000,000+5,000,000+5,000,000+5,000,000+5,000,000+5,000,000+5,000,000+5,000,000+5,000,000+5,000,000" />
 </LinearLayout>

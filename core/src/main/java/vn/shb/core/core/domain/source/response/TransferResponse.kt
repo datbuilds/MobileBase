@@ -32,6 +32,7 @@ data class TransactionTransfer(
     @SerializedName("maxOtpRequestsPerWindow") val maxOtpRequestsPerWindow: Int = 0,
     @SerializedName("success") val success: Boolean = false,
     @SerializedName("remainingSeconds") val remainingSeconds: Int = 0,
+    @SerializedName("maxAttempts") val maxAttempts: Int = 0,
 ) : Serializable
 
 data class TransactionTransferConfirm(
@@ -43,7 +44,7 @@ data class TransactionTransferConfirm(
     @SerializedName("transDate") val transactionDate: String = "",
     @SerializedName("isValid") val isValid: Boolean = false,
     @SerializedName("remainingAttempts") val remainingAttempts: String = "",
-    @SerializedName("lockRemainingSeconds") val lockRemainingSeconds: Int? = null,
+    @SerializedName("remainingSeconds") val remainingSeconds: Int? = null,
     @SerializedName("maxAttempts") val maxAttempts: Int? = null,
 ) : Serializable
 

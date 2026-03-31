@@ -93,8 +93,8 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         bindEdtPassword()
         clearFlag()
 
-        binding.edtInputPass.setText("12345678")
-        login()
+//        binding.edtInputPass.setText("12345678")
+//        login()
 
         if (arguments?.getBoolean(AppDestination.ARG_SHOW_SESSION_EXPIRED) == true) {
             arguments?.putBoolean(AppDestination.ARG_SHOW_SESSION_EXPIRED, false)
@@ -153,8 +153,10 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             btnClearUsername.setOnClickListener {
                 edtInputUsername.text?.clear()
             }
+
             edtInputUsername.addTextChangedListener {
                 btnClearUsername.isVisible = !it.isNullOrEmpty()
+                tvErrorUsername.isVisible = it.isNullOrEmpty()
             }
 
             //handle edit password
@@ -174,6 +176,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             edtInputPass.addTextChangedListener {
                 btnClearPassword.isVisible = !it.isNullOrEmpty()
                 btnToggle.isVisible = !it.isNullOrEmpty()
+                tvErrorPassword.isVisible = it.isNullOrEmpty()
             }
 
             llLanguage.setOnSingleClickListener {
