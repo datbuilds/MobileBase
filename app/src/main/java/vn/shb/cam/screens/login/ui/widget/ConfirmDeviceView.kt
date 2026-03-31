@@ -42,7 +42,7 @@ class ConfirmDeviceView @JvmOverloads constructor(
         resendCode: () -> Unit,
         onFinishCB: () -> Unit,
         onClose: () -> Unit,
-        otpDefault:String=""
+        otpDefault: String = ""
     ) {
         this.onConfirmCallback = onConfirm
         this.onResendCallback = resendCode
@@ -66,6 +66,7 @@ class ConfirmDeviceView @JvmOverloads constructor(
             binding.otpView.setOtp(otpDefault)
 
         startTimer(totalTime ?: 60000L)
+        showResendCodeDialog(false)
     }
 
     private fun setupListeners() {
@@ -82,8 +83,8 @@ class ConfirmDeviceView @JvmOverloads constructor(
 
             btnResend.setOnSingleClickListener {
                 onResendCallback?.invoke()
-                showResendCodeDialog(false)
-                startTimer(60000L)
+//                showResendCodeDialog(false)
+//                startTimer(60000L)
             }
 
 //            otpView.setOtpCompleteListener { otp ->

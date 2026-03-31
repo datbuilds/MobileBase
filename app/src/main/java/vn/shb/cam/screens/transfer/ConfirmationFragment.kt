@@ -3,6 +3,7 @@ package vn.shb.cam.screens.transfer
 import android.annotation.SuppressLint
 import android.view.View
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import vn.shb.cam.BuildConfig
@@ -167,7 +168,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
 
                 launch {
                     statePostTransferError.collectLatest {
-//                        hideConfirmOtpTransaction()
+                        hideConfirmOtpTransaction()
                         when (it.errorCode) {
                             ApiConst.TRAN_015 -> {
                                 CountdownBottomSheetDialog(
@@ -228,9 +229,9 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
             onClose = {
                 // Handle close
             },
-            otpDefault = if (BuildConfig.DEBUG)
-                result?.otp ?: ""
-            else ""
+//            otpDefault = if (BuildConfig.DEBUG)
+//                result?.otp ?: ""
+//            else ""
         )
         showConfirmOtpTransaction()
     }
@@ -257,13 +258,17 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
     }
 
     private fun hideConfirmOtpTransaction() {
-        binding.flRegisterDevice.gone()
-        confirmDeviceView.hide()
+//        binding.flRegisterDevice.gone()
+        if (confirmDeviceView.isVisible){
+            confirmDeviceView.hide()
+        }
     }
 
     private fun showConfirmOtpTransaction() {
-        binding.flRegisterDevice.visible()
-        confirmDeviceView.show()
+//        binding.flRegisterDevice.visible()
+        if (!confirmDeviceView.isVisible) {
+            confirmDeviceView.show()
+        }
     }
 
 }
