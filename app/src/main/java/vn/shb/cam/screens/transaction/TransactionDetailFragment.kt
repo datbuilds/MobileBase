@@ -95,9 +95,11 @@ class TransactionDetailFragment :
             }
 
             iclExchangeRate.apply {
+                tvLabel.text = getString(R.string.exchangeRate)
                 if (trans.ccyCdDst != trans.ccyCdSrc) {
                     val isFromUsd = trans.ccyCdSrc == Const.USD
-                    val exChangeRate = if (isFromUsd) trans.rate else (1 / trans.rate.toDouble()).formatExchangeRate()
+                    val exChangeRate =
+                        if (isFromUsd) trans.rate else (1 / trans.rate.toDouble()).formatExchangeRate()
 
                     tvValue.setExchangeRateText(
                         "1",
@@ -128,8 +130,8 @@ class TransactionDetailFragment :
                 }
                 launch {
                     stateDetailError.collectLatest {
-                        if (it.errorCode == "FUN-020"){
-                            homeViewModel.currentTransaction?.let { 
+                        if (it.errorCode == "FUN-020") {
+                            homeViewModel.currentTransaction?.let {
                                 setupView(mapToTransactionDetail(it))
                             }
                             return@collectLatest

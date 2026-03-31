@@ -150,8 +150,10 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             btnClearUsername.setOnClickListener {
                 edtInputUsername.text?.clear()
             }
+
             edtInputUsername.addTextChangedListener {
                 btnClearUsername.isVisible = !it.isNullOrEmpty()
+                tvErrorUsername.isVisible = it.isNullOrEmpty()
             }
 
             //handle edit password
@@ -171,6 +173,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             edtInputPass.addTextChangedListener {
                 btnClearPassword.isVisible = !it.isNullOrEmpty()
                 btnToggle.isVisible = !it.isNullOrEmpty()
+                tvErrorPassword.isVisible = it.isNullOrEmpty()
             }
 
             llLanguage.setOnSingleClickListener {

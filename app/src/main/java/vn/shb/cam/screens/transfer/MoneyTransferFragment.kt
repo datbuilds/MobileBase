@@ -159,7 +159,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 
                 launch {
                     stateAccountByNumber.collect {
-                        if (it != null) {
+                        if (it != null && isIntrabank()) {
                             bindViewSelectReceiverAccount(it)
                         }
                     }
@@ -167,7 +167,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 
                 launch {
                     stateErrorFillAccountNumber.collect {
-                        errorAccountNumber(getString(R.string.invalidBeneficiaryAccount))
+                        if (isIntrabank()) {
+                            errorAccountNumber(getString(R.string.invalidBeneficiaryAccount))
+                        }
                     }
                 }
 
@@ -799,7 +801,10 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             iclAmount.edtValue.setInputEditText(true, isTypeSigned = account.currencyCode == "USD")
             currentCurrencyChoose = account.currencyCode
         }
-        resetStateTransfer()
+        // cập nhật trạng thái của exchange rate
+        toAccount?.currencyCode?.let { updateExchangeStatus(it) }
+        checkBalanceInvalid(false)
+        updateStatusTransfer()
     }
 
     /*
@@ -817,11 +822,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                     R.string.sourceAndRecipient
                 ) else null
             )
-            if (isDiffCurrency(account.currencyCode)) {
-                bindExchangeCurrency(fromAccount?.currencyCode)
-            } else {
-                bindExchangeCurrency(null)
-            }
+            // cập nhật trạng thái của exchange rate
+            updateExchangeStatus(account.currencyCode)
+
             toAccount = account
             checkBalanceInvalid(false)
             iclTotalAmount.tvCurrentCode.text = account.currencyCode
@@ -843,11 +846,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         if (beneficiarySelected?.accountNumber == userInfo.accountNumber) {
             binding.iclRemarks.edtValue.setText(beneficiarySelected?.remark)
         }
-        if (isDiffCurrency(userInfo.currency)) {
-            bindExchangeCurrency(fromAccount?.currencyCode)
-        } else {
-            bindExchangeCurrency(null)
-        }
+        updateExchangeStatus(userInfo.currency)
         toAccount = AccountInfo().apply {
             setValueAccountNumber(binding.iclToAccount.edtValue.text.toString())
             currencyCode = userInfo.currency
@@ -972,6 +971,14 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                     setText(Const.EMPTY)
                 }
             }
+        }
+    }
+
+    private fun updateExchangeStatus(currencyCode: String) {
+        if (isDiffCurrency(currencyCode)) {
+            bindExchangeCurrency(fromAccount?.currencyCode)
+        } else {
+            bindExchangeCurrency(null)
         }
     }
 
