@@ -88,8 +88,8 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                 iclRemarks.tvValue.text = cf.remarks
                 iclTransactionDate.tvValue.text = cf.transactionDate
                 iclAmount.apply {
-                    tvValue.text = cf.amount.getBalance()
-                    tvCurrencyCode.text = cf.fromAccount.currencyCode
+                    tvValue.text = cf.amount.first.getBalance()
+                    tvCurrencyCode.text = cf.amount.second
                 }
                 iclFee.apply {
                     root.gone()
@@ -97,8 +97,8 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                     tvCurrencyCode.text = cf.fromAccount.currencyCode
                 }
                 iclTotalAmount.apply {
-                    tvValue.text = cf.totalAmount.getBalance()
-                    tvCurrencyCode.text = cf.toAccount.currencyCode
+                    tvValue.text = cf.totalAmount.first.getBalance()
+                    tvCurrencyCode.text = cf.totalAmount.second
                 }
                 if (isIntrabank) {
                     iclAccountName.tvValue.text = cf.toAccount.customerName
@@ -251,7 +251,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
             homeViewModel.postTransactionTransfer(
                 cf.paymentType,
                 cf.fromAccount.accountNumber, cf.toAccount.accountNumber,
-                cf.amount, cf.fromAccount.currencyCode, cf.remarks, transactionId
+                cf.amount.first, cf.amount.second, cf.remarks, transactionId
             )
         }
     }

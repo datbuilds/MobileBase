@@ -10,9 +10,9 @@ data class ConfirmationModel(
     @SerializedName("toAccount") val toAccount: AccountBase,
     @SerializedName("remarks") val remarks: String = "",
     @SerializedName("transactionDate") val transactionDate: String,
-    @SerializedName("amount") val amount: Double = 0.0,
+    @SerializedName("amount") val amount: Pair<Double,String>,
     @SerializedName("fee") val fee: Double = 0.0,
-    @SerializedName("totalAmount") val totalAmount: Double = 0.00,
+    @SerializedName("totalAmount") val totalAmount: Pair<Double,String>,
     @SerializedName("otp") val otp: String = "",
     @SerializedName("exchangeRateUSD") val exchangeRateScreen: String? = "",
     var paymentType: String

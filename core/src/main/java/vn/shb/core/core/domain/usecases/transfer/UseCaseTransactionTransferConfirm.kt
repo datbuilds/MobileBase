@@ -5,7 +5,6 @@ import vn.shb.core.core.delivery.ResultSHB
 import vn.shb.core.core.domain.source.response.TransactionTransferConfirm
 import vn.shb.core.core.domain.usecases.BaseUseCase
 import vn.shb.core.core.domain.usecases.UseCaseParameters
-import java.math.BigDecimal
 
 class UseCaseTransactionTransferConfirm(private val repoTransfer: RepositoryTransfer) :
     BaseUseCase<TransactionTransferConfirm, UseCaseTransactionTransferConfirm.Params>() {
@@ -18,13 +17,11 @@ class UseCaseTransactionTransferConfirm(private val repoTransfer: RepositoryTran
     data class Params(
         val transactionId: String,
         val confirmStatus: String,
-        val otp: String,
-        val rate : BigDecimal
+        val otp: String
     ) : UseCaseParameters
 
     data class BodyParams(
         val confirmStatus: String,
         val otp: String,
-        val rate : BigDecimal
     ) : UseCaseParameters
 }

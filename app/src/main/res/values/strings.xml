@@ -69,7 +69,7 @@
     <string name="amount">Amount</string>
     <string name="enterAccountNumber">Enter Account Number</string>
     <string name="enterAmount">Enter Amount</string>
-    <string name="insufficientBalance">Insufficient Account Balance</string>
+    <string name="insufficientBalance">Insufficient account balance. Please try again.</string>
     <string name="fee">Fee</string>
     <string name="totalAmount">Total Amount</string>
     <string name="transactionFailed">Transaction failed!</string>

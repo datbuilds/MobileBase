@@ -92,8 +92,8 @@ class PaymentTransferFragment :
             tvTransactionAmount.text = getString(R.string.transactionFail)
             tvTransactionAmount.setTextColor(getColor(R.color.color_error_text_login))
             homeViewModel.confirmModel?.let { cf ->
-                tvValueBalance.text = cf.amount.getBalance()
-                tvCurrentCode.text = cf.fromAccount.currencyCode
+                tvValueBalance.text = cf.amount.first.getBalance()
+                tvCurrentCode.text = cf.amount.second
             }
             tvAnErrorHasOccurred.visible()
             bindButtonNewTransaction(R.drawable.bg_account_info_transfer, R.color.white)
@@ -166,7 +166,7 @@ class PaymentTransferFragment :
                     binding.iclExchangeRate.tvLabel.text = getString(R.string.exchangeRate)
 
                     val isFromUsd = trans.ccyCdSrc == Const.USD
-                    val exChangeRate = if (isFromUsd) trans.rate else (1 / trans.rate.toDouble()).formatExchangeRate()
+                    val exChangeRate = if (isFromUsd) trans.rate.formatExchangeRate() else (1 / trans.rate.toDouble()).formatExchangeRate()
 
                     tvValue.setExchangeRateText(
                         "1",

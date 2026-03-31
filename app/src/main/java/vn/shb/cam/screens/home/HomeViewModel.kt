@@ -454,7 +454,6 @@ class HomeViewModel(
                 transactionId = currentTransfer.transactionId.toString(),
                 confirmStatus = ApiConst.ACCEPTED,
                 otp = otp,
-                exchangeRealtime!!
             )
             useCaseTransactionTransferConfirm.invoke(params).collect { result ->
                 result.onResultHandle({ transactionTransferConfirmData ->

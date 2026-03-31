@@ -68,7 +68,7 @@
     <string name="amount">ទឹកប្រាក់</string>
     <string name="enterAccountNumber">បញ្ចូលលេខគណនី</string>
     <string name="enterAmount">បញ្ចូលចំនួនទឹកប្រាក់</string>
-    <string name="insufficientBalance">សមតុល្យគណនីមិនគ្រប់គ្រាន់។ សូមព្យាយាមម្តងទៀត។</string>
+    <string name="insufficientBalance">សមតុល្យក្នុងគណនីមិនគ្រប់គ្រាន់។ សូមព្យាយាមម្តងទៀត។</string>
     <string name="fee">ថ្លៃសេវា</string>
     <string name="totalAmount">ចំនួនទឹកប្រាក់សរុប</string>
     <string name="transactionFailed">កិច្ចការមិនជោគជ័យ។ សូមព្យាយាមម្តងទៀត។</string>

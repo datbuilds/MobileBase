@@ -68,7 +68,7 @@
     <string name="amount">Số tiền giao dịch</string>
     <string name="enterAccountNumber">Nhập số tài khoản</string>
     <string name="enterAmount">Nhập số tiền</string>
-    <string name="insufficientBalance">Số dư tài khoản không đủ để thực hiện giao dịch.</string>
+    <string name="insufficientBalance">Tài khoản không đủ số dư. Vui lòng kiểm tra lại.</string>
     <string name="fee">Phí</string>
     <string name="totalAmount">Tổng số tiền</string>
     <string name="transactionFailed">Giao dịch thất bại. Vui lòng thử lại.</string>

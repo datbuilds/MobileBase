@@ -173,6 +173,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             edtInputPass.addTextChangedListener {
                 btnClearPassword.isVisible = !it.isNullOrEmpty()
                 btnToggle.isVisible = !it.isNullOrEmpty()
+
                 tvErrorPassword.isVisible = it.isNullOrEmpty()
             }
 

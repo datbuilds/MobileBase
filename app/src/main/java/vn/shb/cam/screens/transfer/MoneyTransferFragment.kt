@@ -43,6 +43,7 @@ import vn.shb.data.entities.transfer.ConfirmationModel
 import vn.shb.data.entities.transfer.TransferAccount
 import java.math.BigDecimal
 import java.math.RoundingMode
+import kotlin.math.roundToInt
 
 class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     FragmentMoneyTransferBinding::inflate
@@ -73,9 +74,6 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 
     private var aiPayResult: AiPayResult? = null
 
-    private var amountOfSender: Double = 0.0
-    private var totalAmount: Double = 0.0
-
 
     var remarks = ""
 
@@ -89,8 +87,6 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     override fun onDestroyView() {
         super.onDestroyView()
         toAccount = null
-        amountOfSender = 0.0
-        totalAmount = 0.0
     }
 
     override fun isPaddingBottom(): Boolean {
@@ -294,12 +290,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                         }
                     }
 
-                    iclAmount.edtValue.setText("")
                     checkAmountValidate()
-                    iclAmount.bindViewError(null)
                     iclAmount.edtValue.enableInput(true)
-                    iclTotalAmount.root.gone()
-
                     homeViewModel.listenChangeFromAccount(selectedAccount)
 
                 }.build().show(childFragmentManager, DialogSelectAccount.TAG)
@@ -504,7 +496,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         }
     }
 
-    private val MAX_LENGTH_INPUT_AMOUNT = 13
+    private val MAX_LENGTH_INPUT_AMOUNT = 15
 
     private fun updateChooseCurrency(currency: String) {
         val oldCurrency = currentCurrencyChoose
@@ -551,7 +543,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             binding.iclAmount.edtValue.setText(textInput.dropLast(1))
         }
 
-        checkBalanceInvalid()
+        updateUiTotalAmount()
         updateStatusTransfer()
     }
 
@@ -575,14 +567,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     /*
     *  lấy dữ liệu cho màn confirm phía sau
     * */
-    private fun getConfirmationStatus(): ConfirmationModel {
-        return ConfirmationModel(
-            fromAccount!!, toAccount!!, remarks, transactionDate = getDateFromCurrentDate(),
-            amountOfSender, 0.0, totalAmount,
-            paymentType = if (isIntrabank()) ApiConst.INTRA else ApiConst.SELF,
-            exchangeRateScreen = exChangeScreen
-        )
-    }
+
 
     /*
     *  xử lý khi click vào icon ở mục toAccount
@@ -609,24 +594,23 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         }
     }
 
-    private fun checkBalanceInvalid(isCheckErrorAmount: Boolean = true) {
-        // 1. Lấy và làm sạch dữ liệu đầu vào
+    private fun updateUiTotalAmount() {
         val rawInput = binding.iclAmount.edtValue.text.toString().trim().replace(",", "")
         val enteredAmount = rawInput.toDoubleOrNull() ?: 0.0
 
-        // 2. Tính toán số tiền thực nhận (Total Amount)
         val toCurrency = toAccount?.currencyCode ?: Const.KHR
-        totalAmount = calculateTotalAmount(enteredAmount, toCurrency)
+        val totalAmount = calculateTotalAmount(enteredAmount, toCurrency)
 
-        // 3. Cập nhật UI hiển thị tổng tiền
-        updateTotalAmountUI(rawInput.isNotBlank())
+        binding.iclTotalAmount.root.isVisible = rawInput.isNotBlank()
+        if (rawInput.isNotBlank()) {
+            val totalAmountFormat=if (toCurrency==Const.KHR){
+                totalAmount.roundToInt().toDouble().getBalance()
+            }else{
+                totalAmount.getBalance()
+            }
 
-        // 4. Quy đổi về cùng đơn vị với tài khoản nguồn để kiểm tra số dư
-        amountOfSender = normalizeAmountForBalanceCheck(enteredAmount)
-
-        // 5. Kiểm tra lỗi và hiển thị
-//        val errorText = getValidationError(rawInput, enteredAmount, toCurrency)
-//        binding.iclAmount.bindViewError(if (isCheckErrorAmount) errorText else null)
+            binding.iclTotalAmount.edtValue.setText(totalAmountFormat)
+        }
     }
 
     /** * Logic tính toán tỷ giá thực tế
@@ -657,30 +641,6 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             amount * rate
         } else {
             amount
-        }
-    }
-
-    /**
-     * Xử lý hiển thị UI (Dùng View KTX để code ngắn gọn hơn)
-     */
-    private fun updateTotalAmountUI(hasInput: Boolean) {
-        binding.iclTotalAmount.root.visibility = if (hasInput) View.VISIBLE else View.GONE
-        if (hasInput) {
-            binding.iclTotalAmount.edtValue.setText(totalAmount.getBalance())
-        }
-    }
-
-    /**
-     * Kiểm tra các điều kiện hợp lệ
-     */
-    private fun getValidationError(rawInput: String, amount: Double, toCurrency: String): String? {
-        val availableBalance = fromAccount?.availableBalance ?: 0.0
-
-        return when {
-            rawInput.isEmpty() || amount == 0.0 -> getString(R.string.pleaseEnterTheAmount)
-            totalAmount < 0.01 && toCurrency == Const.USD -> getString(R.string.minumumCreditAmount)
-            amountOfSender > availableBalance -> getString(R.string.insufficientBalance)
-            else -> null
         }
     }
 
@@ -803,7 +763,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         }
         // cập nhật trạng thái của exchange rate
         toAccount?.currencyCode?.let { updateExchangeStatus(it) }
-        checkBalanceInvalid(false)
+        updateUiTotalAmount()
         updateStatusTransfer()
     }
 
@@ -826,7 +786,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             updateExchangeStatus(account.currencyCode)
 
             toAccount = account
-            checkBalanceInvalid(false)
+            updateUiTotalAmount()
             iclTotalAmount.tvCurrentCode.text = account.currencyCode
         }
 
@@ -858,7 +818,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         with(binding) {
             iclToAccount.tvError.gone()
             if (iclAmount.edtValue.text.toString().isNotEmpty()) {
-                checkBalanceInvalid()
+                updateUiTotalAmount()
             } else {
                 iclTotalAmount.edtValue.setText("")
                 iclTotalAmount.root.gone()
@@ -933,6 +893,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 
             }
             iclAmount.edtValue.setText(Const.EMPTY)
+            iclToAccount.edtValue.setText(Const.EMPTY)
             iclExchangeRate.root.gone()
             iclTotalAmount.root.gone()
             iclAccountName.root.gone()
@@ -1000,23 +961,22 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             return
         }
 
-
         val currencyFrom = fromAccount!!.currencyCode
         val currencyTo = toAccount!!.currencyCode
 
         var isAmountEnoughToTransfer: Boolean
         var isAmountGreaterThanMin: Boolean
-        var messageErrorAmoun: String?=null
+        var messageErrorAmoun: String? = null
 
-        val minAmountUSDTransfer=0.01
-        val minAmountKHRTransfer=0.0
+        val minAmountUSDTransfer = 0.01
+        val minAmountKHRTransfer = 0.0
 
         when {
             currencyFrom == Const.USD && currentCurrencyChoose == Const.USD && currencyTo == Const.KHR -> {
                 isAmountEnoughToTransfer = amountInput <= (fromAccount?.availableBalance ?: 0.0)
                 isAmountGreaterThanMin = amountInput >= minAmountUSDTransfer
 
-                messageErrorAmoun=getString(R.string.minumumTransferAmount)
+                messageErrorAmoun = getString(R.string.minumumTransferAmount)
             }
 
             currencyFrom == Const.USD && currentCurrencyChoose == Const.KHR && currencyTo == Const.KHR -> {
@@ -1026,8 +986,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 val accountAvailableBalance = (fromAccount?.availableBalance ?: 1.0).toBigDecimal()
 
                 isAmountEnoughToTransfer = amountAfterCalculate <= accountAvailableBalance
-                isAmountGreaterThanMin = amountAfterCalculate >= BigDecimal.valueOf(minAmountUSDTransfer)
-                messageErrorAmoun=getString(R.string.minumumTransferAmount)
+                isAmountGreaterThanMin =
+                    amountAfterCalculate >= BigDecimal.valueOf(minAmountUSDTransfer)
+                messageErrorAmoun = getString(R.string.minumumTransferAmount)
 
             }
 
@@ -1038,9 +999,10 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 val accountAvailableBalance = (fromAccount?.availableBalance ?: 1.0).toBigDecimal()
 
                 isAmountEnoughToTransfer = amountInput.toBigDecimal() <= accountAvailableBalance
-                isAmountGreaterThanMin = amountAfterCalculate >= BigDecimal.valueOf(minAmountUSDTransfer)
+                isAmountGreaterThanMin =
+                    amountAfterCalculate >= BigDecimal.valueOf(minAmountUSDTransfer)
 
-                messageErrorAmoun=getString(R.string.minumumCreditAmount)
+                messageErrorAmoun = getString(R.string.minumumCreditAmount)
             }
 
             currencyFrom == Const.KHR && currentCurrencyChoose == Const.USD && currencyTo == Const.USD -> {
@@ -1053,7 +1015,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 isAmountGreaterThanMin = amountInput.toBigDecimal() >= BigDecimal.valueOf(
                     minAmountUSDTransfer
                 )
-                messageErrorAmoun=getString(R.string.minumumCreditAmount)
+                messageErrorAmoun = getString(R.string.minumumCreditAmount)
 
             }
 
@@ -1061,7 +1023,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 isAmountEnoughToTransfer = amountInput <= (fromAccount?.availableBalance ?: 0.0)
                 isAmountGreaterThanMin = amountInput > minAmountKHRTransfer
 
-                messageErrorAmoun=getString(R.string.minumumCreditAmountKHR)
+                messageErrorAmoun = getString(R.string.minumumCreditAmountKHR)
 
             }
 
@@ -1069,7 +1031,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 isAmountEnoughToTransfer = amountInput <= (fromAccount?.availableBalance ?: 0.0)
                 isAmountGreaterThanMin = amountInput >= minAmountUSDTransfer
 
-                messageErrorAmoun=getString(R.string.minumumTransferAmount)
+                messageErrorAmoun = getString(R.string.minumumTransferAmount)
             }
 
             else -> {
@@ -1090,12 +1052,40 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             return
         }
 
+        binding.iclAmount.bindViewError(null)
+
         if (fromAccount?.accountNumber == toAccount?.accountNumber && remarks.isEmpty()) {
             setEnableDone(false)
             return
         }
 
         setEnableDone(true)
+    }
+
+    private fun getConfirmationStatus(): ConfirmationModel? {
+
+        if (fromAccount == null || toAccount == null) {
+            setEnableDone(false)
+            return null
+        }
+
+        val rawInput = binding.iclAmount.edtValue.text.toString().trim().replace(",", "")
+        val amountInput = rawInput.toDoubleOrNull() ?: 0.0
+
+        val rawInputAmountReceive =
+            binding.iclTotalAmount.edtValue.text.toString().trim().replace(",", "")
+        val amountAmountReceive = rawInputAmountReceive.toDoubleOrNull() ?: 0.0
+
+        return ConfirmationModel(
+            fromAccount = fromAccount!!,
+            toAccount = toAccount!!,
+            remarks = remarks,
+            transactionDate = getDateFromCurrentDate(),
+            amount = Pair(amountInput, currentCurrencyChoose),
+            totalAmount = Pair(amountAmountReceive, toAccount!!.currencyCode),
+            paymentType = if (isIntrabank()) ApiConst.INTRA else ApiConst.SELF,
+            exchangeRateScreen = exChangeScreen
+        )
     }
 
 }
