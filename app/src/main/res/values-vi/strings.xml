@@ -202,8 +202,8 @@
     <string name="theOtpExpired">Mã OTP đã hết hạn. Vui lòng lấy mã mới.</string>
     <string name="resendOtp">Gửi lại mã OTP</string>
     <string name="theNewPassMustNotMatchOldPass">Mật khẩu mới không được trùng với 4 mật khẩu gần nhất</string>
-    <string name="otpIncorrectly5Times">Bạn đã nhập sai mã OTP 5 lần. Vui lòng thử lại sau %s phút</string>
-    <string name="requestOtpMore5Times">Quý khách đã vượt quá số lần yêu cầu mã OTP (5 lần). Vui lòng quay lại sau %s.</string>
+    <string name="otpIncorrectly5Times">Bạn đã nhập sai mã OTP %s lần. Vui lòng thử lại sau %s phút</string>
+    <string name="requestOtpMore5Times">Quý khách đã vượt quá số lần yêu cầu mã OTP (%s lần). Vui lòng quay lại sau %s.</string>
     <string name="newDeviceVerificial">Quý khách đang đăng nhập vào SHB Saha Cambodia trên một thiết bị mới. Vui lòng xác thực bằng mã OTP được gửi tới số điện thoại %s để tiếp tục sử dụng dịch vụ. Đây có phải là số điện thoại của Quý khách không?</string>
     <string name="goToBranch">Đến chi nhánh</string>
     <string name="getSupportForChanging">Quý khách vui lòng đến chi nhánh hoặc điểm giao dịch SHB Chi nhánh Campuchia gần nhất để được hỗ trợ đăng ký/thay đổi số điện thoại.</string>

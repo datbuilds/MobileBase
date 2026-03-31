@@ -246,6 +246,8 @@ class RepositoryAuthImpl(
                                 ?: "Unknown Error",
                                 code = contentResult.errorCode ?: "",
                                 remainingSeconds = content.remainingSeconds,
+                                maxAttempts = content.maxAttempts,
+                                maxOtpRequestsPerWindow = content.maxOtpRequestsPerWindow,
                                 transactionId = content.transactionId
                             )
                         )
@@ -303,6 +305,7 @@ class RepositoryAuthImpl(
                             contentResult.errorMessage,
                             code = contentResult.errorCode,
                             remainingSeconds = contentResult.data?.remainingSeconds,
+                            maxOtpRequestsPerWindow = contentResult.data?.maxOtpRequestsPerWindow,
                             maxAttempts = contentResult.data?.maxAttempts
                         )
                     )

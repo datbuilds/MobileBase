@@ -22,6 +22,7 @@ data class UserLog(
     @SerializedName("is_new_device") val is_new_device: Boolean = false,
     @SerializedName("remainingSeconds") val remainingSeconds: Int? = null,
     @SerializedName("maxAttempts") val maxAttempts: Int? = null,
+    @SerializedName("maxOtpRequestsPerWindow") val maxOtpRequestsPerWindow: Int? = null,
 
     var customerId : String = "",
 ) : Serializable {

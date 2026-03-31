@@ -74,7 +74,7 @@ class CountdownBottomSheetDialog(
                             )
                         } else getString(message, formatted)
                     } catch (e: Exception){
-                        getString(message, formatted)
+                        getString(message)
                     }
 
                 val spannable = SpannableString(fullText)
@@ -92,7 +92,6 @@ class CountdownBottomSheetDialog(
 
             override fun onFinish() {
                 if (view == null) return
-                binding.tvContentAlert.text = getString(message, 0)
                 dismiss()
                 onDismiss?.invoke()
             }
