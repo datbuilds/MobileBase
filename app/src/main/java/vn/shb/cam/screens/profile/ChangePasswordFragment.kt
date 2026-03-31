@@ -177,7 +177,7 @@ class ChangePasswordFragment :
                             viewModel.resetState()
                         }
 
-                        is ChangePasswordState.Loading ->{
+                        is ChangePasswordState.Loading -> {
                             lifecycleScope.launch {
                                 homeViewModel.stateLoading(true)
                             }

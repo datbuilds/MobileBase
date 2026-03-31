@@ -1,7 +1,7 @@
 <resources>
 
     <string name="personalInternetBanking">Personal Internet Banking</string>
-    <string name="enterYourDetailToSignIn">Enter your detail to sign in</string>
+    <string name="enterYourDetailToSignIn">Sign in with your credentials</string>
     <string name="userName">Username</string>
     <string name="enterYourUserName">Enter Your Username</string>
     <string name="password">Password</string>
@@ -14,9 +14,9 @@
     <string name="welcome">Welcome !</string>
     <string name="notification">Notification</string>
     <string name="incorrectUsernameOrPassword">Incorrect username or password. Please try again.</string>
-    <string name="processingError">Processing error. Please try again later.</string>
+    <string name="processingError">System temporarily unavailable. Please try again later.</string>
     <string name="passwordResetInstructions">Password Reset Instructions</string>
-    <string name="pleaseBringIdToResetPassword">Please bring your ID card or passport to any SHB transaction point to reset your password.</string>
+    <string name="pleaseBringIdToResetPassword">Please bring your ID card or Passport to the nearest SHB Branch to reset your password.</string>
     <string name="shbBranch1">1. SAIGON-HANOI BANK CAMBODIA PLC</string>
     <string name="shbBranch1Address">107 Norodom Blvd,Sangkat Boeung Rang ,Khan Daun Penh,Phnompenh,Cambodia.</string>
     <string name="shbBranch2">2. SAIGON-HANOI BANK CAMBODIA PLC-NEHRU BRANCH</string>
@@ -33,13 +33,13 @@
     <string name="logoutConfirm">Are you sure you want to log out?</string>
     <string name="cancel">Cancel</string>
     <string name="logout">Logout</string>
-    <string name="sessionExpired">Your session has expired. Please log in again.</string>
+    <string name="sessionExpired">Your session has expired. Please log in again to continue.</string>
     <string name="close">Close</string>
     <string name="selectAccount">Select Account</string>
     <string name="loanAccount">Loan Account</string>
     <string name="customerId">Customer ID</string>
     <string name="customerName">Customer Name</string>
-    <string name="defaultCasaAccount">Default Casa Account</string>
+    <string name="defaultCasaAccount">Default Current Account</string>
     <string name="email">Email</string>
     <string name="shbOnline">SHB Online</string>
     <string name="userNameLogin">User Name</string>
@@ -48,11 +48,11 @@
     <string name="takePhoto">Take a photo</string>
     <string name="selectFromPhotoLibrary">Select from photo library</string>
     <string name="profilePictureUpdated">Profile picture updated successfully</string>
-    <string name="accountDetails">Account details</string>
-    <string name="availableBalance">Available balance</string>
+    <string name="accountDetails">Account Details</string>
+    <string name="availableBalance">Available Balance</string>
     <string name="accountNumber">Account Number</string>
     <string name="branch">Branch</string>
-    <string name="transactionHistory">Transaction history</string>
+    <string name="transactionHistory">Transaction History</string>
     <string name="viewAll">View all</string>
     <string name="transactionAmount">Transaction Amount</string>
     <string name="fromAccount">From Account</string>
@@ -69,32 +69,32 @@
     <string name="amount">Amount</string>
     <string name="enterAccountNumber">Enter Account Number</string>
     <string name="enterAmount">Enter Amount</string>
-    <string name="insufficientBalance">Insufficient account balance. Please try again.</string>
+    <string name="insufficientBalance">Insufficient Account Balance</string>
     <string name="fee">Fee</string>
     <string name="totalAmount">Total Amount</string>
-    <string name="transactionFailed">Transaction failed. Please try again.</string>
-    <string name="tryAgain">Try Again</string>
+    <string name="transactionFailed">Transaction failed!</string>
+    <string name="tryAgain">Try again</string>
     <string name="transactionExceedLimit">Transaction failed due to exceeding the limit</string>
-    <string name="paymentSuccess">Transaction successful !</string>
+    <string name="paymentSuccess">Transaction successful!</string>
     <string name="createNewTransaction">New Transaction</string>
     <string name="selectBeneficiary">Select beneficiary</string>
     <string name="confirmationCode">Confirmation Code</string>
     <string name="enterConfirmationCode">Please enter confirmaion code at C5 possition on eSecure Card</string>
     <string name="confirm">Confirm</string>
-    <string name="saveRecipient">Save recipient</string>
+    <string name="saveRecipient">Save Beneficiary</string>
     <string name="save">Save</string>
     <string name="setNicknameQuestion">Would you like to set a nickname for this recipient?</string>
     <string name="enterNickname">Enter nickname</string>
     <string name="titleNickname">Nickname</string>
     <string name="setNickname">Set nickname</string>
     <string name="complete">Complete</string>
-    <string name="nicknameSetSuccess">Successfully set nickname</string>
-    <string name="profilePictureFailed">Failed to update profile picture</string>
-    <string name="invalidBeneficiaryAccount">Invalid beneficiary account</string>
+    <string name="nicknameSetSuccess">Nickname set successfully!</string>
+    <string name="profilePictureFailed">Profile picture update failed!</string>
+    <string name="invalidBeneficiaryAccount">Invalid Beneficiary Account</string>
     <string name="invalidSelectedDate">Invalid selected date</string>
     <string name="pleaseEnterUsername">Please enter your username</string>
     <string name="pleaseEnterPassword">Please enter your password</string>
-    <string name="loginFailed5Times">You have exceeded 5 failed login attempts. Please try again in %s minutes.</string>
+    <string name="loginFailed5Times">Maximum 05 login attempts exceeded. Please try again in 15 minutes.</string>
     <string name="currentBalance">Current balance</string>
     <string name="show">Show</string>
     <string name="myProfile">My Profile</string>
@@ -112,9 +112,9 @@
     <string name="transactionFailedDueToExceeding">Transaction failed due to exceeding the limit</string>
     <string name="authenticationFailed">Authentication failed. Please try again.</string>
     <string name="transactionFail">Transaction Fail!</string>
-    <string name="anErrorHasOccurred">An error has occurred, the transaction was not completed. Please try again!</string>
+    <string name="anErrorHasOccurred">Transaction failed. Please try again.</string>
     <string name="enterRecipientName">Enter Beneficiary Name</string>
-    <string name="pleaseEnterTheAmount">Please enter the amount</string>
+    <string name="pleaseEnterTheAmount">Enter Amount</string>
     <string name="flexibleSaving">FLEXIBLE SAVING</string>
     <string name="staffLoans">SHB STAFF LOANS</string>
     <string name="today">Today</string>
@@ -131,8 +131,8 @@
     <string name="errorCode" translatable="false">Errorcode</string>
     <string name="to">To</string>
     <string name="SHBAccount">SHB Account</string>
-    <string name="transferAccountAndReceivingAccountNotSame">Transfer account and receiving account are not the same currency</string>
-    <string name="pleaseEnterTheAccountNumber">Please enter the Account Number</string>
+    <string name="transferAccountAndReceivingAccountNotSame">Source and recipient accounts must be in the same currency.</string>
+    <string name="pleaseEnterTheAccountNumber">Please enter recipient account</string>
     <string name="pleaseEnterTheRemarks">Please enter the remarks</string>
     <string name="enterRemarks">Enter remarks</string>
     <string name="transactionSuccess">Transaction successful !</string>
@@ -153,10 +153,10 @@
 
     <string name="new_password">New password</string>
     <string name="enter_new_password">Enter new password</string>
-    <string name="password_rule_length">8-20 characters long</string>
+    <string name="password_rule_length">8–20 characters long</string>
     <string name="password_rule_case">Requires at least 1 lowercase and 1 uppercase character</string>
     <string name="password_rule_special">Requires at least 1 numeric character, 1 special character .~!@#$\%^&amp;*()_+={}|:;&lt;&gt;,/?-</string>
-    <string name="remark_default_value">%s TRANSFER</string>
+    <string name="remark_default_value" translatable="false">%s TRANSFER</string>
     <string name="hint_select_bank">Select Bank</string>
     <string name="hint_enter_account_name">Enter Account Name</string>
     <string name="password_rule_username">Does not contain the username or the user\'s real name</string>
@@ -170,7 +170,7 @@
 
     <string name="beneficiaryList">Beneficiary list</string>
     <string name="enterRecipientNameOrAccountNumber">Enter recipient name or account number</string>
-    <string name="systemUptateTransactionStatus">Sorry, the system is currently unable to update the transaction status. Please check your account statement or visit the nearest branch to verify the transaction result.</string>
+    <string name="systemUptateTransactionStatus">Sorry, the system is currently unable to update the transaction status. Please check your statement or visit the nearest SHB Branch to verify your transaction.</string>
     <string name="noteDefaultAccount" translatable="false">Tài khoản mặc định sẽ hiển thị khi bạn đăng nhập lại</string>
     <string name="enterBankName">Enter bank name</string>
     <string name="newBeneficiaryAddedSuccessfully">New beneficiary added successfully</string>
@@ -180,7 +180,7 @@
     <string name="error_enter_account_number">Please enter the account number</string>
     <string name="error_enter_account_name">Please enter the account name</string>
     <string name="error_enter_remark">Please enter a remark</string>
-    <string name="save_recipient">Save recipient</string>
+    <string name="save_recipient">Save Beneficiary</string>
     <string name="set_nickname">Set nickname</string>
     <string name="ask_set_nickname">Would you like to set a nickname for this recipient?</string>
     <string name="enter_nickname">Enter Nickname</string>
@@ -220,7 +220,7 @@
     <string name="listAccount">Account List</string>
     <string name="toMeAtSHB">To me at SHB</string>
     <string name="exchangeRate">Exchange rate</string>
-    <string name="formatTextExchangeCurrency">1 %s ≈ %s %s</string>
+    <string name="formatTextExchangeCurrency" translatable="false">1 %s ≈ %s %s</string>
     <string name="rateAreIndicative">Note: Rates are indicative at inquiry and subject to change upon posting</string>
     <string name="paste_pay_top_label">Paste the message or upload an image containing transfer information</string>
     <string name="paste_pay_hint">Paste transfer information</string>
@@ -236,6 +236,8 @@
     <string name="ai_result_remarks_label">Remarks</string>
     <string name="action_continue">Continue</string>
     <string name="minumumCreditAmount">Minimum credit amount: 0.01 USD (For KHR to USD transfers)</string>
+    <string name="minumumCreditAmountKHR">Minimum credit amount: 1 KHR (For KHR to KHR transfers)</string>
+    <string name="minumumTransferAmount">Minimum transfer amount: 0.01 USD (For USD transfers)</string>
     <string name="sourceAndRecipient">Source and recipient accounts must be different</string>
     <string name="incorrectOtpPleaseTryAgain">Incorrect OTP. Please try again.</string>
     <string name="youHaveEnteredTheOtp3Time">You have entered the OTP incorrectly %s times. Please try again in %s</string>

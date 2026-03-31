@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.core.view.isVisible
+import vn.shb.cam.BuildConfig
 import vn.shb.cam.R
 import vn.shb.cam.databinding.DialogConfirmDeviceBinding
 import vn.shb.cam.utils.extensions.gone
@@ -40,7 +41,8 @@ class ConfirmDeviceView @JvmOverloads constructor(
         onConfirm: (String) -> Unit,
         resendCode: () -> Unit,
         onFinishCB: () -> Unit,
-        onClose: () -> Unit
+        onClose: () -> Unit,
+        otpDefault:String=""
     ) {
         this.onConfirmCallback = onConfirm
         this.onResendCallback = resendCode
@@ -60,6 +62,8 @@ class ConfirmDeviceView @JvmOverloads constructor(
         }
         binding.tvMessage.text = spannable
         binding.tvError.gone()
+        if (BuildConfig.DEBUG)
+            binding.otpView.setOtp(otpDefault)
 
         startTimer(totalTime ?: 60000L)
     }

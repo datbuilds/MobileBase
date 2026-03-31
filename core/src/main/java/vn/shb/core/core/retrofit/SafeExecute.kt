@@ -19,7 +19,7 @@ abstract class SafeExecute() {
 
         // HTTP Status Code Constants for better readability
         private const val HTTP_BAD_REQUEST = 400
-        private const val HTTP_UNAUTHORIZED = 401
+         const val HTTP_UNAUTHORIZED = 401
         private const val HTTP_FORBIDDEN = 403
         private const val HTTP_METHOD_NOT_ALLOWED = 405
         private const val HTTP_CONFLICT = 409

@@ -3,10 +3,6 @@ package vn.shb.cam.screens.transaction
 import android.view.View
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionDetail
-import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.data.entities.getBalance
-import vn.shb.data.entities.home.TransactionDetail
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.ChildViewTransactionInfoBinding
@@ -18,7 +14,11 @@ import vn.shb.cam.utils.extensions.gone
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.extensions.setExchangeRateText
 import vn.shb.cam.utils.extensions.visible
+import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionDetail
+import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.formatExchangeRate
+import vn.shb.data.entities.getBalance
+import vn.shb.data.entities.home.TransactionDetail
 
 class TransactionDetailFragment :
     BaseFragmentBinding<FragmentTransactionDetailBinding>(FragmentTransactionDetailBinding::inflate) {
@@ -29,6 +29,9 @@ class TransactionDetailFragment :
         binding.ivStatus.gone()
         binding.tvTransactionAmount.gone()
         val trans = homeViewModel.currentTransaction ?: return
+
+        homeViewModel.getExchangeRates(Const.USD, Const.KHR)
+
         homeViewModel.getTransactionDetail(
             UseCaseTransactionDetail.Params(
                 trans.referenceNumber,

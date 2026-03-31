@@ -89,7 +89,7 @@ fun MyEditText.enableInput(enable: Boolean) {
     isLongClickable = enable
 }
 
-fun MyEditText.setupDecimalInput(currencyProvider: (() -> String)? = null) {
+fun MyEditText.setupDecimalInput(currencyProvider: String? = null) {
 
     addTextChangedListener(object : TextWatcher {
         private var current = ""
@@ -104,7 +104,7 @@ fun MyEditText.setupDecimalInput(currencyProvider: (() -> String)? = null) {
             if (text == current) return
 
             editing = true
-            val currency = currencyProvider?.invoke() ?: Const.KHR
+            val currency = currencyProvider?: Const.KHR
             val isUSD = currency == Const.USD
 
             if (text.isNotEmpty()) {

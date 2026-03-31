@@ -1,6 +1,5 @@
 package vn.shb.cam.screens.transfer
 
-import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import kotlinx.coroutines.flow.collectLatest
@@ -71,6 +70,9 @@ class PaymentTransferFragment :
                     transDate = confirmSuccess.transactionDate
                 )
             )
+
+            homeViewModel.getExchangeRates(Const.USD, Const.KHR)
+
         } else {
             bindViewFailed()
         }
@@ -160,6 +162,9 @@ class PaymentTransferFragment :
 
             iclExchangeRate.apply {
                 if (trans.ccyCdDst != trans.ccyCdSrc) {
+
+                    binding.iclExchangeRate.tvLabel.text = getString(R.string.exchangeRate)
+
                     val isFromUsd = trans.ccyCdSrc == Const.USD
                     val exChangeRate = if (isFromUsd) trans.rate else (1 / trans.rate.toDouble()).formatExchangeRate()
 
@@ -221,8 +226,8 @@ class PaymentTransferFragment :
             message = getString(
                 R.string.nicknameAlreadyExists
             ),
-            textNegative = getString(R.string.noLabel),
-            textPositive = getString(R.string.yesLabel),
+            textNegative = getString(R.string.dontAllowRemoveBeneficiary),
+            textPositive = getString(R.string.allowRemoveBeneficiary),
             positiveAction = {
                 update.invoke()
             }
@@ -236,7 +241,7 @@ class PaymentTransferFragment :
             val request = BeneficiaryRequest(
                 accountNumber = toAccount?.accountNumber ?: "",
                 accountName = toAccount?.customerName ?: transactionDetails?.accountName ?: "",
-                accountNick = nickname,
+                accountNick = nickname.ifEmpty { null },
                 remark = (user?.customerName ?: "").plus(Const.SEPARATOR_SPACE)
                     .plus(getString(R.string.transferCAP)),
                 bankCode = BankType.SHB.code

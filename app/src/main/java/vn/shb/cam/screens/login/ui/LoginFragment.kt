@@ -93,9 +93,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         bindEdtPassword()
         clearFlag()
 
-        binding.edtInputPass.setText("12345678")
-        login()
-
         if (arguments?.getBoolean(AppDestination.ARG_SHOW_SESSION_EXPIRED) == true) {
             arguments?.putBoolean(AppDestination.ARG_SHOW_SESSION_EXPIRED, false)
             DialogSessionExpire().show(requireContext())
@@ -181,9 +178,15 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             }
 
             if (BuildConfig.FLAVOR == "dev") {
-                binding.ivLogoSHB.setOnSingleClickListener {
+                ivLogoSHB.setOnSingleClickListener {
                     resetInputLogin()
                 }
+            }
+
+            if (BuildConfig.DEBUG) {
+                binding.edtInputUsername.setText("0101013925")
+                binding.edtInputPass.setText("123456")
+                handleActionLogin()
             }
         }
     }
@@ -392,7 +395,10 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                         },
                         onClose = {
                             // Handle close
-                        }
+                        },
+                        otpDefault = if (BuildConfig.DEBUG)
+                            result.otpCode ?: ""
+                        else ""
                     )
                     if (!confirmDeviceView.isVisible) {
                         confirmDeviceView.show()

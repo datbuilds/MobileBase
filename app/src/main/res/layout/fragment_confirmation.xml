@@ -72,6 +72,14 @@
                     android:id="@+id/iclTransactionDate"
                     layout="@layout/child_view_confirmation" />
 
+                <View
+                    android:id="@+id/viewLineAccount"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_gravity="top"
+                    android:background="@color/color_line_account" />
+
                 <include
                     android:id="@+id/iclExchangeRate"
                     layout="@layout/child_view_amount" />

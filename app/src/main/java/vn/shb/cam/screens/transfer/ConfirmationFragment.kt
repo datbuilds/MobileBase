@@ -1,9 +1,11 @@
 package vn.shb.cam.screens.transfer
 
+import android.annotation.SuppressLint
 import android.view.View
 import androidx.core.os.bundleOf
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import vn.shb.cam.BuildConfig
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.FragmentConfirmationBinding
@@ -73,6 +75,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun bindConfirmationView() {
         homeViewModel.confirmModel?.let { cf ->
             with(binding) {
@@ -213,7 +216,10 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
             },
             onClose = {
                 // Handle close
-            }
+            },
+            otpDefault = if (BuildConfig.DEBUG)
+                result?.otp ?: ""
+            else ""
         )
         confirmDeviceView.show()
     }

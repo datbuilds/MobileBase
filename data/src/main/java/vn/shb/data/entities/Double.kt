@@ -18,6 +18,11 @@ fun Double.roundForward(): Int {
     return ceil(this).toInt()
 }
 
+fun BigDecimal.format3Decimal(): String =
+    setScale(3, RoundingMode.HALF_UP)
+        .stripTrailingZeros()
+        .toPlainString()
+
 fun Double.roundBackWard(): Int {
     return floor(this).toInt()
 }

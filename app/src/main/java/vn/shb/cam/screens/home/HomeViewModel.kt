@@ -1,6 +1,7 @@
 package vn.shb.cam.screens.home
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -102,8 +103,8 @@ class HomeViewModel(
     var currentTransaction: TransactionItem.Transaction? = null
 
     //transfer
-    private val _stateTransferAccount = MutableStateFlow<TransferAccount?>(null)
-    val stateTransferAccount = _stateTransferAccount.asStateFlow()
+    private val _stateTransferAccount = MutableSharedFlow<TransferAccount?>()
+    val stateTransferAccount = _stateTransferAccount
 
     private val _stateReceiverAccount = MutableStateFlow<List<TransferAccount>>(emptyList())
     val stateReceiverAccount = _stateReceiverAccount.asStateFlow()
@@ -138,14 +139,11 @@ class HomeViewModel(
     private val _stateErrorFillAccountNumber = MutableSharedFlow<Boolean>()
     val stateErrorFillAccountNumber = _stateErrorFillAccountNumber.asSharedFlow()
 
-    private val _stateValidateTransaction = MutableSharedFlow<String>()
-    val stateValidateTransaction = _stateValidateTransaction.asSharedFlow()
+    private val _stateExchangeUSDToKm = MutableStateFlow<ExchangeRateModel?>(null)
+    val stateExchangeUSDToKm = _stateExchangeUSDToKm
 
-    private val _stateExchangeUSDToKm = MutableSharedFlow<ExchangeRateModel?>()
-    val stateExchangeUSDToKm = _stateExchangeUSDToKm.asSharedFlow()
-
-    private val _stateExchangeKmToUSD = MutableSharedFlow<ExchangeRateModel?>()
-    val stateExchangeKmToUSD = _stateExchangeKmToUSD.asSharedFlow()
+    private val _stateExchangeKmToUSD = MutableStateFlow<ExchangeRateModel?>(null)
+    val stateExchangeKmToUSD = _stateExchangeKmToUSD
 
     private val _stateLoading = MutableStateFlow(false)
     val stateLoading = _stateLoading.asStateFlow()
@@ -156,6 +154,8 @@ class HomeViewModel(
 
     var confirmModel: ConfirmationModel? = null
     var exchangeRealtime: BigDecimal? = BigDecimal.ZERO
+    var exchangeUSDToKm: BigDecimal? = BigDecimal.ZERO
+    var exchangeKmToUSD: BigDecimal? = BigDecimal.ZERO
 
     private var listErrorCodeConfirmContinue = listOf(ApiConst.FUN_017, ApiConst.FUN_016)
 
@@ -368,7 +368,7 @@ class HomeViewModel(
                     val account =
                         listTransferAccount.firstOrNull { it.accountNumber == selectedAccount?.accountNumber }
                             ?: listTransferAccount.firstOrNull()
-                    _stateTransferAccount.value = account
+                    _stateTransferAccount.emit(account)
                 }
                 result.onFailure { error ->
                     stateError(error)
@@ -531,20 +531,19 @@ class HomeViewModel(
         }
     }
 
-    fun validateTransaction(params: UseCaseValidateTransaction.Params, callFinish: () -> Unit) {
+    fun validateTransaction(params: UseCaseValidateTransaction.Params, callFinish: () -> Unit, onSuccess: () -> Unit) {
         viewModelScope.launch {
+            Log.e("navigateToConfirmTranfer", "validateTransaction: ")
             useCaseValidateTransaction.invoke(params).collect { resultSHB ->
-                resultSHB.onResultHandle(successBlock = {
-                    viewModelScope.launch {
-                        _stateValidateTransaction.emit("")
-                        callFinish.invoke()
-                    }
-                }, failureBlock = { reason ->
-                    viewModelScope.launch {
-                        stateError(reason)
-                        callFinish.invoke()
-                    }
-                })
+                resultSHB.onSuccess { trans ->
+                    onSuccess.invoke()
+                    callFinish.invoke()
+                }
+                resultSHB.onFailure { error ->
+                    stateError(error)
+                    callFinish.invoke()
+                }
+                resultSHB.onLoading { }
             }
         }
     }
@@ -557,8 +556,10 @@ class HomeViewModel(
                         successBlock = { rateModel ->
                             viewModelScope.launch {
                                 if (sourceCurrency == Const.USD) {
+                                    this@HomeViewModel.exchangeUSDToKm=rateModel.exchangeRate
                                     _stateExchangeUSDToKm.emit(rateModel)
                                 } else {
+                                    this@HomeViewModel.exchangeKmToUSD=rateModel.exchangeRate
                                     _stateExchangeKmToUSD.emit(rateModel)
                                 }
                             }

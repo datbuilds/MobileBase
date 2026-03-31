@@ -15,7 +15,8 @@ import vn.shb.cam.navigation.AppDestination
 import vn.shb.cam.utils.ApiConst
 import vn.shb.cam.utils.BankType
 import vn.shb.cam.utils.extensions.CustomToastShowOnTop
-import vn.shb.cam.utils.extensions.hideSoftKeyboard
+import vn.shb.cam.utils.extensions.checkShowProgressDialog
+import vn.shb.cam.utils.extensions.hideProgressDialog
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.extensions.setLatinAlphanumericFilter
 import vn.shb.cam.utils.extensions.visible
@@ -86,7 +87,6 @@ class EditBeneficiaryFragment :
             iclAccountNumber.edtValue.inputType = android.text.InputType.TYPE_CLASS_NUMBER
 
             // Validation Filters
-            iclAccountName.edtValue.setLatinAlphanumericFilter(MAX_LENGHT_INPUT_NAME)
             iclNickName.edtValue.setLatinAlphanumericFilter(MAX_LENGHT_INPUT_NAME)
             iclDefaultRemarks.edtValue.setLatinAlphanumericFilter(MAX_LENGHT_INPUT_REMARK)
         }
@@ -136,7 +136,7 @@ class EditBeneficiaryFragment :
 
             iclAccountName.edtValue.setText("")
             iclAccountName.edtValue.isEnabled = false
-            iclAccountName.edtValue.setTextColor(context?.getColor(R.color.neutral6)?:0)
+            iclAccountName.edtValue.setTextColor(context?.getColor(R.color.neutral6) ?: 0)
             iclAccountName.edtValue.clearFocus()
 
             iclAccountNumber.edtValue.setText("")
@@ -245,13 +245,31 @@ class EditBeneficiaryFragment :
             // Update person
             beneficiary?.let { data ->
                 request.bankCode = data.bankCode
-                viewModel.updateBeneficiary(request)
+                viewModel.updateBeneficiary(
+                    request,
+                    onLoading = {
+                        checkShowProgressDialog()
+                        tvConfirmation.isEnabled = false
+                    },
+                    onFinish = {
+                        hideProgressDialog()
+                        tvConfirmation.isEnabled = true
+                    })
             }
         } else {
             // Add New person
             request.bankCode = selectedBank?.bankCode
 
-            viewModel.createBeneficiary(request)
+            viewModel.createBeneficiary(
+                request,
+                onLoading = {
+                    checkShowProgressDialog()
+                    tvConfirmation.isEnabled = false
+                },
+                onFinish = {
+                    hideProgressDialog()
+                    tvConfirmation.isEnabled = true
+                })
         }
     }
 
@@ -282,12 +300,12 @@ class EditBeneficiaryFragment :
                 // Account Number Validation
                 if (iclAccountNumber.edtValue.text.toString().isEmpty()) {
                     iclAccountNumber.tvError.visible()
-                    iclAccountNumber.tvError.text = getString(R.string.error_enter_account_number)
+                    iclAccountNumber.tvError.text = getString(R.string.pleaseEnterTheAccountNumber)
 
                     //clear data accountName
                     iclAccountName.edtValue.setText("")
                     iclAccountName.edtValue.isEnabled = false
-                    iclAccountName.edtValue.setTextColor(context?.getColor(R.color.neutral6)?:0)
+                    iclAccountName.edtValue.setTextColor(context?.getColor(R.color.neutral6) ?: 0)
                     iclAccountName.edtValue.clearFocus()
                 } else {
                     iclAccountNumber.tvError.visibility = View.GONE
@@ -297,16 +315,16 @@ class EditBeneficiaryFragment :
 //                    iclAccountNumber.edtValue.text.toString(),
 //                    iclAccountNumber.tvError,
 //                    iclAccountNumber.llEdit,
-//                    getString(R.string.error_enter_account_number)
+//                    getString(R.string.pleaseEnterTheAccountNumber)
 //                )
 
                 // Account Name Validation
-                validateField(
-                    iclAccountName.edtValue.text.toString(),
-                    iclAccountName.tvError,
-                    iclAccountName.llEdit,
-                    getString(R.string.error_enter_account_name)
-                )
+//                validateField(
+//                    iclAccountName.edtValue.text.toString(),
+//                    iclAccountName.tvError,
+//                    iclAccountName.llEdit,
+//                    getString(R.string.error_enter_account_name)
+//                )
 
             }
         }
@@ -332,7 +350,7 @@ class EditBeneficiaryFragment :
             fun setupListener(
                 includeLayout: vn.shb.cam.databinding.ItemEditBeneficiaryBinding,
                 errorMessage: String,
-                callBackError:()->Unit={}
+                callBackError: () -> Unit = {}
             ) {
                 includeLayout.edtValue.setOnEditorActionListener { v, actionId, event ->
                     if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -365,6 +383,10 @@ class EditBeneficiaryFragment :
 
             }
 
+            iclNickName.edtValue.doAfterTextChanged {
+                validateInputs()
+            }
+
             iclAccountNumber.edtValue.doAfterTextChanged {
                 if (!isEdit) {
                     isAccountValidated = false
@@ -380,17 +402,20 @@ class EditBeneficiaryFragment :
 //                        iclAccountNumber.edtValue.text.toString(),
 //                        iclAccountNumber.tvError,
 //                        iclAccountNumber.llEdit,
-//                        getString(R.string.error_enter_account_number)
+//                        getString(R.string.pleaseEnterTheAccountNumber)
 //                    )
 
                     if (iclAccountNumber.edtValue.text.toString().isEmpty()) {
                         iclAccountNumber.tvError.visible()
-                        iclAccountNumber.tvError.text = getString(R.string.error_enter_account_number)
+                        iclAccountNumber.tvError.text =
+                            getString(R.string.pleaseEnterTheAccountNumber)
 
                         //clear data accountName
                         iclAccountName.edtValue.setText("")
                         iclAccountName.edtValue.isEnabled = false
-                        iclAccountName.edtValue.setTextColor(context?.getColor(R.color.neutral6)?:0)
+                        iclAccountName.edtValue.setTextColor(
+                            context?.getColor(R.color.neutral6) ?: 0
+                        )
                         iclAccountName.edtValue.clearFocus()
                     } else {
                         iclAccountNumber.tvError.visibility = View.GONE
@@ -398,8 +423,8 @@ class EditBeneficiaryFragment :
                 }
             }
 
-            setupListener(iclAccountNumber, getString(R.string.error_enter_account_number))
-            setupListener(iclAccountName, getString(R.string.error_enter_account_name))
+            setupListener(iclAccountNumber, getString(R.string.pleaseEnterTheAccountNumber))
+//            setupListener(iclAccountName, getString(R.string.error_enter_account_name))
         }
     }
 
@@ -484,9 +509,10 @@ class EditBeneficiaryFragment :
     }
 
     fun showSnackBarTop(text: String, isSuccess: Boolean = true) {
-        context?.let { context->
-            val background=if (isSuccess) R.drawable.bg_toast_change_avatar_ss else R.drawable.bg_toast_change_avatar_error
-            val icon=if (isSuccess) R.drawable.ic_success else R.drawable.ic_error
+        context?.let { context ->
+            val background =
+                if (isSuccess) R.drawable.bg_toast_change_avatar_ss else R.drawable.bg_toast_change_avatar_error
+            val icon = if (isSuccess) R.drawable.ic_success else R.drawable.ic_error
 
             val toast = CustomToastShowOnTop(
                 context,
@@ -514,7 +540,7 @@ class EditBeneficiaryFragment :
 
             iclAccountNumber.edtValue.hint = getString(R.string.enterAccountNumber)
             iclBank.edtValue.hint = getString(R.string.hint_select_bank)
-            iclAccountName.edtValue.hint = getString(R.string.hint_enter_account_name)
+            iclAccountName.edtValue.hint = getString(R.string.accountName)
             iclNickName.edtValue.hint = getString(R.string.enter_nickname)
             iclDefaultRemarks.edtValue.hint = getString(R.string.enterRemarksDefault)
 
