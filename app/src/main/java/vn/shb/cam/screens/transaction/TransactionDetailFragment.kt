@@ -3,10 +3,6 @@ package vn.shb.cam.screens.transaction
 import android.view.View
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionDetail
-import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.data.entities.getBalance
-import vn.shb.data.entities.home.TransactionDetail
 import vn.shb.cam.R
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.ChildViewTransactionInfoBinding
@@ -18,7 +14,11 @@ import vn.shb.cam.utils.extensions.gone
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.extensions.setExchangeRateText
 import vn.shb.cam.utils.extensions.visible
+import vn.shb.core.core.domain.usecases.transfer.UseCaseTransactionDetail
+import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.formatExchangeRate
+import vn.shb.data.entities.getBalance
+import vn.shb.data.entities.home.TransactionDetail
 
 class TransactionDetailFragment :
     BaseFragmentBinding<FragmentTransactionDetailBinding>(FragmentTransactionDetailBinding::inflate) {
@@ -92,9 +92,11 @@ class TransactionDetailFragment :
             }
 
             iclExchangeRate.apply {
+                tvLabel.text = getString(R.string.exchangeRate)
                 if (trans.ccyCdDst != trans.ccyCdSrc) {
                     val isFromUsd = trans.ccyCdSrc == Const.USD
-                    val exChangeRate = if (isFromUsd) trans.rate else (1 / trans.rate.toDouble()).formatExchangeRate()
+                    val exChangeRate =
+                        if (isFromUsd) trans.rate else (1 / trans.rate.toDouble()).formatExchangeRate()
 
                     tvValue.setExchangeRateText(
                         "1",
@@ -125,8 +127,8 @@ class TransactionDetailFragment :
                 }
                 launch {
                     stateDetailError.collectLatest {
-                        if (it.errorCode == "FUN-020"){
-                            homeViewModel.currentTransaction?.let { 
+                        if (it.errorCode == "FUN-020") {
+                            homeViewModel.currentTransaction?.let {
                                 setupView(mapToTransactionDetail(it))
                             }
                             return@collectLatest

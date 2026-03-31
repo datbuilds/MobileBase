@@ -145,7 +145,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                                 hideConfirmOtpTransaction()
                                 CountdownBottomSheetDialog(
                                     message = R.string.youHaveEnteredTheOtp3Time,
-                                    remainingSeconds = it.lockRemainingSeconds ?: 1,
+                                    remainingSeconds = it.remainingSeconds ?: 1,
                                     maxRequest = it.maxAttempts
                                 ).show(childFragmentManager, CountdownBottomSheetDialog.TAG)
                             }

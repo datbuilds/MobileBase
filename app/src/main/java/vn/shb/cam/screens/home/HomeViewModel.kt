@@ -473,7 +473,7 @@ class HomeViewModel(
                                     message = reason.message,
                                     isValid = reason.isValid,
                                     remainingAttempts = reason.remainingAttempts, // or pass if Reason has it? Reason only has remainingSeconds currently.
-                                    lockRemainingSeconds = reason.lockRemainingSeconds, // Reason doesn't have it currently
+                                    remainingSeconds = reason.remainingSeconds, // Reason doesn't have it currently
                                     maxAttempts = reason.maxAttempts
                                 )
                                 _stateTransferConfirmError.send(data)

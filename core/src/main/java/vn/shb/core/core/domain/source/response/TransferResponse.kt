@@ -44,7 +44,7 @@ data class TransactionTransferConfirm(
     @SerializedName("transDate") val transactionDate: String = "",
     @SerializedName("isValid") val isValid: Boolean = false,
     @SerializedName("remainingAttempts") val remainingAttempts: String = "",
-    @SerializedName("lockRemainingSeconds") val lockRemainingSeconds: Int? = null,
+    @SerializedName("remainingSeconds") val remainingSeconds: Int? = null,
     @SerializedName("maxAttempts") val maxAttempts: Int? = null,
 ) : Serializable
 

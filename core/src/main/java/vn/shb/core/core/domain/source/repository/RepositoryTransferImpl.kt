@@ -190,7 +190,7 @@ class RepositoryTransferImpl(
                             transactionId = contentResult.data?.transactionId.toString(),
                             isValid = contentResult.data?.isValid,
                             remainingAttempts = contentResult.data?.remainingAttempts,
-                            lockRemainingSeconds = contentResult.data?.lockRemainingSeconds,
+                            remainingSeconds = contentResult.data?.remainingSeconds,
                             maxAttempts = contentResult.data?.maxAttempts,
 
                             )
