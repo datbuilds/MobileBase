@@ -93,7 +93,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         bindEdtPassword()
         clearFlag()
 
-//        binding.edtInputPass.setText("12345678")
+        binding.edtInputPass.setText("12345678")
 //        login()
 
         if (arguments?.getBoolean(AppDestination.ARG_SHOW_SESSION_EXPIRED) == true) {

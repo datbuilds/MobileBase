@@ -99,7 +99,7 @@ class TransactionDetailFragment :
                 if (trans.ccyCdDst != trans.ccyCdSrc) {
                     val isFromUsd = trans.ccyCdSrc == Const.USD
                     val exChangeRate =
-                        if (isFromUsd) trans.rate else (1 / trans.rate.toDouble()).formatExchangeRate()
+                        if (isFromUsd) trans.rate.formatExchangeRate() else (1 / trans.rate.toDouble()).formatExchangeRate()
 
                     tvValue.setExchangeRateText(
                         "1",
