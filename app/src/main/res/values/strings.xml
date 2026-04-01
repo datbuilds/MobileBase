@@ -209,7 +209,7 @@
     <string name="theOtpExpired">The OTP has expired. Please generate a new verification code.</string>
     <string name="resendOtp">Resend OTP</string>
     <string name="theNewPassMustNotMatchOldPass">The new password must not match the last 4 passwords</string>
-    <string name="otpIncorrectly5Times">You have entered the OTP incorrectly %s times. Please try again in %s minutes</string>
+    <string name="otpIncorrectly5Times">You have entered the OTP incorrectly %s times. Please try again in %s</string>
     <string name="requestOtpMore5Times">You have requested the OTP more than %s times. Please try again in %s</string>
     <string name="newDeviceVerificial">You are logging into SHB Saha Cambodia on a new device. Please verify using the OTP sent to the phone number %s to continue using the service. Is this your phone number?</string>
     <string name="goToBranch">Go to Branch</string>
@@ -240,6 +240,5 @@
     <string name="minumumTransferAmount">Minimum transfer amount: 0.01 USD (For USD transfers)</string>
     <string name="sourceAndRecipient">Source and recipient accounts must be different</string>
     <string name="incorrectOtpPleaseTryAgain">Incorrect OTP. Please try again.</string>
-    <string name="youHaveEnteredTheOtp3Time">You have entered the OTP incorrectly %s times. Please try again in %s</string>
-    <string name="youHaveRequestOtpLimitz">You have requested the OTP more than %s times. Please try again in %s</string>
+    <string name="yourCurrentAccountIsCurrentlyBlocked">Your current account is currently blocked. Please visit our nearest Branch for support.</string>
 </resources>

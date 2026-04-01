@@ -231,4 +231,6 @@
     <string name="minumumCreditAmountKHR">Số tiền chuyển tối thiểu 1 KHR (Khi chuyển từ KHR -> KHR)</string>
     <string name="minumumTransferAmount">Số tiền chuyển tối thiểu: 0,01 USD (áp dụng khi chuyển từ tiền USD)</string>
     <string name="sourceAndRecipient">Tài khoản nguồn và tài khoản đích phải khác nhau</string>
+    <string name="incorrectOtpPleaseTryAgain">Mã OTP không chính xác. Vui lòng kiểm tra lại.</string>
+    <string name="yourCurrentAccountIsCurrentlyBlocked">Tài khoản thanh toán của Quý khách hiện đang bị khóa. Vui lòng đến quầy giao dịch gần nhất để được hỗ trợ</string>
 </resources>

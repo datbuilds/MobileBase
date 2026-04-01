@@ -83,10 +83,6 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
         super.onResume()
         homeViewModel.selectedAccount = null
         homeViewModel.getUserInfo()
-//        bindViewAccount(AccountInfo().apply {
-//            setValueAccountNumber("123456789")
-//        })
-//        mapUserInfo(UserLog(username = "PHASOUK BOUNMIXAY"))
     }
 
 
@@ -118,7 +114,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
 
     override fun initListener() {
         with(binding) {
-                flAvatarUser.setListener(
+            flAvatarUser.setListener(
                 object : OnClickDetail {
                     override fun onAvatarClick() {
                         safeNavigate(AppDestination.Profile)
@@ -126,11 +122,15 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
                 })
 
             incItemTransfer.root.setOnSingleClickListener {
-                safeNavigate(AppDestination.MoneyTransfer())
+                homeViewModel.checkAccountNull {
+                    safeNavigate(AppDestination.MoneyTransfer())
+                }
             }
 
             incItemAccounts.root.setOnSingleClickListener {
-                safeNavigate(AppDestination.AccountDetail)
+                homeViewModel.checkAccountNull {
+                    safeNavigate(AppDestination.AccountDetail)
+                }
             }
 
             tvCurrentAccount.setOnSingleClickListener {
@@ -164,7 +164,9 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
             }
 
             tvChatPay.setOnSingleClickListener {
-                safeNavigate(AppDestination.Paste2Pay)
+                homeViewModel.checkAccountNull {
+                    safeNavigate(AppDestination.Paste2Pay)
+                }
             }
         }
     }
@@ -183,6 +185,14 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
                 launch {
                     stateSelectedAccount.collectLatest { accountInfo ->
                         bindViewAccount(accountInfo)
+                    }
+                }
+
+                launch {
+                    stateAccountNull.collectLatest {
+                        if (it) {
+                            showErrorMessageOnly(getString(R.string.yourCurrentAccountIsCurrentlyBlocked))
+                        }
                     }
                 }
             }

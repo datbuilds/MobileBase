@@ -148,7 +148,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                             ApiConst.TRAN_014 -> {
                                 hideConfirmOtpTransaction()
                                 CountdownBottomSheetDialog(
-                                    message = R.string.youHaveEnteredTheOtp3Time,
+                                    message = R.string.otpIncorrectly5Times,
                                     remainingSeconds = it.remainingSeconds ?: 1,
                                     maxRequest = it.maxAttempts
                                 ).show(childFragmentManager, CountdownBottomSheetDialog.TAG)
@@ -172,7 +172,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                         when (it.errorCode) {
                             ApiConst.TRAN_015 -> {
                                 CountdownBottomSheetDialog(
-                                    message = R.string.youHaveRequestOtpLimitz,
+                                    message = R.string.requestOtpMore5Times,
                                     remainingSeconds = it.remainingSeconds ?: 1,
                                     maxRequest = it.maxOtpRequestsPerWindow
                                 ).show(childFragmentManager, CountdownBottomSheetDialog.TAG)
@@ -180,7 +180,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
 
                             ApiConst.TRAN_014 -> {
                                 CountdownBottomSheetDialog(
-                                    message = R.string.youHaveEnteredTheOtp3Time,
+                                    message = R.string.otpIncorrectly5Times,
                                     remainingSeconds = it.remainingSeconds ?: 1,
                                     maxRequest = it.maxAttempts
                                 ).show(childFragmentManager, CountdownBottomSheetDialog.TAG)
@@ -229,9 +229,9 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
             onClose = {
                 // Handle close
             },
-//            otpDefault = if (BuildConfig.DEBUG)
-//                result?.otp ?: ""
-//            else ""
+            otpDefault = if (BuildConfig.DEBUG)
+                result?.otp ?: ""
+            else ""
         )
         showConfirmOtpTransaction()
     }
