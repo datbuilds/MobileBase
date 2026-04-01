@@ -153,7 +153,7 @@ class EditBeneficiaryFragment :
                         currentBank = selectedBank,
                         action = { bank ->
                             selectedBank = bank
-                            iclBank.edtValue.setText(bank.shortName ?: bank.bankCode)
+                            iclBank.edtValue.setText(bank.bankCode?:bank.shortName)
                             iclBank.ivLogo.visibility = View.VISIBLE
                             iclBank.ivLogo.setImageResource(BankType.getIconByCode(bank.bankCode))
                             if (iclAccountNumber.edtValue.text.toString().isNotEmpty()) {
@@ -463,7 +463,7 @@ class EditBeneficiaryFragment :
                         beneficiary?.let { data ->
                             val bankOfBeneficiary = banks.find { it.bankCode == data.bankCode }
                             binding.iclBank.edtValue.setText(
-                                bankOfBeneficiary?.shortName ?: data.bankName
+                                bankOfBeneficiary?.bankCode?:bankOfBeneficiary?.bankName
                             )
                         }
                     }
@@ -480,8 +480,12 @@ class EditBeneficiaryFragment :
                                 getString(R.string.invalidAccountNumber)
                             binding.iclAccountNumber.tvError.visible()
 
-                            binding.iclAccountName.edtValue.setDefaultEdittext()
-//                            binding.iclDefaultRemarks.edtValue.setDefaultEdittext()
+                            binding.iclAccountName.edtValue.setText("")
+                            binding.iclAccountName.edtValue.isEnabled = false
+                            binding.iclAccountName.edtValue.setTextColor(
+                                context?.getColor(R.color.neutral6) ?: 0
+                            )
+                            binding.iclAccountName.edtValue.clearFocus()
                         }
 
                         ResultSHB.Loading -> {

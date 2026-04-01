@@ -202,7 +202,8 @@ fun ItemTransferTypeBinding.bindColor(idColor: Int) {
 fun Fragment.finishTyping(
     myEditText: MyEditText,
     isIntra: Boolean,
-    callBack: () -> Unit
+    callBack: () -> Unit,
+    callBackChangeFocus: (hasFocus: Boolean) -> Unit={},
 ) {
     with(myEditText) {
         setOnEditorActionListener { v, actionId, _ ->
@@ -217,6 +218,9 @@ fun Fragment.finishTyping(
         }
 
         setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus){
+                callBackChangeFocus.invoke(hasFocus)
+            }
             if (!hasFocus && isIntra) {
                 callBack.invoke()
             }

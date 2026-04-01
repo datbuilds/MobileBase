@@ -62,11 +62,11 @@ class ConfirmDeviceView @JvmOverloads constructor(
         }
         binding.tvMessage.text = spannable
         binding.tvError.gone()
-        if (BuildConfig.DEBUG)
-            binding.otpView.setOtp(otpDefault)
 
         startTimer(totalTime ?: 60000L)
         showResendCodeDialog(false)
+        if (BuildConfig.DEBUG)
+            binding.otpView.setOtp(otpDefault)
     }
 
     private fun setupListeners() {
