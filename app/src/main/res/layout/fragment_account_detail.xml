@@ -217,7 +217,7 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="@dimen/margin_16dp"
         android:layout_marginBottom="@dimen/paddingBottomLayout"
         android:background="@drawable/bg_child_view_account_details"

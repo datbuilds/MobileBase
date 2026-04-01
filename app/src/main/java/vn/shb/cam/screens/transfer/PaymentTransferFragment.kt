@@ -129,15 +129,17 @@ class PaymentTransferFragment :
             } else {
                 iclFromAccount.root.gone()
             }
-            if (!trans.benAccount.isNullOrEmpty()) {
+
+            homeViewModel.confirmModel?.let { cf->
                 iclToAccount.bindView(
                     getString(R.string.toAccount),
-                    trans.benAccType.plus(Const.SEPARATOR_DASH).plus(trans.benAccount)
+                    cf.toAccount.productDescription.plus(Const.SEPARATOR_DASH)
+                        .plus(cf.toAccount.accountNumber)
                 )
+
                 iclToAccount.root.visible()
-            } else {
-                iclToAccount.root.gone()
             }
+
             iclRemarks.bindView(
                 getString(R.string.remarks),
                 trans.remarks

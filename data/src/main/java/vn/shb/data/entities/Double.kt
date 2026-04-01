@@ -35,6 +35,10 @@ fun BigDecimal.formatExchangeRate(): String {
     return this.setScale(3, RoundingMode.HALF_UP).toPlainString()
 }
 
+fun Double.hasDecimal(): Boolean {
+    return this % 1.0 != 0.0
+}
+
 fun Double.formatExchangeRate(): String {
     return BigDecimal.valueOf(this).formatExchangeRate()
 }
