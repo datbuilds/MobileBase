@@ -38,6 +38,7 @@ import vn.shb.data.entities.beneficiary.Beneficiary
 import vn.shb.data.entities.formatExchangeRate
 import vn.shb.data.entities.getBalance
 import vn.shb.data.entities.getBalanceFormatted
+import vn.shb.data.entities.hasDecimal
 import vn.shb.data.entities.home.AccountInfo
 import vn.shb.data.entities.transfer.ConfirmationModel
 import vn.shb.data.entities.transfer.TransferAccount
@@ -290,6 +291,14 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                         }
                     }
 
+                    val rawInput = binding.iclAmount.edtValue.text.toString().trim().replace(",", "")
+                    val enteredAmount = rawInput.toDoubleOrNull() ?: 0.0
+
+                    if (enteredAmount.hasDecimal()){
+                        iclAmount.edtValue.setText("")
+                    }
+
+                    iclAmount.bindViewError(null)
                     checkAmountValidate()
                     iclAmount.edtValue.enableInput(true)
                     homeViewModel.listenChangeFromAccount(selectedAccount)
@@ -301,26 +310,22 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 handleShowDialogSelectAccount()
             }
 
+//            iclAmount.edtValue.setOnFocusChangeListener { v, hasFocus ->
+//                if (!hasFocus) {
+//                    if (binding.iclAmount.edtValue.text?.isEmpty() == true) {
+//                        setEnableDone(false)
+//                        binding.iclAmount.bindViewError(getString(R.string.pleaseEnterTheAmount))
+//                    }
+//                }
+//            }
+
             iclAmount.edtValue.apply {
                 addTextChangedListener(object : TextWatcher {
                     private var current = ""
                     private var editing = false
 
-                    override fun beforeTextChanged(
-                        s: CharSequence?,
-                        start: Int,
-                        count: Int,
-                        after: Int
-                    ) {
-                    }
-
-                    override fun onTextChanged(
-                        s: CharSequence?,
-                        start: Int,
-                        before: Int,
-                        count: Int
-                    ) {
-                    }
+                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
                     override fun afterTextChanged(s: Editable?) {
                         if (editing) return
@@ -331,73 +336,84 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                         val currency = currentCurrencyChoose
                         val isUSD = currency == Const.USD
 
-                        // 1. Lấy chuỗi số thuần túy (Bỏ hết dấu phẩy)
+                        // 1. Lấy chuỗi thuần túy (Bỏ hết dấu phẩy)
                         var cleanText = text.replace(",", "")
 
-                        // 2. Xử lý logic cơ bản (số 0 ở đầu, dấu chấm)
+                        // 2. Xử lý các trường hợp đặc biệt ngay từ đầu
                         if (cleanText.isNotEmpty()) {
-                            if (!isUSD && cleanText.startsWith("0")) {
-                                updateTextAndCurrent("")
-                                return
-                            }
-                            if (isUSD && cleanText.startsWith("0") && cleanText.length > 1 && !cleanText.startsWith(
-                                    "0."
-                                )
-                            ) {
-                                cleanText = cleanText.replaceFirst("^0+(?!$)".toRegex(), "")
-                            }
-                            if (cleanText.startsWith(".")) {
-                                cleanText = if (isUSD) "0." else ""
-                            }
-                        }
-
-                        // 3. Logic giá trị tối thiểu
-                        val numeric = cleanText.toDoubleOrNull()
-                        if (numeric != null && cleanText.isNotEmpty()) {
-                            if (isUSD) {
-                                if (numeric == 0.0 && cleanText == "0.00") {
+                            if (!isUSD) {
+                                // Nếu là KHR (không có thập phân) mà người dùng cố tình gõ dấu chấm -> Xóa dấu chấm
+                                if (cleanText.contains(".")) {
+                                    cleanText = cleanText.replace(".", "")
+                                }
+                                if (cleanText.startsWith("0")) {
                                     updateTextAndCurrent("")
                                     return
                                 }
-                            } else if (numeric < 1) {
-                                updateTextAndCurrent("")
-                                return
+                            } else { // Nếu là USD
+                                if (cleanText.startsWith(".")) {
+                                    updateTextAndCurrent("0.")
+                                    return
+                                }
+                                if (cleanText.startsWith("0") && cleanText.length > 1 && !cleanText.startsWith("0.")) {
+                                    val clean0 = cleanText.replaceFirst("^0+(?!$)".toRegex(), "")
+                                    if (clean0 != cleanText) {
+                                        updateTextAndCurrent(clean0)
+                                        return
+                                    }
+                                }
                             }
                         }
 
-                        // 4. Format và chặn giới hạn
                         try {
                             val cursorStart = selectionStart
-                            val isZeroDecimal =
-                                isUSD && (text == "0" || (text.startsWith("0.0") && cleanText == "0.0"))
-                            var formattedResult: String
+                            var formattedResult = ""
 
-                            // Nếu đang gõ dở dấu chấm hoặc phần thập phân
-                            if (text.endsWith(".") || text == "." || text.isEmpty() || isZeroDecimal) {
-                                formattedResult = text
+                            // 3. LOGIC FORMAT TRÁNH LỖI DẤU CHẤM
+                            if (isUSD && cleanText.contains(".")) {
+                                // Cắt đôi chuỗi tại vị trí dấu chấm
+                                val parts = cleanText.split(".")
+                                val intPart = parts[0]
+                                val decPart = parts[1]
+
+                                // Chỉ gọi hàm format cho phần số nguyên
+                                val formattedInt = if (intPart.isEmpty()) "0" else intPart.getBalanceFormatted()
+
+                                // Ghép lại thành chuỗi hoàn chỉnh
+                                formattedResult = "$formattedInt.$decPart"
                             } else {
-                                // Cốt lõi: Luôn format lại từ chuỗi nguyên thủy để dấu phẩy tự dàn xếp đúng vị trí
+                                // Không có dấu chấm thì format bình thường
                                 formattedResult = cleanText.getBalanceFormatted()
                             }
 
-                            // --- KIỂM TRA ĐỘ DÀI SAU KHI FORMAT ---
-                            if (formattedResult.length > MAX_LENGTH_INPUT_AMOUNT) {
-                                // Nếu vượt ngưỡng, HỦY thao tác vừa rồi, trả lại chuỗi cũ (current)
-                                setText(current)
+                            // 4. KIỂM TRA GIỚI HẠN (MAX_LENGTH và THẬP PHÂN)
+                            var isExceedLimit = false
 
-                                // Tính toán lùi con trỏ về vị trí cũ trước khi người dùng bấm phím lỗi
-                                val oldCursorPos =
-                                    (cursorStart - (text.length - current.length)).coerceIn(
-                                        0,
-                                        current.length
-                                    )
-                                setSelection(oldCursorPos)
+                            if (isUSD && formattedResult.contains(".")) {
+                                val parts = formattedResult.split(".")
+                                val intPartLength = parts[0].length
+                                val decPartLength = if (parts.size > 1) parts[1].length else 0
 
-                                editing = false
-                                return // Dừng tại đây, không lưu kết quả sai
+                                // Giới hạn: Phần nguyên không quá MAX_LENGTH, thập phân không quá 2
+                                if (intPartLength > MAX_LENGTH_INPUT_AMOUNT || decPartLength > 2) {
+                                    isExceedLimit = true
+                                }
+                            } else {
+                                if (formattedResult.length > MAX_LENGTH_INPUT_AMOUNT) {
+                                    isExceedLimit = true
+                                }
                             }
 
-                            // Nếu hợp lệ, gán text mới và chỉnh lại vị trí con trỏ
+                            if (isExceedLimit) {
+                                // HỦY thao tác, trả về text cũ
+                                setText(current)
+                                val oldCursorPos = (cursorStart - (text.length - current.length)).coerceIn(0, current.length)
+                                setSelection(oldCursorPos)
+                                editing = false
+                                return
+                            }
+
+                            // 5. CẬP NHẬT UI VÀ CON TRỎ NẾU HỢP LỆ
                             val diff = formattedResult.length - text.length
                             val newPos = (cursorStart + diff).coerceIn(0, formattedResult.length)
 
@@ -408,6 +424,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                         } catch (e: Exception) {
                             e.printStackTrace()
                         }
+
+                        checkAmountValidate()
 
                         editing = false
                     }
@@ -485,12 +503,26 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                     })
             }
 
-            finishTyping(iclToAccount.edtValue, isIntrabank()) {
+            finishTyping(iclToAccount.edtValue, isIntrabank(), callBack = {
                 validateToAccount()
-            }
+            })
 
-            finishTyping(iclAmount.edtValue, true) {
+            finishTyping(iclAmount.edtValue, true, callBack = {
                 checkAmountValidate()
+            }){hasFocus->
+                if (!hasFocus) {
+                    val textInput = binding.iclAmount.edtValue.text.toString()
+
+                    if (textInput.isEmpty()) {
+                        setEnableDone(false)
+                        binding.iclAmount.bindViewError(getString(R.string.pleaseEnterTheAmount))
+                    }
+
+                    if (textInput.isNotEmpty() && currentCurrencyChoose == Const.USD && textInput.last() == '.') {
+                        Log.e("TAG", "checkAmountValidate: ")
+                        binding.iclAmount.edtValue.setText(textInput.dropLast(1))
+                    }
+                }
             }
 
         }
@@ -537,12 +569,6 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     * kiểm tra và fill ra các trường khác sau khi nhập Amount
     */
     private fun checkAmountValidate() {
-        val textInput = binding.iclAmount.edtValue.text.toString()
-        if (textInput.isNotEmpty() && currentCurrencyChoose == Const.USD && textInput.last() == '.') {
-            Log.e("TAG", "checkAmountValidate: ")
-            binding.iclAmount.edtValue.setText(textInput.dropLast(1))
-        }
-
         updateUiTotalAmount()
         updateStatusTransfer()
     }
@@ -711,10 +737,10 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 bindColor(R.color.neutral8)
                 edtValue.setInputEditText(false)
                 edtValue.hint = getString(R.string.enterRemarks)
-                finishTyping(iclRemarks.edtValue, true) {
+                finishTyping(iclRemarks.edtValue, true, callBack = {
                     val text = iclRemarks.edtValue.text.toString()
                     edtValue.setText(text.cleanVietnameseText())
-                }
+                })
             }
         }
         updateStatusTransfer()
@@ -824,6 +850,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 iclTotalAmount.root.gone()
             }
         }
+
+        binding.iclAmount.bindViewError(null)
 
         updateStatusTransfer()
     }
@@ -982,7 +1010,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             currencyFrom == Const.USD && currentCurrencyChoose == Const.KHR && currencyTo == Const.KHR -> {
                 val rate = (homeViewModel.exchangeUSDToKm?.toDouble() ?: 0.0).toBigDecimal()
                 val amountAfterCalculate =
-                    amountInput.toBigDecimal().divide(rate, 7, RoundingMode.HALF_UP)
+                    amountInput.toBigDecimal().divide(rate, 2, RoundingMode.HALF_UP)
                 val accountAvailableBalance = (fromAccount?.availableBalance ?: 1.0).toBigDecimal()
 
                 isAmountEnoughToTransfer = amountAfterCalculate <= accountAvailableBalance
@@ -995,7 +1023,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             currencyFrom == Const.KHR && currentCurrencyChoose == Const.KHR && currencyTo == Const.USD -> {
                 val rate = (homeViewModel.exchangeKmToUSD?.toDouble() ?: 0.0).toBigDecimal()
                 val amountAfterCalculate =
-                    amountInput.toBigDecimal().multiply(rate).setScale(7, RoundingMode.HALF_UP)
+                    amountInput.toBigDecimal().multiply(rate).setScale(2, RoundingMode.HALF_UP)
                 val accountAvailableBalance = (fromAccount?.availableBalance ?: 1.0).toBigDecimal()
 
                 isAmountEnoughToTransfer = amountInput.toBigDecimal() <= accountAvailableBalance
@@ -1012,7 +1040,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 val accountAvailableBalance = (fromAccount?.availableBalance ?: 1.0).toBigDecimal()
 
                 isAmountEnoughToTransfer = amountKHR <= accountAvailableBalance
-                isAmountGreaterThanMin = amountInput.toBigDecimal() >= BigDecimal.valueOf(
+                isAmountGreaterThanMin = amountInput.toBigDecimal().setScale(2, RoundingMode.HALF_UP) >= BigDecimal.valueOf(
                     minAmountUSDTransfer
                 )
                 messageErrorAmoun = getString(R.string.minumumCreditAmount)
