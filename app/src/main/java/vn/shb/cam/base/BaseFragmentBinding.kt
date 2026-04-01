@@ -210,17 +210,10 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         if (reason.errorCode == HTTP_NOT_FOUND) {
             message = getString(R.string.processingError)
         }
-        BottomSheetDialogHelper(requireContext()).message(
-            title = getString(R.string.notification),
-            message = message,
-            textPositive = getString(R.string.close),
-            positiveAction = {
-                onAction?.invoke()
-            }
-        )
+        showErrorMessageOnly(message)
     }
 
-    open fun showErrorMessageOnly(message: String, onAction: (() -> Unit)? = null){
+    open fun showErrorMessageOnly(message: String, onAction: (() -> Unit)? = null) {
         BottomSheetDialogHelper(requireContext()).message(
             title = getString(R.string.notification),
             message = message,
@@ -235,8 +228,7 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         if (error != null) {
             if (listErrorLogout.contains(error.errorCode)) {
                 logout(error)
-            }
-            else if (listErrorShowErrorAndLogout.contains(error.errorCode)){
+            } else if (listErrorShowErrorAndLogout.contains(error.errorCode)) {
                 showDialogError(error, {
                     onAction?.invoke()
                     storage.resetUser()
@@ -244,8 +236,7 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
                     finishAffinity(requireActivity())
                     returnActivity(MainActivity.loginIntent(requireActivity()))
                 })
-            }
-            else {
+            } else {
                 showDialogError(error, {
                     onAction?.invoke()
                 })
