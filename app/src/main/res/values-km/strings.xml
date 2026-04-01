@@ -198,7 +198,7 @@
     <string name="otp_incorrect_message">លេខកូដ OTP មិនត្រឹមត្រូវទេ។ សូមពិនិត្យមើលម្តងទៀត។</string>
     <string name="confirmLabel">បញ្ជាក់</string>
     <string name="theOtpExpired">លេខកូដ OTP ផុតកំណត់ហើយ។ សូមបង្កើតលេខកូដផ្ទៀងផ្ទាត់ថ្មី។</string>
-    <string name="resendOtp">ផផ្ញើ OTP សារឡើងវិញ</string>
+    <string name="resendOtp">ផ្ញើ OTP សារឡើងវិញ</string>
     <string name="theNewPassMustNotMatchOldPass">លេខសម្ងាត់ថ្មីមិនត្រូវដូចលេខសម្ងាត់ ៤ ចុងក្រោយឡើយ</string>
     <string name="otpIncorrectly5Times">អ្នកបានបញ្ចូលលេខសម្ងាត់ OTP មិនត្រឹមត្រូវចំនួន 5 ដង។ សូមរង់ចាំ %s នាទី រួចព្យាយាមម្តងទៀត។</string>
     <string name="requestOtpMore5Times">អ្នកបានស្នើសុំលេខកូដ OTP ច្រើនជាង 5 ដង។ សូមរង់ចាំរហូត %s នាទី រួចព្យាយាមម្តងទៀត។</string>
