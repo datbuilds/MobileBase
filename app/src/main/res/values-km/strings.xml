@@ -231,4 +231,6 @@
     <string name="minumumCreditAmountKHR">ចំនួនទឹកប្រាក់ផ្ទេរអប្បបរមា៖ ១រៀល (សម្រាប់ផ្ទេរពីគណនីប្រាក់រៀលទៅគណនីប្រាក់រៀល)</string>
     <string name="minumumTransferAmount">ចំនួនទឹកប្រាក់ផ្ទេរអប្បបរមាគឺ 0.01 ដុល្លារអាមេរិក (សម្រាប់គណនីប្រាក់ដុល្លារ)</string>
     <string name="sourceAndRecipient">គណនីប្រភព និងគណនីអ្នកទទួលត្រូវតែខុសគ្នា</string>
+    <string name="incorrectOtpPleaseTryAgain">លេខកូដ OTP មិនត្រឹមត្រូវទេ។ សូមពិនិត្យមើលម្តងទៀត។</string>
+    <string name="yourCurrentAccountIsCurrentlyBlocked">គណនីរបស់អ្នកត្រូវបានផ្អាក។ សូមអញ្ជើញទៅកាន់សាខាដែលនៅជិតលោកអ្នកបំផុត ដើម្បីស្វែងរកដំណោះស្រាយ</string>
 </resources>
