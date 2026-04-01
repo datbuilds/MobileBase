@@ -229,9 +229,9 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
             onClose = {
                 // Handle close
             },
-//            otpDefault = if (BuildConfig.DEBUG)
-//                result?.otp ?: ""
-//            else ""
+            otpDefault = if (BuildConfig.DEBUG)
+                result?.otp ?: ""
+            else ""
         )
         showConfirmOtpTransaction()
     }
