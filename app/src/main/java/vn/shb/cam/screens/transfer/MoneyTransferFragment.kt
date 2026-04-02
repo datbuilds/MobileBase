@@ -49,6 +49,7 @@ import kotlin.math.roundToInt
 class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     FragmentMoneyTransferBinding::inflate
 ) {
+    private val MAX_LENGTH_INPUT_AMOUNT = 15
     private val beneficiaryViewModel: BeneficiaryViewModel by viewModel()
     private var listBeneficiary: List<Beneficiary> = listOf()
     var currentTypeTransfer: String = INTRABANK
@@ -79,6 +80,19 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     var remarks = ""
 
     private var currentCurrencyChoose = ""
+        set(value) {
+            field = value
+            try {
+                if (isAdded) {
+                    binding.iclAmount.edtValue.setValidateDataPasteToAmount(
+                        true,
+                        value,
+                        MAX_LENGTH_INPUT_AMOUNT
+                    )
+                }
+            } catch (_: Exception) {
+            }
+        }
 
     companion object {
         const val INTRABANK = "INTRABANK"
@@ -205,6 +219,12 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             edtValue.setText("")
         }
         toAccount = null
+        beneficiarySelected = null
+        bindExchangeCurrency(null)
+
+        binding.iclAmount.edtValue.setText("")
+        binding.iclAmount.bindViewError(null)
+        binding.iclAmount.tvCurrentCode.gone()
         binding.iclTotalAmount.edtValue.setText("")
         updateStatusTransfer()
     }
@@ -289,12 +309,20 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                         } else {
                             bindExchangeCurrency(null)
                         }
+
+                        val isDuplicate = toAccount?.accountNumber == fromAccount?.accountNumber
+                        iclToAccount.bindViewError(
+                            if (isDuplicate) getString(
+                                R.string.sourceAndRecipient
+                            ) else null
+                        )
                     }
 
-                    val rawInput = binding.iclAmount.edtValue.text.toString().trim().replace(",", "")
+                    val rawInput =
+                        binding.iclAmount.edtValue.text.toString().trim().replace(",", "")
                     val enteredAmount = rawInput.toDoubleOrNull() ?: 0.0
 
-                    if (enteredAmount.hasDecimal()){
+                    if (enteredAmount.hasDecimal()) {
                         iclAmount.edtValue.setText("")
                     }
 
@@ -321,11 +349,26 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 
             iclAmount.edtValue.apply {
                 addTextChangedListener(object : TextWatcher {
+
                     private var current = ""
                     private var editing = false
 
-                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                    override fun beforeTextChanged(
+                        s: CharSequence?,
+                        start: Int,
+                        count: Int,
+                        after: Int
+                    ) {
+
+                    }
+
+                    override fun onTextChanged(
+                        s: CharSequence?,
+                        start: Int,
+                        before: Int,
+                        count: Int
+                    ) {
+                    }
 
                     override fun afterTextChanged(s: Editable?) {
                         if (editing) return
@@ -355,7 +398,10 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                                     updateTextAndCurrent("0.")
                                     return
                                 }
-                                if (cleanText.startsWith("0") && cleanText.length > 1 && !cleanText.startsWith("0.")) {
+                                if (cleanText.startsWith("0") && cleanText.length > 1 && !cleanText.startsWith(
+                                        "0."
+                                    )
+                                ) {
                                     val clean0 = cleanText.replaceFirst("^0+(?!$)".toRegex(), "")
                                     if (clean0 != cleanText) {
                                         updateTextAndCurrent(clean0)
@@ -377,7 +423,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                                 val decPart = parts[1]
 
                                 // Chỉ gọi hàm format cho phần số nguyên
-                                val formattedInt = if (intPart.isEmpty()) "0" else intPart.getBalanceFormatted()
+                                val formattedInt =
+                                    if (intPart.isEmpty()) "0" else intPart.getBalanceFormatted()
 
                                 // Ghép lại thành chuỗi hoàn chỉnh
                                 formattedResult = "$formattedInt.$decPart"
@@ -407,7 +454,11 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                             if (isExceedLimit) {
                                 // HỦY thao tác, trả về text cũ
                                 setText(current)
-                                val oldCursorPos = (cursorStart - (text.length - current.length)).coerceIn(0, current.length)
+                                val oldCursorPos =
+                                    (cursorStart - (text.length - current.length)).coerceIn(
+                                        0,
+                                        current.length
+                                    )
                                 setSelection(oldCursorPos)
                                 editing = false
                                 return
@@ -509,7 +560,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 
             finishTyping(iclAmount.edtValue, true, callBack = {
                 checkAmountValidate()
-            }){hasFocus->
+            }) { hasFocus ->
                 if (!hasFocus) {
                     val textInput = binding.iclAmount.edtValue.text.toString()
 
@@ -528,7 +579,6 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         }
     }
 
-    private val MAX_LENGTH_INPUT_AMOUNT = 15
 
     private fun updateChooseCurrency(currency: String) {
         val oldCurrency = currentCurrencyChoose
@@ -538,6 +588,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             if (oldCurrency != currency) {
                 iclAmount.edtValue.setInputEditText(true, isTypeSigned = currency == Const.USD)
                 iclAmount.edtValue.setText("")
+                iclAmount.bindViewError(null)
                 checkAmountValidate()
             }
         }
@@ -629,9 +680,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 
         binding.iclTotalAmount.root.isVisible = rawInput.isNotBlank()
         if (rawInput.isNotBlank()) {
-            val totalAmountFormat=if (toCurrency==Const.KHR){
+            val totalAmountFormat = if (toCurrency == Const.KHR) {
                 totalAmount.roundToInt().toDouble().getBalance()
-            }else{
+            } else {
                 totalAmount.getBalance()
             }
 
@@ -717,6 +768,11 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             }
 
             iclTotalAmount.apply {
+                edtValue.setValidateDataPasteToAmount(
+                    true,
+                    currentCurrencyChoose,
+                    MAX_LENGTH_INPUT_AMOUNT
+                )
                 tvTitle.text = getString(R.string.totalAmount)
                 edtValue.hint = getString(R.string.zero)
                 ivExpandDown.gone()
@@ -1040,7 +1096,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 val accountAvailableBalance = (fromAccount?.availableBalance ?: 1.0).toBigDecimal()
 
                 isAmountEnoughToTransfer = amountKHR <= accountAvailableBalance
-                isAmountGreaterThanMin = amountInput.toBigDecimal().setScale(2, RoundingMode.HALF_UP) >= BigDecimal.valueOf(
+                isAmountGreaterThanMin = amountInput.toBigDecimal()
+                    .setScale(2, RoundingMode.HALF_UP) >= BigDecimal.valueOf(
                     minAmountUSDTransfer
                 )
                 messageErrorAmoun = getString(R.string.minumumCreditAmount)
