@@ -538,6 +538,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             if (oldCurrency != currency) {
                 iclAmount.edtValue.setInputEditText(true, isTypeSigned = currency == Const.USD)
                 iclAmount.edtValue.setText("")
+                iclAmount.bindViewError(null)
                 checkAmountValidate()
             }
         }
