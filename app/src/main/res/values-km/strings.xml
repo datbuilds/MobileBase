@@ -42,7 +42,6 @@
     <string name="email">អ៊ីម៉ែល</string>
     <string name="shbOnline">SHB Online</string>
     <string name="userNameLogin">ឈ្មោះអ្នកប្រើប្រាស់</string>
-    <string name="demandDeposits">ប្រាក់បញ្ញើគ្មានកាលកំណត់</string>
     <string name="chooseProfilePicture">ជ្រើសរើសរូបភាពកម្រងព័ត៌មាន</string>
     <string name="takePhoto">ថតរូប</string>
     <string name="selectFromPhotoLibrary">ជ្រើសរើសពីបណ្ណាល័យរូបភាព</string>
@@ -78,7 +77,6 @@
     <string name="createNewTransaction">កិច្ចការថ្មី</string>
     <string name="selectBeneficiary">ជ្រើសរើសអ្នកទទួលផល</string>
     <string name="confirmationCode">លេខកូដបញ្ជាក់</string>
-    <string name="enterConfirmationCode">សូមបញ្ចូលលេខកូដបញ្ជាក់នៅទីតាំង C5 លើកាត eSecure</string>
     <string name="confirm">បញ្ជាក់់</string>
     <string name="saveRecipient">រក្សាទុកអ្នកទទួលផល</string>
     <string name="save">រក្សាទុក</string>

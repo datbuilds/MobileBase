@@ -42,7 +42,6 @@
     <string name="email">Email</string>
     <string name="shbOnline">SHB Online</string>
     <string name="userNameLogin">Tên đăng nhập</string>
-    <string name="demandDeposits">Tiền gửi không kỳ hạn</string>
     <string name="chooseProfilePicture">Chọn ảnh đại diện</string>
     <string name="takePhoto">Chụp ảnh</string>
     <string name="selectFromPhotoLibrary">Chọn từ thư viện ảnh</string>
@@ -78,7 +77,6 @@
     <string name="createNewTransaction">Giao dịch mới</string>
     <string name="selectBeneficiary">Chọn người thụ hưởng</string>
     <string name="confirmationCode">Mã xác nhận</string>
-    <string name="enterConfirmationCode">Vui lòng nhập mã xác nhận tại vị trí C5 trên thẻ eSecure</string>
     <string name="confirm">Xác nhận</string>
     <string name="saveRecipient">Lưu người thụ hưởng</string>
     <string name="save">Lưu</string>

@@ -1,6 +1,5 @@
 <resources>
-
-    <string name="personalInternetBanking">Personal Internet Banking</string>
+    <string name="personalInternetBanking">Individual Banking Application</string>
     <string name="enterYourDetailToSignIn">Sign in with your credentials</string>
     <string name="userName">Username</string>
     <string name="enterYourUserName">Enter Your Username</string>
@@ -43,7 +42,6 @@
     <string name="email">Email</string>
     <string name="shbOnline">SHB Online</string>
     <string name="userNameLogin">User Name</string>
-    <string name="demandDeposits">Demand Deposits</string>
     <string name="chooseProfilePicture">Choose profile picture</string>
     <string name="takePhoto">Take a photo</string>
     <string name="selectFromPhotoLibrary">Select from photo library</string>
@@ -69,7 +67,7 @@
     <string name="amount">Amount</string>
     <string name="enterAccountNumber">Enter Account Number</string>
     <string name="enterAmount">Enter Amount</string>
-    <string name="insufficientBalance">Insufficient account balance. Please try again.</string>
+    <string name="insufficientBalance">Insufficient Account Balance. Please try again.</string>
     <string name="fee">Fee</string>
     <string name="totalAmount">Total Amount</string>
     <string name="transactionFailed">Transaction failed!</string>
@@ -79,7 +77,6 @@
     <string name="createNewTransaction">New Transaction</string>
     <string name="selectBeneficiary">Select beneficiary</string>
     <string name="confirmationCode">Confirmation Code</string>
-    <string name="enterConfirmationCode">Please enter confirmation code at C5 position on eSecure Card</string>
     <string name="confirm">Confirm</string>
     <string name="saveRecipient">Save Beneficiary</string>
     <string name="save">Save</string>
