@@ -27,6 +27,10 @@ internal fun Project.configureAndroidLibrary() = libraryExtension.run {
     buildTypes {
         release {
             isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
 
         debug {
