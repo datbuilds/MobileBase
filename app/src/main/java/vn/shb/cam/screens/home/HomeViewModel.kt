@@ -144,6 +144,8 @@ class HomeViewModel(
 
     private val _stateExchangeKmToUSD = MutableStateFlow<ExchangeRateModel?>(null)
     val stateExchangeKmToUSD = _stateExchangeKmToUSD
+    private val _stateAccountNull = MutableSharedFlow<Boolean>()
+    val stateAccountNull = _stateAccountNull.asSharedFlow()
 
     private val _stateLoading = MutableStateFlow(false)
     val stateLoading = _stateLoading.asStateFlow()
@@ -189,6 +191,9 @@ class HomeViewModel(
                         _stateFetchUser.send(userInfo)
                     }
                     listAccount = accountData.array.sortAccount()
+                    if (listAccount.isEmpty()) {
+                        _stateAccountNull.emit(true)
+                    }
                     currentUserInfo = userInfo
                     getCurrentAccount(userInfo, accountData.array)
                 }
@@ -196,6 +201,16 @@ class HomeViewModel(
                     stateError(error)
                 }
                 result.onLoading { }
+            }
+        }
+    }
+
+    fun checkAccountNull(callAction : (() -> Unit)? = null) {
+        viewModelScope.launch {
+            if (listAccount.isEmpty()){
+                _stateAccountNull.emit(true)
+            } else {
+                callAction?.invoke()
             }
         }
     }
@@ -531,7 +546,11 @@ class HomeViewModel(
         }
     }
 
-    fun validateTransaction(params: UseCaseValidateTransaction.Params, callFinish: () -> Unit, onSuccess: () -> Unit) {
+    fun validateTransaction(
+        params: UseCaseValidateTransaction.Params,
+        callFinish: () -> Unit,
+        onSuccess: () -> Unit
+    ) {
         viewModelScope.launch {
             Log.e("navigateToConfirmTranfer", "validateTransaction: ")
             useCaseValidateTransaction.invoke(params).collect { resultSHB ->
@@ -556,10 +575,10 @@ class HomeViewModel(
                         successBlock = { rateModel ->
                             viewModelScope.launch {
                                 if (sourceCurrency == Const.USD) {
-                                    this@HomeViewModel.exchangeUSDToKm=rateModel.exchangeRate
+                                    this@HomeViewModel.exchangeUSDToKm = rateModel.exchangeRate
                                     _stateExchangeUSDToKm.emit(rateModel)
                                 } else {
-                                    this@HomeViewModel.exchangeKmToUSD=rateModel.exchangeRate
+                                    this@HomeViewModel.exchangeKmToUSD = rateModel.exchangeRate
                                     _stateExchangeKmToUSD.emit(rateModel)
                                 }
                             }

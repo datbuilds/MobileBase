@@ -3,15 +3,15 @@
     <string name="personalInternetBanking">NGÂN HÀNG TRỰC TUYẾN CÁ NHÂN</string>
     <string name="enterYourDetailToSignIn">Vui lòng nhập thông tin để đăng nhập</string>
     <string name="userName">Tên đăng nhập</string>
-    <string name="enterYourUserName">Nhập tên tài khoản của bạn</string>
+    <string name="enterYourUserName">Nhập tên tài khoản của Qúy khách</string>
     <string name="password">Mật khẩu</string>
     <string name="enterPassword">Nhập mật khẩu</string>
-    <string name="forgotPassword">Quên mật khẩu ?</string>
+    <string name="forgotPassword">Quên mật khẩu?</string>
     <string name="login">Đăng nhập</string>
     <string name="goodMorning">Chào buổi sáng</string>
     <string name="goodAfternoon">Chào buổi chiều</string>
     <string name="goodnight">Chào buổi tối</string>
-    <string name="welcome">Xin chào !</string>
+    <string name="welcome">Xin chào!</string>
     <string name="notification">Thông báo</string>
     <string name="incorrectUsernameOrPassword">Tên đăng nhập hoặc mật khẩu không đúng. Vui lòng thử lại.</string>
     <string name="processingError">Hệ thống đang gặp sự cố khi xử lý. Quý khách vui lòng thực hiện lại sau ít phút.</string>
@@ -24,8 +24,8 @@
     <string name="shbBranch3">3. NGÂN HÀNG TMCP SÀI GÒN - HÀ NỘI CAMPUCHIA - CHI NHÁNH SEN SOKH</string>
     <string name="shbBranch3Address">Số 511C, Đường Oknha Mong Reththy, Phường Phnom Penh Thmei, Quận Sen Sokh, Phnom Penh, Campuchia.</string>
     <string name="shbBranch4">4. NGÂN HÀNG TMCP SÀI GÒN - HÀ NỘI CAMPUCHIA - CHI NHÁNH CHNAR AMPOV</string>
-    <string name="shbBranch4Address">Số 76, Nationa Road, Phường Nirouth, Quận Chbar Ampov, Phnom Penh, Campuchia.</string>
-    <string name="welcomeToShb">Chào mừng đến với SHB</string>
+    <string name="shbBranch4Address">Số 76, Đường quốc lộ, Phường Nirouth, Quận Chbar Ampov, Phnom Penh, Campuchia.</string>
+    <string name="welcomeToShb">Chào mừng Qúy khách hàng đến với SHB!</string>
     <string name="currentAccount">Tài khoản thanh toán</string>
     <string name="transfer">Chuyển tiền</string>
     <string name="accounts">Tài khoản</string>
@@ -148,7 +148,7 @@
     <string name="enterCurrentPassword">Nhập mật khẩu hiện tại</string>
     <string name="new_password">Mật khẩu mới</string>
     <string name="enter_new_password">Nhập mật khẩu mới</string>
-    <string name="password_rule_length">Mật khẩu phải có từ 8 - 20 ký tự</string>
+    <string name="password_rule_length">Mật khẩu phải có từ 8 – 20 ký tự</string>
     <string name="password_rule_case">Mật khẩu phải bao gồm ít nhất 1 chữ hoa và 1 chữ thường</string>
     <string name="password_rule_special">Mật khẩu phải chứa ít nhất 1 chữ số và 1 ký tự đặc biệt .~!@#$\%^&amp;*()_+={}|:;&lt;&gt;,/?-</string>
     <string name="hint_select_bank">Chọn ngân hàng</string>
@@ -167,7 +167,7 @@
     <string name="systemUptateTransactionStatus">Rất tiếc, hệ thống hiện chưa thể cập nhật trạng thái giao dịch. Vui lòng kiểm tra sao kê tài khoản hoặc đến chi nhánh gần nhất để xác minh kết quả giao dịch.</string>
     <string name="noteDefaultAccount" translatable="false">Tài khoản mặc định sẽ hiển thị khi bạn đăng nhập lại</string>
     <string name="enterBankName">Nhập tên ngân hàng</string>
-    <string name="newBeneficiaryAddedSuccessfully">Thêm người thụ hưởng mới thành công</string>
+    <string name="newBeneficiaryAddedSuccessfully">Thêm mới người thụ hưởng thành công</string>
     <string name="beneficiaryUpdatedSuccessfully">Cập nhật người thụ hưởng thành công</string>
     <string name="addNewBeneficiary">Thêm mới người thụ hưởng</string>
     <string name="error_select_bank">Vui lòng chọn ngân hàng</string>
@@ -179,7 +179,6 @@
     <string name="ask_set_nickname">Quý khách có muốn đặt tên gợi nhớ cho người thụ hưởng này không?</string>
     <string name="enter_nickname">Nhập tên gợi nhớ</string>
     <string name="error_enter_nickname">Vui lòng nhập tên</string>
-    <string name="error_invalid_nickname">Tên không hợp lệ</string>
     <string name="successfullySetNickname">Đặt tên gợi nhớ thành công</string>
     <string name="noLabel">Sai</string>
     <string name="yesLabel">Đúng</string>
@@ -203,7 +202,7 @@
     <string name="resendOtp">Gửi lại mã OTP</string>
     <string name="theNewPassMustNotMatchOldPass">Mật khẩu mới không được trùng với 4 mật khẩu gần nhất</string>
     <string name="otpIncorrectly5Times">Bạn đã nhập sai mã OTP %s lần. Vui lòng thử lại sau %s phút</string>
-    <string name="requestOtpMore5Times">Quý khách đã vượt quá số lần yêu cầu mã OTP (%s lần). Vui lòng quay lại sau %s.</string>
+    <string name="requestOtpMore5Times">Bạn đã yêu cầu gửi lại mã OTP quá %s lần. Vui lòng thử lại sau %s phút</string>
     <string name="newDeviceVerificial">Quý khách đang đăng nhập vào SHB Saha Cambodia trên một thiết bị mới. Vui lòng xác thực bằng mã OTP được gửi tới số điện thoại %s để tiếp tục sử dụng dịch vụ. Đây có phải là số điện thoại của Quý khách không?</string>
     <string name="goToBranch">Đến chi nhánh</string>
     <string name="getSupportForChanging">Quý khách vui lòng đến chi nhánh hoặc điểm giao dịch SHB Chi nhánh Campuchia gần nhất để được hỗ trợ đăng ký/thay đổi số điện thoại.</string>
@@ -231,4 +230,6 @@
     <string name="minumumCreditAmountKHR">Số tiền chuyển tối thiểu 1 KHR (Khi chuyển từ KHR -> KHR)</string>
     <string name="minumumTransferAmount">Số tiền chuyển tối thiểu: 0,01 USD (áp dụng khi chuyển từ tiền USD)</string>
     <string name="sourceAndRecipient">Tài khoản nguồn và tài khoản đích phải khác nhau</string>
+    <string name="incorrectOtpPleaseTryAgain">Mã OTP không chính xác. Vui lòng kiểm tra lại.</string>
+    <string name="yourCurrentAccountIsCurrentlyBlocked">Tài khoản thanh toán của Quý khách hiện đang bị khóa. Vui lòng đến quầy giao dịch gần nhất để được hỗ trợ</string>
 </resources>
