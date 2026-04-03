@@ -198,7 +198,7 @@
     <string name="register_device_title">Please register this device to use SHB Saha Cambodia.</string>
     <string name="register_device_message">For enhanced security, please verify your device using the OTP sent to %s to complete the app registration. Is this your phone number?</string>
     <string name="confirm_device_title">Confirm new device</string>
-    <string name="confirm_device_message">Please enter the OTP that has been sent to the phone number %s</string>
+    <string name="confirm_device_message">Please enter the OTP sent to %s.</string>
     <string name="remaining_time">Remaining time %s second</string>
     <string name="otp_incorrect_message">Incorrect OTP. Please try again.</string>
     <string name="confirmLabel">Confirm</string>
