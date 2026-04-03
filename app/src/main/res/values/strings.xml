@@ -215,7 +215,7 @@
     <string name="register_device_other">New device verification</string>
     <string name="listAccount">Account List</string>
     <string name="toMeAtSHB">To me at SHB</string>
-    <string name="exchangeRate">Exchange rate</string>
+    <string name="exchangeRate">Exchange Rate</string>
     <string name="formatTextExchangeCurrency" translatable="false">1 %s ≈ %s %s</string>
     <string name="rateAreIndicative">Note: Rates are indicative at inquiry and subject to change upon posting</string>
     <string name="paste_pay_top_label">Paste the message or upload an image containing transfer information</string>

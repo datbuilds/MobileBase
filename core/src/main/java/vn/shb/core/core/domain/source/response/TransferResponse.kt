@@ -2,7 +2,6 @@ package vn.shb.core.core.domain.source.response
 
 import com.google.gson.annotations.SerializedName
 import vn.shb.core.core.delivery.BaseResponse
-import vn.shb.data.entities.home.AccountInfo
 import vn.shb.data.entities.transfer.TransferAccount
 import java.io.Serializable
 import java.math.BigDecimal
@@ -21,7 +20,7 @@ class AccountUserNameResponse : BaseResponse<AccountUserNameModel>()
 data class TransactionTransfer(
     @SerializedName("transactionId") val transactionId: Int = 0,
     @SerializedName("status") val status: String = "",
-    @SerializedName("otp") val otp: String = "",
+    @SerializedName("otpCode") val otp: String = "",
     @SerializedName("authMethod") val authMethod: String = "",
     @SerializedName("authSms") val authSms: String? = null,
     @SerializedName("paymentType") val paymentType: String = "",

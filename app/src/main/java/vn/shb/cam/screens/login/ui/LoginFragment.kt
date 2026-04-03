@@ -299,6 +299,16 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         (activity as? MainActivity)?.onAuthenticatedFlowStarted()
     }
 
+    override fun onResume() {
+        hideProgressDialog()
+        super.onResume()
+    }
+
+    override fun onStop() {
+        hideProgressDialog()
+        super.onStop()
+    }
+
     override fun initObserve() {
         launchRepeatOnLifecycle {
             launch {

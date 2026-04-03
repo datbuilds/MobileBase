@@ -1,65 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:paddingHorizontal="@dimen/margin_2dp"
-    android:paddingVertical="12dp">
+    android:layout_height="wrap_content">
 
-    <!-- Icon -->
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="12dp"
-        android:src="@drawable/ic_in_come" />
-
-    <!-- Nội dung -->
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:orientation="vertical">
-
-        <vn.shb.cam.base.view.MyTextView
-            android:id="@+id/tvName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:textColor="@color/neutral8"
-            android:textSize="12sp"
-            app:customFontWeight="regular"
-            tools:text="shb_action_logoutshb_action_logoutshb_action_logoutshb_action_logoutshb_action_logout" />
-
-        <vn.shb.cam.base.view.MyTextView
-            android:id="@+id/tvSubInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:textColor="@color/neutral8"
-            android:textSize="12sp"
-            android:visibility="gone"
-            app:customFontWeight="regular"
-            tools:text="@string/shb_action_logout" />
-    </LinearLayout>
-
-    <!-- Số tiền -->
     <vn.shb.cam.base.view.MyTextView
-        android:id="@+id/tvAmount"
-        android:layout_width="0dp"
+        android:id="@+id/layoutTitle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:ellipsize="end"
-        android:gravity="end"
-        android:maxLines="2"
+        app:customFontWeight="medium"
+        android:paddingVertical="8dp"
         android:textColor="@color/neutral7"
         android:textSize="@dimen/textSize12"
-        android:textStyle="bold"
-        app:customFontWeight="medium"
-        tools:text="+5,000,000+5,000,000+5,000,000+5,000,000+5,000,000+5,000,000+5,000,000+5,000,000+5,000,000+5,000,000" />
-</LinearLayout>
+        tools:text="@string/shb_action_logout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/layoutContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/margin_2dp"
+            android:paddingVertical="12dp">
+
+            <!-- Icon -->
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_in_come" />
+
+            <!-- Nội dung -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:orientation="vertical">
+
+                <vn.shb.cam.base.view.MyTextView
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textColor="@color/neutral8"
+                    android:textSize="12sp"
+                    app:customFontWeight="regular"
+                    tools:text="shb_action_logoutshb_action_logoutshb_action_logoutshb_action_logoutshb_action_logout" />
+
+                <vn.shb.cam.base.view.MyTextView
+                    android:id="@+id/tvSubInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textColor="@color/neutral8"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    app:customFontWeight="regular"
+                    tools:text="@string/shb_action_logout" />
+            </LinearLayout>
+
+            <!-- Số tiền -->
+            <vn.shb.cam.base.view.MyTextView
+                android:id="@+id/tvAmount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:ellipsize="end"
+                android:gravity="end"
+                android:maxLines="2"
+                android:textColor="@color/neutral7"
+                android:textSize="@dimen/textSize12"
+                android:textStyle="bold"
+                app:customFontWeight="medium"
+                tools:text="+5,000,000+5,000,000+5,000,000+5,000,000+5,000,000+5,000,000+5,000,000+5,000,000+5,000,000+5,000,000" />
+
+
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/vLineGray"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_1dp"
+            android:background="@color/colorLineGray"
+            app:layout_constraintTop_toBottomOf="@+id/tvTakePhoto" />
+    </LinearLayout>
+</FrameLayout>
+
+
+

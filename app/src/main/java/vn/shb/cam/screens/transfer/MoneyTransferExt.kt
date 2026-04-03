@@ -251,14 +251,14 @@ fun MoneyTransferFragment.popupChooseCurrency(
     binding.apply {
 
         tvKHR.apply {
-            setTextColor(getColor(if (currentCurrency == Const.KHR) R.color.neutral10 else R.color.neutral7))
+            setTextColor(getColor(if (currentCurrency != Const.KHR) R.color.neutral10 else R.color.neutral7))
             setOnSingleClickListener {
                 choose.invoke(Const.KHR)
                 popupWindow.dismiss()
             }
         }
         tvUSD.apply {
-            setTextColor(getColor(if (currentCurrency == Const.USD) R.color.neutral10 else R.color.neutral7))
+            setTextColor(getColor(if (currentCurrency != Const.USD) R.color.neutral10 else R.color.neutral7))
             setOnSingleClickListener {
                 choose.invoke(Const.USD)
                 popupWindow.dismiss()
