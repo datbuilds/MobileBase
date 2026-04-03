@@ -136,7 +136,7 @@
     <string name="beneficiary">Beneficiary</string>
     <string name="chatpay">Paste2Pay</string>
     <string name="addNew">Add new</string>
-    <string name="doYouWantToDeleteFromBeneficiary">Delete %s from beneficiaries??</string>
+    <string name="doYouWantToDeleteFromBeneficiary">Delete %s from beneficiaries?</string>
     <string name="nicknameAlreadyExists">The nickname already exists. Are you sure you want to use this nickname?</string>
     <string name="beneficiaryDeletedSuccessfully">Beneficiary deleted successfully!</string>
     <string name="editBeneficiary">Edit beneficiary</string>

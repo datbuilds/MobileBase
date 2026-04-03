@@ -10,11 +10,11 @@
     <string name="login">ចូលប្រព័ន្ធ</string>
     <string name="goodMorning">អរុណសួស្តី</string>
     <string name="goodAfternoon">ទិវាសួស្តី</string>
-    <string name="goodnight">ទិវាសួស្ដី</string>
+    <string name="goodnight">សាយ័ណ្ហសួស្តី</string>
     <string name="welcome">សូមស្វាគមន៍</string>
     <string name="notification">ការជូនដំណឹង</string>
     <string name="incorrectUsernameOrPassword">ឈ្មោះ​អ្នកប្រើប្រាស់ ឬ​ពាក្យសម្ងាត់​មិនត្រឹមត្រូវ។ សូម​ព្យាយាម​ម្តងទៀត។</string>
-    <string name="processingError">កំហុសក្នុងការដំណើរការប្រព័ន្ធ។ សូមព្យាយាមម្តងទៀតនៅពេលក្រោយ។</string>
+    <string name="processingError">ប្រព័ន្ធមិនអាចប្រើប្រាស់បានជាបណ្ដោះអាសន្ន។ សូមព្យាយាមម្ដងទៀតនៅពេលក្រោយ</string>
     <string name="passwordResetInstructions">ការណែនាំអំពីការកំណត់ពាក្យសម្ងាត់ឡើងវិញ</string>
     <string name="pleaseBringIdToResetPassword">សូមយកអត្តសញ្ញាណប័ណ្ណ ឬលិខិតឆ្លងដែនរបស់អ្នកទៅកាន់សាខាប្រតិបត្តិការរបស់ SHB ណាមួយដែលនៅជិតលោកអ្នកដើម្បីកំណត់ពាក្យសម្ងាត់របស់អ្នកឡើងវិញ។</string>
     <string name="shbBranch1">ធនាគារ សៃហ្គន-ហាណូយ កម្ពុជា ភីអិលស៊ី</string>
@@ -47,7 +47,7 @@
     <string name="selectFromPhotoLibrary">ជ្រើសរើសពីបណ្ណាល័យរូបភាព</string>
     <string name="profilePictureUpdated">ការផ្លាស់ប្តូររូបភាពកម្រងព័ត៌មានបានជោគជ័យ</string>
     <string name="accountDetails">ពត៌មានលម្អិតអំពីគណនី</string>
-    <string name="availableBalance">សមតុល្យដែលអាចប្រើប្រាស់បាន</string>
+    <string name="availableBalance">សមតុល្យសាច់ប្រាក់</string>
     <string name="accountNumber">លេខគណនី</string>
     <string name="branch">សាខា</string>
     <string name="transactionHistory">ប្រវត្តិប្រតិបត្តិការ</string>
@@ -72,7 +72,7 @@
     <string name="totalAmount">ចំនួនទឹកប្រាក់សរុប</string>
     <string name="transactionFailed">កិច្ចការមិនជោគជ័យ។ សូមព្យាយាមម្តងទៀត។</string>
     <string name="tryAgain">ព្យាយាមម្តងទៀត</string>
-    <string name="transactionExceedLimit">បប្រតិបត្តិការ​បាន​បរាជ័យ​ ដោយសារ​ចំនួនទឹកប្រាក់លើសពីដែនកំណត់អនុញ្ញាត។</string>
+    <string name="transactionExceedLimit">ប្រតិបត្តិការ​បាន​បរាជ័យ​ ដោយសារ​ចំនួនទឹកប្រាក់លើសពីដែនកំណត់អនុញ្ញាត។</string>
     <string name="paymentSuccess">ប្រតិបត្តិការជោគជ័យ!</string>
     <string name="createNewTransaction">កិច្ចការថ្មី</string>
     <string name="selectBeneficiary">ជ្រើសរើសអ្នកទទួលផល</string>
@@ -84,14 +84,14 @@
     <string name="enterNickname">បញ្ចូលឈ្មោះសម្គាល់</string>
     <string name="titleNickname">ឈ្មោះហៅក្រៅ</string>
     <string name="setNickname">កំណត់ឈ្មោះសម្គាល់</string>
-    <string name="complete">រួចរាល់</string>
+    <string name="complete">បញ្ចប់</string>
     <string name="nicknameSetSuccess">បានកំណត់ឈ្មោះសម្គាល់ដោយជោគជ័យ</string>
     <string name="profilePictureFailed">ការផ្លាស់ប្តូររូបភាពកម្រងព័ត៌មានត្រូវបានបរាជ័យ!</string>
     <string name="invalidBeneficiaryAccount">គណនីអ្នកទទួលផលមិនត្រឹមត្រូវ</string>
     <string name="invalidSelectedDate">កាលបរិច្ឆេទដែលបានជ្រើសរើសមិនត្រឹមត្រូវ</string>
     <string name="pleaseEnterUsername">សូមបញ្ចូលឈ្មោះអ្នកប្រើប្រាស់</string>
     <string name="pleaseEnterPassword">សូមបញ្ចូលពាក្យសម្ងាត់</string>
-    <string name="loginFailed5Times">អ្នកបានបញ្ចូលលេខកូដ OTP មិនត្រឹមត្រូវចំនួន 5 ដង។ សូមរង់ចាំ %s នាទី រួចព្យាយាមម្តងទៀត។</string>
+    <string name="loginFailed5Times">លោកអ្នកបានបញ្ចូលលេខសម្ងាត់ខុសលើសពី 5 ដង។ សូមព្យាយាមម្ដងទៀតក្នុងរយៈពេល %s នាទីបន្ទាប់។</string>
     <string name="currentBalance">សមតុល្យប្រើបាន</string>
     <string name="show">បង្ហាញ</string>
     <string name="myProfile">កម្រងព័ត៌មានរបស់ខ្ញុំ</string>
@@ -125,7 +125,7 @@
     <string name="second">វិនាទី</string>
     <string name="errorCode" translatable="false">លេខកូដកំហុស</string>
     <string name="to">ដល់ថ្ងៃ</string>
-    <string name="SHBAccount">គណនី SHB</string>
+    <string name="SHBAccount">កម្មវិធីធនាគារឯកត្តបុគ្គល</string>
     <string name="transferAccountAndReceivingAccountNotSame">គណនីផ្ទេរ និងគណនីអ្នកទទួលខុសប្រភេទរូបិយបណ្ណគ្នា</string>
     <string name="pleaseEnterTheAccountNumber">សូមបញ្ចូលលេខគណនី</string>
     <string name="pleaseEnterTheRemarks">សូមបញ្ចូលខ្លឹមសារកំណត់សម្គាល់</string>
@@ -177,14 +177,14 @@
     <string name="ask_set_nickname">តើអ្នកចង់កំណត់ឈ្មោះហៅក្រៅសម្រាប់អ្នកទទួលនេះដែរឬទេ?</string>
     <string name="enter_nickname">សូមបញ្ចូលឈ្មោះហៅក្រៅ</string>
     <string name="error_enter_nickname">សូមបញ្ចូលឈ្មោះ</string>
-    <string name="successfullySetNickname">បានកំណត់ឈ្មោះសម្គាល់ដោយជោគជ័យ</string>
+    <string name="successfullySetNickname">កំណត់ឈ្មោះហៅក្រៅ</string>
     <string name="noLabel">មិនមែន</string>
     <string name="yesLabel">បាទ/ចាស៎</string>
     <string name="allowRemoveBeneficiary">បញ្ជាក់</string>
     <string name="dontAllowRemoveBeneficiary">បោះបង់</string>
     <string name="theNameIsInvaid">ឈ្មោះ​មិន​ត្រឹមត្រូវ</string>
     <string name="theBeneficiaryUpdateFail"> ការធ្វើបច្ចុប្បន្នភាពអ្នកទទួលផលបរាជ័យ</string>
-    <string name="theBeneficiaryAlreadyExists">បញ្ជីអ្នកទទួលផលមានក្នុងប្រព័ន្ធរួចហើយ</string>
+    <string name="theBeneficiaryAlreadyExists">ឈ្មោះអ្នកទទួលផលមានរួចហើយ</string>
     <string name="new_version_available">មានកំណែថ្មី</string>
     <string name="weHaveReleasedNewVersion">យើងខ្ញុំបានបញ្ចេញកំណែថ្មីហើយ។ សូមធ្វើបច្ចុប្បន្នភាព ដើម្បីទទួលបានបទពិសោធន៍សន្សំកាន់តែប្រសើរជាមួយ SHB SAHA CAMs។</string>
     <string name="updateLabel">ធ្វើបច្ចុប្បន្នភាព</string>

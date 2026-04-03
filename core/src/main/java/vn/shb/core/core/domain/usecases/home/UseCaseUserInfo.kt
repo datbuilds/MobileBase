@@ -4,7 +4,6 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.FlowCollector
 import vn.shb.core.core.delivery.ConnectionError
-import vn.shb.core.core.delivery.NotFoundError
 import vn.shb.core.core.delivery.ResultSHB
 import vn.shb.core.core.domain.source.response.AccountData
 import vn.shb.core.core.domain.usecases.BaseUseCase
@@ -27,9 +26,9 @@ class UseCaseUserInfo(private val repository: RepositoryUser) :
                 val error = when {
                     userResult is ResultSHB.Failure -> userResult
                     accountResult is ResultSHB.Failure -> accountResult
-                    else -> ConnectionError()
+                    else -> ResultSHB.Failure(ConnectionError())
                 }
-                emit(ResultSHB.Failure(ConnectionError()))
+                emit(error)
             }
         }
     }
