@@ -67,7 +67,8 @@
             android:background="@drawable/bg_child_view_account_details"
             android:paddingHorizontal="@dimen/margin_16dp"
             android:paddingVertical="@dimen/margin_20dp"
-            tools:itemCount="3" />
+            android:clipToPadding="false"
+            tools:itemCount="100" />
 
         <vn.shb.cam.base.view.MyTextView
             android:id="@+id/tvNoTransaction"

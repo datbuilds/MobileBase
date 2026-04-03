@@ -71,7 +71,7 @@ class MyEditText @JvmOverloads constructor(
 
     override fun onTextContextMenuItem(id: Int): Boolean {
         // ID của sự kiện Paste trong hệ thống
-        if (id == android.R.id.paste && isAmountField) {
+        if (id == android.R.id.paste && isAmountField && isEnabled && isFocused) {
             // Thực hiện hành động của bạn tại đây
             Log.e("onTextContextMenuItemPaste", "Người dùng vừa Paste text!")
             handlePasteProcess()
@@ -96,7 +96,7 @@ class MyEditText @JvmOverloads constructor(
             // 2. Kiểm tra số lượng dấu chấm
             val dotCount = rawTextPaste.count { it == '.' }
 
-            val pastedText =     if (currentCurrencyChoose==Const.USD){
+            var pastedText = if (currentCurrencyChoose == Const.USD) {
                 if (dotCount > 1) {
                     // Tìm vị trí dấu chấm cuối cùng
                     val lastDotIndex = rawTextPaste.lastIndexOf('.')
@@ -113,8 +113,49 @@ class MyEditText @JvmOverloads constructor(
                     // Nếu có 0 hoặc 1 dấu chấm thì giữ nguyên kết quả đã lọc
                     rawTextPaste
                 }
-            }else{
+            } else {
                 rawTextPaste.replace(".", "")
+            }
+
+            pastedText = pastedText.replaceFirst("^0+(?=\\d)".toRegex(), "")
+
+            if (currentCurrencyChoose == Const.USD) {
+                // 2. Chỉ giữ lại tối đa 2 số sau dấu chấm thập phân
+                if (pastedText.contains(".")) {
+                    val parts = pastedText.split(".")
+                    val intPart = parts[0]
+                    val decPart = if (parts.size > 1) parts[1] else ""
+
+                    // Nếu phần thập phân dài hơn 2, ta chỉ lấy 2 ký tự đầu
+                    val limitedDecPart = if (decPart.length > 2) decPart.take(2) else decPart
+
+                    pastedText = "$intPart.$limitedDecPart"
+                }
+            }
+
+            pastedText=if (pastedText.contains(".")) {
+                val parts = pastedText.split(".")
+                val intPart = parts[0]
+                val decPart = if (parts.size > 1) parts[1] else ""
+
+                // Kiểm tra phần nguyên (Giới hạn 12 số)
+                val validatedInt = if (intPart.length > 12) {
+                    intPart.take(12) // Chỉ lấy 12 số đầu
+                } else {
+                    intPart
+                }
+
+                // Giữ lại phần thập phân (có thể giới hạn 2 số như yêu cầu trước của bạn)
+                val limitedDec = decPart.take(2)
+
+                "$validatedInt.$limitedDec"
+            } else {
+                // 2. Nếu là số nguyên thuần túy
+                if (pastedText.length > 12) {
+                    pastedText.take(12)
+                } else {
+                    pastedText
+                }
             }
 
             // 2. Kiểm tra có phải là số không
