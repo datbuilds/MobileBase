@@ -53,7 +53,7 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         get() = requireNotNull(_binding)
 
     private val listErrorLogout = listOf(AUTH_006, AUTH_001, AUTH_002)
-    private val listErrorShowErrorAndLogout = listOf(HTTP_UNAUTHORIZED.toString(),HTTP_NOT_FOUND)
+    private val listErrorShowErrorAndLogout = listOf(HTTP_UNAUTHORIZED.toString(), HTTP_NOT_FOUND)
 
     open fun isPaddingBottom() = false
     protected open fun useBaseFadeThrough() = true
@@ -227,14 +227,11 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
     protected fun handleErrorHome(error: Reason?, onAction: (() -> Unit)? = null) {
         if (error != null) {
             if (listErrorLogout.contains(error.errorCode)) {
-                logout(error)
+                logout()
             } else if (listErrorShowErrorAndLogout.contains(error.errorCode)) {
                 showDialogError(error, {
                     onAction?.invoke()
-                    storage.resetUser()
-                    RefreshTokenManager.stop()
-                    finishAffinity(requireActivity())
-                    returnActivity(MainActivity.loginIntent(requireActivity()))
+                    logout()
                 })
             } else {
                 showDialogError(error, {
@@ -242,6 +239,13 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
                 })
             }
         }
+    }
+
+    fun logout() {
+        storage.resetUser()
+        RefreshTokenManager.stop()
+        finishAffinity(requireActivity())
+        returnActivity(MainActivity.loginIntent(requireActivity()))
     }
 
     private fun observerStateError() {
@@ -256,13 +260,6 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
 
 
     fun getColor(@ColorRes colorId: Int) = ContextCompat.getColor(requireContext(), colorId)
-
-    fun logout(error: Reason) {
-        storage.resetUser()
-        RefreshTokenManager.stop()
-        finishAffinity(requireActivity())
-        returnActivity(MainActivity.loginIntent(requireActivity()))
-    }
 
     // Removing the binding reference when not needed is recommended as it avoids memory leak
     override fun onDestroyView() {

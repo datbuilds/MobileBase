@@ -1012,9 +1012,10 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             with(binding.iclToAccount.edtValue) {
                 if (list.isEmpty()) {
                     setText(getString(R.string.noAccountAvailable))
-                } else if (!isIntrabank()) {
-                    setText(Const.EMPTY)
                 }
+//                else if (!isIntrabank()) {
+//                    setText(Const.EMPTY)
+//                }
             }
         }
     }

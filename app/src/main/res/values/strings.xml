@@ -1,6 +1,5 @@
 <resources>
-
-    <string name="personalInternetBanking">Personal Internet Banking</string>
+    <string name="personalInternetBanking">Individual Banking Application</string>
     <string name="enterYourDetailToSignIn">Sign in with your credentials</string>
     <string name="userName">Username</string>
     <string name="enterYourUserName">Enter Your Username</string>
@@ -43,7 +42,6 @@
     <string name="email">Email</string>
     <string name="shbOnline">SHB Online</string>
     <string name="userNameLogin">User Name</string>
-    <string name="demandDeposits">Demand Deposits</string>
     <string name="chooseProfilePicture">Choose profile picture</string>
     <string name="takePhoto">Take a photo</string>
     <string name="selectFromPhotoLibrary">Select from photo library</string>
@@ -69,7 +67,7 @@
     <string name="amount">Amount</string>
     <string name="enterAccountNumber">Enter Account Number</string>
     <string name="enterAmount">Enter Amount</string>
-    <string name="insufficientBalance">Insufficient account balance. Please try again.</string>
+    <string name="insufficientBalance">Insufficient Account Balance. Please try again.</string>
     <string name="fee">Fee</string>
     <string name="totalAmount">Total Amount</string>
     <string name="transactionFailed">Transaction failed!</string>
@@ -79,7 +77,6 @@
     <string name="createNewTransaction">New Transaction</string>
     <string name="selectBeneficiary">Select beneficiary</string>
     <string name="confirmationCode">Confirmation Code</string>
-    <string name="enterConfirmationCode">Please enter confirmation code at C5 position on eSecure Card</string>
     <string name="confirm">Confirm</string>
     <string name="saveRecipient">Save Beneficiary</string>
     <string name="save">Save</string>
@@ -92,8 +89,8 @@
     <string name="profilePictureFailed">Profile picture update failed!</string>
     <string name="invalidBeneficiaryAccount">Invalid Beneficiary Account</string>
     <string name="invalidSelectedDate">Invalid selected date</string>
-    <string name="pleaseEnterUsername">Please enter your username</string>
-    <string name="pleaseEnterPassword">Please enter your password</string>
+    <string name="pleaseEnterUsername">Please enter your username.</string>
+    <string name="pleaseEnterPassword">Please enter your password.</string>
     <string name="loginFailed5Times">Maximum 05 login attempts exceeded. Please try again in %s minutes.</string>
     <string name="currentBalance">Current balance</string>
     <string name="show">Show</string>
@@ -111,7 +108,7 @@
     <string name="pleaseEnterConfirmCode">Please enter confirmation code at %s position on eSecure Card</string>
     <string name="transactionFailedDueToExceeding">Transaction failed due to exceeding the limit</string>
     <string name="authenticationFailed">Authentication failed. Please try again.</string>
-    <string name="transactionFail">Transaction Fail!</string>
+    <string name="transactionFail">Transaction failed!</string>
     <string name="anErrorHasOccurred">Transaction failed. Please try again.</string>
     <string name="enterRecipientName">Enter Beneficiary Name</string>
     <string name="pleaseEnterTheAmount">Enter Amount</string>
@@ -132,16 +129,16 @@
     <string name="to">To</string>
     <string name="SHBAccount">SHB Account</string>
     <string name="transferAccountAndReceivingAccountNotSame">Source and recipient accounts must be in the same currency.</string>
-    <string name="pleaseEnterTheAccountNumber">Please enter recipient account</string>
+    <string name="pleaseEnterTheAccountNumber">Please enter the Account Number</string>
     <string name="pleaseEnterTheRemarks">Please enter the remarks</string>
     <string name="enterRemarks">Enter remarks</string>
-    <string name="transactionSuccess">Transaction successful !</string>
+    <string name="transactionSuccess">Transaction successful!</string>
     <string name="beneficiary">Beneficiary</string>
     <string name="chatpay">Paste2Pay</string>
     <string name="addNew">Add new</string>
-    <string name="doYouWantToDeleteFromBeneficiary">Do you want to delete %s from beneficiary list?</string>
+    <string name="doYouWantToDeleteFromBeneficiary">Delete %s from beneficiaries?</string>
     <string name="nicknameAlreadyExists">The nickname already exists. Are you sure you want to use this nickname?</string>
-    <string name="beneficiaryDeletedSuccessfully">Beneficiary deleted successfully</string>
+    <string name="beneficiaryDeletedSuccessfully">Beneficiary deleted successfully!</string>
     <string name="editBeneficiary">Edit beneficiary</string>
     <string name="bank">Bank</string>
     <string name="minus">minutes</string>
@@ -154,8 +151,8 @@
     <string name="new_password">New password</string>
     <string name="enter_new_password">Enter new password</string>
     <string name="password_rule_length">Password must be between 8 and 20 characters.</string>
-    <string name="password_rule_case">Requires at least 1 lowercase and 1 uppercase character</string>
-    <string name="password_rule_special">Requires at least 1 numeric character, 1 special character .~!@#$\%^&amp;*()_+={}|:;&lt;&gt;,/?-</string>
+    <string name="password_rule_case">Password must contain at least one uppercase and one lowercase letter.</string>
+    <string name="password_rule_special">Requires at least 1 numeric character and 1 special character .~!@#$\%^&amp;*()_+={}|:;&lt;&gt;,/?-</string>
     <string name="remark_default_value" translatable="false">%s TRANSFER</string>
     <string name="hint_select_bank">Select Bank</string>
     <string name="hint_enter_account_name">Enter Account Name</string>
@@ -185,34 +182,34 @@
     <string name="ask_set_nickname">Would you like to set a nickname for this recipient?</string>
     <string name="enter_nickname">Enter Nickname</string>
     <string name="error_enter_nickname">Please enter the name</string>
-    <string name="successfullySetNickname">Successfully set nickname</string>
+    <string name="successfullySetNickname">Nickname set successfully!</string>
     <string name="noLabel">No</string>
     <string name="yesLabel">Yes</string>
     <string name="allowRemoveBeneficiary">Yes</string>
     <string name="dontAllowRemoveBeneficiary">No</string>
     <string name="theNameIsInvaid">Invalid Name</string>
-    <string name="theBeneficiaryUpdateFail">Beneficiary updated fail</string>
-    <string name="theBeneficiaryAlreadyExists">The beneficiary already exists</string>
+    <string name="theBeneficiaryUpdateFail">Beneficiary update failed!</string>
+    <string name="theBeneficiaryAlreadyExists">Beneficiary already exists.</string>
     <string name="new_version_available">A new version is available</string>
     <string name="weHaveReleasedNewVersion">We have released a new version. Please update to enjoy a better saving experience with SHB SAHA CAMs.</string>
     <string name="updateLabel">Update</string>
     <string name="invalidAccountNumber">Invalid Account Number</string>
     <string name="cambodian" translatable="false">ភាសាខ្មែរ</string>
-    <string name="register_device_title">Register device for using the SHB Saha Cambodia application</string>
-    <string name="register_device_message">To enhance account security, please verify your device using the OTP sent to the phone number %s to complete the app registration. Is this your phone number?</string>
-    <string name="confirm_device_title">Confirm device</string>
-    <string name="confirm_device_message">Please enter the OTP that has been sent to the phone number %s</string>
+    <string name="register_device_title">Please register this device to use SHB Saha Cambodia.</string>
+    <string name="register_device_message">For enhanced security, please verify your device using the OTP sent to %s to complete the app registration. Is this your phone number?</string>
+    <string name="confirm_device_title">Confirm new device</string>
+    <string name="confirm_device_message">Please enter the OTP sent to %s.</string>
     <string name="remaining_time">Remaining time %s second</string>
-    <string name="otp_incorrect_message">The OTP code is incorrect. Please check again.</string>
+    <string name="otp_incorrect_message">Incorrect OTP. Please try again.</string>
     <string name="confirmLabel">Confirm</string>
-    <string name="theOtpExpired">The OTP has expired. Please generate a new verification code.</string>
+    <string name="theOtpExpired">OTP expired. Get a new code.</string>
     <string name="resendOtp">Resend OTP</string>
     <string name="theNewPassMustNotMatchOldPass">New password must not match your 4 most recent passwords.</string>
     <string name="otpIncorrectly5Times">You have entered the OTP incorrectly %s times. Please try again in %s</string>
     <string name="requestOtpMore5Times">You have requested the OTP more than %s times. Please try again in %s</string>
-    <string name="newDeviceVerificial">You are logging into SHB Saha Cambodia on a new device. Please verify using the OTP sent to the phone number %s to continue using the service. Is this your phone number?</string>
+    <string name="newDeviceVerificial">New device login detected. Please verify with the OTP sent to %s to continue. Is this your phone number?</string>
     <string name="goToBranch">Go to Branch</string>
-    <string name="getSupportForChanging">To get support for changing or register your phone number, please visit the nearest branch/transaction point of SHB Cambodia.</string>
+    <string name="getSupportForChanging">Please visit your nearest SHB Cambodia Branch to register or update your phone number.</string>
     <string name="language">Language</string>
     <string name="listBranchTransactionPoint">List branch/transaction point</string>
     <string name="register_device_other">New device verification</string>
