@@ -184,15 +184,17 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                 showLanguagePopup(binding.llLanguage)
             }
 
-            if (BuildConfig.FLAVOR == "dev") {
-                ivLogoSHB.setOnSingleClickListener {
-                    resetInputLogin()
-                }
-            }
+
+//            ivLogoSHB.setOnSingleClickListener {
+//                resetInputLogin()
+//            }
 
             if (BuildConfig.DEBUG) {
 //                binding.edtInputUsername.setText("0101013925")
 //                binding.edtInputPass.setText("12345678")
+//                handleActionLogin()
+//                binding.edtInputUsername.setText("0101025405")
+//                binding.edtInputPass.setText("123456")
 //                handleActionLogin()
             }
         }

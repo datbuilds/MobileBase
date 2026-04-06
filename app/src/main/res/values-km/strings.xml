@@ -106,7 +106,7 @@
     <string name="pleaseEnterConfirmCode">សូមបញ្ចូលលេខកូដបញ្ជាក់នៅទីតាំង %s លើកាត eSecure</string>
     <string name="transactionFailedDueToExceeding">ប្រតិបត្តិការ​បាន​បរាជ័យ​ ដោយសារ​ចំនួនទឹកប្រាក់លើសពីដែនកំណត់អនុញ្ញាត។</string>
     <string name="authenticationFailed">ការផ្ទៀងផ្ទាត់បរាជ័យ។ សូមព្យាយាមម្តងទៀត។</string>
-    <string name="transactionFail">កិច្ចការមិនជោគជ័យ!</string>
+    <string name="transactionFail">ប្រតិបត្តិការបរាជ័យ!</string>
     <string name="anErrorHasOccurred">ប្រតិបត្តិការមិនបានជោគជ័យ។ សូមព្យាយាមម្ដងទៀត។</string>
     <string name="enterRecipientName">បញ្ចូលឈ្មោះអ្នកទទួលផល</string>
     <string name="pleaseEnterTheAmount">សូមបញ្ចូលចំនួនទឹកប្រាក់</string>

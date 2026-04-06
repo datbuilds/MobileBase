@@ -69,7 +69,7 @@ class EditBeneficiaryFragment :
         setupCommonViews()
         viewModel.getBanks() // Ensure banks are loaded
         if (isEdit) {
-            binding.tvConfirmation.text = getString(R.string.confirmation)
+            binding.tvConfirmation.text = getString(R.string.confirm)
             binding.tvEditBeneficiary.text = getString(R.string.editBeneficiary)
             setupEditMode()
         } else {

@@ -108,10 +108,10 @@ class DialogSelectBeneficiary(private val listBeneficiary: List<Beneficiary>) :
             listBeneficiary
         } else {
             listBeneficiary.filter { ben ->
-                (ben.accountName?.lowercase(java.util.Locale.getDefault())
-                    ?.contains(query) == true) ||
-                        (ben.accountNumber?.lowercase(java.util.Locale.getDefault())
-                            ?.contains(query) == true)
+                (ben.accountName ?: "").lowercase().contains(query)
+                        || (ben.accountNumber ?: "").lowercase().contains(query)
+                        || (ben.accountNick ?: "").lowercase().contains(query)
+                        || (ben.bankName ?: "").lowercase().contains(query)
             }
         }
         adapter?.updateData(filteredList)

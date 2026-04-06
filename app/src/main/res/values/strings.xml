@@ -108,7 +108,7 @@
     <string name="pleaseEnterConfirmCode">Please enter confirmation code at %s position on eSecure Card</string>
     <string name="transactionFailedDueToExceeding">Transaction failed due to exceeding the limit</string>
     <string name="authenticationFailed">Authentication failed. Please try again.</string>
-    <string name="transactionFail">Transaction Fail!</string>
+    <string name="transactionFail">Transaction failed!</string>
     <string name="anErrorHasOccurred">Transaction failed. Please try again.</string>
     <string name="enterRecipientName">Enter Beneficiary Name</string>
     <string name="pleaseEnterTheAmount">Enter Amount</string>
@@ -128,8 +128,8 @@
     <string name="errorCode" translatable="false">Errorcode</string>
     <string name="to">To</string>
     <string name="SHBAccount">SHB Account</string>
-    <string name="transferAccountAndReceivingAccountNotSame">Source and to accounts must be in the same currency.</string>
-    <string name="pleaseEnterTheAccountNumber">Please enter to account</string>
+    <string name="transferAccountAndReceivingAccountNotSame">Source and recipient accounts must be in the same currency.</string>
+    <string name="pleaseEnterTheAccountNumber">Please enter the Account Number</string>
     <string name="pleaseEnterTheRemarks">Please enter the remarks</string>
     <string name="enterRemarks">Enter remarks</string>
     <string name="transactionSuccess">Transaction successful!</string>
