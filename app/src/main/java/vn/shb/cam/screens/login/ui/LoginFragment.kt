@@ -93,7 +93,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         bindEdtPassword()
         clearFlag()
 
-//        binding.edtInputPass.setText("12345678")
+        binding.edtInputPass.setText("123456")
 //        login()
 
         if (arguments?.getBoolean(AppDestination.ARG_SHOW_SESSION_EXPIRED) == true) {
@@ -185,9 +185,11 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             }
 
 
-//            ivLogoSHB.setOnSingleClickListener {
-//                resetInputLogin()
-//            }
+            if (BuildConfig.DEBUG) {
+                ivLogoSHB.setOnSingleClickListener {
+                    resetInputLogin()
+                }
+            }
 
             if (BuildConfig.DEBUG) {
 //                binding.edtInputUsername.setText("0101013925")

@@ -43,11 +43,15 @@ import vn.shb.cam.utils.widgets.LocaleHelper
 import vn.shb.core.core.delivery.ReasonDescription.CAM
 import vn.shb.core.core.delivery.ReasonDescription.ENGLISH
 import vn.shb.core.core.delivery.ReasonDescription.VIET
+import vn.shb.core.core.domain.usecases.login.UseCaseRefreshToken
+import vn.shb.core.core.domain.usecases.wso2.UseCaseRefreshTokenWso2
 
 class ProfileFragment :
     BaseFragmentBinding<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
 
     private val viewModel: LoginViewModel by inject()
+    private val useCaseRefreshToken: UseCaseRefreshToken by inject()
+    private val useCaseRefreshTokenWso2: UseCaseRefreshTokenWso2 by inject()
 
     private lateinit var photoHelper: ChoosePhotoHelper
 
@@ -170,12 +174,12 @@ class ProfileFragment :
                 viewModel.stateLogout.collectLatest { state ->
                     if (state is LogoutUiState.Success) {
                         lifecycleScope.launch {
-                            RefreshTokenManager.stop()
                             delay(260)
                             storage.resetToken()
                             requireActivity().apply {
-                                finishAffinity()
-                                returnActivity(MainActivity.loginIntent(requireContext()))
+//                                finishAffinity()
+//                                returnActivity(MainActivity.loginIntent(requireContext()))
+                                popBackTo(AppDestination.Login())
                             }
                         }
                     }

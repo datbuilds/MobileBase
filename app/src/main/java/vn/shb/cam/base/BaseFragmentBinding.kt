@@ -243,7 +243,6 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
 
     fun logout() {
         storage.resetUser()
-        RefreshTokenManager.stop()
         finishAffinity(requireActivity())
         returnActivity(MainActivity.loginIntent(requireActivity()))
     }

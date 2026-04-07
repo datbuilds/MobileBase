@@ -128,7 +128,7 @@
     <string name="SHBAccount">កម្មវិធីធនាគារឯកត្តបុគ្គល</string>
     <string name="transferAccountAndReceivingAccountNotSame">គណនីប្រភព និងគណនីអ្នកទទួល ត្រូវតែមានប្រភេទរូបិយបណ្ណដូចគ្នា</string>
     <string name="pleaseEnterTheAccountNumber">សូមបញ្ចូលលេខគណនី</string>
-    <string name="pleaseEnterTheRemarks">បញ្ចូលកំំណត់សម្គាល់</string>
+    <string name="pleaseEnterTheRemarks">សូមបញ្ចូលខ្លឹមសារកំណត់សម្គាល់</string>
     <string name="enterRemarks">បញ្ចួលកំណត់សម្គាល់</string>
     <string name="transactionSuccess">កិច្ចការជោគជ័យ !</string>
     <string name="beneficiary">អ្នកទទួលផល</string>

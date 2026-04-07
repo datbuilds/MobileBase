@@ -83,6 +83,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
         super.onResume()
         homeViewModel.selectedAccount = null
         homeViewModel.getUserInfo()
+        homeViewModel.getTransferAccount()
     }
 
 

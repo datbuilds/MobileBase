@@ -191,9 +191,6 @@ class HomeViewModel(
                         _stateFetchUser.send(userInfo)
                     }
                     listAccount = accountData.array.sortAccount()
-                    if (listAccount.isEmpty()) {
-                        _stateAccountNull.emit(true)
-                    }
                     currentUserInfo = userInfo
                     getCurrentAccount(userInfo, accountData.array)
                 }
@@ -207,7 +204,7 @@ class HomeViewModel(
 
     fun checkAccountNull(callAction : (() -> Unit)? = null) {
         viewModelScope.launch {
-            if (listAccount.isEmpty()){
+            if (listTransferAccount.isEmpty()){
                 _stateAccountNull.emit(true)
             } else {
                 callAction?.invoke()
@@ -380,6 +377,9 @@ class HomeViewModel(
             useCaseTransferAccount.invoke(UseCaseTransferAccount.Params(true)).collect { result ->
                 result.onSuccess { accountData ->
                     listTransferAccount = accountData.array.sortAccount()
+                    if (listTransferAccount.isEmpty()) {
+                        _stateAccountNull.emit(true)
+                    }
                     val account =
                         listTransferAccount.firstOrNull { it.accountNumber == selectedAccount?.accountNumber }
                             ?: listTransferAccount.firstOrNull()

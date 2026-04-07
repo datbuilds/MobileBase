@@ -45,6 +45,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         if (resolveStartDestination(intent) == AppDestination.Home) {
             startSmsListener()
         }
+
+        // Listen to fragment changes and update RefreshTokenManager
+        supportFragmentManager.registerFragmentLifecycleCallbacks(
+            object : androidx.fragment.app.FragmentManager.FragmentLifecycleCallbacks() {
+                override fun onFragmentResumed(fm: androidx.fragment.app.FragmentManager, f: androidx.fragment.app.Fragment) {
+                    super.onFragmentResumed(fm, f)
+                    // Update RefreshTokenManager when fragment changes
+                    if (shouldStartRefreshTokenManager()) {
+                        startRefreshTokenManager()
+                    }
+                }
+            },
+            false
+        )
     }
 
     override fun initListener() = Unit
@@ -76,7 +90,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
     override fun shouldStartRefreshTokenManager(): Boolean {
-        return resolveStartDestination(intent) == AppDestination.Home
+        val startDestination = resolveStartDestination(intent)
+        return startDestination == AppDestination.Home || startDestination is AppDestination.Login
     }
 
     override fun shouldUseDoubleBackToExit(): Boolean {
@@ -91,7 +106,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     override fun shouldHandleInactivityTimer(): Boolean {
         return activeDestination()?.let { destination ->
-            destination != AppDestination.Splash && destination !is AppDestination.Login
+            destination != AppDestination.Splash
         } == true
     }
 

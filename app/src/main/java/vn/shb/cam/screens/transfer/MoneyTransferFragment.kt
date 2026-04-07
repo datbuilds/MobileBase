@@ -793,8 +793,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 bindColor(R.color.neutral8)
                 edtValue.setInputEditText(false)
                 edtValue.hint = getString(R.string.enterRemarks)
-                finishTyping(iclRemarks.edtValue, true, callBack = {
-                    val text = iclRemarks.edtValue.text.toString()
+                finishTyping(edtValue, true, callBack = {
+                    val text = edtValue.text.toString()
                     edtValue.setText(text.cleanVietnameseText())
                 })
             }
@@ -940,6 +940,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 
                     1.div(exchangeRate).formatExchangeRate()
                 }
+
         } catch (e: Exception) {
             Log.e("TAG", "getTextExchangeCurrency: ")
         }
