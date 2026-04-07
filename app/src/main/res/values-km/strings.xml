@@ -143,7 +143,7 @@
     <string name="share">ចែករំលែក</string>
     <string name="chatpay">Paste2Pay</string>
     <string name="changePassword">ប្តូរពាក្យសម្ងាត់</string>
-    <string name="currentPassword">លពាក្យសម្ងាត់បច្ចុប្បន្ន</string>
+    <string name="currentPassword">ពាក្យសម្ងាត់បច្ចុប្បន្ន</string>
     <string name="enterCurrentPassword">បញ្ចូលពាក្យសម្ងាត់បច្ចុប្បន្ន</string>
     <string name="new_password">ពាក្យសម្ងាត់ថ្មី</string>
     <string name="enter_new_password">បញ្ចូលពាក្យសម្ងាត់ថ្មី</string>
@@ -154,7 +154,7 @@
     <string name="hint_enter_account_name">បញ្ចូលឈ្មោះគណនី</string>
     <string name="password_rule_username">មិនមានឈ្មោះអ្នកប្រើប្រាស់ ឬឈ្មោះពិតរបស់អ្នកប្រើប្រាស់ទេ</string>
     <string name="re_enter_new_password">បញ្ចូលពាក្យសម្ងាត់ថ្មីឡើងវិញ</string>
-    <string name="hint_re_enter_new_password">បញ្ចូលលេខសម្ងាត់ថ្មីម្តងទៀត</string>
+    <string name="hint_re_enter_new_password">បញ្ចូលពាក្យសម្ងាត់ថ្មីម្ដងទៀត</string>
     <string name="change_password_success">បានផ្លាស់ប្តូរលេខសម្ងាត់ដោយជោគជ័យ</string>
     <string name="change_password_success_message">សូមចូលប្រើម្តងទៀតដើម្បីបន្តប្រើប្រាស់កម្មវិធី</string>
     <string name="error_current_password_incorrect">លពាក្យសម្ងាត់បច្ចុប្បន្នមិនត្រឹមត្រូវទេ សូមព្យាយាមម្តងទៀត។</string>
