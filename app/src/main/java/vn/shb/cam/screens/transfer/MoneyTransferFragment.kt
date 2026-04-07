@@ -3,6 +3,7 @@ package vn.shb.cam.screens.transfer
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.text.method.TextKeyListener
 import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
@@ -273,6 +274,10 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             //click title
             iclExchangeRate.edtValue.setStateShowButtonClear(false)
             iclTotalAmount.edtValue.setStateShowButtonClear(false)
+
+            iclToAccount.edtValue.doAfterTextChanged {
+                iclToAccount.bindViewError(null)
+            }
 
             tvMoneyTransferTitle.setOnSingleClickListener {
                 backPress()
@@ -968,12 +973,35 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 ivExpandDown.setImageResource(if (!isIntrabank()) R.drawable.ic_arrow_down_black else R.drawable.ic_account_intrabank)
                 edtValue.apply {
                     setText(Const.EMPTY)
+                    edtValue.clearFocus()
                     hint =
                         if (isIntrabank()) getString(R.string.enterAccountNumber) else getString(R.string.selectAccount)
-                    isFocusable = isIntrabank()
-                    isFocusableInTouchMode = isIntrabank()
-                    isClickable = !isIntrabank()
-                    isLongClickable = isIntrabank()
+
+                    if (isIntrabank()) {
+                        // Cho nhập bình thường
+                        isEnabled = true
+                        isFocusable = true
+                        isFocusableInTouchMode = true
+                        isCursorVisible = true
+                        keyListener = TextKeyListener.getInstance()
+                        setOnClickListener(null)
+
+                    } else {
+                        // Không cho nhập nhưng vẫn click
+                        isEnabled = true
+                        isFocusable = false
+                        isFocusableInTouchMode = false
+                        isCursorVisible = false
+
+                        // ❗ disable edit actions (copy/paste/select)
+                        keyListener = null
+                        setTextIsSelectable(false)
+                        isLongClickable = false
+
+                        setOnClickListener {
+                            handleShowDialogSelectAccount()
+                        }
+                    }
                 }
 
             }
