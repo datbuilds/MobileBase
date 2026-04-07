@@ -52,7 +52,9 @@ class AccountDetailFragment :
             }
 
             flTransfer.setOnSingleClickListener {
-                safeNavigate(AppDestination.MoneyTransfer())
+                homeViewModel.checkAccountNull {
+                    safeNavigate(AppDestination.MoneyTransfer())
+                }
             }
 
             tvViewAll.setOnSingleClickListener {

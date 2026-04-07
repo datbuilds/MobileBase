@@ -128,9 +128,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
             }
 
             incItemAccounts.root.setOnSingleClickListener {
-                homeViewModel.checkAccountNull {
-                    safeNavigate(AppDestination.AccountDetail)
-                }
+                safeNavigate(AppDestination.AccountDetail)
             }
 
             tvCurrentAccount.setOnSingleClickListener {

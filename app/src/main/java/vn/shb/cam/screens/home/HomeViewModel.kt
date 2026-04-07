@@ -191,9 +191,6 @@ class HomeViewModel(
                         _stateFetchUser.send(userInfo)
                     }
                     listAccount = accountData.array.sortAccount()
-                    if (listAccount.isEmpty()) {
-                        _stateAccountNull.emit(true)
-                    }
                     currentUserInfo = userInfo
                     getCurrentAccount(userInfo, accountData.array)
                 }
