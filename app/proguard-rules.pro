@@ -60,8 +60,8 @@
 ##   Android-Image-Cropper
 -keep class androidx.appcompat.widget.** { *; }
 
--keep class vn.shb.cam.** { *; }
--keep class vn.shb.** { *; }
+#-keep class vn.shb.cam.** { *; }
+#-keep class vn.shb.** { *; }
 
 
 -keep class * extends androidx.fragment.app.Fragment{}
