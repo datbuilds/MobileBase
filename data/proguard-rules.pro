@@ -16,6 +16,10 @@
 # debugging stack traces.
 #-keepattributes SourceFile,LineNumberTable
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# Hide original source filenames in release artifacts.
+-renamesourcefileattribute SourceFile
+
+# Data models are serialized with Gson and may retain generic signatures.
+-keepattributes Signature,*Annotation*
+
+-dontwarn java.lang.invoke.StringConcatFactory
