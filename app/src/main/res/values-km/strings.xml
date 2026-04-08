@@ -177,7 +177,7 @@
     <string name="ask_set_nickname">តើអ្នកចង់កំណត់ឈ្មោះហៅក្រៅសម្រាប់អ្នកទទួលនេះដែរឬទេ?</string>
     <string name="enter_nickname">សូមបញ្ចូលឈ្មោះហៅក្រៅ</string>
     <string name="error_enter_nickname">សូមបញ្ចូលឈ្មោះ</string>
-    <string name="successfullySetNickname">កំណត់ឈ្មោះហៅក្រៅ</string>
+    <string name="successfullySetNickname">កំណត់ឈ្មោះហៅក្រៅបានជោគជ័យ</string>
     <string name="noLabel">មិនមែន</string>
     <string name="yesLabel">បាទ/ចាស៎</string>
     <string name="allowRemoveBeneficiary">បញ្ជាក់</string>

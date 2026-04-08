@@ -21,7 +21,6 @@ import vn.shb.cam.navigation.AppDestination
 import vn.shb.cam.screens.beneficiary.BeneficiaryViewModel
 import vn.shb.cam.screens.home.DialogSelectAccount
 import vn.shb.cam.screens.home.DialogSelectBeneficiary
-import vn.shb.cam.screens.home.getTypeAccount
 import vn.shb.cam.utils.ApiConst
 import vn.shb.cam.utils.extensions.DateTimeHelper.Companion.getDateFromCurrentDate
 import vn.shb.cam.utils.extensions.common.Const
@@ -860,10 +859,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 * */
     private fun bindViewSelectReceiverAccount(account: AccountBase) {
         with(binding) {
-            iclToAccount.edtValue.setText(
-                getTypeAccount(requireContext(), account).plus(Const.SEPARATOR_DASH)
-                    .plus(account.accountNumber)
-            )
+            iclToAccount.edtValue.setText(account.accountNumber)
             val isDuplicate = account.accountNumber == fromAccount?.accountNumber
             iclToAccount.bindViewError(
                 if (isDuplicate) getString(

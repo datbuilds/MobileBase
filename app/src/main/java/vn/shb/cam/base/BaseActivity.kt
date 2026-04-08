@@ -107,7 +107,7 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
         lifecycle.addObserver(ActivityLifeCycleObserver { initObserve() })
 
         //  checkThreadPolicy()
-//        checkSecurityApp()
+       checkSecurityApp()
 
         // Chỉ start RefreshTokenManager ở những activity cần thiết
 //        if (shouldStartRefreshTokenManager()) {
@@ -152,7 +152,7 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
     override fun onResume() {
         super.onResume()
         println("${this.javaClass.simpleName} -> onResume() called")
-//        checkSecurityApp()
+        checkSecurityApp()
         startUserInteractionTimer()
 
         if (shouldStartRefreshTokenManager()) {
