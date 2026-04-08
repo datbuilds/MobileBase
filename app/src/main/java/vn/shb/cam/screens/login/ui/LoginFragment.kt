@@ -93,9 +93,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         bindEdtPassword()
         clearFlag()
 
-        binding.edtInputPass.setText("123456")
-//        login()
-
         if (arguments?.getBoolean(AppDestination.ARG_SHOW_SESSION_EXPIRED) == true) {
             arguments?.putBoolean(AppDestination.ARG_SHOW_SESSION_EXPIRED, false)
             DialogSessionExpire().show(requireContext())

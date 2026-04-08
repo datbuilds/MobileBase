@@ -87,7 +87,7 @@
     <string name="complete">Complete</string>
     <string name="nicknameSetSuccess">Nickname set successfully!</string>
     <string name="profilePictureFailed">Profile picture update failed!</string>
-    <string name="invalidBeneficiaryAccount">Invalid Beneficiary Account</string>
+    <string name="invalidBeneficiaryAccount">Invalid To Account</string>
     <string name="invalidSelectedDate">Invalid selected date</string>
     <string name="pleaseEnterUsername">Please enter your username.</string>
     <string name="pleaseEnterPassword">Please enter your password.</string>

@@ -140,6 +140,11 @@ class AccountDetailFragment :
                         }
                     }
                 }
+                stateAccountNull.collectLatest {
+                    if (it) {
+                        showErrorMessageOnly(getString(R.string.yourCurrentAccountIsCurrentlyBlocked))
+                    }
+                }
             }
         }
     }

@@ -87,7 +87,7 @@
     <string name="complete">បញ្ចប់</string>
     <string name="nicknameSetSuccess">បានកំណត់ឈ្មោះហៅក្រៅដោយជោគជ័យ</string>
     <string name="profilePictureFailed">ការផ្លាស់ប្តូររូបភាពកម្រងព័ត៌មានត្រូវបានបរាជ័យ!</string>
-    <string name="invalidBeneficiaryAccount">គណនីអ្នកទទួលផលមិនត្រឹមត្រូវ</string>
+    <string name="invalidBeneficiaryAccount">គណនីទទួលមិនត្រឹមត្រូវ</string>
     <string name="invalidSelectedDate">កាលបរិច្ឆេទដែលបានជ្រើសរើសមិនត្រឹមត្រូវ</string>
     <string name="pleaseEnterUsername">សូមបញ្ចូលឈ្មោះអ្នកប្រើប្រាស់</string>
     <string name="pleaseEnterPassword">សូមបញ្ចូលពាក្យសម្ងាត់</string>
@@ -127,7 +127,7 @@
     <string name="to">ដល់ថ្ងៃ</string>
     <string name="SHBAccount">កម្មវិធីធនាគារឯកត្តបុគ្គល</string>
     <string name="transferAccountAndReceivingAccountNotSame">គណនីប្រភព និងគណនីអ្នកទទួល ត្រូវតែមានប្រភេទរូបិយបណ្ណដូចគ្នា</string>
-    <string name="pleaseEnterTheAccountNumber">សូមបញ្ចូលលេខគណនី</string>
+    <string name="pleaseEnterTheAccountNumber">សូមបញ្ចូលលេខគណនីអ្នកទទួលផល</string>
     <string name="pleaseEnterTheRemarks">សូមបញ្ចូលខ្លឹមសារកំណត់សម្គាល់</string>
     <string name="enterRemarks">បញ្ចួលកំណត់សម្គាល់</string>
     <string name="transactionSuccess">កិច្ចការជោគជ័យ !</string>
