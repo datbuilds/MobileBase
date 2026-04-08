@@ -2,8 +2,9 @@ package vn.shb.cam.screens.transfer
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
-import android.text.method.TextKeyListener
+import android.text.method.DigitsKeyListener
 import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
@@ -983,9 +984,10 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                         isFocusable = true
                         isFocusableInTouchMode = true
                         isCursorVisible = true
-                        keyListener = TextKeyListener.getInstance()
+//                        keyListener = TextKeyListener.getInstance()
+                        inputType = InputType.TYPE_CLASS_NUMBER
+                        keyListener = DigitsKeyListener.getInstance("0123456789")
                         setOnClickListener(null)
-
                     } else {
                         // Không cho nhập nhưng vẫn click
                         isEnabled = true
