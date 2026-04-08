@@ -48,5 +48,5 @@ fun ResultSHB<EmptyResponse>.toResultDataAction(preReturn: ((data: ActionDone) -
 
 data class ErrorResponse(
     @SerializedName("message") val message: String? = null,
-    @SerializedName("errCode") val code: String? = null
+    @SerializedName("code", alternate = ["errorCode"]) val code: String? = null
 )

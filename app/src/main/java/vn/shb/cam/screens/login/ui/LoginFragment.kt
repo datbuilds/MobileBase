@@ -50,6 +50,7 @@ import vn.shb.core.core.delivery.reason.LoginFailLocked
 import vn.shb.core.core.delivery.reason.LoginRegisterDevice
 import vn.shb.core.core.domain.usecases.login.StateLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseLogin
+import vn.shb.core.core.retrofit.SafeExecute.Companion.TOKEN_EXPIRE
 import vn.shb.core.core.security.encrypt.EncryptManager
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.login.RegisterDeviceData
@@ -193,7 +194,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 //                binding.edtInputPass.setText("12345678")
 //                handleActionLogin()
 //                binding.edtInputUsername.setText("0101025405")
-//                binding.edtInputPass.setText("123456")
+                binding.edtInputPass.setText("12345678")
 //                handleActionLogin()
             }
         }
@@ -207,7 +208,9 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             phoneNumber = phoneNumber, // Using username as placeholder if it's phone
             isNewDevice,
             onConfirm = {
-                loginViewModel.registerDevice(accountLogin, encPsw)
+                loginViewModel.isExpireTokenWso2 {
+                    loginViewModel.registerDevice(accountLogin, encPsw)
+                }
             },
             onCancel = {
                 showDialogVisitBranchCam(message = getString(R.string.getSupportForChanging)) {
@@ -392,11 +395,13 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                                 val accountLogin = getUserLogin()
                                 val (_, encPsw) = getPassword()
                                 transactionId?.let {
-                                    loginViewModel.verifyDevice(
-                                        accountLogin, encPsw,
-                                        it,
-                                        otp
-                                    )
+                                    loginViewModel.isExpireTokenWso2{
+                                        loginViewModel.verifyDevice(
+                                            accountLogin, encPsw,
+                                            it,
+                                            otp
+                                        )
+                                    }
                                 }
                             }
                             hideSoftKeyboard()
@@ -405,7 +410,9 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                             // Logic to resend
                             val accountLogin = getUserLogin()
                             val (_, encPsw) = getPassword()
-                            loginViewModel.registerDevice(accountLogin, encPsw)
+                            loginViewModel.isExpireTokenWso2{
+                                loginViewModel.registerDevice(accountLogin, encPsw)
+                            }
                         },
 
                         onFinishCB = {
