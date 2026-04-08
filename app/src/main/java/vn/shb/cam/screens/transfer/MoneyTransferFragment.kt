@@ -2,7 +2,9 @@ package vn.shb.cam.screens.transfer
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
+import android.text.method.DigitsKeyListener
 import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
@@ -19,7 +21,6 @@ import vn.shb.cam.navigation.AppDestination
 import vn.shb.cam.screens.beneficiary.BeneficiaryViewModel
 import vn.shb.cam.screens.home.DialogSelectAccount
 import vn.shb.cam.screens.home.DialogSelectBeneficiary
-import vn.shb.cam.screens.home.getTypeAccount
 import vn.shb.cam.utils.ApiConst
 import vn.shb.cam.utils.extensions.DateTimeHelper.Companion.getDateFromCurrentDate
 import vn.shb.cam.utils.extensions.common.Const
@@ -273,6 +274,10 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             //click title
             iclExchangeRate.edtValue.setStateShowButtonClear(false)
             iclTotalAmount.edtValue.setStateShowButtonClear(false)
+
+            iclToAccount.edtValue.doAfterTextChanged {
+                iclToAccount.bindViewError(null)
+            }
 
             tvMoneyTransferTitle.setOnSingleClickListener {
                 backPress()
@@ -793,8 +798,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 bindColor(R.color.neutral8)
                 edtValue.setInputEditText(false)
                 edtValue.hint = getString(R.string.enterRemarks)
-                finishTyping(iclRemarks.edtValue, true, callBack = {
-                    val text = iclRemarks.edtValue.text.toString()
+                finishTyping(edtValue, true, callBack = {
+                    val text = edtValue.text.toString()
                     edtValue.setText(text.cleanVietnameseText())
                 })
             }
@@ -854,10 +859,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 * */
     private fun bindViewSelectReceiverAccount(account: AccountBase) {
         with(binding) {
-            iclToAccount.edtValue.setText(
-                getTypeAccount(requireContext(), account).plus(Const.SEPARATOR_DASH)
-                    .plus(account.accountNumber)
-            )
+            iclToAccount.edtValue.setText(account.accountNumber)
             val isDuplicate = account.accountNumber == fromAccount?.accountNumber
             iclToAccount.bindViewError(
                 if (isDuplicate) getString(
@@ -940,6 +942,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 
                     1.div(exchangeRate).formatExchangeRate()
                 }
+
         } catch (e: Exception) {
             Log.e("TAG", "getTextExchangeCurrency: ")
         }
@@ -967,12 +970,36 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 ivExpandDown.setImageResource(if (!isIntrabank()) R.drawable.ic_arrow_down_black else R.drawable.ic_account_intrabank)
                 edtValue.apply {
                     setText(Const.EMPTY)
+                    edtValue.clearFocus()
                     hint =
                         if (isIntrabank()) getString(R.string.enterAccountNumber) else getString(R.string.selectAccount)
-                    isFocusable = isIntrabank()
-                    isFocusableInTouchMode = isIntrabank()
-                    isClickable = !isIntrabank()
-                    isLongClickable = isIntrabank()
+
+                    if (isIntrabank()) {
+                        // Cho nhập bình thường
+                        isEnabled = true
+                        isFocusable = true
+                        isFocusableInTouchMode = true
+                        isCursorVisible = true
+//                        keyListener = TextKeyListener.getInstance()
+                        inputType = InputType.TYPE_CLASS_NUMBER
+                        keyListener = DigitsKeyListener.getInstance("0123456789")
+                        setOnClickListener(null)
+                    } else {
+                        // Không cho nhập nhưng vẫn click
+                        isEnabled = true
+                        isFocusable = false
+                        isFocusableInTouchMode = false
+                        isCursorVisible = false
+
+                        // ❗ disable edit actions (copy/paste/select)
+                        keyListener = null
+                        setTextIsSelectable(false)
+                        isLongClickable = false
+
+                        setOnClickListener {
+                            handleShowDialogSelectAccount()
+                        }
+                    }
                 }
 
             }

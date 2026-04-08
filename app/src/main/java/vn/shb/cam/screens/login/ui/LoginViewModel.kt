@@ -193,7 +193,7 @@ class LoginViewModel(
     }
 
     fun checkLogin(param: UseCaseLogin.Params) {
-        if (storage.getTokenWso2().isNullOrEmpty()) {
+        if (storage.getTokenWso2().isEmpty()) {
             getTokenWso2BackUpLogin(param)
         } else {
             login(param)

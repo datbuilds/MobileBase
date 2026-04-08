@@ -10,6 +10,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import vn.shb.core.BuildConfig
 import java.util.concurrent.TimeUnit
 
 const val REQUEST_TIMEOUT = 100L
@@ -19,30 +20,41 @@ fun okHttpClient(
     headerInterceptor: Interceptor,
     loggingInterceptor: HttpLoggingInterceptor,
 //    flipperPlugin: NetworkFlipperPlugin
-) = OkHttpClient.Builder()
-    .connectTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
-    .readTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
-    .writeTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
-    .addInterceptor(headerInterceptor)
-    .addInterceptor(loggingInterceptor)
-    .addInterceptor(customChuckerInterceptor(context))
-//    .addNetworkInterceptor(FlipperOkhttpInterceptor(flipperPlugin))
-    .build()
+): OkHttpClient {
+    val builder=OkHttpClient.Builder()
+        .connectTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
+        .readTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
+        .writeTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
+        .addInterceptor(headerInterceptor)
+
+    if (BuildConfig.DEBUG) {
+        builder.addInterceptor(loggingInterceptor)
+        builder.addInterceptor(customChuckerInterceptor(context))
+    }
+
+    return builder.build()
+}
 
 fun okHttpClientAuthentication(
     context: Context,
     headerInterceptor: Interceptor,
     loggingInterceptor: HttpLoggingInterceptor,
 //    flipperPlugin: NetworkFlipperPlugin
-) = OkHttpClient.Builder()
-    .connectTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
-    .readTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
-    .writeTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
-    .addInterceptor(headerInterceptor)
-    .addInterceptor(loggingInterceptor)
-    .addInterceptor(customChuckerInterceptor(context))
-//    .addNetworkInterceptor(FlipperOkhttpInterceptor(flipperPlugin))
-    .build()
+): OkHttpClient {
+
+    val builder = OkHttpClient.Builder()
+        .connectTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
+        .readTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
+        .writeTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
+        .addInterceptor(headerInterceptor)
+
+    if (BuildConfig.DEBUG) {
+        builder.addInterceptor(loggingInterceptor)
+        builder.addInterceptor(customChuckerInterceptor(context))
+    }
+
+    return builder.build()
+}
 
 
 fun customChuckerInterceptor(context: Context) = ChuckerInterceptor.Builder(context)

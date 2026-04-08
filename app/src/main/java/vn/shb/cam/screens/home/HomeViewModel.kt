@@ -205,7 +205,7 @@ class HomeViewModel(
         }
     }
 
-    fun checkAccountNull(callAction : (() -> Unit)? = null) {
+    fun checkAccountNull(listAccount: List<Any> = listTransferAccount, callAction : (() -> Unit)? = null) {
         viewModelScope.launch {
             if (listAccount.isEmpty()){
                 _stateAccountNull.emit(true)

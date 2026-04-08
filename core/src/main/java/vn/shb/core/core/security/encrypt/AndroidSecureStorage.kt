@@ -165,7 +165,7 @@ class AndroidSecureStorage(private val context: Context, private val deviceManag
         setTokenInvalid(false)
         removeKey(AUTH_TOKEN_WSO2)
         removeKey(REFRESH_TOKEN_WSO2)
-        setTokenInvalidWso2(false)
+//        setTokenInvalidWso2(false)
     }
 
     fun resetUser() {

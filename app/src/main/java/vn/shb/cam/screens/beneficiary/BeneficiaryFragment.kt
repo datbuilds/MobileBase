@@ -1,39 +1,31 @@
 package vn.shb.cam.screens.beneficiary
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.Rect
-import android.view.MotionEvent
 import android.view.View
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
-import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import vn.shb.core.utils.extesions.setOnSingleClickListener
-import vn.shb.data.entities.beneficiary.Beneficiary
-import vn.shb.cam.R
-import vn.shb.cam.base.BaseFragmentBinding
-import vn.shb.cam.databinding.FragmentBeneficiaryBinding
-import vn.shb.cam.screens.beneficiary.helper.ActionEditBeneficiary
-import vn.shb.cam.screens.beneficiary.helper.BeneficiaryAdapter
-import vn.shb.cam.utils.ApiConst
-import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
-import vn.shb.cam.utils.extensions.visible
-import vn.shb.cam.utils.view.dialog.BottomSheetDialogHelper
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import vn.shb.cam.R
+import vn.shb.cam.base.BaseFragmentBinding
+import vn.shb.cam.databinding.FragmentBeneficiaryBinding
 import vn.shb.cam.databinding.LayoutProcessBarBinding
 import vn.shb.cam.navigation.AppDestination
+import vn.shb.cam.screens.beneficiary.helper.ActionEditBeneficiary
+import vn.shb.cam.screens.beneficiary.helper.BeneficiaryAdapter
+import vn.shb.cam.utils.ApiConst
 import vn.shb.cam.utils.extensions.CustomToastShowOnTop
 import vn.shb.cam.utils.extensions.gone
-import vn.shb.cam.utils.extensions.hideSoftKeyboard
+import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.extensions.setLatinAlphanumericFilter
+import vn.shb.cam.utils.extensions.visible
+import vn.shb.cam.utils.view.dialog.BottomSheetDialogHelper
+import vn.shb.core.utils.extesions.setOnSingleClickListener
+import vn.shb.data.entities.beneficiary.Beneficiary
 
 class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
     FragmentBeneficiaryBinding::inflate
@@ -51,17 +43,19 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
     }
 
     private fun setUpRecyclerview() {
-        binding.rcvBeneficiary.adapter=adapter
+        binding.rcvBeneficiary.adapter = adapter
 
         adapter.setListenAction(
             object : ActionEditBeneficiary {
                 override fun edit(item: Beneficiary) {
                     safeNavigate(
-                        AppDestination.EditBeneficiary(bundleOf(
-                            ApiConst.KEY_TO_EDIT_BENEFICIARY to EditBeneficiaryFragment.EDIT,
-                            ApiConst.KEY_BENEFICIARY_DATA to item,
-                            ApiConst.KEY_LIST_BENEFICIARY_DATA to adapter.getDefaultList(),
-                        ))
+                        AppDestination.EditBeneficiary(
+                            bundleOf(
+                                ApiConst.KEY_TO_EDIT_BENEFICIARY to EditBeneficiaryFragment.EDIT,
+                                ApiConst.KEY_BENEFICIARY_DATA to item,
+                                ApiConst.KEY_LIST_BENEFICIARY_DATA to adapter.getDefaultList(),
+                            )
+                        )
                     )
                 }
 
@@ -138,6 +132,12 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
                 }
 
                 launch {
+                    stateError.collect {
+                        handleErrorHome(it)
+                    }
+                }
+
+                launch {
                     stateLoading.collect {
                         if (it) {
                             dialog?.root?.visible()
@@ -152,18 +152,21 @@ class BeneficiaryFragment : BaseFragmentBinding<FragmentBeneficiaryBinding>(
 
     private fun navToEditBeneficiary() {
         safeNavigate(
-            AppDestination.EditBeneficiary(bundleOf(
-                ApiConst.KEY_TO_EDIT_BENEFICIARY to EditBeneficiaryFragment.ADD_NEW,
-                ApiConst.KEY_LIST_BENEFICIARY_DATA to adapter.getDefaultList()
-            ))
+            AppDestination.EditBeneficiary(
+                bundleOf(
+                    ApiConst.KEY_TO_EDIT_BENEFICIARY to EditBeneficiaryFragment.ADD_NEW,
+                    ApiConst.KEY_LIST_BENEFICIARY_DATA to adapter.getDefaultList()
+                )
+            )
         )
     }
 
     fun showToastSuccess(text: String, isSuccess: Boolean = true) {
 
-        context?.let { context->
-            val background=if (isSuccess) R.drawable.bg_toast_change_avatar_ss else R.drawable.bg_toast_change_avatar_error
-            val icon=if (isSuccess) R.drawable.ic_success else R.drawable.ic_error
+        context?.let { context ->
+            val background =
+                if (isSuccess) R.drawable.bg_toast_change_avatar_ss else R.drawable.bg_toast_change_avatar_error
+            val icon = if (isSuccess) R.drawable.ic_success else R.drawable.ic_error
 
             val toast = CustomToastShowOnTop(
                 context,

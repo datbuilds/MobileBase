@@ -87,7 +87,7 @@
     <string name="complete">Hoàn thành</string>
     <string name="nicknameSetSuccess">Đặt tên gợi nhớ thành công</string>
     <string name="profilePictureFailed">Cập nhật ảnh hồ sơ thất bại</string>
-    <string name="invalidBeneficiaryAccount">Tài khoản thụ hưởng không hợp lệ</string>
+    <string name="invalidBeneficiaryAccount">Tài khoản nhận không hợp lệ</string>
     <string name="invalidSelectedDate">Ngày được chọn không hợp lệ</string>
     <string name="pleaseEnterUsername">Vui lòng nhập tên đăng nhập của Quý khách</string>
     <string name="pleaseEnterPassword">Vui lòng nhập mật khẩu</string>

@@ -32,7 +32,6 @@ class ChangePasswordSuccessFragment :
     private fun logoutAndNavigateToLogin() {
         lifecycleScope.launch {
             launch {
-                RefreshTokenManager.stop()
                 storage.resetToken()
                 delay(260) // Optional delay for smooth transition if needed, kept from ProfileFragment logic
                 requireActivity().apply {

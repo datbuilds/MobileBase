@@ -87,7 +87,7 @@
     <string name="complete">បញ្ចប់</string>
     <string name="nicknameSetSuccess">បានកំណត់ឈ្មោះហៅក្រៅដោយជោគជ័យ</string>
     <string name="profilePictureFailed">ការផ្លាស់ប្តូររូបភាពកម្រងព័ត៌មានត្រូវបានបរាជ័យ!</string>
-    <string name="invalidBeneficiaryAccount">គណនីអ្នកទទួលផលមិនត្រឹមត្រូវ</string>
+    <string name="invalidBeneficiaryAccount">គណនីទទួលមិនត្រឹមត្រូវ</string>
     <string name="invalidSelectedDate">កាលបរិច្ឆេទដែលបានជ្រើសរើសមិនត្រឹមត្រូវ</string>
     <string name="pleaseEnterUsername">សូមបញ្ចូលឈ្មោះអ្នកប្រើប្រាស់</string>
     <string name="pleaseEnterPassword">សូមបញ្ចូលពាក្យសម្ងាត់</string>
@@ -127,10 +127,10 @@
     <string name="to">ដល់ថ្ងៃ</string>
     <string name="SHBAccount">កម្មវិធីធនាគារឯកត្តបុគ្គល</string>
     <string name="transferAccountAndReceivingAccountNotSame">គណនីប្រភព និងគណនីអ្នកទទួល ត្រូវតែមានប្រភេទរូបិយបណ្ណដូចគ្នា</string>
-    <string name="pleaseEnterTheAccountNumber">សូមបញ្ចូលលេខគណនី</string>
-    <string name="pleaseEnterTheRemarks">បញ្ចូលកំំណត់សម្គាល់</string>
+    <string name="pleaseEnterTheAccountNumber">សូមបញ្ចូលលេខគណនីអ្នកទទួលផល</string>
+    <string name="pleaseEnterTheRemarks">សូមបញ្ចូលខ្លឹមសារកំណត់សម្គាល់</string>
     <string name="enterRemarks">បញ្ចួលកំណត់សម្គាល់</string>
-    <string name="transactionSuccess">កិច្ចការជោគជ័យ !</string>
+    <string name="transactionSuccess">ប្រតិបត្តិការបានជោគជ័យ !</string>
     <string name="beneficiary">អ្នកទទួលផល</string>
     <string name="addNew">បន្ថែមថ្មី</string>
     <string name="doYouWantToDeleteFromBeneficiary">តើលោកអ្នកពិតជាចង់លុប %s ចេញពីបញ្ជីអ្នកទទួលផលមែនទេ?</string>
@@ -143,7 +143,7 @@
     <string name="share">ចែករំលែក</string>
     <string name="chatpay">Paste2Pay</string>
     <string name="changePassword">ប្តូរពាក្យសម្ងាត់</string>
-    <string name="currentPassword">លពាក្យសម្ងាត់បច្ចុប្បន្ន</string>
+    <string name="currentPassword">ពាក្យសម្ងាត់បច្ចុប្បន្ន</string>
     <string name="enterCurrentPassword">បញ្ចូលពាក្យសម្ងាត់បច្ចុប្បន្ន</string>
     <string name="new_password">ពាក្យសម្ងាត់ថ្មី</string>
     <string name="enter_new_password">បញ្ចូលពាក្យសម្ងាត់ថ្មី</string>
@@ -154,7 +154,7 @@
     <string name="hint_enter_account_name">បញ្ចូលឈ្មោះគណនី</string>
     <string name="password_rule_username">មិនមានឈ្មោះអ្នកប្រើប្រាស់ ឬឈ្មោះពិតរបស់អ្នកប្រើប្រាស់ទេ</string>
     <string name="re_enter_new_password">បញ្ចូលពាក្យសម្ងាត់ថ្មីឡើងវិញ</string>
-    <string name="hint_re_enter_new_password">បញ្ចូលលេខសម្ងាត់ថ្មីម្តងទៀត</string>
+    <string name="hint_re_enter_new_password">បញ្ចូលពាក្យសម្ងាត់ថ្មីម្ដងទៀត</string>
     <string name="change_password_success">បានផ្លាស់ប្តូរលេខសម្ងាត់ដោយជោគជ័យ</string>
     <string name="change_password_success_message">សូមចូលប្រើម្តងទៀតដើម្បីបន្តប្រើប្រាស់កម្មវិធី</string>
     <string name="error_current_password_incorrect">លពាក្យសម្ងាត់បច្ចុប្បន្នមិនត្រឹមត្រូវទេ សូមព្យាយាមម្តងទៀត។</string>
@@ -177,7 +177,7 @@
     <string name="ask_set_nickname">តើអ្នកចង់កំណត់ឈ្មោះហៅក្រៅសម្រាប់អ្នកទទួលនេះដែរឬទេ?</string>
     <string name="enter_nickname">សូមបញ្ចូលឈ្មោះហៅក្រៅ</string>
     <string name="error_enter_nickname">សូមបញ្ចូលឈ្មោះ</string>
-    <string name="successfullySetNickname">កំណត់ឈ្មោះហៅក្រៅ</string>
+    <string name="successfullySetNickname">កំណត់ឈ្មោះហៅក្រៅបានជោគជ័យ</string>
     <string name="noLabel">មិនមែន</string>
     <string name="yesLabel">បាទ/ចាស៎</string>
     <string name="allowRemoveBeneficiary">បញ្ជាក់</string>
@@ -208,7 +208,7 @@
     <string name="listBranchTransactionPoint">បញ្ជីសាខា/កន្លែងផ្តល់សេវាកម្ម</string>
     <string name="register_device_other">ការផ្ទៀងផ្ទាត់ឧបករណ៍ថ្មី</string>
     <string name="listAccount">បញ្ជីគណនី</string>
-    <string name="toMeAtSHB">ផ្ទេរប្រាកទៅគណនី SHB របស់ខ្ញុំ</string>
+    <string name="toMeAtSHB">ផ្ទេរគណនីផ្ទាល់ខ្លួន</string>
     <string name="exchangeRate">អត្រាប្តូរប្រាក់</string>
     <string name="rateAreIndicative">ចំណាំ៖ អត្រានេះគ្រាន់តែជាការបង្ហាញក្នុងពេលសាកសួរ និងអាចមានការប្រែប្រួលនៅពេលប្រតិបត្តិការជាក់ស្ដែង។</string>
     <string name="paste_pay_top_label">សូមថតចម្លង ឬផ្ញើនូវរូបភាពដែលមានព័ត៌មានផ្ទេរប្រាក់</string>

@@ -52,7 +52,9 @@ class AccountDetailFragment :
             }
 
             flTransfer.setOnSingleClickListener {
-                safeNavigate(AppDestination.MoneyTransfer())
+                homeViewModel.checkAccountNull {
+                    safeNavigate(AppDestination.MoneyTransfer())
+                }
             }
 
             tvViewAll.setOnSingleClickListener {
@@ -136,6 +138,11 @@ class AccountDetailFragment :
                             binding.swDefaultCasa.isChecked = false
                             binding.swDefaultCasa.alpha = 1f
                         }
+                    }
+                }
+                stateAccountNull.collectLatest {
+                    if (it) {
+                        showErrorMessageOnly(getString(R.string.yourCurrentAccountIsCurrentlyBlocked))
                     }
                 }
             }

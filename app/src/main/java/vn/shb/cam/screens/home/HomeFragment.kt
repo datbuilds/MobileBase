@@ -83,6 +83,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
         super.onResume()
         homeViewModel.selectedAccount = null
         homeViewModel.getUserInfo()
+        homeViewModel.getTransferAccount()
     }
 
 
@@ -128,7 +129,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
             }
 
             incItemAccounts.root.setOnSingleClickListener {
-                homeViewModel.checkAccountNull {
+                homeViewModel.checkAccountNull(homeViewModel.getListAccount()){
                     safeNavigate(AppDestination.AccountDetail)
                 }
             }

@@ -33,6 +33,14 @@ fun Double.roundNearestInteger(): Int {
 
 fun BigDecimal.formatExchangeRate(): String {
     return this.setScale(3, RoundingMode.HALF_UP).toPlainString()
+        .toDoubleOrNull()?.let {
+            val symbols = java.text.DecimalFormatSymbols(java.util.Locale.US).apply {
+                groupingSeparator = ','
+                decimalSeparator = '.'
+            }
+            val formatter = java.text.DecimalFormat("#,##0.###", symbols)
+            formatter.format(it)
+        } ?: this.toString()
 }
 
 fun Double.hasDecimal(): Boolean {

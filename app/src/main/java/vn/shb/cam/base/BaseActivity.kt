@@ -107,17 +107,12 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
         lifecycle.addObserver(ActivityLifeCycleObserver { initObserve() })
 
         //  checkThreadPolicy()
-//        checkSecurityApp()
+       checkSecurityApp()
 
-//        // Chỉ start RefreshTokenManager ở những activity cần thiết
-        if (shouldStartRefreshTokenManager()) {
-            RefreshTokenManager.start(
-                activity = this,
-                useCase = useCaseRefreshToken,
-                useCaseRefreshTokenWso2,
-                storage = storage
-            )
-        }
+        // Chỉ start RefreshTokenManager ở những activity cần thiết
+//        if (shouldStartRefreshTokenManager()) {
+            startRefreshTokenManager()
+//        }
 
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         registerScreenReceiver()
@@ -156,7 +151,8 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
 
     override fun onResume() {
         super.onResume()
-//        checkSecurityApp()
+        println("${this.javaClass.simpleName} -> onResume() called")
+        checkSecurityApp()
         startUserInteractionTimer()
 
         if (shouldStartRefreshTokenManager()) {
@@ -166,6 +162,7 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
 
     override fun onPause() {
         super.onPause()
+        println("${this.javaClass.simpleName} -> onPause() called")
         stopInactivityTimer()
     }
 

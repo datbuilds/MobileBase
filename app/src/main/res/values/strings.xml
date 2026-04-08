@@ -87,7 +87,7 @@
     <string name="complete">Complete</string>
     <string name="nicknameSetSuccess">Nickname set successfully!</string>
     <string name="profilePictureFailed">Profile picture update failed!</string>
-    <string name="invalidBeneficiaryAccount">Invalid Beneficiary Account</string>
+    <string name="invalidBeneficiaryAccount">Invalid To Account</string>
     <string name="invalidSelectedDate">Invalid selected date</string>
     <string name="pleaseEnterUsername">Please enter your username.</string>
     <string name="pleaseEnterPassword">Please enter your password.</string>
@@ -193,7 +193,7 @@
     <string name="new_version_available">A new version is available</string>
     <string name="weHaveReleasedNewVersion">We have released a new version. Please update to enjoy a better saving experience with SHB SAHA CAMs.</string>
     <string name="updateLabel">Update</string>
-    <string name="invalidAccountNumber">Invalid Account Number</string>
+    <string name="invalidAccountNumber">Invalid Source Account </string>
     <string name="cambodian" translatable="false">ភាសាខ្មែរ</string>
     <string name="register_device_title">Please register this device to use SHB Saha Cambodia.</string>
     <string name="register_device_message">For enhanced security, please verify your device using the OTP sent to %s to complete the app registration. Is this your phone number?</string>
@@ -211,7 +211,7 @@
     <string name="goToBranch">Go to Branch</string>
     <string name="getSupportForChanging">Please visit your nearest SHB Cambodia Branch to register or update your phone number.</string>
     <string name="language">Language</string>
-    <string name="listBranchTransactionPoint">List branch/transaction point</string>
+    <string name="listBranchTransactionPoint">List of Branches &amp; Transaction Offices</string>
     <string name="register_device_other">New device verification</string>
     <string name="listAccount">Account List</string>
     <string name="toMeAtSHB">To me at SHB</string>
