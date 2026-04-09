@@ -127,7 +127,8 @@
     <string name="to">ដល់ថ្ងៃ</string>
     <string name="SHBAccount">កម្មវិធីធនាគារឯកត្តបុគ្គល</string>
     <string name="transferAccountAndReceivingAccountNotSame">គណនីប្រភព និងគណនីអ្នកទទួល ត្រូវតែមានប្រភេទរូបិយបណ្ណដូចគ្នា</string>
-    <string name="pleaseEnterTheAccountNumber">សូមបញ្ចូលលេខគណនីអ្នកទទួលផល</string>
+    <string name="pleaseEnterTheAccountNumber">សូមបញ្ចូលលេខគណនី</string>
+    <string name="pleaseEnterToAccountNumber">សូមបញ្ចូលលេខគណនីអ្នកទទួលផល</string>
     <string name="pleaseEnterTheRemarks">សូមបញ្ចូលខ្លឹមសារកំណត់សម្គាល់</string>
     <string name="enterRemarks">បញ្ចួលកំណត់សម្គាល់</string>
     <string name="transactionSuccess">ប្រតិបត្តិការបានជោគជ័យ !</string>
