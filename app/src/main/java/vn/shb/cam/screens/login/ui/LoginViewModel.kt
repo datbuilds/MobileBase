@@ -109,8 +109,8 @@ class LoginViewModel(
     fun isExpireTokenWso2(call: () -> Unit) {
         val oldTime = storage.getTimeGetTokenWso2()
         val currentTime = System.currentTimeMillis()
-        Log.i("3242343242343", "${currentTime - oldTime}")
-        Log.i("3242343242343", "${(storage.getExpireTime() - 1) * 60 * 1000}")
+//        Log.i("3242343242343", "${currentTime - oldTime}")
+//        Log.i("3242343242343", "${(storage.getExpireTime() - 1) * 60 * 1000}")
         val isExpire = (currentTime - oldTime) > (storage.getExpireTime() - 1) * 60 * 1000
         if (isExpire) {
             getTokenWso2 {

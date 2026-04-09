@@ -205,13 +205,13 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         onAction: (() -> Unit)? = null
     ) {
         if (reason.errorCode == ApiConst.FUN_017 || reason.errorCode == getString(R.string.errorCode)) {
-            BottomSheetDialogHelper(requireContext()).messageErrorCode(reason){
+            BottomSheetDialogHelper(requireContext()).messageErrorCode(reason) {
                 onAction?.invoke()
             }
             return
         }
         var message = reason.errMessage
-        if (reason.errorCode == HTTP_NOT_FOUND) {
+        if (reason.errorCode == HTTP_NOT_FOUND && reason.errorCode == TOKEN_EXPIRE) {
             message = getString(R.string.processingError)
         }
         showErrorMessageOnly(message, onAction)
