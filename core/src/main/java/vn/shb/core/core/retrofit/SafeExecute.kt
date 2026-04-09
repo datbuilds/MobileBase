@@ -19,7 +19,7 @@ abstract class SafeExecute() {
 
         // HTTP Status Code Constants for better readability
         private const val HTTP_BAD_REQUEST = 400
-         const val HTTP_UNAUTHORIZED = 401
+        const val HTTP_UNAUTHORIZED = 401
         private const val HTTP_FORBIDDEN = 403
         private const val HTTP_METHOD_NOT_ALLOWED = 405
         private const val HTTP_CONFLICT = 409
@@ -35,6 +35,7 @@ abstract class SafeExecute() {
         const val AUTH_006 = "AUTH-006"
         const val AUTH_001 = "AUTH-001"
         const val AUTH_002 = "AUTH-002"
+        const val TOKEN_EXPIRE = "900901"
     }
 
     protected suspend fun <T : Any> execute(call: suspend () -> Response<T>): ResultSHB<T> {
@@ -52,7 +53,9 @@ abstract class SafeExecute() {
                 return ResultSHB.Success(response.body()!!)
             }
         } else {
-            return ResultSHB.Failure(GenericError())
+            val responseCode = response.code()
+            val responseMessage = response.message()
+            return ResultSHB.Failure(handleHttpError(responseCode, responseMessage, response))
         }
         return ResultSHB.Failure(GenericError())
     }
@@ -67,10 +70,10 @@ abstract class SafeExecute() {
 
         return when (responseCode) {
             // Client Errors (4xx)
-            HTTP_BAD_REQUEST -> {
-                println("$TAG Bad Request (400) - Validation error or invalid request")
-                createBadRequestError(response)
-            }
+//            HTTP_BAD_REQUEST -> {
+//                println("$TAG Bad Request (400) - Validation error or invalid request")
+//                createBadRequestError(response)
+//            }
 
             HTTP_UNAUTHORIZED, HTTP_FORBIDDEN -> {
                 println("$TAG Authentication Error ($responseCode) - Unauthorized or forbidden access")
@@ -81,52 +84,52 @@ abstract class SafeExecute() {
 //                println("$TAG Not Found (404) - Resource not found")
 //                NotFoundError()
 //            }
-
-            HTTP_REQUEST_TIMEOUT -> {
-                println("$TAG Request Timeout (408) - Client timeout")
-                TimeoutError()
-            }
-
-            HTTP_METHOD_NOT_ALLOWED -> {
-                println("$TAG Method Not Allowed (405) - HTTP method not supported")
-                createBadMethodError(response)
-            }
-
-            HTTP_CONFLICT -> {
-                println("$TAG Conflict (409) - Resource conflict")
-                createConflictError(response)
-            }
-
-            HTTP_GONE -> {
-                println("$TAG Gone (410) - Resource permanently deleted")
-                createGoneError(response)
-            }
-
-            HTTP_UNSUPPORTED_MEDIA_TYPE -> {
-                println("$TAG Unsupported Media Type (415) - Invalid content type")
-                createUnsupportedTypeError(response)
-            }
+//
+//            HTTP_REQUEST_TIMEOUT -> {
+//                println("$TAG Request Timeout (408) - Client timeout")
+//                TimeoutError()
+//            }
+//
+//            HTTP_METHOD_NOT_ALLOWED -> {
+//                println("$TAG Method Not Allowed (405) - HTTP method not supported")
+//                createBadMethodError(response)
+//            }
+//
+//            HTTP_CONFLICT -> {
+//                println("$TAG Conflict (409) - Resource conflict")
+//                createConflictError(response)
+//            }
+//
+//            HTTP_GONE -> {
+//                println("$TAG Gone (410) - Resource permanently deleted")
+//                createGoneError(response)
+//            }
+//
+//            HTTP_UNSUPPORTED_MEDIA_TYPE -> {
+//                println("$TAG Unsupported Media Type (415) - Invalid content type")
+//                createUnsupportedTypeError(response)
+//            }
 
             // Server Errors (5xx)
-            HTTP_INTERNAL_SERVER_ERROR -> {
-                println("$TAG Internal Server Error (500) - Server error")
-                createInternalServerError(response)
-            }
-
-            HTTP_BAD_GATEWAY -> {
-                println("$TAG Bad Gateway (502) - Gateway error")
-                createBadGatewayError(response)
-            }
-
-            HTTP_SERVICE_UNAVAILABLE -> {
-                println("$TAG Service Unavailable (503) - Service temporarily unavailable")
-                createServiceUnavailableError(response)
-            }
-
-            HTTP_GATEWAY_TIMEOUT -> {
-                println("$TAG Gateway Timeout (504) - Gateway timeout")
-                createGatewayTimeoutError(response)
-            }
+//            HTTP_INTERNAL_SERVER_ERROR -> {
+//                println("$TAG Internal Server Error (500) - Server error")
+//                createInternalServerError(response)
+//            }
+//
+//            HTTP_BAD_GATEWAY -> {
+//                println("$TAG Bad Gateway (502) - Gateway error")
+//                createBadGatewayError(response)
+//            }
+//
+//            HTTP_SERVICE_UNAVAILABLE -> {
+//                println("$TAG Service Unavailable (503) - Service temporarily unavailable")
+//                createServiceUnavailableError(response)
+//            }
+//
+//            HTTP_GATEWAY_TIMEOUT -> {
+//                println("$TAG Gateway Timeout (504) - Gateway timeout")
+//                createGatewayTimeoutError(response)
+//            }
 
             // Other errors
             else -> {
@@ -151,11 +154,14 @@ abstract class SafeExecute() {
         response: Response<*>,
         defaultMessage: String
     ): UnAuthorizedError {
-        val serverMessage = extractServerMessage(response)
+        var code: String = ""
+        val serverMessage = extractServerMessage(response) {
+            code = it
+        }
         return if (serverMessage.isNotEmpty()) {
-            UnAuthorizedError(serverMessage)
+            UnAuthorizedError(serverMessage, code)
         } else {
-            UnAuthorizedError(defaultMessage)
+            UnAuthorizedError(defaultMessage, code)
         }
     }
 
@@ -228,7 +234,10 @@ abstract class SafeExecute() {
     }
 
     /** Extract server message from response body safely */
-    private fun extractServerMessage(response: Response<*>): String {
+    private fun extractServerMessage(
+        response: Response<*>,
+        codeError: ((String) -> Unit)? = null
+    ): String {
         return try {
             response.errorBody()?.let { errorBody ->
                 val bodyString = errorBody.stringSuspending()
@@ -236,9 +245,8 @@ abstract class SafeExecute() {
                     try {
                         val errorResponse = Gson().fromJson(bodyString, ErrorResponse::class.java)
                         val message = errorResponse.message?.trim() ?: ""
-                        println(
-                            "SafeExecute --> Server Error Response: Code=${errorResponse.code}, Message=$message"
-                        )
+                        val code = errorResponse.code?.trim() ?: ""
+                        codeError?.invoke(code)
                         message
                     } catch (jsonException: Exception) {
                         println("SafeExecute -->  Failed to parse error response JSON: ${jsonException.message}")

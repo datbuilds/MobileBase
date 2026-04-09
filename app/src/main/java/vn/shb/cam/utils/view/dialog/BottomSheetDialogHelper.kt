@@ -105,7 +105,8 @@ class BottomSheetDialogHelper(context: Context) {
 
     fun messageErrorCode(
         reason: Reason,
-        isCancelable: Boolean = false
+        isCancelable: Boolean = false,
+        close: () -> Unit = {}
     ) {
         if (!isActivityValid()) return
         val context = contextRef.get() ?: return
@@ -115,9 +116,12 @@ class BottomSheetDialogHelper(context: Context) {
         bindingView.tvErrorCode.text = reason.errorCode
         bindingView.tvContentAlert.text = reason.errMessage
         bindingView.tvClose.setOnSingleClickListener {
+            close.invoke()
             dismiss()
         }
-
+        if (dialog?.isShowing == true) {
+            dialog?.dismiss()
+        }
         dialog?.show()
     }
 
@@ -137,7 +141,7 @@ class BottomSheetDialogHelper(context: Context) {
             dialog = null
         }
 
-        dialog?.setOnKeyListener {_, keyCode, event ->
+        dialog?.setOnKeyListener { _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
                 // Xử lý khi bấm Back
                 // return true để CHẶN dismiss

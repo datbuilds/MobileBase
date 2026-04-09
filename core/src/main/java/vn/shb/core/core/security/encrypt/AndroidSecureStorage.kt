@@ -20,6 +20,7 @@ class AndroidSecureStorage(private val context: Context, private val deviceManag
         private const val REFRESH_TOKEN = "REFRESH_TOKEN"
         private const val REFRESH_TOKEN_FAIL = "REFRESH_TOKEN_FAIL"
         private const val AUTH_TOKEN_WSO2 = "AUTH_TOKEN_WSO2"
+        private const val AUTH_TOKEN_WSO2_TIME_GET = "AUTH_TOKEN_WSO2_TIME_GET"
         private const val LANGUAGE_APP = "LANGUAGE_APP"
 
         private const val REFRESH_TOKEN_WSO2 = "REFRESH_TOKEN_WSO2"
@@ -47,6 +48,7 @@ class AndroidSecureStorage(private val context: Context, private val deviceManag
                 is String -> putString(key, value)
                 is Int -> putInt(key, value)
                 is Boolean -> putBoolean(key, value)
+                is Long -> putLong(key, value)
                 else -> throw IllegalArgumentException("Unsupported type")
             }.apply()
         }
@@ -58,6 +60,7 @@ class AndroidSecureStorage(private val context: Context, private val deviceManag
                 String::class -> getString(key, defaultValue as? String ?: "") as T
                 Int::class -> getInt(key, defaultValue as? Int ?: -1) as T
                 Boolean::class -> getBoolean(key, defaultValue as? Boolean ?: false) as T
+                Long::class -> getLong(key, defaultValue as? Long ?: 0L) as T
                 else -> throw IllegalArgumentException("Unsupported type")
             }
         }
@@ -124,11 +127,16 @@ class AndroidSecureStorage(private val context: Context, private val deviceManag
     fun setRfToken(rfToken: String) = putPreference(REFRESH_TOKEN, rfToken)
     fun getRfToken() = getPreference(REFRESH_TOKEN, "")
 
-    fun setExpireTimeWso2(data: Int) = putPreference(EXPIRE_TIME_WSO2, data)
-    fun getExpireTimeWso2() = getPreference(EXPIRE_TIME_WSO2, 5)
+//    fun setExpireTimeWso2(data: Int) = putPreference(EXPIRE_TIME_WSO2, data)
+//    fun getExpireTimeWso2() = getPreference(EXPIRE_TIME_WSO2, 5)
 
-    fun setTokenWso2(token: String) = putPreference(AUTH_TOKEN_WSO2, token)
+    fun setTokenWso2(token: String) {
+        putPreference(AUTH_TOKEN_WSO2, token)
+        setTimeGetTokenWso2(System.currentTimeMillis())
+    }
     fun getTokenWso2() = getPreference(AUTH_TOKEN_WSO2, "")
+    fun setTimeGetTokenWso2(token: Long) = putPreference(AUTH_TOKEN_WSO2_TIME_GET, token)
+    fun getTimeGetTokenWso2() = getPreference(AUTH_TOKEN_WSO2_TIME_GET, 0L)
     fun setRfTokenWso2(rfToken: String) = putPreference(REFRESH_TOKEN_WSO2, rfToken)
     fun getRfTokenWso2() = getPreference(REFRESH_TOKEN_WSO2, "")
 
@@ -162,18 +170,16 @@ class AndroidSecureStorage(private val context: Context, private val deviceManag
     fun resetToken() {
         removeKey(AUTH_TOKEN)
         removeKey(REFRESH_TOKEN)
-        setTokenInvalid(false)
         removeKey(AUTH_TOKEN_WSO2)
         removeKey(REFRESH_TOKEN_WSO2)
-//        setTokenInvalidWso2(false)
+        setTokenInvalidWso2(false)
     }
 
-    fun resetUser() {
-//        removeKey(USER_INFO) // Lỗi 999 - User đăng nhập trên thiết bị khác
-        removeKey(AUTH_TOKEN)
-        removeKey(REFRESH_TOKEN)
-        removeKey(AUTH_TOKEN_WSO2)
-        removeKey(REFRESH_TOKEN_WSO2)
-    }
+//    fun resetUser() {
+//        removeKey(AUTH_TOKEN)
+//        removeKey(REFRESH_TOKEN)
+//        removeKey(AUTH_TOKEN_WSO2)
+//        removeKey(REFRESH_TOKEN_WSO2)
+//    }
 
 }
