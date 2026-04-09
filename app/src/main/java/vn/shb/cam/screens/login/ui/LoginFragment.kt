@@ -194,7 +194,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 //                binding.edtInputPass.setText("12345678")
 //                handleActionLogin()
 //                binding.edtInputUsername.setText("0101025405")
-                binding.edtInputPass.setText("12345678")
+//                binding.edtInputPass.setText("123456")
 //                handleActionLogin()
             }
         }

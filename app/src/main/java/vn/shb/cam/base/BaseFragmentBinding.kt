@@ -231,7 +231,7 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
     protected fun handleErrorHome(error: Reason?, onAction: (() -> Unit)? = null) {
         if (error != null) {
             if (listErrorLogout.contains(error.errorCode)) {
-                logout()
+                logout(true)
             } else if (listErrorShowErrorAndLogout.contains(error.errorCode)) {
                 showDialogError(error, {
                     onAction?.invoke()
@@ -245,10 +245,10 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         }
     }
 
-    fun logout() {
+    fun logout(showSessionExpired: Boolean = false) {
         storage.resetToken()
         finishAffinity(requireActivity())
-        returnActivity(MainActivity.loginIntent(requireActivity()))
+        returnActivity(MainActivity.loginIntent(requireActivity(), showSessionExpired))
     }
 
     private fun observerStateError() {
