@@ -6,6 +6,10 @@ plugins {
 
 android {
     namespace = "vn.shb.core"
+
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
@@ -31,7 +35,7 @@ dependencies {
     debugImplementation(libs.flipperNetwork)
     debugImplementation(libs.soloader)
     releaseImplementation(libs.flipperNoop)
-    debugImplementation(libs.chuckDebugCompile)
+    implementation(libs.chuckDebugCompile)
 
     //Room
     implementation(libs.roomKtx)

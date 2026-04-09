@@ -16,8 +16,23 @@
 # debugging stack traces.
 #-keepattributes SourceFile,LineNumberTable
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# Hide original source filenames in release artifacts.
+-renamesourcefileattribute SourceFile
+
+# Core relies on Retrofit and annotation metadata during runtime.
+-keepattributes Signature,InnerClasses,EnclosingMethod
+-keepattributes RuntimeVisibleAnnotations,RuntimeVisibleParameterAnnotations,*Annotation*
+
+-keepclassmembers,allowshrinking,allowobfuscation interface * {
+    @retrofit2.http.* <methods>;
+}
+
+-if interface * { @retrofit2.http.* <methods>; }
+-keep,allowobfuscation interface <1>
 
 -dontwarn java.lang.invoke.StringConcatFactory
+-dontwarn javax.annotation.**
+-dontwarn org.codehaus.mojo.animal_sniffer.*
+-dontwarn okhttp3.internal.platform.ConscryptPlatform
+
+-keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase

@@ -13,7 +13,7 @@ internal fun Project.configureAndroidLibrary() = libraryExtension.run {
         targetSdk = libs.versions.targetSdk.get().toInt()
         compileSdk = libs.versions.compileSdk.get().toInt()
 
-        consumerProguardFiles("proguard-rules.pro")
+        consumerProguardFiles("consumer-rules.pro")
         testInstrumentationRunner = AndroidConfig.TEST_INSTRUMENTATION_RUNNER
 
         vectorDrawables.useSupportLibrary = true

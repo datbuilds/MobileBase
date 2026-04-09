@@ -2,8 +2,9 @@ package vn.shb.cam.screens.transfer
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
-import android.text.method.TextKeyListener
+import android.text.method.DigitsKeyListener
 import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
@@ -20,7 +21,6 @@ import vn.shb.cam.navigation.AppDestination
 import vn.shb.cam.screens.beneficiary.BeneficiaryViewModel
 import vn.shb.cam.screens.home.DialogSelectAccount
 import vn.shb.cam.screens.home.DialogSelectBeneficiary
-import vn.shb.cam.screens.home.getTypeAccount
 import vn.shb.cam.utils.ApiConst
 import vn.shb.cam.utils.extensions.DateTimeHelper.Companion.getDateFromCurrentDate
 import vn.shb.cam.utils.extensions.common.Const
@@ -607,7 +607,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             val textAccountNo = account ?: iclToAccount.edtValue.text.toString()
             when {
                 textAccountNo.isEmpty() -> {
-                    errorAccountNumber(getString(R.string.pleaseEnterTheAccountNumber))
+                    errorAccountNumber(getString(R.string.pleaseEnterToAccountNumber))
                 }
 
                 textAccountNo == fromAccount?.accountNumber -> {
@@ -859,10 +859,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 * */
     private fun bindViewSelectReceiverAccount(account: AccountBase) {
         with(binding) {
-            iclToAccount.edtValue.setText(
-                getTypeAccount(requireContext(), account).plus(Const.SEPARATOR_DASH)
-                    .plus(account.accountNumber)
-            )
+            iclToAccount.edtValue.setText(account.accountNumber)
             val isDuplicate = account.accountNumber == fromAccount?.accountNumber
             iclToAccount.bindViewError(
                 if (isDuplicate) getString(
@@ -983,9 +980,10 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                         isFocusable = true
                         isFocusableInTouchMode = true
                         isCursorVisible = true
-                        keyListener = TextKeyListener.getInstance()
+//                        keyListener = TextKeyListener.getInstance()
+                        inputType = InputType.TYPE_CLASS_NUMBER
+                        keyListener = DigitsKeyListener.getInstance("0123456789")
                         setOnClickListener(null)
-
                     } else {
                         // Không cho nhập nhưng vẫn click
                         isEnabled = true

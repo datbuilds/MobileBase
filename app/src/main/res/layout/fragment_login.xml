@@ -10,10 +10,9 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivImageLogin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/image_bg_login" />
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="375:260"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivImageLogin2"
@@ -66,7 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_20dp"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/ivImageLogin"
@@ -83,7 +82,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="@dimen/margin_8dp"
             android:layout_marginTop="@dimen/margin_8dp"
             android:gravity="center"
             android:textColor="@color/colorNameUser"
@@ -97,7 +95,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="@dimen/margin_8dp"
             android:gravity="center"
             android:textColor="@color/colorNameUser"
             android:textSize="@dimen/textSize16"
@@ -193,7 +190,7 @@
         android:visibility="gone"
         app:customFontWeight="medium"
         app:layout_constraintTop_toBottomOf="@+id/userNameContainer"
-        tools:visibility="visible" />
+        tools:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/passwordContainer"
@@ -266,12 +263,12 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogin"
-        android:backgroundTint="@color/white"
         style="@style/button_login"
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_44dp"
         android:layout_marginHorizontal="@dimen/margin_20dp"
         android:layout_marginTop="@dimen/margin_24dp"
+        android:backgroundTint="@color/white"
         android:text="@string/login"
         app:cornerRadius="@dimen/margin_12dp"
         app:layout_constraintTop_toBottomOf="@+id/tvErrorPassword" />

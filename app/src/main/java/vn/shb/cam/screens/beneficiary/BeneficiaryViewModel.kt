@@ -116,6 +116,7 @@ class BeneficiaryViewModel(
                     }
                     result.onFailure {
                         showLoading(false)
+                        _stateError.emit(it)
                         _stateDelete.emit(false)
                         // Handle failure if needed, baseViewModel might handle error toast if configured, but here we just update state
                     }
@@ -181,6 +182,7 @@ class BeneficiaryViewModel(
                 }
                 result.onFailure {
                     _stateValidateAccount.value = ResultSHB.Failure(it)
+                    _stateError.emit(it)
                 }
             }
         }
