@@ -560,6 +560,8 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             }
 
             finishTyping(iclToAccount.edtValue, isIntrabank(), callBack = {
+                beneficiarySelected = null
+                resetRemarks()
                 validateToAccount()
             })
 
@@ -607,7 +609,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             val textAccountNo = account ?: iclToAccount.edtValue.text.toString()
             when {
                 textAccountNo.isEmpty() -> {
-                    errorAccountNumber(getString(R.string.pleaseEnterTheAccountNumber))
+                    errorAccountNumber(getString(R.string.pleaseEnterToAccountNumber))
                 }
 
                 textAccountNo == fromAccount?.accountNumber -> {
@@ -636,12 +638,19 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     * */
     private fun showListBeneficiary() {
         DialogSelectBeneficiary.Build(listBeneficiary, beneficiarySelected) { selectedAccount ->
-            with(binding.iclToAccount.edtValue) {
-                if (this.text.toString() != selectedAccount.accountNumber) {
-                    beneficiarySelected = selectedAccount
-                    this.setText(selectedAccount.accountNumber)
-                    validateToAccount(selectedAccount.accountNumber)
+            beneficiarySelected = selectedAccount
+            if (binding.iclToAccount.edtValue.text.toString() != selectedAccount.accountNumber) {
+                binding.iclToAccount.edtValue.setText(selectedAccount.accountNumber)
+                validateToAccount(selectedAccount.accountNumber)
+            } else {
+                val remark = if (beneficiarySelected?.remark.isNullOrEmpty()) {
+                    getCurrentUser()?.username.plus(Const.SEPARATOR_SPACE)
+                        .plus(getString(R.string.transferCAP))
+                } else {
+                    beneficiarySelected?.remark
                 }
+
+                binding.iclRemarks.edtValue.setText(remark)
             }
         }.build().show(childFragmentManager, DialogSelectAccount.TAG)
     }
@@ -888,7 +897,14 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             edtValue.setText(userInfo.customerName)
         }
         if (beneficiarySelected?.accountNumber == userInfo.accountNumber) {
-            binding.iclRemarks.edtValue.setText(beneficiarySelected?.remark)
+            val remark = if (beneficiarySelected?.remark.isNullOrEmpty()) {
+                getCurrentUser()?.username.plus(Const.SEPARATOR_SPACE)
+                    .plus(getString(R.string.transferCAP))
+            } else {
+                beneficiarySelected?.remark
+            }
+
+            binding.iclRemarks.edtValue.setText(remark)
         }
         updateExchangeStatus(userInfo.currency)
         toAccount = AccountInfo().apply {

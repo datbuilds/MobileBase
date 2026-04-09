@@ -130,6 +130,7 @@
     <string name="SHBAccount">SHB Account</string>
     <string name="transferAccountAndReceivingAccountNotSame">Source and recipient accounts must be in the same currency.</string>
     <string name="pleaseEnterTheAccountNumber">Please enter the Account Number</string>
+    <string name="pleaseEnterToAccountNumber">Please enter to account</string>
     <string name="pleaseEnterTheRemarks">Please enter the remarks</string>
     <string name="enterRemarks">Enter remarks</string>
     <string name="transactionSuccess">Transaction successful!</string>

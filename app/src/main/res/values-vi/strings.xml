@@ -74,7 +74,7 @@
     <string name="tryAgain">Thử lại</string>
     <string name="transactionExceedLimit">Giao dịch không thành công do vượt quá hạn mức. Vui lòng thử lại.</string>
     <string name="paymentSuccess">Giao dịch thành công!</string>
-    <string name="createNewTransaction">Giao dịch mới</string>
+    <string name="createNewTransaction">Tạo giao dịch mới</string>
     <string name="selectBeneficiary">Chọn người thụ hưởng</string>
     <string name="confirmationCode">Mã xác nhận</string>
     <string name="confirm">Xác nhận</string>
@@ -107,7 +107,7 @@
     <string name="transactionFailedDueToExceeding">Giao dịch thất bại do vượt quá hạn mức</string>
     <string name="authenticationFailed">Xác thực thất bại. Vui lòng thử lại.</string>
     <string name="transactionFail">Giao dịch thất bại!</string>
-    <string name="anErrorHasOccurred">Đã có lỗi xảy ra, giao dịch chưa hoàn thành. Vui lòng thử lại!</string>
+    <string name="anErrorHasOccurred">Đã có lỗi xảy ra, giao dịch chưa hoàn tất. Vui lòng thử lại!</string>
     <string name="enterRecipientName">Nhập tên người thụ hưởng</string>
     <string name="pleaseEnterTheAmount">Vui lòng nhập số tiền</string>
     <string name="flexibleSaving">TIẾT KIỆM LINH HOẠT</string>
@@ -128,6 +128,7 @@
     <string name="SHBAccount">Tài khoản SHB</string>
     <string name="transferAccountAndReceivingAccountNotSame">Tài khoản chuyển và tài khoản nhận không cùng loại tiền tệ.</string>
     <string name="pleaseEnterTheAccountNumber">Vui lòng nhập tài khoản nhận</string>
+    <string name="pleaseEnterToAccountNumber">Vui lòng nhập tài khoản nhận</string>
     <string name="pleaseEnterTheRemarks">Vui lòng nhập nội dung</string>
     <string name="enterRemarks">Nhập nội dung</string>
     <string name="transactionSuccess">Giao dịch thành công !</string>
