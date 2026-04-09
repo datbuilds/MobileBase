@@ -133,7 +133,7 @@ class MyEditText @JvmOverloads constructor(
                 }
             }
 
-            pastedText=if (pastedText.contains(".")) {
+            pastedText = if (pastedText.contains(".")) {
                 val parts = pastedText.split(".")
                 val intPart = parts[0]
                 val decPart = if (parts.size > 1) parts[1] else ""

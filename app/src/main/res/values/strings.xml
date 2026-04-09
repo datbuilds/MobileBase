@@ -237,5 +237,6 @@
     <string name="minumumTransferAmount">Minimum transfer amount: 0.01 USD (For USD transfers)</string>
     <string name="sourceAndRecipient">Source and recipient accounts must be different</string>
     <string name="incorrectOtpPleaseTryAgain">Incorrect OTP. Please try again.</string>
+    <string name="confirmTransactionOTP">Confirm transaction</string>
     <string name="yourCurrentAccountIsCurrentlyBlocked">Your current account is currently blocked. Please visit our nearest Branch for support.</string>
 </resources>

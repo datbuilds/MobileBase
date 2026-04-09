@@ -231,7 +231,8 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
             },
             otpDefault = if (BuildConfig.DEBUG)
                 result?.otp ?: ""
-            else ""
+            else "",
+            title = getString(R.string.confirmTransactionOTP)
         )
         showConfirmOtpTransaction()
     }

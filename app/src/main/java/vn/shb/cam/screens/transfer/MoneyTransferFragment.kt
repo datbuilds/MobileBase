@@ -768,7 +768,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 
             iclAmount.apply {
                 tvTitle.text = getString(R.string.amount)
-                edtValue.hint = getString(R.string.enterAmount)
+                edtValue.hint = getString(R.string.pleaseEnterTheAmount)
                 ivExpandDown.gone()
                 tvCurrentCode.gone()
                 tvCurrentCode.setCompoundDrawablesRelativeWithIntrinsicBounds(
@@ -1183,7 +1183,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 
         binding.iclAmount.bindViewError(null)
 
-        if (fromAccount?.accountNumber == toAccount?.accountNumber && remarks.isEmpty()) {
+        if (fromAccount?.accountNumber == toAccount?.accountNumber || remarks.isEmpty()) {
             setEnableDone(false)
             return
         }

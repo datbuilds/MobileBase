@@ -42,7 +42,8 @@ class ConfirmDeviceView @JvmOverloads constructor(
         resendCode: () -> Unit,
         onFinishCB: () -> Unit,
         onClose: () -> Unit,
-        otpDefault: String = ""
+        otpDefault: String = "",
+        title:String=""
     ) {
         this.onConfirmCallback = onConfirm
         this.onResendCallback = resendCode
@@ -61,6 +62,7 @@ class ConfirmDeviceView @JvmOverloads constructor(
             )
         }
         binding.tvMessage.text = spannable
+        binding.tvTitle.text = title
         binding.tvError.gone()
 
         startTimer(totalTime ?: 60000L)
