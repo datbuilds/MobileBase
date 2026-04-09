@@ -607,7 +607,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             val textAccountNo = account ?: iclToAccount.edtValue.text.toString()
             when {
                 textAccountNo.isEmpty() -> {
-                    errorAccountNumber(getString(R.string.pleaseEnterTheAccountNumber))
+                    errorAccountNumber(getString(R.string.pleaseEnterToAccountNumber))
                 }
 
                 textAccountNo == fromAccount?.accountNumber -> {

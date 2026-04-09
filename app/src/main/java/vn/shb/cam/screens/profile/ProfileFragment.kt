@@ -177,9 +177,9 @@ class ProfileFragment :
                             delay(260)
                             storage.resetToken()
                             requireActivity().apply {
-//                                finishAffinity()
-//                                returnActivity(MainActivity.loginIntent(requireContext()))
-                                popBackTo(AppDestination.Login())
+                                finishAffinity()
+                                returnActivity(MainActivity.loginIntent(requireContext()))
+//                                popBackTo(AppDestination.Login())
                             }
                         }
                     }

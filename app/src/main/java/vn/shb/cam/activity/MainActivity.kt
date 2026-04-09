@@ -45,20 +45,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         if (resolveStartDestination(intent) == AppDestination.Home) {
             startSmsListener()
         }
-
-        // Listen to fragment changes and update RefreshTokenManager
-        supportFragmentManager.registerFragmentLifecycleCallbacks(
-            object : androidx.fragment.app.FragmentManager.FragmentLifecycleCallbacks() {
-                override fun onFragmentResumed(fm: androidx.fragment.app.FragmentManager, f: androidx.fragment.app.Fragment) {
-                    super.onFragmentResumed(fm, f)
-                    // Update RefreshTokenManager when fragment changes
-                    if (shouldStartRefreshTokenManager()) {
-                        startRefreshTokenManager()
-                    }
-                }
-            },
-            false
-        )
     }
 
     override fun initListener() = Unit

@@ -59,6 +59,8 @@ class ResponseError : NetworkError(ReasonDescription.RESPONSE)
 class EmptyResultError : NetworkError(ReasonDescription.EMPTY)
 class TimeoutError : NetworkError(ReasonDescription.TIMEOUT)
 class NotFoundError : NetworkError(ReasonDescription.NOT_FOUND)
-class UnAuthorizedError(error: String = ReasonDescription.UNAUTHORIZED) : NetworkError(error)
+class UnAuthorizedError(error: String = ReasonDescription.UNAUTHORIZED, errorCode: String = "401") :
+    NetworkError(error, errorCode)
+
 class BadRequestError(error: String = ReasonDescription.BAD_REQUEST) : NetworkError(error)
 // endregion

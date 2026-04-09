@@ -130,6 +130,7 @@
     <string name="SHBAccount">SHB Account</string>
     <string name="transferAccountAndReceivingAccountNotSame">Source and recipient accounts must be in the same currency.</string>
     <string name="pleaseEnterTheAccountNumber">Please enter the Account Number</string>
+    <string name="pleaseEnterToAccountNumber">Please enter to account</string>
     <string name="pleaseEnterTheRemarks">Please enter the remarks</string>
     <string name="enterRemarks">Enter remarks</string>
     <string name="transactionSuccess">Transaction successful!</string>
@@ -193,7 +194,7 @@
     <string name="new_version_available">A new version is available</string>
     <string name="weHaveReleasedNewVersion">We have released a new version. Please update to enjoy a better saving experience with SHB SAHA CAMs.</string>
     <string name="updateLabel">Update</string>
-    <string name="invalidAccountNumber">Invalid Source Account </string>
+    <string name="invalidAccountNumber">Invalid Account Number</string>
     <string name="cambodian" translatable="false">ភាសាខ្មែរ</string>
     <string name="register_device_title">Please register this device to use SHB Saha Cambodia.</string>
     <string name="register_device_message">For enhanced security, please verify your device using the OTP sent to %s to complete the app registration. Is this your phone number?</string>

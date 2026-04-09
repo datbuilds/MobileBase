@@ -164,7 +164,7 @@ class Paste2PayFragment :
                 is ChatPayUiState.Error -> {
                     hideProgressDialog()
                     chatPayViewModel.resetState()
-                    showDialogError(state.reason) {
+                    handleErrorHome(state.reason){
                         resetInputState()
                     }
                 }

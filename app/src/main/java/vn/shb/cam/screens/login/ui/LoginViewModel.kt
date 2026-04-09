@@ -3,6 +3,7 @@ package vn.shb.cam.screens.login.ui
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
@@ -62,6 +63,63 @@ class LoginViewModel(
     val verifyDeviceResult = _verifyDeviceResult.receiveAsFlow()
     private val _verifyDeviceError = Channel<RegisterDeviceData>(Channel.BUFFERED)
     val verifyDeviceError = _verifyDeviceError.receiveAsFlow()
+
+    private val _state = MutableStateFlow<LoginUiState>(LoginUiState.Idle)
+    val stateLogin = _state.asStateFlow()
+    private val _stateErrorWso2 = Channel<Reason>(Channel.BUFFERED)
+    val stateErrorWso2 = _stateErrorWso2.receiveAsFlow()
+
+    private val _stateLogout = MutableStateFlow<LogoutUiState>(LogoutUiState.Idle)
+    val stateLogout = _stateLogout.asStateFlow()
+
+    private val _showForceUpdate = Channel<Boolean>(Channel.BUFFERED)
+    val showForceUpdate = _showForceUpdate.receiveAsFlow()
+
+    private val _stateLoading = MutableStateFlow(false)
+    val stateLoading = _stateLoading.asStateFlow()
+
+    suspend fun stateLoading(isLoading: Boolean) {
+        _stateLoading.emit(isLoading)
+    }
+
+    fun checkSystemVars() {
+        viewModelScope.launch {
+//            useCaseGetSystemVars(UseCaseGetSystemVars.Params("MBA")).collect {
+//                // Handle result if needed, for now just logging or silent failure as per request (user just asked to call it)
+//                // If specific logic is needed on success, we can add it here.
+//                it.onResultHandle(
+//                    loadingBlock = {
+//                        stateLoading(true)
+//                    },
+//                    successBlock = { data ->
+            stateLoading(false)
+//                        if (data.isNeedUpdate(BuildConfig.VERSION_NAME)) {
+//                            _showForceUpdate.send(true)
+//                        }
+//                    },
+//                    failureBlock = {
+//                        stateLoading(false)
+//                        handleErrorTokenWso2(it)
+//                    }
+//                )
+//            }
+        }
+    }
+
+    fun isExpireTokenWso2(call: () -> Unit) {
+        val oldTime = storage.getTimeGetTokenWso2()
+        val currentTime = System.currentTimeMillis()
+//        Log.i("3242343242343", "${currentTime - oldTime}")
+//        Log.i("3242343242343", "${(storage.getExpireTime() - 1) * 60 * 1000}")
+        val isExpire = (currentTime - oldTime) > (storage.getExpireTime() - 1) * 60 * 1000
+        if (isExpire) {
+            getTokenWso2 {
+                call()
+            }
+        } else {
+            call()
+        }
+    }
 
     fun registerDevice(username: String, password: String) {
         viewModelScope.launch {
@@ -150,53 +208,13 @@ class LoginViewModel(
         }
     }
 
-    private val _state = MutableStateFlow<LoginUiState>(LoginUiState.Idle)
-    val stateLogin = _state.asStateFlow()
-    private val _stateErrorWso2 = Channel<Reason>(Channel.BUFFERED)
-    val stateErrorWso2 = _stateErrorWso2.receiveAsFlow()
-
-    private val _stateLogout = MutableStateFlow<LogoutUiState>(LogoutUiState.Idle)
-    val stateLogout = _stateLogout.asStateFlow()
-
-    private val _showForceUpdate = Channel<Boolean>(Channel.BUFFERED)
-    val showForceUpdate = _showForceUpdate.receiveAsFlow()
-
-    private val _stateLoading = MutableStateFlow(false)
-    val stateLoading = _stateLoading.asStateFlow()
-
-    suspend fun stateLoading(isLoading: Boolean) {
-        _stateLoading.emit(isLoading)
-    }
-
-    fun checkSystemVars() {
-        viewModelScope.launch {
-//            useCaseGetSystemVars(UseCaseGetSystemVars.Params("MBA")).collect {
-//                // Handle result if needed, for now just logging or silent failure as per request (user just asked to call it)
-//                // If specific logic is needed on success, we can add it here.
-//                it.onResultHandle(
-//                    loadingBlock = {
-//                        stateLoading(true)
-//                    },
-//                    successBlock = { data ->
-            stateLoading(false)
-//                        if (data.isNeedUpdate(BuildConfig.VERSION_NAME)) {
-//                            _showForceUpdate.send(true)
-//                        }
-//                    },
-//                    failureBlock = {
-//                        stateLoading(false)
-//                        handleErrorTokenWso2(it)
-//                    }
-//                )
-//            }
-        }
-    }
-
     fun checkLogin(param: UseCaseLogin.Params) {
         if (storage.getTokenWso2().isEmpty()) {
             getTokenWso2BackUpLogin(param)
         } else {
-            login(param)
+            isExpireTokenWso2 {
+                login(param)
+            }
         }
     }
 
@@ -232,7 +250,7 @@ class LoginViewModel(
         return (100000..999999).random().toString()
     }
 
-    fun getTokenWso2() {
+    fun getTokenWso2(success: (() -> Unit)? = null) {
         viewModelScope.launch {
             val paramsWso2 = UseCaseGetTokenWso2.InputParams(
                 BuildConfig.AUTHORIZATION, UseCaseGetTokenWso2.Params(
@@ -250,7 +268,8 @@ class LoginViewModel(
                         TimeUnit.SECONDS.toMinutes(trans.expireIn()).toInt()
                     )
                     delay(300)
-                    checkSystemVars()
+                    success?.invoke()
+//                    checkSystemVars()
                 }
                 result.onFailure { error ->
                     stateLoading(false)

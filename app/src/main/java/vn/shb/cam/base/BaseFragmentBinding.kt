@@ -37,6 +37,7 @@ import vn.shb.core.core.retrofit.SafeExecute.Companion.AUTH_002
 import vn.shb.core.core.retrofit.SafeExecute.Companion.AUTH_006
 import vn.shb.core.core.retrofit.SafeExecute.Companion.HTTP_NOT_FOUND
 import vn.shb.core.core.retrofit.SafeExecute.Companion.HTTP_UNAUTHORIZED
+import vn.shb.core.core.retrofit.SafeExecute.Companion.TOKEN_EXPIRE
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
 import vn.shb.data.entities.login.UserConverters
 
@@ -53,7 +54,8 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         get() = requireNotNull(_binding)
 
     private val listErrorLogout = listOf(AUTH_006, AUTH_001, AUTH_002)
-    private val listErrorShowErrorAndLogout = listOf(HTTP_UNAUTHORIZED.toString(), HTTP_NOT_FOUND)
+    private val listErrorShowErrorAndLogout =
+        listOf(HTTP_UNAUTHORIZED.toString(), HTTP_NOT_FOUND, TOKEN_EXPIRE)
 
     open fun isPaddingBottom() = false
     protected open fun useBaseFadeThrough() = true
@@ -203,14 +205,16 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         onAction: (() -> Unit)? = null
     ) {
         if (reason.errorCode == ApiConst.FUN_017 || reason.errorCode == getString(R.string.errorCode)) {
-            BottomSheetDialogHelper(requireContext()).messageErrorCode(reason)
+            BottomSheetDialogHelper(requireContext()).messageErrorCode(reason) {
+                onAction?.invoke()
+            }
             return
         }
         var message = reason.errMessage
-        if (reason.errorCode == HTTP_NOT_FOUND) {
+        if (reason.errorCode == HTTP_NOT_FOUND && reason.errorCode == TOKEN_EXPIRE) {
             message = getString(R.string.processingError)
         }
-        showErrorMessageOnly(message)
+        showErrorMessageOnly(message, onAction)
     }
 
     open fun showErrorMessageOnly(message: String, onAction: (() -> Unit)? = null) {
@@ -227,7 +231,7 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
     protected fun handleErrorHome(error: Reason?, onAction: (() -> Unit)? = null) {
         if (error != null) {
             if (listErrorLogout.contains(error.errorCode)) {
-                logout()
+                logout(true)
             } else if (listErrorShowErrorAndLogout.contains(error.errorCode)) {
                 showDialogError(error, {
                     onAction?.invoke()
@@ -241,10 +245,10 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         }
     }
 
-    fun logout() {
-        storage.resetUser()
+    fun logout(showSessionExpired: Boolean = false) {
+        storage.resetToken()
         finishAffinity(requireActivity())
-        returnActivity(MainActivity.loginIntent(requireActivity()))
+        returnActivity(MainActivity.loginIntent(requireActivity(), showSessionExpired))
     }
 
     private fun observerStateError() {

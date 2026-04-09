@@ -127,10 +127,11 @@
     <string name="to">ដល់ថ្ងៃ</string>
     <string name="SHBAccount">កម្មវិធីធនាគារឯកត្តបុគ្គល</string>
     <string name="transferAccountAndReceivingAccountNotSame">គណនីប្រភព និងគណនីអ្នកទទួល ត្រូវតែមានប្រភេទរូបិយបណ្ណដូចគ្នា</string>
-    <string name="pleaseEnterTheAccountNumber">សូមបញ្ចូលលេខគណនីអ្នកទទួលផល</string>
+    <string name="pleaseEnterTheAccountNumber">សូមបញ្ចូលលេខគណនី</string>
+    <string name="pleaseEnterToAccountNumber">សូមបញ្ចូលលេខគណនីអ្នកទទួលផល</string>
     <string name="pleaseEnterTheRemarks">សូមបញ្ចូលខ្លឹមសារកំណត់សម្គាល់</string>
     <string name="enterRemarks">បញ្ចួលកំណត់សម្គាល់</string>
-    <string name="transactionSuccess">ប្រតិបត្តិការបានជោគជ័យ !</string>
+    <string name="transactionSuccess">ប្រតិបត្តិការបានជោគជ័យ</string>
     <string name="beneficiary">អ្នកទទួលផល</string>
     <string name="addNew">បន្ថែមថ្មី</string>
     <string name="doYouWantToDeleteFromBeneficiary">តើលោកអ្នកពិតជាចង់លុប %s ចេញពីបញ្ជីអ្នកទទួលផលមែនទេ?</string>
@@ -208,7 +209,7 @@
     <string name="listBranchTransactionPoint">បញ្ជីសាខា/កន្លែងផ្តល់សេវាកម្ម</string>
     <string name="register_device_other">ការផ្ទៀងផ្ទាត់ឧបករណ៍ថ្មី</string>
     <string name="listAccount">បញ្ជីគណនី</string>
-    <string name="toMeAtSHB">ផ្ទេរគណនីផ្ទាល់ខ្លួន</string>
+    <string name="toMeAtSHB">ផ្ទេរប្រាក់ទៅគណនី SHB របស់ខ្ញុំ</string>
     <string name="exchangeRate">អត្រាប្តូរប្រាក់</string>
     <string name="rateAreIndicative">ចំណាំ៖ អត្រានេះគ្រាន់តែជាការបង្ហាញក្នុងពេលសាកសួរ និងអាចមានការប្រែប្រួលនៅពេលប្រតិបត្តិការជាក់ស្ដែង។</string>
     <string name="paste_pay_top_label">សូមថតចម្លង ឬផ្ញើនូវរូបភាពដែលមានព័ត៌មានផ្ទេរប្រាក់</string>
