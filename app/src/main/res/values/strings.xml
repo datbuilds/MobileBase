@@ -66,14 +66,12 @@
     <string name="toAccount">To Account</string>
     <string name="amount">Amount</string>
     <string name="enterAccountNumber">Enter Account Number</string>
-    <string name="enterAmount">Enter Amount</string>
     <string name="insufficientBalance">Insufficient Account Balance. Please try again.</string>
     <string name="fee">Fee</string>
     <string name="totalAmount">Total Amount</string>
     <string name="transactionFailed">Transaction failed!</string>
     <string name="tryAgain">Try again</string>
     <string name="transactionExceedLimit">Transaction failed due to exceeding the limit</string>
-    <string name="paymentSuccess">Transaction successful!</string>
     <string name="createNewTransaction">New Transaction</string>
     <string name="selectBeneficiary">Select beneficiary</string>
     <string name="confirmationCode">Confirmation Code</string>
@@ -237,5 +235,6 @@
     <string name="minumumTransferAmount">Minimum transfer amount: 0.01 USD (For USD transfers)</string>
     <string name="sourceAndRecipient">Source and recipient accounts must be different</string>
     <string name="incorrectOtpPleaseTryAgain">Incorrect OTP. Please try again.</string>
+    <string name="confirmTransactionOTP">Confirm transaction</string>
     <string name="yourCurrentAccountIsCurrentlyBlocked">Your current account is currently blocked. Please visit our nearest Branch for support.</string>
 </resources>

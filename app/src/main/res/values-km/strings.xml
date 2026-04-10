@@ -47,7 +47,7 @@
     <string name="selectFromPhotoLibrary">ជ្រើសរើសពីបណ្ណាល័យរូបភាព</string>
     <string name="profilePictureUpdated">ការផ្លាស់ប្តូររូបភាពកម្រងព័ត៌មានបានជោគជ័យ</string>
     <string name="accountDetails">ពត៌មានលម្អិតអំពីគណនី</string>
-    <string name="availableBalance">សមតុល្យសាច់ប្រាក់</string>
+    <string name="availableBalance">សមតុល្យដែលអាចប្រើប្រាស់បាន</string>
     <string name="accountNumber">លេខគណនី</string>
     <string name="branch">សាខា</string>
     <string name="transactionHistory">ប្រវត្តិប្រតិបត្តិការ</string>
@@ -66,14 +66,12 @@
     <string name="toAccount">ទៅគណនី</string>
     <string name="amount">ទឹកប្រាក់</string>
     <string name="enterAccountNumber">បញ្ចូលលេខគណនី</string>
-    <string name="enterAmount">បញ្ចូលចំនួនទឹកប្រាក់</string>
     <string name="insufficientBalance">សមតុល្យក្នុងគណនីមិនគ្រប់គ្រាន់។ សូមព្យាយាមម្តងទៀត។</string>
     <string name="fee">ថ្លៃសេវា</string>
     <string name="totalAmount">ចំនួនទឹកប្រាក់សរុប</string>
     <string name="transactionFailed">ប្រតិបត្តិការបរាជ័យ!</string>
     <string name="tryAgain">ព្យាយាមម្តងទៀត</string>
     <string name="transactionExceedLimit">ប្រតិបត្តិការ​បាន​បរាជ័យ​ ដោយសារ​ចំនួនទឹកប្រាក់លើសពីដែនកំណត់អនុញ្ញាត។</string>
-    <string name="paymentSuccess">ប្រតិបត្តិការជោគជ័យ!</string>
     <string name="createNewTransaction">ប្រតិបត្តិការថ្មី</string>
     <string name="selectBeneficiary">ជ្រើសរើសអ្នកទទួលផល</string>
     <string name="confirmationCode">លេខកូដបញ្ជាក់</string>
@@ -107,7 +105,7 @@
     <string name="transactionFailedDueToExceeding">ប្រតិបត្តិការ​បាន​បរាជ័យ​ ដោយសារ​ចំនួនទឹកប្រាក់លើសពីដែនកំណត់អនុញ្ញាត។</string>
     <string name="authenticationFailed">ការផ្ទៀងផ្ទាត់បរាជ័យ។ សូមព្យាយាមម្តងទៀត។</string>
     <string name="transactionFail">ប្រតិបត្តិការបរាជ័យ!</string>
-    <string name="anErrorHasOccurred">ប្រតិបត្តិការមិនបានជោគជ័យ។ សូមព្យាយាមម្ដងទៀត។</string>
+    <string name="anErrorHasOccurred">បប្រតិបត្តិការមិនបានជោគជ័យ។ សូមព្យាយាមម្ដងទៀត។</string>
     <string name="enterRecipientName">បញ្ចូលឈ្មោះអ្នកទទួលផល</string>
     <string name="pleaseEnterTheAmount">សូមបញ្ចូលចំនួនទឹកប្រាក់</string>
     <string name="flexibleSaving">ការសន្សំប្រកបដោយភាពបត់បែន</string>
@@ -131,7 +129,7 @@
     <string name="pleaseEnterToAccountNumber">សូមបញ្ចូលលេខគណនីអ្នកទទួលផល</string>
     <string name="pleaseEnterTheRemarks">សូមបញ្ចូលខ្លឹមសារកំណត់សម្គាល់</string>
     <string name="enterRemarks">បញ្ចួលកំណត់សម្គាល់</string>
-    <string name="transactionSuccess">ប្រតិបត្តិការបានជោគជ័យ</string>
+    <string name="transactionSuccess">ប្រតិបត្តិការជោគជ័យ!</string>
     <string name="beneficiary">អ្នកទទួលផល</string>
     <string name="addNew">បន្ថែមថ្មី</string>
     <string name="doYouWantToDeleteFromBeneficiary">តើលោកអ្នកពិតជាចង់លុប %s ចេញពីបញ្ជីអ្នកទទួលផលមែនទេ?</string>
@@ -230,5 +228,6 @@
     <string name="minumumTransferAmount">ចំនួនទឹកប្រាក់ផ្ទេរអប្បបរមាគឺ 0.01 ដុល្លារអាមេរិក (សម្រាប់គណនីប្រាក់ដុល្លារ)</string>
     <string name="sourceAndRecipient">គណនីប្រភព និងគណនីអ្នកទទួលត្រូវតែខុសគ្នា</string>
     <string name="incorrectOtpPleaseTryAgain">លេខកូដ OTP មិនត្រឹមត្រូវទេ។ សូមពិនិត្យមើលម្តងទៀត។</string>
+    <string name="confirmTransactionOTP">ផ្ទៀងផ្ទាត់ប្រតិបត្តិការ</string>
     <string name="yourCurrentAccountIsCurrentlyBlocked">គណនីរបស់អ្នកត្រូវបានផ្អាកជាបណ្ដោះអាសន្ន។ សូមអញ្ជើញទៅកាន់សាខាដែលនៅជិតបំផុត ដើម្បីទទួលបានការគាំទ្រ។</string>
 </resources>

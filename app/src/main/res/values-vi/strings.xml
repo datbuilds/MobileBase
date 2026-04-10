@@ -66,15 +66,13 @@
     <string name="toAccount">Tài khoản nhận</string>
     <string name="amount">Số tiền giao dịch</string>
     <string name="enterAccountNumber">Nhập số tài khoản</string>
-    <string name="enterAmount">Nhập số tiền</string>
     <string name="insufficientBalance">Tài khoản không đủ số dư. Vui lòng kiểm tra lại.</string>
     <string name="fee">Phí</string>
-    <string name="totalAmount">Tổng số tiền</string>
+    <string name="totalAmount">Tổng tiền</string>
     <string name="transactionFailed">Giao dịch thất bại. Vui lòng thử lại.</string>
     <string name="tryAgain">Thử lại</string>
     <string name="transactionExceedLimit">Giao dịch không thành công do vượt quá hạn mức. Vui lòng thử lại.</string>
-    <string name="paymentSuccess">Giao dịch thành công!</string>
-    <string name="createNewTransaction">Giao dịch mới</string>
+    <string name="createNewTransaction">Tạo giao dịch mới</string>
     <string name="selectBeneficiary">Chọn người thụ hưởng</string>
     <string name="confirmationCode">Mã xác nhận</string>
     <string name="confirm">Xác nhận</string>
@@ -107,7 +105,7 @@
     <string name="transactionFailedDueToExceeding">Giao dịch thất bại do vượt quá hạn mức</string>
     <string name="authenticationFailed">Xác thực thất bại. Vui lòng thử lại.</string>
     <string name="transactionFail">Giao dịch thất bại!</string>
-    <string name="anErrorHasOccurred">Đã có lỗi xảy ra, giao dịch chưa hoàn thành. Vui lòng thử lại!</string>
+    <string name="anErrorHasOccurred">Đã có lỗi xảy ra, giao dịch chưa hoàn tất. Vui lòng thử lại!</string>
     <string name="enterRecipientName">Nhập tên người thụ hưởng</string>
     <string name="pleaseEnterTheAmount">Vui lòng nhập số tiền</string>
     <string name="flexibleSaving">TIẾT KIỆM LINH HOẠT</string>
@@ -124,14 +122,14 @@
     <string name="remainingTime">Thời gian còn lại</string>
     <string name="second">giây</string>
     <string name="errorCode" translatable="false">Mã lỗi</string>
-    <string name="to">Đến ngày</string>
+    <string name="to">Đến</string>
     <string name="SHBAccount">Tài khoản SHB</string>
     <string name="transferAccountAndReceivingAccountNotSame">Tài khoản chuyển và tài khoản nhận không cùng loại tiền tệ.</string>
     <string name="pleaseEnterTheAccountNumber">Vui lòng nhập tài khoản nhận</string>
     <string name="pleaseEnterToAccountNumber">Vui lòng nhập tài khoản nhận</string>
     <string name="pleaseEnterTheRemarks">Vui lòng nhập nội dung</string>
     <string name="enterRemarks">Nhập nội dung</string>
-    <string name="transactionSuccess">Giao dịch thành công !</string>
+    <string name="transactionSuccess">Giao dịch thành công!</string>
     <string name="beneficiary">Người thụ hưởng</string>
     <string name="addNew">Thêm mới</string>
     <string name="doYouWantToDeleteFromBeneficiary">Bạn có muốn xóa %s khỏi danh sách người thụ hưởng?</string>
@@ -210,7 +208,7 @@
     <string name="register_device_other">Xác nhận thiết bị mới</string>
     <string name="listAccount">Danh sách tài khoản</string>
     <string name="toMeAtSHB">Đến tôi tại SHB</string>
-    <string name="exchangeRate">Tỷ giá ngoại tệ</string>
+    <string name="exchangeRate">Tỷ giá</string>
     <string name="rateAreIndicative">Lưu ý: Tỷ giá có hiệu lực tài thời điểm truy vấn, có thể thay đổi tại thời điểm hạch toán</string>
     <string name="paste_pay_top_label">Dán nội dung hoặc tải ảnh chứa thông tin chuyển khoản</string>
     <string name="paste_pay_hint">Dán thông tin chuyển khoản</string>
@@ -230,5 +228,6 @@
     <string name="minumumTransferAmount">Số tiền chuyển tối thiểu: 0,01 USD (áp dụng khi chuyển từ tiền USD)</string>
     <string name="sourceAndRecipient">Tài khoản nguồn và tài khoản đích phải khác nhau</string>
     <string name="incorrectOtpPleaseTryAgain">Mã OTP không chính xác. Vui lòng kiểm tra lại.</string>
+    <string name="confirmTransactionOTP">Xác nhận giao dịch</string>
     <string name="yourCurrentAccountIsCurrentlyBlocked">Tài khoản thanh toán của Quý khách hiện đang bị khóa. Vui lòng đến quầy giao dịch gần nhất để được hỗ trợ</string>
 </resources>
