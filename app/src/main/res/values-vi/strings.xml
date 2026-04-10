@@ -96,7 +96,6 @@
     <string name="tel">Hotline:</string>
     <string name="hide">Ẩn</string>
     <string name="account_info_format" translatable="false">%s - %s - %s</string>
-    <string name="lao" translatable="false">Lào</string>
     <string name="add">Địa chỉ:</string>
     <string name="done">Hoàn tất</string>
     <string name="zero" translatable="false">0</string>
@@ -154,7 +153,7 @@
     <string name="re_enter_new_password">Nhập lại mật khẩu mới</string>
     <string name="hint_re_enter_new_password">Nhập lại mật khẩu mới</string>
     <string name="change_password_success">Đổi mật khẩu thành công !</string>
-    <string name="change_password_success_message">Vui lòng đăng nhập lại để tiếp tục sử dụng ứng dụng</string>
+    <string name="change_password_success_message">Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.</string>
     <string name="chatpay">Paste2Pay</string>
     <string name="error_current_password_incorrect">Mật khẩu hiện tại không đúng, vui lòng thử lại</string>
     <string name="error_passwords_do_not_match">Mật khẩu nhập lại không khớp</string>
