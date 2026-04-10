@@ -72,7 +72,6 @@
     <string name="transactionFailed">Giao dịch thất bại. Vui lòng thử lại.</string>
     <string name="tryAgain">Thử lại</string>
     <string name="transactionExceedLimit">Giao dịch không thành công do vượt quá hạn mức. Vui lòng thử lại.</string>
-    <string name="paymentSuccess">Giao dịch thành công!</string>
     <string name="createNewTransaction">Tạo giao dịch mới</string>
     <string name="selectBeneficiary">Chọn người thụ hưởng</string>
     <string name="confirmationCode">Mã xác nhận</string>
@@ -130,7 +129,7 @@
     <string name="pleaseEnterToAccountNumber">Vui lòng nhập tài khoản nhận</string>
     <string name="pleaseEnterTheRemarks">Vui lòng nhập nội dung</string>
     <string name="enterRemarks">Nhập nội dung</string>
-    <string name="transactionSuccess">Giao dịch thành công !</string>
+    <string name="transactionSuccess">Giao dịch thành công!</string>
     <string name="beneficiary">Người thụ hưởng</string>
     <string name="addNew">Thêm mới</string>
     <string name="doYouWantToDeleteFromBeneficiary">Bạn có muốn xóa %s khỏi danh sách người thụ hưởng?</string>

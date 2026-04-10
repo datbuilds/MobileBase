@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,7 +30,6 @@ import vn.shb.cam.screens.home.HomeViewModel
 import vn.shb.cam.utils.ApiConst
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.extensions.returnActivity
-import vn.shb.cam.utils.refreshTK.RefreshTokenManager
 import vn.shb.cam.utils.view.dialog.BottomSheetDialogHelper
 import vn.shb.core.core.delivery.Reason
 import vn.shb.core.core.retrofit.SafeExecute.Companion.AUTH_001
@@ -229,6 +229,8 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
     }
 
     protected fun handleErrorHome(error: Reason?, onAction: (() -> Unit)? = null) {
+        Log.e("handleErrorHome", "errorCode: "+error?.errorCode+" || "+"errorMsg: "+error?.errMessage)
+
         if (error != null) {
             if (listErrorLogout.contains(error.errorCode)) {
                 logout(true)
