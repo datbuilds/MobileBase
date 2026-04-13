@@ -205,9 +205,12 @@ class HomeViewModel(
         }
     }
 
-    fun checkAccountNull(listAccount: List<Any> = listTransferAccount, callAction : (() -> Unit)? = null) {
+    fun checkAccountNull(
+        listAccount: List<Any> = listTransferAccount,
+        callAction: (() -> Unit)? = null
+    ) {
         viewModelScope.launch {
-            if (listAccount.isEmpty()){
+            if (listAccount.isEmpty()) {
                 _stateAccountNull.emit(true)
             } else {
                 callAction?.invoke()
@@ -413,6 +416,8 @@ class HomeViewModel(
         }
     }
 
+    var onConfirmLoading: MutableStateFlow<Boolean> = MutableStateFlow(false)
+
     fun postTransactionTransfer(
         type: String,
         fromAccount: String,
@@ -435,29 +440,28 @@ class HomeViewModel(
                 sender = AccountInfoRequest(accountNo = fromAccount),
                 beneficiary = AccountInfoRequest(accountNo = toAccount)
             )
+
             useCaseTransactionTransfer.invoke(params).collect { result ->
-                result.onResultHandle({ transactionTransferData ->
-                    viewModelScope.launch {
-                        _stateTransactionTransfer.send(transactionTransferData)
-                        transactionTransferRealtime = transactionTransferData
+                result.onSuccess { transactionTransferData ->
+                    _stateTransactionTransfer.send(transactionTransferData)
+                    transactionTransferRealtime = transactionTransferData
+                }
+
+                result.onFailure { reason ->
+                    if (reason is PostTransactionError) {
+                        val data = PostTransactionError(
+                            code = reason.code,
+                            message = reason.message,
+                            maxOtpRequestsPerWindow = reason.maxOtpRequestsPerWindow,
+                            remainingSeconds = reason.remainingSeconds,
+                            maxAttempts = reason.maxAttempts,
+                            success = reason.success,
+                        )
+                        _statePostTransferError.send(data)
+                    } else {
+                        stateError(reason)
                     }
-                }, { reason ->
-                    viewModelScope.launch {
-                        if (reason is PostTransactionError) {
-                            val data = PostTransactionError(
-                                code = reason.code,
-                                message = reason.message,
-                                maxOtpRequestsPerWindow = reason.maxOtpRequestsPerWindow,
-                                remainingSeconds = reason.remainingSeconds,
-                                maxAttempts = reason.maxAttempts,
-                                success = reason.success,
-                            )
-                            _statePostTransferError.send(data)
-                        } else {
-                            stateError(reason)
-                        }
-                    }
-                })
+                }
             }
         }
     }
@@ -471,32 +475,38 @@ class HomeViewModel(
                 otp = otp,
             )
             useCaseTransactionTransferConfirm.invoke(params).collect { result ->
-                result.onResultHandle({ transactionTransferConfirmData ->
-                    viewModelScope.launch {
-                        _stateTransactionTransferConfirm.emit(transactionTransferConfirmData)
-                    }
-                }, { reason ->
-                    viewModelScope.launch {
-                        if (listErrorCodeConfirmContinue.contains(reason.errorCode)) {
-                            stateError(reason)
+                result.onLoading {
+                    onConfirmLoading.emit(true)
+                }
+
+                result.onSuccess { transactionTransferConfirmData ->
+                    onConfirmLoading.emit(false)
+                    _stateTransactionTransferConfirm.emit(transactionTransferConfirmData)
+
+                }
+
+                result.onFailure { reason ->
+                    onConfirmLoading.emit(false)
+                    if (listErrorCodeConfirmContinue.contains(reason.errorCode)) {
+                        stateError(reason)
+                    } else {
+                        if (reason is SendOtpTransactionError) {
+                            val data = SendOtpTransactionError(
+                                code = reason.code,
+                                transactionId = reason.transactionId,
+                                message = reason.message,
+                                isValid = reason.isValid,
+                                remainingAttempts = reason.remainingAttempts, // or pass if Reason has it? Reason only has remainingSeconds currently.
+                                remainingSeconds = reason.remainingSeconds, // Reason doesn't have it currently
+                                maxAttempts = reason.maxAttempts
+                            )
+                            _stateTransferConfirmError.send(data)
                         } else {
-                            if (reason is SendOtpTransactionError) {
-                                val data = SendOtpTransactionError(
-                                    code = reason.code,
-                                    transactionId = reason.transactionId,
-                                    message = reason.message,
-                                    isValid = reason.isValid,
-                                    remainingAttempts = reason.remainingAttempts, // or pass if Reason has it? Reason only has remainingSeconds currently.
-                                    remainingSeconds = reason.remainingSeconds, // Reason doesn't have it currently
-                                    maxAttempts = reason.maxAttempts
-                                )
-                                _stateTransferConfirmError.send(data)
-                            } else {
-                                stateError(reason)
-                            }
+                            stateError(reason)
                         }
                     }
-                })
+
+                }
             }
         }
     }
