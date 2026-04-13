@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.InputFilter
 import android.text.InputType
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.activity.result.contract.ActivityResultContracts
@@ -66,6 +67,11 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     var currentUserName = ""
 
     private var isVisiblePassword = false
+
+    // Track xem user đã thực sự tương tác với field chưa
+    // Tránh hiện error khi recreate activity lúc đổi ngôn ngữ
+    private var hasUserTypedUsername = false
+    private var hasUserTypedPassword = false
 
     private lateinit var confirmDeviceView: ConfirmDeviceView
 
@@ -153,8 +159,11 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             }
 
             edtInputUsername.addTextChangedListener {
+                if (!it.isNullOrEmpty()) hasUserTypedUsername = true
                 btnClearUsername.isVisible = !it.isNullOrEmpty()
-                tvErrorUsername.isVisible = it.isNullOrEmpty()
+                // Chỉ show error khi user đã từng gõ rồi xóa hết (không show khi recreate)
+                tvErrorUsername.isVisible =
+                    hasUserTypedUsername && it.isNullOrEmpty() && currentUser == null
             }
 
             //handle edit password
@@ -172,10 +181,11 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                 edtInputPass.text?.clear()
             }
             edtInputPass.addTextChangedListener {
+                if (!it.isNullOrEmpty()) hasUserTypedPassword = true
                 btnClearPassword.isVisible = !it.isNullOrEmpty()
                 btnToggle.isVisible = !it.isNullOrEmpty()
-
-                tvErrorPassword.isVisible = it.isNullOrEmpty()
+                // Chỉ show error khi user đã từng gõ rồi xóa hết (không show khi recreate)
+                tvErrorPassword.isVisible = hasUserTypedPassword && it.isNullOrEmpty()
             }
 
             llLanguage.setOnSingleClickListener {
@@ -395,7 +405,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                                 val accountLogin = getUserLogin()
                                 val (_, encPsw) = getPassword()
                                 transactionId?.let {
-                                    loginViewModel.isExpireTokenWso2{
+                                    loginViewModel.isExpireTokenWso2 {
                                         loginViewModel.verifyDevice(
                                             accountLogin, encPsw,
                                             it,
@@ -410,7 +420,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                             // Logic to resend
                             val accountLogin = getUserLogin()
                             val (_, encPsw) = getPassword()
-                            loginViewModel.isExpireTokenWso2{
+                            loginViewModel.isExpireTokenWso2 {
                                 loginViewModel.registerDevice(accountLogin, encPsw)
                             }
                         },
@@ -540,6 +550,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         reason: Reason,
         onAction: (() -> Unit)? = null
     ) {
+        Log.i("weeewewrwererwewr", "loginF")
         BottomSheetDialogHelper(requireContext()).message(
             title = getString(R.string.notification),
             message = getString(R.string.processingError),
