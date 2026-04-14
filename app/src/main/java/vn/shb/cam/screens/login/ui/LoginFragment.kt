@@ -434,7 +434,8 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                         },
                         otpDefault = if (BuildConfig.DEBUG)
                             result.otpCode ?: ""
-                        else ""
+                        else "",
+                        title = getString(R.string.confirm_device_title)
                     )
                     if (!confirmDeviceView.isVisible) {
                         confirmDeviceView.show()
