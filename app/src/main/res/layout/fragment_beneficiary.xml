@@ -71,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_12dp"
-                android:hint="@string/enterRecipientNameOrAccountNumber"
+                android:hint="@string/enterRecipientName"
                 android:includeFontPadding="false"
                 android:imeOptions="actionDone"
                 android:textColor="@color/black"

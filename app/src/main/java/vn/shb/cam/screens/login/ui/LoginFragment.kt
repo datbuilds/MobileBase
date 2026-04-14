@@ -11,8 +11,6 @@ import android.view.WindowManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import vn.shb.cam.BuildConfig
@@ -52,7 +50,6 @@ import vn.shb.core.core.delivery.reason.LoginFailLocked
 import vn.shb.core.core.delivery.reason.LoginRegisterDevice
 import vn.shb.core.core.domain.usecases.login.StateLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseLogin
-import vn.shb.core.core.retrofit.SafeExecute.Companion.TOKEN_EXPIRE
 import vn.shb.core.core.security.encrypt.EncryptManager
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.login.RegisterDeviceData
@@ -193,19 +190,17 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                 showLanguagePopup(binding.llLanguage)
             }
 
-
-            if (BuildConfig.DEBUG) {
-                ivLogoSHB.setOnSingleClickListener {
-                    resetInputLogin()
-                }
+            ivLogoSHB.setOnSingleClickListener {
+                resetInputLogin()
             }
 
             if (BuildConfig.DEBUG) {
-//                binding.edtInputUsername.setText("0101013925")
-//                binding.edtInputPass.setText("12345678")
+//                binding.edtInputUsername.setText("0101030322")
+//                binding.edtInputPass.setText("123456")
 //                handleActionLogin()
+
 //                binding.edtInputUsername.setText("0101025405")
-                binding.edtInputPass.setText("12345678")
+//                binding.edtInputPass.setText("Quanhy2@")
 //                handleActionLogin()
             }
         }
