@@ -13,6 +13,7 @@ import vn.shb.cam.databinding.FragmentConfirmationBinding
 import vn.shb.cam.navigation.AppDestination
 import vn.shb.cam.screens.login.ui.widget.ConfirmDeviceView
 import vn.shb.cam.utils.ApiConst
+import vn.shb.cam.utils.extensions.checkShowProgressDialog
 import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.gone
 import vn.shb.cam.utils.extensions.hideProgressDialog
@@ -122,6 +123,17 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
     override fun initObserve() {
         launchRepeatOnLifecycle {
             with(homeViewModel) {
+
+                launch {
+                    onConfirmLoading.collect { stateLoading ->
+                        if (stateLoading) {
+                            checkShowProgressDialog()
+                        } else {
+                            hideProgressDialog()
+                        }
+                    }
+                }
+
                 launch {
                     stateTransactionTransferConfirm.collectLatest {
                         if (it != null) {
@@ -260,7 +272,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
 
     private fun hideConfirmOtpTransaction() {
 //        binding.flRegisterDevice.gone()
-        if (confirmDeviceView.isVisible){
+        if (confirmDeviceView.isVisible) {
             confirmDeviceView.hide()
         }
     }

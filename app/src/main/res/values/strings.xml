@@ -98,7 +98,6 @@
     <string name="account_info_format" translatable="false">%s - %s - %s</string>
     <string name="english" translatable="false">English</string>
     <string name="vietnamese" translatable="false">Tiếng Việt</string>
-    <string name="lao" translatable="false">Lao</string>
     <string name="add">Address:</string>
     <string name="done">Done</string>
     <string name="zero" translatable="false">0</string>
@@ -159,7 +158,7 @@
     <string name="re_enter_new_password">Re-enter new password</string>
     <string name="hint_re_enter_new_password">Re-enter new password</string>
     <string name="change_password_success">Change password successfully !</string>
-    <string name="change_password_success_message">Please log in again to continue using the application</string>
+    <string name="change_password_success_message">Session expired. Please log in again.</string>
     <string name="error_current_password_incorrect">The current password is incorrect, please try again</string>
     <string name="error_passwords_do_not_match">Passwords do not match</string>
     <string name="error_new_and_old_password_same">The new password must not be the same as the old password</string>

@@ -213,6 +213,7 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         var message = reason.errMessage
         if (reason.errorCode == HTTP_NOT_FOUND && reason.errorCode == TOKEN_EXPIRE) {
             message = getString(R.string.processingError)
+            Log.i("weeewewrwererwewr", "base binding")
         }
         showErrorMessageOnly(message, onAction)
     }

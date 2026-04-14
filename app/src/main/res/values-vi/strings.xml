@@ -3,7 +3,7 @@
     <string name="personalInternetBanking">NGÂN HÀNG TRỰC TUYẾN CÁ NHÂN</string>
     <string name="enterYourDetailToSignIn">Vui lòng nhập thông tin để đăng nhập</string>
     <string name="userName">Tên đăng nhập</string>
-    <string name="enterYourUserName">Nhập tên tài khoản của Qúy khách</string>
+    <string name="enterYourUserName">Nhập tên tài khoản của Quý khách</string>
     <string name="password">Mật khẩu</string>
     <string name="enterPassword">Nhập mật khẩu</string>
     <string name="forgotPassword">Quên mật khẩu?</string>
@@ -25,7 +25,7 @@
     <string name="shbBranch3Address">Số 511C, Đường Oknha Mong Reththy, Phường Phnom Penh Thmei, Quận Sen Sokh, Phnom Penh, Campuchia.</string>
     <string name="shbBranch4">4. NGÂN HÀNG TMCP SÀI GÒN - HÀ NỘI CAMPUCHIA - CHI NHÁNH CHNAR AMPOV</string>
     <string name="shbBranch4Address">Số 76, Đường quốc lộ, Phường Nirouth, Quận Chbar Ampov, Phnom Penh, Campuchia.</string>
-    <string name="welcomeToShb">Chào mừng Qúy khách hàng đến với SHB!</string>
+    <string name="welcomeToShb">Chào mừng Quý khách hàng đến với SHB!</string>
     <string name="currentAccount">Tài khoản thanh toán</string>
     <string name="transfer">Chuyển tiền</string>
     <string name="accounts">Tài khoản</string>
@@ -96,7 +96,6 @@
     <string name="tel">Hotline:</string>
     <string name="hide">Ẩn</string>
     <string name="account_info_format" translatable="false">%s - %s - %s</string>
-    <string name="lao" translatable="false">Lào</string>
     <string name="add">Địa chỉ:</string>
     <string name="done">Hoàn tất</string>
     <string name="zero" translatable="false">0</string>
@@ -114,7 +113,7 @@
     <string name="yesterday">Hôm qua</string>
     <string name="from">Từ</string>
     <string name="toDate">Đến ngày</string>
-    <string name="noTransactionHistory">Không có lịch sử giao dịch</string>
+    <string name="noTransactionHistory">Không tìm thấy giao dịch</string>
     <string name="noAccountAvailable">Không có tài khoản khả dụng</string>
     <string name="confirmation">Xác nhận</string>
     <string name="accountName">Tên tài khoản</string>
@@ -154,7 +153,7 @@
     <string name="re_enter_new_password">Nhập lại mật khẩu mới</string>
     <string name="hint_re_enter_new_password">Nhập lại mật khẩu mới</string>
     <string name="change_password_success">Đổi mật khẩu thành công !</string>
-    <string name="change_password_success_message">Vui lòng đăng nhập lại để tiếp tục sử dụng ứng dụng</string>
+    <string name="change_password_success_message">Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.</string>
     <string name="chatpay">Paste2Pay</string>
     <string name="error_current_password_incorrect">Mật khẩu hiện tại không đúng, vui lòng thử lại</string>
     <string name="error_passwords_do_not_match">Mật khẩu nhập lại không khớp</string>

@@ -119,7 +119,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 removeExtra(EXTRA_SHOW_SESSION_EXPIRED)
             }
         )
-        startRefreshTokenManager()
+//        startRefreshTokenManager()
         startSmsListener()
     }
 

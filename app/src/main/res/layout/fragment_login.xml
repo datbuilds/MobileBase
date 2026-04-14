@@ -69,7 +69,7 @@
         android:orientation="vertical"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/ivImageLogin"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <vn.shb.cam.screens.home.widget.FrameAvatarUser
             android:id="@+id/flAvatarUser"
@@ -190,7 +190,7 @@
         android:visibility="gone"
         app:customFontWeight="medium"
         app:layout_constraintTop_toBottomOf="@+id/userNameContainer"
-        tools:visibility="gone" />
+        tools:visibility="visible" />
 
     <LinearLayout
         android:id="@+id/passwordContainer"
@@ -317,6 +317,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
+        tools:visibility="visible"
         app:constraint_referenced_ids="tvInternetBanking, tvEnterYourDetail, userNameContainer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

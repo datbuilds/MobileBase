@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <resources>
-    <string name="personalInternetBanking">ធនាគារអនឡាញផ្ទាល់ខ្លួន</string>
+    <string name="personalInternetBanking">កម្មវិធីធនាគារឯកត្តបុគ្គល</string>
     <string name="enterYourDetailToSignIn">ចូលប្រើប្រាស់ជាមួយព័ត៌មានសម្ងាត់របស់អ្នក</string>
     <string name="userName">ឈ្មោះអ្នកប្រើប្រាស់</string>
     <string name="enterYourUserName">បញ្ចូលឈ្មោះអ្នកប្រើប្រាស់</string>
@@ -46,7 +46,7 @@
     <string name="takePhoto">ថតរូប</string>
     <string name="selectFromPhotoLibrary">ជ្រើសរើសពីបណ្ណាល័យរូបភាព</string>
     <string name="profilePictureUpdated">ការផ្លាស់ប្តូររូបភាពកម្រងព័ត៌មានបានជោគជ័យ</string>
-    <string name="accountDetails">ពត៌មានលម្អិតអំពីគណនី</string>
+    <string name="accountDetails">ព័ត៌មានលម្អិតអំពីគណនី</string>
     <string name="availableBalance">សមតុល្យដែលអាចប្រើប្រាស់បាន</string>
     <string name="accountNumber">លេខគណនី</string>
     <string name="branch">សាខា</string>
@@ -57,7 +57,7 @@
     <string name="remarks">កំណត់សម្គាល់</string>
     <string name="remarksDefault">កំណត់សម្គាល់លំនាំដើម</string>
     <string name="enterRemarksDefault">បញ្ជូលកំណត់សម្គាល់លំនាំដើម</string>
-    <string name="transactionDate">កាលបរិច្ឆេទប្រតិបត្តិការ</string>
+    <string name="transactionDate">កាលបរិច្ឆេទ</string>
     <string name="referenceNumber">លេខយោង</string>
     <string name="moneyTransfer">ផ្ទេរប្រាក់</string>
     <string name="intrabankTransfer">ផ្ទេរប្រាក់ក្នុងធនាគារតែមួយ</string>
@@ -78,7 +78,7 @@
     <string name="confirm">បញ្ជាក់់</string>
     <string name="saveRecipient">រក្សាទុកអ្នកទទួលផល</string>
     <string name="save">រក្សាទុក</string>
-    <string name="setNicknameQuestion">តើអ្នកចង់កំណត់ឈ្មោះសម្គាល់សម្រាប់អ្នកទទួលផលនេះដែរឬទេ?</string>
+    <string name="setNicknameQuestion">តើអ្នកចង់កំណត់ឈ្មោះហៅក្រៅសម្រាប់អ្នកទទួលនេះដែរឬទេ?</string>
     <string name="enterNickname">បញ្ចូលឈ្មោះសម្គាល់</string>
     <string name="titleNickname">ឈ្មោះហៅក្រៅ</string>
     <string name="setNickname">កំណត់ឈ្មោះហៅក្រៅ</string>
@@ -96,7 +96,6 @@
     <string name="tel">លេខទូរស័ព្ទជំនួយ</string>
     <string name="hide">លាក់</string>
     <string name="account_info_format" translatable="false">%s - %s - %s</string>
-    <string name="lao" translatable="false">Lao</string>
     <string name="add">អាសយដ្ឋាន</string>
     <string name="done">រួចរាល់</string>
     <string name="zero" translatable="false">0</string>
@@ -105,7 +104,7 @@
     <string name="transactionFailedDueToExceeding">ប្រតិបត្តិការ​បាន​បរាជ័យ​ ដោយសារ​ចំនួនទឹកប្រាក់លើសពីដែនកំណត់អនុញ្ញាត។</string>
     <string name="authenticationFailed">ការផ្ទៀងផ្ទាត់បរាជ័យ។ សូមព្យាយាមម្តងទៀត។</string>
     <string name="transactionFail">ប្រតិបត្តិការបរាជ័យ!</string>
-    <string name="anErrorHasOccurred">បប្រតិបត្តិការមិនបានជោគជ័យ។ សូមព្យាយាមម្ដងទៀត។</string>
+    <string name="anErrorHasOccurred">ប្រតិបត្តិការមិនបានជោគជ័យ។ សូមព្យាយាមម្ដងទៀត។</string>
     <string name="enterRecipientName">បញ្ចូលឈ្មោះអ្នកទទួលផល</string>
     <string name="pleaseEnterTheAmount">សូមបញ្ចូលចំនួនទឹកប្រាក់</string>
     <string name="flexibleSaving">ការសន្សំប្រកបដោយភាពបត់បែន</string>
@@ -124,7 +123,7 @@
     <string name="errorCode" translatable="false">លេខកូដកំហុស</string>
     <string name="to">ដល់ថ្ងៃ</string>
     <string name="SHBAccount">កម្មវិធីធនាគារឯកត្តបុគ្គល</string>
-    <string name="transferAccountAndReceivingAccountNotSame">គណនីប្រភព និងគណនីអ្នកទទួល ត្រូវតែមានប្រភេទរូបិយបណ្ណដូចគ្នា</string>
+    <string name="transferAccountAndReceivingAccountNotSame">គណនីប្រភព និងគណនីអ្នកទទួល ខុសប្រភេទរូបិយបណ្ណគ្នា</string>
     <string name="pleaseEnterTheAccountNumber">សូមបញ្ចូលលេខគណនី</string>
     <string name="pleaseEnterToAccountNumber">សូមបញ្ចូលលេខគណនីអ្នកទទួលផល</string>
     <string name="pleaseEnterTheRemarks">សូមបញ្ចូលខ្លឹមសារកំណត់សម្គាល់</string>
@@ -151,13 +150,13 @@
     <string name="password_rule_special">តម្រូវឱ្យមានយ៉ាងហោចណាស់លេខ ១ តួអក្សរពិសេស ១ .~!@#$\%^&amp;*()_+={}|:;&lt;&gt;,/?-</string>
     <string name="hint_select_bank">ជ្រើសរើសធនាគារ</string>
     <string name="hint_enter_account_name">បញ្ចូលឈ្មោះគណនី</string>
-    <string name="password_rule_username">មិនមានឈ្មោះអ្នកប្រើប្រាស់ ឬឈ្មោះពិតរបស់អ្នកប្រើប្រាស់ទេ</string>
+    <string name="password_rule_username">ពាក្យសម្ងាត់មិនត្រូវមានឈ្មោះអ្នកប្រើប្រាស់ ឬឈ្មោះពិតរបស់អ្នកប្រើប្រាស់ទេ</string>
     <string name="re_enter_new_password">បញ្ចូលពាក្យសម្ងាត់ថ្មីឡើងវិញ</string>
     <string name="hint_re_enter_new_password">បញ្ចូលពាក្យសម្ងាត់ថ្មីម្ដងទៀត</string>
     <string name="change_password_success">បានផ្លាស់ប្តូរលេខសម្ងាត់ដោយជោគជ័យ</string>
-    <string name="change_password_success_message">សូមចូលប្រើម្តងទៀតដើម្បីបន្តប្រើប្រាស់កម្មវិធី</string>
-    <string name="error_current_password_incorrect">លពាក្យសម្ងាត់បច្ចុប្បន្នមិនត្រឹមត្រូវទេ សូមព្យាយាមម្តងទៀត។</string>
-    <string name="error_passwords_do_not_match">ពាក្យសម្ងាត់មិនត្រូវគ្នាទេ</string>
+    <string name="change_password_success_message">ការចូលប្រើប្រាស់ផុតកំណត់។ សូមចូលប្រើប្រាស់ម្ដងទៀត។</string>
+    <string name="error_current_password_incorrect">ពាក្យសម្ងាត់បច្ចុប្បន្នមិនត្រឹមត្រូវទេ សូមព្យាយាមម្តងទៀត។</string>
+    <string name="error_passwords_do_not_match">ពាក្យសម្ងាត់មិនដូចគ្នាទេ</string>
     <string name="error_new_and_old_password_same">ពាក្យសម្ងាត់ថ្មី ត្រូវតែខុសពីពាក្យសម្ងាត់បច្ចុប្បន្នរបស់អ្នក។</string>
     <string name="beneficiaryList">បញ្ជីអ្នកទទួលផល</string>
     <string name="enterRecipientNameOrAccountNumber">បញ្ចូលឈ្មោះអ្នកទទួល ឬលេខគណនី</string>
@@ -170,7 +169,7 @@
     <string name="error_select_bank">សូមជ្រើសរើសធនាគារ</string>
     <string name="error_enter_account_number">សូមបញ្ចូលលេខគណនី</string>
     <string name="error_enter_account_name">សូមបញ្ចូលឈ្មោះគណនី</string>
-    <string name="error_enter_remark">សូមបញ្ចូលចំណាំ</string>
+    <string name="error_enter_remark">សូមបញ្ចូលកំណត់សម្គាល់</string>
     <string name="save_recipient">រក្សាទុកអ្នកទទួលផល</string>
     <string name="set_nickname">កំណត់ឈ្មោះសម្គាល់</string>
     <string name="ask_set_nickname">តើអ្នកចង់កំណត់ឈ្មោះហៅក្រៅសម្រាប់អ្នកទទួលនេះដែរឬទេ?</string>
@@ -185,13 +184,13 @@
     <string name="theBeneficiaryUpdateFail"> ការធ្វើបច្ចុប្បន្នភាពអ្នកទទួលផលបរាជ័យ</string>
     <string name="theBeneficiaryAlreadyExists">ឈ្មោះអ្នកទទួលផលមានរួចហើយ</string>
     <string name="new_version_available">មានកំណែថ្មី</string>
-    <string name="weHaveReleasedNewVersion">យើងខ្ញុំបានបញ្ចេញកំណែថ្មីហើយ។ សូមធ្វើបច្ចុប្បន្នភាព ដើម្បីទទួលបានបទពិសោធន៍សន្សំកាន់តែប្រសើរជាមួយ SHB SAHA CAMs។</string>
+    <string name="weHaveReleasedNewVersion">យើងខ្ញុំបានបញ្ចេញកំណែថ្មីហើយ។ សូមធ្វើបច្ចុប្បន្នភាព ដើម្បីទទួលបានបទពិសោធន៍កាន់តែប្រសើរជាមួយ SHB SAHA CAMs។</string>
     <string name="updateLabel">ធ្វើបច្ចុប្បន្នភាព</string>
     <string name="invalidAccountNumber">លេខគណនីមិនត្រឹមត្រូវ</string>
     <string name="register_device_title">ចុះឈ្មោះឧបករណ៍របស់អ្នកដើម្បីប្រើប្រាស់កម្មវិធី SHB Saha Cambodia។</string>
     <string name="register_device_message">ដើម្បីបង្កើនសុវត្ថិភាពគណនី សូមផ្ទៀងផ្ទាត់ឧបករណ៍របស់អ្នកដោយប្រើលេខកូដ OTP ដែលបានផ្ញើទៅកាន់លេខទូរស័ព្ទ %s ដើម្បីបញ្ចប់ការចុះឈ្មោះប្រើប្រាស់កម្មវិធីធនាគារចល័ត។ តើនេះជាលេខទូរស័ព្ទរបស់អ្នកមែនទេ?</string>
     <string name="confirm_device_title">បញ្ជាក់ឧបករណ៍</string>
-    <string name="confirm_device_message">សូមបញ្ចូលលេខ OTP ដែលបានផ្ញើទៅកាន់លេខទូរស័ព្ទ %s</string>
+    <string name="confirm_device_message">សូមបញ្ចូលលេខកូដ OTP ដែលបានផ្ញើទៅកាន់លេខទូរស័ព្ទ %s</string>
     <string name="remaining_time">ពេលវេលានៅសល់ %s វិនាទី</string>
     <string name="otp_incorrect_message">លេខកូដ OTP មិនត្រឹមត្រូវទេ។ សូមពិនិត្យមើលម្តងទៀត។</string>
     <string name="confirmLabel">បញ្ជាក់</string>
@@ -210,14 +209,14 @@
     <string name="toMeAtSHB">ផ្ទេរប្រាក់ទៅគណនី SHB របស់ខ្ញុំ</string>
     <string name="exchangeRate">អត្រាប្តូរប្រាក់</string>
     <string name="rateAreIndicative">ចំណាំ៖ អត្រានេះគ្រាន់តែជាការបង្ហាញក្នុងពេលសាកសួរ និងអាចមានការប្រែប្រួលនៅពេលប្រតិបត្តិការជាក់ស្ដែង។</string>
-    <string name="paste_pay_top_label">សូមថតចម្លង ឬផ្ញើនូវរូបភាពដែលមានព័ត៌មានផ្ទេរប្រាក់</string>
+    <string name="paste_pay_top_label">ចម្លងសារ ឬបញ្ចូលរូបភាព ដើម្បីផ្ទេរប្រាក់បានឆាប់រហ័ស</string>
     <string name="paste_pay_hint">បិទភ្ជាប់ព័ត៌មានផ្ទេរប្រាក់</string>
     <string name="paste_pay_upload_image">ផ្ទុករូបភាពឡើង</string>
-    <string name="paste_pay_intro_label">សូមថតចម្លង ឬផ្ញើនូវរូបភាពដែលមានព័ត៌មានផ្ទេរប្រាក់</string>
+    <string name="paste_pay_intro_label">សូមថតចម្លងសារ ឬផ្ញើនូវរូបភាពដែលមានព័ត៌មានផ្ទេរប្រាក់</string>
     <string name="paste_pay_action_label">រំលង</string>
     <string name="paste_pay_image_too_large">ទំហំរូបភាពមិនអាចលើសពី 10MB បានទេ</string>
     <string name="paste_pay_only_shb_supported">បច្ចុប្បន្ន ប្រព័ន្ធគាំទ្រតែការផ្ទេរប្រាក់នៅក្នុងប្រព័ន្ធ SHB ប៉ុណ្ណោះ។</string>
-    <string name="ai_result_analyzed">វិភាគដោយប្រព័ន្ធឆ្លាតវៃ SHB AI</string>
+    <string name="ai_result_analyzed">វិភាគដោយប្រព័ន្ធបញ្ញាសិប្បនិម្មិត SHB AI</string>
     <string name="ai_result_bank_label">ធនាគារ</string>
     <string name="ai_result_to_account_label">ទៅគណនី</string>
     <string name="ai_result_amount_label">Amount</string>

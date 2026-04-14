@@ -34,49 +34,6 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
 
     override fun initView(view: View) {
         bindView()
-//        setup()
-    }
-
-    private fun setup() {
-        binding.carousel3.registerLifecycle(lifecycle)
-
-        // Custom view
-        binding.carousel3.carouselListener =
-            object : CarouselListener {
-                override fun onCreateViewHolder(
-                    layoutInflater: LayoutInflater,
-                    parent: ViewGroup,
-                ): ViewBinding =
-                    ItemCustomFixedSizeLayout1Binding.inflate(layoutInflater, parent, false)
-
-                override fun onBindViewHolder(
-                    binding: ViewBinding,
-                    item: CarouselItem,
-                    position: Int,
-                ) {
-                    val currentBinding = binding as ItemCustomFixedSizeLayout1Binding
-                    currentBinding.root.setWidth((ScreenUtils.getScreenWidth(requireActivity()) * 0.7).toInt())
-                    currentBinding.imageView.apply {
-                        scaleType = ImageView.ScaleType.CENTER_CROP
-
-                        // carousel_default_placeholder is the default placeholder comes with
-                        // the library.
-                        setImage(item, R.drawable.bg_place_holder)
-                    }
-                }
-            }
-
-        val listThree = mutableListOf<CarouselItem>()
-
-        for (item in homeViewModel.getListBanner()) {
-            listThree.add(
-                CarouselItem(
-                    imageDrawable = item
-                ),
-            )
-        }
-
-        binding.carousel3.setData(listThree)
     }
 
     override fun onResume() {

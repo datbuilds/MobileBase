@@ -11,7 +11,10 @@ import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -64,8 +67,8 @@ class LoginViewModel(
     private val _verifyDeviceError = Channel<RegisterDeviceData>(Channel.BUFFERED)
     val verifyDeviceError = _verifyDeviceError.receiveAsFlow()
 
-    private val _state = MutableStateFlow<LoginUiState>(LoginUiState.Idle)
-    val stateLogin = _state.asStateFlow()
+    private val _state = MutableSharedFlow<LoginUiState>()
+    val stateLogin: SharedFlow<LoginUiState> = _state
     private val _stateErrorWso2 = Channel<Reason>(Channel.BUFFERED)
     val stateErrorWso2 = _stateErrorWso2.receiveAsFlow()
 
@@ -80,6 +83,10 @@ class LoginViewModel(
 
     suspend fun stateLoading(isLoading: Boolean) {
         _stateLoading.emit(isLoading)
+    }
+
+    private suspend fun stateLogin(state: LoginUiState) {
+        _state.emit(state)
     }
 
     fun checkSystemVars() {
@@ -154,7 +161,7 @@ class LoginViewModel(
                         )
                         _registerDeviceError.send(data)
                     } else {
-                        _state.value = LoginUiState.Error(error)
+                        stateLogin(LoginUiState.Error(error))
                     }
                 }
                 it.onSuccess {
@@ -197,7 +204,7 @@ class LoginViewModel(
                         )
                         _verifyDeviceError.send(data)
                     } else {
-                        _state.value = LoginUiState.Error(error)
+                        _state.emit(LoginUiState.Error(error))
                     }
                 }
                 it.onSuccess { data ->
@@ -222,11 +229,11 @@ class LoginViewModel(
         viewModelScope.launch {
             useCaseLogin(param).collect {
                 it.onResultHandle(loadingBlock = {
-                    _state.value = LoginUiState.Loading
+                    stateLogin(LoginUiState.Loading)
                 }, failureBlock = { reason ->
-                    _state.value = LoginUiState.Error(reason)
+                    stateLogin(LoginUiState.Error(reason))
                 }, successBlock = { state ->
-                    _state.value = LoginUiState.Success(state)
+                    stateLogin(LoginUiState.Success(state))
                 })
             }
         }
@@ -305,11 +312,10 @@ class LoginViewModel(
                 }
                 result.onFailure { error ->
                     stateLoading(false)
-                    _state.value = LoginUiState.Error(error)
+                    stateLogin(LoginUiState.Error(error))
                 }
                 result.onLoading {
                     stateLoading(true)
-//                    _state.value = LoginUiState.Loading
                 }
             }
         }
@@ -319,10 +325,6 @@ class LoginViewModel(
         viewModelScope.launch {
             _stateErrorWso2.send(error)
         }
-    }
-
-    fun clearLoginState() {
-        _state.value = LoginUiState.Idle
     }
 
     fun showDialogForgotPassword(context: Context, title: String, isShowNote: Boolean = false) {

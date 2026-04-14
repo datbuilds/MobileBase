@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="processingError">Processing error. Please try again later.</string>
+<!--    <string name="processingError">Processing error. Please try again later.</string>-->
 </resources>

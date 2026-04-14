@@ -5,11 +5,13 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.InputFilter
 import android.text.InputType
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -66,6 +68,11 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     var currentUserName = ""
 
     private var isVisiblePassword = false
+
+    // Track xem user đã thực sự tương tác với field chưa
+    // Tránh hiện error khi recreate activity lúc đổi ngôn ngữ
+    private var hasUserTypedUsername = false
+    private var hasUserTypedPassword = false
 
     private lateinit var confirmDeviceView: ConfirmDeviceView
 
@@ -153,8 +160,11 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             }
 
             edtInputUsername.addTextChangedListener {
+                if (!it.isNullOrEmpty()) hasUserTypedUsername = true
                 btnClearUsername.isVisible = !it.isNullOrEmpty()
-                tvErrorUsername.isVisible = it.isNullOrEmpty()
+                // Chỉ show error khi user đã từng gõ rồi xóa hết (không show khi recreate)
+                tvErrorUsername.isVisible =
+                    hasUserTypedUsername && it.isNullOrEmpty() && currentUser == null
             }
 
             //handle edit password
@@ -172,10 +182,11 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                 edtInputPass.text?.clear()
             }
             edtInputPass.addTextChangedListener {
+                if (!it.isNullOrEmpty()) hasUserTypedPassword = true
                 btnClearPassword.isVisible = !it.isNullOrEmpty()
                 btnToggle.isVisible = !it.isNullOrEmpty()
-
-                tvErrorPassword.isVisible = it.isNullOrEmpty()
+                // Chỉ show error khi user đã từng gõ rồi xóa hết (không show khi recreate)
+                tvErrorPassword.isVisible = edtInputPass.hasFocus() && it.isNullOrEmpty()
             }
 
             llLanguage.setOnSingleClickListener {
@@ -194,7 +205,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 //                binding.edtInputPass.setText("12345678")
 //                handleActionLogin()
 //                binding.edtInputUsername.setText("0101025405")
-//                binding.edtInputPass.setText("123456")
+                binding.edtInputPass.setText("12345678")
 //                handleActionLogin()
             }
         }
@@ -316,7 +327,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     override fun initObserve() {
         launchRepeatOnLifecycle {
             launch {
-                loginViewModel.stateLogin.collectLatest { uiState ->
+                loginViewModel.stateLogin.collect { uiState ->
                     when (uiState) {
                         LoginUiState.Idle -> {}
                         LoginUiState.Loading -> {
@@ -355,7 +366,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                             onLoginSuccess(uiState.state)
                         }
                     }
-                    loginViewModel.clearLoginState()
+//                    loginViewModel.clearLoginState()
                 }
             }
 
@@ -395,7 +406,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                                 val accountLogin = getUserLogin()
                                 val (_, encPsw) = getPassword()
                                 transactionId?.let {
-                                    loginViewModel.isExpireTokenWso2{
+                                    loginViewModel.isExpireTokenWso2 {
                                         loginViewModel.verifyDevice(
                                             accountLogin, encPsw,
                                             it,
@@ -410,7 +421,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                             // Logic to resend
                             val accountLogin = getUserLogin()
                             val (_, encPsw) = getPassword()
-                            loginViewModel.isExpireTokenWso2{
+                            loginViewModel.isExpireTokenWso2 {
                                 loginViewModel.registerDevice(accountLogin, encPsw)
                             }
                         },
@@ -423,7 +434,8 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                         },
                         otpDefault = if (BuildConfig.DEBUG)
                             result.otpCode ?: ""
-                        else ""
+                        else "",
+                        title = getString(R.string.confirm_device_title)
                     )
                     if (!confirmDeviceView.isVisible) {
                         confirmDeviceView.show()
@@ -515,15 +527,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     private fun showDialogForceUpdate() {
         context?.let { ctx ->
             ForceUpdateDialog(ctx) {
-//                try {
-//                    val appPackageName = ctx.packageName
-//                    startActivity(
-//                        Intent(
-//                            Intent.ACTION_VIEW,
-//                            Uri.parse("market://details?id=$appPackageName")
-//                        )
-//                    )
-//                } catch (e: android.content.ActivityNotFoundException) {
                 val appPackageName = ctx.packageName
                 startActivity(
                     Intent(
@@ -531,7 +534,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                         Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
                     )
                 )
-//                }
             }.show()
         }
     }
@@ -540,6 +542,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         reason: Reason,
         onAction: (() -> Unit)? = null
     ) {
+        Log.i("weeewewrwererwewr", "loginF")
         BottomSheetDialogHelper(requireContext()).message(
             title = getString(R.string.notification),
             message = getString(R.string.processingError),
