@@ -3,6 +3,7 @@ package vn.shb.cam.utils.refreshTK
 import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.fragment.app.FragmentActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -194,7 +195,7 @@ object RefreshTokenManager {
     }
 
     private fun showErrorDialog(activity: FragmentActivity, storage: AndroidSecureStorage) {
-
+        Log.i("weeewewrwererwewr", "refresh token")
         BottomSheetDialogHelper(activity).message(
             title = activity.getString(R.string.notification),
             message = activity.getString(R.string.processingError),

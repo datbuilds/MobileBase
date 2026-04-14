@@ -11,6 +11,7 @@ import android.view.WindowManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -185,7 +186,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                 btnClearPassword.isVisible = !it.isNullOrEmpty()
                 btnToggle.isVisible = !it.isNullOrEmpty()
                 // Chỉ show error khi user đã từng gõ rồi xóa hết (không show khi recreate)
-                tvErrorPassword.isVisible = hasUserTypedPassword && it.isNullOrEmpty()
+                tvErrorPassword.isVisible = edtInputPass.hasFocus() && it.isNullOrEmpty()
             }
 
             llLanguage.setOnSingleClickListener {
@@ -204,7 +205,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 //                binding.edtInputPass.setText("12345678")
 //                handleActionLogin()
 //                binding.edtInputUsername.setText("0101025405")
-//                binding.edtInputPass.setText("123456")
+                binding.edtInputPass.setText("12345678")
 //                handleActionLogin()
             }
         }
@@ -326,7 +327,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     override fun initObserve() {
         launchRepeatOnLifecycle {
             launch {
-                loginViewModel.stateLogin.collectLatest { uiState ->
+                loginViewModel.stateLogin.collect { uiState ->
                     when (uiState) {
                         LoginUiState.Idle -> {}
                         LoginUiState.Loading -> {
@@ -365,7 +366,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                             onLoginSuccess(uiState.state)
                         }
                     }
-                    loginViewModel.clearLoginState()
+//                    loginViewModel.clearLoginState()
                 }
             }
 
@@ -525,15 +526,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     private fun showDialogForceUpdate() {
         context?.let { ctx ->
             ForceUpdateDialog(ctx) {
-//                try {
-//                    val appPackageName = ctx.packageName
-//                    startActivity(
-//                        Intent(
-//                            Intent.ACTION_VIEW,
-//                            Uri.parse("market://details?id=$appPackageName")
-//                        )
-//                    )
-//                } catch (e: android.content.ActivityNotFoundException) {
                 val appPackageName = ctx.packageName
                 startActivity(
                     Intent(
@@ -541,7 +533,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                         Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
                     )
                 )
-//                }
             }.show()
         }
     }

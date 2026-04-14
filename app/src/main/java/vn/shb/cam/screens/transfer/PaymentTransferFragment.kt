@@ -114,8 +114,8 @@ class PaymentTransferFragment :
             tvTransactionAmount.visible()
             tvTransactionAmount.text = getString(R.string.transactionSuccess)
             tvTransactionAmount.setTextColor(getColor(R.color.colorSuccess))
-            tvValueBalance.text = trans.amount.getBalance()
-            tvCurrentCode.text = trans.currency
+            tvValueBalance.text = trans.amountHis.getBalance()
+            tvCurrentCode.text = trans.currencyHis
             tvShare.visible()
 
             bindButtonNewTransaction(R.drawable.bg_new_transaction, R.color.primary100)
