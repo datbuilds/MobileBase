@@ -23,7 +23,8 @@ class ConfirmDeviceView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : androidx.appcompat.widget.LinearLayoutCompat(context, attrs, defStyleAttr) {
 
-    private val binding: DialogConfirmDeviceBinding
+    private val binding: DialogConfirmDeviceBinding =
+        DialogConfirmDeviceBinding.inflate(LayoutInflater.from(context), this, true)
     private var timer: CountDownTimer? = null
     private var onConfirmCallback: ((String) -> Unit)? = null
     private var onResendCallback: (() -> Unit)? = null
@@ -31,7 +32,6 @@ class ConfirmDeviceView @JvmOverloads constructor(
     private var onFinishCallBack: (() -> Unit)? = null
 
     init {
-        binding = DialogConfirmDeviceBinding.inflate(LayoutInflater.from(context), this, true)
         setupListeners()
     }
 
