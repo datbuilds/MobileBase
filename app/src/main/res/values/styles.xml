@@ -265,7 +265,6 @@
     <style name="button_orange_light_style" parent="@style/Widget.MaterialComponents.Button.UnelevatedButton.Icon">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
-<!--        <item name="android:paddingVertical">@dimen/margin_10dp</item>-->
         <item name="cornerRadius">@dimen/margin_6dp</item>
         <item name="android:includeFontPadding">false</item>
         <item name="customFontWeight">medium</item>
@@ -289,6 +288,10 @@
         <item name="android:includeFontPadding">false</item>
         <item name="android:textColor">@color/button_outline_text_color</item>
         <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="button_orange_style_chat_pay" parent="button_orange_style.outline">
+        <item name="cornerRadius">@dimen/margin_12dp</item>
     </style>
 
     <style name="button_login" parent="Widget.MaterialComponents.Button.OutlinedButton">
