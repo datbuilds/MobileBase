@@ -32,9 +32,6 @@ proguard/
 # Android Studio Navigation editor temp files
 .navigation/
 
-#local properties
-local.properties
-
 # Android Studio captures folder
 captures/
 
