@@ -213,7 +213,7 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
         stopInactivityTimer()
         onBackPressedCallback.remove()
         doubleBackHandler.removeCallbacks(doubleBackRunnable)
-        RefreshTokenManager.updateActivity(null) // Clear activity reference
+//        RefreshTokenManager.updateActivity(null) // Clear activity reference
         unregisterReceiver(screenReceiver)
         super.onDestroy()
     }
