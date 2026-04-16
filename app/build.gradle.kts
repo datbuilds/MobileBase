@@ -28,7 +28,7 @@ android {
                 buildConfigField(
                     "String",
                     "BASE_URL",
-                    "\"https://ibanking.shb.la/external/shb-mobile-lao/1.0.0/mblao/\""
+                    "\"https://p-apigw-cam.shb.com.vn/external/shb-mobile-cam/1.0.0/mbcam/\""
                 )
                 buildConfigField(
                     "String",
@@ -92,11 +92,6 @@ android {
                     "PASSWORD",
                     "\"${localProperties.getProperty("uat_password")}\""
                 )
-                buildConfigField(
-                    "String",
-                    "SCOPE",
-                    "\"${localProperties.getProperty("uat_scope")}\""
-                )
             },
 
             dev = {
@@ -115,14 +110,13 @@ android {
                 buildConfigField(
                     "String",
                     "AUTHORIZATION",
-                    "\"${localProperties.getProperty("config")}\""
+                    "\"${localProperties.getProperty("dev_config")}\""
                 )
 
                 // ===== NEW KEYS =====
-                buildConfigField("String", "GRANT_TYPE", "\"${localProperties.getProperty("grant_type")}\"")
-                buildConfigField("String", "USERNAME", "\"${localProperties.getProperty("username")}\"")
-                buildConfigField("String", "PASSWORD", "\"${localProperties.getProperty("password")}\"")
-                buildConfigField("String", "SCOPE", "\"${localProperties.getProperty("scope")}\"")
+                buildConfigField("String", "GRANT_TYPE", "\"${localProperties.getProperty("dev_grant_type")}\"")
+                buildConfigField("String", "USERNAME", "\"${localProperties.getProperty("dev_username")}\"")
+                buildConfigField("String", "PASSWORD", "\"${localProperties.getProperty("dev_password")}\"")
             }
         )
     }

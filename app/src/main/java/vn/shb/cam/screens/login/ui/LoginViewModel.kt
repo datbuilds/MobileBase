@@ -3,7 +3,6 @@ package vn.shb.cam.screens.login.ui
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
@@ -14,7 +13,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -43,6 +41,7 @@ import vn.shb.core.core.domain.usecases.login.UseCaseLogout
 import vn.shb.core.core.domain.usecases.login.VerifyDeviceUseCase
 import vn.shb.core.core.domain.usecases.wso2.UseCaseGetTokenWso2
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
+import vn.shb.core.utils.DeviceManager
 import vn.shb.data.entities.login.RegisterDeviceData
 import vn.shb.data.entities.login.UserLog
 import java.util.concurrent.TimeUnit
@@ -253,10 +252,6 @@ class LoginViewModel(
         }
     }
 
-    private fun randomNumber(): String {
-        return (100000..999999).random().toString()
-    }
-
     fun getTokenWso2(success: (() -> Unit)? = null) {
         viewModelScope.launch {
             val paramsWso2 = UseCaseGetTokenWso2.InputParams(
@@ -264,7 +259,7 @@ class LoginViewModel(
                     grant_type = BuildConfig.GRANT_TYPE,
                     username = BuildConfig.USERNAME,
                     password = BuildConfig.PASSWORD,
-                    scope = BuildConfig.SCOPE.plus(randomNumber()),
+                    scope = storage.getDeviceId(),
                 )
             )
             useCaseGetTokenWso2(paramsWso2).collect { result ->
@@ -297,7 +292,7 @@ class LoginViewModel(
                     grant_type = BuildConfig.GRANT_TYPE,
                     username = BuildConfig.USERNAME,
                     password = BuildConfig.PASSWORD,
-                    scope = BuildConfig.SCOPE.plus(randomNumber()),
+                    scope = storage.getDeviceId(),
                 )
             )
             useCaseGetTokenWso2(paramsWso2).collect { result ->
@@ -359,7 +354,7 @@ class LoginViewModel(
         val uri = "$latitude,$longitude"
 
         // Thử mở Google Maps trước
-        val gmmIntentUri = Uri.parse("geo:$uri?q=$uri($placeName)")
+        val gmmIntentUri = "geo:$uri?q=$uri($placeName)".toUri()
         val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
         mapIntent.setPackage("com.google.android.apps.maps")
 
@@ -369,7 +364,7 @@ class LoginViewModel(
         }
 
         // Fallback: mở app bản đồ mặc định
-        val fallbackUri = Uri.parse("geo:$uri?q=$uri($placeName)")
+        val fallbackUri = "geo:$uri?q=$uri($placeName)".toUri()
         val fallbackIntent = Intent(Intent.ACTION_VIEW, fallbackUri)
 
         context.startActivity(fallbackIntent)
