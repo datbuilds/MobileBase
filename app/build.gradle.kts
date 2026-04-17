@@ -33,7 +33,7 @@ android {
                 buildConfigField(
                     "String",
                     "WSO_URL",
-                    "\"https://ibanking.shb.la/\""
+                    "\"https://p-apigw-cam.shb.com.vn/\""
                 )
                 buildConfigField(
                     "String",
@@ -44,17 +44,17 @@ android {
                 buildConfigField(
                     "String",
                     "GRANT_TYPE",
-                    "\"${localProperties.getProperty("uat_grant_type")}\""
+                    "\"${localProperties.getProperty("pro_grant_type")}\""
                 )
                 buildConfigField(
                     "String",
                     "USERNAME",
-                    "\"${localProperties.getProperty("uat_username")}\""
+                    "\"${localProperties.getProperty("pro_wso2_us")}\""
                 )
                 buildConfigField(
                     "String",
                     "PASSWORD",
-                    "\"${localProperties.getProperty("uat_password")}\""
+                    "\"${localProperties.getProperty("pro_wso2_ps")}\""
                 )
             },
 
