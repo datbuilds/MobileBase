@@ -36,3 +36,13 @@
 -dontwarn okhttp3.internal.platform.ConscryptPlatform
 
 -keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
+
+################################# Gson & Data Classes ##################################
+# Keep all data classes for Gson serialization
+-keep class vn.shb.data.entities.** { *; }
+-keep class vn.shb.core.core.domain.usecases.** { *; }
+
+# Keep field names with @SerializedName annotation
+-keepclassmembers class ** {
+    @com.google.gson.annotations.SerializedName <fields>;
+}

@@ -23,3 +23,15 @@
 -keepattributes Signature,*Annotation*
 
 -dontwarn java.lang.invoke.StringConcatFactory
+
+################################# Gson Data Classes ##################################
+# Keep all entity classes for Gson serialization
+-keep class vn.shb.data.entities.** { 
+    public <fields>;
+    public <methods>;
+}
+
+# Keep field names with @SerializedName annotation
+-keepclassmembers class vn.shb.data.entities.** {
+    @com.google.gson.annotations.SerializedName <fields>;
+}

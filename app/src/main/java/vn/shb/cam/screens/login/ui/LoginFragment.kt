@@ -427,9 +427,11 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                         onClose = {
                             // Handle close
                         },
-                        otpDefault = if (BuildConfig.DEBUG)
+                        otpDefault =
+                            if (BuildConfig.DEBUG)
                             result.otpCode ?: ""
-                        else "",
+                        else ""
+                        ,
                         title = getString(R.string.confirm_device_title)
                     )
                     if (!confirmDeviceView.isVisible) {
@@ -537,7 +539,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         reason: Reason,
         onAction: (() -> Unit)? = null
     ) {
-        Log.i("weeewewrwererwewr", "loginF")
         BottomSheetDialogHelper(requireContext()).message(
             title = getString(R.string.notification),
             message = getString(R.string.processingError),
