@@ -131,7 +131,22 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     private fun bindViewPay(aiPayResult: AiPayResult?) {
         with(binding) {
             iclToAccount.edtValue.setText(aiPayResult?.accountNum)
+
+            if (fromAccount?.currencyCode != (aiPayResult?.currency ?: Const.USD)) {
+                bindExchangeCurrency(fromAccount?.currencyCode)
+            } else {
+                bindExchangeCurrency(null)
+            }
+
+            updateChooseCurrency(aiPayResult?.currency?:Const.USD)
             iclAmount.edtValue.setText(formatAiAmount(aiPayResult?.amount))
+
+            if (aiPayResult?.remark.isNullOrEmpty()){
+                resetRemarks()
+            }else{
+                binding.iclRemarks.edtValue.setText(aiPayResult!!.remark)
+            }
+
         }
         homeViewModel.getAccountByNumber(aiPayResult!!.accountNum ?: "")
     }
@@ -906,7 +921,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 
             binding.iclRemarks.edtValue.setText(remark)
         }
-        updateExchangeStatus(userInfo.currency)
+        if (aiPayResult==null)
+            updateExchangeStatus(userInfo.currency)
+
         toAccount = AccountInfo().apply {
             setValueAccountNumber(binding.iclToAccount.edtValue.text.toString())
             currencyCode = userInfo.currency

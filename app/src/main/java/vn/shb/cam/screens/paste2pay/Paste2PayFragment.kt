@@ -81,7 +81,7 @@ class Paste2PayFragment :
     }
 
     override fun initView(view: View) {
-        binding.toolBar.setTitle("Chat Pay")
+        binding.toolBar.setTitle(getString(R.string.chatpay))
         binding.imagePreview.setOnDeleteClickListener {
             clearSelectedImage()
         }
