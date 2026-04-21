@@ -10,8 +10,6 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import vn.shb.cam.R
@@ -61,7 +59,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         set(value) {
             field = value
             try {
-                if (isAdded) updateCurrencySelectorState()
+                if (isAdded) {
+                    updateCurrencySelectorState()
+                }
             } catch (_: Exception) {
             }
         }
@@ -120,12 +120,12 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             aiPayResult = arguments?.serializable(ApiConst.KEY_TYPE_TRANSFER_DATA)
         }
 
-        lifecycleScope.launch {
-            delay(600)
-            if (aiPayResult != null) {
-                bindViewPay(aiPayResult)
-            }
-        }
+//        lifecycleScope.launch {
+//            delay(600)
+//            if (aiPayResult != null) {
+//                bindViewPay(aiPayResult)
+//            }
+//        }
     }
 
     private fun bindViewPay(aiPayResult: AiPayResult?) {
@@ -138,12 +138,12 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
                 bindExchangeCurrency(null)
             }
 
-            updateChooseCurrency(aiPayResult?.currency?:Const.USD)
+            updateChooseCurrency(aiPayResult?.currency ?: Const.USD)
             iclAmount.edtValue.setText(formatAiAmount(aiPayResult?.amount))
 
-            if (aiPayResult?.remark.isNullOrEmpty()){
+            if (aiPayResult?.remark.isNullOrEmpty()) {
                 resetRemarks()
-            }else{
+            } else {
                 binding.iclRemarks.edtValue.setText(aiPayResult!!.remark)
             }
 
@@ -864,6 +864,9 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     private fun bindViewFromAccount(account: AccountBase) {
         fromAccount = account
         toAccount = null
+
+
+
         with(binding) {
             tvAccountNumber.text = account.accountNumber
             tvBalanceValue.text = account.getAvailableBalance()
@@ -872,6 +875,11 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
             iclAmount.edtValue.setInputEditText(true, isTypeSigned = account.currencyCode == "USD")
             currentCurrencyChoose = account.currencyCode
         }
+
+        if (aiPayResult != null) {
+            bindViewPay(aiPayResult)
+        }
+
         // cập nhật trạng thái của exchange rate
         toAccount?.currencyCode?.let { updateExchangeStatus(it) }
         updateUiTotalAmount()
@@ -921,8 +929,14 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 
             binding.iclRemarks.edtValue.setText(remark)
         }
-        if (aiPayResult==null)
+
+        if (aiPayResult == null)
             updateExchangeStatus(userInfo.currency)
+        else if (fromAccount?.currencyCode == userInfo.currency && fromAccount?.currencyCode != aiPayResult?.currency) {
+            currentCurrencyChoose = fromAccount?.currencyCode ?: Const.KHR
+            binding.iclAmount.tvCurrentCode.text = currentCurrencyChoose
+            updateExchangeStatus(userInfo.currency)
+        }
 
         toAccount = AccountInfo().apply {
             setValueAccountNumber(binding.iclToAccount.edtValue.text.toString())
