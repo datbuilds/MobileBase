@@ -4,7 +4,8 @@ import vn.shb.core.core.delivery.Reason
 
 class LoginFailLocked(
     override val message: String,
-    val lockedUntil: String = ""
+    val lockedUntil: String = "",
+    val countRequest: Int = 1
 
 ) : Reason() {
     override val errMessage: String

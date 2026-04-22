@@ -160,7 +160,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                             ApiConst.TRAN_014 -> {
                                 hideConfirmOtpTransaction()
                                 CountdownBottomSheetDialog(
-                                    message = R.string.otpIncorrectly5Times,
+                                    message = R.string.otpIncorrectly5TimesTransfer,
                                     remainingSeconds = it.remainingSeconds ?: 1,
                                     maxRequest = it.maxAttempts
                                 ).show(childFragmentManager, CountdownBottomSheetDialog.TAG)
@@ -184,7 +184,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
                         when (it.errorCode) {
                             ApiConst.TRAN_015 -> {
                                 CountdownBottomSheetDialog(
-                                    message = R.string.requestOtpMore5Times,
+                                    message = R.string.requestOtpMore5TimesTransfer,
                                     remainingSeconds = it.remainingSeconds ?: 1,
                                     maxRequest = it.maxOtpRequestsPerWindow
                                 ).show(childFragmentManager, CountdownBottomSheetDialog.TAG)
@@ -192,7 +192,7 @@ class ConfirmationFragment : BaseFragmentBinding<FragmentConfirmationBinding>(
 
                             ApiConst.TRAN_014 -> {
                                 CountdownBottomSheetDialog(
-                                    message = R.string.otpIncorrectly5Times,
+                                    message = R.string.otpIncorrectly5TimesTransfer,
                                     remainingSeconds = it.remainingSeconds ?: 1,
                                     maxRequest = it.maxAttempts
                                 ).show(childFragmentManager, CountdownBottomSheetDialog.TAG)

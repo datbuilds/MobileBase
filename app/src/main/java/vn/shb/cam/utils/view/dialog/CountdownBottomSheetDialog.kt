@@ -55,7 +55,7 @@ class CountdownBottomSheetDialog(
 
     private fun startTimer() {
         timer?.cancel()
-        timer = object : CountDownTimer(remainingSeconds * 1000L, 1000) {
+        timer = object : CountDownTimer(remainingSeconds * 1000L + 1, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 if (view == null) return
 

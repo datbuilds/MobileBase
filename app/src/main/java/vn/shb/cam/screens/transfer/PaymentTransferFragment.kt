@@ -2,6 +2,7 @@ package vn.shb.cam.screens.transfer
 
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -130,7 +131,7 @@ class PaymentTransferFragment :
                 iclFromAccount.root.gone()
             }
 
-            homeViewModel.confirmModel?.let { cf->
+            homeViewModel.confirmModel?.let { cf ->
                 iclToAccount.bindView(
                     getString(R.string.toAccount),
                     cf.toAccount.productDescription.plus(Const.SEPARATOR_DASH)
@@ -168,7 +169,8 @@ class PaymentTransferFragment :
                     binding.iclExchangeRate.tvLabel.text = getString(R.string.exchangeRate)
 
                     val isFromUsd = trans.ccyCdSrc == Const.USD
-                    val exChangeRate = if (isFromUsd) trans.rate.formatExchangeRate() else (1 / trans.rate.toDouble()).formatExchangeRate()
+                    val exChangeRate =
+                        if (isFromUsd) trans.rate.formatExchangeRate() else (1 / trans.rate.toDouble()).formatExchangeRate()
 
                     tvValue.setExchangeRateText(
                         "1",
@@ -201,7 +203,13 @@ class PaymentTransferFragment :
             }
 
             tvCreateNewTransaction.setOnSingleClickListener {
-                popBackTo(AppDestination.MoneyTransfer())
+                safeNavigate(
+                    AppDestination.MoneyTransfer(
+                        bundleOf(
+                            ApiConst.KEY_POP_BACK_FROM_SUCCESS to true
+                        )
+                    )
+                )
             }
 
             tvShare.setOnSingleClickListener {
@@ -258,16 +266,19 @@ class PaymentTransferFragment :
             val oldVisibilityClose = ivClose.visibility
             val oldVisibilityCreate = tvCreateNewTransaction.visibility
             val oldVisibilityShare = tvShare.visibility
+            val oldVisibilitySaveBeneficiary = rlSaveRecipient.visibility
 
             ivClose.invisible()
             tvCreateNewTransaction.invisible()
             tvShare.invisible()
+            rlSaveRecipient.invisible()
 
             val bitmap = root.toBitmap()
 
             ivClose.visibility = oldVisibilityClose
             tvCreateNewTransaction.visibility = oldVisibilityCreate
             tvShare.visibility = oldVisibilityShare
+            rlSaveRecipient.visibility = oldVisibilitySaveBeneficiary
 
             requireContext().cacheBitmap(bitmap, CACHE_IMAGE_FILE_NAME) {
                 if (it) {

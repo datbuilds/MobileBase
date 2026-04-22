@@ -123,7 +123,8 @@ class RepositoryAuthImpl(
                 ResultSHB.Failure(
                     LoginFailLocked(
                         message = contentResult.errorMessage,
-                        lockedUntil = contentResult.data!!.lockedUntil
+                        lockedUntil = contentResult.data!!.lockedUntil,
+                        countRequest = contentResult.data.loginFailCount.toInt(),
                     )
                 )
             }

@@ -89,7 +89,7 @@
     <string name="invalidSelectedDate">Invalid selected date</string>
     <string name="pleaseEnterUsername">Please enter your username.</string>
     <string name="pleaseEnterPassword">Please enter your password.</string>
-    <string name="loginFailed5Times">OTP request limit reached (5 times). Please return in %s.</string>
+    <string name="loginFailed5Times">Maximum %s login attempts exceeded. Please try again in %s minutes.</string>
     <string name="currentBalance">Current balance</string>
     <string name="show">Show</string>
     <string name="myProfile">My Profile</string>
@@ -203,8 +203,10 @@
     <string name="theOtpExpired">OTP expired. Get a new code.</string>
     <string name="resendOtp">Resend OTP</string>
     <string name="theNewPassMustNotMatchOldPass">New password must not match your 4 most recent passwords.</string>
-    <string name="otpIncorrectly5Times">You have entered the OTP incorrectly %s times. Please try again in %s</string>
-    <string name="requestOtpMore5Times">You have requested the OTP more than %s times. Please try again in %s</string>
+    <string name="otpIncorrectly5TimesTransfer">You have entered the OTP incorrectly %s times. Please try again in %s</string>
+    <string name="otpIncorrectly5TimesLogin">You have entered the OTP incorrectly %s times. Please try again in %s</string>
+    <string name="requestOtpMore5TimesTransfer">You have requested the OTP more than %s times. Please try again in %s</string>
+    <string name="requestOtpMore5TimesLogin">OTP request limit reached (%s times). Please return in %s.</string>
     <string name="newDeviceVerificial">New device login detected. Please verify with the OTP sent to %s to continue. Is this your phone number?</string>
     <string name="goToBranch">Go to Branch</string>
     <string name="getSupportForChanging">Please visit your nearest SHB Cambodia Branch to register or update your phone number.</string>
