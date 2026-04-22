@@ -906,7 +906,6 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
         updateStatusTransfer()
     }
 
-
     /*
     * nhận giá trị tài khoản nhận từ API ( case tự nhập stk hoặc chọn từ list người hưởng thụ)
     * xử lý UI tài khoản nhận

@@ -197,9 +197,9 @@
     <string name="theOtpExpired">លេខកូដ OTP ផុតកំណត់ហើយ។ សូមបង្កើតលេខកូដផ្ទៀងផ្ទាត់ថ្មី។</string>
     <string name="resendOtp">ផ្ញើ OTP ម្ដងទៀត</string>
     <string name="theNewPassMustNotMatchOldPass">ពាក្យសម្ងាត់ថ្មី មិនត្រូវដូចទៅនឹងពាក្យសម្ងាត់ ៤ លើកចុងក្រោយរបស់អ្នកឡើយ។</string>
-    <string name="otpIncorrectly5TimesLogin">អ្នកបានបញ្ចូលលេខសម្ងាត់ OTP មិនត្រឹមត្រូវចំនួន %s ដង។ សូមរង់ចាំ %s នាទី រួចព្យាយាមម្តងទៀត។</string>
-    <string name="otpIncorrectly5TimesTransfer">អ្នកបានបញ្ចូលលេខសម្ងាត់ OTP មិនត្រឹមត្រូវចំនួន %s ដង។ សូមរង់ចាំ %s នាទី រួចព្យាយាមម្តងទៀត។</string>
-    <string name="requestOtpMore5TimesTransfer">អ្នកបានស្នើសុំលេខកូដ OTP ច្រើនជាង %s ដង។ សូមរង់ចាំរហូត %s នាទី រួចព្យាយាមម្តងទៀត។</string>
+    <string name="otpIncorrectly5TimesLogin">អ្នកបានបញ្ចូលលេខកូដ OTP មិនត្រឹមត្រូវចំនួន %s ដង។ សូមរង់ចាំ %s នាទី រួចព្យាយាមម្តងទៀត។</string>
+    <string name="otpIncorrectly5TimesTransfer">អ្នកបានបញ្ចូលលេខកូដ OTP មិនត្រឹមត្រូវចំនួន %s ដង។ សូមរង់ចាំ %s នាទី រួចព្យាយាមម្តងទៀត។</string>
+    <string name="requestOtpMore5TimesTransfer">អ្នកបានស្នើសុំលេខកូដ OTP លើសពី %s ដងហើយ។ សូមព្យាយាមម្ដងទៀតក្នុងរយៈពេល %s</string>
     <string name="requestOtpMore5TimesLogin">អ្នកបានស្នើសុំលេខកូដ OTP លើស %s ដង។ សូមរង់ចាំរហូត %s នាទី រួចព្យាយាមម្តងទៀត។</string>
     <string name="newDeviceVerificial">អ្នកកំពុងចូលទៅក្នុង SHB Saha Cambodia ដោយប្រើឧបករណ៍ដែលមិនស្គាល់។ សូមផ្ទៀងផ្ទាត់គណនីរបស់អ្នកដោយប្រើលេខកូដ OTP ដែលបានផ្ញើទៅកាន់លេខទូរស័ព្ទ %s ដើម្បីបន្តប្រើប្រាស់សេវាកម្ម។ តើនេះជាលេខទូរស័ព្ទរបស់អ្នកមែនទេ?</string>
     <string name="goToBranch">ទៅកាន់សាខា</string>
