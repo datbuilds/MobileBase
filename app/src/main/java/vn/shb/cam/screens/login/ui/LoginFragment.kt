@@ -200,7 +200,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 //                handleActionLogin()
 
 //                binding.edtInputUsername.setText("0101025405")
-//                binding.edtInputPass.setText("Quanhy2@")
+//                binding.edtInputPass.setText("Shb.6789")
 //                handleActionLogin()
             }
         }
@@ -427,9 +427,11 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                         onClose = {
                             // Handle close
                         },
-                        otpDefault = if (BuildConfig.DEBUG)
+                        otpDefault =
+                            if (BuildConfig.DEBUG)
                             result.otpCode ?: ""
-                        else "",
+                        else ""
+                        ,
                         title = getString(R.string.confirm_device_title)
                     )
                     if (!confirmDeviceView.isVisible) {
@@ -500,14 +502,14 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         confirmDeviceView.hide()
         val message = when (errorData.errorCode) {
             ApiConst.OTP_004 -> {
-                R.string.otpIncorrectly5Times
+                R.string.otpIncorrectly5TimesLogin
             }
 
             ApiConst.OTP_005 -> {
-                R.string.requestOtpMore5Times
+                R.string.requestOtpMore5TimesLogin
             }
 
-            else -> R.string.otpIncorrectly5Times
+            else -> R.string.otpIncorrectly5TimesLogin
         }
 
         CountdownBottomSheetDialog(
@@ -537,7 +539,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         reason: Reason,
         onAction: (() -> Unit)? = null
     ) {
-        Log.i("weeewewrwererwewr", "loginF")
         BottomSheetDialogHelper(requireContext()).message(
             title = getString(R.string.notification),
             message = getString(R.string.processingError),
@@ -555,7 +556,8 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         context?.let {
             BottomSheetDialogHelper(it).messageLoginFail(
                 reason.errMessage,
-                reason.lockedUntil
+                reason.lockedUntil,
+                reason.countRequest
             )
         }
     }

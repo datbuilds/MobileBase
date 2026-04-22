@@ -13,17 +13,16 @@ import android.view.WindowManager
 import androidx.core.view.isVisible
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import vn.shb.core.core.delivery.Reason
-import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.cam.R
 import vn.shb.cam.base.view.MyTextView
 import vn.shb.cam.databinding.CustomDialogLayoutBinding
 import vn.shb.cam.databinding.DialogSystemErrorBinding
 import vn.shb.cam.utils.extensions.CustomCountdownTimer
-import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.gone
 import vn.shb.cam.utils.extensions.invisible
 import vn.shb.cam.utils.extensions.visible
+import vn.shb.core.core.delivery.Reason
+import vn.shb.core.utils.extesions.setOnSingleClickListener
 import java.lang.ref.WeakReference
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -44,7 +43,8 @@ class BottomSheetDialogHelper(context: Context) {
 
     fun messageLoginFail(
         messageError: String = "",
-        lockedUntil: String = ""
+        lockedUntil: String = "",
+        countFailed: Int
     ) {
         if (!isActivityValid()) return
         val context = contextRef.get() ?: return
@@ -65,7 +65,7 @@ class BottomSheetDialogHelper(context: Context) {
         val currentMillis = System.currentTimeMillis()
 
         val remainingMillis = unlockMillis - currentMillis
-        bindingView.tvContentAlert.countdownAndDismiss(messageError, remainingMillis) {
+        bindingView.tvContentAlert.countdownAndDismiss(messageError, remainingMillis, countFailed) {
             dismiss()
         }
         dialog?.show()
@@ -227,6 +227,7 @@ class BottomSheetDialogHelper(context: Context) {
     fun MyTextView.countdownAndDismiss(
         message: String,
         timeLock: Long,
+        countFailed: Int,
         onDismiss: (() -> Unit)? = null
     ) {
 
@@ -238,7 +239,8 @@ class BottomSheetDialogHelper(context: Context) {
                 val s = (millisUntilFinished / 1000) % 60
                 val formatted = String.format("%02d:%02d", m, s)
 
-                val message = context.getString(R.string.loginFailed5Times, formatted)
+                val message =
+                    context.getString(R.string.loginFailed5Times, countFailed.toString(), formatted)
                 val spannable = SpannableString(message)
                 val start = message.indexOf(formatted)
                 val end = start + formatted.length

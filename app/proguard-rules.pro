@@ -193,3 +193,23 @@
 -dontwarn org.openjsse.javax.net.ssl.SSLParameters
 -dontwarn org.openjsse.javax.net.ssl.SSLSocket
 -dontwarn org.openjsse.net.ssl.OpenJSSE
+
+################################# Gson Data Classes ##################################
+# Keep all data classes in vn.shb.data.entities (Gson serialization models)
+-keep class vn.shb.data.entities.** { *; }
+
+# Keep all inner classes and parameters
+-keepclassmembers class vn.shb.data.entities.** {
+    <fields>;
+}
+
+# Keep UseCase parameters used in API calls
+-keep class vn.shb.core.core.domain.usecases.** { *; }
+-keepclassmembers class vn.shb.core.core.domain.usecases.** {
+    <fields>;
+}
+
+# Keep field names for Gson @SerializedName annotations
+-keepclassmembers class ** {
+    @com.google.gson.annotations.SerializedName <fields>;
+}
