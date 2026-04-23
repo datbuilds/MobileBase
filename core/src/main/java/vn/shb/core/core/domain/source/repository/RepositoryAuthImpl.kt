@@ -243,9 +243,8 @@ class RepositoryAuthImpl(
                     if (content != null) {
                         ResultSHB.Failure(
                             RegisterDeviceError(
-                                message = contentResult.errorMessage ?: content.message
-                                ?: "Unknown Error",
-                                code = contentResult.errorCode ?: "",
+                                message = contentResult.errorMessage,
+                                code = contentResult.errorCode,
                                 remainingSeconds = content.remainingSeconds,
                                 maxAttempts = content.maxAttempts,
                                 maxOtpRequestsPerWindow = content.maxOtpRequestsPerWindow,
@@ -255,8 +254,8 @@ class RepositoryAuthImpl(
                     } else {
                         ResultSHB.Failure(
                             AppReason(
-                                message = contentResult.errorMessage ?: "Unknown Error",
-                                code = contentResult.errorCode ?: ""
+                                message = contentResult.errorMessage,
+                                code = contentResult.errorCode
                             )
                         )
                     }
