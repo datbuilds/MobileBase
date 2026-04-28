@@ -2,7 +2,8 @@ package vn.shb.cam.activity
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.core.view.isVisible
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import kotlinx.coroutines.flow.collectLatest
@@ -10,8 +11,8 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import vn.shb.cam.base.BaseActivity
 import vn.shb.cam.databinding.ActivityMainBinding
-import vn.shb.cam.navigation.AppNavigationTransition
 import vn.shb.cam.navigation.AppDestination
+import vn.shb.cam.navigation.AppNavigationTransition
 import vn.shb.cam.navigation.AppNavigator
 import vn.shb.cam.navigation.Navigator
 import vn.shb.cam.navigation.NavigatorHost
@@ -19,7 +20,8 @@ import vn.shb.cam.screens.home.HomeViewModel
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.widgets.LocaleHelper
 
-class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate), NavigatorHost {
+class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate),
+    NavigatorHost {
 
     private val homeViewModel: HomeViewModel by viewModel()
 
@@ -28,6 +30,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             fragmentManager = supportFragmentManager,
             containerId = binding.mainFragmentContainer.id,
         )
+    }
+
+    private val sessionTimeout: Long = 15 * 60 * 1000L // 15 phút = 900.000 ms
+    private val handler = Handler(Looper.getMainLooper())
+
+    private val logoutRunnable = Runnable {
+        logout(true)
+    }
+
+    fun startSessionTimer() {
+        handler.postDelayed(logoutRunnable, sessionTimeout)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacks(logoutRunnable)
     }
 
     override fun attachBaseContext(newBase: Context?) {
@@ -82,12 +100,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     override fun shouldUseDoubleBackToExit(): Boolean {
         return supportFragmentManager.backStackEntryCount == 0 &&
-            activeDestination() == AppDestination.Home
+                activeDestination() == AppDestination.Home
     }
 
     override fun shouldExitAppOnBackImmediately(): Boolean {
         return supportFragmentManager.backStackEntryCount == 0 &&
-            activeDestination() is AppDestination.Login
+                activeDestination() is AppDestination.Login
     }
 
     override fun shouldHandleInactivityTimer(): Boolean {

@@ -37,7 +37,6 @@ import vn.shb.cam.utils.extensions.hideProgressDialog
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.extensions.returnActivity
 import vn.shb.cam.utils.extensions.showProgressDialog
-import vn.shb.cam.utils.refreshTK.RefreshTokenManager
 import vn.shb.cam.utils.view.dialog.BottomSheetDialogHelper
 import vn.shb.cam.utils.widgets.LocaleHelper
 import vn.shb.core.core.delivery.ReasonDescription.CAM
