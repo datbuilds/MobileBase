@@ -1,18 +1,11 @@
 package vn.shb.cam.screens.home
 
 import android.content.Context
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.viewbinding.ViewBinding
-import com.example.imagecrouse.databinding.ItemCustomFixedSizeLayout1Binding
-import com.example.imagecrouse.ui.whynotimagecarousel.listener.CarouselListener
-import com.example.imagecrouse.ui.whynotimagecarousel.model.CarouselItem
-import com.example.imagecrouse.ui.whynotimagecarousel.utils.setImage
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import vn.shb.cam.R
+import vn.shb.cam.activity.MainActivity
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.FragmentHomeBinding
 import vn.shb.cam.navigation.AppDestination
@@ -20,8 +13,6 @@ import vn.shb.cam.screens.home.widget.OnClickDetail
 import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.getTextWelcomeUser
 import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
-import vn.shb.cam.utils.view.dialog.ScreenUtils
-import vn.shb.cam.utils.view.setWidth
 import vn.shb.cam.utils.widgets.LocaleHelper
 import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.data.entities.AccountBase
@@ -33,6 +24,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
     private var textGoneValue = "********"
 
     override fun initView(view: View) {
+        (activity as? MainActivity)?.startSessionTimer()
         bindView()
     }
 
@@ -86,7 +78,7 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
             }
 
             incItemAccounts.root.setOnSingleClickListener {
-                homeViewModel.checkAccountNull(homeViewModel.getListAccount()){
+                homeViewModel.checkAccountNull(homeViewModel.getListAccount()) {
                     safeNavigate(AppDestination.AccountDetail)
                 }
             }

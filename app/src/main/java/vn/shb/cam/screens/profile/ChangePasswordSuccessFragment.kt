@@ -4,13 +4,11 @@ import android.view.View
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import vn.shb.core.utils.extesions.setOnSingleClickListener
 import vn.shb.cam.activity.MainActivity
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.FragmentChangePasswordSuccessBinding
-import vn.shb.cam.utils.extensions.launchRepeatOnLifecycle
 import vn.shb.cam.utils.extensions.returnActivity
-import vn.shb.cam.utils.refreshTK.RefreshTokenManager
+import vn.shb.core.utils.extesions.setOnSingleClickListener
 
 class ChangePasswordSuccessFragment :
     BaseFragmentBinding<FragmentChangePasswordSuccessBinding>(FragmentChangePasswordSuccessBinding::inflate) {
