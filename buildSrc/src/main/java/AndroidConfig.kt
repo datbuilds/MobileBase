@@ -16,7 +16,7 @@ object AndroidConfig {
     /**
      *
      */
-    const val VERSION_CODE = 2
+    const val VERSION_CODE = 3
 
     /**
      *
