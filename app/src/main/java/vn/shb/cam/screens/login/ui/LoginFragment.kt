@@ -102,6 +102,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             arguments?.putBoolean(AppDestination.ARG_SHOW_SESSION_EXPIRED, false)
             DialogSessionExpire().show(requireContext())
         }
+        (activity as? MainActivity)?.removeCallbackTimeout()
     }
 
     private fun mapUILogin() {
