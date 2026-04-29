@@ -45,6 +45,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     override fun onDestroy() {
         super.onDestroy()
+        removeCallbackTimeout()
+    }
+
+    fun removeCallbackTimeout(){
         handler.removeCallbacks(logoutRunnable)
     }
 
