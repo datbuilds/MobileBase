@@ -196,6 +196,7 @@ class ChangePasswordFragment :
 
     private fun viewOldPasswordError(isView: Boolean = true) {
         binding.tvErrorCurrentPassword.isVisible = isView
+        enableButtonConfirm(false)
     }
 
     private fun validatePassword(password: String) {
@@ -225,7 +226,9 @@ class ChangePasswordFragment :
 
         // 4. No username or real name
         val user = getCurrentUser()
-        val username = user?.customerId?.replace("\\s+".toRegex(), " ")?.trim() ?: getCurrentUser()?.userLogin?:""
+        val username =
+            user?.customerId?.replace("\\s+".toRegex(), " ")?.trim() ?: getCurrentUser()?.userLogin
+            ?: ""
         val realName = user?.username?.replace("\\s+".toRegex(), "")?.trim() ?: ""
 
         // Simple check: password should not contain username or real name (ignoring case)
@@ -295,8 +298,12 @@ class ChangePasswordFragment :
 
             val enable = isAllValid && isMatch && isCurrentNotEmpty && newPass.isNotEmpty()
 
-            btnConfirm.isEnabled = enable
-            btnConfirm.alpha = if (enable) 1f else 0.5f
+            enableButtonConfirm(isEnable = enable)
         }
+    }
+
+    private fun enableButtonConfirm(isEnable: Boolean) {
+        binding.btnConfirm.isEnabled = isEnable
+        binding.btnConfirm.alpha = if (isEnable) 1f else 0.5f
     }
 }
