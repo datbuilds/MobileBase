@@ -31,7 +31,7 @@
         android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_shb" />
+        app:srcCompat="@drawable/logo_shb_login" />
 
     <LinearLayout
         android:id="@+id/llLanguage"
