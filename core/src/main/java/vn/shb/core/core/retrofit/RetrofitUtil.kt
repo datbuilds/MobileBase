@@ -26,9 +26,9 @@ fun okHttpClient(
         .readTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
         .writeTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
         .addInterceptor(headerInterceptor)
+    builder.addInterceptor(loggingInterceptor)
 
     if (BuildConfig.DEBUG) {
-        builder.addInterceptor(loggingInterceptor)
         builder.addInterceptor(customChuckerInterceptor(context))
     }
 

@@ -16,7 +16,6 @@ import vn.shb.core.core.domain.source.response.SystemVarResponse
 import vn.shb.core.core.domain.source.response.VerifyDeviceResponse
 import vn.shb.core.core.domain.source.service.ServiceAuth
 import vn.shb.core.core.domain.usecases.login.RepositoryAuth
-import vn.shb.core.core.domain.usecases.login.StateLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseRefreshToken
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
@@ -93,10 +92,11 @@ class RepositoryAuthImpl(
                         username = content.username,
                         userLogin = param.username,
                         title = content.title,
-                        customerId = content.customerId
+                        customerId = content.customerId,
+                        password_expire_days = content.password_expire_days,
                     )
                     saveData(user)
-                    ResultSHB.Success(StateLogin.OpenDashboard)
+                    ResultSHB.Success(user)
                 } else {
                     resultLoginFail(contentResult)
                 }
@@ -153,7 +153,9 @@ class RepositoryAuthImpl(
 
     private fun saveData(user: UserLog) {
         storage.apply {
-            setUserLog(user.toUserString())
+            if (user.password_expire_days != -1) {
+                setUserLog(user.toUserString())
+            }
             setToken(user.access_token)
             setRfToken(user.refresh_token)
             updateExpireTime(TimeUnit.SECONDS.toMinutes(user.expireIn()).toInt())

@@ -300,7 +300,7 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
 
             tvMoneyTransferTitle.setOnSingleClickListener {
                 if (arguments?.getBoolean(ApiConst.KEY_POP_BACK_FROM_SUCCESS) == true){
-                    popBackTo(AppDestination.Home)
+                    popBackTo(AppDestination.HomeArg())
                 } else {
                     backPress()
                 }
@@ -603,12 +603,12 @@ class MoneyTransferFragment : BaseFragmentBinding<FragmentMoneyTransferBinding>(
     private fun updateChooseCurrency(currency: String) {
         val oldCurrency = currentCurrencyChoose
         currentCurrencyChoose = currency
-        with(binding) {
-            iclAmount.tvCurrentCode.text = currency
+        with(binding.iclAmount) {
+            tvCurrentCode.text = currency
             if (oldCurrency != currency) {
-                iclAmount.edtValue.setInputEditText(true, isTypeSigned = currency == Const.USD)
-                iclAmount.edtValue.setText("")
-                iclAmount.bindViewError(null)
+                edtValue.setInputEditText(true, isTypeSigned = currency == Const.USD)
+                edtValue.setText("")
+                bindViewError(null)
                 checkAmountValidate()
             }
         }

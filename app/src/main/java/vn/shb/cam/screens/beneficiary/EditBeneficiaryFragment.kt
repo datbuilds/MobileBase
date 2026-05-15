@@ -223,7 +223,7 @@ class EditBeneficiaryFragment :
             }
 
             ivHome.setOnSingleClickListener {
-                popBackTo(AppDestination.Home)
+                popBackTo(AppDestination.HomeArg())
             }
         }
     }

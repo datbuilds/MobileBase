@@ -41,17 +41,23 @@ sealed interface AppDestination {
         }
     }
 
-    data object Home : AppDestination {
+    data class HomeArg(val dayPassExpire: Int? = null) : AppDestination {
         override val route: String = ROUTE_HOME
         override val motionStyle: NavigationMotionStyle = NavigationMotionStyle.Root
+        override val arguments: Bundle = Bundle().apply {
+            dayPassExpire?.let { putInt(ARG_DAY_PASS_EXPIRE, it) }
+        }
     }
 
     data object Profile : AppDestination {
         override val route: String = ROUTE_PROFILE
     }
 
-    data object ChangePassword : AppDestination {
+    data class ChangePassword(val isFromLogin: Boolean = false) : AppDestination {
         override val route: String = ROUTE_CHANGE_PASSWORD
+        override val arguments: Bundle = Bundle().apply {
+            putBoolean(ARG_FROM_LOGIN, isFromLogin)
+        }
     }
 
     data object ChangePasswordSuccess : AppDestination {
@@ -110,6 +116,8 @@ sealed interface AppDestination {
 
     companion object {
         const val ARG_SHOW_SESSION_EXPIRED = "arg_show_session_expired"
+        const val ARG_FROM_LOGIN = "arg_from_login"
+        const val ARG_DAY_PASS_EXPIRE = "arg_day_pass_expire"
         internal const val ARG_INTERNAL_ROUTE = "__nav_internal_route"
         internal const val ARG_INTERNAL_ROUTE_ARGS = "__nav_internal_route_args"
 
@@ -145,9 +153,14 @@ sealed interface AppDestination {
                 showSessionExpired = routeArgs?.getBoolean(ARG_SHOW_SESSION_EXPIRED) == true,
             )
 
-            ROUTE_HOME -> Home
+            ROUTE_HOME -> HomeArg(
+                dayPassExpire = routeArgs?.getInt(ARG_DAY_PASS_EXPIRE),
+            )
             ROUTE_PROFILE -> Profile
-            ROUTE_CHANGE_PASSWORD -> ChangePassword
+            ROUTE_CHANGE_PASSWORD -> ChangePassword(
+                isFromLogin = routeArgs?.getBoolean(ARG_FROM_LOGIN) == true,
+            )
+
             ROUTE_CHANGE_PASSWORD_SUCCESS -> ChangePasswordSuccess
             ROUTE_ACCOUNT_DETAIL -> AccountDetail
             ROUTE_TRANSACTION_HISTORY -> TransactionHistory
@@ -175,9 +188,9 @@ fun Fragment.toAppDestination(): AppDestination? = AppDestination.fromFragment(t
 fun AppDestination.toFragment(): Fragment = when (this) {
     AppDestination.Splash -> SplashFragment()
     is AppDestination.Login -> LoginFragment()
-    AppDestination.Home -> HomeFragment()
+    is AppDestination.HomeArg -> HomeFragment()
     AppDestination.Profile -> ProfileFragment()
-    AppDestination.ChangePassword -> ChangePasswordFragment()
+    is AppDestination.ChangePassword -> ChangePasswordFragment()
     AppDestination.ChangePasswordSuccess -> ChangePasswordSuccessFragment()
     AppDestination.AccountDetail -> AccountDetailFragment()
     AppDestination.TransactionHistory -> TransactionHistoryFragment()

@@ -215,7 +215,7 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
             message = getString(R.string.processingError)
             Log.i("weeewewrwererwewr", "base binding")
         }
-        showErrorMessageOnly(message, onAction)
+        showErrorMessageOnly(message, onAction = onAction)
     }
 
     open fun showErrorMessageOnly(message: String, onAction: (() -> Unit)? = null) {
@@ -229,8 +229,19 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         )
     }
 
+    open fun showPasswordExpire(message: String, onAction: (() -> Unit)? = null) {
+        BottomSheetDialogHelper(requireContext()).message(
+            title = getString(R.string.notification),
+            message = message,
+            isClose = true,
+            textPositive = getString(R.string.changePassword),
+            positiveAction = {
+                onAction?.invoke()
+            }
+        )
+    }
+
     protected fun handleErrorHome(error: Reason?, onAction: (() -> Unit)? = null) {
-        Log.e("handleErrorHome", "errorCode: "+error?.errorCode+" || "+"errorMsg: "+error?.errMessage)
 
         if (error != null) {
             if (listErrorLogout.contains(error.errorCode)) {
