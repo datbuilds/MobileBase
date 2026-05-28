@@ -607,7 +607,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         when {
             passExpireDay == -1 -> {
                 showPasswordExpire(
-                    getString(R.string.passwordIsNoLongerValid)
+                    getString(R.string.passwordIsNoLongerValid), isShowIconClose = false
                 ) {
                     safeNavigate(AppDestination.ChangePassword(true))
                 }

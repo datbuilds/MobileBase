@@ -229,11 +229,15 @@ abstract class BaseFragmentBinding<T : ViewBinding>(
         )
     }
 
-    open fun showPasswordExpire(message: String, onAction: (() -> Unit)? = null) {
+    open fun showPasswordExpire(
+        message: String,
+        isShowIconClose: Boolean = true,
+        onAction: (() -> Unit)? = null
+    ) {
         BottomSheetDialogHelper(requireContext()).message(
             title = getString(R.string.notification),
             message = message,
-            isClose = true,
+            isClose = isShowIconClose,
             textPositive = getString(R.string.changePassword),
             positiveAction = {
                 onAction?.invoke()
