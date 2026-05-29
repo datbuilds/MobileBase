@@ -130,10 +130,10 @@ class ProfileFragment :
     override fun initListener() {
         with(binding) {
             tvMyProfile.setOnSingleClickListener {
-                popBackTo(AppDestination.Home)
+                popBackTo(AppDestination.HomeArg())
             }
             tvChangePassword.setOnSingleClickListener {
-                safeNavigate(AppDestination.ChangePassword)
+                safeNavigate(AppDestination.ChangePassword())
             }
             btnLogout.setOnSingleClickListener {
                 BottomSheetDialogHelper(requireContext()).message(
@@ -174,12 +174,7 @@ class ProfileFragment :
                     if (state is LogoutUiState.Success) {
                         lifecycleScope.launch {
                             delay(260)
-                            storage.resetToken()
-                            requireActivity().apply {
-                                finishAffinity()
-                                returnActivity(MainActivity.loginIntent(requireContext()))
-//                                popBackTo(AppDestination.Login())
-                            }
+                            logout()
                         }
                     }
                     if (state is LogoutUiState.Error) {

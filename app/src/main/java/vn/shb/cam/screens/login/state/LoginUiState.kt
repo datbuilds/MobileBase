@@ -3,13 +3,13 @@ package vn.shb.cam.screens.login.state
 import vn.shb.core.core.delivery.ActionDone
 import vn.shb.core.core.delivery.Reason
 import vn.shb.core.core.delivery.reason.AppReason
-import vn.shb.core.core.domain.usecases.login.StateLogin
+import vn.shb.data.entities.login.UserLog
 
 sealed class LoginUiState {
     object Idle : LoginUiState()
     object Loading : LoginUiState()
     data class Error(val reason: Reason) : LoginUiState()
-    data class Success(val state: StateLogin) : LoginUiState()
+    data class Success(val state: UserLog) : LoginUiState()
 }
 
 sealed class LogoutUiState {

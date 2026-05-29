@@ -5,12 +5,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.InputFilter
 import android.text.InputType
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import vn.shb.cam.BuildConfig
@@ -48,7 +48,6 @@ import vn.shb.core.core.delivery.Reason
 import vn.shb.core.core.delivery.reason.AppReason
 import vn.shb.core.core.delivery.reason.LoginFailLocked
 import vn.shb.core.core.delivery.reason.LoginRegisterDevice
-import vn.shb.core.core.domain.usecases.login.StateLogin
 import vn.shb.core.core.domain.usecases.login.UseCaseLogin
 import vn.shb.core.core.security.encrypt.EncryptManager
 import vn.shb.core.utils.extesions.setOnSingleClickListener
@@ -197,7 +196,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
             if (BuildConfig.DEBUG) {
 //                binding.edtInputUsername.setText("0101030322")
-//                binding.edtInputPass.setText("123456")
+                binding.edtInputPass.setText("Test123@@")
 //                handleActionLogin()
 
 //                binding.edtInputUsername.setText("0101025405")
@@ -301,9 +300,9 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         return Pair(psw, encPsw)
     }
 
-    private fun openHomeAfterLogin() {
+    private fun openHomeAfterLogin(passExpireDay: Int? = null) {
         requireNavigator().open(
-            destination = AppDestination.Home,
+            destination = AppDestination.HomeArg(dayPassExpire = passExpireDay),
             clearBackStack = true,
             addToBackStack = false,
         )
@@ -323,7 +322,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     override fun initObserve() {
         launchRepeatOnLifecycle {
             launch {
-                loginViewModel.stateLogin.collect { uiState ->
+                loginViewModel.stateLogin.collectLatest { uiState ->
                     when (uiState) {
                         LoginUiState.Idle -> {}
                         LoginUiState.Loading -> {
@@ -332,37 +331,44 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
                         is LoginUiState.Error -> {
                             hideProgressDialog()
-                            if (uiState.reason is LoginFailLocked) {
-                                showDialogErrorLockUser(uiState.reason)
-                            } else if (uiState.reason is LoginRegisterDevice) {
-                                showDialogRegister(
-                                    uiState.reason.masked_phone_number,
-                                    uiState.reason.is_new_device
-                                )
-                            } else if (
-                                uiState.reason.errorCode == ApiConst.OTP_009
-                            ) {
-                                showDialogVisitBranchCam(message = uiState.reason.errMessage) {
-                                    context?.let { ct ->
-                                        loginViewModel.showDialogForgotPassword(
-                                            ct,
-                                            getString(R.string.listBranchTransactionPoint)
-                                        )
+
+                            when {
+                                uiState.reason is LoginFailLocked -> {
+                                    showDialogErrorLockUser(uiState.reason)
+                                }
+
+                                uiState.reason is LoginRegisterDevice -> {
+                                    showDialogRegister(
+                                        uiState.reason.masked_phone_number,
+                                        uiState.reason.is_new_device
+                                    )
+                                }
+
+                                uiState.reason.errorCode == ApiConst.OTP_009 -> {
+                                    showDialogVisitBranchCam(message = uiState.reason.errMessage) {
+                                        context?.let { ct ->
+                                            loginViewModel.showDialogForgotPassword(
+                                                ct,
+                                                getString(R.string.listBranchTransactionPoint)
+                                            )
+                                        }
                                     }
                                 }
-                            } else {
-                                showDialogError(
-                                    reason = uiState.reason
-                                )
+
+                                else -> {
+                                    showDialogError(
+                                        reason = uiState.reason
+                                    )
+                                }
                             }
                         }
 
                         is LoginUiState.Success -> {
                             hideProgressDialog()
-                            onLoginSuccess(uiState.state)
+                            // Check password expiry
+                            onLoginSuccess(uiState.state.password_expire_days)
                         }
                     }
-//                    loginViewModel.clearLoginState()
                 }
             }
 
@@ -430,9 +436,8 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                         },
                         otpDefault =
                             if (BuildConfig.DEBUG)
-                            result.otpCode ?: ""
-                        else ""
-                        ,
+                                result.otpCode ?: ""
+                            else "",
                         title = getString(R.string.confirm_device_title)
                     )
                     if (!confirmDeviceView.isVisible) {
@@ -445,7 +450,8 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                 loginViewModel.verifyDeviceResult.collect { data ->
                     // Handle verify success
                     confirmDeviceView.hide()
-                    openHomeAfterLogin()
+                    // Check password expiry
+                    onLoginSuccess(data.password_expire_days)
                 }
             }
 
@@ -496,6 +502,15 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             positiveAction = {
                 onAction?.invoke()
             }
+        )
+    }
+
+    private fun showDialogPasswordExpiring(daysRemaining: Int) {
+        val message = getString(R.string.notification_password_expiring, daysRemaining)
+        BottomSheetDialogHelper(requireContext()).message(
+            title = getString(R.string.notification),
+            message = message,
+            textPositive = getString(R.string.changePassword)
         )
     }
 
@@ -588,9 +603,23 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         }
     }
 
-    private fun onLoginSuccess(stateLogin: StateLogin) {
-        if (stateLogin is StateLogin.OpenDashboard) {
-            openHomeAfterLogin()
+    private fun onLoginSuccess(passExpireDay: Int?) {
+        when {
+            passExpireDay == -1 -> {
+                showPasswordExpire(
+                    getString(R.string.passwordIsNoLongerValid), isShowIconClose = false
+                ) {
+                    safeNavigate(AppDestination.ChangePassword(true))
+                }
+            }
+
+            (passExpireDay != null) && (passExpireDay > 0) -> {
+                openHomeAfterLogin(passExpireDay)
+            }
+
+            else -> {
+                openHomeAfterLogin()
+            }
         }
     }
 

@@ -194,7 +194,7 @@ class PaymentTransferFragment :
 
         with(binding) {
             ivClose.setOnSingleClickListener {
-                popBackTo(AppDestination.Home)
+                popBackTo(AppDestination.HomeArg())
             }
 
             ivCloseToast.setOnSingleClickListener {

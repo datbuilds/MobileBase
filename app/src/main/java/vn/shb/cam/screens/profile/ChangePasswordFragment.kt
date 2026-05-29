@@ -34,7 +34,11 @@ class ChangePasswordFragment :
     private var isValidUsername = false
     private var isValidNotSame = false
 
+    private var fromLoginScreen = false
+
     override fun initView(view: View) {
+
+        fromLoginScreen = arguments?.getBoolean(AppDestination.ARG_FROM_LOGIN, false) == true
         // Initial state
         checkConfirmButton()
         highlightSpecialChars(binding.tvRuleSpecial)
@@ -44,7 +48,11 @@ class ChangePasswordFragment :
     override fun initListener() {
         with(binding) {
             ivBack.setOnSingleClickListener {
-                backPress()
+                if (fromLoginScreen){
+                    logout()
+                } else {
+                    backPress()
+                }
             }
 
             setupPasswordInput(edtCurrentPassword, tvShowHideCurrent, ivClearCurrent, true)

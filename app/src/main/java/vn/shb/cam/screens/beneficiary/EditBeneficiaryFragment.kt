@@ -108,6 +108,7 @@ class EditBeneficiaryFragment :
                 iclBank.edtValue.setTextAndDisableFocus(data.accountNumber)
                 iclBank.ivExpandDown.visibility = View.GONE
                 iclBank.ivLogo.visibility = View.VISIBLE
+                iclBank.ivLogo.alpha = 0.7f
                 iclBank.ivLogo.setImageResource(BankType.getIconByCode(data.bankCode))
 
                 // Disable Account number editing
@@ -223,7 +224,7 @@ class EditBeneficiaryFragment :
             }
 
             ivHome.setOnSingleClickListener {
-                popBackTo(AppDestination.Home)
+                popBackTo(AppDestination.HomeArg())
             }
         }
     }

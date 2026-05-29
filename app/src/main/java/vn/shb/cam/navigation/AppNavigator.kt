@@ -54,7 +54,7 @@ class AppNavigator(
         inclusive: Boolean,
     ): Boolean {
         return when (destination) {
-            AppDestination.Home,
+            is AppDestination.HomeArg,
             is AppDestination.Login,
             AppDestination.Splash -> {
                 popToRoot(destination)

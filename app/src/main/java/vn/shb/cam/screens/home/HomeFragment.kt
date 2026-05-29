@@ -23,9 +23,22 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
     private var isShowValueBalance = false
     private var textGoneValue = "********"
 
+    private var isShowPassExpire = false
+
     override fun initView(view: View) {
         (activity as? MainActivity)?.startSessionTimer()
+        checkPassExpire()
         bindView()
+    }
+
+    private fun checkPassExpire() {
+        val dayPassExpire = arguments?.getInt(AppDestination.ARG_DAY_PASS_EXPIRE, 0)
+        if (dayPassExpire != null && dayPassExpire > 0 && !isShowPassExpire) {
+            isShowPassExpire = true
+            showPasswordExpire(getString(R.string.notification_password_expiring, dayPassExpire)){
+                safeNavigate(AppDestination.ChangePassword())
+            }
+        }
     }
 
     override fun onResume() {
