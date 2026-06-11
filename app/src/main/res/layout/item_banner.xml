@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.imageview.ShapeableImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ivBanner"
+    android:layout_width="@dimen/margin_311dp"
+    android:layout_height="@dimen/margin_143dp"
+    android:layout_marginEnd="@dimen/margin_8dp"
+    android:elevation="@dimen/margin_0dp"
+    android:src="@drawable/img_banner_first"
+    app:shapeAppearanceOverlay="@style/circleImageView11" />

@@ -4,13 +4,13 @@
     android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_login"
-    android:paddingHorizontal="@dimen/margin_20dp">
+    android:background="@drawable/bg_login">
 
     <vn.shb.cam.screens.home.widget.FrameAvatarUser
         android:id="@+id/flAvatarUser"
         android:layout_width="@dimen/margin_48dp"
         android:layout_height="@dimen/margin_48dp"
+        android:layout_marginStart="@dimen/margin_20dp"
         android:layout_marginTop="@dimen/paddingTopLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -19,6 +19,7 @@
         android:layout_width="@dimen/margin_0dp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_8dp"
+        android:layout_marginEnd="@dimen/margin_20dp"
         android:gravity="center_vertical"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/flAvatarUser"
@@ -72,6 +73,7 @@
         android:id="@+id/ivBgLayoutMain"
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_0dp"
+        android:layout_marginHorizontal="@dimen/margin_20dp"
         android:layout_marginTop="@dimen/margin_24dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/glHeightBottom"
@@ -215,6 +217,7 @@
         android:id="@+id/flBeneficiary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_20dp"
         android:layout_marginTop="@dimen/margin_16dp"
         android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@+id/llMainAccount">
@@ -255,33 +258,33 @@
             app:customFontWeight="semi_bold" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <com.example.imagecrouse.ui.whynotimagecarousel.ImageCarousel
-        android:id="@+id/carousel3"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvBanner"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginTop="24dp"
-        android:translationZ="8dp"
-        android:visibility="gone"
-        app:autoPlay="true"
-        app:autoPlayDelay="3000"
-        app:carouselGravity="CENTER"
-        app:carouselType="SHOWCASE"
-        app:imageScaleType="centerCrop"
+        android:layout_height="@dimen/margin_143dp"
+        android:layout_marginTop="12dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:nestedScrollingEnabled="false"
+        android:orientation="horizontal"
+        android:overScrollMode="never"
+        android:paddingHorizontal="@dimen/margin_20dp"
+        android:scrollbars="none"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/flBeneficiary"
-        app:showBottomShadow="false"
-        app:showCaption="false"
-        app:showIndicator="false"
-        app:showNavigationButtons="false"
-        app:showTopShadow="false"
-        app:touchToPause="false" />
+        tools:itemCount="4"
+        tools:listitem="@layout/item_banner" />
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/ivBanner"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/margin_150dp"
-        android:layout_marginTop="16dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintTop_toBottomOf="@+id/flBeneficiary"
-        app:shapeAppearanceOverlay="@style/circleImageBanner" />
+    <vn.shb.cam.utils.view.dot.BannerDotIndicator
+        android:id="@+id/dot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rvBanner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

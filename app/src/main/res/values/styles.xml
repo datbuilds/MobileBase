@@ -339,6 +339,11 @@
         <item name="cornerSize">16%</item>
     </style>
 
+    <style name="circleImageView11" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">11%</item>
+    </style>
+
 
     <style name="circleImageView_stroke" parent="">
         <item name="cornerFamily">rounded</item>

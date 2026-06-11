@@ -2,6 +2,9 @@ package vn.shb.cam.screens.home
 
 import android.content.Context
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import vn.shb.cam.R
@@ -9,6 +12,7 @@ import vn.shb.cam.activity.MainActivity
 import vn.shb.cam.base.BaseFragmentBinding
 import vn.shb.cam.databinding.FragmentHomeBinding
 import vn.shb.cam.navigation.AppDestination
+import vn.shb.cam.screens.home.helper.HomeBannerAdapter
 import vn.shb.cam.screens.home.widget.OnClickDetail
 import vn.shb.cam.utils.extensions.common.Const
 import vn.shb.cam.utils.extensions.getTextWelcomeUser
@@ -24,11 +28,30 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
     private var textGoneValue = "********"
 
     private var isShowPassExpire = false
+    private val bannerImages = listOf(
+        R.drawable.img_banner_first,
+        R.drawable.img_banner_second
+    )
+    private val bannerAdapter by lazy(LazyThreadSafetyMode.NONE) {
+        HomeBannerAdapter(bannerImages)
+    }
+    private val bannerSnapHelper by lazy(LazyThreadSafetyMode.NONE) {
+        PagerSnapHelper()
+    }
+    private val bannerScrollListener = object : RecyclerView.OnScrollListener() {
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                syncBannerIndicator()
+            }
+        }
+    }
 
     override fun initView(view: View) {
         (activity as? MainActivity)?.startSessionTimer()
         checkPassExpire()
         bindView()
+        initBanner()
     }
 
     private fun checkPassExpire() {
@@ -59,8 +82,43 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
                 ivIconFeature.setImageResource(R.drawable.ic_accounts)
                 tvTitleFeature.text = getString(R.string.accounts)
             }
-            ivBanner.setImageResource(R.drawable.iv_banner)
         }
+    }
+
+    private fun initBanner() {
+        binding.rvBanner.apply {
+            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+            adapter = bannerAdapter
+            clipToPadding = false
+            clipChildren = false
+            addOnScrollListener(bannerScrollListener)
+        }
+
+        bannerSnapHelper.attachToRecyclerView(binding.rvBanner)
+        binding.dot.setupWithRecyclerView(binding.rvBanner)
+        binding.dot.selectPage(0)
+        syncBannerIndicator()
+    }
+
+    private fun syncBannerIndicator() {
+        val layoutManager = binding.rvBanner.layoutManager as? LinearLayoutManager ?: return
+        val firstVisible = layoutManager.findFirstVisibleItemPosition()
+        if (firstVisible == RecyclerView.NO_POSITION) return
+
+        val firstView = layoutManager.findViewByPosition(firstVisible) ?: return
+        val rvWidth = binding.rvBanner.width - binding.rvBanner.paddingStart - binding.rvBanner.paddingEnd
+        val itemWidth = firstView.width
+        val itemLeft = firstView.left - binding.rvBanner.paddingStart
+
+        // Nếu item đầu tiên bị scroll quá nửa thì position là item kế tiếp
+        val position = if (itemLeft < -(itemWidth / 2)) {
+            firstVisible + 1
+        } else {
+            firstVisible
+        }
+
+        val safePosition = position.coerceIn(0, (bannerAdapter.itemCount - 1).coerceAtLeast(0))
+        binding.dot.selectPage(safePosition)
     }
 
     private fun bindViewAccount(account: AccountBase) {
@@ -160,6 +218,12 @@ class HomeFragment : BaseFragmentBinding<FragmentHomeBinding>(FragmentHomeBindin
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        binding.rvBanner.removeOnScrollListener(bannerScrollListener)
+        bannerSnapHelper.attachToRecyclerView(null)
+        super.onDestroyView()
     }
 
     private fun mapUserInfo(userLog: UserLog) {

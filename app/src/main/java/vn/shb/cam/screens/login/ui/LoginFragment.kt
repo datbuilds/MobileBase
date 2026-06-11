@@ -196,7 +196,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
             if (BuildConfig.DEBUG) {
 //                binding.edtInputUsername.setText("0101030322")
-                binding.edtInputPass.setText("Test123@@")
+//                binding.edtInputPass.setText("Test123@@")
 //                handleActionLogin()
 
 //                binding.edtInputUsername.setText("0101025405")
