@@ -15,5 +15,5 @@ object Plugins {
     const val KOTLIN_PARCELIZE = "kotlin-parcelize"
     const val ANDROID_GOOGLE_SERVICES = "com.google.gms.google-services"
 
-    const val SHB_APP = "AppPlugin"
+    const val MOBILEBASE_APP = "AppPlugin"
 }

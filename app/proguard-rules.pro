@@ -60,8 +60,8 @@
 ##   Android-Image-Cropper
 -keep class androidx.appcompat.widget.** { *; }
 
-#-keep class vn.shb.cam.** { *; }
-#-keep class vn.shb.** { *; }
+#-keep class com.mobile.base.** { *; }
+#-keep class com.mobile.base.** { *; }
 
 
 -keep class * extends androidx.fragment.app.Fragment{}
@@ -160,8 +160,8 @@
 -keep class **.R$drawable { *; }
 
 # Đảm bảo IconManager và các resource không bị obfuscate
--keep class vn.shb.cam.utils.IconManager { *; }
--keepclassmembers class vn.shb.cam.utils.IconManager {
+-keep class com.mobile.base.utils.IconManager { *; }
+-keepclassmembers class com.mobile.base.utils.IconManager {
     private static final java.util.Map iconResourceMapping;
 }
 
@@ -171,7 +171,7 @@
 }
 
 # Đảm bảo các extension function không bị obfuscate
--keep class vn.shb.cam.utils.extensions.** { *; }
+-keep class com.mobile.base.utils.extensions.** { *; }
 
 -keep class org.joda.convert.** { *; }
 -dontwarn org.joda.convert.**
@@ -195,17 +195,17 @@
 -dontwarn org.openjsse.net.ssl.OpenJSSE
 
 ################################# Gson Data Classes ##################################
-# Keep all data classes in vn.shb.data.entities (Gson serialization models)
--keep class vn.shb.data.entities.** { *; }
+# Keep all data classes in com.mobile.base.data.entities (Gson serialization models)
+-keep class com.mobile.base.data.entities.** { *; }
 
 # Keep all inner classes and parameters
--keepclassmembers class vn.shb.data.entities.** {
+-keepclassmembers class com.mobile.base.data.entities.** {
     <fields>;
 }
 
 # Keep UseCase parameters used in API calls
--keep class vn.shb.core.core.domain.usecases.** { *; }
--keepclassmembers class vn.shb.core.core.domain.usecases.** {
+-keep class com.mobile.base.core.core.domain.usecases.** { *; }
+-keepclassmembers class com.mobile.base.core.core.domain.usecases.** {
     <fields>;
 }
 

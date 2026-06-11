@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <vn.shb.cam.base.view.MyTextView
+    <com.mobile.base.base.view.MyTextView
         android:id="@+id/text_login_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <vn.shb.cam.utils.view.input.TextInputClearError
+    <com.mobile.base.utils.view.input.TextInputClearError
         android:id="@+id/input_user_name_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -48,6 +48,6 @@
             android:textColor="@color/white"
             android:textColorHint="@color/gray_300"
             android:textSize="@dimen/textSize16" />
-    </vn.shb.cam.utils.view.input.TextInputClearError>
+    </com.mobile.base.utils.view.input.TextInputClearError>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_close" />
 
-    <vn.shb.cam.base.view.MyTextView
+    <com.mobile.base.base.view.MyTextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_search" />
 
-        <vn.shb.cam.base.view.MyEditText
+        <com.mobile.base.base.view.MyEditText
             android:id="@+id/edtSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

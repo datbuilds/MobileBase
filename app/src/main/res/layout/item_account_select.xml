@@ -22,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_select_account_v" />
 
-        <vn.shb.cam.base.view.MyTextView
+        <com.mobile.base.base.view.MyTextView
             android:id="@+id/tvInfoAccount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="1001747332 - Current Account - LAK" />
 
-        <vn.shb.cam.base.view.MyTextView
+        <com.mobile.base.base.view.MyTextView
             android:id="@+id/tvValueBalance"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

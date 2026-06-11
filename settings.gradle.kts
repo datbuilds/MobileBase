@@ -9,7 +9,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "SHB_SAHA_CAM"
+rootProject.name = "MobileBase"
 
 //libraries module
 include("library:choosePhotoHelper")

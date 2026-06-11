@@ -7,7 +7,7 @@
     android:background="@drawable/snarkbar_bg"
     android:orientation="vertical">
 
-    <vn.shb.cam.base.view.MyTextView
+    <com.mobile.base.base.view.MyTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="12dp"

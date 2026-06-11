@@ -14,7 +14,7 @@
         android:layout_marginBottom="@dimen/paddingBottomLayout"
         android:orientation="vertical">
 
-        <vn.shb.cam.base.view.MyTextView
+        <com.mobile.base.base.view.MyTextView
             android:id="@+id/tvTransactionHistory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
             android:clipToPadding="false"
             tools:itemCount="100" />
 
-        <vn.shb.cam.base.view.MyTextView
+        <com.mobile.base.base.view.MyTextView
             android:id="@+id/tvNoTransaction"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -89,7 +89,7 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <vn.shb.cam.base.view.MyTextView
+    <com.mobile.base.base.view.MyTextView
         android:id="@+id/tvStatusUpdateDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

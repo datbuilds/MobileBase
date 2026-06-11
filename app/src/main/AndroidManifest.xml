@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="vn.shb.cam">
+    package="com.mobile.base">
 
     <uses-feature
         android:name="android.hardware.telephony"
@@ -41,7 +41,7 @@
         android:xlargeScreens="true" />
 
     <application
-        android:name="vn.shb.cam.SHBApplication"
+        android:name="com.mobile.base.MobileBaseApplication"
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:enableOnBackInvokedCallback="true"
@@ -50,12 +50,12 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SHB.CAM.MOBILE"
+        android:theme="@style/Theme.MobileBase"
         android:usesCleartextTraffic="false"
         tools:replace="android:allowBackup"
         tools:targetApi="tiramisu">
         <activity
-            android:name="vn.shb.cam.activity.MainActivity"
+            android:name="com.mobile.base.activity.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:showOnLockScreen="true"

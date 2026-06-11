@@ -1,11 +1,11 @@
 plugins {
-    id(Plugins.SHB_APP)
+    id(Plugins.MOBILEBASE_APP)
     id(Plugins.ANDROID_LIBRARY)
     kotlin(Plugins.KOTLIN_KAPT)
 }
 
 android {
-    namespace = "vn.shb.core"
+    namespace = "com.mobile.base.core"
 
     buildFeatures {
         buildConfig = true

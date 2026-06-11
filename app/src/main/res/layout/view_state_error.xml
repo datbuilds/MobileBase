@@ -15,7 +15,7 @@
         app:srcCompat="@android:drawable/stat_notify_error"
         app:tint="@color/gray_100" />
 
-   <vn.shb.cam.base.view.MyTextView
+   <com.mobile.base.base.view.MyTextView
         android:id="@+id/state_error_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

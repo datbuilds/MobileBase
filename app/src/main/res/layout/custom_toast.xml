@@ -22,7 +22,7 @@
             android:layout_height="@dimen/margin_24dp"
             android:src="@drawable/ic_info_filled" />
 
-        <vn.shb.cam.base.view.MyTextView
+        <com.mobile.base.base.view.MyTextView
             android:id="@+id/tvToastMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

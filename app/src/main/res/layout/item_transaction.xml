@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <vn.shb.cam.base.view.MyTextView
+    <com.mobile.base.base.view.MyTextView
         android:id="@+id/layoutTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
                 android:layout_weight="3"
                 android:orientation="vertical">
 
-                <vn.shb.cam.base.view.MyTextView
+                <com.mobile.base.base.view.MyTextView
                     android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
                     app:customFontWeight="regular"
                     tools:text="shb_action_logoutshb_action_logoutshb_action_logoutshb_action_logoutshb_action_logout" />
 
-                <vn.shb.cam.base.view.MyTextView
+                <com.mobile.base.base.view.MyTextView
                     android:id="@+id/tvSubInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
             </LinearLayout>
 
             <!-- Số tiền -->
-            <vn.shb.cam.base.view.MyTextView
+            <com.mobile.base.base.view.MyTextView
                 android:id="@+id/tvAmount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

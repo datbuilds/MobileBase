@@ -28,7 +28,7 @@
             android:orientation="vertical"
             android:paddingBottom="8dp">
 
-           <vn.shb.cam.base.view.MyTextView
+           <com.mobile.base.base.view.MyTextView
                 android:id="@+id/tooltip_content"
                 style="?toolTipDialog.bodyTextStyle"
                 android:layout_width="wrap_content"

@@ -7,7 +7,7 @@ Thư mục này chứa toàn bộ mã nguồn, tài nguyên giao diện, tài ng
 ## 1. Cấu trúc thư mục con
 
 - **`main/`**: Thư mục mã nguồn và tài nguyên chính của ứng dụng. Đây là nơi chứa logic nghiệp vụ và giao diện dùng chung cho tất cả các bản build.
-  - `java/`: Thư mục gốc chứa các package Java/Kotlin của dự án (`vn.shb.cam`).
+  - `java/`: Thư mục gốc chứa các package Java/Kotlin của dự án (`com.mobile.base`).
   - `res/`: Thư mục chứa tài nguyên giao diện (Layouts, Drawables, Mipmaps, Values, Colors, Animations, XML configs).
   - `assets/`: Chứa các tài nguyên tĩnh như file Lottie animation (`loading.lottie`), mã HTML hiển thị tài liệu PDF (`pdf_viewer.html`), và khóa bảo mật Public Key dạng PEM (`public_key.pem`).
   - `AndroidManifest.xml`: File cấu hình hệ thống Android, khai báo các quyền (Permissions), Activity chính (`MainActivity`), Services (`FcmMessageService`), và FileProvider.
@@ -21,7 +21,7 @@ Thư mục này chứa toàn bộ mã nguồn, tài nguyên giao diện, tài ng
 Hệ thống build Gradle của Android sẽ tự động gộp (merge) mã nguồn và tài nguyên từ các thư mục flavor tương ứng với cấu hình build hiện tại:
 - Khi build **`devDebug`**: Gradle sẽ gộp tài nguyên từ `main/` và `dev/` (ví dụ: đè icon launcher của bản dev lên bản main).
 - Khi build **`uatRelease`** hoặc **`proRelease`**: Gradle sẽ sử dụng tài nguyên mặc định từ `main/` hoặc các cấu hình tương ứng được khai báo trong `build.gradle.kts`.
-- Cấu trúc thư mục mã nguồn chính trong `main/java/vn/shb/cam` được phân chia thành các lớp cấu trúc nghiệp vụ rõ ràng:
+- Cấu trúc thư mục mã nguồn chính trong `main/java/com/mobile/base` được phân chia thành các lớp cấu trúc nghiệp vụ rõ ràng:
   - `activity/` - Nơi khởi chạy MainActivity.
   - `base/` - Các lớp cơ sở dùng chung (BaseActivity, BaseFragment, ViewModel).
   - `di/` - Nơi cấu hình Koin Dependency Injection.

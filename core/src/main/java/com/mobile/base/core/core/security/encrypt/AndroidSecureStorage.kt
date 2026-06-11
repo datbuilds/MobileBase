@@ -1,0 +1,186 @@
+package com.mobile.base.core.core.security.encrypt
+
+import android.content.Context
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
+import com.mobile.base.core.utils.DeviceManager
+
+class AndroidSecureStorage(private val context: Context, private val deviceManager: DeviceManager) {
+    companion object {
+        private const val PREFS_NAME = "encrypted_prefs"
+        private const val EXPIRE_TIME = "EXPIRE_TIME"
+        private const val FIRST_INSTALL = "FIRST_INSTALL"
+        private const val FIRST_TIME_OPEN_APP = "FIRST_TIME_OPEN_APP"
+        private const val FCM_TOKEN = "FCM_TOKEN"
+        private const val DEVICE_ID = "device_id"
+        private const val CHANGE_PASSWORD = "CHANGE_PASSWORD"
+        private const val USER_INFO = "USER_INFO"
+        private const val BACKGROUND_LOGIN = "BACKGROUND_LOGIN"
+        private const val AUTH_TOKEN = "AUTH_TOKEN"
+        private const val REFRESH_TOKEN = "REFRESH_TOKEN"
+        private const val REFRESH_TOKEN_FAIL = "REFRESH_TOKEN_FAIL"
+        private const val AUTH_TOKEN_WSO2 = "AUTH_TOKEN_WSO2"
+        private const val AUTH_TOKEN_WSO2_TIME_GET = "AUTH_TOKEN_WSO2_TIME_GET"
+        private const val LANGUAGE_APP = "LANGUAGE_APP"
+
+        private const val REFRESH_TOKEN_WSO2 = "REFRESH_TOKEN_WSO2"
+        private const val EXPIRE_TIME_WSO2 = "EXPIRE_TIME_WSO2"
+        private const val REFRESH_TOKEN_FAIL_WSO2 = "REFRESH_TOKEN_FAIL_WSO2"
+
+        private const val AI_CHAT_INTRO_COMPLETED = "AI_CHAT_INTRO_COMPLETED"
+    }
+
+    private val masterKey = MasterKey.Builder(context)
+        .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+        .build()
+
+    private val preferences = EncryptedSharedPreferences.create(
+        context,
+        PREFS_NAME,
+        masterKey,
+        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+    )
+
+    private inline fun <reified T> putPreference(key: String, value: T) {
+        with(preferences.edit()) {
+            when (value) {
+                is String -> putString(key, value)
+                is Int -> putInt(key, value)
+                is Boolean -> putBoolean(key, value)
+                is Long -> putLong(key, value)
+                else -> throw IllegalArgumentException("Unsupported type")
+            }.apply()
+        }
+    }
+
+    private inline fun <reified T> getPreference(key: String, defaultValue: T): T {
+        return with(preferences) {
+            when (T::class) {
+                String::class -> getString(key, defaultValue as? String ?: "") as T
+                Int::class -> getInt(key, defaultValue as? Int ?: -1) as T
+                Boolean::class -> getBoolean(key, defaultValue as? Boolean ?: false) as T
+                Long::class -> getLong(key, defaultValue as? Long ?: 0L) as T
+                else -> throw IllegalArgumentException("Unsupported type")
+            }
+        }
+    }
+
+    /**
+     * RefreshTokenFail
+     */
+
+    fun setTokenInvalid(isFail: Boolean) = putPreference(REFRESH_TOKEN_FAIL, isFail)
+    fun isTokenInvalid() = getPreference(REFRESH_TOKEN_FAIL, false)
+
+    /**
+     * change password
+     */
+    fun setChangePassword(value: Boolean) = putPreference(CHANGE_PASSWORD, value)
+    fun isChangePassword() = getPreference(CHANGE_PASSWORD, false)
+
+
+    fun setAiChatIntroCompleted(completed: Boolean) =
+        putPreference(AI_CHAT_INTRO_COMPLETED, completed)
+
+    fun isAiChatIntroCompleted() = getPreference(AI_CHAT_INTRO_COMPLETED, false)
+
+    /**
+     * UserInfo
+     */
+    fun setUserLog(user: String) = putPreference(USER_INFO, user)
+    fun getUserLog() = getPreference(USER_INFO, "")
+
+    fun setPathAvatarUser(key: String, path: String) = putPreference(key, path)
+
+    fun getPathAvatarUser(key: String) = getPreference(key, "")
+
+    /**
+     * ---------------------End user--->
+     */
+
+
+    fun setExpireTime(data: Int) = putPreference(EXPIRE_TIME, data)
+    fun getExpireTime() = getPreference(EXPIRE_TIME, 5)
+
+    fun updateExpireTime(data: Int) {
+        if (data <= getExpireTime()) {
+            setExpireTime(data)
+        }
+    }
+
+    /**
+     * Background Login
+     */
+    fun setBackgroundLogin(data: String) = putPreference(BACKGROUND_LOGIN, data)
+    fun getBackgroundLogin() = getPreference(BACKGROUND_LOGIN, "")
+
+    fun setLanguage(language: String) = putPreference(LANGUAGE_APP, language)
+    fun getLanguage() = getPreference(LANGUAGE_APP, "")
+
+    /**
+     * Token
+     */
+    fun setToken(token: String) = putPreference(AUTH_TOKEN, token)
+    fun getToken() = getPreference(AUTH_TOKEN, "")
+
+    fun setRfToken(rfToken: String) = putPreference(REFRESH_TOKEN, rfToken)
+    fun getRfToken() = getPreference(REFRESH_TOKEN, "")
+
+//    fun setExpireTimeWso2(data: Int) = putPreference(EXPIRE_TIME_WSO2, data)
+//    fun getExpireTimeWso2() = getPreference(EXPIRE_TIME_WSO2, 5)
+
+    fun setTokenWso2(token: String) {
+        putPreference(AUTH_TOKEN_WSO2, token)
+        setTimeGetTokenWso2(System.currentTimeMillis())
+    }
+    fun getTokenWso2() = getPreference(AUTH_TOKEN_WSO2, "")
+    fun setTimeGetTokenWso2(token: Long) = putPreference(AUTH_TOKEN_WSO2_TIME_GET, token)
+    fun getTimeGetTokenWso2() = getPreference(AUTH_TOKEN_WSO2_TIME_GET, 0L)
+    fun setRfTokenWso2(rfToken: String) = putPreference(REFRESH_TOKEN_WSO2, rfToken)
+    fun getRfTokenWso2() = getPreference(REFRESH_TOKEN_WSO2, "")
+
+    fun setTokenInvalidWso2(isFail: Boolean) = putPreference(REFRESH_TOKEN_FAIL_WSO2, isFail)
+    fun isTokenInvalidWso2() = getPreference(REFRESH_TOKEN_FAIL_WSO2, false)
+
+    /**
+     * -------------------end token----
+     */
+    fun firstOpened(isFirst: Boolean = false) = putPreference(FIRST_TIME_OPEN_APP, isFirst)
+
+    fun isFirstOpen(): Boolean {
+        val isFirstOpenApp = getPreference(FIRST_INSTALL, false)
+        return if (isFirstOpenApp) false else getPreference(FIRST_TIME_OPEN_APP, false)
+    }
+
+    fun setFcmToken(token: String) = putPreference(FCM_TOKEN, token)
+
+    fun getFcmToken() = getPreference(FCM_TOKEN, "")
+
+    fun getDeviceId() = getPreference(DEVICE_ID, newDeviceId())
+
+    fun newDeviceId() = deviceManager.getDevicesIds() ?: ""
+
+    fun setDeviceId(deviceId: String) = putPreference(DEVICE_ID, deviceId)
+
+    private fun removeKey(key: String) {
+        preferences.edit().remove(key).apply()
+    }
+
+    fun resetToken() {
+        removeKey(AUTH_TOKEN)
+        removeKey(REFRESH_TOKEN)
+        removeKey(AUTH_TOKEN_WSO2)
+        removeKey(REFRESH_TOKEN_WSO2)
+        setTokenInvalid(false)
+        setTokenInvalidWso2(false)
+    }
+
+//    fun resetUser() {
+//        removeKey(AUTH_TOKEN)
+//        removeKey(REFRESH_TOKEN)
+//        removeKey(AUTH_TOKEN_WSO2)
+//        removeKey(REFRESH_TOKEN_WSO2)
+//    }
+
+}

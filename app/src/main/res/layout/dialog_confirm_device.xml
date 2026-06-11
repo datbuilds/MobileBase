@@ -24,7 +24,7 @@
             android:visibility="visible"
             app:srcCompat="@drawable/ic_close" />
 
-        <vn.shb.cam.base.view.MyTextView
+        <com.mobile.base.base.view.MyTextView
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             android:textSize="18sp"
             app:customFontWeight="semi_bold" />
 
-        <vn.shb.cam.base.view.MyTextView
+        <com.mobile.base.base.view.MyTextView
             android:id="@+id/tvMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -46,13 +46,13 @@
             android:textSize="14sp"
             app:customFontWeight="regular" />
 
-        <vn.shb.cam.utils.view.actionView.OtpView
+        <com.mobile.base.utils.view.actionView.OtpView
             android:id="@+id/otpView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_12dp" />
 
-        <vn.shb.cam.base.view.MyTextView
+        <com.mobile.base.base.view.MyTextView
             android:id="@+id/tvTimer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
             android:textSize="14sp"
             app:customFontWeight="regular" />
 
-        <vn.shb.cam.base.view.MyTextView
+        <com.mobile.base.base.view.MyTextView
             android:id="@+id/tvError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -1,113 +1,107 @@
-# 🏦 SHB SAHA CAM
+# 📱 MobileBase
 
-SHB SAHA CAM là ứng dụng di động được thiết kế đặc biệt của Ngân hàng SHB tại thị trường Campuchia.
+MobileBase là bộ khung (base project) ứng dụng ngân hàng di động Android, tổ chức theo kiến trúc đa module (MVVM + Clean Architecture) với package gốc `com.mobile.base`.
 
 ## 🏗️ Kiến trúc hệ thống
 
-### **Clean Architecture với Modular Design**
+Ứng dụng áp dụng **MVVM + Clean Architecture** kết hợp thiết kế **modular** (multi-module Gradle). Các layer được tách theo module: tầng trình bày ở `app`, logic nghiệp vụ/domain và tiện ích lõi ở `core`, mô hình dữ liệu ở `data`.
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                Presentation Layer                       │
-│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐        │
-│  │  Activities │ │  Fragments  │ │  Dialogs    │        │
-│  └─────────────┘ └─────────────┘ └─────────────┘        │
-│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐        │
-│  │ ViewModels  │ │   Adapters  │ │  ViewBinding│        │
-│  └─────────────┘ └─────────────┘ └─────────────┘        │
+│                Presentation Layer  (:app)               │
+│   Activities · Fragments · ViewModels · ViewBinding      │
+│   Navigation tự viết · Adapters · Screens                │
 └─────────────────────────────────────────────────────────┘
 ┌─────────────────────────────────────────────────────────┐
-│                 Domain Layer                            │
-│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐        │
-│  │  Use Cases  │ │ Repositories│ │  Entities   │        │
-│  └─────────────┘ └─────────────┘ └─────────────┘        │
-│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐        │
-│  │  Models     │ │  Mappers    │ │  Validators │        │
-│  └─────────────┘ └─────────────┘ └─────────────┘        │
+│                Domain / Core Layer  (:core)             │
+│   UseCases · Repository sources · Retrofit config        │
+│   Security (root detect, encrypt) · Delivery · Mapper    │
 └─────────────────────────────────────────────────────────┘
 ┌─────────────────────────────────────────────────────────┐
-│                  Data Layer                             │
-│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐        │
-│  │   APIs      │ │  Services   │ │ Repositories│        │
-│  └─────────────┘ └─────────────┘ └─────────────┘        │
-│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐        │
-│  │   Database  │ │  Cache      │ │  File Store │        │
-│  └─────────────┘ └─────────────┘ └─────────────┘        │
+│                  Data Layer  (:data)                    │
+│   Entities · Models theo domain (login, home, transfer…) │
 └─────────────────────────────────────────────────────────┘
 ```
 
 ### **Cấu trúc Module**
 
 ```
-SHB_SAHA_CAM/
-├── app/                          # Main application module
-│   ├── src/main/java/vn/shb/cam/
-│   │   ├── activity/             # Activities và ViewModels
-│   │   ├── base/                 # Base classes và utilities
-│   │   ├── di/                   # Dependency Injection modules
-│   │   ├── screens/              # UI screens và fragments
-│   │   ├── utils/                # Utility classes và extensions
-│   │   └── SHBApplication.kt     # Application class
-│   └── build.gradle.kts
-├── data/                         # Data layer implementation
-│   ├── src/main/java/vn/shb/data/
-│   │   ├── entities/             # Room entities
-│   │   └── utils/                # Data utilities
-│   └── build.gradle.kts
-├── shbcore/                      # Core utilities & Domain layer
-│   ├── src/main/java/vn/shb/core/
-│   │   ├── core/
-│   │   │   ├── domain/           # Use cases và repositories
-│   │   │   ├── retrofit/         # Network configuration
-│   │   │   ├── security/         # Security utilities
-│   │   │   └── delivery/         # Response handling
-│   │   └── utils/                # Core utilities
-│   └── build.gradle.kts
-├── ui/                           # Shared UI components
-│   └── build.gradle.kts
-├── localization/                 # Multi-language support
-│   └── build.gradle.kts
-├── library/                      # Custom libraries
-│   └── choosePhotoHelper/        # Photo selection library
-├── buildSrc/                     # Custom Gradle plugins
+MobileBase/
+├── app/                              # Module ứng dụng chính (namespace: com.mobile.base)
+│   └── src/main/java/com/mobile/base/
+│       ├── activity/                 # MainActivity + ViewModels
+│       ├── base/                     # Base classes
+│       ├── di/                       # Koin dependency injection
+│       ├── fcm/                      # Firebase Cloud Messaging
+│       ├── navigation/               # Điều hướng tự viết
+│       ├── screens/                  # Các màn hình
+│       │   ├── account/  beneficiary/  home/  login/
+│       │   ├── paste2pay/  profile/  splash/
+│       │   └── transaction/  transfer/
+│       ├── utils/                    # Tiện ích
+│       └── MobileBaseApplication.kt  # Application class
+├── core/                             # Domain + Core (namespace: com.mobile.base.core)
+│   └── src/main/java/com/mobile/base/core/
+│       ├── core/
+│       │   ├── domain/               # usecases + source
+│       │   ├── retrofit/             # Cấu hình network
+│       │   ├── security/             # detectRoot + encrypt
+│       │   ├── delivery/             # Xử lý response (ResultState...)
+│       │   ├── local/  bus/  mapper/  helper/
+│       └── utils/                    # extensions
+├── data/                             # Data layer (namespace: com.mobile.base.data)
+│   └── src/main/java/com/mobile/base/data/
+│       └── entities/                 # login, home, splash, transfer,
+│                                     #   beneficiary, wso2
+├── localization/                     # Đa ngôn ngữ (namespace: com.mobile.base.localization)
+│   └── src/main/res/                 # values (EN) + values-vi
+├── library/                          # Thư viện nội bộ
+│   ├── choosePhotoHelper/            # Chọn ảnh (namespace: com.mobile.base.choosephotohelper)
+│   └── imagecrouse/                  # Xử lý ảnh (namespace: com.example.imagecrouse)
+├── buildSrc/                         # Gradle plugins & config tùy biến
 │   └── src/main/java/
-│       ├── AndroidConfig.kt      # Build configuration
-│       ├── Plugins.kt            # Plugin definitions
-│       └── BuildProductFlavors.kt # Flavor configuration
-└── keystore/                     # Signing certificates
+│       ├── AndroidConfig.kt          # Version, applicationId, build flags
+│       ├── Plugins.kt                # Định nghĩa plugin
+│       └── BuildProductFlavors.kt    # Cấu hình flavor
+├── keystore/                         # Chứng chỉ ký ứng dụng
+├── gradle/libs.versions.toml         # Version catalog
+└── settings.gradle.kts
 ```
 
 ## 🛠️ Công nghệ sử dụng
 
 ### **Core Stack**
 
-| Technology               | Version                   | Mô tả                    |
-| ------------------------ |---------------------------| ------------------------ |
-| **Kotlin**               | 1.9.10                    | Ngôn ngữ lập trình chính |
-| **Android SDK**          | API 26+                   | Hỗ trợ Android 8.0+      |
-| **Architecture**         | MVVM + Clean Architecture | Kiến trúc ứng dụng       |
-| **Dependency Injection** | Koin 3.1.3                | Quản lý dependencies     |
-| **Build System**         | Gradle 8.2.2              | Hệ thống build           |
+| Technology               | Version                   | Mô tả                       |
+| ------------------------ | ------------------------- | --------------------------- |
+| **Kotlin**               | 1.9.24                    | Ngôn ngữ lập trình chính    |
+| **Android SDK**          | API 26+                   | Hỗ trợ Android 8.0+         |
+| **Architecture**         | MVVM + Clean Architecture | Kiến trúc ứng dụng          |
+| **Dependency Injection** | Koin 3.1.3                | Quản lý dependencies        |
+| **Android Gradle Plugin**| 8.2.2                     | Build toolchain             |
 
 ### **Networking & Data**
 
-| Library      | Version | Mục đích            |
-| ------------ | ------- | ------------------- |
-| **Retrofit** | 2.9.0   | HTTP client         |
-| **OkHttp**   | 4.9.2   | Network interceptor |
-| **Gson**     | 2.9.0   | JSON serialization  |
-| **Room**     | 2.5.0   | Local database      |
-| **Glide**    | 4.13.2  | Image loading       |
+| Library      | Version | Mục đích             |
+| ------------ | ------- | -------------------- |
+| **Retrofit** | 2.9.0   | HTTP client          |
+| **OkHttp**   | 4.9.2   | Network & interceptor|
+| **Gson**     | 2.9.0   | JSON serialization   |
+| **Room**     | 2.5.0   | Local database       |
+| **Paging**   | 3.0.1   | Phân trang           |
+| **Glide**    | 4.13.2  | Image loading        |
 
-### **UI & Navigation**
+### **UI**
 
-| Library                  | Version | Mục đích               |
-| ------------------------ | ------- | ---------------------- |
-| **ViewBinding**          | -       | Type-safe view binding |
-| **DataBinding**          | -       | Two-way data binding   |
-| **Navigation Component** | 2.4.2   | Fragment navigation    |
-| **Material Design**      | 1.12.0  | UI components          |
-| **ViewPager2**           | 1.0.0   | Page navigation        |
+| Library             | Version | Mục đích                |
+| ------------------- | ------- | ----------------------- |
+| **ViewBinding**     | -       | Type-safe view binding  |
+| **DataBinding**     | -       | Two-way data binding    |
+| **Material Design** | 1.12.0  | UI components           |
+| **ConstraintLayout**| 2.1.3   | Layout                  |
+| **ViewPager2**      | 1.0.0   | Page navigation         |
+| **Lottie**          | 5.0.3   | Animation               |
+| **Shimmer**         | 0.5.0   | Skeleton loading        |
 
 ### **Security & Authentication**
 
@@ -115,29 +109,30 @@ SHB_SAHA_CAM/
 | ------------------------------ | ------------- | ------------------------ |
 | **BiometricPrompt**            | 1.2.0-alpha05 | Sinh trắc học            |
 | **JetPack Crypto**             | 1.1.0-alpha03 | Mã hóa dữ liệu           |
-| **BouncyCastle**               | 1.68          | Cryptographic algorithms |
+| **BouncyCastle**               | 1.68          | Thuật toán mã hóa        |
 | **EncryptedSharedPreferences** | -             | Lưu trữ an toàn          |
 
 ### **Additional Libraries**
 
 | Library          | Version | Mục đích                 |
 | ---------------- | ------- | ------------------------ |
-| **Coroutines**   | 1.7.3   | Asynchronous programming |
-| **Joda Time**    | 2.10.2  | Date/time handling       |
-| **ExoPlayer**    | 1.3.1   | Media playback           |
-| **Firebase BOM** | 29.0.3  | Firebase services        |
+| **Coroutines**   | 1.7.3   | Lập trình bất đồng bộ    |
+| **Joda Time**    | 2.10.2  | Xử lý ngày giờ           |
+| **Media3/ExoPlayer** | 1.3.1 | Phát media              |
+| **Firebase BOM** | 29.0.3  | Messaging, Auth, Analytics |
+| **WorkManager**  | 2.7.1   | Tác vụ nền               |
 | **Timber**       | 5.0.1   | Logging                  |
 | **Flipper**      | 0.151.1 | Debug tools              |
+| **Chucker**      | 3.5.2   | HTTP inspector           |
 
 ## 🚀 Cài đặt và chạy dự án
 
 ### **Yêu cầu hệ thống**
 
-- **Android Studio**: Hedgehog | 2023.1.1+
+- **Android Studio**: Hedgehog | 2023.1.1 trở lên
 - **JDK**: 17
 - **Android SDK**: API 35
 - **AGP**: 8.2.2
-- **Gradle**: 8.5
 
 ### **Cài đặt**
 
@@ -146,54 +141,55 @@ SHB_SAHA_CAM/
 git clone https://gitlab.shb.com.vn/shb-mobile-lao/shb-mobile-lao-android.git
 
 # Di chuyển vào thư mục dự án
-cd SHB_SAHA_CAM
+cd MobileBase
 
 # Cấp quyền thực thi cho Gradle wrapper
 chmod +x gradlew
 
-# Sync project với Gradle
+# Build project
 ./gradlew build
 ```
+
+> **Lưu ý:** Dự án yêu cầu file `local.properties` chứa các khóa cấu hình theo từng flavor
+> (`dev_config`, `dev_grant_type`, `dev_username`, `dev_password`, và tương tự cho `uat_*`, `pro_*`).
+> Build sẽ thất bại nếu thiếu các khóa này.
 
 ### **Cấu hình môi trường**
 
 #### **Product Flavors**
 
-| Environment     | Application ID   | Base URL                             | Build Command                  |
-| --------------- | ---------------- | ------------------------------------ | ------------------------------ |
-| **Development** | `vn.shb.cam.dev` | `https://dev-app.shb.com.vn/api/v1/` | `./gradlew assembleDevDebug`   |
-| **UAT**         | `vn.shb.cam.uat` | `https://uat-app.shb.com.vn/api/v1/` | `./gradlew assembleUatRelease` |
-| **Production**  | `vn.shb.cam`     | `https://app.shb.com.vn/api/v1/`     | `./gradlew assembleProRelease` |
+Dự án dùng flavor dimension `environment` với 3 flavor:
+
+| Environment     | app_name          | Base URL                                                                        | Build Command                  |
+| --------------- | ----------------- | ------------------------------------------------------------------------------- | ------------------------------ |
+| **dev**         | DEV SHB SAHA CAM  | `https://api-gw-ext-dev.shb.com.vn/external/shb-mobile-cam/1.0.0/mbcam/`         | `./gradlew assembleDevDebug`   |
+| **uat**         | UAT SHB SAHA Cam  | `https://t-apigw-cam.shb.com.vn/external/shb-mobile-cam/1.0.0/mbcam/`            | `./gradlew assembleUatRelease` |
+| **pro**         | SHB SAHA CAM      | `https://p-apigw-cam.shb.com.vn/external/shb-mobile-cam/1.0.0/mbcam/`            | `./gradlew assembleProRelease` |
 
 #### **Build Configuration**
 
 | Setting       | Value   | Mô tả                             |
-| ------------- |---------| --------------------------------- |
-| `compileSdk`  | 35      | Android SDK version để compile    |
-| `minSdk`      | 26      | Minimum supported Android version |
-| `targetSdk`   | 35      | Target Android SDK version        |
-| `versionCode` | 1       | Internal version number           |
-| `versionName` | "1.0.0" | User-visible version string       |
+| ------------- | ------- | --------------------------------- |
+| `applicationId` | `com.mobile.base` | Application ID            |
+| `compileSdk`  | 35      | Android SDK dùng để compile       |
+| `minSdk`      | 26      | Android tối thiểu hỗ trợ (8.0)    |
+| `targetSdk`   | 35      | Target Android SDK                |
+| `versionCode` | 3       | Số hiệu build nội bộ              |
+| `versionName` | "1.0.0" | Phiên bản hiển thị                |
 
 ### **Build Commands**
 
 ```bash
-# Clean build cache
+# Xóa cache build
 ./gradlew clean
 
-# Build all variants
+# Build toàn bộ variant
 ./gradlew build
 
-# Build debug APK for all flavors
-./gradlew assembleDebug
-
-# Build release APK for all flavors
-./gradlew assembleRelease
-
-# Install dev debug APK
+# Cài đặt bản dev debug
 ./gradlew installDevDebug
 
-# Create production app bundle
+# Tạo app bundle production
 ./gradlew bundleProRelease
 ```
 
@@ -201,89 +197,42 @@ chmod +x gradlew
 
 ### **Authentication & Authorization**
 
-- **JWT Token**: Xác thực người dùng
-- **Biometric Authentication**: Vân tay/Face ID
-- **Auto Token Refresh**: Tự động làm mới token
+- **WSO2 Gateway**: Xác thực qua API gateway (grant type/username/password theo flavor)
+- **Biometric Authentication**: Vân tay / Face ID (BiometricPrompt)
 - **Session Management**: Quản lý phiên đăng nhập
 
 ### **Data Protection**
 
-- **Encrypted Storage**: Mã hóa dữ liệu nhạy cảm
-- **RSA-4096**: Mã hóa khóa công khai
-- **Root Detection**: Phát hiện thiết bị đã root
-- **Accessibility Warning**: Cảnh báo quyền accessibility
+- **Encrypted Storage**: EncryptedSharedPreferences + JetPack Crypto
+- **Public Key Encryption**: RSA (public_key.pem) qua BouncyCastle
+- **Root Detection**: Phát hiện thiết bị đã root (`core/security/detectRoot`)
 
 ### **Network Security**
 
-- **Certificate Pinning**: Xác thực SSL certificate
-- **Network Security Config**: Cấu hình bảo mật mạng
-- **HTTPS Only**: Chỉ sử dụng kết nối an toàn
+- **HTTPS Only**: Toàn bộ endpoint dùng HTTPS
+- **OkHttp Interceptors**: Kiểm soát request/response
 
 ## 🔧 Development Tools
 
-### **Debug Tools**
-
-- **Flipper**: Network monitoring và debugging
+- **Flipper**: Giám sát network & debug (chỉ debug build, release dùng `flipper-noop`)
+- **Chucker**: HTTP inspector (debug build)
 - **Timber**: Structured logging
-- **Chucker**: HTTP inspector
-- **LeakCanary**: Memory leak detection
 
-### **Code Quality**
+## 🧪 Testing
 
-- **Kotlin Lint**: Code style checking
-- **Detekt**: Static code analysis
-- **Unit Tests**: JUnit 4 testing framework
-- **UI Tests**: Espresso testing
-
-### **Build Optimization**
-
-- **R8/ProGuard**: Code obfuscation và optimization
-- **Gradle Build Cache**: Build performance
-- **Parallel Builds**: Multi-module builds
-- **Incremental Compilation**: Faster builds
-
-## 📊 Performance & Monitoring
-
-### **Performance Metrics**
-
-- **App Startup Time**: Optimized splash screen
-- **Memory Usage**: Efficient image loading với Glide
-- **Network Efficiency**: Retrofit với OkHttp
-- **Database Performance**: Room với indexing
-
-### **Monitoring & Analytics**
-
-- **Firebase Analytics**: User behavior tracking
-- **Crashlytics**: Crash reporting
-- **Performance Monitoring**: App performance metrics
-- **Custom Events**: Business metrics tracking
+- **JUnit 4**: Unit test
+- **AndroidX JUnit + Espresso**: Instrumented / UI test
 
 ## 🚀 Deployment
 
-### **Version Management**
-
-- **Semantic Versioning**: MAJOR.MINOR.PATCH
-- **Git Flow**: Feature branches → Develop → Main
-- **Release Tags**: Tagged releases với changelog
-- **Hotfix Process**: Critical bug fixes
-
-### **Pull Request Process**
-
-1. Create feature branch từ `develop`
-2. Implement changes với tests
-3. Update documentation nếu cần
-4. Create pull request với description
-5. Code review và approval
-6. Merge vào `develop` branch
+- **Semantic Versioning**: MAJOR.MINOR.PATCH (hiện tại 1.0.0, versionCode 3)
+- **Git Flow**: Feature branch → develop → main
+- Output đóng gói tại `app/pro/release/*.aab` và `app/pro/debug/*.apk`
 
 ## 📞 Support & Contact
 
-### **Development Team**
+- **Development Team**: MobileBase Development Team
 
-- **Lead Developer**: SHB Development Team
-- **Architecture**: Clean Architecture implementation
-- **Security**: Enterprise security standards
+**Made with ❤️ by MobileBase Development Team**
 
-**Made with ❤️ by SHB Development Team**
-
-_Phiên bản: 1.0.0 | Cập nhật: 2025_
+_Phiên bản: 1.0.0 (3) | Cập nhật: 2025_

@@ -83,6 +83,7 @@
     <dimen name="margin_130dp">130dp</dimen>
     <dimen name="margin_136dp">136dp</dimen>
     <dimen name="margin_140dp">140dp</dimen>
+    <dimen name="margin_143dp">143dp</dimen>
     <dimen name="margin_150dp">150dp</dimen>
     <dimen name="margin_152dp">152dp</dimen>
     <dimen name="margin_155dp">155dp</dimen>
@@ -93,6 +94,7 @@
     <dimen name="margin_210dp">210dp</dimen>
     <dimen name="margin_250dp">250dp</dimen>
     <dimen name="margin_300dp">300dp</dimen>
+    <dimen name="margin_311dp">311dp</dimen>
     <dimen name="margin_343dp">343dp</dimen>
     <dimen name="margin_400dp">400dp</dimen>
     <dimen name="margin_450dp">450dp</dimen>

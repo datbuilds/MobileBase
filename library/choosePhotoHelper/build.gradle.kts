@@ -1,10 +1,10 @@
 plugins {
-    id(Plugins.SHB_APP)
+    id(Plugins.MOBILEBASE_APP)
     id(Plugins.ANDROID_LIBRARY)
 }
 
 android {
-    namespace = "vn.shb.dn.choosePhotoHelper"
+    namespace = "com.mobile.base.choosephotohelper"
     compileSdk = 35
 }
 

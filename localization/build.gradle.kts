@@ -1,9 +1,9 @@
 plugins {
-    id(Plugins.SHB_APP)
+    id(Plugins.MOBILEBASE_APP)
     id(Plugins.ANDROID_LIBRARY)
 }
 
 android {
-    namespace = "vn.shb.cam.localization"
+    namespace = "com.mobile.base.localization"
     compileSdk = 35
 }

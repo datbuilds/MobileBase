@@ -17,7 +17,7 @@
         android:visibility="invisible"
         app:tint="@color/white" />
 
-    <vn.shb.cam.base.view.MyTextView
+    <com.mobile.base.base.view.MyTextView
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

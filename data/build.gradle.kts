@@ -1,5 +1,5 @@
 plugins {
-    id(Plugins.SHB_APP)
+    id(Plugins.MOBILEBASE_APP)
     id(Plugins.ANDROID_KOTLIN)
     id(Plugins.ANDROID_LIBRARY)
     id("kotlin-parcelize")
@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "vn.shb.data"
+    namespace = "com.mobile.base.data"
     compileSdk = 35
 }
 

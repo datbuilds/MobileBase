@@ -8,7 +8,7 @@
     android:layout_marginVertical="@dimen/margin_5dp"
     android:paddingHorizontal="@dimen/margin_16dp">
 
-    <vn.shb.cam.utils.view.input.TextInputClearError
+    <com.mobile.base.utils.view.input.TextInputClearError
         android:id="@+id/input_search_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
             android:textSize="@dimen/textSize16"
             tools:text="" />
 
-    </vn.shb.cam.utils.view.input.TextInputClearError>
+    </com.mobile.base.utils.view.input.TextInputClearError>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivSearch"

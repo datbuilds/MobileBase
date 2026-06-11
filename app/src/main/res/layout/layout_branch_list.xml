@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:paddingHorizontal="@dimen/margin_16dp">
 
-    <vn.shb.cam.base.view.MyTextView
+    <com.mobile.base.base.view.MyTextView
         android:id="@+id/tvOrangeMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

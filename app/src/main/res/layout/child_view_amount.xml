@@ -9,7 +9,7 @@
     android:orientation="horizontal"
     android:paddingVertical="8dp">
 
-    <vn.shb.cam.base.view.MyTextView
+    <com.mobile.base.base.view.MyTextView
         android:id="@+id/tvLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
 
 
 
-        <vn.shb.cam.base.view.MyTextView
+        <com.mobile.base.base.view.MyTextView
             android:id="@+id/tvValue"
             android:layout_width="wrap_content"
             android:maxLines="1"
@@ -46,7 +46,7 @@
             app:customFontWeight="semi_bold"
             tools:text="1" />
 
-        <vn.shb.cam.base.view.MyTextView
+        <com.mobile.base.base.view.MyTextView
             android:id="@+id/tvCurrencyCode"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -59,7 +59,7 @@
             app:customFontWeight="regular"
             tools:text="USD" />
 
-        <vn.shb.cam.base.view.MyTextView
+        <com.mobile.base.base.view.MyTextView
             android:id="@+id/tvValueSup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
             app:customFontWeight="semi_bold"
             tools:text="4022.041" />
 
-        <vn.shb.cam.base.view.MyTextView
+        <com.mobile.base.base.view.MyTextView
             android:id="@+id/tvCurrencyCodeSup"
             android:layout_width="wrap_content"
             android:visibility="gone"

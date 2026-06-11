@@ -37,7 +37,7 @@
             app:layout_constraintTop_toBottomOf="@+id/ivClose"
             app:srcCompat="@drawable/ic_i_blue" />
 
-        <vn.shb.cam.base.view.MyTextView
+        <com.mobile.base.base.view.MyTextView
             android:id="@+id/tvChooseProfilePicture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
             app:layout_constraintStart_toEndOf="@+id/ivI"
             app:layout_constraintTop_toTopOf="@+id/ivI" />
 
-        <vn.shb.cam.base.view.MyTextView
+        <com.mobile.base.base.view.MyTextView
             android:id="@+id/tvTakePhoto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
             android:background="@color/colorLineGray"
             app:layout_constraintTop_toBottomOf="@+id/tvTakePhoto" />
 
-        <vn.shb.cam.base.view.MyTextView
+        <com.mobile.base.base.view.MyTextView
             android:id="@+id/tvSelectFromGallery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -22,7 +22,7 @@
         android:layout_gravity="center_horizontal"
         app:srcCompat="@drawable/ic_coming_soon" />
 
-    <vn.shb.cam.base.view.MyTextView
+    <com.mobile.base.base.view.MyTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -32,7 +32,7 @@
         android:textColor="@color/colorDarkCharcoal"
         android:textSize="@dimen/textSize16" />
 
-    <vn.shb.cam.base.view.MyTextView
+    <com.mobile.base.base.view.MyTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

@@ -18,7 +18,7 @@
         android:padding="@dimen/margin_8dp"
         app:srcCompat="@drawable/ic_close" />
 
-    <vn.shb.cam.base.view.MyTextView
+    <com.mobile.base.base.view.MyTextView
         android:id="@+id/tvTitleAlert"
         style="@style/MaterialDialog.Title"
         android:layout_width="wrap_content"
@@ -27,14 +27,14 @@
         android:drawablePadding="@dimen/margin_10dp"
         android:text="@string/confirmationCode" />
 
-    <vn.shb.cam.base.view.MyTextView
+    <com.mobile.base.base.view.MyTextView
         android:id="@+id/tvContentAlert"
         style="@style/MaterialDialog.Message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="@string/pleaseEnterConfirmCode" />
 
-    <vn.shb.cam.base.view.MyTextView
+    <com.mobile.base.base.view.MyTextView
         android:id="@+id/tvContentAlert2"
         style="@style/MaterialDialog.Message"
         android:layout_width="match_parent"
@@ -70,14 +70,14 @@
             android:textColorHint="@color/neutral6" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <vn.shb.cam.base.view.MyTextView
+    <com.mobile.base.base.view.MyTextView
         android:id="@+id/tvRemainingTime"
         style="@style/MaterialDialog.Message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="remaining Time" />
 
-    <vn.shb.cam.base.view.MyTextView
+    <com.mobile.base.base.view.MyTextView
         android:id="@+id/tvConfirm"
         style="@style/MaterialDialog.PositiveButton"
         android:layout_width="match_parent"

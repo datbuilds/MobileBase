@@ -42,7 +42,7 @@
             app:layout_constraintTop_toTopOf="@+id/llBody"
             tools:visibility="gone">
 
-            <vn.shb.cam.base.view.MyTextView
+            <com.mobile.base.base.view.MyTextView
                 android:id="@+id/tvToastMessage"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
                 app:srcCompat="@drawable/ic_success_transaction"
                 tools:visibility="visible" />
 
-            <vn.shb.cam.base.view.MyTextView
+            <com.mobile.base.base.view.MyTextView
                 android:id="@+id/tvTransactionAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
                 android:gravity="top"
                 android:orientation="horizontal">
 
-                <vn.shb.cam.base.view.MyTextView
+                <com.mobile.base.base.view.MyTextView
                     android:id="@+id/tvValueBalance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -119,7 +119,7 @@
                     app:customFontWeight="semi_bold"
                     tools:text="1,000,000" />
 
-                <vn.shb.cam.base.view.MyTextView
+                <com.mobile.base.base.view.MyTextView
                     android:id="@+id/tvCurrentCode"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -131,7 +131,7 @@
                     tools:text="LAK" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <vn.shb.cam.base.view.MyTextView
+            <com.mobile.base.base.view.MyTextView
                 android:id="@+id/tvAnErrorHasOccurred"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -222,7 +222,7 @@
                 android:layout_centerVertical="true"
                 app:srcCompat="@drawable/ic_save_bene" />
 
-            <vn.shb.cam.base.view.MyTextView
+            <com.mobile.base.base.view.MyTextView
                 android:id="@+id/tvSaveRecipient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -234,7 +234,7 @@
                 android:textSize="@dimen/textSize14"
                 app:customFontWeight="regular" />
 
-            <vn.shb.cam.base.view.MyTextView
+            <com.mobile.base.base.view.MyTextView
                 android:id="@+id/tvSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -253,7 +253,7 @@
             android:layout_marginBottom="@dimen/margin_24dp"
             android:orientation="horizontal">
 
-            <vn.shb.cam.base.view.MyTextView
+            <com.mobile.base.base.view.MyTextView
                 android:id="@+id/tvCreateNewTransaction"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -270,7 +270,7 @@
                 app:customFontWeight="semi_bold"
                 tools:visibility="visible" />
 
-            <vn.shb.cam.base.view.MyTextView
+            <com.mobile.base.base.view.MyTextView
                 android:id="@+id/tvShare"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

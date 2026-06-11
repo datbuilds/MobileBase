@@ -1,7 +1,7 @@
 import java.util.Properties
 
 plugins {
-    id(Plugins.SHB_APP)
+    id(Plugins.MOBILEBASE_APP)
     id(Plugins.ANDROID_APPLICATION)
     id(Plugins.ANDROID_KOTLIN)
     id(Plugins.ANDROID_MAVEN_PUBLISH)
@@ -13,7 +13,7 @@ localProperties.load(rootProject.file("local.properties").inputStream())
 
 
 android {
-    namespace = "vn.shb.cam"
+    namespace = "com.mobile.base"
     compileSdk = 35
 
     buildFeatures {

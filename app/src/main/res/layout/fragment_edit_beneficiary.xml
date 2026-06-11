@@ -30,7 +30,7 @@
             app:srcCompat="@drawable/ic_arrow_back_new" />
 
 
-        <vn.shb.cam.base.view.MyTextView
+        <com.mobile.base.base.view.MyTextView
             android:id="@+id/tvEditBeneficiary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -106,7 +106,7 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>
 
-    <vn.shb.cam.base.view.MyTextView
+    <com.mobile.base.base.view.MyTextView
         android:id="@+id/tvConfirmation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

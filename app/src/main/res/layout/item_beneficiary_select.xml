@@ -39,7 +39,7 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <vn.shb.cam.base.view.MyTextView
+            <com.mobile.base.base.view.MyTextView
                 android:id="@+id/tvAccountName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
                 app:customFontWeight="regular"
                 tools:text="MS VATHANA SISANE" />
 
-            <vn.shb.cam.base.view.MyTextView
+            <com.mobile.base.base.view.MyTextView
                 android:id="@+id/tvNickName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
                 app:customFontWeight="regular"
                 tools:text="Abcde" />
 
-            <vn.shb.cam.base.view.MyTextView
+            <com.mobile.base.base.view.MyTextView
                 android:id="@+id/tvAccountNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
                 app:customFontWeight="medium"
                 tools:text="1001740559" />
 
-            <vn.shb.cam.base.view.MyTextView
+            <com.mobile.base.base.view.MyTextView
                 android:id="@+id/tvBankName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

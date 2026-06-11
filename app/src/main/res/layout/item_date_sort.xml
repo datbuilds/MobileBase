@@ -8,7 +8,7 @@
     android:background="@drawable/bg_view_account_info"
     android:paddingVertical="@dimen/margin_14dp">
 
-    <vn.shb.cam.base.view.MyTextView
+    <com.mobile.base.base.view.MyTextView
         android:id="@+id/tvValueDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

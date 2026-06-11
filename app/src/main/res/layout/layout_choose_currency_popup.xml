@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <vn.shb.cam.base.view.MyTextView
+        <com.mobile.base.base.view.MyTextView
             android:id="@+id/tvUSD"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_36dp"
@@ -26,7 +26,7 @@
             android:layout_marginBottom="2dp"
             app:customFontWeight="medium" />
 
-        <vn.shb.cam.base.view.MyTextView
+        <com.mobile.base.base.view.MyTextView
             android:id="@+id/tvKHR"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_36dp"

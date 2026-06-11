@@ -1,6 +1,6 @@
 
 object AndroidConfig {
-    const val APPLICATION_ID = "vn.shb.cam"
+    const val APPLICATION_ID = "com.mobile.base"
 
     // Prepare the version name.
     // Version name scheme: major.minor.patch
@@ -21,7 +21,7 @@ object AndroidConfig {
     /**
      *
      */
-    const val archivesBaseName = "SHB SAHA Cam - ${VERSION_NAME}(${VERSION_CODE})"
+    const val archivesBaseName = "MobileBase - ${VERSION_NAME}(${VERSION_CODE})"
 
     const val VIEW_BINDING_ENABLED = true
     const val DATA_BINDING_ENABLED = true
