@@ -2,7 +2,6 @@ package vn.shb.cam.screens.login.ui
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
@@ -41,7 +40,6 @@ import vn.shb.core.core.domain.usecases.login.UseCaseLogout
 import vn.shb.core.core.domain.usecases.login.VerifyDeviceUseCase
 import vn.shb.core.core.domain.usecases.wso2.UseCaseGetTokenWso2
 import vn.shb.core.core.security.encrypt.AndroidSecureStorage
-import vn.shb.core.utils.DeviceManager
 import vn.shb.data.entities.login.RegisterDeviceData
 import vn.shb.data.entities.login.UserLog
 import java.util.concurrent.TimeUnit
@@ -227,13 +225,16 @@ class LoginViewModel(
     fun login(param: UseCaseLogin.Params) {
         viewModelScope.launch {
             useCaseLogin(param).collect {
-                it.onResultHandle(loadingBlock = {
-                    stateLogin(LoginUiState.Loading)
-                }, failureBlock = { reason ->
-                    stateLogin(LoginUiState.Error(reason))
-                }, successBlock = { state ->
-                    stateLogin(LoginUiState.Success(state))
-                })
+                it.onResultHandle(
+                    loadingBlock = {
+                        stateLogin(LoginUiState.Loading)
+                    },
+                    failureBlock = { reason ->
+                        stateLogin(LoginUiState.Error(reason))
+                    },
+                    successBlock = { state ->
+                        stateLogin(LoginUiState.Success(state))
+                    })
             }
         }
     }

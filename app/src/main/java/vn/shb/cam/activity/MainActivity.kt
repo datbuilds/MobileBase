@@ -64,7 +64,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             openStartDestination(intent)
         }
 
-        if (resolveStartDestination(intent) == AppDestination.Home) {
+        if (resolveStartDestination(intent) is AppDestination.HomeArg) {
             startSmsListener()
         }
     }
@@ -86,7 +86,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         intent ?: return
         setIntent(intent)
         openStartDestination(intent)
-        if (resolveStartDestination(intent) == AppDestination.Home) {
+        if (resolveStartDestination(intent) is AppDestination.HomeArg) {
             startSmsListener()
         }
     }
@@ -99,12 +99,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     override fun shouldStartRefreshTokenManager(): Boolean {
         val startDestination = resolveStartDestination(intent)
-        return startDestination == AppDestination.Home || startDestination is AppDestination.Login
+        return startDestination is AppDestination.HomeArg || startDestination is AppDestination.Login
     }
 
     override fun shouldUseDoubleBackToExit(): Boolean {
         return supportFragmentManager.backStackEntryCount == 0 &&
-                activeDestination() == AppDestination.Home
+                activeDestination() is AppDestination.HomeArg
     }
 
     override fun shouldExitAppOnBackImmediately(): Boolean {
@@ -157,7 +157,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     private fun resolveStartDestination(sourceIntent: Intent?): AppDestination {
         val startDestination = sourceIntent?.getStringExtra(EXTRA_START_DESTINATION) ?: START_SPLASH
         return when (startDestination) {
-            START_HOME -> AppDestination.Home
+            START_HOME -> AppDestination.HomeArg()
             START_LOGIN -> AppDestination.Login(
                 showSessionExpired = sourceIntent?.getBooleanExtra(
                     EXTRA_SHOW_SESSION_EXPIRED,

@@ -9,7 +9,7 @@ import vn.shb.data.entities.login.UserLog
 
 interface RepositoryAuth {
 
-    suspend fun login(params: UseCaseLogin.Params): ResultSHB<StateLogin>
+    suspend fun login(params: UseCaseLogin.Params): ResultSHB<UserLog>
 
     suspend fun logout(): ResultSHB<ActionDone>
 

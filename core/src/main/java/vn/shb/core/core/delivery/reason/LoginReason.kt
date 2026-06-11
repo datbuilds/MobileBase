@@ -25,6 +25,18 @@ class LoginRegisterDevice(
 
 }
 
+class LoginPasswordExpire(
+    override val message: String,
+    val masked_phone_number: String = "",
+    val is_new_device: Boolean = false,
+    override val errorCode: String
+
+) : Reason() {
+    override val errMessage: String
+        get() = message
+
+}
+
 class RegisterDeviceError(
     override val message: String,
     val code: String,

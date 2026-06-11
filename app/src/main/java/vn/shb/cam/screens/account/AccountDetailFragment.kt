@@ -48,7 +48,7 @@ class AccountDetailFragment :
     override fun initListener() {
         with(binding) {
             tvAccountDetails.setOnSingleClickListener {
-                popBackTo(AppDestination.Home)
+                popBackTo(AppDestination.HomeArg())
             }
 
             flTransfer.setOnSingleClickListener {

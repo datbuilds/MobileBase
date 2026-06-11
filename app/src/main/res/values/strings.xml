@@ -238,4 +238,6 @@
     <string name="incorrectOtpPleaseTryAgain">Incorrect OTP. Please try again.</string>
     <string name="confirmTransactionOTP">Confirm transaction</string>
     <string name="yourCurrentAccountIsCurrentlyBlocked">Your current account is currently blocked. Please visit our nearest Branch for support.</string>
+    <string name="notification_password_expiring">Password expiring in %x days. Update your password to keep your account secure and services active.</string>
+    <string name="passwordIsNoLongerValid">Your password is no longer valid. Update it now to ensure secure and uninterrupted service.</string>
 </resources>
