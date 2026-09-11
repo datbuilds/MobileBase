@@ -3,8 +3,8 @@ package com.mobile.base.core.core.retrofit
 import okhttp3.Interceptor
 import okhttp3.Request
 import java.util.Locale
+import com.mobile.base.core.utils.AppLanguage
 
-private const val DEFAULT_APP_LANGUAGE = "km"
 
 fun Interceptor.Chain.appRequestBuilder(
     versionName: String,
@@ -17,14 +17,9 @@ fun Interceptor.Chain.appRequestBuilder(
     val deviceVersion = android.os.Build.VERSION.RELEASE
     val deviceModel = android.os.Build.MODEL
     val deviceManufacturer = android.os.Build.MANUFACTURER
-    val resolvedLanguage = language
-        ?.trim()
-        ?.takeIf { it.isNotEmpty() }
-        ?: Locale.getDefault()
-            .language
-            .trim()
-            .takeIf { it.isNotEmpty() }
-        ?: DEFAULT_APP_LANGUAGE
+    val resolvedLanguage = AppLanguage.normalize(
+        language?.trim()?.takeIf { it.isNotEmpty() } ?: Locale.getDefault().language
+    )
 
     val original = request()
     val originalRequest: Request

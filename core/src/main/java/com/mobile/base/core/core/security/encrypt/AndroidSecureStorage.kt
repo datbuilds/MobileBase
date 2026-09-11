@@ -1,5 +1,6 @@
 package com.mobile.base.core.core.security.encrypt
 
+import com.mobile.base.core.utils.AppLanguage
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
@@ -115,8 +116,14 @@ class AndroidSecureStorage(private val context: Context, private val deviceManag
     fun setBackgroundLogin(data: String) = putPreference(BACKGROUND_LOGIN, data)
     fun getBackgroundLogin() = getPreference(BACKGROUND_LOGIN, "")
 
-    fun setLanguage(language: String) = putPreference(LANGUAGE_APP, language)
-    fun getLanguage() = getPreference(LANGUAGE_APP, "")
+    fun setLanguage(language: String) = putPreference(LANGUAGE_APP, AppLanguage.normalize(language))
+    fun getLanguage(): String {
+        val stored = getPreference(LANGUAGE_APP, "")
+        if (stored.isBlank()) return ""
+        val supported = AppLanguage.normalize(stored)
+        if (stored != supported) setLanguage(supported)
+        return supported
+    }
 
     /**
      * Token

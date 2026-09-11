@@ -1,12 +1,6 @@
 package com.mobile.base.screens.login.ui
 
-import android.content.Context
-import android.content.Intent
-import android.view.LayoutInflater
-import androidx.core.net.toUri
-import androidx.core.view.isVisible
 import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -16,14 +10,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import com.mobile.base.BuildConfig
-import com.mobile.base.R
 import com.mobile.base.base.BaseViewModel
-import com.mobile.base.databinding.LayoutBranchListBinding
-import com.mobile.base.screens.login.helper.BranchAdapter
-import com.mobile.base.screens.login.model.Branch
 import com.mobile.base.screens.login.state.LoginUiState
 import com.mobile.base.screens.login.state.LogoutUiState
-import com.mobile.base.utils.view.dialog.BottomSheetDialogHelper
 import com.mobile.base.core.core.delivery.Reason
 import com.mobile.base.core.core.delivery.onFailure
 import com.mobile.base.core.core.delivery.onLoading
@@ -323,84 +312,4 @@ class LoginViewModel(
         }
     }
 
-    fun showDialogForgotPassword(context: Context, title: String, isShowNote: Boolean = false) {
-        context.apply {
-
-            val bindingSup = LayoutBranchListBinding.inflate(LayoutInflater.from(this))
-            bindingSup.tvOrangeMessage.isVisible = isShowNote
-
-            //mock data
-            val branches = getListAddress(context)
-
-            bindingSup.rvBranches.apply {
-                layoutManager = LinearLayoutManager(context)
-                adapter = BranchAdapter(branches) { typeClick, branch ->
-                    if (typeClick == BranchAdapter.CLICK_HOTLINE) {
-                        val intent = Intent(Intent.ACTION_DIAL, "tel:${branch.tel}".toUri())
-                        context.startActivity(intent)
-                    } else {
-                        openMap(context, branch.latitude, branch.longitude, branch.address)
-                    }
-                }
-            }
-            BottomSheetDialogHelper(context).message(
-                title = title,
-                supView = bindingSup.root,
-                isClose = true
-            )
-        }
-    }
-
-    fun openMap(context: Context, latitude: String, longitude: String, placeName: String) {
-        val uri = "$latitude,$longitude"
-
-        // Thử mở Google Maps trước
-        val gmmIntentUri = "geo:$uri?q=$uri($placeName)".toUri()
-        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-        mapIntent.setPackage("com.google.android.apps.maps")
-
-        if (mapIntent.resolveActivity(context.packageManager) != null) {
-            context.startActivity(mapIntent)
-            return
-        }
-
-        // Fallback: mở app bản đồ mặc định
-        val fallbackUri = "geo:$uri?q=$uri($placeName)".toUri()
-        val fallbackIntent = Intent(Intent.ACTION_VIEW, fallbackUri)
-
-        context.startActivity(fallbackIntent)
-    }
-
-    private fun getListAddress(context: Context): List<Branch> {
-        return listOf(
-            Branch(
-                context.getString(R.string.shbBranch1),
-                context.getString(R.string.shbBranch1Address),
-                "0 23 221 900",
-                "11.5602485",
-                "104.9267921"
-            ),
-            Branch(
-                context.getString(R.string.shbBranch2),
-                context.getString(R.string.shbBranch2Address),
-                "0 23 882 358",
-                "11.561437",
-                "104.907504"
-            ),
-            Branch(
-                context.getString(R.string.shbBranch3),
-                context.getString(R.string.shbBranch3Address),
-                "0 23 890 353",
-                "11.5316183",
-                "104.9491833"
-            ),
-            Branch(
-                context.getString(R.string.shbBranch4),
-                context.getString(R.string.shbBranch4Address),
-                "023 880091",
-                "11.589961",
-                "104.874072"
-            )
-        )
-    }
 }

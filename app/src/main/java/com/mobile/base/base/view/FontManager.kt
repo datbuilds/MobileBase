@@ -10,20 +10,7 @@ object FontManager {
     var bold: Typeface? = null
     var semi_bold: Typeface? = null
 
-    fun init(context: Context, fontName: String? = null) {
-
-        if (fontName.isNullOrBlank()) {
-            // Nếu là tiếng CAM → dùng 1 font duy nhất
-            val camFont = ResourcesCompat.getFont(
-                context,
-                context.resources.getIdentifier("siemreap_regular", "font", context.packageName)
-            )
-            regular = camFont
-            medium = camFont
-            bold = camFont
-            semi_bold = camFont
-            return
-        }
+    fun init(context: Context, fontName: String = "inter") {
 
         regular = ResourcesCompat.getFont(
             context,

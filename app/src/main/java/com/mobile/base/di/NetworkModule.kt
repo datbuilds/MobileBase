@@ -11,17 +11,10 @@ import com.mobile.base.core.core.RETROFIT_NORMAL
 import com.mobile.base.core.core.RETROFIT_WSO2
 import com.mobile.base.core.core.VERSION_NAME
 import com.mobile.base.core.core.domain.source.api.ApiAuth
-import com.mobile.base.core.core.domain.source.api.ApiAiPay
 import com.mobile.base.core.core.domain.source.api.ApiSplash
-import com.mobile.base.core.core.domain.source.api.ApiTransfer
-import com.mobile.base.core.core.domain.source.api.ApiUser
 import com.mobile.base.core.core.domain.source.api.ApiWSO2
-import com.mobile.base.core.core.domain.source.service.ServiceAiPay
 import com.mobile.base.core.core.domain.source.service.ServiceAuth
 import com.mobile.base.core.core.domain.source.service.ServiceSplash
-import com.mobile.base.core.core.domain.source.service.ServiceTransfer
-import com.mobile.base.core.core.domain.source.service.ServiceUser
-import com.mobile.base.core.core.domain.source.service.ServiceBeneficiary
 import com.mobile.base.core.core.domain.source.service.ServiceWso2
 import com.mobile.base.core.core.retrofit.HeaderAuthenticationInterceptor
 import com.mobile.base.core.core.retrofit.HeaderInterceptor
@@ -108,15 +101,8 @@ fun createNetworkModule(
         factory { get<Retrofit>(named(RETROFIT_NORMAL)).create(ApiAuth::class.java) }
         factory { ServiceAuth(get()) }
 
-        factory { get<Retrofit>().create(ApiUser::class.java) }
-        factory { ServiceUser(get()) }
-        factory { ServiceBeneficiary(get()) }
 
-        factory { get<Retrofit>().create(ApiTransfer::class.java) }
-        factory { ServiceTransfer(get()) }
 
-        factory { get<Retrofit>().create(ApiAiPay::class.java) }
-        factory { ServiceAiPay(get()) }
 
         factory { get<Retrofit>(named(RETROFIT_WSO2)).create(ApiWSO2::class.java) }
         factory { ServiceWso2(get()) }

@@ -11,9 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import androidx.dynamicanimation.animation.DynamicAnimation
-import androidx.dynamicanimation.animation.SpringAnimation
-import androidx.dynamicanimation.animation.SpringForce
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.viewbinding.ViewBinding
@@ -59,19 +56,6 @@ abstract class BaseBottomDialogBinding<T : ViewBinding>(
             mBottomBehavior.isHideable = false
             mBottomBehavior.isDraggable = false
         }
-    }
-
-    open fun showBottomSheetSmooth(bottomSheet: View) {
-        bottomSheet.visibility = View.VISIBLE
-
-        // Đặt vị trí ban đầu: ở ngoài màn hình (dịch xuống)
-        bottomSheet.translationY = bottomSheet.height.toFloat()
-
-        // Tạo animation kiểu lò xo
-        val springAnim = SpringAnimation(bottomSheet, DynamicAnimation.TRANSLATION_Y, 0f)
-        springAnim.spring.stiffness = SpringForce.STIFFNESS_MEDIUM
-        springAnim.spring.dampingRatio = SpringForce.DAMPING_RATIO_MEDIUM_BOUNCY
-        springAnim.start()
     }
 
     open fun getScreenHeight(): Int {

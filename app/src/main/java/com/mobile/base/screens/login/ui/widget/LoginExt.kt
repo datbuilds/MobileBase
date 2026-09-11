@@ -28,7 +28,6 @@ import com.mobile.base.databinding.LayoutLanguagePopupBinding
 import com.mobile.base.screens.login.ui.LoginFragment
 import com.mobile.base.utils.extensions.getTextWelcomeUser
 import com.mobile.base.utils.widgets.LocaleHelper
-import com.mobile.base.core.core.delivery.ReasonDescription.CAM
 import com.mobile.base.core.core.delivery.ReasonDescription.ENGLISH
 import com.mobile.base.core.core.delivery.ReasonDescription.VIET
 import com.mobile.base.core.utils.extesions.setOnSingleClickListener
@@ -105,15 +104,6 @@ fun LoginFragment.showLanguagePopup(anchor: View) {
     popupWindow.elevation = 8f
 
     binding.apply {
-        iclLanguage1.apply {
-            ivLogo.setImageResource(R.drawable.ic_logo_cam)
-            tvNameLanguage.text = getString(R.string.cambodian)
-            root.setDisableAlpha(currentLanguage == CAM)
-            root.setOnSingleClickListener {
-                updateLanguage(CAM)
-                popupWindow.dismiss()
-            }
-        }
         iclLanguage2.apply {
             ivLogo.setImageResource(R.drawable.ic_logo_uk)
             tvNameLanguage.text = getString(R.string.english)
@@ -148,10 +138,6 @@ fun Context.getResourceLocale(type: String, res: (String, Int) -> Unit) {
     when (type) {
         "en" -> {
             res(getString(R.string.english), R.drawable.ic_logo_uk)
-        }
-
-        "km" -> {
-            res(getString(R.string.cambodian), R.drawable.ic_logo_cam)
         }
 
         "vi" -> {

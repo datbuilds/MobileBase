@@ -6,6 +6,10 @@ import android.os.Bundle
 import android.text.InputFilter
 import android.text.InputType
 import android.view.View
+import android.view.ViewGroup
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import android.view.WindowManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
@@ -35,7 +39,6 @@ import com.mobile.base.utils.extensions.hideProgressDialog
 import com.mobile.base.utils.extensions.hideSoftKeyboard
 import com.mobile.base.utils.extensions.isValidInputLogin
 import com.mobile.base.utils.extensions.launchRepeatOnLifecycle
-import com.mobile.base.utils.extensions.setCustomSpannable
 import com.mobile.base.utils.extensions.setOnMaterialButtonClick
 import com.mobile.base.utils.extensions.textValue
 import com.mobile.base.utils.extensions.visible
@@ -82,6 +85,16 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     override fun initView(view: View) {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
+        val logoTopMargin = resources.getDimensionPixelSize(R.dimen.paddingTopLayout)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val cutout = insets.getInsets(WindowInsetsCompat.Type.displayCutout())
+            binding.ivAppLogo.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                topMargin = logoTopMargin + cutout.top
+            }
+            insets
+        }
+        ViewCompat.requestApplyInsets(binding.root)
+
         binding.tvHotline.text =
             getString(R.string.version).plus(Const.SEPARATOR_SPACE).plus(BuildConfig.VERSION_NAME)
         storage.resetToken()
@@ -105,20 +118,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     }
 
     private fun mapUILogin() {
-        //init forgot password
-        binding.tvForgotPassword.setCustomSpannable(
-            getString(R.string.forgotPassword), R.color.forgotPassword,
-            R.color.forgotPasswordClick
-        ) {
-            context?.let { ct ->
-                loginViewModel.showDialogForgotPassword(
-                    ct,
-                    getString(R.string.passwordResetInstructions),
-                    true
-                )
-            }
-        }
-
         // set icon current language
         LocaleHelper.getResourceLocale(LocaleHelper.getCurrentLanguage(requireContext())) { resId ->
             binding.ivLogoLanguage.setImageResource(resId)
@@ -190,7 +189,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                 showLanguagePopup(binding.llLanguage)
             }
 
-            ivLogoSHB.setOnSingleClickListener {
+            ivAppLogo.setOnSingleClickListener {
                 resetInputLogin()
             }
 
@@ -218,16 +217,8 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                     loginViewModel.registerDevice(accountLogin, encPsw)
                 }
             },
-            onCancel = {
-                showDialogVisitBranchCam(message = getString(R.string.getSupportForChanging)) {
-                    context?.let { ct ->
-                        loginViewModel.showDialogForgotPassword(
-                            ct,
-                            getString(R.string.listBranchTransactionPoint)
-                        )
-                    }
-                }
-            }
+            onCancel = { }
+
         ).show(childFragmentManager, RegisterDeviceDialog.TAG)
     }
 
@@ -345,14 +336,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                                 }
 
                                 uiState.reason.errorCode == ApiConst.OTP_009 -> {
-                                    showDialogVisitBranchCam(message = uiState.reason.errMessage) {
-                                        context?.let { ct ->
-                                            loginViewModel.showDialogForgotPassword(
-                                                ct,
-                                                getString(R.string.listBranchTransactionPoint)
-                                            )
-                                        }
-                                    }
+                                    showErrorMessageOnly(uiState.reason.errMessage)
                                 }
 
                                 else -> {
@@ -490,21 +474,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
     private var transactionId: String? = null
 
-    fun showDialogVisitBranchCam(
-        message: String,
-        onAction: (() -> Unit)? = null
-    ) {
-        BottomSheetDialogHelper(requireContext()).message(
-            title = getString(R.string.notification),
-            message = message,
-            textNegative = getString(R.string.close),
-            textPositive = getString(R.string.goToBranch),
-            positiveAction = {
-                onAction?.invoke()
-            }
-        )
-    }
-
     private fun showDialogPasswordExpiring(daysRemaining: Int) {
         val message = getString(R.string.notification_password_expiring, daysRemaining)
         BottomSheetDialogHelper(requireContext()).message(
@@ -606,10 +575,10 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     private fun onLoginSuccess(passExpireDay: Int?) {
         when {
             passExpireDay == -1 -> {
-                showPasswordExpire(
-                    getString(R.string.passwordIsNoLongerValid), isShowIconClose = false
+                showErrorMessageOnly(
+                    getString(R.string.passwordIsNoLongerValid)
                 ) {
-                    safeNavigate(AppDestination.ChangePassword(true))
+                    logout()
                 }
             }
 

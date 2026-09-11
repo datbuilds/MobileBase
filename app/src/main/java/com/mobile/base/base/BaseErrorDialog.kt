@@ -54,7 +54,6 @@ class BaseErrorDialog(private val build: Build) :
     }
 
     override fun initView(view: View) {
-        showBottomSheetSmooth(binding.bottomSheet)
         binding.tvTitle.text = build.title
         handleContentError(build.message)
         binding.btnClose.text = build.tvAction

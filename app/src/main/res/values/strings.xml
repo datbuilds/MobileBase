@@ -1,5 +1,4 @@
 <resources>
-    <string name="personalInternetBanking">Individual Banking Application</string>
     <string name="enterYourDetailToSignIn">Sign in with your credentials</string>
     <string name="userName">Username</string>
     <string name="enterYourUserName">Enter Your Username</string>
@@ -14,16 +13,6 @@
     <string name="notification">Notification</string>
     <string name="incorrectUsernameOrPassword">Incorrect username or password. Please try again.</string>
     <string name="processingError">System temporarily unavailable. Please try again later.</string>
-    <string name="passwordResetInstructions">Password Reset Instructions</string>
-    <string name="pleaseBringIdToResetPassword">Please bring your ID card or Passport to the nearest SHB Branch to reset your password.</string>
-    <string name="shbBranch1">1. SAIGON-HANOI BANK CAMBODIA PLC</string>
-    <string name="shbBranch1Address">107 Norodom Blvd,Sangkat Boeung Rang ,Khan Daun Penh,Phnompenh,Cambodia.</string>
-    <string name="shbBranch2">2. SAIGON-HANOI BANK CAMBODIA PLC-NEHRU BRANCH</string>
-    <string name="shbBranch2Address">161CD Jawaharlal Nehru Blvd, Sangkat Phsar Depou Ti Mouy, Khan Toul Kouk, Phnom Penh</string>
-    <string name="shbBranch3">3.SAIGON-HANOI BANK CAMBODIA PLC- SEN SOKH BRANCH</string>
-    <string name="shbBranch3Address">511C, Oknha Mong Reththy Street, Sangkat Phnom Penh Thmei, Khan Sen Sokh, Phnom Penh</string>
-    <string name="shbBranch4">4.SAIGON-HANOI BANK CAMBODIA PLC-CHNAR AMPOV BRANCH</string>
-    <string name="shbBranch4Address">76, National Road, Sangkat Nirouth, Khan Chbar Ampov, Phnom Penh</string>
     <string name="welcomeToShb">Welcome to SHB</string>
     <string name="currentAccount">Current Account</string>
     <string name="transfer">Transfer</string>
@@ -192,7 +181,6 @@
     <string name="weHaveReleasedNewVersion">We have released a new version. Please update to enjoy a better saving experience with SHB SAHA CAMs.</string>
     <string name="updateLabel">Update</string>
     <string name="invalidAccountNumber">Invalid Account Number</string>
-    <string name="cambodian" translatable="false">ភាសាខ្មែរ</string>
     <string name="register_device_title">Please register this device to use SHB Saha Cambodia.</string>
     <string name="register_device_message">For enhanced security, please verify your device using the OTP sent to %s to complete the app registration. Is this your phone number?</string>
     <string name="confirm_device_title">Confirm new device</string>
@@ -211,7 +199,6 @@
     <string name="goToBranch">Go to Branch</string>
     <string name="getSupportForChanging">Please visit your nearest SHB Cambodia Branch to register or update your phone number.</string>
     <string name="language">Language</string>
-    <string name="listBranchTransactionPoint">List of Branches &amp; Transaction Offices</string>
     <string name="register_device_other">New device verification</string>
     <string name="listAccount">Account List</string>
     <string name="toMeAtSHB">To me at SHB</string>

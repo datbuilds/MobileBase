@@ -1,5 +1,7 @@
 # 📱 MobileBase
 
+> Current scope: Splash, Login, and a minimal Home with logout. Account, transfer, transaction, beneficiary, profile/change-password, and Paste2Pay screens and their domain/API implementations have been removed. SHB image assets have been removed; launcher icons use a generic mobile icon. Existing authentication configuration remains in place.
+
 MobileBase là bộ khung (base project) ứng dụng ngân hàng di động Android, tổ chức theo kiến trúc đa module (MVVM + Clean Architecture) với package gốc `com.mobile.base`.
 
 ## 🏗️ Kiến trúc hệ thống

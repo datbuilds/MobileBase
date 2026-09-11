@@ -131,7 +131,7 @@ class BottomSheetDialogHelper(context: Context) {
         isCancelable: Boolean = false,
         onDismiss: (() -> Unit)? = null
     ) {
-        dialog = BottomSheetDialog(context, R.style.BottomSheetDialogSlideAnimation)
+        dialog = BottomSheetDialog(context, R.style.BottomDialog_Rounded)
         dialog?.setContentView(bindingView.root)
         dialog?.window?.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
         dialog?.window?.setDimAmount(0.5f)
