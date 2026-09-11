@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="personalInternetBanking">NGÂN HÀNG TRỰC TUYẾN CÁ NHÂN</string>
     <string name="enterYourDetailToSignIn">Vui lòng nhập thông tin để đăng nhập</string>
     <string name="userName">Tên đăng nhập</string>
     <string name="enterYourUserName">Nhập tên tài khoản của Quý khách</string>
@@ -15,16 +14,6 @@
     <string name="notification">Thông báo</string>
     <string name="incorrectUsernameOrPassword">Tên đăng nhập hoặc mật khẩu không đúng. Vui lòng thử lại.</string>
     <string name="processingError">Hệ thống đang gặp sự cố khi xử lý. Quý khách vui lòng thực hiện lại sau ít phút.</string>
-    <string name="passwordResetInstructions">HƯỚNG DẪN ĐẶT LẠI MẬT KHẨU</string>
-    <string name="pleaseBringIdToResetPassword">Vui lòng mang theo CMND/CCCD hoặc Hộ chiếu đến điểm giao dịch SHB gần nhất để đặt lại mật khẩu.</string>
-    <string name="shbBranch1">1. NGÂN HÀNG TMCP SÀI GÒN - HÀ NỘI CAMPUCHIA</string>
-    <string name="shbBranch1Address">Số 107 Đại lộ Norodom, Phường Boeung Rang, Quận Daun Penh, Phnom Penh, Campuchia.</string>
-    <string name="shbBranch2">2. NGÂN HÀNG TMCP SÀI GÒN - HÀ NỘI CAMPUCHIA - CHI NHÁNH NEHRU</string>
-    <string name="shbBranch2Address">Số 161CD, Đại lộ Jawaharlal Nehru, Phường Phsar Depou Ti Mouy, Quận Toul Kouk, Phnom Penh, Campuchia.</string>
-    <string name="shbBranch3">3. NGÂN HÀNG TMCP SÀI GÒN - HÀ NỘI CAMPUCHIA - CHI NHÁNH SEN SOKH</string>
-    <string name="shbBranch3Address">Số 511C, Đường Oknha Mong Reththy, Phường Phnom Penh Thmei, Quận Sen Sokh, Phnom Penh, Campuchia.</string>
-    <string name="shbBranch4">4. NGÂN HÀNG TMCP SÀI GÒN - HÀ NỘI CAMPUCHIA - CHI NHÁNH CHNAR AMPOV</string>
-    <string name="shbBranch4Address">Số 76, Đường quốc lộ, Phường Nirouth, Quận Chbar Ampov, Phnom Penh, Campuchia.</string>
     <string name="welcomeToShb">Chào mừng Quý khách hàng đến với SHB!</string>
     <string name="currentAccount">Tài khoản thanh toán</string>
     <string name="transfer">Chuyển tiền</string>
@@ -205,7 +194,6 @@
     <string name="goToBranch">Đến chi nhánh</string>
     <string name="getSupportForChanging">Quý khách vui lòng đến chi nhánh hoặc điểm giao dịch SHB Chi nhánh Campuchia gần nhất để được hỗ trợ đăng ký/thay đổi số điện thoại.</string>
     <string name="language">Ngôn ngữ</string>
-    <string name="listBranchTransactionPoint">Danh sách chi nhánh/điểm giao dịch</string>
     <string name="register_device_other">Xác nhận thiết bị mới</string>
     <string name="listAccount">Danh sách tài khoản</string>
     <string name="toMeAtSHB">Đến tôi tại SHB</string>

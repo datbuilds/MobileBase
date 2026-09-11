@@ -1,0 +1,5 @@
+<resources>
+    <color name="auth_light_text">#172B4D</color>
+    <color name="auth_light_link">#2455A6</color>
+    <color name="auth_light_error">#B3261E</color>
+</resources>

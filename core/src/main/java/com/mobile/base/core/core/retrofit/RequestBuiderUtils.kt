@@ -3,28 +3,21 @@ package com.mobile.base.core.core.retrofit
 import okhttp3.Interceptor
 import okhttp3.Request
 import java.util.Locale
+import com.mobile.base.core.utils.AppLanguage
 
-private const val DEFAULT_APP_LANGUAGE = "km"
 
 fun Interceptor.Chain.appRequestBuilder(
     versionName: String,
     language: String? = null,
     token: String? = null,
-    deviceId: String? = null,
-    tokenWso2: String? = null,
-    isAddWso2: Boolean
+    deviceId: String? = null
 ) = run {
     val deviceVersion = android.os.Build.VERSION.RELEASE
     val deviceModel = android.os.Build.MODEL
     val deviceManufacturer = android.os.Build.MANUFACTURER
-    val resolvedLanguage = language
-        ?.trim()
-        ?.takeIf { it.isNotEmpty() }
-        ?: Locale.getDefault()
-            .language
-            .trim()
-            .takeIf { it.isNotEmpty() }
-        ?: DEFAULT_APP_LANGUAGE
+    val resolvedLanguage = AppLanguage.normalize(
+        language?.trim()?.takeIf { it.isNotEmpty() } ?: Locale.getDefault().language
+    )
 
     val original = request()
     val originalRequest: Request
@@ -41,9 +34,6 @@ fun Interceptor.Chain.appRequestBuilder(
 
             if (token?.isNotEmpty() == true) {
                 addHeader("CustomToken", "Bearer $token")
-            }
-            if (!tokenWso2.isNullOrEmpty() && isAddWso2) {
-                addHeader("Authorization", "Bearer $tokenWso2")
             }
 
             method(original.method, original.body)

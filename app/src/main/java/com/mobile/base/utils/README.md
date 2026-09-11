@@ -21,7 +21,7 @@ Thư mục này chứa các thư viện tiện ích, lớp cấu hình hằng s�
   - `DateExtensions.kt`: Chuyển đổi định dạng ngày tháng hiển thị trên app.
 - **`glide/`**: Cấu hình tùy biến thư viện Glide (`AppGlideModule`) giúp tối ưu hóa việc tải ảnh, xử lý bo góc ảnh, cache ảnh thông minh, giải mã định dạng ảnh WebP động.
 - **`pdfviewer/`**: Cung cấp các công cụ và cấu hình Javascript (kết hợp với `assets/pdf_viewer.html`) giúp hiển thị file PDF trực quan (ví dụ: biên lai chuyển tiền) ngay bên trong ứng dụng Android thông qua WebView.
-- **`refreshTK/`**: Chứa các lớp tiện ích tự động refresh Token kết nối API (Token WSO2) chạy ngầm khi Token hiện tại bị hết hạn hoặc lỗi 401 Unauthorized.
+- **`refreshTK/`**: Chứa các lớp tiện ích tự động refresh token đăng nhập khi token hiện tại bị hết hạn hoặc lỗi 401 Unauthorized.
 - **`widgets/`**: Chứa các Helper quan trọng cấp ứng dụng:
   - `LocaleHelper.kt`: Trình quản lý đa ngôn ngữ động của ứng dụng, hỗ trợ 3 ngôn ngữ chính: **Tiếng Việt (`vi`)**, **Tiếng Khmer (`km`)**, và **Tiếng Anh (`en`)**.
   - `BiometricHelper.kt`: Hỗ trợ đăng nhập và xác thực bằng sinh trắc học vân tay hoặc nhận diện khuôn mặt (FaceID / Fingerprint).

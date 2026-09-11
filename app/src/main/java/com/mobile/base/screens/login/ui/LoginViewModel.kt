@@ -1,14 +1,7 @@
 package com.mobile.base.screens.login.ui
 
-import android.content.Context
-import android.content.Intent
-import android.view.LayoutInflater
-import androidx.core.net.toUri
-import androidx.core.view.isVisible
 import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -16,15 +9,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import com.mobile.base.BuildConfig
-import com.mobile.base.R
 import com.mobile.base.base.BaseViewModel
-import com.mobile.base.databinding.LayoutBranchListBinding
-import com.mobile.base.screens.login.helper.BranchAdapter
-import com.mobile.base.screens.login.model.Branch
 import com.mobile.base.screens.login.state.LoginUiState
 import com.mobile.base.screens.login.state.LogoutUiState
-import com.mobile.base.utils.view.dialog.BottomSheetDialogHelper
-import com.mobile.base.core.core.delivery.Reason
 import com.mobile.base.core.core.delivery.onFailure
 import com.mobile.base.core.core.delivery.onLoading
 import com.mobile.base.core.core.delivery.onResultHandle
@@ -38,17 +25,14 @@ import com.mobile.base.core.core.domain.usecases.login.UseCaseGetSystemVars
 import com.mobile.base.core.core.domain.usecases.login.UseCaseLogin
 import com.mobile.base.core.core.domain.usecases.login.UseCaseLogout
 import com.mobile.base.core.core.domain.usecases.login.VerifyDeviceUseCase
-import com.mobile.base.core.core.domain.usecases.wso2.UseCaseGetTokenWso2
 import com.mobile.base.core.core.security.encrypt.AndroidSecureStorage
 import com.mobile.base.data.entities.login.RegisterDeviceData
 import com.mobile.base.data.entities.login.UserLog
-import java.util.concurrent.TimeUnit
 
 class LoginViewModel(
     private val storage: AndroidSecureStorage,
     private val useCaseLogin: UseCaseLogin,
     private val useCaseLogout: UseCaseLogout,
-    private val useCaseGetTokenWso2: UseCaseGetTokenWso2,
     private val useCaseGetSystemVars: UseCaseGetSystemVars,
     private val registerDeviceUseCase: RegisterDeviceUseCase,
     private val verifyDeviceUseCase: VerifyDeviceUseCase,
@@ -66,8 +50,6 @@ class LoginViewModel(
 
     private val _state = MutableSharedFlow<LoginUiState>()
     val stateLogin: SharedFlow<LoginUiState> = _state
-    private val _stateErrorWso2 = Channel<Reason>(Channel.BUFFERED)
-    val stateErrorWso2 = _stateErrorWso2.receiveAsFlow()
 
     private val _stateLogout = MutableStateFlow<LogoutUiState>(LogoutUiState.Idle)
     val stateLogout = _stateLogout.asStateFlow()
@@ -103,25 +85,9 @@ class LoginViewModel(
 //                    },
 //                    failureBlock = {
 //                        stateLoading(false)
-//                        handleErrorTokenWso2(it)
 //                    }
 //                )
 //            }
-        }
-    }
-
-    fun isExpireTokenWso2(call: () -> Unit) {
-        val oldTime = storage.getTimeGetTokenWso2()
-        val currentTime = System.currentTimeMillis()
-//        Log.i("3242343242343", "${currentTime - oldTime}")
-//        Log.i("3242343242343", "${(storage.getExpireTime() - 1) * 60 * 1000}")
-        val isExpire = (currentTime - oldTime) > (storage.getExpireTime() - 1) * 60 * 1000
-        if (isExpire) {
-            getTokenWso2 {
-                call()
-            }
-        } else {
-            call()
         }
     }
 
@@ -213,13 +179,7 @@ class LoginViewModel(
     }
 
     fun checkLogin(param: UseCaseLogin.Params) {
-        if (storage.getTokenWso2().isEmpty()) {
-            getTokenWso2BackUpLogin(param)
-        } else {
-            isExpireTokenWso2 {
-                login(param)
-            }
-        }
+        login(param)
     }
 
     fun login(param: UseCaseLogin.Params) {
@@ -251,156 +211,5 @@ class LoginViewModel(
                 })
             }
         }
-    }
-
-    fun getTokenWso2(success: (() -> Unit)? = null) {
-        viewModelScope.launch {
-            val paramsWso2 = UseCaseGetTokenWso2.InputParams(
-                BuildConfig.AUTHORIZATION, UseCaseGetTokenWso2.Params(
-                    grant_type = BuildConfig.GRANT_TYPE,
-                    username = BuildConfig.USERNAME,
-                    password = BuildConfig.PASSWORD,
-                    scope = storage.getDeviceId(),
-                )
-            )
-            useCaseGetTokenWso2(paramsWso2).collect { result ->
-                result.onSuccess { trans ->
-                    storage.setTokenWso2(trans.access_token)
-                    storage.setRfTokenWso2(trans.refresh_token)
-                    storage.updateExpireTime(
-                        TimeUnit.SECONDS.toMinutes(trans.expireIn()).toInt()
-                    )
-                    delay(300)
-                    success?.invoke()
-//                    checkSystemVars()
-                }
-                result.onFailure { error ->
-                    stateLoading(false)
-                    handleErrorTokenWso2(error)
-                }
-                result.onLoading {
-                    stateLoading(true)
-//                    _state.value = LoginUiState.Loading
-                }
-            }
-        }
-    }
-
-    fun getTokenWso2BackUpLogin(param: UseCaseLogin.Params) {
-        viewModelScope.launch {
-            val paramsWso2 = UseCaseGetTokenWso2.InputParams(
-                BuildConfig.AUTHORIZATION, UseCaseGetTokenWso2.Params(
-                    grant_type = BuildConfig.GRANT_TYPE,
-                    username = BuildConfig.USERNAME,
-                    password = BuildConfig.PASSWORD,
-                    scope = storage.getDeviceId(),
-                )
-            )
-            useCaseGetTokenWso2(paramsWso2).collect { result ->
-                result.onSuccess { trans ->
-                    storage.setTokenWso2(trans.access_token)
-                    storage.setRfTokenWso2(trans.refresh_token)
-                    storage.updateExpireTime(
-                        TimeUnit.SECONDS.toMinutes(trans.expireIn()).toInt()
-                    )
-                    delay(200)
-                    login(param)
-                }
-                result.onFailure { error ->
-                    stateLoading(false)
-                    stateLogin(LoginUiState.Error(error))
-                }
-                result.onLoading {
-                    stateLoading(true)
-                }
-            }
-        }
-    }
-
-    private fun handleErrorTokenWso2(error: Reason) {
-        viewModelScope.launch {
-            _stateErrorWso2.send(error)
-        }
-    }
-
-    fun showDialogForgotPassword(context: Context, title: String, isShowNote: Boolean = false) {
-        context.apply {
-
-            val bindingSup = LayoutBranchListBinding.inflate(LayoutInflater.from(this))
-            bindingSup.tvOrangeMessage.isVisible = isShowNote
-
-            //mock data
-            val branches = getListAddress(context)
-
-            bindingSup.rvBranches.apply {
-                layoutManager = LinearLayoutManager(context)
-                adapter = BranchAdapter(branches) { typeClick, branch ->
-                    if (typeClick == BranchAdapter.CLICK_HOTLINE) {
-                        val intent = Intent(Intent.ACTION_DIAL, "tel:${branch.tel}".toUri())
-                        context.startActivity(intent)
-                    } else {
-                        openMap(context, branch.latitude, branch.longitude, branch.address)
-                    }
-                }
-            }
-            BottomSheetDialogHelper(context).message(
-                title = title,
-                supView = bindingSup.root,
-                isClose = true
-            )
-        }
-    }
-
-    fun openMap(context: Context, latitude: String, longitude: String, placeName: String) {
-        val uri = "$latitude,$longitude"
-
-        // Thử mở Google Maps trước
-        val gmmIntentUri = "geo:$uri?q=$uri($placeName)".toUri()
-        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-        mapIntent.setPackage("com.google.android.apps.maps")
-
-        if (mapIntent.resolveActivity(context.packageManager) != null) {
-            context.startActivity(mapIntent)
-            return
-        }
-
-        // Fallback: mở app bản đồ mặc định
-        val fallbackUri = "geo:$uri?q=$uri($placeName)".toUri()
-        val fallbackIntent = Intent(Intent.ACTION_VIEW, fallbackUri)
-
-        context.startActivity(fallbackIntent)
-    }
-
-    private fun getListAddress(context: Context): List<Branch> {
-        return listOf(
-            Branch(
-                context.getString(R.string.shbBranch1),
-                context.getString(R.string.shbBranch1Address),
-                "0 23 221 900",
-                "11.5602485",
-                "104.9267921"
-            ),
-            Branch(
-                context.getString(R.string.shbBranch2),
-                context.getString(R.string.shbBranch2Address),
-                "0 23 882 358",
-                "11.561437",
-                "104.907504"
-            ),
-            Branch(
-                context.getString(R.string.shbBranch3),
-                context.getString(R.string.shbBranch3Address),
-                "0 23 890 353",
-                "11.5316183",
-                "104.9491833"
-            ),
-            Branch(
-                context.getString(R.string.shbBranch4),
-                context.getString(R.string.shbBranch4Address),
-                "023 880091",
-                "11.589961",
-                "104.874072"
-            )
-        )
     }
 }

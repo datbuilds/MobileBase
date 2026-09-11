@@ -6,6 +6,10 @@ import android.os.Bundle
 import android.text.InputFilter
 import android.text.InputType
 import android.view.View
+import android.view.ViewGroup
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import android.view.WindowManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
@@ -35,7 +39,6 @@ import com.mobile.base.utils.extensions.hideProgressDialog
 import com.mobile.base.utils.extensions.hideSoftKeyboard
 import com.mobile.base.utils.extensions.isValidInputLogin
 import com.mobile.base.utils.extensions.launchRepeatOnLifecycle
-import com.mobile.base.utils.extensions.setCustomSpannable
 import com.mobile.base.utils.extensions.setOnMaterialButtonClick
 import com.mobile.base.utils.extensions.textValue
 import com.mobile.base.utils.extensions.visible
@@ -44,7 +47,6 @@ import com.mobile.base.utils.view.dialog.CountdownBottomSheetDialog
 import com.mobile.base.utils.view.dialog.ForceUpdateDialog
 import com.mobile.base.utils.view.dialog.RegisterDeviceDialog
 import com.mobile.base.utils.widgets.LocaleHelper
-import com.mobile.base.core.core.delivery.Reason
 import com.mobile.base.core.core.delivery.reason.AppReason
 import com.mobile.base.core.core.delivery.reason.LoginFailLocked
 import com.mobile.base.core.core.delivery.reason.LoginRegisterDevice
@@ -82,10 +84,19 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     override fun initView(view: View) {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
+        val logoTopMargin = resources.getDimensionPixelSize(R.dimen.paddingTopLayout)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val cutout = insets.getInsets(WindowInsetsCompat.Type.displayCutout())
+            binding.ivAppLogo.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                topMargin = logoTopMargin + cutout.top
+            }
+            insets
+        }
+        ViewCompat.requestApplyInsets(binding.root)
+
         binding.tvHotline.text =
             getString(R.string.version).plus(Const.SEPARATOR_SPACE).plus(BuildConfig.VERSION_NAME)
         storage.resetToken()
-//        loginViewModel.getTokenWso2()
 
         // Initialize embedded confirm device view
         confirmDeviceView = ConfirmDeviceView(requireContext())
@@ -105,20 +116,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     }
 
     private fun mapUILogin() {
-        //init forgot password
-        binding.tvForgotPassword.setCustomSpannable(
-            getString(R.string.forgotPassword), R.color.forgotPassword,
-            R.color.forgotPasswordClick
-        ) {
-            context?.let { ct ->
-                loginViewModel.showDialogForgotPassword(
-                    ct,
-                    getString(R.string.passwordResetInstructions),
-                    true
-                )
-            }
-        }
-
         // set icon current language
         LocaleHelper.getResourceLocale(LocaleHelper.getCurrentLanguage(requireContext())) { resId ->
             binding.ivLogoLanguage.setImageResource(resId)
@@ -190,7 +187,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                 showLanguagePopup(binding.llLanguage)
             }
 
-            ivLogoSHB.setOnSingleClickListener {
+            ivAppLogo.setOnSingleClickListener {
                 resetInputLogin()
             }
 
@@ -214,20 +211,10 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             phoneNumber = phoneNumber, // Using username as placeholder if it's phone
             isNewDevice,
             onConfirm = {
-                loginViewModel.isExpireTokenWso2 {
-                    loginViewModel.registerDevice(accountLogin, encPsw)
-                }
+                loginViewModel.registerDevice(accountLogin, encPsw)
             },
-            onCancel = {
-                showDialogVisitBranchCam(message = getString(R.string.getSupportForChanging)) {
-                    context?.let { ct ->
-                        loginViewModel.showDialogForgotPassword(
-                            ct,
-                            getString(R.string.listBranchTransactionPoint)
-                        )
-                    }
-                }
-            }
+            onCancel = { }
+
         ).show(childFragmentManager, RegisterDeviceDialog.TAG)
     }
 
@@ -345,14 +332,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                                 }
 
                                 uiState.reason.errorCode == ApiConst.OTP_009 -> {
-                                    showDialogVisitBranchCam(message = uiState.reason.errMessage) {
-                                        context?.let { ct ->
-                                            loginViewModel.showDialogForgotPassword(
-                                                ct,
-                                                getString(R.string.listBranchTransactionPoint)
-                                            )
-                                        }
-                                    }
+                                    showErrorMessageOnly(uiState.reason.errMessage)
                                 }
 
                                 else -> {
@@ -379,14 +359,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
             }
 
             launch {
-                loginViewModel.stateErrorWso2.collect {
-                    showDialogErrorWso2(it) {
-                        loginViewModel.getTokenWso2()
-                    }
-                }
-            }
-
-            launch {
                 loginViewModel.showForceUpdate.collect {
                     if (it) {
                         showDialogForceUpdate()
@@ -408,13 +380,12 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                                 val accountLogin = getUserLogin()
                                 val (_, encPsw) = getPassword()
                                 transactionId?.let {
-                                    loginViewModel.isExpireTokenWso2 {
-                                        loginViewModel.verifyDevice(
-                                            accountLogin, encPsw,
-                                            it,
-                                            otp
-                                        )
-                                    }
+                                    loginViewModel.verifyDevice(
+                                        accountLogin,
+                                        encPsw,
+                                        it,
+                                        otp
+                                    )
                                 }
                             }
                             hideSoftKeyboard()
@@ -423,9 +394,7 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
                             // Logic to resend
                             val accountLogin = getUserLogin()
                             val (_, encPsw) = getPassword()
-                            loginViewModel.isExpireTokenWso2 {
-                                loginViewModel.registerDevice(accountLogin, encPsw)
-                            }
+                            loginViewModel.registerDevice(accountLogin, encPsw)
                         },
 
                         onFinishCB = {
@@ -490,21 +459,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
 
     private var transactionId: String? = null
 
-    fun showDialogVisitBranchCam(
-        message: String,
-        onAction: (() -> Unit)? = null
-    ) {
-        BottomSheetDialogHelper(requireContext()).message(
-            title = getString(R.string.notification),
-            message = message,
-            textNegative = getString(R.string.close),
-            textPositive = getString(R.string.goToBranch),
-            positiveAction = {
-                onAction?.invoke()
-            }
-        )
-    }
-
     private fun showDialogPasswordExpiring(daysRemaining: Int) {
         val message = getString(R.string.notification_password_expiring, daysRemaining)
         BottomSheetDialogHelper(requireContext()).message(
@@ -551,23 +505,6 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
         }
     }
 
-    fun showDialogErrorWso2(
-        reason: Reason,
-        onAction: (() -> Unit)? = null
-    ) {
-        BottomSheetDialogHelper(requireContext()).message(
-            title = getString(R.string.notification),
-            message = getString(R.string.processingError),
-            textPositive = getString(R.string.tryAgain),
-            positiveAction = {
-                onAction?.invoke()
-            },
-            onDismiss = {
-                loginViewModel.getTokenWso2()
-            }
-        )
-    }
-
     private fun showDialogErrorLockUser(reason: LoginFailLocked) {
         context?.let {
             BottomSheetDialogHelper(it).messageLoginFail(
@@ -606,10 +543,10 @@ class LoginFragment : BaseFragmentBinding<FragmentLoginBinding>(FragmentLoginBin
     private fun onLoginSuccess(passExpireDay: Int?) {
         when {
             passExpireDay == -1 -> {
-                showPasswordExpire(
-                    getString(R.string.passwordIsNoLongerValid), isShowIconClose = false
+                showErrorMessageOnly(
+                    getString(R.string.passwordIsNoLongerValid)
                 ) {
-                    safeNavigate(AppDestination.ChangePassword(true))
+                    logout()
                 }
             }
 

@@ -1,5 +1,7 @@
 # 📱 MobileBase
 
+> Current scope: Splash, Login, and a minimal Home with logout. Account, transfer, transaction, beneficiary, profile/change-password, and Paste2Pay screens and their domain/API implementations have been removed. SHB image assets have been removed; launcher icons use a generic mobile icon. Existing authentication configuration remains in place.
+
 MobileBase là bộ khung (base project) ứng dụng ngân hàng di động Android, tổ chức theo kiến trúc đa module (MVVM + Clean Architecture) với package gốc `com.mobile.base`.
 
 ## 🏗️ Kiến trúc hệ thống
@@ -51,8 +53,7 @@ MobileBase/
 │       └── utils/                    # extensions
 ├── data/                             # Data layer (namespace: com.mobile.base.data)
 │   └── src/main/java/com/mobile/base/data/
-│       └── entities/                 # login, home, splash, transfer,
-│                                     #   beneficiary, wso2
+│       └── entities/                 # login, home, splash, transfer, beneficiary
 ├── localization/                     # Đa ngôn ngữ (namespace: com.mobile.base.localization)
 │   └── src/main/res/                 # values (EN) + values-vi
 ├── library/                          # Thư viện nội bộ
@@ -150,9 +151,7 @@ chmod +x gradlew
 ./gradlew build
 ```
 
-> **Lưu ý:** Dự án yêu cầu file `local.properties` chứa các khóa cấu hình theo từng flavor
-> (`dev_config`, `dev_grant_type`, `dev_username`, `dev_password`, và tương tự cho `uat_*`, `pro_*`).
-> Build sẽ thất bại nếu thiếu các khóa này.
+> **Lưu ý:** Cấu hình môi trường hiện được khai báo trực tiếp theo từng product flavor trong `app/build.gradle.kts`.
 
 ### **Cấu hình môi trường**
 
@@ -197,7 +196,6 @@ Dự án dùng flavor dimension `environment` với 3 flavor:
 
 ### **Authentication & Authorization**
 
-- **WSO2 Gateway**: Xác thực qua API gateway (grant type/username/password theo flavor)
 - **Biometric Authentication**: Vân tay / Face ID (BiometricPrompt)
 - **Session Management**: Quản lý phiên đăng nhập
 

@@ -5,8 +5,7 @@ import com.mobile.base.core.core.security.encrypt.AndroidSecureStorage
 
 class HeaderInterceptor(
     private val versionName: String,
-    private val storage: AndroidSecureStorage,
-    private val isProduction: Boolean
+    private val storage: AndroidSecureStorage
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain) = chain.proceed(
@@ -14,9 +13,7 @@ class HeaderInterceptor(
             versionName = versionName,
             language = storage.getLanguage(),
             token = storage.getToken(),
-            deviceId = storage.getDeviceId(),
-            tokenWso2 = storage.getTokenWso2(),
-            !isProduction
+            deviceId = storage.getDeviceId()
         )
     )
 }

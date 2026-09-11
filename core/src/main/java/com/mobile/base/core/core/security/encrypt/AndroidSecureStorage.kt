@@ -1,5 +1,6 @@
 package com.mobile.base.core.core.security.encrypt
 
+import com.mobile.base.core.utils.AppLanguage
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
@@ -19,13 +20,7 @@ class AndroidSecureStorage(private val context: Context, private val deviceManag
         private const val AUTH_TOKEN = "AUTH_TOKEN"
         private const val REFRESH_TOKEN = "REFRESH_TOKEN"
         private const val REFRESH_TOKEN_FAIL = "REFRESH_TOKEN_FAIL"
-        private const val AUTH_TOKEN_WSO2 = "AUTH_TOKEN_WSO2"
-        private const val AUTH_TOKEN_WSO2_TIME_GET = "AUTH_TOKEN_WSO2_TIME_GET"
         private const val LANGUAGE_APP = "LANGUAGE_APP"
-
-        private const val REFRESH_TOKEN_WSO2 = "REFRESH_TOKEN_WSO2"
-        private const val EXPIRE_TIME_WSO2 = "EXPIRE_TIME_WSO2"
-        private const val REFRESH_TOKEN_FAIL_WSO2 = "REFRESH_TOKEN_FAIL_WSO2"
 
         private const val AI_CHAT_INTRO_COMPLETED = "AI_CHAT_INTRO_COMPLETED"
     }
@@ -115,8 +110,14 @@ class AndroidSecureStorage(private val context: Context, private val deviceManag
     fun setBackgroundLogin(data: String) = putPreference(BACKGROUND_LOGIN, data)
     fun getBackgroundLogin() = getPreference(BACKGROUND_LOGIN, "")
 
-    fun setLanguage(language: String) = putPreference(LANGUAGE_APP, language)
-    fun getLanguage() = getPreference(LANGUAGE_APP, "")
+    fun setLanguage(language: String) = putPreference(LANGUAGE_APP, AppLanguage.normalize(language))
+    fun getLanguage(): String {
+        val stored = getPreference(LANGUAGE_APP, "")
+        if (stored.isBlank()) return ""
+        val supported = AppLanguage.normalize(stored)
+        if (stored != supported) setLanguage(supported)
+        return supported
+    }
 
     /**
      * Token
@@ -126,22 +127,6 @@ class AndroidSecureStorage(private val context: Context, private val deviceManag
 
     fun setRfToken(rfToken: String) = putPreference(REFRESH_TOKEN, rfToken)
     fun getRfToken() = getPreference(REFRESH_TOKEN, "")
-
-//    fun setExpireTimeWso2(data: Int) = putPreference(EXPIRE_TIME_WSO2, data)
-//    fun getExpireTimeWso2() = getPreference(EXPIRE_TIME_WSO2, 5)
-
-    fun setTokenWso2(token: String) {
-        putPreference(AUTH_TOKEN_WSO2, token)
-        setTimeGetTokenWso2(System.currentTimeMillis())
-    }
-    fun getTokenWso2() = getPreference(AUTH_TOKEN_WSO2, "")
-    fun setTimeGetTokenWso2(token: Long) = putPreference(AUTH_TOKEN_WSO2_TIME_GET, token)
-    fun getTimeGetTokenWso2() = getPreference(AUTH_TOKEN_WSO2_TIME_GET, 0L)
-    fun setRfTokenWso2(rfToken: String) = putPreference(REFRESH_TOKEN_WSO2, rfToken)
-    fun getRfTokenWso2() = getPreference(REFRESH_TOKEN_WSO2, "")
-
-    fun setTokenInvalidWso2(isFail: Boolean) = putPreference(REFRESH_TOKEN_FAIL_WSO2, isFail)
-    fun isTokenInvalidWso2() = getPreference(REFRESH_TOKEN_FAIL_WSO2, false)
 
     /**
      * -------------------end token----
@@ -170,17 +155,12 @@ class AndroidSecureStorage(private val context: Context, private val deviceManag
     fun resetToken() {
         removeKey(AUTH_TOKEN)
         removeKey(REFRESH_TOKEN)
-        removeKey(AUTH_TOKEN_WSO2)
-        removeKey(REFRESH_TOKEN_WSO2)
         setTokenInvalid(false)
-        setTokenInvalidWso2(false)
     }
 
 //    fun resetUser() {
 //        removeKey(AUTH_TOKEN)
 //        removeKey(REFRESH_TOKEN)
-//        removeKey(AUTH_TOKEN_WSO2)
-//        removeKey(REFRESH_TOKEN_WSO2)
 //    }
 
 }

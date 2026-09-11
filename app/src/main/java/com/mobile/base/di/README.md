@@ -16,10 +16,9 @@ Hệ thống DI được phân tách thành các module chuyên biệt và tập
 ### [NetworkModule.kt](file:///Users/dt_linhdq/Desktop/shb-mobile-CAM/app/src/main/java/com/mobile/base/di/NetworkModule.kt)
 - Cấu hình các HTTP client (`OkHttpClient`), phân tách các loại request:
   - **Thông thường (Normal request)**: Sử dụng `HeaderInterceptor` để đính kèm version name, ngôn ngữ và token.
-  - **WSO2 request**: Sử dụng `Wso2Interceptor` để giao tiếp với hệ thống API Gateway WSO2 của SHB.
   - **Xác thực (Authentication)**: Dùng `HeaderAuthenticationInterceptor` cho các request login/refresh token.
 - Đăng ký công cụ log mạng `loggingInterceptor` phục vụ cho debug.
-- Khởi tạo các Retrofit Instance tương ứng và khai báo các API Service lấy từ module `:core` (`ServiceSplash`, `ServiceAuth`, `ServiceUser`, `ServiceTransfer`, `ServiceAiPay`, `ServiceWso2`).
+- Khởi tạo Retrofit Instance và khai báo các API Service lấy từ module `:core` (`ServiceSplash`, `ServiceAuth`).
 
 ### [DomainModule.kt](file:///Users/dt_linhdq/Desktop/shb-mobile-CAM/app/src/main/java/com/mobile/base/di/DomainModule.kt)
 - Đăng ký các đối tượng thuộc tầng nghiệp vụ (**Use Cases / Interactors**) từ module `:core`.

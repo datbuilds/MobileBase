@@ -1,5 +1,3 @@
-import java.util.Properties
-
 plugins {
     id(Plugins.MOBILEBASE_APP)
     id(Plugins.ANDROID_APPLICATION)
@@ -7,10 +5,6 @@ plugins {
     id(Plugins.ANDROID_MAVEN_PUBLISH)
     kotlin(Plugins.KOTLIN_KAPT)
 }
-
-val localProperties = Properties()
-localProperties.load(rootProject.file("local.properties").inputStream())
-
 
 android {
     namespace = "com.mobile.base"
@@ -30,32 +24,6 @@ android {
                     "BASE_URL",
                     "\"https://p-apigw-cam.shb.com.vn/external/shb-mobile-cam/1.0.0/mbcam/\""
                 )
-                buildConfigField(
-                    "String",
-                    "WSO_URL",
-                    "\"https://p-apigw-cam.shb.com.vn/\""
-                )
-                buildConfigField(
-                    "String",
-                    "AUTHORIZATION",
-                    "\"${localProperties.getProperty("pro_config")}\""
-                )
-
-                buildConfigField(
-                    "String",
-                    "GRANT_TYPE",
-                    "\"${localProperties.getProperty("pro_grant_type")}\""
-                )
-                buildConfigField(
-                    "String",
-                    "USERNAME",
-                    "\"${localProperties.getProperty("pro_wso2_us")}\""
-                )
-                buildConfigField(
-                    "String",
-                    "PASSWORD",
-                    "\"${localProperties.getProperty("pro_wso2_ps")}\""
-                )
             },
 
             uat = {
@@ -65,32 +33,6 @@ android {
                     "String",
                     "BASE_URL",
                     "\"https://t-apigw-cam.shb.com.vn/external/shb-mobile-cam/1.0.0/mbcam/\""
-                )
-                buildConfigField(
-                    "String",
-                    "WSO_URL",
-                    "\"https://t-apigw-cam.shb.com.vn/\""
-                )
-                buildConfigField(
-                    "String",
-                    "AUTHORIZATION",
-                    "\"${localProperties.getProperty("uat_config")}\""
-                )
-
-                buildConfigField(
-                    "String",
-                    "GRANT_TYPE",
-                    "\"${localProperties.getProperty("uat_grant_type")}\""
-                )
-                buildConfigField(
-                    "String",
-                    "USERNAME",
-                    "\"${localProperties.getProperty("uat_username")}\""
-                )
-                buildConfigField(
-                    "String",
-                    "PASSWORD",
-                    "\"${localProperties.getProperty("uat_password")}\""
                 )
             },
 
@@ -102,21 +44,6 @@ android {
                     "BASE_URL",
                     "\"https://api-gw-ext-dev.shb.com.vn/external/shb-mobile-cam/1.0.0/mbcam/\""
                 )
-                buildConfigField(
-                    "String",
-                    "WSO_URL",
-                    "\"https://api-gw-ext-dev.shb.com.vn/\""
-                )
-                buildConfigField(
-                    "String",
-                    "AUTHORIZATION",
-                    "\"${localProperties.getProperty("dev_config")}\""
-                )
-
-                // ===== NEW KEYS =====
-                buildConfigField("String", "GRANT_TYPE", "\"${localProperties.getProperty("dev_grant_type")}\"")
-                buildConfigField("String", "USERNAME", "\"${localProperties.getProperty("dev_username")}\"")
-                buildConfigField("String", "PASSWORD", "\"${localProperties.getProperty("dev_password")}\"")
             }
         )
     }

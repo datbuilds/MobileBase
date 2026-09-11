@@ -13,7 +13,10 @@ import android.os.Looper
 import android.os.StrictMode
 import android.view.LayoutInflater
 import android.view.MotionEvent
-import android.view.WindowInsetsController
+import android.view.WindowManager
+import android.graphics.Color
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import android.view.accessibility.AccessibilityManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -34,7 +37,6 @@ import com.mobile.base.utils.extensions.toast
 import com.mobile.base.utils.refreshTK.RefreshTokenManager
 import com.mobile.base.utils.view.dialog.ProgressDialogUtil
 import com.mobile.base.core.core.domain.usecases.login.UseCaseRefreshToken
-import com.mobile.base.core.core.domain.usecases.wso2.UseCaseRefreshTokenWso2
 import com.mobile.base.core.core.security.detectRoot.RootUtils
 import com.mobile.base.core.core.security.encrypt.AndroidSecureStorage
 
@@ -43,7 +45,6 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
 
     private lateinit var accessibilityManager: AccessibilityManager
     private val useCaseRefreshToken: UseCaseRefreshToken by inject()
-    private val useCaseRefreshTokenWso2: UseCaseRefreshTokenWso2 by inject()
     private val storage: AndroidSecureStorage by inject()
 
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
@@ -91,16 +92,7 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
 //        )
         _binding = inflate(layoutInflater)
         setContentView(binding.root)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            window.insetsController?.apply {
-                systemBarsBehavior = WindowInsetsController.BEHAVIOR_DEFAULT
-            }
-        }
-
-        // Nếu nền cam sáng, đặt icon tối (đen)
-//        window.statusBarColor = Color.TRANSPARENT
-//        WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = true // nếu background sáng
-        WindowCompat.setDecorFitsSystemWindows(window, true)
+        configureFullscreen()
         handleSavedState(savedInstanceState)
         initView()
         initListener()
@@ -121,6 +113,33 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             window.setHideOverlayWindows(true)
         }
+    }
+
+    private fun configureFullscreen() {
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        window.statusBarColor = Color.TRANSPARENT
+        window.navigationBarColor = Color.TRANSPARENT
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            window.attributes = window.attributes.apply {
+                layoutInDisplayCutoutMode =
+                    WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+            }
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            window.isNavigationBarContrastEnforced = false
+        }
+        WindowCompat.getInsetsController(window, window.decorView).apply {
+            systemBarsBehavior =
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            isAppearanceLightStatusBars = true
+            isAppearanceLightNavigationBars = true
+            hide(WindowInsetsCompat.Type.systemBars())
+        }
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) configureFullscreen()
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -237,7 +256,6 @@ abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflate
         RefreshTokenManager.start(
             activity = this,
             useCase = useCaseRefreshToken,
-            useCaseWso2 = useCaseRefreshTokenWso2,
             storage = storage
         )
     }

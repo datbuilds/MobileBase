@@ -17,28 +17,28 @@
     <color name="colorAMCalendarMonth">#3c72d1</color>
     <color name="colorAMCalendarDay">#000000</color>
     <color name="colorAMCalendarDaySelected">#FFFFFF</color>
-    <color name="colorAMCalendarDaySelectedCircle">#FF9447</color>
-    <color name="colorAMCalendarDaySelectedRect">#FFF4ED</color>
+    <color name="colorAMCalendarDaySelectedCircle">#3D82BD</color>
+    <color name="colorAMCalendarDaySelectedRect">#E8F4FF</color>
     <color name="colorAMCalendarShortcutBackground">#f0f0f6</color>
     <color name="colorAMCalendarShortcutElementBackground">#FFFFFF</color>
     <color name="colorAMCalendarShortcutElementText">#000000</color>
 
     <color name="selected_tab_color">#1A202C</color>
     <color name="unselected_tab_color">#4A5568</color>
-    <color name="colorSelectorEdittext">#FF7E00</color>
+    <color name="colorSelectorEdittext">#E0F1FF</color>
     <color name="forgotPassword">#FFFFFF</color>
     <color name="forgotPasswordClick">#C3C0C0</color>
     <color name="color_hotline">#21488A</color>
     <color name="color_hotlineClick">#336AC7</color>
     <color name="neutral10">#0A0A0A</color>
-    <color name="colorImageUser">#FF7C10</color>
+    <color name="colorImageUser">#3175A8</color>
     <color name="colorNameUser">#FFFFFF</color>
 
     <color name="primary">#1D3A72</color>
-    <color name="accent">#FF7E22</color>
+    <color name="accent">#246394</color>
     <color name="Transparent">#00000000</color>
-    <color name="accent_10">#1AFF6D03</color>
-    <color name="accent_30">#4DFF6D03</color>
+    <color name="accent_10">#1A69B7ED</color>
+    <color name="accent_30">#4D69B7ED</color>
     <color name="primary_10">#1A2971F0</color>
     <color name="primary_20">#332971F0</color>
 
@@ -46,7 +46,7 @@
     <color name="white20">#F2FFFFFF</color>
     <color name="white70">#B3FFFFFF</color>
     <color name="translucentGray">#33FAFAFA</color>
-    <color name="bg_selected">#FFEFDA</color>
+    <color name="bg_selected">#E8F4FF</color>
     <color name="gray_100">#F7FAFC</color>
     <color name="gray_200">#EDF2F7</color>
     <color name="gray_300">#E2E8F0</color>
@@ -88,8 +88,8 @@
 
     <color name="colorError">#FF0000</color>
     <color name="colorInputError">#EF3A2E</color>
-    <color name="colorItemSelected">#FFF4ED</color>
-    <color name="colorTitle">#FF8F3E</color>
+    <color name="colorItemSelected">#E8F4FF</color>
+    <color name="colorTitle">#246394</color>
 
     <color name="colorViewLine">#EDF2F7</color>
 
@@ -104,13 +104,13 @@
 
     <color name="colorTextMoneyC">#31AA73</color>
     <color name="colorTextMoneyD">#0C1A3D</color>
-    <color name="colorBg">#EB7F23</color>
+    <color name="colorBg">#C3E4FC</color>
     <color name="colorBgProcessBar">#30EDF2F7</color>
 
     //login
     <color name="colorTitleDialog">#201D0F</color>
     <color name="colorContentDialog">#201D0F</color>
-    <color name="colorButtonNegativeDialog">#FF7921</color>
+    <color name="colorButtonNegativeDialog">#246394</color>
     <color name="colorButtonPositiveDialog">#FFFFFF</color>
     <color name="colorSubText">#8C8C8C</color>
     <color name="colorSubTextOrange">#201D0F</color>
@@ -127,26 +127,29 @@
     //profile
     <color name="colorLineGray">#F0F0F0</color>
     <color name="neutral8">#595959</color>
-    <color name="primary100">#F47920</color>
-    <color name="colorBgLanguage">#FF9300</color>
-    <color name="primary5">#FEF8F4</color>
-    <color name="primary40">#FBC9A6</color>
-    <color name="colorButtonPrimary">#FF7921</color>
+    <color name="primary100">#3175A8</color>
+    <color name="colorBgLanguage">#C3E4FC</color>
+    <color name="primary5">#EEF8FF</color>
+    <color name="primary40">#A9D7F6</color>
+    <color name="colorButtonPrimary">#3175A8</color>
     <color name="neutral500">#616161</color>
     <color name="color_income">#52C41A</color>
     <color name="color_outcome">#FF4D4F</color>
-    <color name="colorBgAccount">#FAF6ED</color>
+    <color name="colorBgAccount">#F4FAFF</color>
     <color name="colorSuccess">#00861F</color>
     <color name="color_line_account">#E8E8E7</color>
     <color name="neutral3">#F5F5F5</color>
     <color name="color_error_code">#8A8881</color>
     <color name="color_bg_dialog">#20FFFFFF</color>
     <color name="colorShadow">#91CECBCB</color>
-    <color name="bg_beneficiary">#FAF6ED</color>
+    <color name="bg_beneficiary">#F4FAFF</color>
     <color name="neutral50">#F7F7F7</color>
 
     //change pass
     <color name="blueSpecial">#009EE0</color>
     <color name="green5">#73D13D</color>
     <color name="neutral300">#A6A6A6</color>
+    <color name="brand_light_action">#AAD9F9</color>
+    <color name="brand_input_hint">#49677F</color>
+    <color name="brand_input_border">#B9DCF4</color>
 </resources>

@@ -8,8 +8,7 @@ import java.net.HttpURLConnection.HTTP_UNAUTHORIZED
 
 class HeaderAuthenticationInterceptor(
     private val versionName: String,
-    private val storage: AndroidSecureStorage,
-    private val isProduction : Boolean
+    private val storage: AndroidSecureStorage
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -19,9 +18,7 @@ class HeaderAuthenticationInterceptor(
                 versionName = versionName,
                 language = storage.getLanguage(),
                 token = storage.getToken(),
-                deviceId = storage.getDeviceId(),
-                tokenWso2 = storage.getTokenWso2(),
-                !isProduction
+                deviceId = storage.getDeviceId()
             )
 
         val response = chain.proceed(request)
@@ -32,7 +29,7 @@ class HeaderAuthenticationInterceptor(
             synchronized(this) {
                 val currentToken = storage.getToken()
                 // Chỉ retry nếu token hiện tại trùng với cái mình gửi
-                if (request.header("Authorization") == "Bearer $currentToken") {
+                if (request.header("CustomToken") == "Bearer $currentToken") {
                     // Chỉ retry với token mới nếu có
                     val newToken = storage.getToken()
                     if (newToken != currentToken) {
@@ -41,9 +38,7 @@ class HeaderAuthenticationInterceptor(
                             versionName = versionName,
                             language = storage.getLanguage(),
                             token = newToken,
-                            deviceId = storage.getDeviceId(),
-                            tokenWso2 = storage.getTokenWso2(),
-                            !isProduction
+                            deviceId = storage.getDeviceId()
                         )
                         return chain.proceed(request)
                     } else {
@@ -57,7 +52,7 @@ class HeaderAuthenticationInterceptor(
                 } else {
                     // Có thread khác đã refresh thành công → retry với token mới
                     request = request.newBuilder()
-                        .header("Authorization", "Bearer ${storage.getToken()}")
+                        .header("CustomToken", "Bearer ${storage.getToken()}")
                         .build()
                     return chain.proceed(request)
                 }

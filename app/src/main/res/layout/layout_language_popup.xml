@@ -8,17 +8,11 @@
     android:padding="8dp">
 
     <include
-        android:id="@+id/iclLanguage1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/item_language_popup" />
-
-    <include
         android:id="@+id/iclLanguage2"
         layout="@layout/item_language_popup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp" />
+         />
 
     <include
         android:id="@+id/iclLanguage3"
