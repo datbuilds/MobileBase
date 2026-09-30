@@ -1,5 +1,5 @@
 <resources>
-    <string name="shb.action.skip">Bỏ qua</string>
+    <string name="base.action.skip">Bỏ qua</string>
 
     <string name="label.onboarding.first.title">An tâm trong mọi giao dịch</string>
     <string name="label.onboarding.first.content">Hệ thống bảo mật tiêu chuẩn toàn cầu\ntrên mọi giao dịch</string>

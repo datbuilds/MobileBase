@@ -6,15 +6,15 @@ Thư mục này chứa lớp xử lý tin nhắn và thông báo đẩy (Push No
 
 ## 1. Trạng thái hiện tại
 > [!IMPORTANT]
-> Toàn bộ nội dung lớp xử lý [FcmMessageService.kt](file:///Users/dt_linhdq/Desktop/shb-mobile-CAM/app/src/main/java/com/mobile/base/fcm/FcmMessageService.kt) hiện tại đang bị **đóng băng (comment out)** và chưa được kích hoạt sử dụng trong mã nguồn. 
+> Toàn bộ nội dung lớp xử lý [FcmMessageService.kt](file:///Users/dt_linhdq/Desktop/base-mobile-CAM/app/src/main/java/com/mobile/base/fcm/FcmMessageService.kt) hiện tại đang bị **đóng băng (comment out)** và chưa được kích hoạt sử dụng trong mã nguồn. 
 > 
-> Trong file cấu hình hệ thống [AndroidManifest.xml](file:///Users/dt_linhdq/Desktop/shb-mobile-CAM/app/src/main/AndroidManifest.xml), khai báo Service cho FCM (`FcmMessageService`) cũng đang bị comment out.
+> Trong file cấu hình hệ thống [AndroidManifest.xml](file:///Users/dt_linhdq/Desktop/base-mobile-CAM/app/src/main/AndroidManifest.xml), khai báo Service cho FCM (`FcmMessageService`) cũng đang bị comment out.
 
 ---
 
 ## 2. Thiết kế logic gốc (Khi được kích hoạt)
 
-Nếu được mở lại để sử dụng, cấu trúc logic của [FcmMessageService.kt](file:///Users/dt_linhdq/Desktop/shb-mobile-CAM/app/src/main/java/com/mobile/base/fcm/FcmMessageService.kt) sẽ hoạt động như sau:
+Nếu được mở lại để sử dụng, cấu trúc logic của [FcmMessageService.kt](file:///Users/dt_linhdq/Desktop/base-mobile-CAM/app/src/main/java/com/mobile/base/fcm/FcmMessageService.kt) sẽ hoạt động như sau:
 
 ### Quản lý Token thiết bị
 - **Khởi tạo**: Lấy Token FCM hiện tại thông qua `FirebaseMessaging.getInstance().token`.

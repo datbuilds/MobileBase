@@ -29,7 +29,7 @@ fun Interceptor.Chain.appRequestBuilder(
             addHeader("X-Language", resolvedLanguage)
 
             val info = "$versionName(Android$deviceVersion; $deviceModel; $deviceManufacturer"
-            val agent = "SHB SAHA Cam App/$info"
+            val agent = "Base SAHA Cam App/$info"
             addHeader("User-Agent", "Mozilla/5.0 ($agent)")
 
             if (token?.isNotEmpty() == true) {

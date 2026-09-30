@@ -10,6 +10,14 @@ const val FLAVOR_PRODUCTION = "pro"
 const val FLAVOR_UAT = "uat"
 const val FLAVOR_DEV = "dev"
 
+fun ApplicationProductFlavor.configureAppFlavor(
+    appName: String,
+    baseUrl: String
+) {
+    resValue("string", "app_name", appName)
+    buildConfigField("String", "BASE_URL", "\"$baseUrl\"")
+}
+
 fun NamedDomainObjectContainer<ApplicationProductFlavor>.createApplicationFlavor(
     pro: (ApplicationProductFlavor.() -> Unit)? = null,
     uat: (ApplicationProductFlavor.() -> Unit)? = null,

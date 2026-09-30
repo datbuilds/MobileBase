@@ -1,17 +1,17 @@
 # Package `com.mobile.base.base`
 
-Thư mục này chứa toàn bộ các lớp cơ sở (Base Classes) và thành phần dùng chung giúp chuẩn hóa giao diện, logic xử lý và quản lý vòng đời (Lifecycle) của toàn bộ ứng dụng SHB SAHA CAM.
+Thư mục này chứa toàn bộ các lớp cơ sở (Base Classes) và thành phần dùng chung giúp chuẩn hóa giao diện, logic xử lý và quản lý vòng đời (Lifecycle) của toàn bộ ứng dụng Base SAHA CAM.
 
 ---
 
 ## 1. Thành phần cốt lõi
 
-### [BaseActivity.kt](file:///Users/dt_linhdq/Desktop/shb-mobile-CAM/app/src/main/java/com/mobile/base/base/BaseActivity.kt)
+### [BaseActivity.kt](file:///Users/dt_linhdq/Desktop/base-mobile-CAM/app/src/main/java/com/mobile/base/base/BaseActivity.kt)
 - Lớp cơ sở cho toàn bộ các Activity (bao gồm `MainActivity`).
 - Quản lý trạng thái giao diện chung: Hiển thị/ẩn bàn phím ảo, hiển thị loading dialog tùy biến, hiển thị hộp thoại báo lỗi.
 - Đăng ký `ActivityLifeCycleObserver` để giám sát vòng đời.
 
-### [BaseFragmentBinding.kt](file:///Users/dt_linhdq/Desktop/shb-mobile-CAM/app/src/main/java/com/mobile/base/base/BaseFragmentBinding.kt)
+### [BaseFragmentBinding.kt](file:///Users/dt_linhdq/Desktop/base-mobile-CAM/app/src/main/java/com/mobile/base/base/BaseFragmentBinding.kt)
 - Lớp cơ sở cho tất cả các Fragment sử dụng ViewBinding / DataBinding.
 - Tự động hóa việc tạo và hủy binding (tránh rò rỉ bộ nhớ - memory leak).
 - Cung cấp các hàm tiện ích cho việc điều hướng:
@@ -19,19 +19,19 @@ Thư mục này chứa toàn bộ các lớp cơ sở (Base Classes) và thành 
   - `backPress()`
 - Lắng nghe và quan sát các trạng thái chung từ ViewModel (loading, thông báo lỗi, thông báo thành công).
 
-### [BaseViewModel.kt](file:///Users/dt_linhdq/Desktop/shb-mobile-CAM/app/src/main/java/com/mobile/base/base/BaseViewModel.kt)
+### [BaseViewModel.kt](file:///Users/dt_linhdq/Desktop/base-mobile-CAM/app/src/main/java/com/mobile/base/base/BaseViewModel.kt)
 - Lớp cơ sở cho tất cả các ViewModel.
 
-### [BaseBottomDialogBinding.kt](file:///Users/dt_linhdq/Desktop/shb-mobile-CAM/app/src/main/java/com/mobile/base/base/BaseBottomDialogBinding.kt)
+### [BaseBottomDialogBinding.kt](file:///Users/dt_linhdq/Desktop/base-mobile-CAM/app/src/main/java/com/mobile/base/base/BaseBottomDialogBinding.kt)
 - Lớp cơ sở dành cho các Bottom Sheet Dialog sử dụng ViewBinding/DataBinding.
 
-### [BaseErrorDialog.kt](file:///Users/dt_linhdq/Desktop/shb-mobile-CAM/app/src/main/java/com/mobile/base/base/BaseErrorDialog.kt)
+### [BaseErrorDialog.kt](file:///Users/dt_linhdq/Desktop/base-mobile-CAM/app/src/main/java/com/mobile/base/base/BaseErrorDialog.kt)
 - Định nghĩa hiển thị thống nhất cho các thông báo lỗi từ API hoặc lỗi hệ thống.
 
-### [BaseLoadMoreAdapter.kt](file:///Users/dt_linhdq/Desktop/shb-mobile-CAM/app/src/main/java/com/mobile/base/base/BaseLoadMoreAdapter.kt)
+### [BaseLoadMoreAdapter.kt](file:///Users/dt_linhdq/Desktop/base-mobile-CAM/app/src/main/java/com/mobile/base/base/BaseLoadMoreAdapter.kt)
 - Adapter tùy biến của RecyclerView hỗ trợ cơ chế tải thêm dữ liệu (Pagination / Load More) một cách mượt mà.
 
-### [ActivityLifeCycleObserver.kt](file:///Users/dt_linhdq/Desktop/shb-mobile-CAM/app/src/main/java/com/mobile/base/base/ActivityLifeCycleObserver.kt)
+### [ActivityLifeCycleObserver.kt](file:///Users/dt_linhdq/Desktop/base-mobile-CAM/app/src/main/java/com/mobile/base/base/ActivityLifeCycleObserver.kt)
 - Lắng nghe vòng đời của các Activity để xử lý các logic toàn cục như đếm ngược timeout phiên làm việc hoặc overlay màn hình.
 
 ---

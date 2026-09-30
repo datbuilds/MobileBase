@@ -6,7 +6,7 @@ Thư mục này hiện tại chứa cấu trúc thư mục rỗng: `com/mobile/b
 
 ## Mục đích & Vai trò
 - Đây là thư mục dự phòng hoặc cấu trúc cũ được tạo ra trong quá trình thiết lập dự án ban đầu.
-- **Hiện tại không chứa bất kỳ tệp mã nguồn Kotlin nào**. Toàn bộ mã nguồn chính của ứng dụng SHB SAHA CAM được đặt tập trung trong thư mục: [app/src/main/java/com/mobile/base](file:///Users/dt_linhdq/Desktop/shb-mobile-CAM/app/src/main/java/com/mobile/base).
+- **Hiện tại không chứa bất kỳ tệp mã nguồn Kotlin nào**. Toàn bộ mã nguồn chính của ứng dụng Base SAHA CAM được đặt tập trung trong thư mục: [app/src/main/java/com/mobile/base](file:///Users/dt_linhdq/Desktop/base-mobile-CAM/app/src/main/java/com/mobile/base).
 
 ---
 

@@ -1,6 +1,6 @@
 # 📱 MobileBase
 
-> Current scope: Splash, Login, and a minimal Home with logout. Account, transfer, transaction, beneficiary, profile/change-password, and Paste2Pay screens and their domain/API implementations have been removed. SHB image assets have been removed; launcher icons use a generic mobile icon. Existing authentication configuration remains in place.
+> Current scope: Splash, Login, and a minimal Home with logout. Account, transfer, transaction, beneficiary, profile/change-password, and Paste2Pay screens and their domain/API implementations have been removed. Base image assets have been removed; launcher icons use a generic mobile icon. Existing authentication configuration remains in place.
 
 MobileBase là bộ khung (base project) ứng dụng ngân hàng di động Android, tổ chức theo kiến trúc đa module (MVVM + Clean Architecture) với package gốc `com.mobile.base`.
 
@@ -139,7 +139,7 @@ MobileBase/
 
 ```bash
 # Clone repository
-git clone https://gitlab.shb.com.vn/shb-mobile-lao/shb-mobile-lao-android.git
+git clone https://gitlab.base.com.vn/base-mobile-lao/base-mobile-lao-android.git
 
 # Di chuyển vào thư mục dự án
 cd MobileBase
@@ -161,9 +161,9 @@ Dự án dùng flavor dimension `environment` với 3 flavor:
 
 | Environment     | app_name          | Base URL                                                                        | Build Command                  |
 | --------------- | ----------------- | ------------------------------------------------------------------------------- | ------------------------------ |
-| **dev**         | DEV SHB SAHA CAM  | `https://api-gw-ext-dev.shb.com.vn/external/shb-mobile-cam/1.0.0/mbcam/`         | `./gradlew assembleDevDebug`   |
-| **uat**         | UAT SHB SAHA Cam  | `https://t-apigw-cam.shb.com.vn/external/shb-mobile-cam/1.0.0/mbcam/`            | `./gradlew assembleUatRelease` |
-| **pro**         | SHB SAHA CAM      | `https://p-apigw-cam.shb.com.vn/external/shb-mobile-cam/1.0.0/mbcam/`            | `./gradlew assembleProRelease` |
+| **dev**         | DEV Base SAHA CAM  | `https://api-gw-ext-dev.base.com.vn/external/base-mobile-cam/1.0.0/mbcam/`         | `./gradlew assembleDevDebug`   |
+| **uat**         | UAT Base SAHA Cam  | `https://t-apigw-cam.base.com.vn/external/base-mobile-cam/1.0.0/mbcam/`            | `./gradlew assembleUatRelease` |
+| **pro**         | Base SAHA CAM      | `https://p-apigw-cam.base.com.vn/external/base-mobile-cam/1.0.0/mbcam/`            | `./gradlew assembleProRelease` |
 
 #### **Build Configuration**
 
