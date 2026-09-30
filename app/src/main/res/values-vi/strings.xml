@@ -14,7 +14,7 @@
     <string name="notification">Thông báo</string>
     <string name="incorrectUsernameOrPassword">Tên đăng nhập hoặc mật khẩu không đúng. Vui lòng thử lại.</string>
     <string name="processingError">Hệ thống đang gặp sự cố khi xử lý. Quý khách vui lòng thực hiện lại sau ít phút.</string>
-    <string name="welcomeToShb">Chào mừng Quý khách hàng đến với SHB!</string>
+    <string name="welcomeToBase">Chào mừng Quý khách hàng đến với Base!</string>
     <string name="currentAccount">Tài khoản thanh toán</string>
     <string name="transfer">Chuyển tiền</string>
     <string name="accounts">Tài khoản</string>
@@ -29,7 +29,7 @@
     <string name="customerName">Tên khách hàng</string>
     <string name="defaultCasaAccount">Tài khoản thanh toán mặc định</string>
     <string name="email">Email</string>
-    <string name="shbOnline">SHB Online</string>
+    <string name="baseOnline">Base Online</string>
     <string name="userNameLogin">Tên đăng nhập</string>
     <string name="chooseProfilePicture">Chọn ảnh đại diện</string>
     <string name="takePhoto">Chụp ảnh</string>
@@ -50,7 +50,7 @@
     <string name="referenceNumber">Mã giao dịch</string>
     <string name="moneyTransfer">Chuyển tiền</string>
     <string name="intrabankTransfer">Chuyển khoản cùng\nngân hàng</string>
-    <string name="ownAccountTransfer">Đến tôi tại SHB</string>
+    <string name="ownAccountTransfer">Đến tôi tại Base</string>
     <string name="balance">Số dư</string>
     <string name="toAccount">Tài khoản nhận</string>
     <string name="amount">Số tiền giao dịch</string>
@@ -97,7 +97,7 @@
     <string name="enterRecipientName">Nhập tên người thụ hưởng</string>
     <string name="pleaseEnterTheAmount">Vui lòng nhập số tiền</string>
     <string name="flexibleSaving">TIẾT KIỆM LINH HOẠT</string>
-    <string name="staffLoans">KHOẢN VAY NHÂN VIÊN SHB</string>
+    <string name="staffLoans">KHOẢN VAY NHÂN VIÊN Base</string>
     <string name="today">Hôm nay</string>
     <string name="yesterday">Hôm qua</string>
     <string name="from">Từ</string>
@@ -111,7 +111,7 @@
     <string name="second">giây</string>
     <string name="errorCode" translatable="false">Mã lỗi</string>
     <string name="to">Đến</string>
-    <string name="SHBAccount">Tài khoản SHB</string>
+    <string name="BaseAccount">Tài khoản Base</string>
     <string name="transferAccountAndReceivingAccountNotSame">Tài khoản chuyển và tài khoản nhận không cùng loại tiền tệ.</string>
     <string name="pleaseEnterTheAccountNumber">Vui lòng nhập tài khoản nhận</string>
     <string name="pleaseEnterToAccountNumber">Vui lòng nhập tài khoản nhận</string>
@@ -173,10 +173,10 @@
     <string name="theBeneficiaryUpdateFail">Cập nhật người thụ hưởng thất bại</string>
     <string name="theBeneficiaryAlreadyExists">Người thụ hưởng đã tồn tại</string>
     <string name="new_version_available">Có phiên bản mới</string>
-    <string name="weHaveReleasedNewVersion">Chúng tôi đã phát hành một phiên bản mới. Vui lòng cập nhật để có trải nghiệm tiết kiệm tốt hơn với SHB SAHA CAMs.</string>
+    <string name="weHaveReleasedNewVersion">Chúng tôi đã phát hành một phiên bản mới. Vui lòng cập nhật để có trải nghiệm tiết kiệm tốt hơn với Base SAHA CAMs.</string>
     <string name="updateLabel">Cập nhật</string>
     <string name="invalidAccountNumber">Số tài khoản không hợp lệ</string>
-    <string name="register_device_title">Vui lòng đăng ký thiết bị để sử dụng ứng dụng SHB Saha Cambodia.</string>
+    <string name="register_device_title">Vui lòng đăng ký thiết bị để sử dụng ứng dụng Base Saha Cambodia.</string>
     <string name="register_device_message">Để tăng cường bảo mật tài khoản, vui lòng xác thực thiết bị bằng mã OTP được gửi đến số điện thoại %s để hoàn tất đăng ký ứng dụng. Đây có phải là số điện thoại của Quý khách không?</string>
     <string name="confirm_device_title">Xác nhận thiết bị mới đăng nhập</string>
     <string name="confirm_device_message">Quý khách vui lòng nhập mã OTP đã được gửi về số điện thoại %s</string>
@@ -190,13 +190,13 @@
     <string name="otpIncorrectly5TimesLogin">Quý khách đã nhập sai %s lần OTP, xin vui lòng chờ %s phút để thử lại</string>
     <string name="requestOtpMore5TimesTransfer">Quý khách đã vượt quá số lần yêu cầu mã xác thực OTP cho phép %s lần. Vui lòng quay lại sau %s.</string>
     <string name="requestOtpMore5TimesLogin">Quý khách đã vượt quá số lần yêu cầu mã OTP (%s lần). Vui lòng quay lại sau %s.</string>
-    <string name="newDeviceVerificial">Quý khách đang đăng nhập vào SHB Saha Cambodia trên một thiết bị mới. Vui lòng xác thực bằng mã OTP được gửi tới số điện thoại %s để tiếp tục sử dụng dịch vụ. Đây có phải là số điện thoại của Quý khách không?</string>
+    <string name="newDeviceVerificial">Quý khách đang đăng nhập vào Base Saha Cambodia trên một thiết bị mới. Vui lòng xác thực bằng mã OTP được gửi tới số điện thoại %s để tiếp tục sử dụng dịch vụ. Đây có phải là số điện thoại của Quý khách không?</string>
     <string name="goToBranch">Đến chi nhánh</string>
-    <string name="getSupportForChanging">Quý khách vui lòng đến chi nhánh hoặc điểm giao dịch SHB Chi nhánh Campuchia gần nhất để được hỗ trợ đăng ký/thay đổi số điện thoại.</string>
+    <string name="getSupportForChanging">Quý khách vui lòng đến chi nhánh hoặc điểm giao dịch Base Chi nhánh Campuchia gần nhất để được hỗ trợ đăng ký/thay đổi số điện thoại.</string>
     <string name="language">Ngôn ngữ</string>
     <string name="register_device_other">Xác nhận thiết bị mới</string>
     <string name="listAccount">Danh sách tài khoản</string>
-    <string name="toMeAtSHB">Đến tôi tại SHB</string>
+    <string name="toMeAtBase">Đến tôi tại Base</string>
     <string name="exchangeRate">Tỷ giá</string>
     <string name="rateAreIndicative">Lưu ý: Tỷ giá có hiệu lực tài thời điểm truy vấn, có thể thay đổi tại thời điểm hạch toán</string>
     <string name="paste_pay_top_label">Dán nội dung hoặc tải ảnh chứa thông tin chuyển khoản</string>
@@ -205,8 +205,8 @@
     <string name="paste_pay_intro_label">Dán nội dung hoặc tải ảnh để chuyển tiền nhanh</string>
     <string name="paste_pay_action_label">Bỏ qua</string>
     <string name="paste_pay_image_too_large">Ảnh quá dung lượng cho phép (Tối đa 10mb)</string>
-    <string name="paste_pay_only_shb_supported">Hiện tại hệ thống chỉ hỗ trợ chuyển tiền trong hệ thống SHB.</string>
-    <string name="ai_result_analyzed">Phân tích bởi SHB AI</string>
+    <string name="paste_pay_only_base_supported">Hiện tại hệ thống chỉ hỗ trợ chuyển tiền trong hệ thống Base.</string>
+    <string name="ai_result_analyzed">Phân tích bởi Base AI</string>
     <string name="ai_result_bank_label">Ngân hàng</string>
     <string name="ai_result_to_account_label">Tài khoản nhận</string>
     <string name="ai_result_amount_label">Số tiền</string>

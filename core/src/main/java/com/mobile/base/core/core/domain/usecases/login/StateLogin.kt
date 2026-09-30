@@ -4,5 +4,5 @@
 //    object Idle : StateLogin()
 //    data class NotLogin(val stores: List<Any>) : StateLogin()
 //
-//    object OpenDashboard : StateLogin()
+//    object OpenDabaseoard : StateLogin()
 //}

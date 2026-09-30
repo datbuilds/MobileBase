@@ -27,5 +27,5 @@
         android:id="@+id/ivImageUser"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:srcCompat="@drawable/banner_login" />
+        tools:srcCompat="@drawable/ic_avatar_default" />
 </FrameLayout>

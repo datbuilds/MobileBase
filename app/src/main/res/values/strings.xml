@@ -13,7 +13,7 @@
     <string name="notification">Notification</string>
     <string name="incorrectUsernameOrPassword">Incorrect username or password. Please try again.</string>
     <string name="processingError">System temporarily unavailable. Please try again later.</string>
-    <string name="welcomeToShb">Welcome to SHB</string>
+    <string name="welcomeToBase">Welcome to Base</string>
     <string name="currentAccount">Current Account</string>
     <string name="transfer">Transfer</string>
     <string name="transferCAP" translatable="false">TRANSFER</string>
@@ -29,7 +29,7 @@
     <string name="customerName">Customer Name</string>
     <string name="defaultCasaAccount">Default Current Account</string>
     <string name="email">Email</string>
-    <string name="shbOnline">SHB Online</string>
+    <string name="baseOnline">Base Online</string>
     <string name="userNameLogin">User Name</string>
     <string name="chooseProfilePicture">Choose profile picture</string>
     <string name="takePhoto">Take a photo</string>
@@ -50,7 +50,7 @@
     <string name="referenceNumber">Reference Number</string>
     <string name="moneyTransfer">Money transfer</string>
     <string name="intrabankTransfer">Intrabank transfer</string>
-    <string name="ownAccountTransfer">To me at SHB</string>
+    <string name="ownAccountTransfer">To me at Base</string>
     <string name="balance">Balance</string>
     <string name="toAccount">To Account</string>
     <string name="amount">Amount</string>
@@ -99,7 +99,7 @@
     <string name="enterRecipientName">Enter Beneficiary Name</string>
     <string name="pleaseEnterTheAmount">Enter Amount</string>
     <string name="flexibleSaving">FLEXIBLE SAVING</string>
-    <string name="staffLoans">SHB STAFF LOANS</string>
+    <string name="staffLoans">Base STAFF LOANS</string>
     <string name="today">Today</string>
     <string name="yesterday">Yesterday</string>
     <string name="from">From</string>
@@ -113,7 +113,7 @@
     <string name="second">second</string>
     <string name="errorCode" translatable="false">Errorcode</string>
     <string name="to">To</string>
-    <string name="SHBAccount">SHB Account</string>
+    <string name="BaseAccount">Base Account</string>
     <string name="transferAccountAndReceivingAccountNotSame">Source and recipient accounts must be in the same currency.</string>
     <string name="pleaseEnterTheAccountNumber">Please enter the Account Number</string>
     <string name="pleaseEnterToAccountNumber">Please enter to account</string>
@@ -154,7 +154,7 @@
 
     <string name="beneficiaryList">Beneficiary list</string>
     <string name="enterRecipientNameOrAccountNumber">Enter recipient name or account number</string>
-    <string name="systemUptateTransactionStatus">Sorry, the system is currently unable to update the transaction status. Please check your statement or visit the nearest SHB Branch to verify your transaction.</string>
+    <string name="systemUptateTransactionStatus">Sorry, the system is currently unable to update the transaction status. Please check your statement or visit the nearest Base Branch to verify your transaction.</string>
     <string name="noteDefaultAccount" translatable="false">Tài khoản mặc định sẽ hiển thị khi bạn đăng nhập lại</string>
     <string name="enterBankName">Enter bank name</string>
     <string name="newBeneficiaryAddedSuccessfully">Beneficiary added successfully!</string>
@@ -178,10 +178,10 @@
     <string name="theBeneficiaryUpdateFail">Beneficiary update failed!</string>
     <string name="theBeneficiaryAlreadyExists">Beneficiary already exists.</string>
     <string name="new_version_available">A new version is available</string>
-    <string name="weHaveReleasedNewVersion">We have released a new version. Please update to enjoy a better saving experience with SHB SAHA CAMs.</string>
+    <string name="weHaveReleasedNewVersion">We have released a new version. Please update to enjoy a better saving experience with Base SAHA CAMs.</string>
     <string name="updateLabel">Update</string>
     <string name="invalidAccountNumber">Invalid Account Number</string>
-    <string name="register_device_title">Please register this device to use SHB Saha Cambodia.</string>
+    <string name="register_device_title">Please register this device to use Base Saha Cambodia.</string>
     <string name="register_device_message">For enhanced security, please verify your device using the OTP sent to %s to complete the app registration. Is this your phone number?</string>
     <string name="confirm_device_title">Confirm new device</string>
     <string name="confirm_device_message">Please enter the OTP sent to %s.</string>
@@ -197,11 +197,11 @@
     <string name="requestOtpMore5TimesLogin">OTP request limit reached (%s times). Please return in %s.</string>
     <string name="newDeviceVerificial">New device login detected. Please verify with the OTP sent to %s to continue. Is this your phone number?</string>
     <string name="goToBranch">Go to Branch</string>
-    <string name="getSupportForChanging">Please visit your nearest SHB Cambodia Branch to register or update your phone number.</string>
+    <string name="getSupportForChanging">Please visit your nearest Base Cambodia Branch to register or update your phone number.</string>
     <string name="language">Language</string>
     <string name="register_device_other">New device verification</string>
     <string name="listAccount">Account List</string>
-    <string name="toMeAtSHB">To me at SHB</string>
+    <string name="toMeAtBase">To me at Base</string>
     <string name="exchangeRate">Exchange Rate</string>
     <string name="formatTextExchangeCurrency" translatable="false">1 %s ≈ %s %s</string>
     <string name="rateAreIndicative">Note: Rates are indicative at inquiry and subject to change upon posting</string>
@@ -211,8 +211,8 @@
     <string name="paste_pay_intro_label">Paste message or upload image to transfer quickly</string>
     <string name="paste_pay_action_label">Skip</string>
     <string name="paste_pay_image_too_large">Image size exceeds limit of 10MB</string>
-    <string name="paste_pay_only_shb_supported">Currently the system only supports transfers within SHB.</string>
-    <string name="ai_result_analyzed">Analyzed by SHB AI</string>
+    <string name="paste_pay_only_base_supported">Currently the system only supports transfers within Base.</string>
+    <string name="ai_result_analyzed">Analyzed by Base AI</string>
     <string name="ai_result_bank_label">Bank</string>
     <string name="ai_result_to_account_label">To Account</string>
     <string name="ai_result_amount_label">Amount</string>

@@ -186,7 +186,7 @@ fun randomString(length: Int = 15): String {
 }
 
 fun String.getInitials(): String {
-    val name = this.ifEmpty { "SHB" }
+    val name = this.ifEmpty { "Base" }
     val parts = name.trim().split("\\s+".toRegex()) // tách theo khoảng trắng
     return when {
         parts.isEmpty() -> ""

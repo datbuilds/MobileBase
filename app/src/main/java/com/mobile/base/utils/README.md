@@ -1,14 +1,14 @@
 # Package `com.mobile.base.utils`
 
-Thư mục này chứa các thư viện tiện ích, lớp cấu hình hằng số (constants), trình quản lý logic và các hàm mở rộng (Kotlin extensions) hỗ trợ đắc lực cho việc phát triển toàn bộ ứng dụng SHB SAHA CAM.
+Thư mục này chứa các thư viện tiện ích, lớp cấu hình hằng số (constants), trình quản lý logic và các hàm mở rộng (Kotlin extensions) hỗ trợ đắc lực cho việc phát triển toàn bộ ứng dụng Base SAHA CAM.
 
 ---
 
 ## 1. Hằng số & Quản lý logic nghiệp vụ chung
 
-- **[ApiConst.kt](file:///Users/dt_linhdq/Desktop/shb-mobile-CAM/app/src/main/java/com/mobile/base/utils/ApiConst.kt)**: Khai báo toàn bộ các đường dẫn endpoint tĩnh của API (như `/login`, `/auth/refresh-token`, `/transfer/validate`, v.v.).
-- **[BankType.kt](file:///Users/dt_linhdq/Desktop/shb-mobile-CAM/app/src/main/java/com/mobile/base/utils/BankType.kt)**: Định nghĩa Enum đại diện cho các loại ngân hàng (Napas, SHB, v.v.) đi kèm icon và tên hiển thị tương ứng.
-- **[PaginationManager.kt](file:///Users/dt_linhdq/Desktop/shb-mobile-CAM/app/src/main/java/com/mobile/base/utils/PaginationManager.kt)**: Quản lý trạng thái phân trang dữ liệu (Trang hiện tại, tổng số trang, trạng thái đang tải), thường dùng kết hợp với các danh sách lịch sử giao dịch hoặc danh bạ thụ hưởng.
+- **[ApiConst.kt](file:///Users/dt_linhdq/Desktop/base-mobile-CAM/app/src/main/java/com/mobile/base/utils/ApiConst.kt)**: Khai báo toàn bộ các đường dẫn endpoint tĩnh của API (như `/login`, `/auth/refresh-token`, `/transfer/validate`, v.v.).
+- **[BankType.kt](file:///Users/dt_linhdq/Desktop/base-mobile-CAM/app/src/main/java/com/mobile/base/utils/BankType.kt)**: Định nghĩa Enum đại diện cho các loại ngân hàng (Napas, Base, v.v.) đi kèm icon và tên hiển thị tương ứng.
+- **[PaginationManager.kt](file:///Users/dt_linhdq/Desktop/base-mobile-CAM/app/src/main/java/com/mobile/base/utils/PaginationManager.kt)**: Quản lý trạng thái phân trang dữ liệu (Trang hiện tại, tổng số trang, trạng thái đang tải), thường dùng kết hợp với các danh sách lịch sử giao dịch hoặc danh bạ thụ hưởng.
 
 ---
 

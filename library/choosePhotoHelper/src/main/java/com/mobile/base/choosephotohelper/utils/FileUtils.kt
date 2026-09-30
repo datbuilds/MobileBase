@@ -234,7 +234,7 @@ private fun getFileName(
 fun saveAndOpenExcelToDownloads(
     context: Context,
     base64String: String,
-    fileName: String = "shb_excel.xlsx",
+    fileName: String = "base_excel.xlsx",
     onComplete: (String, Uri) -> Unit
 ) {
     try {

@@ -12,46 +12,17 @@ android {
 
     buildFeatures {
         buildConfig = true
+        viewBinding = AndroidConfig.VIEW_BINDING_ENABLED
+        dataBinding = AndroidConfig.DATA_BINDING_ENABLED
     }
 
     flavorDimensions.add(FlavorDimensions.ENVIRONMENT)
     productFlavors {
         createApplicationFlavor(
-            pro = {
-                resValue("string", "app_name", "SHB SAHA CAM")
-                buildConfigField(
-                    "String",
-                    "BASE_URL",
-                    "\"https://p-apigw-cam.shb.com.vn/external/shb-mobile-cam/1.0.0/mbcam/\""
-                )
-            },
-
-            uat = {
-                resValue("string", "app_name", "UAT SHB SAHA Cam")
-
-                buildConfigField(
-                    "String",
-                    "BASE_URL",
-                    "\"https://t-apigw-cam.shb.com.vn/external/shb-mobile-cam/1.0.0/mbcam/\""
-                )
-            },
-
-            dev = {
-                resValue("string", "app_name", "DEV SHB SAHA CAM")
-
-                buildConfigField(
-                    "String",
-                    "BASE_URL",
-                    "\"https://api-gw-ext-dev.shb.com.vn/external/shb-mobile-cam/1.0.0/mbcam/\""
-                )
-            }
+            pro = { configureAppFlavor("MobileBase", "https://base.com.vn/external/") },
+            uat = { configureAppFlavor("UAT MobileBase", "https://base.com.vn/external/") },
+            dev = { configureAppFlavor("DEV MobileBase", "https://base.com.vn/external/") }
         )
-    }
-
-
-    buildFeatures {
-        viewBinding = AndroidConfig.VIEW_BINDING_ENABLED
-        dataBinding = AndroidConfig.DATA_BINDING_ENABLED
     }
 
     lint {

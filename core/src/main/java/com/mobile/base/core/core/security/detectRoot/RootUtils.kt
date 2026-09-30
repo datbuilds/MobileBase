@@ -274,7 +274,7 @@ object RootUtils {
         }
     }
 
-    // check root shbcn
+    // check root basecn
     private fun isRooted(context: Context): Boolean {
         return checkRootMethod1() || checkRootMethod2() || checkRootMethod3() || checkRootMethod4(
             context

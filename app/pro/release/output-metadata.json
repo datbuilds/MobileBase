@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "vn.shb.cam",
+  "applicationId": "vn.base.cam",
   "variantName": "proRelease",
   "elements": [
     {
@@ -13,7 +13,7 @@
       "attributes": [],
       "versionCode": 1,
       "versionName": "1.0.0",
-      "outputFile": "SHB SAHA Cam - 1.0.0(1)-pro-release.apk"
+      "outputFile": "Base SAHA Cam - 1.0.0(1)-pro-release.apk"
     }
   ],
   "elementType": "File"

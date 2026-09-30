@@ -51,12 +51,12 @@
     <string name="title_settings_dialog" translatable="false">Cấp quyền truy cập</string>
     <string name="permission_join_room" translatable="false">Để nói chuyện trong phòng, bạn cần cấp quyền truy cập cần thiết.</string>
     <string name="permission_join_room_rationale" translatable="false">
-            SHB Sale App cần bạn cho phép truy cập Mic và Bộ nhớ máy trước khi tham gia vào phòng.
+            Base Sale App cần bạn cho phép truy cập Mic và Bộ nhớ máy trước khi tham gia vào phòng.
             Bạn hãy vào cài đặt để thực hiện việc cấp quyền.
         </string>
-    <string name="permission_photo" translatable="false">SHB Sale App cần bạn cho phép truy cập máy ảnh và thư viện ảnh</string>
-    <string name="permission_photo_rationale" translatable="false">SHB Sale App cần bạn cho phép truy cập máy ảnh và thư viện ảnh. Bạn hãy vào cài đặt để thực hiện việc cấp quyền.</string>
-    <string name="permission_camera" translatable="false">SHB Sale App cần bạn cho phép truy cập máy ảnh.</string>
+    <string name="permission_photo" translatable="false">Base Sale App cần bạn cho phép truy cập máy ảnh và thư viện ảnh</string>
+    <string name="permission_photo_rationale" translatable="false">Base Sale App cần bạn cho phép truy cập máy ảnh và thư viện ảnh. Bạn hãy vào cài đặt để thực hiện việc cấp quyền.</string>
+    <string name="permission_camera" translatable="false">Base Sale App cần bạn cho phép truy cập máy ảnh.</string>
     <string name="action_open_setting" translatable="false">Mở cài đặt</string>
     <string name="action_cancel" translatable="false">Hủy</string>
 </resources>
