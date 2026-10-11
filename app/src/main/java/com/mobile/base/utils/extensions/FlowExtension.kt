@@ -6,13 +6,15 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 
 fun <T> Flow<T>.launchWhenResumed(lifecycleOwner: LifecycleOwner) {
+    val flow = this
     lifecycleOwner.lifecycleScope.launchWhenResumed {
-        this@launchWhenResumed.collect()
+        flow.collect { }
     }
 }
 
 fun <T> Flow<T>.launchWhenStarted(lifecycleOwner: LifecycleOwner) {
+    val flow = this
     lifecycleOwner.lifecycleScope.launchWhenStarted {
-        this@launchWhenStarted.collect()
+        flow.collect { }
     }
 }

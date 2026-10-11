@@ -227,4 +227,12 @@
     <string name="yourCurrentAccountIsCurrentlyBlocked">Your current account is currently blocked. Please visit our nearest Branch for support.</string>
     <string name="notification_password_expiring">Password expiring in %x days. Update your password to keep your account secure and services active.</string>
     <string name="passwordIsNoLongerValid">Your password is no longer valid. Update it now to ensure secure and uninterrupted service.</string>
+
+    <string name="home_coach_welcome_title">Welcome to Home</string>
+    <string name="home_coach_welcome_body">This is the main area after sign in. Replace these anchors with your real Home widgets when the screen is customized.</string>
+    <string name="home_coach_logout_title">Account action</string>
+    <string name="home_coach_logout_body">Use this button to end the current session safely.</string>
+    <string name="home_coach_skip">Skip</string>
+    <string name="home_coach_next">Next</string>
+    <string name="home_coach_finish">Done</string>
 </resources>

@@ -10,7 +10,6 @@ internal fun Project.configureAndroidLibrary() = libraryExtension.run {
 
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
         compileSdk = libs.versions.compileSdk.get().toInt()
 
         consumerProguardFiles("consumer-rules.pro")
@@ -39,7 +38,7 @@ internal fun Project.configureAndroidLibrary() = libraryExtension.run {
     }
 
     compileOptions {
-        sourceCompatibility = org.gradle.api.JavaVersion.VERSION_11
-        targetCompatibility = org.gradle.api.JavaVersion.VERSION_11
+        sourceCompatibility = org.gradle.api.JavaVersion.VERSION_17
+        targetCompatibility = org.gradle.api.JavaVersion.VERSION_17
     }
 }

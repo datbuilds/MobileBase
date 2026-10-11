@@ -3,9 +3,9 @@ compileSdk = "36"
 targetSdk = "36"
 minSdk = "26"
 
-kotlin = "1.9.24"
-gradleBuildTools = "8.2.2"
-mavenPushlish = "0.22.0"
+kotlin = "2.4.21"
+gradleBuildTools = "9.4.0"
+mavenPushlish = "0.37.0"
 
 androidFlexboxlayout = "3.0.0"
 androidInstallreferrer = "2.2"
@@ -84,8 +84,8 @@ bouncyCastle = "1.68"
 jetPackCrypto = "1.1.0-alpha03"
 
 exoPlayer = "1.3.1"
-kotlinVersion = "1.9.20"
-agp = "8.2.2"
+kotlinVersion = "2.4.21"
+agp = "9.4.0"
 activityCompose = "1.11.0"
 composeBom = "2024.09.00"
 
@@ -232,8 +232,8 @@ ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 material3 = { group = "androidx.compose.material3", name = "material3" }
 [plugins]
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinVersion" }
 android-application = { id = "com.android.application", version.ref = "agp" }
+legacy-kapt = { id = "com.android.legacy-kapt", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlinVersion" }
 
 [bundles]

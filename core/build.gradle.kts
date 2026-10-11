@@ -1,7 +1,7 @@
 plugins {
     id(Plugins.MOBILEBASE_APP)
     id(Plugins.ANDROID_LIBRARY)
-    kotlin(Plugins.KOTLIN_KAPT)
+    alias(libs.plugins.legacy.kapt)
 }
 
 android {
@@ -24,7 +24,9 @@ dependencies {
     implementation(libs.kotlinxCoroutinesAndroid)
 
     implementation(libs.easyPermission)
-    implementation(libs.networkMonitor)
+    implementation(libs.networkMonitor) {
+        exclude(group = "org.jetbrains.kotlin", module = "kotlin-android-extensions-runtime")
+    }
 
     //Retrofit
     implementation(libs.retrofit)

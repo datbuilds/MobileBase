@@ -219,4 +219,12 @@
     <string name="incorrectOtpPleaseTryAgain">Mã OTP không chính xác. Vui lòng kiểm tra lại.</string>
     <string name="confirmTransactionOTP">Xác nhận giao dịch</string>
     <string name="yourCurrentAccountIsCurrentlyBlocked">Tài khoản thanh toán của Quý khách hiện đang bị khóa. Vui lòng đến quầy giao dịch gần nhất để được hỗ trợ</string>
+
+    <string name="home_coach_welcome_title">Chào mừng vào Home</string>
+    <string name="home_coach_welcome_body">Đây là khu vực chính sau khi đăng nhập. Khi màn Home có widget thật, chỉ cần đổi anchor sang đúng view cần hướng dẫn.</string>
+    <string name="home_coach_logout_title">Thao tác tài khoản</string>
+    <string name="home_coach_logout_body">Dùng nút này để kết thúc phiên đăng nhập an toàn.</string>
+    <string name="home_coach_skip">Bỏ qua</string>
+    <string name="home_coach_next">Tiếp</string>
+    <string name="home_coach_finish">Xong</string>
 </resources>

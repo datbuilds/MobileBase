@@ -5,7 +5,6 @@ plugins {
 
 android {
     namespace = "com.example.imagecrouse"
-    compileSdk = 35
 }
 
 dependencies {

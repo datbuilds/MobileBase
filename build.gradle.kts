@@ -23,10 +23,8 @@ allprojects {
     }
 }
 
-tasks {
-    registering(Delete::class) {
-        delete(buildDir)
-    }
+tasks.register<Delete>("clean") {
+    delete(layout.buildDirectory)
 }
 
 tasks.withType<JavaCompile> {

@@ -152,4 +152,11 @@
     <color name="brand_light_action">#AAD9F9</color>
     <color name="brand_input_hint">#49677F</color>
     <color name="brand_input_border">#B9DCF4</color>
+
+    <color name="coach_mark_card">#FFFFFF</color>
+    <color name="coach_mark_accent">#3175A8</color>
+    <color name="coach_mark_accent_dark">#1D3A72</color>
+    <color name="coach_mark_accent_soft">#E8F4FF</color>
+    <color name="coach_mark_text">#1A202C</color>
+    <color name="coach_mark_muted">#718096</color>
 </resources>
