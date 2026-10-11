@@ -1,17 +1,16 @@
 plugins {
     id(Plugins.MOBILEBASE_APP)
     id(Plugins.ANDROID_APPLICATION)
-    id(Plugins.ANDROID_KOTLIN)
     id(Plugins.ANDROID_MAVEN_PUBLISH)
-    kotlin(Plugins.KOTLIN_KAPT)
+    alias(libs.plugins.legacy.kapt)
 }
 
 android {
     namespace = "com.mobile.base"
-    compileSdk = 35
 
     buildFeatures {
         buildConfig = true
+        resValues = true
         viewBinding = AndroidConfig.VIEW_BINDING_ENABLED
         dataBinding = AndroidConfig.DATA_BINDING_ENABLED
     }
@@ -32,7 +31,7 @@ android {
 }
 
 dependencies {
-    implementation(fileTree(mapOf("dir" to "$buildDir/libs", "include" to "*.jar")))
+    implementation(fileTree(mapOf("dir" to layout.buildDirectory.dir("libs"), "include" to "*.jar")))
 
     //Import module
     implementation(projects.localization)
@@ -58,7 +57,9 @@ dependencies {
     implementation(libs.androidxFragment)
     implementation(libs.androidxLifecycleProcess)
     implementation(libs.easyPermission)
-    implementation(libs.networkMonitor)
+    implementation(libs.networkMonitor) {
+        exclude(group = "org.jetbrains.kotlin", module = "kotlin-android-extensions-runtime")
+    }
     implementation(libs.timber)
     implementation(libs.gson)
     implementation(libs.biometric)

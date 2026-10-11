@@ -5,5 +5,4 @@ plugins {
 
 android {
     namespace = "com.mobile.base.localization"
-    compileSdk = 35
 }

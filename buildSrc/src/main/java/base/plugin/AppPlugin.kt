@@ -6,9 +6,9 @@ import base.plugin.configure.configureAndroidLibrary
 import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.DynamicFeaturePlugin
 import com.android.build.gradle.LibraryPlugin
-import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.gradle.kotlin.dsl.withType
 
 /**
@@ -18,8 +18,6 @@ import org.gradle.kotlin.dsl.withType
 class AppPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         with(project) {
-            plugins.apply("kotlin-android")
-
             plugins.all {
                 when (this) {
                     is LibraryPlugin -> configureAndroidLibrary()
@@ -29,11 +27,11 @@ class AppPlugin : Plugin<Project> {
             }
 
             tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-                kotlinOptions.jvmTarget = JavaVersion.VERSION_11.toString()
-                kotlinOptions.freeCompilerArgs = listOf(
+                compilerOptions.jvmTarget.set(JvmTarget.JVM_17)
+                compilerOptions.freeCompilerArgs.set(listOf(
 //                    "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
                     "-opt-in=kotlinx.coroutines.FlowPreview"
-                )
+                ))
             }
 
 

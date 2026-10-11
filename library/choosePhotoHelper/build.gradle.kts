@@ -5,7 +5,6 @@ plugins {
 
 android {
     namespace = "com.mobile.base.choosephotohelper"
-    compileSdk = 35
 }
 
 dependencies {

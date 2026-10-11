@@ -1,14 +1,12 @@
 plugins {
     id(Plugins.MOBILEBASE_APP)
-    id(Plugins.ANDROID_KOTLIN)
     id(Plugins.ANDROID_LIBRARY)
     id("kotlin-parcelize")
-    kotlin(Plugins.KOTLIN_KAPT)
+    alias(libs.plugins.legacy.kapt)
 }
 
 android {
     namespace = "com.mobile.base.data"
-    compileSdk = 35
 }
 
 dependencies {

@@ -44,13 +44,13 @@ MobileBase/
 
 | Thành phần | Phiên bản/cấu hình |
 | --- | --- |
-| Kotlin | 1.9.24 |
-| Gradle | 8.5 |
-| Android Gradle Plugin | 8.2.2 |
+| Kotlin | 2.4.21 |
+| Gradle | 9.8.1 |
+| Android Gradle Plugin | 9.4.0 |
 | Min SDK | 26 |
-| Compile SDK | 35 |
+| Compile SDK | 36 |
 | Target SDK | 36 |
-| Java source/target | 11 |
+| Java source/target | 17 |
 | Kiến trúc | MVVM + Clean Architecture |
 | Dependency injection | Koin 3.1.3 |
 | UI | XML, ViewBinding, DataBinding, Material Components |

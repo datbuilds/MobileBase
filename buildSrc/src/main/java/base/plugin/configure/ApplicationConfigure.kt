@@ -5,57 +5,61 @@ import base.plugin.internal.applicationExtension
 import base.plugin.internal.libs
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
+import org.gradle.api.plugins.BasePluginExtension
 import java.io.FileInputStream
 import java.util.*
 
 @Suppress("UnstableApiUsage")
-internal fun Project.configureAndroidApplication() = applicationExtension.run {
-
-    defaultConfig {
-        applicationId = AndroidConfig.APPLICATION_ID
-        minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
-        compileSdk = libs.versions.compileSdk.get().toInt()
-        versionCode = AndroidConfig.VERSION_CODE
-        versionName = AndroidConfig.VERSION_NAME
-
-        vectorDrawables.useSupportLibrary = true
-
-        setProperty("archivesBaseName", AndroidConfig.archivesBaseName)
-        testInstrumentationRunner = AndroidConfig.TEST_INSTRUMENTATION_RUNNER
+internal fun Project.configureAndroidApplication() {
+    extensions.configure(BasePluginExtension::class.java) {
+        archivesName.set(AndroidConfig.archivesBaseName)
     }
 
-    buildFeatures {
-        viewBinding = AndroidConfig.VIEW_BINDING_ENABLED
-//        dataBinding = AndroidConfig.DATA_BINDING_ENABLED
-    }
+    applicationExtension.run {
+        defaultConfig {
+            applicationId = AndroidConfig.APPLICATION_ID
+            minSdk = libs.versions.minSdk.get().toInt()
+            targetSdk = libs.versions.targetSdk.get().toInt()
+            compileSdk = libs.versions.compileSdk.get().toInt()
+            versionCode = AndroidConfig.VERSION_CODE
+            versionName = AndroidConfig.VERSION_NAME
 
-    buildTypes {
-        release {
-            isDebuggable = false
-            isMinifyEnabled = true
-            enableAndroidTestCoverage = false
-            isShrinkResources = true
+            vectorDrawables.useSupportLibrary = true
 
-            proguardFiles(
-                "proguard-rules.pro",
-                getDefaultProguardFile("proguard-android-optimize.txt")
-            )
+            testInstrumentationRunner = AndroidConfig.TEST_INSTRUMENTATION_RUNNER
         }
 
-        debug {
-            isDebuggable = true
-            isMinifyEnabled = false
-            enableAndroidTestCoverage = true
+        buildFeatures {
+            viewBinding = AndroidConfig.VIEW_BINDING_ENABLED
+//        dataBinding = AndroidConfig.DATA_BINDING_ENABLED
+        }
+
+        buildTypes {
+            release {
+                isDebuggable = false
+                isMinifyEnabled = true
+                enableAndroidTestCoverage = false
+                isShrinkResources = true
+
+                proguardFiles(
+                    "proguard-rules.pro",
+                    getDefaultProguardFile("proguard-android-optimize.txt")
+                )
+            }
+
+            debug {
+                isDebuggable = true
+                isMinifyEnabled = false
+                enableAndroidTestCoverage = true
 
 //            applicationIdSuffix = ".debug"
 //            versionNameSuffix = "-debug"
+            }
         }
-    }
 
-    signingConfigs {
+        signingConfigs {
 
-        getByName("debug") {
+            getByName("debug") {
 //            val keystorePropertiesFile = file("../keystore/debug.properties")
 //            if (!keystorePropertiesFile.exists()) {
 //                return@getByName
@@ -69,36 +73,37 @@ internal fun Project.configureAndroidApplication() = applicationExtension.run {
 //            storeFile = file(keystoreProperties["storeFile"] as String)
 //            storePassword = keystoreProperties["storePassword"] as String
 
-            enableV1Signing = true
-            enableV2Signing = true
-            enableV3Signing = true
-            enableV4Signing = true
-        }
-
-        register("release") {
-            val keystorePropertiesFile = file("../keystore/release.properties")
-            if (!keystorePropertiesFile.exists()) {
-                logger.warn("Release builds may not work: signing config not found.")
-                return@register
+                enableV1Signing = true
+                enableV2Signing = true
+                enableV3Signing = true
+                enableV4Signing = true
             }
 
-            val keystoreProperties = Properties()
-            keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+            register("release") {
+                val keystorePropertiesFile = file("../keystore/release.properties")
+                if (!keystorePropertiesFile.exists()) {
+                    logger.warn("Release builds may not work: signing config not found.")
+                    return@register
+                }
 
-            keyAlias = keystoreProperties["keyAlias"] as String
-            keyPassword = keystoreProperties["keyPassword"] as String
-            storeFile = file(keystoreProperties["storeFile"] as String)
-            storePassword = keystoreProperties["storePassword"] as String
+                val keystoreProperties = Properties()
+                keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 
-            enableV1Signing = true
-            enableV2Signing = true
-            enableV3Signing = true
-            enableV4Signing = true
+                keyAlias = keystoreProperties["keyAlias"] as String
+                keyPassword = keystoreProperties["keyPassword"] as String
+                storeFile = file(keystoreProperties["storeFile"] as String)
+                storePassword = keystoreProperties["storePassword"] as String
+
+                enableV1Signing = true
+                enableV2Signing = true
+                enableV3Signing = true
+                enableV4Signing = true
+            }
         }
-    }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        compileOptions {
+            sourceCompatibility = JavaVersion.VERSION_17
+            targetCompatibility = JavaVersion.VERSION_17
+        }
     }
 }
