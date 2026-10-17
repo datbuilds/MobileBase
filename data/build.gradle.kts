@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.mobile.base.data"
+    namespace = "com.mobile.data"
 }
 
 dependencies {

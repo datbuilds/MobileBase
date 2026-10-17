@@ -235,4 +235,17 @@
     <string name="home_coach_skip">Skip</string>
     <string name="home_coach_next">Next</string>
     <string name="home_coach_finish">Done</string>
+
+    <string name="auth_app_name">Mobile Base</string>
+    <string name="splash_tagline">Care made simple, every day</string>
+    <string name="onboarding_skip">Skip</string>
+    <string name="onboarding_title">Care for what matters,\nevery day</string>
+    <string name="onboarding_body">Keep important routines, family moments, and daily tasks organized in one calm place.</string>
+    <string name="onboarding_continue">Continue</string>
+    <string name="login_welcome_title">Welcome back</string>
+    <string name="auth_logo_content_description">Application logo</string>
+    <string name="onboarding_illustration_content_description">A family connected through the application</string>
+    <string name="language_selector_content_description">Choose language</string>
+    <string name="clear_username_content_description">Clear username</string>
+    <string name="clear_password_content_description">Clear password</string>
 </resources>

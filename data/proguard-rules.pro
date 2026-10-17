@@ -26,12 +26,12 @@
 
 ################################# Gson Data Classes ##################################
 # Keep all entity classes for Gson serialization
--keep class com.mobile.base.data.entities.** { 
+-keep class com.mobile.data.entities.** {
     public <fields>;
     public <methods>;
 }
 
 # Keep field names with @SerializedName annotation
--keepclassmembers class com.mobile.base.data.entities.** {
+-keepclassmembers class com.mobile.data.entities.** {
     @com.google.gson.annotations.SerializedName <fields>;
 }

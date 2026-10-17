@@ -227,4 +227,17 @@
     <string name="home_coach_skip">Bỏ qua</string>
     <string name="home_coach_next">Tiếp</string>
     <string name="home_coach_finish">Xong</string>
+
+    <string name="auth_app_name">Mobile Base</string>
+    <string name="splash_tagline">Chăm sóc nhẹ nhàng, mỗi ngày</string>
+    <string name="onboarding_skip">Bỏ qua</string>
+    <string name="onboarding_title">Chăm sóc điều quan trọng,\nmỗi ngày</string>
+    <string name="onboarding_body">Sắp xếp thói quen, khoảnh khắc gia đình và việc cần làm trong một không gian thật nhẹ nhàng.</string>
+    <string name="onboarding_continue">Tiếp tục</string>
+    <string name="login_welcome_title">Chào mừng trở lại</string>
+    <string name="auth_logo_content_description">Logo ứng dụng</string>
+    <string name="onboarding_illustration_content_description">Gia đình được kết nối qua ứng dụng</string>
+    <string name="language_selector_content_description">Chọn ngôn ngữ</string>
+    <string name="clear_username_content_description">Xóa tên đăng nhập</string>
+    <string name="clear_password_content_description">Xóa mật khẩu</string>
 </resources>

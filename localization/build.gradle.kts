@@ -4,5 +4,5 @@ plugins {
 }
 
 android {
-    namespace = "com.mobile.base.localization"
+    namespace = "com.mobile.localization"
 }

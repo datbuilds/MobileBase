@@ -1,6 +1,6 @@
 
 object AndroidConfig {
-    const val APPLICATION_ID = "com.mobile.base"
+    const val APPLICATION_ID = "com.mobile"
 
     // Prepare the version name.
     // Version name scheme: major.minor.patch

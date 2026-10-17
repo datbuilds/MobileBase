@@ -1,6 +1,6 @@
 # MobileBase
 
-MobileBase là base project Android đa module, sử dụng MVVM + Clean Architecture và package gốc `com.mobile.base`.
+MobileBase là base project Android đa module, sử dụng MVVM + Clean Architecture và package gốc `com.mobile`.
 
 Phạm vi hiện tại gồm ba luồng chính:
 
@@ -81,9 +81,9 @@ Dự án sử dụng flavor dimension `environment`:
 
 | Flavor | App name | Application ID | Base URL |
 | --- | --- | --- | --- |
-| `dev` | DEV MobileBase | `com.mobile.base.dev` | `https://base.com.vn/external/` |
-| `uat` | UAT MobileBase | `com.mobile.base.uat` | `https://base.com.vn/external/` |
-| `pro` | MobileBase | `com.mobile.base` | `https://base.com.vn/external/` |
+| `dev` | Mobile Base | `com.mobile` | `https://base.com.vn/external/` |
+| `uat` | Mobile Base | `com.mobile` | `https://base.com.vn/external/` |
+| `pro` | Mobile Base | `com.mobile` | `https://base.com.vn/external/` |
 
 `BASE_URL` và `app_name` được cấu hình tập trung qua `configureAppFlavor` trong `buildSrc/src/main/java/BuildProductFlavors.kt`.
 
@@ -91,7 +91,7 @@ Dự án sử dụng flavor dimension `environment`:
 
 | Thuộc tính | Giá trị |
 | --- | --- |
-| Namespace/Application ID | `com.mobile.base` |
+| Namespace/Application ID | `com.mobile` |
 | Version name | `1.0.0` |
 | Version code | `3` |
 | Debug | Không minify, bật test coverage |

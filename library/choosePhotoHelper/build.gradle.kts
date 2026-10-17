@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.mobile.base.choosephotohelper"
+    namespace = "com.mobile.choosephotohelper"
 }
 
 dependencies {

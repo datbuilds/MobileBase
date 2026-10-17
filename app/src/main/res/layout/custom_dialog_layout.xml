@@ -6,75 +6,101 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg_dialog"
     android:orientation="vertical"
-    android:paddingTop="@dimen/margin_12dp"
-    android:paddingBottom="@dimen/margin_16dp">
+    android:paddingStart="@dimen/margin_20dp"
+    android:paddingTop="@dimen/margin_10dp"
+    android:paddingEnd="@dimen/margin_20dp"
+    android:paddingBottom="@dimen/margin_24dp">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivCloseDialog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:foreground="@drawable/ripple_grey_circle"
-        android:layout_gravity="end"
-        android:layout_marginEnd="@dimen/margin_16dp"
-        android:padding="@dimen/margin_8dp"
-        app:srcCompat="@drawable/ic_close" />
+    <View
+        android:layout_width="@dimen/margin_36dp"
+        android:layout_height="@dimen/margin_4dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/bg_sheet_handle"
+        android:importantForAccessibility="no" />
 
-    <com.mobile.base.base.view.MyTextView
-        android:id="@+id/tvTitleAlert"
-        style="@style/MaterialDialog.Title"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_16dp"
-        android:drawableStart="@drawable/ic_notification"
-        android:drawablePadding="@dimen/margin_10dp"
-        tools:text="@string/notification_channel_id" />
+        android:layout_marginTop="@dimen/margin_24dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivDialogIcon"
+            android:layout_width="@dimen/margin_48dp"
+            android:layout_height="@dimen/margin_48dp"
+            android:contentDescription="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_notification" />
+
+        <com.mobile.base.view.MyTextView
+            android:id="@+id/tvTitleAlert"
+            style="@style/MaterialDialog.SheetTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_12dp"
+            android:layout_marginEnd="@dimen/margin_8dp"
+            app:layout_constraintBottom_toBottomOf="@id/ivDialogIcon"
+            app:layout_constraintEnd_toStartOf="@id/ivCloseDialog"
+            app:layout_constraintStart_toEndOf="@id/ivDialogIcon"
+            app:layout_constraintTop_toTopOf="@id/ivDialogIcon"
+            tools:text="Notification" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivCloseDialog"
+            android:layout_width="@dimen/margin_48dp"
+            android:layout_height="@dimen/margin_48dp"
+            android:background="@drawable/ripple_grey_circle"
+            android:contentDescription="@string/close"
+            android:padding="@dimen/margin_12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_close" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
         android:id="@+id/flSupView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_20dp"
         tools:layout_height="@dimen/margin_100dp" />
 
-    <com.mobile.base.base.view.MyTextView
+    <com.mobile.base.view.MyTextView
         android:id="@+id/tvContentAlert"
-        style="@style/MaterialDialog.Message"
+        style="@style/MaterialDialog.SheetMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="@string/fab_transformation_scrim_behavior" />
+        android:layout_marginTop="@dimen/margin_16dp"
+        tools:text="System temporarily unavailable. Please try again later." />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/llButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginVertical="@dimen/margin_20dp"
+        android:layout_marginTop="@dimen/margin_24dp"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/margin_16dp">
+        android:orientation="horizontal">
 
-        <com.mobile.base.base.view.MyTextView
+        <com.mobile.base.view.MyTextView
             android:id="@+id/button_negative"
-            style="@style/MaterialDialog.NegativeButton"
+            style="@style/MaterialDialog.SheetNegativeButton"
             android:layout_width="0dp"
-            android:foreground="@drawable/ripple_grey_rec"
-            android:layout_height="wrap_content"
-            android:layout_weight="5"
+            android:layout_height="@dimen/margin_52dp"
+            android:layout_weight="1"
             android:text="@string/cancel" />
 
         <View
             android:id="@+id/viewCenter"
-            android:layout_width="@dimen/margin_0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1" />
+            android:layout_width="@dimen/margin_12dp"
+            android:layout_height="1dp" />
 
-        <com.mobile.base.base.view.MyTextView
+        <com.mobile.base.view.MyTextView
             android:id="@+id/button_positive"
-            style="@style/MaterialDialog.PositiveButton"
-            android:foreground="@drawable/ripple_grey_rec"
+            style="@style/MaterialDialog.SheetPositiveButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:text="@string/base_action_logout" />
+            android:layout_height="@dimen/margin_52dp"
+            android:layout_weight="1"
+            android:text="@string/close" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.appcompat.widget.LinearLayoutCompat>

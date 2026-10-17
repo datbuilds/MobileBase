@@ -32,7 +32,6 @@ fun NamedDomainObjectContainer<ApplicationProductFlavor>.createApplicationFlavor
 
     create(FLAVOR_UAT) {
         dimension = FlavorDimensions.ENVIRONMENT
-        applicationIdSuffix = ".$FLAVOR_UAT"
         versionNameSuffix = "-$FLAVOR_UAT"
         matchingFallbacks.add(FLAVOR_UAT)
         uat?.invoke(this)
@@ -40,7 +39,6 @@ fun NamedDomainObjectContainer<ApplicationProductFlavor>.createApplicationFlavor
 
     create(FLAVOR_DEV) {
         dimension = FlavorDimensions.ENVIRONMENT
-        applicationIdSuffix = ".$FLAVOR_DEV"
         versionNameSuffix = "-$FLAVOR_DEV"
         matchingFallbacks.add(FLAVOR_DEV)
         dev?.invoke(this)

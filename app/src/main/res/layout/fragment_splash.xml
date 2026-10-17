@@ -4,33 +4,63 @@
     android:id="@+id/splashParent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/auth_flow_background"
     android:fitsSystemWindows="false">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivBackground"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/bg_auth_light"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ProgressBar
-        android:id="@+id/state_loading_progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="@dimen/margin_50dp"
-        android:layout_height="@dimen/margin_50dp"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:padding="@dimen/margin_6dp"
-        android:theme="@style/AppTheme.Color.Accent"
-        android:visibility="visible"
+    <LinearLayout
+        android:id="@+id/logoCluster"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".55" />
+        app:layout_constraintVertical_bias="0.46">
+
+        <FrameLayout
+            android:layout_width="112dp"
+            android:layout_height="112dp"
+            android:background="@drawable/bg_auth_logo_halo"
+            android:padding="16dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/auth_logo_content_description"
+                app:srcCompat="@drawable/ic_family_care_mark" />
+        </FrameLayout>
+
+        <com.mobile.base.view.MyTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/auth_app_name"
+            android:textColor="@color/auth_flow_text"
+            android:textSize="24sp"
+            app:customFontWeight="semi_bold" />
+
+        <com.mobile.base.view.MyTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/splash_tagline"
+            android:textColor="@color/auth_flow_text_secondary"
+            android:textSize="14sp"
+            app:customFontWeight="regular" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/state_loading_progressBar"
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="40dp"
+        android:indeterminateTint="@color/auth_flow_primary"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.mobile.base.core"
+    namespace = "com.mobile.core"
 
     buildFeatures {
         buildConfig = true

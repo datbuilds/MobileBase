@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.mobile.base"
+    namespace = "com.mobile"
 
     buildFeatures {
         buildConfig = true
@@ -18,9 +18,9 @@ android {
     flavorDimensions.add(FlavorDimensions.ENVIRONMENT)
     productFlavors {
         createApplicationFlavor(
-            pro = { configureAppFlavor("MobileBase", "https://base.com.vn/external/") },
-            uat = { configureAppFlavor("UAT MobileBase", "https://base.com.vn/external/") },
-            dev = { configureAppFlavor("DEV MobileBase", "https://base.com.vn/external/") }
+            pro = { configureAppFlavor("Mobile Base", "https://base.com.vn/external/") },
+            uat = { configureAppFlavor("Mobile Base", "https://base.com.vn/external/") },
+            dev = { configureAppFlavor("Mobile Base", "https://base.com.vn/external/") }
         )
     }
 

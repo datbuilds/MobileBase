@@ -159,4 +159,14 @@
     <color name="coach_mark_accent_soft">#E8F4FF</color>
     <color name="coach_mark_text">#1A202C</color>
     <color name="coach_mark_muted">#718096</color>
+
+    <!-- Shared authentication flow: Splash, Onboarding and Login. -->
+    <color name="auth_flow_background">#FAFAFA</color>
+    <color name="auth_flow_surface">#FFFFFF</color>
+    <color name="auth_flow_primary">#3F737D</color>
+    <color name="auth_flow_primary_soft">#E7F0F1</color>
+    <color name="auth_flow_accent_peach">#F3B58E</color>
+    <color name="auth_flow_text">#1C2C30</color>
+    <color name="auth_flow_text_secondary">#647277</color>
+    <color name="auth_flow_stroke">#D8E2E1</color>
 </resources>

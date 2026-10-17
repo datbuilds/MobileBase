@@ -39,8 +39,8 @@
 
 ################################# Gson & Data Classes ##################################
 # Keep all data classes for Gson serialization
--keep class com.mobile.base.data.entities.** { *; }
--keep class com.mobile.base.core.core.domain.usecases.** { *; }
+-keep class com.mobile.data.entities.** { *; }
+-keep class com.mobile.core.core.domain.usecases.** { *; }
 
 # Keep field names with @SerializedName annotation
 -keepclassmembers class ** {
